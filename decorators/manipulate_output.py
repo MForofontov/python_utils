@@ -7,7 +7,7 @@ def manipulate_output(manipulation_func: Callable[[Any], Any], logger: Optional[
 
     Parameters
     ----------
-    manipulation_func : Callable[[str], str]
+    manipulation_func : Callable[[Any], Any]
         The function to manipulate the output of the decorated function.
 
     Returns
@@ -21,7 +21,7 @@ def manipulate_output(manipulation_func: Callable[[Any], Any], logger: Optional[
         If the logger is not an instance of logging.Logger or None.
         If the manipulation_func is not a callable function.
     """
-    if isinstance(logger, logging.Logger) or logger is not None:
+    if isinstance(logger, logging.Logger) and logger is not None:
         raise TypeError("logger must be an instance of logging.Logger or None.")
     if not callable(manipulation_func):
         if logger is not None:
@@ -56,7 +56,7 @@ def manipulate_output(manipulation_func: Callable[[Any], Any], logger: Optional[
 
             Returns
             -------
-            str
+            Any
                 The manipulated output of the decorated function.
             """
             result = func(*args, **kwargs)
