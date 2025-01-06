@@ -1,6 +1,7 @@
-from typing import Callable, Any
+from typing import Callable, Any, Optional
+import logging
 
-def manipulate_output(manipulation_func: Callable[[str], str]) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def manipulate_output(manipulation_func: Callable[[Any], Any], logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to manipulate the output of a function using a specified manipulation function.
 
@@ -16,8 +17,18 @@ def manipulate_output(manipulation_func: Callable[[str], str]) -> Callable[[Call
 
     Raises
     ------
-    None
+    TypeError
+        If the logger is not an instance of logging.Logger or None.
+        If the manipulation_func is not a callable function.
     """
+    if isinstance(logger, logging.Logger) or logger is not None:
+        raise TypeError("logger must be an instance of logging.Logger or None.")
+    if not callable(manipulation_func):
+        if logger is not None:
+            logger.error("manipulation_func must be a callable function.")
+        else:
+            raise TypeError("manipulation_func must be a callable function.")
+
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         """
         The actual decorator function.
@@ -32,7 +43,7 @@ def manipulate_output(manipulation_func: Callable[[str], str]) -> Callable[[Call
         Callable[..., Any]
             The wrapped function.
         """
-        def wrapper(*args: Any, **kwargs: Any) -> str:
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
             The wrapper function that manipulates the output of the decorated function.
 

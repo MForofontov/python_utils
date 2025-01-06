@@ -1,6 +1,6 @@
 import pytest
 import logging
-from enforce_types import enforce_types
+from decorators.enforce_types import enforce_types
 
 # Configure test_logger
 test_logger = logging.getLogger('test_logger')
