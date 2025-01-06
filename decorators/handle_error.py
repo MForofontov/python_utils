@@ -20,7 +20,8 @@ def handle_error(error_message: str, logger: Optional[logging.Logger] = None) ->
 
     Raises
     ------
-    None
+    TypeError
+        If the logger is not an instance of logging.Logger or None.
     """
     if isinstance(logger, logging.Logger) and logger is not None:
         raise TypeError("logger must be an instance of logging.Logger or None")

@@ -17,7 +17,8 @@ def log_function_calls(func: Callable[..., Any], logger: logging.Logger) -> Call
 
     Raises
     ------
-    None
+    TypeError
+        If the logger is not an instance of logging.Logger.
     """
     if isinstance(logger, logging.Logger):
         raise TypeError("logger must be an instance of logging.Logger.")
