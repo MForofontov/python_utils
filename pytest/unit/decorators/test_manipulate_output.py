@@ -44,14 +44,14 @@ def test_non_string_output():
     Test case 3: Non-string output manipulation
     """
     # Test case 3: Non-string output manipulation
-    def to_string(text: Any) -> str:
-        return str(text)
+    def add_more(output: int, c: int) -> int:
+        return output + c
 
-    @manipulate_output(to_string)
+    @manipulate_output(lambda x: add_more(x, 2))
     def add(a: int, b: int) -> int:
         return a + b
 
-    assert add(1, 2) == "3"
+    assert add(1, 2) == 5
 
 def test_convert_to_string():
     """
