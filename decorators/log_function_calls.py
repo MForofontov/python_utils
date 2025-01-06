@@ -1,5 +1,5 @@
 import logging
-from typing import Callable, Any, Optional
+from typing import Callable, Any
 
 def log_function_calls(func: Callable[..., Any], logger: logging.Logger) -> Callable[..., Any]:
     """
