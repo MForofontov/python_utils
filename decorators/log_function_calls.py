@@ -1,7 +1,7 @@
 import logging
-from typing import Callable, Any
+from typing import Callable, Any, Optional
 
-def log_function_calls(func: Callable[..., Any]) -> Callable[..., Any]:
+def log_function_calls(func: Callable[..., Any], logger: logging.Logger) -> Callable[..., Any]:
     """
     A decorator to log the function calls, including the arguments passed and the result returned.
 
@@ -19,6 +19,9 @@ def log_function_calls(func: Callable[..., Any]) -> Callable[..., Any]:
     ------
     None
     """
+    if isinstance(logger, logging.Logger):
+        raise TypeError("logger must be an instance of logging.Logger.")
+    
     def wrapper(*args: Any, **kwargs: Any) -> Any:
         """
         The wrapper function that logs the function calls.
@@ -35,8 +38,8 @@ def log_function_calls(func: Callable[..., Any]) -> Callable[..., Any]:
         Any
             The result of the decorated function.
         """
-        logging.info(f"Calling {func.__name__} with args: {args} and kwargs: {kwargs}")
+        logger.info(f"Calling {func.__name__} with args: {args} and kwargs: {kwargs}")
         result = func(*args, **kwargs)
-        logging.info(f"{func.__name__} returned: {result}")
+        logger.info(f"{func.__name__} returned: {result}")
         return result
     return wrapper
