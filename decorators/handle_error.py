@@ -1,14 +1,17 @@
-from typing import Callable, Any
+from typing import Callable, Any, Optional
+import logging
 
-def handle_error(error_message: str) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def handle_error(error_message: str, logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to handle exceptions in the decorated function. If an exception occurs,
-    it prints a specified error message and returns None.
+    it logs a specified error message and returns None.
 
     Parameters
     ----------
     error_message : str
-        The error message to print if an exception occurs.
+        The error message to log if an exception occurs.
+    logger : Optional[logging.Logger]
+        The logger to use for logging. If None, logging is disabled.
 
     Returns
     -------
@@ -17,8 +20,12 @@ def handle_error(error_message: str) -> Callable[[Callable[..., Any]], Callable[
 
     Raises
     ------
-    None
+    TypeError
+        If the logger is not an instance of logging.Logger or None.
     """
+    if isinstance(logger, logging.Logger) and logger is not None:
+        raise TypeError("logger must be an instance of logging.Logger or None")
+
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         """
         The actual decorator function.
@@ -51,8 +58,11 @@ def handle_error(error_message: str) -> Callable[[Callable[..., Any]], Callable[
             """
             try:
                 return func(*args, **kwargs)
-            except Exception:
-                print(error_message)
+            except Exception as e:
+                if logger:
+                    logger.error(f"{error_message}: {e}")
+                else:
+                    print(f"{error_message}: {e}")
                 return None
         return wrapper
     return decorator
