@@ -1,5 +1,5 @@
 import heapq
-from typing import Any, Tuple
+from typing import Any, Tuple, List
 
 class PriorityQueue:
     """
