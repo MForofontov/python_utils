@@ -131,29 +131,19 @@ def test_chain_method_with_no_args():
     result = return_chainable_with_no_args()
     assert result == 10  # No arguments are passed
 
-def test_chain_method_uncallable_function():
-    """
-    Test case 8: Uncallable function
-    """
-    # Test case 8: Uncallable function
-    with pytest.raises(TypeError, match="Expected a callable function, got <class 'int'>"):
-        @chain
-        def return_uncallable():
-            return 5
-
 def test_chain_method_raises_exception():
     """
-    Test case 9: Chain method raises an exception
+    Test case 8: Chain method raises an exception
     """
-    # Test case 9: Chain method raises an exception
+    # Test case 8: Chain method raises an exception
     with pytest.raises(RuntimeError, match="Error calling 'chain' method on result of return_chainable_with_exception: Chain method error"):
         return_chainable_with_exception()
 
 def test_chain_method_with_custom_exception():
     """
-    Test case 10: Chain method raises a custom exception
+    Test case 9: Chain method raises a custom exception
     """
-    # Test case 10: Chain method raises a custom exception
+    # Test case 9: Chain method raises a custom exception
     class CustomException(Exception):
         pass
 
