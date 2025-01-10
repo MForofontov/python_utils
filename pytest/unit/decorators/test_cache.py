@@ -115,21 +115,11 @@ def test_cache_concat_different_mixed_args():
     assert call_counts['concat'] == 2  # Function should be called twice
     call_counts['concat'] = 0
 
-def test_cache_uncallable_function():
-    """
-    Test case 10: Uncallable function
-    """
-    # Test case 10: Uncallable function
-    with pytest.raises(TypeError, match="func must be callable"):
-        @cache
-        def example_function_uncallable(a, b):
-            return a + b
-
 def test_cache_with_unhashable_args():
     """
-    Test case 11: Function with unhashable arguments
+    Test case 10: Function with unhashable arguments
     """
-    # Test case 11: Function with unhashable arguments
+    # Test case 10: Function with unhashable arguments
     @cache
     def example_function_unhashable(a):
         return sum(a)
@@ -139,9 +129,9 @@ def test_cache_with_unhashable_args():
 
 def test_cache_with_exception():
     """
-    Test case 12: Function that raises an exception
+    Test case 11: Function that raises an exception
     """
-    # Test case 12: Function that raises an exception
+    # Test case 11: Function that raises an exception
     @cache
     def example_function_exception(a, b):
         raise ValueError("An error occurred")

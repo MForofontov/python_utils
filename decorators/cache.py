@@ -13,14 +13,7 @@ def cache(func: Callable[..., Any]) -> Callable[..., Any]:
     -------
     Callable[..., Any]
         A wrapper function that caches the results of the input function.
-
-    Raises
-    ------
-    TypeError
-        If the input function is not callable or if the arguments are unhashable.
     """
-    if not callable(func):
-        raise TypeError("func must be callable")
 
     cached_results: Dict[Tuple[Tuple[Any, ...], FrozenSet[Tuple[str, Any]]], Any] = {}
 
