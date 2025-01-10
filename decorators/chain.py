@@ -15,15 +15,7 @@ def chain(func: Callable[..., T]) -> Callable[..., Union[T, Any]]:
     -------
     Callable[..., Union[T, Any]]
         A wrapper function that calls the 'chain' method on the result of the input function if it exists.
-    
-    Raises
-    ------
-    TypeError
-        If the input function is not callable.
     """
-    if not callable(func):
-        raise TypeError(f"Expected a callable function, got {type(func)}")
-
     def wrapper(*args: Any, **kwargs: Any) -> Union[T, Any]:
         """
         Wrapper function to call the 'chain' method on the result of the input function if it exists.
