@@ -1,7 +1,7 @@
-from typing import Callable, Any, Dict, Tuple
+from typing import Callable, Any, Dict, Tuple, FrozenSet
 import time
 
-def memoize_with_expiration(expiration_time: int) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def cache_with_expiration(expiration_time: int) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to cache the results of a function call for a specified amount of time.
 
@@ -14,11 +14,15 @@ def memoize_with_expiration(expiration_time: int) -> Callable[[Callable[..., Any
     -------
     Callable[[Callable[..., Any]], Callable[..., Any]]
         The decorator function.
-
+    
     Raises
     ------
-    None
+    TypeError
+        If the input function is not a positive integer.
     """
+    if not isinstance(expiration_time, int) or expiration_time < 0:
+        raise ValueError("expiration_time must be a positive integer")
+
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         """
         The actual decorator function.
@@ -30,10 +34,10 @@ def memoize_with_expiration(expiration_time: int) -> Callable[[Callable[..., Any
 
         Returns
         -------
-        Callable[..., Any]
+        Callable[..., Any]]
             The wrapped function.
         """
-        cache: Dict[Tuple, Tuple[float, Any]] = {}
+        cache: Dict[Tuple[Tuple[Any, ...], FrozenSet[Tuple[str, Any]]], Tuple[float, Any]] = {}
 
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
@@ -50,8 +54,18 @@ def memoize_with_expiration(expiration_time: int) -> Callable[[Callable[..., Any
             -------
             Any
                 The result of the decorated function, either from the cache or freshly computed.
+            
+            Raises
+            ------
+            TypeError
+                If the arguments are unhashable
             """
-            key = (args, frozenset(kwargs.items()))
+            try:
+                # Create a key based on the function arguments
+                key: Tuple[Tuple[Any, ...], FrozenSet[Tuple[str, Any]]] = (args, frozenset(kwargs.items()))
+            except TypeError as e:
+                raise TypeError(f"Unhashable arguments: {e}")
+
             current_time = time.time()
             if key in cache:
                 cached_time, cached_value = cache[key]
