@@ -39,9 +39,7 @@ def env_config(var_name: str, logger: Optional[logging.Logger] = None,
         """
         if logger:
             logger.error(message, exc_info=True)
-            return None
-        else:
-            raise TypeError(message)
+        raise TypeError(message)
 
     if not isinstance(logger, logging.Logger) and logger is not None:
         raise TypeError("logger must be an instance of logging.Logger or None")
@@ -97,9 +95,7 @@ def env_config(var_name: str, logger: Optional[logging.Logger] = None,
                     error_message = f"Environment variable {var_name} cannot be converted to {var_type.__name__}"
                     if logger:
                         logger.error(error_message)
-                    else:
-                        raise ValueError(error_message)
-                    return None
+                    raise ValueError(error_message)
                 message = custom_message or f"Using environment variable {var_name} with value: {value}"
                 if logger:
                     logger.info(message)
@@ -110,9 +106,7 @@ def env_config(var_name: str, logger: Optional[logging.Logger] = None,
                     error_message = f"Required environment variable {var_name} is not set"
                     if logger:
                         logger.error(error_message)
-                    else:
-                        raise ValueError(error_message)
-                    return None
+                    raise ValueError(error_message)
                 value = default
                 if value is not None:
                     message = custom_message or f"Using default value for {var_name}: {value}"

@@ -84,9 +84,7 @@ def event_trigger(event_manager: EventManager, event_name: str, logger: Optional
         """
         if logger:
             logger.error(message, exc_info=True)
-            return None
-        else:
-            raise TypeError(message)
+        raise TypeError(message)
     
     if not isinstance(logger, logging.Logger) and logger is not None:
         raise TypeError("logger must be an instance of logging.Logger or None")

@@ -1,4 +1,3 @@
-import os
 import pytest
 import logging
 from decorators.env_config import env_config
@@ -81,13 +80,14 @@ def test_env_var_required_not_set_logger(monkeypatch, caplog):
     """
     # Test case 6: Required environment variable is not set, logger provided
     monkeypatch.delenv('TEST_ENV_VAR', raising=False)
-    with caplog.at_level(logging.ERROR):
-        @env_config('TEST_ENV_VAR', logger=test_logger, required=True)
-        def sample_function_required(env_var_value=None):
-            return f"Function executed with env_var_value: {env_var_value}"
-        result = sample_function_required()
-    assert result is None
-    assert "Required environment variable TEST_ENV_VAR is not set" in caplog.text
+    with pytest.raises(ValueError, match="Required environment variable TEST_ENV_VAR is not set"):
+        with caplog.at_level(logging.ERROR):
+            @env_config('TEST_ENV_VAR', logger=test_logger, required=True)
+            def sample_function_required(env_var_value=None):
+                return f"Function executed with env_var_value: {env_var_value}"
+            result = sample_function_required()
+        assert result is None
+        assert "Required environment variable TEST_ENV_VAR is not set" in caplog.text
 
 def test_env_var_type_conversion(monkeypatch, capsys):
     """
@@ -134,13 +134,14 @@ def test_env_var_invalid_type_conversion_logger(monkeypatch, caplog):
     """
     # Test case 10: Invalid environment variable type conversion, logger provided
     monkeypatch.setenv('TEST_ENV_VAR', 'invalid_int')
-    with caplog.at_level(logging.ERROR):
-        @env_config('TEST_ENV_VAR', logger=test_logger, var_type=int)
-        def sample_function_invalid_type(env_var_value=None):
-            return f"Function executed with env_var_value: {env_var_value}"
-        result = sample_function_invalid_type()
-    assert result is None
-    assert "Environment variable TEST_ENV_VAR cannot be converted to int" in caplog.text
+    with pytest.raises(ValueError, match="Environment variable TEST_ENV_VAR cannot be converted to int"):
+        with caplog.at_level(logging.ERROR):
+            @env_config('TEST_ENV_VAR', logger=test_logger, var_type=int)
+            def sample_function_invalid_type(env_var_value=None):
+                return f"Function executed with env_var_value: {env_var_value}"
+            result = sample_function_invalid_type()
+        assert result is None
+        assert "Environment variable TEST_ENV_VAR cannot be converted to int" in caplog.text
 
 def test_invalid_logger():
     """
@@ -197,49 +198,53 @@ def test_invalid_var_name_with_logger(caplog):
     Test case 15: Invalid var_name (not a non-empty string), logger provided
     """
     # Test case 15: Invalid var_name (not a non-empty string), logger provided
-    with caplog.at_level(logging.ERROR):
-        @env_config(123, logger=test_logger)
-        def sample_function(env_var_value=None):
-            return f"Function executed with env_var_value: {env_var_value}"
-        with pytest.raises(TypeError):
-            sample_function()
-    assert "var_name must be a non-empty string" in caplog.text
+    with pytest.raises(TypeError, match="var_name must be a non-empty string"):
+        with caplog.at_level(logging.ERROR):
+            @env_config(123, logger=test_logger)
+            def sample_function(env_var_value=None):
+                return f"Function executed with env_var_value: {env_var_value}"
+            with pytest.raises(TypeError):
+                sample_function()
+        assert "var_name must be a non-empty string" in caplog.text
 
 def test_invalid_required_with_logger(caplog):
     """
     Test case 16: Invalid required (not a boolean), logger provided
     """
     # Test case 16: Invalid required (not a boolean), logger provided
-    with caplog.at_level(logging.ERROR):
-        @env_config('TEST_ENV_VAR', required="not_a_boolean", logger=test_logger)
-        def sample_function(env_var_value=None):
-            return f"Function executed with env_var_value: {env_var_value}"
-        with pytest.raises(TypeError):
-            sample_function()
-    assert "required must be a boolean" in caplog.text
+    with pytest.raises(TypeError, match="required must be a boolean"):
+        with caplog.at_level(logging.ERROR):
+            @env_config('TEST_ENV_VAR', required="not_a_boolean", logger=test_logger)
+            def sample_function(env_var_value=None):
+                return f"Function executed with env_var_value: {env_var_value}"
+            with pytest.raises(TypeError):
+                sample_function()
+        assert "required must be a boolean" in caplog.text
 
 def test_invalid_var_type_with_logger(caplog):
     """
     Test case 17: Invalid var_type (not a type), logger provided
     """
     # Test case 17: Invalid var_type (not a type), logger provided
-    with caplog.at_level(logging.ERROR):
-        @env_config('TEST_ENV_VAR', var_type="not_a_type", logger=test_logger)
-        def sample_function(env_var_value=None):
-            return f"Function executed with env_var_value: {env_var_value}"
-        with pytest.raises(TypeError):
-            sample_function()
-    assert "var_type must be a type" in caplog.text
+    with pytest.raises(TypeError, match="var_type must be a type"):
+        with caplog.at_level(logging.ERROR):
+            @env_config('TEST_ENV_VAR', var_type="not_a_type", logger=test_logger)
+            def sample_function(env_var_value=None):
+                return f"Function executed with env_var_value: {env_var_value}"
+            with pytest.raises(TypeError):
+                sample_function()
+        assert "var_type must be a type" in caplog.text
 
 def test_invalid_custom_message_with_logger(caplog):
     """
     Test case 18: Invalid custom_message (not a string or None), logger provided
     """
     # Test case 18: Invalid custom_message (not a string or None), logger provided
-    with caplog.at_level(logging.ERROR):
-        @env_config('TEST_ENV_VAR', custom_message=123, logger=test_logger)
-        def sample_function(env_var_value=None):
-            return f"Function executed with env_var_value: {env_var_value}"
-        with pytest.raises(TypeError):
-            sample_function()
-    assert "custom_message must be a string or None" in caplog.text
+    with pytest.raises(TypeError, match="custom_message must be a string or None"):
+        with caplog.at_level(logging.ERROR):
+            @env_config('TEST_ENV_VAR', custom_message=123, logger=test_logger)
+            def sample_function(env_var_value=None):
+                return f"Function executed with env_var_value: {env_var_value}"
+            with pytest.raises(TypeError):
+                sample_function()
+        assert "custom_message must be a string or None" in caplog.text

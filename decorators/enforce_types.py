@@ -65,8 +65,7 @@ def enforce_types(logger: Optional[logging.Logger] = None) -> Callable[[Callable
                     error_message = f"Expected {expected_type} for argument '{arg_name}', got {type(arg_value)}."
                     if logger:
                         logger.error(error_message, exc_info=True)
-                    else:
-                        raise TypeError(error_message)
+                    raise TypeError(error_message)
             for arg_name, arg_value in kwargs.items():
                 if arg_name in hints:
                     expected_type = hints[arg_name]
@@ -74,8 +73,7 @@ def enforce_types(logger: Optional[logging.Logger] = None) -> Callable[[Callable
                         error_message = f"Expected {expected_type} for argument '{arg_name}', got {type(arg_value)}."
                         if logger:
                             logger.error(error_message, exc_info=True)
-                        else:
-                            raise TypeError(error_message)
+                        raise TypeError(error_message)
             result = func(*args, **kwargs)
             if 'return' in hints:
                 expected_return_type = hints['return']
@@ -83,8 +81,7 @@ def enforce_types(logger: Optional[logging.Logger] = None) -> Callable[[Callable
                     error_message = f"Expected return type {expected_return_type}, got {type(result)}."
                     if logger:
                         logger.error(error_message, exc_info=True)
-                    else:
-                        raise TypeError(error_message)
+                    raise TypeError(error_message)
             return result
 
         return wrapper

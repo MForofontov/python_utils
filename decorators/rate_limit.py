@@ -1,4 +1,4 @@
-from typing import Callable, Any, Optional
+from typing import Callable, Any, Optional, List
 import time
 import logging
 
@@ -30,13 +30,17 @@ def rate_limit(max_calls: int, period: int, logger: Optional[logging.Logger] = N
     if not isinstance(logger, logging.Logger) and logger is not None:
         raise TypeError("logger must be an instance of logging.Logger or None")
     if not isinstance(max_calls, int) or max_calls <= 0:
+        if logger:
+            logger.error("max_calls must be a positive integer", exc_info=True)
         raise ValueError("max_calls must be a positive integer")
     if not isinstance(period, int) or period <= 0:
+        if logger:
+            logger.error("period must be a positive integer", exc_info=True)
         raise ValueError("period must be a positive integer")
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         # List to store the timestamps of function calls
-        calls = []
+        calls: List[Any] = []
 
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
@@ -68,8 +72,6 @@ def rate_limit(max_calls: int, period: int, logger: Optional[logging.Logger] = N
                 message = f"Rate limit exceeded for {func.__name__}. Try again later."
                 if logger:
                     logger.warning(message, exc_info=True)
-                    return None
-                else:
                     raise Exception(message)
 
             # Append the current timestamp to the list of calls
