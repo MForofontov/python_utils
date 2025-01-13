@@ -145,9 +145,9 @@ def test_env_var_invalid_type_conversion_logger(monkeypatch, caplog):
 
 def test_invalid_logger():
     """
-    Test case 10: Invalid logger (not an instance of logging.Logger or None)
+    Test case 11: Invalid logger (not an instance of logging.Logger or None)
     """
-    # Test case 10: Invalid logger (not an instance of logging.Logger or None)
+    # Test case 11: Invalid logger (not an instance of logging.Logger or None)
     with pytest.raises(TypeError, match="logger must be an instance of logging.Logger or None"):
         @env_config('TEST_ENV_VAR', logger="not_a_logger")
         def sample_function(env_var_value=None):
@@ -155,9 +155,9 @@ def test_invalid_logger():
 
 def test_invalid_var_name():
     """
-    Test case 11: Invalid var_name (not a non-empty string), no logger provided
+    Test case 12: Invalid var_name (not a non-empty string), no logger provided
     """
-    # Test case 11: Invalid var_name (not a non-empty string), no logger provided
+    # Test case 12: Invalid var_name (not a non-empty string), no logger provided
     with pytest.raises(TypeError, match="var_name must be a non-empty string"):
         @env_config(123)
         def sample_function(env_var_value=None):
@@ -165,9 +165,9 @@ def test_invalid_var_name():
 
 def test_invalid_required():
     """
-    Test case 12: Invalid required (not a boolean), no logger provided
+    Test case 13: Invalid required (not a boolean), no logger provided
     """
-    # Test case 12: Invalid required (not a boolean), no logger provided
+    # Test case 13: Invalid required (not a boolean), no logger provided
     with pytest.raises(TypeError, match="required must be a boolean"):
         @env_config('TEST_ENV_VAR', required="not_a_boolean")
         def sample_function(env_var_value=None):
@@ -175,9 +175,9 @@ def test_invalid_required():
 
 def test_invalid_var_type():
     """
-    Test case 13: Invalid var_type (not a type), no logger provided
+    Test case 14: Invalid var_type (not a type), no logger provided
     """
-    # Test case 13: Invalid var_type (not a type), no logger provided
+    # Test case 14: Invalid var_type (not a type), no logger provided
     with pytest.raises(TypeError, match="var_type must be a type"):
         @env_config('TEST_ENV_VAR', var_type="not_a_type")
         def sample_function(env_var_value=None):
@@ -185,9 +185,9 @@ def test_invalid_var_type():
 
 def test_invalid_custom_message():
     """
-    Test case 14: Invalid custom_message (not a string or None), no logger provided
+    Test case 15: Invalid custom_message (not a string or None), no logger provided
     """
-    # Test case 14: Invalid custom_message (not a string or None), no logger provided
+    # Test case 15: Invalid custom_message (not a string or None), no logger provided
     with pytest.raises(TypeError, match="custom_message must be a string or None"):
         @env_config('TEST_ENV_VAR', custom_message=123)
         def sample_function(env_var_value=None):
@@ -195,9 +195,9 @@ def test_invalid_custom_message():
 
 def test_invalid_var_name_with_logger(caplog):
     """
-    Test case 15: Invalid var_name (not a non-empty string), logger provided
+    Test case 16: Invalid var_name (not a non-empty string), logger provided
     """
-    # Test case 15: Invalid var_name (not a non-empty string), logger provided
+    # Test case 16: Invalid var_name (not a non-empty string), logger provided
     with pytest.raises(TypeError, match="var_name must be a non-empty string"):
         with caplog.at_level(logging.ERROR):
             @env_config(123, logger=test_logger)
@@ -209,9 +209,9 @@ def test_invalid_var_name_with_logger(caplog):
 
 def test_invalid_required_with_logger(caplog):
     """
-    Test case 16: Invalid required (not a boolean), logger provided
+    Test case 17: Invalid required (not a boolean), logger provided
     """
-    # Test case 16: Invalid required (not a boolean), logger provided
+    # Test case 17: Invalid required (not a boolean), logger provided
     with pytest.raises(TypeError, match="required must be a boolean"):
         with caplog.at_level(logging.ERROR):
             @env_config('TEST_ENV_VAR', required="not_a_boolean", logger=test_logger)
@@ -223,9 +223,9 @@ def test_invalid_required_with_logger(caplog):
 
 def test_invalid_var_type_with_logger(caplog):
     """
-    Test case 17: Invalid var_type (not a type), logger provided
+    Test case 18: Invalid var_type (not a type), logger provided
     """
-    # Test case 17: Invalid var_type (not a type), logger provided
+    # Test case 18: Invalid var_type (not a type), logger provided
     with pytest.raises(TypeError, match="var_type must be a type"):
         with caplog.at_level(logging.ERROR):
             @env_config('TEST_ENV_VAR', var_type="not_a_type", logger=test_logger)
@@ -237,9 +237,9 @@ def test_invalid_var_type_with_logger(caplog):
 
 def test_invalid_custom_message_with_logger(caplog):
     """
-    Test case 18: Invalid custom_message (not a string or None), logger provided
+    Test case 19: Invalid custom_message (not a string or None), logger provided
     """
-    # Test case 18: Invalid custom_message (not a string or None), logger provided
+    # Test case 19: Invalid custom_message (not a string or None), logger provided
     with pytest.raises(TypeError, match="custom_message must be a string or None"):
         with caplog.at_level(logging.ERROR):
             @env_config('TEST_ENV_VAR', custom_message=123, logger=test_logger)

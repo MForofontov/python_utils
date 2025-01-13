@@ -2,7 +2,11 @@ from typing import Callable, Any, Optional, List
 import time
 import logging
 
-def rate_limit(max_calls: int, period: int, logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+class RateLimitExceededException(Exception):
+    """Exception raised when the rate limit is exceeded."""
+    pass
+
+def rate_limit(max_calls: int, period: int, logger: Optional[logging.Logger] = None, exception_message: Optional[str] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to limit the number of times a function can be called within a specific period.
 
@@ -13,7 +17,9 @@ def rate_limit(max_calls: int, period: int, logger: Optional[logging.Logger] = N
     period : int
         The time period in seconds.
     logger : Optional[logging.Logger]
-        The logger to use for logging rate limit warnings
+        The logger to use for logging rate limit warnings.
+    exception_message : Optional[str]
+        Custom exception message when the rate limit is exceeded.
 
     Returns
     -------
@@ -40,7 +46,7 @@ def rate_limit(max_calls: int, period: int, logger: Optional[logging.Logger] = N
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         # List to store the timestamps of function calls
-        calls: List[Any] = []
+        calls: List[float] = []
 
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
@@ -60,7 +66,7 @@ def rate_limit(max_calls: int, period: int, logger: Optional[logging.Logger] = N
 
             Raises
             ------
-            Exception
+            RateLimitExceededException
                 If the rate limit is exceeded.
             """
             nonlocal calls  # Indicates that 'calls' refers to the list in the enclosing scope
@@ -69,10 +75,10 @@ def rate_limit(max_calls: int, period: int, logger: Optional[logging.Logger] = N
             calls = [call for call in calls if current_time - call < period]
             # Check if the number of calls exceeds the limit
             if len(calls) >= max_calls:
-                message = f"Rate limit exceeded for {func.__name__}. Try again later."
+                message = exception_message or f"Rate limit exceeded for {func.__name__}. Try again later."
                 if logger:
                     logger.warning(message, exc_info=True)
-                    raise Exception(message)
+                raise RateLimitExceededException(message)
 
             # Append the current timestamp to the list of calls
             calls.append(current_time)
