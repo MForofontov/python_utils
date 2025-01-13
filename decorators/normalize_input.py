@@ -13,7 +13,15 @@ def normalize_input(normalization_func: Callable[[Any], Any]) -> Callable[[Calla
     -------
     Callable[[Callable[..., Any]], Callable[..., Any]]
         The decorator function.
+    
+    Raises
+    ------
+    TypeError
+        If the input function is not callable.
     """
+    if not callable(normalization_func):
+        raise TypeError(f"Normalizer {normalization_func} is not callable")
+
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         """
         The actual decorator function.
