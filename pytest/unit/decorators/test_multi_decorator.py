@@ -1,117 +1,83 @@
 import pytest
-from typing import Callable
+from typing import Any, Callable
 from decorators.multi_decorator import multi_decorator
 
-def uppercase_decorator(func: Callable[[str], str]) -> Callable[[str], str]:
-    """
-    A decorator that converts the result of a function to uppercase.
-    """
-    def wrapper(text: str) -> str:
-        return func(text).upper()
+# Example decorators
+def uppercase_decorator(func: Callable[..., str]) -> Callable[..., str]:
+    def wrapper(*args: Any, **kwargs: Any) -> str:
+        result = func(*args, **kwargs)
+        return result.upper()
     return wrapper
 
-def exclamation_decorator(func: Callable[[str], str]) -> Callable[[str], str]:
-    """
-    A decorator that adds an exclamation mark to the result of a function.
-    """
-    def wrapper(text: str) -> str:
-        return func(text) + "!"
+def exclamation_decorator(func: Callable[..., str]) -> Callable[..., str]:
+    def wrapper(*args: Any, **kwargs: Any) -> str:
+        result = func(*args, **kwargs)
+        return f"{result}!"
     return wrapper
 
-def reverse_decorator(func: Callable[[str], str]) -> Callable[[str], str]:
-    """
-    A decorator that reverses the result of a function.
-    """
-    def wrapper(text: str) -> str:
-        return func(text)[::-1]
-    return wrapper
-
+# Example function to be decorated
 @multi_decorator(uppercase_decorator, exclamation_decorator)
-def greet(name: str) -> str:
-    """
-    A function that returns a greeting message.
-    """
-    return f"Hello, {name}"
+def sample_function(a: str, b: str) -> str:
+    return f"{a} - {b}"
 
-def test_multi_decorator_basic():
+def test_multi_decorator_basic() -> None:
     """
     Test case 1: Basic functionality of multi_decorator
     """
-    # Test case 1: Basic functionality of multi_decorator
-    assert greet("world") == "HELLO, WORLD!"
+    result = sample_function("hello", "world")
+    assert result == "HELLO - WORLD!"
 
-def test_multi_decorator_order():
+def test_multi_decorator_with_kwargs() -> None:
     """
-    Test case 2: Order of decorators in multi_decorator
+    Test case 2: Multi-decorator with kwargs
     """
-    # Test case 2: Order of decorators in multi_decorator
-    @multi_decorator(exclamation_decorator, uppercase_decorator)
-    def greet(name: str) -> str:
-        return f"Hello, {name}"
-    
-    assert greet("world") == "HELLO, WORLD!"
-
-def test_multi_decorator_single():
-    """
-    Test case 3: Single decorator in multi_decorator
-    """
-    # Test case 3: Single decorator in multi_decorator
-    @multi_decorator(uppercase_decorator)
-    def greet(name: str) -> str:
-        return f"Hello, {name}"
-    
-    assert greet("world") == "HELLO, WORLD"
-
-def test_multi_decorator_no_decorator():
-    """
-    Test case 4: No decorator in multi_decorator
-    """
-    # Test case 4: No decorator in multi_decorator
-    @multi_decorator()
-    def greet(name: str) -> str:
-        return f"Hello, {name}"
-    
-    assert greet("world") == "Hello, world"
-
-def test_multi_decorator_multiple():
-    """
-    Test case 5: Multiple decorators in multi_decorator
-    """
-    # Test case 5: Multiple decorators in multi_decorator
-    @multi_decorator(uppercase_decorator, exclamation_decorator, reverse_decorator)
-    def greet(name: str) -> str:
-        return f"Hello, {name}"
-    
-    assert greet("world") == "!DLROW ,OLLEH"
-
-def test_multi_decorator_empty_string():
-    """
-    Test case 6: Empty string input
-    """
-    # Test case 6: Empty string input
     @multi_decorator(uppercase_decorator, exclamation_decorator)
-    def greet(name: str) -> str:
-        return f"Hello, {name}"
+    def sample_function_kwargs(a: str, b: str) -> str:
+        return f"{a} - {b}"
     
-    assert greet("") == "HELLO, !"
+    result = sample_function_kwargs(a="hello", b="world")
+    assert result == "HELLO - WORLD!"
 
-def test_multi_decorator_special_characters():
+def test_multi_decorator_with_mixed_args() -> None:
     """
-    Test case 7: Special characters in input
+    Test case 3: Multi-decorator with mixed args and kwargs
     """
-    # Test case 7: Special characters in input
     @multi_decorator(uppercase_decorator, exclamation_decorator)
-    def greet(name: str) -> str:
-        return f"Hello, {name}"
+    def sample_function_mixed(a: str, b: str, c: str) -> str:
+        return f"{a} - {b} - {c}"
     
-    assert greet("world!@#") == "HELLO, WORLD!@#!"
+    result = sample_function_mixed("hello", b="world", c="python")
+    assert result == "HELLO - WORLD - PYTHON!"
 
-def test_multi_decorator_non_callable():
+def test_multi_decorator_with_non_string() -> None:
     """
-    Test case 8: Non-callable decorator in multi_decorator
+    Test case 4: Multi-decorator with non-string arguments
     """
-    # Test case 8: Non-callable decorator in multi_decorator
-    with pytest.raises(TypeError, match="Decorator not a decorator is not callable"):
-        @multi_decorator("not a decorator")
-        def greet(name: str) -> str:
-            return f"Hello, {name}"
+    @multi_decorator(uppercase_decorator, exclamation_decorator)
+    def sample_function_non_string(a: str, b: int) -> str:
+        return f"{a} - {b}"
+    
+    result = sample_function_non_string("hello", 123)
+    assert result == "HELLO - 123!"
+
+def test_multi_decorator_with_variable_length_arguments() -> None:
+    """
+    Test case 5: Multi-decorator with variable length arguments (*args and **kwargs)
+    """
+    @multi_decorator(uppercase_decorator, exclamation_decorator)
+    def sample_function_var_args(a: str, *args: str, **kwargs: str) -> str:
+        return f"{a} - {args} - {kwargs}"
+    
+    result = sample_function_var_args("hello", "world", kwarg1="python", kwarg2="test")
+    assert result == "HELLO - ('world',) - {'kwarg1': 'python', 'kwarg2': 'test'}!"
+
+# Error tests
+
+def test_multi_decorator_non_callable() -> None:
+    """
+    Test case 6: Non-callable decorator
+    """
+    with pytest.raises(TypeError, match="Decorator 123 is not callable"):
+        @multi_decorator(123)
+        def sample_function_invalid(a: str, b: str) -> str:
+            return f"{a} - {b}"

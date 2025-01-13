@@ -2,7 +2,7 @@ from typing import Callable, Any
 
 def multi_decorator(*decorators: Callable[[Callable[..., Any]], Callable[..., Any]]) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
-    A higher-order decorator to apply multiple decorators to a single function.
+    A decorator to apply multiple decorators to a function.
 
     Parameters
     ----------
@@ -40,4 +40,5 @@ def multi_decorator(*decorators: Callable[[Callable[..., Any]], Callable[..., An
         for decorator in reversed(decorators):
             func = decorator(func)
         return func
+
     return combine
