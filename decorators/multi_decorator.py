@@ -13,7 +13,16 @@ def multi_decorator(*decorators: Callable[[Callable[..., Any]], Callable[..., An
     -------
     Callable[[Callable[..., Any]], Callable[..., Any]]
         A function that applies all the decorators to the target function.
+    
+    Raises
+    ------
+    TypeError
+        If any of the decorators are not callable.
     """
+    for decorator in decorators:
+        if not callable(decorator):
+            raise TypeError(f"Decorator {decorator} is not callable")
+
     def combine(func: Callable[..., Any]) -> Callable[..., Any]:
         """
         The function that applies all the decorators to the target function.
@@ -25,7 +34,7 @@ def multi_decorator(*decorators: Callable[[Callable[..., Any]], Callable[..., An
 
         Returns
         -------
-        Callable[..., Any]]
+        Callable[..., Any]
             The decorated function.
         """
         for decorator in reversed(decorators):
