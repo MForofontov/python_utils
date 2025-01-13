@@ -1,8 +1,8 @@
 from typing import Callable, Any
 
-def format_output(format_string: str) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def format_output(format_string: str) -> Callable[[Callable[..., Any]], Callable[..., str]]:
     """
-    A decorator to format the output of a function according to a specified format string.
+    A decorator to format the output of a function using a specified format string.
 
     Parameters
     ----------
@@ -11,14 +11,18 @@ def format_output(format_string: str) -> Callable[[Callable[..., Any]], Callable
 
     Returns
     -------
-    Callable[[Callable[..., Any]], Callable[..., Any]]
+    Callable[[Callable[..., Any]], Callable[..., str]]
         The decorator function.
-
+    
     Raises
     ------
-    None
+    TypeError
+        If the format_string is not a string.
     """
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+    if not isinstance(format_string, str):
+        raise TypeError("format_string must be a string")
+
+    def decorator(func: Callable[..., Any]) -> Callable[..., str]:
         """
         The actual decorator function.
 
@@ -29,7 +33,7 @@ def format_output(format_string: str) -> Callable[[Callable[..., Any]], Callable
 
         Returns
         -------
-        Callable[..., Any]
+        Callable[..., str]
             The wrapped function.
         """
         def wrapper(*args: Any, **kwargs: Any) -> str:
