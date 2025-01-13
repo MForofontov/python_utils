@@ -13,6 +13,14 @@ def to_lowercase(value: Any) -> Any:
 def sample_function(a: str, b: str) -> str:
     return f"{a} - {b}"
 
+@normalize_input(to_lowercase)
+def sample_function_args_kwargs(*args: Any, **kwargs: Any) -> str:
+    return f"args: {args}, kwargs: {kwargs}"
+
+@normalize_input(to_lowercase)
+def sample_function_raises_error(a: str, b: str) -> str:
+    raise ValueError("An error occurred")
+
 def test_normalize_input_basic() -> None:
     """
     Test case 1: Basic functionality of normalize_input
@@ -57,18 +65,30 @@ def test_normalize_input_with_variable_length_arguments() -> None:
     """
     Test case 5: Normalize input with variable length arguments (*args and **kwargs)
     """
-    @normalize_input(to_lowercase)
-    def sample_function_var_args(a: str, *args: str, **kwargs: str) -> str:
-        return f"{a} - {args} - {kwargs}"
-    
-    result = sample_function_var_args("HELLO", "WORLD", kwarg1="PYTHON", kwarg2="TEST")
-    assert result == "hello - ('world',) - {'kwarg1': 'python', 'kwarg2': 'test'}"
+    result = sample_function_args_kwargs("HELLO", "WORLD", kwarg1="PYTHON", kwarg2="TEST")
+    assert result == "args: ('hello', 'world'), kwargs: {'kwarg1': 'python', 'kwarg2': 'test'}"
 
-# Error tests
+def test_normalize_input_mixed_type_arguments() -> None:
+    """
+    Test case 6: Normalize input with mixed type arguments
+    """
+    @normalize_input(to_lowercase)
+    def sample_function_mixed_types(a: str, b: int, c: str) -> str:
+        return f"{a} - {b} - {c}"
+    
+    result = sample_function_mixed_types("HELLO", 123, "WORLD")
+    assert result == "hello - 123 - world"
+
+def test_normalize_input_function_raises_error() -> None:
+    """
+    Test case 7: Normalize input when the wrapped function raises an error
+    """
+    with pytest.raises(ValueError, match="An error occurred"):
+        sample_function_raises_error("HELLO", "WORLD")
 
 def test_normalize_input_non_callable() -> None:
     """
-    Test case 6: Non-callable normalization function
+    Test case 8: Non-callable normalization function
     """
     with pytest.raises(TypeError, match="Normalizer 123 is not callable"):
         @normalize_input(123)

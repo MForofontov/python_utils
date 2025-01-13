@@ -22,6 +22,14 @@ def add_exclamation(value: Any) -> Any:
 def sample_function(a: str, b: str) -> str:
     return f"{a} - {b}"
 
+@manipulate_output(add_exclamation, logger=test_logger)
+def sample_function_args_kwargs(*args: Any, **kwargs: Any) -> str:
+    return f"args: {args}, kwargs: {kwargs}"
+
+@manipulate_output(add_exclamation, logger=test_logger)
+def sample_function_raises_error(a: str, b: str) -> str:
+    raise ValueError("An error occurred")
+
 def test_manipulate_output_basic() -> None:
     """
     Test case 1: Basic functionality of manipulate_output
@@ -66,18 +74,30 @@ def test_manipulate_output_with_variable_length_arguments() -> None:
     """
     Test case 5: Manipulate output with variable length arguments (*args and **kwargs)
     """
-    @manipulate_output(add_exclamation)
-    def sample_function_var_args(a: str, *args: str, **kwargs: str) -> str:
-        return f"{a} - {args} - {kwargs}"
-    
-    result = sample_function_var_args("hello", "world", kwarg1="python", kwarg2="test")
-    assert result == "hello - ('world',) - {'kwarg1': 'python', 'kwarg2': 'test'}!"
+    result = sample_function_args_kwargs("hello", "world", kwarg1="python", kwarg2="test")
+    assert result == "args: ('hello', 'world'), kwargs: {'kwarg1': 'python', 'kwarg2': 'test'}!"
 
-# Error tests
+def test_manipulate_output_mixed_type_arguments() -> None:
+    """
+    Test case 6: Manipulate output with mixed type arguments
+    """
+    @manipulate_output(add_exclamation)
+    def sample_function_mixed_types(a: str, b: int, c: str) -> str:
+        return f"{a} - {b} - {c}"
+    
+    result = sample_function_mixed_types("hello", 123, "world")
+    assert result == "hello - 123 - world!"
+
+def test_manipulate_output_function_raises_error() -> None:
+    """
+    Test case 7: Manipulate output when the wrapped function raises an error
+    """
+    with pytest.raises(ValueError, match="An error occurred"):
+        sample_function_raises_error("hello", "world")
 
 def test_manipulate_output_non_callable() -> None:
     """
-    Test case 6: Non-callable manipulation function
+    Test case 8: Non-callable manipulation function
     """
     with pytest.raises(TypeError, match="manipulation_func must be a callable function."):
         @manipulate_output(123)
@@ -86,7 +106,7 @@ def test_manipulate_output_non_callable() -> None:
 
 def test_manipulate_output_invalid_logger() -> None:
     """
-    Test case 7: Invalid logger type
+    Test case 9: Invalid logger type
     """
     with pytest.raises(TypeError, match="logger must be an instance of logging.Logger or None."):
         @manipulate_output(add_exclamation, logger="invalid_logger")
