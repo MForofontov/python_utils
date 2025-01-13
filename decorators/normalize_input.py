@@ -2,7 +2,7 @@ from typing import Callable, Any
 
 def normalize_input(normalization_func: Callable[[Any], Any]) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
-    A decorator to normalize the input arguments of a function.
+    A decorator to normalize the input arguments of a function using a specified normalization function.
 
     Parameters
     ----------
@@ -52,7 +52,9 @@ def normalize_input(normalization_func: Callable[[Any], Any]) -> Callable[[Calla
             Any
                 The result of the decorated function.
             """
-            normalized_args = [normalization_func(arg) for arg in args]
-            return func(*normalized_args, **kwargs)
+            normalized_args = tuple(normalization_func(arg) for arg in args)
+            normalized_kwargs = {k: normalization_func(v) for k, v in kwargs.items()}
+            return func(*normalized_args, **normalized_kwargs)
+
         return wrapper
     return decorator
