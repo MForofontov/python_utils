@@ -1,6 +1,7 @@
-from typing import Callable, Any
+from typing import Callable, Any, Optional
+import logging
 
-def normalize_input(normalization_func: Callable[[Any], Any]) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def normalize_input(normalization_func: Callable[[Any], Any], logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to normalize the input arguments of a function using a specified normalization function.
 
@@ -8,6 +9,8 @@ def normalize_input(normalization_func: Callable[[Any], Any]) -> Callable[[Calla
     ----------
     normalization_func : Callable[[Any], Any]
         The function to normalize each input argument.
+    logger : Optional[logging.Logger], optional
+        The logger to use for logging normalization errors (default is None).
 
     Returns
     -------
@@ -17,10 +20,12 @@ def normalize_input(normalization_func: Callable[[Any], Any]) -> Callable[[Calla
     Raises
     ------
     TypeError
-        If the input function is not callable.
+        If the input function is not callable or if logger is not an instance of logging.Logger or None.
     """
     if not callable(normalization_func):
         raise TypeError(f"Normalizer {normalization_func} is not callable")
+    if not isinstance(logger, logging.Logger) and logger is not None:
+        raise TypeError("logger must be an instance of logging.Logger or None")
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         """
@@ -52,9 +57,15 @@ def normalize_input(normalization_func: Callable[[Any], Any]) -> Callable[[Calla
             Any
                 The result of the decorated function.
             """
-            normalized_args = tuple(normalization_func(arg) for arg in args)
-            normalized_kwargs = {k: normalization_func(v) for k, v in kwargs.items()}
-            return func(*normalized_args, **normalized_kwargs)
+            try:
+                normalized_args = tuple(normalization_func(arg) for arg in args)
+                normalized_kwargs = {k: normalization_func(v) for k, v in kwargs.items()}
+            except Exception as e:
+                message = f"Normalization failed: {e}"
+                if logger:
+                    logger.error(message, exc_info=True)
+                raise TypeError(message)
 
+            return func(*normalized_args, **normalized_kwargs)
         return wrapper
     return decorator
