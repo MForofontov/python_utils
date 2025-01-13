@@ -62,7 +62,7 @@ def handle_error(error_message: str, logger: Optional[logging.Logger] = None) ->
                 if logger:
                     logger.error(f"{error_message}: {e}")
                 else:
-                    print(f"{error_message}: {e}")
+                    raise e
                 return None
         return wrapper
     return decorator

@@ -84,6 +84,7 @@ def event_trigger(event_manager: EventManager, event_name: str, logger: Optional
         """
         if logger:
             logger.error(message, exc_info=True)
+            return None
         else:
             raise TypeError(message)
     

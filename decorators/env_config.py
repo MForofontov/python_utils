@@ -39,6 +39,7 @@ def env_config(var_name: str, logger: Optional[logging.Logger] = None,
         """
         if logger:
             logger.error(message, exc_info=True)
+            return None
         else:
             raise TypeError(message)
 
