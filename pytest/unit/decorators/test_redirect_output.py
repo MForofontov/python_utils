@@ -60,7 +60,7 @@ def test_redirect_output_with_var_args():
     with open('output_var_args.txt', 'r') as f:
         assert f.read().strip() == "1 - ('arg1', 'arg2') - {'kwarg1': 1.0, 'kwarg2': 2.0}"
 
-def test_redirect_output_run_time_error():
+def test_redirect_output_run_time_error_no_logger():
     """
     Test case 5: Redirecting output when an error occurs
     """
@@ -84,7 +84,7 @@ def test_redirect_output_run_time_error_with_logger(caplog):
             error_function()
         assert "Failed to redirect output" in caplog.text
 
-def test_invalid_file_path():
+def test_invalid_file_path_no_logger():
     """
     Test case 7: Invalid file path parameter
     """
