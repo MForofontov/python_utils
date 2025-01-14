@@ -25,7 +25,7 @@ class EventManager:
         """
         self.events: Dict[str, List[Callable[..., Any]]] = {}
 
-    def subscribe(self, event_name: str, callback: Callable[..., Any]):
+    def subscribe(self, event_name: str, callback: Callable[..., Any]) -> None:
         """
         Adds a callback function to the list of callbacks for a given event name.
 
@@ -40,7 +40,7 @@ class EventManager:
             self.events[event_name] = []
         self.events[event_name].append(callback)
 
-    def trigger(self, event_name: str, *args: Any, **kwargs: Any):
+    def trigger(self, event_name: str, *args: Any, **kwargs: Any) -> None:
         """
         Executes all callback functions associated with the given event name.
 
@@ -57,16 +57,18 @@ class EventManager:
             for callback in self.events[event_name]:
                 callback(*args, **kwargs)
 
-def event_trigger(event_manager: EventManager, event_name: str, logger: Optional[logging.Logger] = None ) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def event_trigger(event_manager: EventManager, event_name: str, logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to trigger an event before executing the decorated function.
 
     Parameters
     ----------
     event_manager : EventManager
-        The EventManager instance to use for triggering the event.
+        The event manager to use for triggering events.
     event_name : str
         The name of the event to trigger.
+    logger : Optional[logging.Logger]
+        The logger to use for logging errors.
 
     Returns
     -------
@@ -78,19 +80,23 @@ def event_trigger(event_manager: EventManager, event_name: str, logger: Optional
     TypeError
         If any of the parameters do not match the expected types.
     """
-    def log_or_raise_error(message: str):
+    def log_or_raise_error(message: str) -> None:
         """
         Helper function to log an error or raise an exception.
+
+        Parameters
+        ----------
+        message : str
+            The error message to log or raise.
         """
         if logger:
             logger.error(message, exc_info=True)
-        else:
-            raise TypeError(message)
+        raise TypeError(message)
     
     if not isinstance(logger, logging.Logger) and logger is not None:
         raise TypeError("logger must be an instance of logging.Logger or None")
     
-    if not isinstance(event_manager, EventManager) or not event_manager:
+    if not isinstance(event_manager, EventManager):
         log_or_raise_error("event_manager must be an instance of EventManager")
 
     if not isinstance(event_name, str) or not event_name:

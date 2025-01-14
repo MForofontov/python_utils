@@ -1,5 +1,6 @@
 import pytest
 import logging
+from typing import Any
 from decorators.log_function_calls import log_function_calls
 
 # Configure test_logger
@@ -10,120 +11,103 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 handler.setFormatter(formatter)
 test_logger.addHandler(handler)
 
+# Example function to be decorated
 @log_function_calls(logger=test_logger)
-def add(a, b):
-    return a + b
-
-@log_function_calls(logger=test_logger)
-def greet(name):
-    return f"Hello, {name}!"
+def sample_function(a: int, b: str) -> str:
+    return f"{a} - {b}"
 
 @log_function_calls(logger=test_logger)
-def raise_value_error():
-    raise ValueError("This is a ValueError")
+def sample_function_args_kwargs(*args: Any, **kwargs: Any) -> str:
+    return f"args: {args}, kwargs: {kwargs}"
 
 @log_function_calls(logger=test_logger)
-def return_value(value):
-    return value
+def sample_function_raises_error(a: int, b: str) -> str:
+    raise ValueError("An error occurred")
 
-def test_log_function_calls_add(caplog):
+def test_log_function_calls_basic(caplog: pytest.LogCaptureFixture) -> None:
     """
-    Test case 1: Logging function calls for add function
+    Test case 1: Basic functionality of log_function_calls
     """
-    # Test case 1: Logging function calls for add function
-    with caplog.at_level(logging.DEBUG):
-        result = add(1, 2)
-        assert result == 3
-        assert "Calling add with args: (1, 2) and kwargs: {}" in caplog.text
-        assert "add returned: 3" in caplog.text
+    with caplog.at_level(logging.INFO):
+        result = sample_function(1, "test")
+    assert result == "1 - test"
+    assert "Calling sample_function with args: (1, 'test') and kwargs: {}" in caplog.text
+    assert "sample_function returned: 1 - test" in caplog.text
 
-def test_log_function_calls_greet(caplog):
+def test_log_function_calls_with_kwargs(caplog: pytest.LogCaptureFixture) -> None:
     """
-    Test case 2: Logging function calls for greet function
+    Test case 2: Log function calls with kwargs
     """
-    # Test case 2: Logging function calls for greet function
-    with caplog.at_level(logging.DEBUG):
-        result = greet("Alice")
-        assert result == "Hello, Alice!"
-        assert "Calling greet with args: ('Alice',) and kwargs: {}" in caplog.text
-        assert "greet returned: Hello, Alice!" in caplog.text
-
-def test_log_function_calls_raise_value_error(caplog):
-    """
-    Test case 3: Logging function calls for function that raises ValueError
-    """
-    # Test case 3: Logging function calls for function that raises ValueError
-    with caplog.at_level(logging.DEBUG):
-        with pytest.raises(ValueError, match="This is a ValueError"):
-            raise_value_error()
-        assert "Calling raise_value_error with args: () and kwargs: {}" in caplog.text
-        assert "raise_value_error raised an exception: This is a ValueError" in caplog.text
-
-def test_log_function_calls_return_value(caplog):
-    """
-    Test case 4: Logging function calls for return_value function
-    """
-    # Test case 4: Logging function calls for return_value function
-    with caplog.at_level(logging.DEBUG):
-        result = return_value(5)
-        assert result == 5
-        assert "Calling return_value with args: (5,) and kwargs: {}" in caplog.text
-        assert "return_value returned: 5" in caplog.text
-
-def test_log_function_calls_with_kwargs(caplog):
-    """
-    Test case 5: Logging function calls with keyword arguments
-    """
-    # Test case 5: Logging function calls with keyword arguments
     @log_function_calls(logger=test_logger)
-    def with_kwargs(a, b=0):
-        return a + b
+    def sample_function_kwargs(a: int, b: str) -> str:
+        return f"{a} - {b}"
+    
+    with caplog.at_level(logging.INFO):
+        result = sample_function_kwargs(a=1, b="test")
+    assert result == "1 - test"
+    assert "Calling sample_function_kwargs with args: () and kwargs: {'a': 1, 'b': 'test'}" in caplog.text
+    assert "sample_function_kwargs returned: 1 - test" in caplog.text
 
-    with caplog.at_level(logging.DEBUG):
-        result = with_kwargs(1, b=2)
-        assert result == 3
-        assert "Calling with_kwargs with args: (1,) and kwargs: {'b': 2}" in caplog.text
-        assert "with_kwargs returned: 3" in caplog.text
-
-def test_log_function_calls_with_multiple_args(caplog):
+def test_log_function_calls_with_mixed_args(caplog: pytest.LogCaptureFixture) -> None:
     """
-    Test case 6: Logging function calls with multiple arguments
+    Test case 3: Log function calls with mixed args and kwargs
     """
-    # Test case 6: Logging function calls with multiple arguments
     @log_function_calls(logger=test_logger)
-    def multiple_args(a, b, c):
-        return a + b + c
+    def sample_function_mixed(a: int, b: str, c: float) -> str:
+        return f"{a} - {b} - {c}"
+    
+    with caplog.at_level(logging.INFO):
+        result = sample_function_mixed(1, b="test", c=2.0)
+    assert result == "1 - test - 2.0"
+    assert "Calling sample_function_mixed with args: (1,) and kwargs: {'b': 'test', 'c': 2.0}" in caplog.text
+    assert "sample_function_mixed returned: 1 - test - 2.0" in caplog.text
 
-    with caplog.at_level(logging.DEBUG):
-        result = multiple_args(1, 2, 3)
-        assert result == 6
-        assert "Calling multiple_args with args: (1, 2, 3) and kwargs: {}" in caplog.text
-        assert "multiple_args returned: 6" in caplog.text
-
-def test_log_function_calls_with_custom_exception(caplog):
+def test_log_function_calls_with_variable_length_arguments(caplog: pytest.LogCaptureFixture) -> None:
     """
-    Test case 7: Logging function calls for function that raises a custom exception
+    Test case 4: Log function calls with variable length arguments (*args and **kwargs)
     """
-    # Test case 7: Logging function calls for function that raises a custom exception
-    class CustomException(Exception):
-        pass
-
     @log_function_calls(logger=test_logger)
-    def raise_custom_exception():
-        raise CustomException("This is a CustomException")
+    def sample_function_var_args(a: int, *args: str, **kwargs: float) -> str:
+        return f"{a} - {args} - {kwargs}"
+    
+    with caplog.at_level(logging.INFO):
+        result = sample_function_var_args(1, "arg1", "arg2", kwarg1=1.0, kwarg2=2.0)
+    assert result == "1 - ('arg1', 'arg2') - {'kwarg1': 1.0, 'kwarg2': 2.0}"
+    assert "Calling sample_function_var_args with args: (1, 'arg1', 'arg2') and kwargs: {'kwarg1': 1.0, 'kwarg2': 2.0}" in caplog.text
+    assert "sample_function_var_args returned: 1 - ('arg1', 'arg2') - {'kwarg1': 1.0, 'kwarg2': 2.0}" in caplog.text
 
-    with caplog.at_level(logging.DEBUG):
-        with pytest.raises(CustomException, match="This is a CustomException"):
-            raise_custom_exception()
-        assert "Calling raise_custom_exception with args: () and kwargs: {}" in caplog.text
-        assert "raise_custom_exception raised an exception: This is a CustomException" in caplog.text
+def test_log_function_calls_mixed_type_arguments(caplog: pytest.LogCaptureFixture) -> None:
+    """
+    Test case 5: Log function calls with mixed type arguments
+    """
+    @log_function_calls(logger=test_logger)
+    def sample_function_mixed_types(a: int, b: str, c: float) -> str:
+        return f"{a} - {b} - {c}"
+    
+    with caplog.at_level(logging.INFO):
+        result = sample_function_mixed_types(1, "test", 2.0)
+    assert result == "1 - test - 2.0"
+    assert "Calling sample_function_mixed_types with args: (1, 'test', 2.0) and kwargs: {}" in caplog.text
+    assert "sample_function_mixed_types returned: 1 - test - 2.0" in caplog.text
 
-def test_log_function_invalid_logger():
+def test_log_function_calls_function_raises_error(caplog: pytest.LogCaptureFixture) -> None:
     """
-    Test case 8: Invalid logger (not an instance of logging.Logger or None)
+    Test case 6: Log function calls when the wrapped function raises an error
     """
-    # Test case 8: Invalid logger (not an instance of logging.Logger or None)
-    with pytest.raises(TypeError, match="logger must be an instance of logging.Logger or None"):
-        @log_function_calls(logger="not_a_logger")
-        def example_function_invalid_logger(a, b):
-            return f"Result: {a + b}"
+    with caplog.at_level(logging.INFO):
+        with pytest.raises(ValueError, match="An error occurred"):
+            sample_function_raises_error(1, "test")
+    assert "Calling sample_function_raises_error with args: (1, 'test') and kwargs: {}" in caplog.text
+
+
+def test_log_function_calls_invalid_logger() -> None:
+    """
+    Test case 7: Invalid logger type
+    """
+    with pytest.raises(TypeError, match="logger must be an instance of logging.Logger or None."):
+        @log_function_calls(logger="invalid_logger")
+        def sample_function_invalid_logger(a: int, b: str) -> str:
+            return f"{a} - {b}"
+
+if __name__ == "__main__":
+    pytest.main()

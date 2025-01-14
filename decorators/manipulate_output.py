@@ -9,6 +9,8 @@ def manipulate_output(manipulation_func: Callable[[Any], Any], logger: Optional[
     ----------
     manipulation_func : Callable[[Any], Any]
         The function to manipulate the output of the decorated function.
+    logger : Optional[logging.Logger]
+        The logger to use for logging manipulation warnings.
 
     Returns
     -------
@@ -21,13 +23,12 @@ def manipulate_output(manipulation_func: Callable[[Any], Any], logger: Optional[
         If the logger is not an instance of logging.Logger or None.
         If the manipulation_func is not a callable function.
     """
-    if isinstance(logger, logging.Logger) and logger is not None:
+    if logger is not None and not isinstance(logger, logging.Logger):
         raise TypeError("logger must be an instance of logging.Logger or None.")
     if not callable(manipulation_func):
         if logger is not None:
             logger.error("manipulation_func must be a callable function.")
-        else:
-            raise TypeError("manipulation_func must be a callable function.")
+        raise TypeError("manipulation_func must be a callable function.")
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         """
@@ -45,7 +46,7 @@ def manipulate_output(manipulation_func: Callable[[Any], Any], logger: Optional[
         """
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
-            The wrapper function that manipulates the output of the decorated function.
+            The wrapper function that manipulates the output.
 
             Parameters
             ----------
@@ -57,9 +58,11 @@ def manipulate_output(manipulation_func: Callable[[Any], Any], logger: Optional[
             Returns
             -------
             Any
-                The manipulated output of the decorated function.
+                The manipulated result of the decorated function.
             """
             result = func(*args, **kwargs)
-            return manipulation_func(result)
+            manipulated_result = manipulation_func(result)
+            return manipulated_result
+
         return wrapper
     return decorator
