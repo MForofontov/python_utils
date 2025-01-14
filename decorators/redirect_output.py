@@ -23,10 +23,12 @@ def redirect_output(file_path: str, logger: logging.Logger = None) -> Callable[[
     TypeError
         If the input function is not callable or if logger is not an instance of logging.Logger or None.
     """
-    if not isinstance(file_path, str):
-        raise TypeError("file_path must be a string")
     if not isinstance(logger, logging.Logger) and logger is not None:
         raise TypeError("logger must be an instance of logging.Logger or None")
+    if not isinstance(file_path, str):
+        if logger:
+            logger.error("file_path must be a string")
+        raise TypeError("file_path must be a string")
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         """

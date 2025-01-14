@@ -22,10 +22,12 @@ def normalize_input(normalization_func: Callable[[Any], Any], logger: Optional[l
     TypeError
         If the input function is not callable or if logger is not an instance of logging.Logger or None.
     """
-    if not callable(normalization_func):
-        raise TypeError(f"Normalizer {normalization_func} is not callable")
     if not isinstance(logger, logging.Logger) and logger is not None:
         raise TypeError("logger must be an instance of logging.Logger or None")
+    if not callable(normalization_func):
+        if logger:
+            logger.error(f"Normalizer {normalization_func} is not callable")
+        raise TypeError(f"Normalizer {normalization_func} is not callable")
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         """
