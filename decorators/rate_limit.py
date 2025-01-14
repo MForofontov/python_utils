@@ -43,6 +43,10 @@ def rate_limit(max_calls: int, period: int, logger: Optional[logging.Logger] = N
         if logger:
             logger.error("period must be a positive integer", exc_info=True)
         raise ValueError("period must be a positive integer")
+    if not isinstance(exception_message, str) and exception_message is not None:
+        if logger:
+            logger.error("exception_message must be a string or None", exc_info=True)
+        raise TypeError("exception_message must be a string or None")
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         # List to store the timestamps of function calls

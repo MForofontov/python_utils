@@ -1,27 +1,36 @@
-from typing import Callable, Any
+from typing import Callable, Any, List, Optional
+import logging
 
-def multi_decorator(*decorators: Callable[[Callable[..., Any]], Callable[..., Any]]) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def multi_decorator(decorators: List[Callable[[Callable[..., Any]], Callable[..., Any]]], logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
-    A decorator to apply multiple decorators to a function.
+    A function to apply multiple decorators to a target function.
 
     Parameters
     ----------
-    *decorators : Callable[[Callable[..., Any]], Callable[..., Any]]
-        A variable number of decorators to apply.
+    decorators : List[Callable[[Callable[..., Any]], Callable[..., Any]]]
+        A list of decorators to apply.
+    logger : Optional[logging.Logger], optional
+        The logger to use for logging errors (default is None).
 
     Returns
     -------
     Callable[[Callable[..., Any]], Callable[..., Any]]
-        A function that applies all the decorators to the target function.
+        The function that applies all the decorators to the target function.
     
     Raises
     ------
     TypeError
-        If any of the decorators are not callable.
+        If any of the decorators are not callable or if logger is not an instance of logging.Logger or None.
     """
     for decorator in decorators:
         if not callable(decorator):
-            raise TypeError(f"Decorator {decorator} is not callable")
+            message = f"Decorator {decorator} is not callable"
+            if logger:
+                logger.error(message, exc_info=True)
+            raise TypeError(message)
+    
+    if not isinstance(logger, logging.Logger) and logger is not None:
+        raise TypeError("logger must be an instance of logging.Logger or None")
 
     def combine(func: Callable[..., Any]) -> Callable[..., Any]:
         """

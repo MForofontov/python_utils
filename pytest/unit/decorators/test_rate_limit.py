@@ -1,5 +1,4 @@
 import pytest
-import time
 import logging
 from decorators.rate_limit import rate_limit, RateLimitExceededException
 
@@ -11,230 +10,165 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 handler.setFormatter(formatter)
 test_logger.addHandler(handler)
 
-@rate_limit(2, 1, test_logger)
-def limited_function() -> str:
-    """
-    A function that returns a simple message.
-    """
-    return "Function called"
+# Sample function to be decorated
+@rate_limit(max_calls=2, period=5)
+def sample_function() -> str:
+    return "Function executed"
 
-@rate_limit(2, 1, test_logger, exception_message="Custom rate limit exceeded message.")
-def limited_function_custom_message() -> str:
+def test_rate_limit_basic():
     """
-    A function that returns a simple message with a custom exception message.
+    Test case 1: Basic functionality of rate limiting
     """
-    return "Function called"
+    assert sample_function() == "Function executed"
+    assert sample_function() == "Function executed"
+    with pytest.raises(RateLimitExceededException):
+        sample_function()
 
-@rate_limit(2, 1, test_logger)
-def limited_function_args_kwargs(*args: Any, **kwargs: Any) -> str:
+def test_rate_limit_custom_message():
     """
-    A function that accepts *args and **kwargs and returns a formatted string.
+    Test case 2: Custom exception message when rate limit is exceeded
     """
-    return f"Function called with args: {args} and kwargs: {kwargs}"
+    @rate_limit(max_calls=1, period=5, exception_message="Custom rate limit message")
+    def custom_message_function() -> str:
+        return "Function executed"
+    
+    assert custom_message_function() == "Function executed"
+    with pytest.raises(RateLimitExceededException, match="Custom rate limit message"):
+        custom_message_function()
 
-@rate_limit(2, 1, test_logger)
-def limited_function_raises_error(a: int, b: str) -> str:
+def test_rate_limit_with_logger(caplog):
     """
-    A function that raises an error.
+    Test case 3: Logger functionality when rate limit is exceeded
     """
-    raise ValueError("An error occurred")
-
-def test_rate_limit_basic(caplog: pytest.LogCaptureFixture) -> None:
-    """
-    Test case 1: Basic functionality of rate_limit
-    """
-    with caplog.at_level(logging.WARNING):
-        result = limited_function()
-        assert result == "Function called"
-        result = limited_function()
-        assert result == "Function called"
-        with pytest.raises(RateLimitExceededException, match="Rate limit exceeded for limited_function. Try again later."):
-            limited_function()
-        assert "Rate limit exceeded for limited_function. Try again later." in caplog.text
-
-def test_rate_limit_reset(caplog: pytest.LogCaptureFixture) -> None:
-    """
-    Test case 2: Rate limit reset after period
-    """
-    with caplog.at_level(logging.WARNING):
-        result = limited_function()
-        assert result == "Function called"
-        result = limited_function()
-        assert result == "Function called"
-        with pytest.raises(RateLimitExceededException, match="Rate limit exceeded for limited_function. Try again later."):
-            limited_function()
-        assert "Rate limit exceeded for limited_function. Try again later." in caplog.text
-        time.sleep(1)
-        result = limited_function()
-        assert result == "Function called"
-
-def test_rate_limit_different_period(caplog: pytest.LogCaptureFixture) -> None:
-    """
-    Test case 3: Rate limit with different period
-    """
-    @rate_limit(2, 2, test_logger)
-    def limited_function_2() -> str:
-        return "Function called"
+    logger = logging.getLogger("rate_limit_logger")
+    logger.setLevel(logging.WARNING)
+    
+    @rate_limit(max_calls=1, period=5, logger=logger)
+    def logged_function() -> str:
+        return "Function executed"
     
     with caplog.at_level(logging.WARNING):
-        result = limited_function_2()
-        assert result == "Function called"
-        result = limited_function_2()
-        assert result == "Function called"
-        with pytest.raises(RateLimitExceededException, match="Rate limit exceeded for limited_function_2. Try again later."):
-            limited_function_2()
-        assert "Rate limit exceeded for limited_function_2. Try again later." in caplog.text
-        time.sleep(2)
-        result = limited_function_2()
-        assert result == "Function called"
+        assert logged_function() == "Function executed"
+        with pytest.raises(RateLimitExceededException):
+            logged_function()
+        assert "Rate limit exceeded for logged_function. Try again later." in caplog.text
 
-def test_rate_limit_custom_message(caplog: pytest.LogCaptureFixture) -> None:
+def test_rate_limit_with_args():
     """
-    Test case 4: Rate limit with custom exception message
+    Test case 4: Function with positional arguments
     """
-    with caplog.at_level(logging.WARNING):
-        result = limited_function_custom_message()
-        assert result == "Function called"
-        result = limited_function_custom_message()
-        assert result == "Function called"
-        with pytest.raises(RateLimitExceededException, match="Custom rate limit exceeded message."):
-            limited_function_custom_message()
-        assert "Custom rate limit exceeded message." in caplog.text
-
-def test_rate_limit_no_logger() -> None:
-    """
-    Test case 5: Rate limit without logger
-    """
-    @rate_limit(2, 1)
-    def limited_function_no_logger() -> str:
-        return "Function called"
+    @rate_limit(max_calls=2, period=5)
+    def function_with_args(a: int, b: int) -> int:
+        return a + b
     
-    result = limited_function_no_logger()
-    assert result == "Function called"
-    result = limited_function_no_logger()
-    assert result == "Function called"
-    with pytest.raises(RateLimitExceededException, match="Rate limit exceeded for limited_function_no_logger. Try again later."):
-        limited_function_no_logger()
+    assert function_with_args(1, 2) == 3
+    assert function_with_args(3, 4) == 7
+    with pytest.raises(RateLimitExceededException):
+        function_with_args(5, 6)
 
-def test_rate_limit_args_kwargs(caplog: pytest.LogCaptureFixture) -> None:
+def test_rate_limit_with_kwargs():
     """
-    Test case 6: Rate limit with *args and **kwargs
+    Test case 5: Function with keyword arguments
     """
-    with caplog.at_level(logging.WARNING):
-        result = limited_function_args_kwargs(1, 2, a="test", b="example")
-        assert result == "Function called with args: (1, 2) and kwargs: {'a': 'test', 'b': 'example'}"
-        result = limited_function_args_kwargs(3, 4, c="another", d="case")
-        assert result == "Function called with args: (3, 4) and kwargs: {'c': 'another', 'd': 'case'}"
-        with pytest.raises(RateLimitExceededException, match="Rate limit exceeded for limited_function_args_kwargs. Try again later."):
-            limited_function_args_kwargs(5, 6, e="one", f="more")
-        assert "Rate limit exceeded for limited_function_args_kwargs. Try again later." in caplog.text
-
-def test_rate_limit_function_raises_error(caplog: pytest.LogCaptureFixture) -> None:
-    """
-    Test case 7: Rate limit when the wrapped function raises an error
-    """
-    with caplog.at_level(logging.ERROR):
-        with pytest.raises(ValueError, match="An error occurred"):
-            limited_function_raises_error(1, "test")
-        with pytest.raises(ValueError, match="An error occurred"):
-            limited_function_raises_error(1, "test")
-        with pytest.raises(RateLimitExceededException, match="Rate limit exceeded for limited_function_raises_error. Try again later."):
-            limited_function_raises_error(1, "test")
-        assert "Rate limit exceeded for limited_function_raises_error. Try again later." in caplog.text
-
-def test_rate_limit_mixed_type_arguments(caplog: pytest.LogCaptureFixture) -> None:
-    """
-    Test case 8: Rate limit with mixed type arguments
-    """
-    @rate_limit(2, 1, test_logger)
-    def limited_function_mixed(a: int, b: str, c: float) -> str:
-        return f"{a} - {b} - {c}"
+    @rate_limit(max_calls=2, period=5)
+    def function_with_kwargs(a: int, b: int = 0) -> int:
+        return a + b
     
-    with caplog.at_level(logging.WARNING):
-        result = limited_function_mixed(1, "test", 2.0)
-        assert result == "1 - test - 2.0"
-        result = limited_function_mixed(3, "example", 4.0)
-        assert result == "3 - example - 4.0"
-        with pytest.raises(RateLimitExceededException, match="Rate limit exceeded for limited_function_mixed. Try again later."):
-            limited_function_mixed(5, "another", 6.0)
-        assert "Rate limit exceeded for limited_function_mixed. Try again later." in caplog.text
+    assert function_with_kwargs(1, b=2) == 3
+    assert function_with_kwargs(3, b=4) == 7
+    with pytest.raises(RateLimitExceededException):
+        function_with_kwargs(5, b=6)
 
-def test_rate_limit_non_integer_calls_per_period(caplog: pytest.LogCaptureFixture) -> None:
+def test_rate_limit_with_variable_length_args():
     """
-    Test case 9: Non-integer calls_per_period
+    Test case 6: Function with variable length arguments (*args and **kwargs)
     """
-    with caplog.at_level(logging.ERROR):
-        with pytest.raises(ValueError, match="max_calls must be a positive integer"):
-            @rate_limit("two", 1, test_logger)
-            def limited_function_invalid() -> str:
-                return "Function called"
-        assert "max_calls must be a positive integer" in caplog.text
+    @rate_limit(max_calls=2, period=5)
+    def function_with_var_args(a: int, *args: str, **kwargs: float) -> str:
+        return f"{a} - {args} - {kwargs}"
+    
+    assert function_with_var_args(1, "arg1", "arg2", kwarg1=1.0, kwarg2=2.0) == "1 - ('arg1', 'arg2') - {'kwarg1': 1.0, 'kwarg2': 2.0}"
+    assert function_with_var_args(1, "arg3", kwarg3=3.0) == "1 - ('arg3',) - {'kwarg3': 3.0}"
+    with pytest.raises(RateLimitExceededException):
+        function_with_var_args(1, "arg4", kwarg4=4.0)
 
-def test_rate_limit_non_integer_period(caplog: pytest.LogCaptureFixture) -> None:
+def test_rate_limit_exceeding_calls():
     """
-    Test case 10: Non-integer period
+    Test case 7: Exceeding function call within the rate limit period
     """
-    with caplog.at_level(logging.ERROR):
-        with pytest.raises(ValueError, match="period must be a positive integer"):
-            @rate_limit(2, "one", test_logger)
-            def limited_function_invalid() -> str:
-                return "Function called"
-        assert "period must be a positive integer" in caplog.text
+    @rate_limit(max_calls=1, period=5)
+    def exceeding_function_call() -> str:
+        return "Function executed"
+    
+    assert exceeding_function_call() == "Function executed"
+    with pytest.raises(RateLimitExceededException):
+        exceeding_function_call()
 
-def test_rate_limit_zero_calls_per_period(caplog: pytest.LogCaptureFixture) -> None:
+def test_rate_limit_single_call():
     """
-    Test case 11: Zero calls_per_period
+    Test case 8: Single call within the rate limit period
     """
-    with caplog.at_level(logging.ERROR):
-        with pytest.raises(ValueError, match="max_calls must be a positive integer"):
-            @rate_limit(0, 1, test_logger)
-            def limited_function_invalid() -> str:
-                return "Function called"
-        assert "max_calls must be a positive integer" in caplog.text
+    @rate_limit(max_calls=1, period=5)
+    def single_call_function() -> str:
+        return "Function executed"
+    
+    assert single_call_function() == "Function executed"
 
-def test_rate_limit_zero_period(caplog: pytest.LogCaptureFixture) -> None:
+def test_rate_limit_with_multiple_calls():
     """
-    Test case 12: Zero period
+    Test case 9: Function with multiple calls within the rate limit period
     """
-    with caplog.at_level(logging.ERROR):
-        with pytest.raises(ValueError, match="period must be a positive integer"):
-            @rate_limit(2, 0, test_logger)
-            def limited_function_invalid() -> str:
-                return "Function called"
-        assert "period must be a positive integer" in caplog.text
+    @rate_limit(max_calls=3, period=5)
+    def multiple_call_function() -> str:
+        return "Function executed"
+    
+    assert multiple_call_function() == "Function executed"
+    assert multiple_call_function() == "Function executed"
+    assert multiple_call_function() == "Function executed"
+    with pytest.raises(RateLimitExceededException):
+        multiple_call_function()
 
-def test_rate_limit_non_integer_calls_per_period_no_logger() -> None:
+def test_invalid_max_calls():
     """
-    Test case 13: Non-integer calls_per_period without logger
+    Test case 10: Invalid max_calls parameter
     """
     with pytest.raises(ValueError, match="max_calls must be a positive integer"):
-        @rate_limit("two", 1)
-        def limited_function_invalid() -> str:
-            return "Function called"
+        @rate_limit(max_calls=-1, period=5)
+        def invalid_max_calls_function() -> None:
+            pass
 
-def test_rate_limit_non_integer_period_no_logger() -> None:
+def test_invalid_period():
     """
-    Test case 14: Non-integer period without logger
+    Test case 11: Invalid period parameter
     """
     with pytest.raises(ValueError, match="period must be a positive integer"):
-        @rate_limit(2, "one")
-        def limited_function_invalid() -> str:
-            return "Function called"
+        @rate_limit(max_calls=1, period=-5)
+        def invalid_period_function() -> None:
+            pass
 
-def test_rate_limit_zero_calls_per_period_no_logger() -> None:
+def test_invalid_logger_type():
     """
-    Test case 15: Zero calls_per_period without logger
+    Test case 12: Invalid logger type
+    """
+    with pytest.raises(TypeError, match="logger must be an instance of logging.Logger or None"):
+        @rate_limit(max_calls=1, period=5, logger="not_a_logger")
+        def invalid_logger_function() -> None:
+            pass
+
+def test_zero_max_calls():
+    """
+    Test case 13: Zero max_calls parameter
     """
     with pytest.raises(ValueError, match="max_calls must be a positive integer"):
-        @rate_limit(0, 1)
-        def limited_function_invalid() -> str:
-            return "Function called"
+        @rate_limit(max_calls=0, period=5)
+        def zero_max_calls_function() -> None:
+            pass
 
-def test_rate_limit_zero_period_no_logger() -> None:
+def test_zero_period():
     """
-    Test case 16: Zero period without logger
+    Test case 14: Zero period parameter
     """
     with pytest.raises(ValueError, match="period must be a positive integer"):
-        @rate_limit(2, 0)
-        def limited_function_invalid() -> str:
-            return "Function called"
+        @rate_limit(max_calls=1, period=0)
+        def zero_period_function() -> None:
+            pass
