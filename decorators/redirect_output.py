@@ -1,7 +1,8 @@
 from typing import Callable, Any
 from contextlib import redirect_stdout
+import logging
 
-def redirect_output(file_path: str) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def redirect_output(file_path: str, logger: logging.Logger = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to redirect the standard output of a function to a specified file.
 
@@ -9,12 +10,24 @@ def redirect_output(file_path: str) -> Callable[[Callable[..., Any]], Callable[.
     ----------
     file_path : str
         The path to the file where the output should be redirected.
+    logger : logging.Logger, optional
+        The logger to use for logging errors (default is None).
 
     Returns
     -------
     Callable[[Callable[..., Any]], Callable[..., Any]]
         The decorator function.
+    
+    Raises
+    ------
+    TypeError
+        If the input function is not callable or if logger is not an instance of logging.Logger or None.
     """
+    if not isinstance(file_path, str):
+        raise TypeError("file_path must be a string")
+    if not isinstance(logger, logging.Logger) and logger is not None:
+        raise TypeError("logger must be an instance of logging.Logger or None")
+
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         """
         The actual decorator function.
@@ -45,11 +58,14 @@ def redirect_output(file_path: str) -> Callable[[Callable[..., Any]], Callable[.
             Any
                 The result of the decorated function.
             """
-            # Open the specified file in write mode
-            with open(file_path, 'w') as f:
-                # Redirect stdout to the file
-                with redirect_stdout(f):
-                    # Call the original function and return its result
+            try:
+                with open(file_path, 'w') as f, redirect_stdout(f):
                     return func(*args, **kwargs)
+            except Exception as e:
+                message = f"Failed to redirect output: {e}"
+                if logger:
+                    logger.error(message, exc_info=True)
+                raise RuntimeError(message)
+
         return wrapper
     return decorator

@@ -128,9 +128,31 @@ def test_rate_limit_with_multiple_calls():
     with pytest.raises(RateLimitExceededException):
         multiple_call_function()
 
+def test_rate_limit_reset_after_period():
+    """
+    Test case 10: Ensure rate limit resets after the specified period
+    """
+    import time
+
+    @rate_limit(max_calls=2, period=2)
+    def reset_function() -> str:
+        return "Function executed"
+    
+    assert reset_function() == "Function executed"
+    assert reset_function() == "Function executed"
+    with pytest.raises(RateLimitExceededException):
+        reset_function()
+    
+    time.sleep(2)  # Wait for the period to reset
+
+    assert reset_function() == "Function executed"
+    assert reset_function() == "Function executed"
+    with pytest.raises(RateLimitExceededException):
+        reset_function()
+
 def test_invalid_max_calls():
     """
-    Test case 10: Invalid max_calls parameter
+    Test case 11: Invalid max_calls parameter
     """
     with pytest.raises(ValueError, match="max_calls must be a positive integer"):
         @rate_limit(max_calls=-1, period=5)
@@ -139,7 +161,7 @@ def test_invalid_max_calls():
 
 def test_invalid_period():
     """
-    Test case 11: Invalid period parameter
+    Test case 12: Invalid period parameter
     """
     with pytest.raises(ValueError, match="period must be a positive integer"):
         @rate_limit(max_calls=1, period=-5)
@@ -148,27 +170,31 @@ def test_invalid_period():
 
 def test_invalid_logger_type():
     """
-    Test case 12: Invalid logger type
+    Test case 13: Invalid logger type
     """
     with pytest.raises(TypeError, match="logger must be an instance of logging.Logger or None"):
         @rate_limit(max_calls=1, period=5, logger="not_a_logger")
         def invalid_logger_function() -> None:
             pass
 
-def test_zero_max_calls():
+def test_invalid_max_calls_with_logger(caplog):
     """
-    Test case 13: Zero max_calls parameter
+    Test case 14: Invalid max_calls parameter with logger
     """
     with pytest.raises(ValueError, match="max_calls must be a positive integer"):
-        @rate_limit(max_calls=0, period=5)
-        def zero_max_calls_function() -> None:
-            pass
+        with caplog.at_level(logging.ERROR):
+            @rate_limit(max_calls=-1, period=5, logger=test_logger)
+            def invalid_max_calls_function() -> None:
+                pass
+            assert "max_calls must be a positive integer" in caplog.text
 
-def test_zero_period():
+def test_invalid_period_with_logger(caplog):
     """
-    Test case 14: Zero period parameter
+    Test case 15: Invalid period parameter with logger
     """
     with pytest.raises(ValueError, match="period must be a positive integer"):
-        @rate_limit(max_calls=1, period=0)
-        def zero_period_function() -> None:
-            pass
+        with caplog.at_level(logging.ERROR):
+            @rate_limit(max_calls=1, period=-5, logger=test_logger)
+            def invalid_period_function() -> None:
+                pass
+            assert "period must be a positive integer" in caplog.text
