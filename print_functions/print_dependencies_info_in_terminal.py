@@ -1,13 +1,14 @@
 import platform
 import shutil
+
 from importlib.metadata import version, PackageNotFoundError
 from print_functions.print_message import print_message
 
-def print_dependencies_info(dependencies):
+def print_dependencies_info_in_terminal(dependencies):
     """
-    Print the dependencies information.
+    Print the dependencies information in the terminal.
 
-    This function prints the dependencies information.
+    This function prints the dependencies information in the terminal.
 
     Parameters
     ----------

@@ -6,7 +6,7 @@ import time
 
 from print_functions.print_message import print_message
 
-def print_system_info() -> None:
+def print_system_info_in_terminal() -> None:
     """
     Print the system information.
 
@@ -21,6 +21,23 @@ def print_system_info() -> None:
     None
     """
     def get_processor_name():
+        """
+        Get the processor name.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        str
+            The processor name.
+        
+        Raises
+        ------
+        subprocess.CalledProcessError
+            If the subprocess call fails.
+        """
         try:
             result = subprocess.run(["lscpu"], capture_output=True, text=True, check=True)
             for line in result.stdout.splitlines():
