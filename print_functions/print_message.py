@@ -1,3 +1,7 @@
+import logging
+from datetime import datetime
+from typing import Optional
+
 def print_message(message: str, message_type: str = "info", end = '\n', flush: bool = False) -> None:
     """
     Print a formatted message with the current time and message type.
