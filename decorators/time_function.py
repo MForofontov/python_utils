@@ -1,5 +1,6 @@
 import time
 from typing import Callable, Any
+from functools import wraps
 
 def time_function(func: Callable[..., Any]) -> Callable[..., Any]:
     """
@@ -15,6 +16,7 @@ def time_function(func: Callable[..., Any]) -> Callable[..., Any]:
     Callable[..., Any]
         The wrapped function that measures and prints its execution time.
     """
+    @wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> Any:
         """
         The wrapper function that measures the execution time.

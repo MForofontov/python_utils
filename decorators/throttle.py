@@ -1,4 +1,5 @@
 from typing import Callable, Any
+from functools import wraps
 import time
 
 def throttle(rate_limit: float) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
@@ -32,6 +33,7 @@ def throttle(rate_limit: float) -> Callable[[Callable[..., Any]], Callable[..., 
         # Store the time of the last function call
         last_called = [0.0]
 
+        @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
             The wrapper function that enforces the rate limit.

@@ -5,6 +5,7 @@ import threading
 import gc
 from typing import Callable, Any
 from print_functions import print_message
+from functools import wraps
 
 def time_and_resource_function(monitor_memory=True, monitor_cpu=True, monitor_io=True, monitor_network=True, monitor_disk=True, monitor_threads=True, monitor_gc=True, monitor_context_switches=True, monitor_open_files=True, monitor_page_faults=True, interval=0.1):
     """
@@ -41,6 +42,7 @@ def time_and_resource_function(monitor_memory=True, monitor_cpu=True, monitor_io
         The wrapped function with added time and optional resource measurement.
     """
     def decorator(func) -> Callable[..., Any]:
+        @wraps(func)
         def wrapper(*args, **kwargs) -> Any:
             process = psutil.Process()
             start_time = time.time()

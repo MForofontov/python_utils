@@ -1,4 +1,5 @@
 from typing import Callable, Any
+from functools import wraps
 import json
 
 def serialize_output(format: str) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
@@ -29,6 +30,7 @@ def serialize_output(format: str) -> Callable[[Callable[..., Any]], Callable[...
         Callable[..., Any]
             The wrapped function.
         """
+        @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> str:
             """
             The wrapper function that serializes the output.
