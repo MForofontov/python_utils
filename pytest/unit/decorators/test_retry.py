@@ -11,50 +11,48 @@ handler.setFormatter(formatter)
 test_logger.addHandler(handler)
 
 # Sample function to be decorated
-@retry(max_retries=3, delay=0.1)
-def sample_function() -> str:
-    raise ValueError("Sample error")
+@retry(3)
+def sample_function_success() -> str:
+    return "Function executed"
+
+@retry(3)
+def sample_function_failure() -> None:
+    raise Exception("Function failed")
 
 def test_retry_success():
     """
-    Test case 1: Function succeeds without retries
+    Test case 1: Function executes successfully
     """
-    @retry(max_retries=3, delay=0.1)
-    def success_function() -> str:
-        return "Function executed"
-    
-    assert success_function() == "Function executed"
+    assert sample_function_success() == "Function executed"
 
 def test_retry_failure():
     """
-    Test case 2: Function fails after maximum retries
+    Test case 2: Function fails after retries
     """
-    with pytest.raises(ValueError, match="Sample error"):
-        sample_function()
+    with pytest.raises(Exception, match="Function failed"):
+        sample_function_failure()
 
 def test_retry_with_logger(caplog):
     """
-    Test case 3: Logger functionality when retries occur
+    Test case 3: Logger functionality when function fails
     """
-    logger = logging.getLogger("retry_logger")
-    logger.setLevel(logging.ERROR)
     
-    @retry(max_retries=3, delay=0.1, logger=logger)
+    @retry(3, logger=test_logger)
     def logged_function() -> str:
-        raise ValueError("Sample error")
+        raise Exception("Function failed")
     
-    with caplog.at_level(logging.ERROR):
-        with pytest.raises(ValueError):
+    with caplog.at_level(logging.WARNING):
+        with pytest.raises(Exception, match="Function failed"):
             logged_function()
-        assert "Attempt 1 failed for logged_function: Sample error" in caplog.text
-        assert "Attempt 2 failed for logged_function: Sample error" in caplog.text
-        assert "Attempt 3 failed for logged_function: Sample error" in caplog.text
+        assert "Attempt 1 failed for logged_function: Function failed" in caplog.text
+        assert "Attempt 2 failed for logged_function: Function failed" in caplog.text
+        assert "Attempt 3 failed for logged_function: Function failed" in caplog.text
 
 def test_retry_with_args():
     """
     Test case 4: Function with positional arguments
     """
-    @retry(max_retries=3, delay=0.1)
+    @retry(3)
     def function_with_args(a: int, b: int) -> int:
         return a + b
     
@@ -64,7 +62,7 @@ def test_retry_with_kwargs():
     """
     Test case 5: Function with keyword arguments
     """
-    @retry(max_retries=3, delay=0.1)
+    @retry(3)
     def function_with_kwargs(a: int, b: int = 0) -> int:
         return a + b
     
@@ -74,35 +72,98 @@ def test_retry_with_var_args():
     """
     Test case 6: Function with variable length arguments (*args and **kwargs)
     """
-    @retry(max_retries=3, delay=0.1)
+    @retry(3)
     def function_with_var_args(a: int, *args: str, **kwargs: float) -> str:
         return f"{a} - {args} - {kwargs}"
     
     assert function_with_var_args(1, "arg1", "arg2", kwarg1=1.0, kwarg2=2.0) == "1 - ('arg1', 'arg2') - {'kwarg1': 1.0, 'kwarg2': 2.0}"
 
-def test_invalid_max_retries_type():
+def test_retry_with_0_max_retries():
     """
-    Test case 7: Invalid max_retries type
+    Test case 7: Function with 0 max_retries
     """
-    with pytest.raises(TypeError, match="max_retries must be an integer"):
-        @retry(max_retries="three")
-        def invalid_max_retries_function() -> None:
-            pass
+    @retry(0)
+    def function_with_0_max_retries() -> str:
+        return "Function executed"
+    
+    assert function_with_0_max_retries() == "Function executed"
 
-def test_invalid_delay_type():
+def test_retry_with_negative_retries():
     """
-    Test case 8: Invalid delay type
+    Test case 8: Function with negative max_retries
     """
-    with pytest.raises(TypeError, match="delay must be a float or an integer"):
-        @retry(max_retries=3, delay="one")
-        def invalid_delay_function() -> None:
-            pass
+    with pytest.raises(Exception, match="max_retries must be an positive integer or 0"):
+        @retry(-1)
+        def function_with_negative_retries() -> None:
+            raise Exception("Function failed")
+        function_with_negative_retries()
 
-def test_invalid_logger_type():
+def test_retry_with_0_delay():
     """
-    Test case 9: Invalid logger type
+    Test case 9: Function with 0 delay
+    """
+    @retry(3, delay=0)
+    def function_with_0_delay() -> str:
+        return "Function executed"
+    
+    assert function_with_0_delay() == "Function executed"
+
+def test_retry_with_negative_delay():
+    """
+    Test case 10: Function with negative delay
+    """
+    with pytest.raises(Exception, match="delay must be a positive float or an positive integer or 0"):
+        @retry(3, delay=-1)
+        def function_with_negative_delay() -> None:
+            raise Exception("Function failed")
+        function_with_negative_delay()
+
+
+def test_retry_with_invalid_logger_type():
+    """
+    Test case 7: Invalid logger type
     """
     with pytest.raises(TypeError, match="logger must be an instance of logging.Logger or None"):
-        @retry(max_retries=3, delay=0.1, logger="not_a_logger")
-        def invalid_logger_function() -> None:
+        @retry(3, logger="test_logger")
+        def invalid_logger() -> None:
             pass
+
+def test_retry_with_invalid_max_retries_type():
+    """
+    Test case 8: Invalid max_retries type
+    """
+    with pytest.raises(TypeError, match="max_retries must be an positive integer or 0"):
+        @retry("3")
+        def invalid_max_retries() -> None:
+            pass
+
+def test_retry_with_invalid_max_retries_type_with_logger(caplog):
+    """
+    Test case 9: Invalid max_retries type with logger
+    """
+    with caplog.at_level(logging.ERROR):
+        with pytest.raises(TypeError, match="max_retries must be an positive integer or 0"):
+            @retry("3", logger=test_logger)
+            def invalid_max_retries_with_logger() -> None:
+                pass
+    assert "Type error in retry decorator: max_retries must be an positive integer or 0." in caplog.text
+
+def test_retry_with_invalid_delay_type():
+    """
+    Test case 10: Invalid delay type
+    """
+    with pytest.raises(TypeError, match="delay must be a positive float or an positive integer or 0"):
+        @retry(3, delay="3")
+        def invalid_delay() -> None:
+            pass
+
+def test_retry_with_invalid_delay_type_with_logger(caplog):
+    """
+    Test case 11: Invalid delay type with logger
+    """
+    with caplog.at_level(logging.ERROR):
+        with pytest.raises(TypeError, match="delay must be a positive float or an positive integer or 0"):
+            @retry(3, delay="3", logger=test_logger)
+            def invalid_delay_with_logger() -> None:
+                pass
+    assert "Type error in retry decorator: delay must be a positive float or an positive integer or 0." in caplog.text

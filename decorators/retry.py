@@ -28,14 +28,14 @@ def retry(max_retries: int, delay: Union[int, float] = 1.0, logger: logging.Logg
     """
     if not isinstance(logger, logging.Logger) and logger is not None:
         raise TypeError("logger must be an instance of logging.Logger or None")
-    if not isinstance(max_retries, int):
+    if not isinstance(max_retries, int) or max_retries < 0:
         if logger:
             logger.error("Type error in retry decorator: max_retries must be an integer.", exc_info=True)
-        raise TypeError("max_retries must be an integer")
-    if not isinstance(delay, (int, float)):
+        raise TypeError("max_retries must be an positive integer or 0")
+    if not isinstance(delay, (int, float)) or delay < 0:
         if logger:
-            logger.error("Type error in retry decorator: delay must be a float or an integer."), exc_info=True
-        raise TypeError("delay must be a float or an integer")
+            logger.error("Type error in retry decorator: delay must be a float or an integer.", exc_info=True)
+        raise TypeError("delay must be a positive float or an positive integer or 0")
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         """
@@ -67,6 +67,11 @@ def retry(max_retries: int, delay: Union[int, float] = 1.0, logger: logging.Logg
             -------
             Any
                 The result of the decorated function.
+            
+            Raises
+            ------
+            Exception
+                If the maximum number of retries is exceeded.
             """
             attempts: int = 0
             while attempts < max_retries:
