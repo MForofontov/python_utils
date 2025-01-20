@@ -1,4 +1,5 @@
 from typing import Callable, Any, Optional
+from functools import wraps
 import asyncio
 import inspect
 import logging
@@ -44,7 +45,7 @@ def async_handle_error(error_message: str, logger: Optional[logging.Logger] = No
                 logger.error(f"An error occurred in {func.__name__}: {error_message}", exc_info=True)
             else:
                 raise TypeError(error_message)
-
+        @wraps(func)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
             Wrapper function to handle errors in the asynchronous function.

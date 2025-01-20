@@ -1,4 +1,5 @@
 from typing import Callable, Any, Optional
+from functools import wraps
 import asyncio
 import logging
 import inspect
@@ -30,7 +31,7 @@ def async_wrapper(func: Callable[..., Any], logger: Optional[logging.Logger] = N
             logger.error(f"An error occurred in {func.__name__}: {error_message}", exc_info=True)
         else:
             raise TypeError(error_message)
-
+    @wraps(func)
     async def wrapper(*args: Any, **kwargs: Any) -> Any:
         """
         Asynchronous wrapper function.

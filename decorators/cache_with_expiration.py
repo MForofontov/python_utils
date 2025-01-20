@@ -1,4 +1,5 @@
 from typing import Callable, Any, Dict, Tuple, FrozenSet
+from functools import wraps
 import time
 
 def cache_with_expiration(expiration_time: int) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
@@ -39,6 +40,7 @@ def cache_with_expiration(expiration_time: int) -> Callable[[Callable[..., Any]]
         """
         cache: Dict[Tuple[Tuple[Any, ...], FrozenSet[Tuple[str, Any]]], Tuple[float, Any]] = {}
 
+        @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
             The wrapper function that caches the result of the decorated function.
