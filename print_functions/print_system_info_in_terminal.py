@@ -8,9 +8,18 @@ from print_functions.print_message import print_message
 
 def print_system_info_in_terminal() -> None:
     """
-    Print the system information.
+    Print the system information in the terminal.
 
-    This function prints the system information.
+    This function prints the system information in the terminal using the following information:
+    - Operating System
+    - OS Version
+    - Machine
+    - Processor
+    - CPU count (logical and physical)
+    - Total memory
+    - Available memory
+    - Disk usage
+    - System uptime
 
     Parameters
     ----------

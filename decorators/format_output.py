@@ -1,4 +1,5 @@
 from typing import Callable, Any
+from functools import wraps
 
 def format_output(format_string: str) -> Callable[[Callable[..., Any]], Callable[..., str]]:
     """
@@ -36,6 +37,7 @@ def format_output(format_string: str) -> Callable[[Callable[..., Any]], Callable
         Callable[..., str]
             The wrapped function.
         """
+        @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> str:
             """
             The wrapper function that formats the output of the decorated function.

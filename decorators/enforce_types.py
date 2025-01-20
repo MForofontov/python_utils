@@ -1,5 +1,6 @@
 import logging
-from typing import Callable, Any, get_type_hints, Optional, Union
+from functools import wraps
+from typing import Callable, Any, get_type_hints, Optional
 
 def enforce_types(logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
@@ -37,6 +38,7 @@ def enforce_types(logger: Optional[logging.Logger] = None) -> Callable[[Callable
         Callable[..., Any]
             The wrapped function.
         """
+        @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
             The wrapper function that checks the types of the arguments and return value.

@@ -1,4 +1,5 @@
 import logging
+from functools import wraps
 from typing import Callable, Any
 
 def log_function_calls(func: Callable[..., Any], logger: logging.Logger) -> Callable[..., Any]:
@@ -22,7 +23,8 @@ def log_function_calls(func: Callable[..., Any], logger: logging.Logger) -> Call
     """
     if isinstance(logger, logging.Logger):
         raise TypeError("logger must be an instance of logging.Logger.")
-    
+
+    @wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> Any:
         """
         The wrapper function that logs the function calls.

@@ -1,4 +1,5 @@
 from typing import Callable, Any
+from functools import wraps
 
 def validate_args(validation_func: Callable[..., bool]) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
@@ -28,6 +29,7 @@ def validate_args(validation_func: Callable[..., bool]) -> Callable[[Callable[..
         Callable[..., Any]
             The wrapped function.
         """
+        @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
             The wrapper function that validates the arguments.

@@ -1,20 +1,42 @@
-from typing import Callable, Any
+from typing import Callable, Any, Union
+from functools import wraps
+import logging
 import time
 
-def requires_permission(permission: str) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def retry(max_retries: int, delay: Union[int, float] = 1.0, logger: logging.Logger = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
-    A decorator to enforce that a user has a specific permission before executing a function.
+    A decorator to retry a function call a specified number of times with a delay between attempts.
 
     Parameters
     ----------
-    permission : str
-        The required permission that the user must have.
+    max_retries : int
+        The maximum number of retry attempts.
+    delay : Union[int, float], optional
+        The delay between retry attempts in seconds (default is 1.0).
+    logger : logging.Logger, optional
+        The logger to use for logging errors (default is None).
 
     Returns
     -------
     Callable[[Callable[..., Any]], Callable[..., Any]]
         The decorator function.
+
+    Raises
+    ------
+    TypeError
+        If max_retries is not an integer or delay is not a float.
     """
+    if not isinstance(logger, logging.Logger) and logger is not None:
+        raise TypeError("logger must be an instance of logging.Logger or None")
+    if not isinstance(max_retries, int) or max_retries < 0:
+        if logger:
+            logger.error("Type error in retry decorator: max_retries must be an integer.", exc_info=True)
+        raise TypeError("max_retries must be an positive integer or 0")
+    if not isinstance(delay, (int, float)) or delay < 0:
+        if logger:
+            logger.error("Type error in retry decorator: delay must be a float or an integer.", exc_info=True)
+        raise TypeError("delay must be a positive float or an positive integer or 0")
+
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         """
         The actual decorator function.
@@ -27,16 +49,15 @@ def requires_permission(permission: str) -> Callable[[Callable[..., Any]], Calla
         Returns
         -------
         Callable[..., Any]
-            The wrapped function.
+            The wrapped function with retry logic.
         """
-        def wrapper(user_permissions: list[str], *args: Any, **kwargs: Any) -> Any:
+        @wraps(func)
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
-            The wrapper function that checks for the required permission.
+            The wrapper function that retries the function call.
 
             Parameters
             ----------
-            user_permissions : list[str]
-                The list of permissions that the user has.
             *args : Any
                 Positional arguments for the decorated function.
             **kwargs : Any
@@ -46,16 +67,22 @@ def requires_permission(permission: str) -> Callable[[Callable[..., Any]], Calla
             -------
             Any
                 The result of the decorated function.
-
+            
             Raises
             ------
-            PermissionError
-                If the user does not have the required permission.
+            Exception
+                If the maximum number of retries is exceeded.
             """
-            # Check if the required permission is in the user's permissions
-            if permission not in user_permissions:
-                raise PermissionError("User does not have the required permission.")
-            # Call the original function with the provided arguments and keyword arguments
-            return func(*args, **kwargs)
+            attempts: int = 0
+            while attempts < max_retries:
+                try:
+                    return func(*args, **kwargs)
+                except Exception as e:
+                    attempts += 1
+                    if logger:
+                        logger.error(f"Attempt {attempts} failed for {func.__name__}: {e}", exc_info=True)
+                    if attempts >= max_retries:
+                        raise
+                    time.sleep(delay)
         return wrapper
     return decorator

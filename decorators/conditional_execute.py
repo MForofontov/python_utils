@@ -1,4 +1,5 @@
 from typing import Callable, Any, TypeVar, Optional
+from functools import wraps
 
 T = TypeVar('T')
 
@@ -38,6 +39,7 @@ def conditional_execute(predicate: Callable[[], bool]) -> Callable[[Callable[...
         Callable[..., Optional[T]]
             The wrapped function with conditional execution logic.
         """
+        @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Optional[T]:
             """
             Wrapper function to conditionally execute the input function.

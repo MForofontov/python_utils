@@ -1,4 +1,5 @@
 from typing import Callable, Any
+from functools import wraps
 import threading
 
 class TimeoutException(Exception):
@@ -35,6 +36,7 @@ def timeout(seconds: int) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
         Callable[..., Any]]
             The wrapped function.
         """
+        @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
             The wrapper function that enforces the timeout.

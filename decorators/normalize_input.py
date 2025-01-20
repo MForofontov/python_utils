@@ -1,4 +1,5 @@
 from typing import Callable, Any, Optional
+from functools import wraps
 import logging
 
 def normalize_input(normalization_func: Callable[[Any], Any], logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
@@ -43,6 +44,7 @@ def normalize_input(normalization_func: Callable[[Any], Any], logger: Optional[l
         Callable[..., Any]
             The wrapped function.
         """
+        @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
             The wrapper function that normalizes the input arguments.

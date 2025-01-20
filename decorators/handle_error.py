@@ -1,4 +1,5 @@
 from typing import Callable, Any, Optional
+from functools import wraps
 import logging
 
 def handle_error(error_message: str, logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
@@ -40,6 +41,7 @@ def handle_error(error_message: str, logger: Optional[logging.Logger] = None) ->
         Callable[..., Any]
             The wrapped function.
         """
+        @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
             The wrapper function that handles exceptions.

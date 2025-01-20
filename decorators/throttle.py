@@ -1,7 +1,9 @@
-from typing import Callable, Any
+from typing import Callable, Any, Union
+from functools import wraps
 import time
+import logging
 
-def throttle(rate_limit: float) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def throttle(rate_limit: Union[int, float], logger: logging.Logger = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to enforce a rate limit on a function, ensuring it is not called more often than the specified rate.
 
@@ -9,12 +11,27 @@ def throttle(rate_limit: float) -> Callable[[Callable[..., Any]], Callable[..., 
     ----------
     rate_limit : float
         The minimum time interval (in seconds) between consecutive calls to the function.
+    logger : logging.Logger, optional
+        The logger to use for logging errors (default is None).
 
     Returns
     -------
     Callable[[Callable[..., Any]], Callable[..., Any]]
         The decorator function.
+
+    Raises
+    ------
+    TypeError
+        If rate_limit is not a float or an integer.
     """
+    if not isinstance(logger, logging.Logger) and logger is not None:
+        raise TypeError("logger must be an instance of logging.Logger or None")
+
+    if not isinstance(rate_limit, (int, float)) or rate_limit < 0:
+        if logger:
+            logger.error("Type error in throttle decorator: rate_limit must be a positive float or an integer.", exc_info=True)
+        raise TypeError("rate_limit must be a positive float or an integer")
+
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         """
         The actual decorator function.
@@ -29,9 +46,9 @@ def throttle(rate_limit: float) -> Callable[[Callable[..., Any]], Callable[..., 
         Callable[..., Any]
             The wrapped function.
         """
-        # Store the time of the last function call
-        last_called = [0.0]
+        last_called = 0.0
 
+        @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
             The wrapper function that enforces the rate limit.
@@ -48,17 +65,14 @@ def throttle(rate_limit: float) -> Callable[[Callable[..., Any]], Callable[..., 
             Any
                 The result of the decorated function.
             """
-            # Get the current time
+            nonlocal last_called
             current_time = time.time()
-            # Calculate the time elapsed since the last function call
-            elapsed_time = current_time - last_called[0]
-            # If the elapsed time is less than the rate limit, sleep for the remaining time
+            elapsed_time = current_time - last_called
             if elapsed_time < rate_limit:
-                time.sleep(rate_limit - elapsed_time)
-            # Update the time of the last function call
-            last_called[0] = time.time()
-            # Call the original function with the provided arguments and keyword arguments
+                if logger:
+                    logger.error(f"Function {func.__name__} called too frequently. Rate limit: {rate_limit} seconds.", exc_info=True)
+                raise RuntimeError(f"Function {func.__name__} called too frequently. Rate limit: {rate_limit} seconds.")
+            last_called = current_time
             return func(*args, **kwargs)
-
         return wrapper
     return decorator

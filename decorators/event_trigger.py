@@ -1,4 +1,5 @@
 from typing import Callable, Any, Dict, List, Optional
+from functools import wraps
 import logging
 
 class EventManager:
@@ -116,6 +117,7 @@ def event_trigger(event_manager: EventManager, event_name: str, logger: Optional
         Callable[..., Any]
             The wrapped function.
         """
+        @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
             The wrapper function that triggers the event and then calls the original function.

@@ -1,4 +1,5 @@
 from typing import Callable, Any, Optional
+from functools import wraps
 import warnings
 import logging
 
@@ -38,6 +39,7 @@ def deprecated(logger: Optional[logging.Logger] = None) -> Callable[[Callable[..
         Callable[..., Any]
             A wrapper function that emits a deprecation warning when the input function is called.
         """
+        @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
             Wrapper function to emit a deprecation warning and log a message.

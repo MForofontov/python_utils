@@ -1,4 +1,5 @@
 from typing import Callable, Any, TypeVar
+from functools import wraps
 
 T = TypeVar('T')
 
@@ -40,6 +41,7 @@ def conditional_return(condition: Callable[..., bool], return_value: T) -> Calla
         Callable[..., T]
             The wrapped function with conditional return logic.
         """
+        @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> T:
             """
             Wrapper function to conditionally return a specified value.
