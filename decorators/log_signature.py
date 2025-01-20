@@ -1,4 +1,5 @@
 from typing import Callable, Any, Optional
+from functools import wraps
 import inspect
 import logging
 
@@ -38,6 +39,7 @@ def log_signature(logger: Optional[logging.Logger] = None) -> Callable[[Callable
         Callable[..., Any]
             The wrapped function.
         """
+        @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
             The wrapper function that logs the function signature and arguments.
