@@ -1,4 +1,5 @@
 from typing import Callable, Any, Optional, Type
+from functools import wraps
 import os
 import logging
 
@@ -71,6 +72,7 @@ def env_config(var_name: str, required: bool = True, var_type: Type = str, custo
         Callable[..., Any]
             The wrapped function.
         """
+        @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
             The wrapper function that injects the environment variable.
