@@ -1,4 +1,5 @@
 from typing import Callable, Any, Type
+from functools import wraps
 
 def validate_input(expected_type: Type) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
@@ -28,6 +29,7 @@ def validate_input(expected_type: Type) -> Callable[[Callable[..., Any]], Callab
         Callable[..., Any]
             The wrapped function.
         """
+        @wraps(func)
         def wrapper(arg: Any) -> Any:
             """
             The wrapper function that validates the input argument type.
