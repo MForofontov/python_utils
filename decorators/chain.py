@@ -1,4 +1,5 @@
 from typing import Callable, Any, TypeVar, Union
+from functools import wraps
 
 T = TypeVar('T')
 
@@ -16,6 +17,7 @@ def chain(func: Callable[..., T]) -> Callable[..., Union[T, Any]]:
     Callable[..., Union[T, Any]]
         A wrapper function that calls the 'chain' method on the result of the input function if it exists.
     """
+    @wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> Union[T, Any]:
         """
         Wrapper function to call the 'chain' method on the result of the input function if it exists.
