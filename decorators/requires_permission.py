@@ -25,6 +25,10 @@ def requires_permission(permission: str, logger: logging.Logger = None) -> Calla
     """
     if not isinstance(logger, logging.Logger) and logger is not None:
         raise TypeError("logger must be an instance of logging.Logger or None")
+    if not isinstance(permission, str):
+        if logger:
+            logger.error("Type error in requires_permission decorator: permission must be a string", exc_info=True)
+        raise TypeError("permission must be a string")
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         """
