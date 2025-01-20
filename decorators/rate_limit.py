@@ -1,4 +1,5 @@
 from typing import Callable, Any, Optional, List
+from functools import wraps
 import time
 import logging
 
@@ -49,9 +50,23 @@ def rate_limit(max_calls: int, period: int, logger: Optional[logging.Logger] = N
         raise TypeError("exception_message must be a string or None")
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+        """
+        The actual decorator function.
+
+        Parameters
+        ----------
+        func : Callable[..., Any]
+            The function to be decorated.
+        
+        Returns
+        -------
+        Callable[..., Any]
+            The wrapped function
+        """
         # List to store the timestamps of function calls
         calls: List[float] = []
 
+        @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
             The wrapper function that enforces the rate limit.

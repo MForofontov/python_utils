@@ -1,4 +1,5 @@
 from typing import Callable, Any
+from functools import wraps
 
 def requires_permission(permission: str) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
@@ -28,6 +29,7 @@ def requires_permission(permission: str) -> Callable[[Callable[..., Any]], Calla
         Callable[..., Any]
             The wrapped function.
         """
+        @wraps(func)
         def wrapper(user_permissions: list[str], *args: Any, **kwargs: Any) -> Any:
             """
             The wrapper function that checks for the required permission.

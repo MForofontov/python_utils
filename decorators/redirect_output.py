@@ -1,5 +1,6 @@
 from typing import Callable, Any
 from contextlib import redirect_stdout
+from functools import wraps
 import logging
 
 def redirect_output(file_path: str, logger: logging.Logger = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
@@ -44,6 +45,7 @@ def redirect_output(file_path: str, logger: logging.Logger = None) -> Callable[[
         Callable[..., Any]
             The wrapped function.
         """
+        @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
             The wrapper function that redirects the output.
