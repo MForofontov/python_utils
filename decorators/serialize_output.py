@@ -1,8 +1,9 @@
 from typing import Callable, Any
 from functools import wraps
 import json
+import logging
 
-def serialize_output(format: str) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def serialize_output(format: str, logger: logging.Logger = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to serialize the output of a function into a specified format.
 
@@ -10,12 +11,34 @@ def serialize_output(format: str) -> Callable[[Callable[..., Any]], Callable[...
     ----------
     format : str
         The format to serialize the output into. Currently supports 'json'.
+    logger : logging.Logger, optional
+        The logger to use for logging errors (default is None).
 
     Returns
     -------
     Callable[[Callable[..., Any]], Callable[..., Any]]
         The decorator function.
+
+    Raises
+    ------
+    ValueError
+        If the format is not supported.
+    TypeError
+        If logger is not an instance of logging.Logger or
     """
+    if not isinstance(logger, logging.Logger) and logger is not None:
+        raise TypeError("logger must be an instance of logging.Logger or None")
+
+    if not isinstance(format, str):
+        if logger:
+            logger.error("Type error in serialize_output decorator: format must be a string.", exc_info=True)
+        raise TypeError("format must be a string.")
+
+    if format not in ['json']:
+        if logger:
+            logger.error("Value error in serialize_output decorator: Unsupported format.", exc_info=True)
+        raise ValueError("Unsupported format. Currently, only 'json' is supported.")
+
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         """
         The actual decorator function.
@@ -47,12 +70,13 @@ def serialize_output(format: str) -> Callable[[Callable[..., Any]], Callable[...
             str
                 The serialized output of the decorated function.
             """
-            # Call the original function and get the result
-            result = func(*args, **kwargs)
-            # Serialize the result based on the specified format
-            if format == 'json':
-                return json.dumps(result)
-            # Default to converting the result to a string
-            return str(result)
+            try:
+                result = func(*args, **kwargs)
+                if format == 'json':
+                    return json.dumps(result)
+            except Exception as e:
+                if logger:
+                    logger.error(f"Error serializing output in {func.__name__}: {e}", exc_info=True)
+                raise
         return wrapper
     return decorator

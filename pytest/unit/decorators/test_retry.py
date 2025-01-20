@@ -121,7 +121,7 @@ def test_retry_with_negative_delay():
 
 def test_retry_with_invalid_logger_type():
     """
-    Test case 7: Invalid logger type
+    Test case 11: Invalid logger type
     """
     with pytest.raises(TypeError, match="logger must be an instance of logging.Logger or None"):
         @retry(3, logger="test_logger")
@@ -130,7 +130,7 @@ def test_retry_with_invalid_logger_type():
 
 def test_retry_with_invalid_max_retries_type():
     """
-    Test case 8: Invalid max_retries type
+    Test case 12: Invalid max_retries type
     """
     with pytest.raises(TypeError, match="max_retries must be an positive integer or 0"):
         @retry("3")
@@ -139,7 +139,7 @@ def test_retry_with_invalid_max_retries_type():
 
 def test_retry_with_invalid_max_retries_type_with_logger(caplog):
     """
-    Test case 9: Invalid max_retries type with logger
+    Test case 13: Invalid max_retries type with logger
     """
     with caplog.at_level(logging.ERROR):
         with pytest.raises(TypeError, match="max_retries must be an positive integer or 0"):
@@ -150,7 +150,7 @@ def test_retry_with_invalid_max_retries_type_with_logger(caplog):
 
 def test_retry_with_invalid_delay_type():
     """
-    Test case 10: Invalid delay type
+    Test case 14: Invalid delay type
     """
     with pytest.raises(TypeError, match="delay must be a positive float or an positive integer or 0"):
         @retry(3, delay="3")
@@ -159,7 +159,7 @@ def test_retry_with_invalid_delay_type():
 
 def test_retry_with_invalid_delay_type_with_logger(caplog):
     """
-    Test case 11: Invalid delay type with logger
+    Test case 15: Invalid delay type with logger
     """
     with caplog.at_level(logging.ERROR):
         with pytest.raises(TypeError, match="delay must be a positive float or an positive integer or 0"):
