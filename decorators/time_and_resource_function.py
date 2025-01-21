@@ -162,55 +162,51 @@ def time_and_resource_function(monitor_memory=True, monitor_cpu=True, monitor_io
             final_net_io_counters = psutil.net_io_counters() if monitor_network else None
             final_disk_io_counters = psutil.disk_io_counters() if monitor_disk else None
 
-            # Calculate the differences for network I/O
-            if initial_net_io_counters and final_net_io_counters:
-                bytes_sent = final_net_io_counters.bytes_sent - initial_net_io_counters.bytes_sent
-                bytes_recv = final_net_io_counters.bytes_recv - initial_net_io_counters.bytes_recv
-            else:
-                bytes_sent = total_bytes_sent
-                bytes_recv = total_bytes_recv
-
             # Print results
             terminal_width = shutil.get_terminal_size().columns
-            separator = "=" * terminal_width
-            print_message(separator, None)
-            print_message("Running Stats".center(terminal_width), None)
-            print_message(f"Execution time: {execution_time:.2f} seconds", "info")
+            border_line = "=" * terminal_width
+            print_message(border_line, None)
+            print_message("Running Stats".center(terminal_width), "debug_additional_info_in_logger_only")
+            print_message(f"Execution time: {execution_time:.2f} seconds", "debug")
 
             if monitor_memory:
-                print_message(f"Maximum memory usage: {max_memory_usage / (1024 * 1024):.2f} MB", "info")
+                print_message(f"Maximum memory usage: {max_memory_usage / (1024 * 1024):.2f} MB", "debug")
             if monitor_cpu:
-                num_cores = psutil.cpu_count()
-                print_message(f"Maximum CPU usage: {max_cpu_usage:.2f}%", "info")
-                print_message(f"Maximum CPU cores used: {max_cpu_cores:.2f}", "info")
-                print_message(f"Number of physical CPU cores: {psutil.cpu_count(logical=False)}", "info")
-                print_message(f"Number of logical CPU cores: {num_cores}", "info")
+                print_message(f"Maximum CPU usage: {max_cpu_usage:.2f}%", "debug")
+                print_message(f"Maximum CPU cores used: {max_cpu_cores:.2f}", "debug")
             if monitor_io and initial_io_counters and final_io_counters:
                 read_ops = final_io_counters.read_count - initial_io_counters.read_count + total_read_ops
                 write_ops = final_io_counters.write_count - initial_io_counters.write_count + total_write_ops
-                print_message(f"Read operations: {read_ops}", "info")
-                print_message(f"Write operations: {write_ops}", "info")
+                print_message(f"Read operations: {read_ops}", "debug")
+                print_message(f"Write operations: {write_ops}", "debug")
             if monitor_network and initial_net_io_counters and final_net_io_counters:
-                print_message(f"Bytes sent: {bytes_sent}", "info")
-                print_message(f"Bytes received: {bytes_recv}", "info")
+                # Calculate the differences for network I/O
+                if initial_net_io_counters and final_net_io_counters:
+                    bytes_sent = final_net_io_counters.bytes_sent - initial_net_io_counters.bytes_sent
+                    bytes_recv = final_net_io_counters.bytes_recv - initial_net_io_counters.bytes_recv
+                else:
+                    bytes_sent = total_bytes_sent
+                    bytes_recv = total_bytes_recv
+                print_message(f"Bytes sent: {bytes_sent}", "debug")
+                print_message(f"Bytes received: {bytes_recv}", "debug")
             if monitor_disk and initial_disk_io_counters and final_disk_io_counters:
                 read_bytes = final_disk_io_counters.read_bytes - initial_disk_io_counters.read_bytes + total_read_bytes
                 write_bytes = final_disk_io_counters.write_bytes - initial_disk_io_counters.write_bytes + total_write_bytes
-                print_message(f"Disk read bytes: {read_bytes}", "info")
-                print_message(f"Disk write bytes: {write_bytes}", "info")
+                print_message(f"Disk read bytes: {read_bytes}", "debug")
+                print_message(f"Disk write bytes: {write_bytes}", "debug")
             if monitor_threads:
-                print_message(f"Maximum number of threads: {max_threads}", "info")
+                print_message(f"Maximum number of threads: {max_threads}", "debug")
             if monitor_gc:
-                print_message(f"GC collections: {total_gc_collections}", "info")
+                print_message(f"GC collections: {total_gc_collections}", "debug")
             if monitor_context_switches:
-                print_message(f"Voluntary context switches: {total_voluntary_context_switches}", "info")
-                print_message(f"Involuntary context switches: {total_involuntary_context_switches}", "info")
+                print_message(f"Voluntary context switches: {total_voluntary_context_switches}", "debug")
+                print_message(f"Involuntary context switches: {total_involuntary_context_switches}", "debug")
             if monitor_open_files:
-                print_message(f"Maximum open files: {max_open_files}", "info")
+                print_message(f"Maximum open files: {max_open_files}", "debug")
             if monitor_page_faults:
-                print_message(f"Maximum page faults: {max_page_faults}", "info")
+                print_message(f"Maximum page faults: {max_page_faults}", "debug")
 
-            print_message(separator, None)
+            print_message(border_line, "debug_additional_info_in_logger_only")
             return result
 
         return wrapper
