@@ -112,7 +112,7 @@ def time_and_resource_function(monitor_memory=True, monitor_cpu=True, monitor_io
                                     total_read_bytes += child_io_counters.read_bytes
                                     total_write_bytes += child_io_counters.write_bytes
                                 if monitor_network:
-                                    child_net_io_counters = child.net_io_counters()
+                                    child_net_io_counters = psutil.net_io_counters()
                                     total_bytes_sent += child_net_io_counters.bytes_sent
                                     total_bytes_recv += child_net_io_counters.bytes_recv
                                 if monitor_open_files:
