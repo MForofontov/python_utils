@@ -17,8 +17,34 @@ def async_wrapper(logger: Optional[logging.Logger] = None) -> Callable[[Callable
     -------
     Callable[[Callable[..., Any]], Callable[..., Any]]
         A decorator that wraps a synchronous function in an async wrapper.
+    
+    Raises
+    ------
+    TypeError
+        If the logger is not an instance of logging.Logger.
     """
+    if logger and not isinstance(logger, logging.Logger):
+        raise TypeError("The logger must be an instance of logging.Logger")
+
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+        """
+        Decorator function.
+
+        Parameters
+        ----------
+        func : Callable[..., Any]
+            The synchronous function to be wrapped.
+        
+        Returns
+        -------
+        Callable[..., Any]
+            The wrapped function with asynchronous execution.
+
+        Raises
+        ------
+        TypeError
+            If the function is asynchronous.
+        """
         if inspect.iscoroutinefunction(func):
             error_message = "The function to be wrapped must be synchronous"
             if logger:

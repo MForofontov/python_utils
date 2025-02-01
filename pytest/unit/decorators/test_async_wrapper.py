@@ -110,11 +110,12 @@ def test_async_function_with_logger(caplog):
     Test case 8: Asynchronous function that logs an TypeError with logging enabled
     """
     # Test case 8: Asynchronous function that logs an error with logging enabled
-    with caplog.at_level(logging.ERROR):
-        @async_wrapper(logger=test_logger)
-        async def sample_function(x: int, y: int) -> int:
-            return x + y
-        assert "An error occurred in sample_function: The function to be wrapped must be synchronous" in caplog.text
+    with pytest.raises(TypeError, match="The function to be wrapped must be synchronous"):
+        with caplog.at_level(logging.ERROR):
+            @async_wrapper(logger=test_logger)
+            async def sample_function(x: int, y: int) -> int:
+                return x + y
+            assert "An error occurred in sample_function: The function to be wrapped must be synchronous" in caplog.text
 
 @pytest.mark.asyncio
 async def test_sync_function_with_logger(caplog):
