@@ -43,6 +43,11 @@ def time_and_resource_function(monitor_memory=True, monitor_cpu=True, monitor_io
     -------
     function
         The wrapped function with added time and optional resource measurement.
+    
+    Raises
+    ------
+    TypeError
+        If logger is not an instance of logging.Logger or None.
     """
     if not isinstance(logger, logging.Logger) and logger is not None:
         raise TypeError("logger must be an instance of logging.Logger or None")

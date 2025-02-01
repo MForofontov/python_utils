@@ -1,27 +1,39 @@
-from typing import Callable, Any
+import signal
+import logging
+from typing import Callable, Any, Optional
 from functools import wraps
-import threading
 
 class TimeoutException(Exception):
-    """
-    Custom exception to be raised when a function times out.
-    """
     pass
 
-def timeout(seconds: int) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def timeout(seconds: int, logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
-    A decorator to enforce a timeout on a function, raising a TimeoutException if the function takes longer than the specified time.
+    A decorator that enforces a timeout on a function.
 
     Parameters
     ----------
     seconds : int
         The maximum number of seconds the function is allowed to run.
+    logger : Optional[logging.Logger]
+        The logger to use for logging timeout messages. If None, messages are printed to the console.
 
     Returns
     -------
     Callable[[Callable[..., Any]], Callable[..., Any]]
         The decorator function.
+    
+    Raises
+    ------
+    TypeError
+        If seconds is not an integer or if logger is not an instance of logging.Logger or
     """
+    if not isinstance(logger, logging.Logger) and logger is not None:
+        raise TypeError("logger must be an instance of logging.Logger or None")
+
+    if not isinstance(seconds, int) or seconds < 0:
+        if logger:
+            logger.error("Type error in timeout decorator: seconds must be a positive integer.", exc_info=True)
+        raise TypeError("seconds must be a positive integer")
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         """
         The actual decorator function.
@@ -33,7 +45,7 @@ def timeout(seconds: int) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
 
         Returns
         -------
-        Callable[..., Any]]
+        Callable[..., Any]
             The wrapped function.
         """
         @wraps(func)
@@ -52,35 +64,21 @@ def timeout(seconds: int) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
             -------
             Any
                 The result of the decorated function.
-
-            Raises
-            ------
-            TimeoutException
-                If the function execution exceeds the specified timeout.
             """
-            result = [None]  # To store the result of the function call
-            exception = [None]  # To store any exception raised by the function
+            def _handle_timeout(signum, frame):
+                message = f"Function {func.__name__} timed out after {seconds} seconds"
+                if logger:
+                    logger.error(message)
+                else:
+                    print(message)
+                raise TimeoutException(message)
 
-            def target():
-                try:
-                    # Call the original function and store the result
-                    result[0] = func(*args, **kwargs)
-                except Exception as e:
-                    # Store any exception raised by the function
-                    exception[0] = e
-
-            # Create a thread to run the target function
-            thread = threading.Thread(target=target)
-            thread.start()
-            # Wait for the thread to complete or timeout
-            thread.join(seconds)
-            if thread.is_alive():
-                # If the thread is still alive after the timeout, raise TimeoutException
-                raise TimeoutException(f"{func.__name__} timed out after {seconds} seconds")
-            if exception[0]:
-                # If an exception was raised by the function, raise it
-                raise exception[0]
-            # Return the result of the function call
-            return result[0]
+            signal.signal(signal.SIGALRM, _handle_timeout)
+            signal.alarm(seconds)
+            try:
+                result = func(*args, **kwargs)
+            finally:
+                signal.alarm(0)
+            return result
         return wrapper
     return decorator

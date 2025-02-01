@@ -16,6 +16,11 @@ def time_function(logger: Optional[logging.Logger] = None) -> Callable[[Callable
     -------
     Callable[[Callable[..., Any]], Callable[..., Any]]
         The wrapped function that measures and logs or prints its execution time.
+    
+    Raises
+    ------
+    TypeError
+        If logger is not an instance of logging.Logger or None.
     """
     if not isinstance(logger, logging.Logger) and logger is not None:
         raise TypeError("logger must be an instance of logging.Logger or None")
