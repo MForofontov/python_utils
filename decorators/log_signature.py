@@ -3,7 +3,7 @@ from functools import wraps
 import inspect
 import logging
 
-def log_signature(logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def log_signature(logger: Optional[logging.Logger]) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to log the function signature and the arguments passed to it.
 
@@ -22,7 +22,7 @@ def log_signature(logger: Optional[logging.Logger] = None) -> Callable[[Callable
     TypeError
         If the logger is not an instance of logging.Logger.
     """
-    if isinstance(logger, logging.Logger):
+    if not isinstance(logger, logging.Logger):
         raise TypeError("logger must be an instance of logging.Logger.")
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
