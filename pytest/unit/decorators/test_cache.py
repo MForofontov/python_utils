@@ -1,5 +1,5 @@
 import pytest
-from decorators.memoize import cache
+from decorators.cache import cache
 
 call_counts = {
     'add': 0,

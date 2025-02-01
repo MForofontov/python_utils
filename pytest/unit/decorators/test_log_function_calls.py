@@ -104,7 +104,7 @@ def test_log_function_calls_invalid_logger() -> None:
     """
     Test case 7: Invalid logger type
     """
-    with pytest.raises(TypeError, match="logger must be an instance of logging.Logger or None."):
+    with pytest.raises(TypeError, match="logger must be an instance of logging.Logger."):
         @log_function_calls(logger="invalid_logger")
         def sample_function_invalid_logger(a: int, b: str) -> str:
             return f"{a} - {b}"

@@ -4,7 +4,7 @@ import asyncio
 import inspect
 import logging
 
-def async_handle_error(error_message: str, logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def async_handle_error(logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     Decorator to handle errors in asynchronous functions.
 
@@ -19,7 +19,15 @@ def async_handle_error(error_message: str, logger: Optional[logging.Logger] = No
     -------
     Callable[[Callable[..., Any]], Callable[..., Any]]
         A decorator that wraps the input function with error handling.
+
+    Raises
+    ------
+    TypeError
+        If the logger is not an instance of logging.Logger.
     """
+    if logger and not isinstance(logger, logging.Logger):
+        raise TypeError("The logger must be an instance of logging.Logger")
+
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         """
         Decorator function.

@@ -1,20 +1,35 @@
-from typing import Callable, Any
+import logging
+from typing import Callable, Any, Optional
 from functools import wraps
 
-def validate_args(validation_func: Callable[..., bool]) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def validate_args(validation_func: Callable[..., bool], logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
-    A decorator to validate the arguments of a function using a specified validation function.
+    A decorator that validates the arguments of a function using a provided validation function.
 
     Parameters
     ----------
     validation_func : Callable[..., bool]
-        A function that takes the same arguments as the decorated function and returns a boolean indicating whether the arguments are valid.
+        The validation function that takes the same arguments as the decorated function and returns a boolean.
+    logger : Optional[logging.Logger]
+        The logger to use for logging validation failure messages. If None, messages are printed to the console.
 
     Returns
     -------
     Callable[[Callable[..., Any]], Callable[..., Any]]
         The decorator function.
+    
+    Raises
+    ------
+    TypeError
+        If validation_func is not callable or if logger is not an instance of logging.Logger or None.
     """
+    if not isinstance(logger, logging.Logger) and logger is not None:
+        raise TypeError("logger must be an instance of logging.Logger or None")
+    if not callable(validation_func):
+        if logger:
+            logger.error(f"Validation function {validation_func} is not callable", exc_info=True)
+        raise TypeError("validation_func must be callable")
+
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         """
         The actual decorator function.
@@ -53,7 +68,10 @@ def validate_args(validation_func: Callable[..., bool]) -> Callable[[Callable[..
             """
             # Validate the arguments using the provided validation function
             if not validation_func(*args, **kwargs):
-                raise ValueError("Function arguments did not pass validation.")
+                message = f"Function {func.__name__} arguments did not pass validation."
+                if logger:
+                    logger.error(message)
+                raise ValueError(message)
             # Call the original function with the validated arguments
             return func(*args, **kwargs)
         return wrapper
