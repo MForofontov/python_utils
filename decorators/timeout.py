@@ -69,8 +69,6 @@ def timeout(seconds: int, logger: Optional[logging.Logger] = None) -> Callable[[
                 message = f"Function {func.__name__} timed out after {seconds} seconds"
                 if logger:
                     logger.error(message)
-                else:
-                    print(message)
                 raise TimeoutException(message)
 
             signal.signal(signal.SIGALRM, _handle_timeout)
