@@ -38,7 +38,7 @@ def cache_with_expiration(expiration_time: int) -> Callable[[Callable[..., Any]]
         Callable[..., Any]]
             The wrapped function.
         """
-        cache: Dict[Tuple[Tuple[Any, ...], FrozenSet[Tuple[str, Any]]], Tuple[float, Any]] = {}
+        cached_results: Dict[Tuple[Tuple[Any, ...], FrozenSet[Tuple[str, Any]]], Tuple[float, Any]] = {}
 
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
@@ -69,13 +69,18 @@ def cache_with_expiration(expiration_time: int) -> Callable[[Callable[..., Any]]
                 raise TypeError(f"Unhashable arguments: {e}")
 
             current_time = time.time()
-            if key in cache:
-                cached_time, cached_value = cache[key]
+            if key in cached_results:
+                cached_time, cached_value = cached_results[key]
                 if current_time - cached_time < expiration_time:
                     return cached_value
             result = func(*args, **kwargs)
-            cache[key] = (current_time, result)
+            cached_results[key] = (current_time, result)
             return result
 
+        def cache_clear():
+            """
+            Clear the cache.
+            """
+            cached_results.clear()
         return wrapper
     return decorator
