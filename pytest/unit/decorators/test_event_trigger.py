@@ -11,26 +11,18 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 handler.setFormatter(formatter)
 test_logger.addHandler(handler)
 
-# Example event manager
-event_manager = EventManager()
-
-# Example function to be decorated
-@event_trigger(event_manager, "test_event", logger=test_logger)
-def sample_function(a: int, b: str) -> str:
-    return f"{a} - {b}"
-
-@event_trigger(event_manager, "test_event", logger=test_logger)
-def sample_function_args_kwargs(*args: Any, **kwargs: Any) -> str:
-    return f"args: {args}, kwargs: {kwargs}"
-
-@event_trigger(event_manager, "test_event", logger=test_logger)
-def sample_function_raises_error(a: int, b: str) -> str:
-    raise ValueError("An error occurred")
-
 def test_event_trigger_basic() -> None:
     """
     Test case 1: Basic functionality of event_trigger
     """
+    # Example event manager
+    event_manager = EventManager()
+
+    # Example function to be decorated
+    @event_trigger(event_manager, "test_event", logger=test_logger)
+    def sample_function(a: int, b: str) -> str:
+        return f"{a} - {b}"
+
     triggered = []
 
     def handler(a: int, b: str) -> None:
@@ -45,6 +37,14 @@ def test_event_trigger_with_kwargs() -> None:
     """
     Test case 2: Event trigger with kwargs
     """
+    # Example event manager
+    event_manager = EventManager()
+
+    # Example function to be decorated
+    @event_trigger(event_manager, "test_event", logger=test_logger)
+    def sample_function(a: int, b: str) -> str:
+        return f"{a} - {b}"
+
     triggered = []
 
     def handler(a: int, b: str) -> None:
@@ -63,10 +63,12 @@ def test_event_trigger_with_mixed_args() -> None:
     """
     Test case 3: Event trigger with mixed args and kwargs
     """
+    # Example event manager
+    event_manager = EventManager()
     triggered = []
 
-    def handler(a: int, b: str, c: int) -> None:
-        triggered.append((a, b, c))
+    def handler(a: int, **kwargs: Any) -> None:
+        triggered.append((a, kwargs))
 
     event_manager.subscribe("test_event", handler)
     @event_trigger(event_manager, "test_event", logger=test_logger)
@@ -75,15 +77,22 @@ def test_event_trigger_with_mixed_args() -> None:
     
     result = sample_function_mixed(1, b="test", c=2)
     assert result == "1 - test - 2"
-    assert triggered == [(1, "test", 2)]
+    assert triggered == [(1, {'b': 'test', 'c': 2})]
 
 def test_event_trigger_with_variable_length_arguments() -> None:
     """
     Test case 4: Event trigger with variable length arguments (*args and **kwargs)
     """
+    # Example event manager
+    event_manager = EventManager()
+
+    @event_trigger(event_manager, "test_event", logger=test_logger)
+    def sample_function_args_kwargs(*args: Any, **kwargs: Any) -> str:
+        return f"args: {args}, kwargs: {kwargs}"
+
     triggered = []
 
-    def handler(*args: Any, **kwargs: Any) -> None:
+    def handler(args: Any, kwargs: Any) -> None:
         triggered.append((args, kwargs))
 
     event_manager.subscribe("test_event", handler)
@@ -95,10 +104,13 @@ def test_event_trigger_mixed_type_arguments() -> None:
     """
     Test case 5: Event trigger with mixed type arguments
     """
+    # Example event manager
+    event_manager = EventManager()
+
     triggered = []
 
-    def handler(a: int, b: str, c: float) -> None:
-        triggered.append((a, b, c))
+    def handler(args: Any, kwargs: Any) -> None:
+        triggered.append((args, kwargs))
 
     event_manager.subscribe("test_event", handler)
     @event_trigger(event_manager, "test_event", logger=test_logger)
@@ -113,15 +125,33 @@ def test_event_trigger_function_raises_error(caplog: pytest.LogCaptureFixture) -
     """
     Test case 6: Event trigger when the wrapped function raises an error
     """
+    # Example event manager
+    event_manager = EventManager()
+
+    triggered = []
+
+    def handler(args: Any, kwargs: Any) -> None:
+        triggered.append((args, kwargs))
+
+    event_manager.subscribe("test_event", handler)
+    @event_trigger(event_manager, "test_event", logger=test_logger)
+    def sample_function_raises_error(a: int, b: str) -> str:
+        raise ValueError("An error occurred")
+
     with caplog.at_level(logging.ERROR):
         with pytest.raises(ValueError, match="An error occurred"):
             sample_function_raises_error(1, "test")
     assert "An error occurred" in caplog.text
+    # The event should still be triggered if the function raises an error
+    assert triggered == [(1, "test")]
 
 def test_event_trigger_invalid_logger() -> None:
     """
     Test case 7: Invalid logger type
     """
+    # Example event manager
+    event_manager = EventManager()
+
     with pytest.raises(TypeError, match="logger must be an instance of logging.Logger or None"):
         @event_trigger(event_manager, "test_event", logger="invalid_logger")
         def sample_function_invalid_logger(a: int, b: str) -> str:
@@ -140,6 +170,9 @@ def test_event_trigger_invalid_event_name() -> None:
     """
     Test case 9: Invalid event name type
     """
+    # Example event manager
+    event_manager = EventManager()
+
     with pytest.raises(TypeError, match="event_name must be a non-empty string"):
         @event_trigger(event_manager, 123, logger=test_logger)
         def sample_function_invalid_event_name(a: int, b: str) -> str:
