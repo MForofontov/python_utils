@@ -25,7 +25,7 @@ def async_handle_error(logger: Optional[logging.Logger] = None) -> Callable[[Cal
     TypeError
         If the logger is not an instance of logging.Logger.
     """
-    if logger and not isinstance(logger, logging.Logger):
+    if not isinstance(logger, logging.Logger) and logger is not None:
         raise TypeError("The logger must be an instance of logging.Logger")
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
