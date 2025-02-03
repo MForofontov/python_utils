@@ -25,7 +25,7 @@ def test_event_trigger_basic() -> None:
 
     triggered = []
 
-    def handler(args: Any, **kwargs: Any) -> None:
+    def handler(*args: Any, **kwargs: Any) -> None:
         triggered.append((args, kwargs))
 
     event_manager.subscribe("test_event", handler)
@@ -47,7 +47,7 @@ def test_event_trigger_with_kwargs() -> None:
 
     triggered = []
 
-    def handler(args: Any, **kwargs: Any) -> None:
+    def handler(*args: Any, **kwargs: Any) -> None:
         triggered.append((args, kwargs))
 
     event_manager.subscribe("test_event", handler)
@@ -67,7 +67,7 @@ def test_event_trigger_with_mixed_args() -> None:
     event_manager = EventManager()
     triggered = []
 
-    def handler(args: Any, **kwargs: Any) -> None:
+    def handler(*args: Any, **kwargs: Any) -> None:
         triggered.append((args, kwargs))
 
     event_manager.subscribe("test_event", handler)
@@ -92,7 +92,7 @@ def test_event_trigger_with_variable_length_arguments() -> None:
 
     triggered = []
 
-    def handler(args: Any, kwargs: Any) -> None:
+    def handler(*args: Any, **kwargs: Any) -> None:
         triggered.append((args, kwargs))
 
     event_manager.subscribe("test_event", handler)
@@ -109,7 +109,7 @@ def test_event_trigger_mixed_type_arguments() -> None:
 
     triggered = []
 
-    def handler(args: Any, kwargs: Any) -> None:
+    def handler(*args: Any, **kwargs: Any) -> None:
         triggered.append((args, kwargs))
 
     event_manager.subscribe("test_event", handler)
@@ -130,7 +130,7 @@ def test_event_trigger_function_raises_error(caplog: pytest.LogCaptureFixture) -
 
     triggered = []
 
-    def handler(args: Any, kwargs: Any) -> None:
+    def handler(*args: Any, **kwargs: Any) -> None:
         triggered.append((args, kwargs))
 
     event_manager.subscribe("test_event", handler)
