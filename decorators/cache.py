@@ -43,14 +43,14 @@ def cache(func: Callable[..., Any]) -> Callable[..., Any]:
         try:
             # Create a key based on the function arguments
             key: Tuple[Tuple[Any, ...], FrozenSet[Tuple[str, Any]]] = (args, frozenset(kwargs.items()))
-        except TypeError as e:
-            raise TypeError(f"Unhashable arguments: {e}")
 
-        # Check if the result is already cached
-        if key not in cached_results:
-            # If not cached, call the function and store the result
-            cached_results[key] = func(*args, **kwargs)
-        
+            # Check if the result is already cached
+            if key not in cached_results:
+                # If not cached, call the function and store the result
+                cached_results[key] = func(*args, **kwargs)
+        except TypeError as e:
+            raise TypeError(f"Unhashable arguments: {e}")    
+    
         # Return the cached result
         return cached_results[key]
     

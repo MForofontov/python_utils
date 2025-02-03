@@ -82,5 +82,8 @@ def cache_with_expiration(expiration_time: int) -> Callable[[Callable[..., Any]]
             Clear the cache.
             """
             cached_results.clear()
+
+        wrapper.cache_clear = cache_clear
+
         return wrapper
     return decorator
