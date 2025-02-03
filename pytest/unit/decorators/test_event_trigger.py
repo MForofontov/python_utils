@@ -25,8 +25,8 @@ def test_event_trigger_basic() -> None:
 
     triggered = []
 
-    def handler(a: int, b: str) -> None:
-        triggered.append((a, b))
+    def handler(args: Any, **kwargs: Any) -> None:
+        triggered.append((args, kwargs))
 
     event_manager.subscribe("test_event", handler)
     result = sample_function(1, "test")
@@ -47,8 +47,8 @@ def test_event_trigger_with_kwargs() -> None:
 
     triggered = []
 
-    def handler(a: int, b: str) -> None:
-        triggered.append((a, b))
+    def handler(args: Any, **kwargs: Any) -> None:
+        triggered.append((args, kwargs))
 
     event_manager.subscribe("test_event", handler)
     @event_trigger(event_manager, "test_event", logger=test_logger)
@@ -67,8 +67,8 @@ def test_event_trigger_with_mixed_args() -> None:
     event_manager = EventManager()
     triggered = []
 
-    def handler(a: int, **kwargs: Any) -> None:
-        triggered.append((a, kwargs))
+    def handler(args: Any, **kwargs: Any) -> None:
+        triggered.append((args, kwargs))
 
     event_manager.subscribe("test_event", handler)
     @event_trigger(event_manager, "test_event", logger=test_logger)
