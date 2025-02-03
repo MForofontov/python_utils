@@ -95,9 +95,10 @@ def test_log_function_calls_function_raises_error(caplog: pytest.LogCaptureFixtu
     Test case 6: Log function calls when the wrapped function raises an error
     """
     with caplog.at_level(logging.INFO):
-        with pytest.raises(ValueError, match="An error occurred"):
+        with pytest.raises(Exception, match="Exception in sample_function_raises_error:"):
             sample_function_raises_error(1, "test")
     assert "Calling sample_function_raises_error with args: (1, 'test') and kwargs: {}" in caplog.text
+    assert "Exception in sample_function_raises_error:" in caplog.text
 
 
 def test_log_function_calls_invalid_logger() -> None:
