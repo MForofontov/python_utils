@@ -69,7 +69,7 @@ def log_signature(logger: Optional[logging.Logger]) -> Callable[[Callable[..., A
                 return result
             except Exception as e:
                 logger.error(f"Exception in {func.__name__}: {e}", exc_info=True)
-                raise
+                raise Exception(f"Exception in {func.__name__}:") from e
 
         return wrapper
     return decorator

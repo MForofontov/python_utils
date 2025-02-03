@@ -94,20 +94,18 @@ def test_log_signature_with_multiple_args(caplog):
         assert result == 6
         assert "Executing multiple_args(a, b, c) with args: (1, 2, 3) and kwargs: {}" in caplog.text
 
-def test_log_signature_with_custom_exception(caplog):
+def test_log_signature_with_exception(caplog):
     """
     Test case 7: Logging function signature for function that raises a custom exception
     """
     # Test case 7: Logging function signature for function that raises a custom exception
-    class CustomException(Exception):
-        pass
 
     @log_signature(logger=test_logger)
     def raise_custom_exception():
-        raise CustomException("This is a CustomException")
+        raise Exception("This is a CustomException")
 
     with caplog.at_level(logging.DEBUG):
-        with pytest.raises(CustomException, match="This is a CustomException"):
+        with pytest.raises(Exception, match="This is a CustomException"):
             raise_custom_exception()
         assert "Executing raise_custom_exception() with args: () and kwargs: {}" in caplog.text
         assert "Exception occurred in raise_custom_exception():" in caplog.text
