@@ -1,5 +1,6 @@
 import pytest
 import logging
+from typing import Dict
 from decorators.enforce_types import enforce_types
 
 # Configure test_logger
@@ -88,7 +89,7 @@ def test_variable_length_arguments():
     Test case 7: Function with variable length arguments (*args and **kwargs)
     """
     @enforce_types()
-    def sample_function_var_args(a: int, *args: str, **kwargs: float) -> str:
+    def sample_function_var_args(a: int, *args: str, **kwargs: Dict[str, float]) -> str:
         return f"{a} - {args} - {kwargs}"
     
     result = sample_function_var_args(1, "arg1", "arg2", kwarg1=1.0, kwarg2=2.0)
@@ -102,7 +103,7 @@ def test_invalid_argument_type():
     def sample_function_invalid_arg(a: int, b: str) -> str:
         return f"{a} - {b}"
     
-    with pytest.raises(TypeError, match="Argument 'a' must be of type int"):
+    with pytest.raises(TypeError, match="Expected <class 'int'> for argument 'a', got <class 'str'>."):
         sample_function_invalid_arg("invalid", "test")
 
 def test_invalid_return_type():
@@ -113,7 +114,7 @@ def test_invalid_return_type():
     def sample_function_invalid_return(a: int, b: str) -> int:
         return f"{a} - {b}"
     
-    with pytest.raises(TypeError, match="Return value must be of type int"):
+    with pytest.raises(TypeError, match="Expected return type <class 'int'>, got <class 'str'>."):
         sample_function_invalid_return(1, "test")
 
 def test_invalid_argument_type_with_logger(caplog):
@@ -124,7 +125,7 @@ def test_invalid_argument_type_with_logger(caplog):
     def sample_function_invalid_arg_with_logger(a: int, b: str) -> str:
         return f"{a} - {b}"
 
-    with pytest.raises(TypeError, match="Argument 'a' must be of type int"):
+    with pytest.raises(TypeError, match="Expected <class 'int'> for argument 'a', got <class 'str'>."):
         with caplog.at_level(logging.ERROR):
             sample_function_invalid_arg_with_logger("invalid", "test")
         assert "Argument 'a' must be of type int" in caplog.text
@@ -136,7 +137,7 @@ def test_invalid_return_type_with_logger(caplog):
     @enforce_types(logger=test_logger)
     def sample_function_invalid_return_with_logger(a: int, b: str) -> int:
         return f"{a} - {b}"
-    with pytest.raises(TypeError, match="Return value must be of type int"):
+    with pytest.raises(TypeError, match="Expected return type <class 'int'>, got <class 'str'>."):
         with caplog.at_level(logging.ERROR):
             sample_function_invalid_return_with_logger(1, "test")
         assert "Return value must be of type int" in caplog.text
@@ -149,7 +150,7 @@ def test_invalid_argument_type_with_kwargs():
     def sample_function_invalid_arg_kwargs(a: int, b: str) -> str:
         return f"{a} - {b}"
     
-    with pytest.raises(TypeError, match="Argument 'a' must be of type int"):
+    with pytest.raises(TypeError, match="Expected <class 'int'> for argument 'a', got <class 'str'>."):
         sample_function_invalid_arg_kwargs(a="invalid", b="test")
 
 def test_invalid_argument_type_with_kwargs_and_logger(caplog):
@@ -160,7 +161,7 @@ def test_invalid_argument_type_with_kwargs_and_logger(caplog):
     def sample_function_invalid_arg_kwargs_with_logger(a: int, b: str) -> str:
         return f"{a} - {b}"
     
-    with pytest.raises(TypeError, match="Argument 'a' must be of type int"):
+    with pytest.raises(TypeError, match="Expected <class 'int'> for argument 'a', got <class 'str'>."):
         with caplog.at_level(logging.ERROR):
             sample_function_invalid_arg_kwargs_with_logger(a="invalid", b="test")
         assert "Argument 'a' must be of type int" in caplog.text
@@ -173,7 +174,7 @@ def test_mixed_valid_and_invalid_arguments():
     def sample_function_mixed_args(a: int, b: str, c: float) -> str:
         return f"{a} - {b} - {c}"
     
-    with pytest.raises(TypeError, match="Argument 'c' must be of type float"):
+    with pytest.raises(TypeError, match="Expected <class 'float'> for argument 'c', got <class 'str'>."):
         sample_function_mixed_args(1, "test", "invalid")
 
 def test_invalid_logger_type():
