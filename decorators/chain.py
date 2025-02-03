@@ -42,7 +42,7 @@ def chain(func: Callable[..., T]) -> Callable[..., Union[T, Any]]:
         result = func(*args, **kwargs)
         if hasattr(result, 'chain') and callable(getattr(result, 'chain')):
             try:
-                return result.chain()
+                return result.chain(*args, **kwargs)
             except Exception as e:
                 raise RuntimeError(f"Error calling 'chain' method on result of {func.__name__}: {e}")
         return result
