@@ -75,7 +75,7 @@ def async_handle_error(logger: Optional[logging.Logger] = None) -> Callable[[Cal
                 return await func(*args, **kwargs)
             except Exception as e:
                 # Print the custom error message and the exception
-                print(f"{error_message}: {e}")
+                print(f"An error occurred in {func.__name__}: {e}")
                 # Log the error message and the exception if logging is enabled
                 if logger:
                     logger.error(f"An error occurred in {func.__name__}: {e}", exc_info=True)

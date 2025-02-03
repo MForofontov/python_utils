@@ -92,7 +92,7 @@ def test_non_async_function():
     """
     # Test case 6: Synchronous function that raises an TypeError
     with pytest.raises(TypeError, match="The function to be wrapped must be asynchronous"):
-        @async_handle_error("An error occurred")
+        @async_handle_error()
         def sample_function(x: int, y: int) -> int:
             return x + y
 
@@ -136,6 +136,6 @@ async def test_sync_function_with_invalid_logger():
     """
     # Test case 10: Synchronous function that logs an exception with an invalid logger
     with pytest.raises(TypeError, match="logger must be an instance of logging.Logger or None"):
-        @async_handle_error("An error occurred", logger="invalid_logger")
+        @async_handle_error(logger="invalid_logger")
         async def sample_function(x: int, y: int) -> int:
             return x + y
