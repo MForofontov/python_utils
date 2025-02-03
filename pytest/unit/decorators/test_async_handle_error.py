@@ -12,31 +12,31 @@ handler.setFormatter(formatter)
 test_logger.addHandler(handler)
 
 # Define sample functions for use in tests
-@async_handle_error("An error occurred")
+@async_handle_error()
 async def sample_function_success(x: int, y: int) -> int:
     return x + y
 
-@async_handle_error("An error occurred")
+@async_handle_error()
 async def sample_function_exception(x: int, y: int) -> int:
     raise ValueError("Test exception")
 
-@async_handle_error("An error occurred", logger=test_logger)
+@async_handle_error(logger=test_logger)
 async def sample_function_with_logger(x: int, y: int) -> int:
     raise ValueError("Test exception")
 
-@async_handle_error("An error occurred")
+@async_handle_error()
 async def sample_function_with_args(x: int, y: int, z: int) -> int:
     return x + y + z
 
-@async_handle_error("An error occurred")
+@async_handle_error()
 async def sample_function_with_kwargs(x: int, y: int, z: int = 0) -> int:
     return x + y + z
 
-@async_handle_error("An error occurred")
+@async_handle_error()
 async def sample_function_with_mixed_args_kwargs(x: int, y: int, *args: int, z: int = 0, **kwargs: int) -> int:
     return x + y + z + sum(args) + sum(kwargs.values())
 
-@async_handle_error("An error occurred")
+@async_handle_error()
 async def sample_function_no_args() -> str:
     return "success"
 
@@ -113,7 +113,7 @@ def test_non_async_function_with_logger(caplog):
     """
     # Test case 8: Synchronous function that logs an error with logging enabled
     with caplog.at_level(logging.ERROR):
-        @async_handle_error("An error occurred", logger=test_logger)
+        @async_handle_error(logger=test_logger)
         def sample_function(x: int, y: int) -> int:
             return x + y
         assert "An error occurred in sample_function: The function to be wrapped must be asynchronous" in caplog.text

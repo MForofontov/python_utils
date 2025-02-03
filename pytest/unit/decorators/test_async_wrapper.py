@@ -12,11 +12,11 @@ handler.setFormatter(formatter)
 test_logger.addHandler(handler)
 
 # Define sample functions for use in tests
-@async_wrapper
+@async_wrapper()
 def sample_function_success(x: int, y: int) -> int:
     return x + y
 
-@async_wrapper
+@async_wrapper()
 def sample_function_exception(x: int, y: int) -> int:
     raise ValueError("Test exception")
 
@@ -24,19 +24,19 @@ def sample_function_exception(x: int, y: int) -> int:
 def sample_function_with_logger(x: int, y: int) -> int:
     raise ValueError("Test exception")
 
-@async_wrapper
+@async_wrapper()
 def sample_function_with_args(x: int, y: int, z: int) -> int:
     return x + y + z
 
-@async_wrapper
+@async_wrapper()
 def sample_function_with_kwargs(x: int, y: int, z: int = 0) -> int:
     return x + y + z
 
-@async_wrapper
+@async_wrapper()
 def sample_function_with_mixed_args_kwargs(x: int, y: int, *args: int, z: int = 0, **kwargs: int) -> int:
     return x + y + z + sum(args) + sum(kwargs.values())
 
-@async_wrapper
+@async_wrapper()
 def sample_function_no_args() -> str:
     return "success"
 
@@ -91,7 +91,7 @@ def test_async_function():
     """
     # Test case 6: Asynchronous function that raises an TypeError
     with pytest.raises(TypeError, match="The function to be wrapped must be synchronous"):
-        @async_wrapper
+        @async_wrapper()
         async def sample_function(x: int, y: int) -> int:
             return x + y
 
