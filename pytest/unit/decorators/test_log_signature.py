@@ -110,6 +110,7 @@ def test_log_signature_with_custom_exception(caplog):
         with pytest.raises(CustomException, match="This is a CustomException"):
             raise_custom_exception()
         assert "Executing raise_custom_exception() with args: () and kwargs: {}" in caplog.text
+        assert "Exception occurred in raise_custom_exception():" in caplog.text
 
 def test_log_signature_invalid_logger():
     """
