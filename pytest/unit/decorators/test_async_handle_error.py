@@ -128,3 +128,14 @@ async def test_async_function_with_logger(caplog):
         result = await sample_function_with_logger(1, 2)
         assert result is None
         assert "An error occurred in sample_function_with_logger: Test exception" in caplog.text
+
+@pytest.mark.asyncio
+async def test_sync_function_with_invalid_logger():
+    """
+    Test case 10: Synchronous function that logs an exception with an invalid logger
+    """
+    # Test case 10: Synchronous function that logs an exception with an invalid logger
+    with pytest.raises(TypeError, match="logger must be an instance of logging.Logger or None"):
+        @async_handle_error("An error occurred", logger="invalid_logger")
+        async def sample_function(x: int, y: int) -> int:
+            return x + y
