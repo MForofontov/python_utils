@@ -25,7 +25,7 @@ def async_handle_error(logger: Optional[logging.Logger] = None) -> Callable[[Cal
     TypeError
         If the logger is not an instance of logging.Logger.
     """
-    if logger and not isinstance(logger, logging.Logger):
+    if not isinstance(logger, logging.Logger) and logger is not None:
         raise TypeError("The logger must be an instance of logging.Logger")
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
@@ -75,7 +75,7 @@ def async_handle_error(logger: Optional[logging.Logger] = None) -> Callable[[Cal
                 return await func(*args, **kwargs)
             except Exception as e:
                 # Print the custom error message and the exception
-                print(f"{error_message}: {e}")
+                print(f"An error occurred in {func.__name__}: {e}")
                 # Log the error message and the exception if logging is enabled
                 if logger:
                     logger.error(f"An error occurred in {func.__name__}: {e}", exc_info=True)

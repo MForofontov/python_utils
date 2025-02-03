@@ -65,16 +65,17 @@ def cache_with_expiration(expiration_time: int) -> Callable[[Callable[..., Any]]
             try:
                 # Create a key based on the function arguments
                 key: Tuple[Tuple[Any, ...], FrozenSet[Tuple[str, Any]]] = (args, frozenset(kwargs.items()))
+
+                current_time = time.time()
+                if key in cached_results:
+                    cached_time, cached_value = cached_results[key]
+                    if current_time - cached_time < expiration_time:
+                        return cached_value
+                result = func(*args, **kwargs)
+                cached_results[key] = (current_time, result)
             except TypeError as e:
                 raise TypeError(f"Unhashable arguments: {e}")
 
-            current_time = time.time()
-            if key in cached_results:
-                cached_time, cached_value = cached_results[key]
-                if current_time - cached_time < expiration_time:
-                    return cached_value
-            result = func(*args, **kwargs)
-            cached_results[key] = (current_time, result)
             return result
 
         def cache_clear():
@@ -82,5 +83,8 @@ def cache_with_expiration(expiration_time: int) -> Callable[[Callable[..., Any]]
             Clear the cache.
             """
             cached_results.clear()
+
+        wrapper.cache_clear = cache_clear
+
         return wrapper
     return decorator

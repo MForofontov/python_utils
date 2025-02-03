@@ -103,7 +103,7 @@ def env_config(var_name: str, required: bool = True, var_type: Type = str, custo
                     message = custom_message or f"Environment variable '{var_name}' must be of type {var_type.__name__}."
                     log_or_raise_error(message)
 
-            kwargs[var_name] = env_value
+            kwargs[var_name.lower()] = env_value
             return func(*args, **kwargs)
         return wrapper
     return decorator

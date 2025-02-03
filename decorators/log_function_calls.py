@@ -41,12 +41,21 @@ def log_function_calls(logger: logging.Logger) -> Callable[[Callable[..., Any]],
             -------
             Any
                 The result of the decorated function.
+            
+            Raises
+            ------
+            Exception
+                If an exception occurs during the function call.
             """
-            logger.info(f"Calling {func.__name__} with args: {args} and kwargs: {kwargs}")
-            result = func(*args, **kwargs)
-            logger.info(f"{func.__name__} returned: {result}")
-            return result
-        
+            try:
+                logger.info(f"Calling {func.__name__} with args: {args} and kwargs: {kwargs}")
+                result = func(*args, **kwargs)
+                logger.info(f"{func.__name__} returned: {result}")
+                return result
+            except Exception as e:
+                logger.error(f"Exception in {func.__name__}: {e}", exc_info=True)
+                raise Exception(f"Exception in {func.__name__}:") from e
+
         return wrapper
     
-    return decorator  # Return the decorator instead of the wrapper itself
+    return decorator

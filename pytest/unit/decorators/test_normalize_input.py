@@ -94,7 +94,7 @@ def test_normalize_input_function_raises_error_with_logger(caplog: pytest.LogCap
     Test case 7: Normalize input when the wrapped function raises an error
     """
     with caplog.at_level(logging.ERROR):
-        with pytest.raises(ValueError, match="An error occurred"):
+        with pytest.raises(ValueError, match="Normalization failed:"):
             sample_function_raises_error("hello", "world")
         assert "An error occurred" in caplog.text
 

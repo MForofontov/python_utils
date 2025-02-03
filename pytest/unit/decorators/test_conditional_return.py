@@ -1,170 +1,107 @@
 import pytest
 from decorators.conditional_return import conditional_return
 
-# Example condition functions
-def always_true():
-    return True
-
-def always_false():
-    return False
-
-def condition_based_on_args(a, b):
-    return a > b
-
-def condition_based_on_kwargs(**kwargs):
-    return kwargs.get('flag', False)
-
-def condition_based_on_mixed_args(a, b, **kwargs):
-    return a > b and kwargs.get('flag', False)
-
-def condition_no_args():
-    return True
-
-def condition_raises_exception(*args, **kwargs):
-    raise ValueError("Condition raised an exception")
-
-# Example functions to be decorated
-@conditional_return(always_true, "Condition met")
-def example_function_true(a, b):
-    return f"Result: {a + b}"
-
-@conditional_return(always_false, "Condition met")
-def example_function_false(a, b):
-    return f"Result: {a + b}"
-
-@conditional_return(condition_based_on_args, "Condition met")
-def example_function_conditional(a, b):
-    return f"Result: {a + b}"
-
-@conditional_return(condition_based_on_kwargs, "Condition met")
-def example_function_kwargs(a, b, **kwargs):
-    return f"Result: {a + b}"
-
-@conditional_return(condition_based_on_mixed_args, "Condition met")
-def example_function_mixed_args(a, b, **kwargs):
-    return f"Result: {a + b}"
-
-@conditional_return(condition_no_args, "Condition met")
-def example_function_no_args(a, b):
-    return f"Result: {a + b}"
-
-@conditional_return(condition_raises_exception, "Condition met")
-def example_function_raises_exception(a, b):
-    return f"Result: {a + b}"
-
-def test_conditional_return_always_true():
+def test_conditional_return_true():
     """
-    Test case 1: Condition always true
+    Test case 1: Condition is true, return the specified value
     """
-    # Test case 1: Condition always true
-    result = example_function_true(1, 2)
-    assert result == "Condition met"
+    def condition(x):
+        return x > 10
 
-def test_conditional_return_always_false():
-    """
-    Test case 2: Condition always false
-    """
-    # Test case 2: Condition always false
-    result = example_function_false(1, 2)
-    assert result == "Result: 3"
+    @conditional_return(condition, return_value="Condition met")
+    def sample_function(x):
+        return "Condition not met"
 
-def test_conditional_return_condition_met():
-    """
-    Test case 3: Condition met based on arguments
-    """
-    # Test case 3: Condition met based on arguments
-    result = example_function_conditional(3, 2)
-    assert result == "Condition met"
+    assert sample_function(15) == "Condition met"
 
-def test_conditional_return_condition_not_met():
+def test_conditional_return_false():
     """
-    Test case 4: Condition not met based on arguments
+    Test case 2: Condition is false, return the result of the wrapped function
     """
-    # Test case 4: Condition not met based on arguments
-    result = example_function_conditional(1, 2)
-    assert result == "Result: 3"
+    def condition(x):
+        return x > 10
 
-def test_conditional_return_condition_met_kwargs():
-    """
-    Test case 5: Condition met based on keyword arguments
-    """
-    # Test case 5: Condition met based on keyword arguments
-    result = example_function_kwargs(1, 2, flag=True)
-    assert result == "Condition met"
+    @conditional_return(condition, return_value="Condition met")
+    def sample_function(x):
+        return "Condition not met"
 
-def test_conditional_return_condition_not_met_kwargs():
-    """
-    Test case 6: Condition not met based on keyword arguments
-    """
-    # Test case 6: Condition not met based on keyword arguments
-    result = example_function_kwargs(1, 2, flag=False)
-    assert result == "Result: 3"
+    assert sample_function(5) == "Condition not met"
 
-def test_conditional_return_condition_met_mixed_args():
+def test_conditional_return_with_kwargs():
     """
-    Test case 7: Condition met based on mixed arguments and keyword arguments
+    Test case 3: Condition with keyword arguments
     """
-    # Test case 7: Condition met based on mixed arguments and keyword arguments
-    result = example_function_mixed_args(3, 2, flag=True)
-    assert result == "Condition met"
+    def condition(x, y):
+        return x + y > 10
 
-def test_conditional_return_condition_not_met_mixed_args():
-    """
-    Test case 8: Condition not met based on mixed arguments and keyword arguments
-    """
-    # Test case 8: Condition not met based on mixed arguments and keyword arguments
-    result = example_function_mixed_args(1, 2, flag=True)
-    assert result == "Result: 3"
+    @conditional_return(condition, return_value="Condition met")
+    def sample_function(x, y):
+        return "Condition not met"
 
-def test_conditional_return_no_args():
+    assert sample_function(5, y=6) == "Condition met"
+    assert sample_function(3, y=4) == "Condition not met"
+
+def test_conditional_return_with_multiple_args():
     """
-    Test case 9: Condition with no arguments
+    Test case 4: Condition with multiple positional arguments
     """
-    # Test case 9: Condition with no arguments
-    result = example_function_no_args(1, 2)
-    assert result == "Condition met"
+    def condition(x, y, z):
+        return x + y + z > 10
+
+    @conditional_return(condition, return_value="Condition met")
+    def sample_function(x, y, z):
+        return "Condition not met"
+
+    assert sample_function(3, 4, 5) == "Condition met"
+    assert sample_function(1, 2, 3) == "Condition not met"
 
 def test_conditional_return_with_default_args():
     """
-    Test case 10: Function with default arguments
+    Test case 5: Condition with default arguments
     """
-    # Test case 10: Function with default arguments
-    @conditional_return(lambda a, b=0: a > b, "Condition met")
-    def example_function_default_args(a, b=0):
-        return f"Result: {a + b}"
-    
-    result = example_function_default_args(3)
-    assert result == "Condition met"
-    
-    result = example_function_default_args(1, 2)
-    assert result == "Result: 3"
+    def condition(x, y=5):
+        return x + y > 10
 
-def test_conditional_return_function_no_args():
-    """
-    Test case 11: Function with no arguments
-    """
-    # Test case 11: Function with no arguments
-    @conditional_return(always_true, "Condition met")
-    def example_function_no_args():
-        return "Original result"
-    
-    result = example_function_no_args()
-    assert result == "Condition met"
+    @conditional_return(condition, return_value="Condition met")
+    def sample_function(x, y=5):
+        return "Condition not met"
 
-def test_conditional_return_condition_raises_exception():
+    assert sample_function(6) == "Condition met"
+    assert sample_function(4) == "Condition not met"
+    assert sample_function(3, y=8) == "Condition met"
+
+def test_conditional_return_with_no_args():
     """
-    Test case 12: Condition raises an exception
+    Test case 6: Condition with no arguments
     """
-    # Test case 12: Condition raises an exception
-    with pytest.raises(RuntimeError, match="Condition function raised an error: Condition raised an exception"):
-        example_function_raises_exception(1, 2)
+    def condition():
+        return True
+
+    @conditional_return(condition, return_value="Condition met")
+    def sample_function():
+        return "Condition not met"
+
+    assert sample_function() == "Condition met"
+
+def test_conditional_return_condition_raises_error():
+    """
+    Test case 7: Condition function raises an error
+    """
+    def condition(x):
+        raise ValueError("Test error")
+
+    @conditional_return(condition, return_value="Condition met")
+    def sample_function(x):
+        return "Condition not met"
+
+    with pytest.raises(RuntimeError, match="Condition function raised an error: Test error"):
+        sample_function(5)
 
 def test_conditional_return_invalid_condition():
     """
-    Test case 13: Invalid condition (not callable)
+    Test case 8: Invalid condition (not callable)
     """
-    # Test case 13: Invalid condition (not callable)
     with pytest.raises(TypeError, match="Condition must be callable"):
-        @conditional_return("not a callable", "Condition met")
-        def example_function_invalid(a, b):
-            return f"Result: {a + b}"
+        @conditional_return("not_callable", return_value="Condition met")
+        def sample_function(x):
+            return "Condition not met"

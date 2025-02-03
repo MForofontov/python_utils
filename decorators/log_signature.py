@@ -55,9 +55,21 @@ def log_signature(logger: Optional[logging.Logger]) -> Callable[[Callable[..., A
             -------
             Any
                 The result of the decorated function.
+            
+            Raises
+            ------
+            Exception
+                If an exception is raised in the decorated function
             """
             signature = inspect.signature(func)
             logger.info(f"Executing {func.__name__}{signature} with args: {args} and kwargs: {kwargs}")
-            return func(*args, **kwargs)
+            try:
+                result = func(*args, **kwargs)
+                logger.info(f"{func.__name__} returned: {result}")
+                return result
+            except Exception as e:
+                logger.error(f"Exception in {func.__name__}: {e}", exc_info=True)
+                raise Exception(f"Exception in {func.__name__}:") from e
+
         return wrapper
     return decorator

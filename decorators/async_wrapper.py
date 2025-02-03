@@ -1,7 +1,7 @@
 import asyncio
 import inspect
 import logging
-from functools import wraps
+from functools import wraps, partial
 from typing import Any, Callable, Optional
 
 def async_wrapper(logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
@@ -23,7 +23,7 @@ def async_wrapper(logger: Optional[logging.Logger] = None) -> Callable[[Callable
     TypeError
         If the logger is not an instance of logging.Logger.
     """
-    if logger and not isinstance(logger, logging.Logger):
+    if not isinstance(logger, logging.Logger) and logger is not None:
         raise TypeError("The logger must be an instance of logging.Logger")
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
@@ -70,11 +70,13 @@ def async_wrapper(logger: Optional[logging.Logger] = None) -> Callable[[Callable
             """
             try:
                 loop = asyncio.get_event_loop()
-                return await loop.run_in_executor(None, func, *args, **kwargs)
+                partial_func = partial(func, *args, **kwargs)
+                return await loop.run_in_executor(None, partial_func)
             except Exception as e:
                 if logger:
                     logger.error(f"An error occurred in {func.__name__}: {e}", exc_info=True)
-                raise
+                else:
+                    raise
 
         return wrapper
     
