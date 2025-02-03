@@ -134,7 +134,7 @@ async def test_sync_function_with_invalid_logger():
     Test case 10: Synchronous function with invalid logger
     """
     # Test case 10: Synchronous function with invalid logger
-    with pytest.raises(TypeError, match="The logger must be an instance of logging.Logger""):
+    with pytest.raises(TypeError, match="The logger must be an instance of logging.Logger"):
         @async_wrapper(logger="not_a_logger")
         async def sample_function(x: int, y: int) -> int:
             return x + y
