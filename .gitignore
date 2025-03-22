@@ -1,2 +1,5 @@
 # VS Code
 .vscode/
+
+# Environment
+.python_utils_env/

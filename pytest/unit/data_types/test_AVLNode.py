@@ -1,5 +1,5 @@
 import pytest
-from data_types.AVLNode import AVLTree, AVLNode
+from data_types.AVLNode import AVLTree
 
 def test_insert_single_node():
     """
@@ -129,3 +129,53 @@ def test_balance_after_deletions():
     assert tree.root.left.key == 20
     assert tree.root.right.key == 25
     assert tree.root.left.left.key == 10
+
+def test_delete_from_empty_tree():
+    """
+    Test deleting a key from an empty tree.
+    """
+    # Test case 11: Delete from an empty tree
+    tree = AVLTree()
+    tree.delete(10)  # Should not raise an error
+    assert tree.root is None
+
+def test_insert_duplicate_key():
+    """
+    Test inserting duplicate keys into the AVL tree.
+    """
+    # Test case 12: Insert duplicate keys
+    tree = AVLTree()
+    tree.insert(10)
+    tree.insert(10)  # Duplicate key
+    assert tree.root.key == 10
+    assert tree.root.left is None
+    assert tree.root.right is None  # No duplicate nodes should be added
+
+def test_invalid_input():
+    """
+    Test inserting invalid input types into the AVL tree.
+    """
+    # Test case 13: Insert invalid input
+    tree = AVLTree()
+    with pytest.raises(TypeError):
+        tree.insert("invalid")  # Strings are not allowed
+    with pytest.raises(TypeError):
+        tree.insert(None)  # None is not allowed
+
+def test_balance_factor_after_operations():
+    """
+    Test that the balance factor of all nodes is within the range [-1, 1].
+    """
+    # Test case 14: Check balance factor after operations
+    tree = AVLTree()
+    for key in [10, 20, 30, 40, 50, 25]:
+        tree.insert(key)
+
+    def check_balance(node):
+        if not node:
+            return True
+        balance_factor = tree._get_balance(node)
+        assert -1 <= balance_factor <= 1
+        return check_balance(node.left) and check_balance(node.right)
+
+    assert check_balance(tree.root)
