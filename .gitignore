@@ -6,3 +6,6 @@
 
 # Python testing folders
 pytest_run_tests/
+
+# Ignore all __pycache__ directories
+__pycache__/
