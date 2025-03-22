@@ -2,8 +2,8 @@
 
 # Default directories
 DEFAULT_TEST_DIR="pytest/unit"
-DEFAULT_ALLURE_RESULTS_DIR="allure-results"
-DEFAULT_ALLURE_REPORT_DIR="allure-report"
+DEFAULT_ALLURE_RESULTS_DIR="pytest_run_tests/allure-results"
+DEFAULT_ALLURE_REPORT_DIR="pytest_run_tests/allure-report"
 
 # Allow overriding default directories via command-line arguments
 TEST_DIR=${1:-$DEFAULT_TEST_DIR}
