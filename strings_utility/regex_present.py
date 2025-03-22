@@ -21,6 +21,15 @@ def regex_present(regex_list: List[str], string: str) -> bool:
     ------
     TypeError
         If regex_list is not a list of strings or string is not a string.
+    
+    Examples
+    --------
+    >>> regex_present(["[0-9]", "[a-z]"], "123")
+    True
+    >>> regex_present(["[0-9]", "[a-z]"], "abc")
+    True
+    >>> regex_present(["[0-9]", "[a-z]"], "ABC")
+    False
     """
     if not isinstance(regex_list, list):
         raise TypeError("regex_list must be a list")
