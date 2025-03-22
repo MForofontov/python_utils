@@ -3,3 +3,6 @@
 
 # Environment
 .python_utils_env/
+
+# Python testing folders
+pytest_run_tests/
