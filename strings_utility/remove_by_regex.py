@@ -20,6 +20,15 @@ def remove_by_regex(string: str, pattern: str) -> str:
     ------
     TypeError
         If string is not a string or pattern is not a string.
+    
+    Examples
+    --------
+    >>> remove_by_regex("hello world", "o")
+    'hell wrld'
+    >>> remove_by_regex("hello world", "l")
+    'heo word'
+    >>> remove_by_regex("hello world", " ")
+    'helloworld'
     """
     if not isinstance(string, str):
         raise TypeError("string must be a string")

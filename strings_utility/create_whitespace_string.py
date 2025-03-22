@@ -16,6 +16,15 @@ def create_whitespace_string(input_string: str) -> str:
     ------
     TypeError
         If input_string is not a string.
+    
+    Examples
+    --------
+    >>> create_whitespace_string("hello")
+    '     '
+    >>> create_whitespace_string("hello world")
+    '           '
+    >>> create_whitespace_string(" ")
+    ' '
     """
     if not isinstance(input_string, str):
         raise TypeError("input_string must be a string")

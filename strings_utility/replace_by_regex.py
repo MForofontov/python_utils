@@ -23,6 +23,15 @@ def replace_by_regex(string: str, pattern: str, replacement: str) -> str:
     ------
     TypeError
         If string, pattern, or replacement is not a string.
+    
+    Examples
+    --------
+    >>> replace_by_regex("hello world", "o", "x")
+    'hellx wxrld'
+    >>> replace_by_regex("hello world", "l", "y")
+    'heylo word'
+    >>> replace_by_regex("hello world", " ", "_")
+    'hello_world'
     """
     if not isinstance(string, str):
         raise TypeError("string must be a string")

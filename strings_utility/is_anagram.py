@@ -20,8 +20,17 @@ def is_anagram(string_1: str, string_2: str) -> bool:
     ------
     TypeError
         If either of the inputs is not a string.
+    
+    Examples
+    --------
+    >>> is_anagram("listen", "silent")
+    True
+    >>> is_anagram("hello", "world")
+    False
+    >>> is_anagram("a!b@c#", "c@b!a#")
+    True
     """
-    if not isinstance(string_1, str) or not isinstance(str2, str):
+    if not isinstance(string_1, str) or not isinstance(string_2, str):
         raise TypeError("Both inputs must be strings")
 
     # Remove any whitespace and convert to lowercase
