@@ -108,11 +108,8 @@ def test_insert_duplicate_node() -> None:
     # Test case 9: Insert duplicate nodes
     tree = BinaryTree()
     tree.insert(10)
-    tree.insert(10)  # Duplicate node
-    assert tree.root is not None
-    assert tree.root.data == 10
-    assert tree.root.left is None
-    assert tree.root.right is None  # Duplicate should not be added
+    with pytest.raises(ValueError, match="Duplicate values are not allowed in the BinaryTree"):
+        tree.insert(10)  # Duplicate node
 
 def test_insert_left_and_right_nodes() -> None:
     """
@@ -204,3 +201,16 @@ def test_traversals_with_large_tree() -> None:
     assert tree.inorder_traversal() == list(range(1, 11))  # In-order should be sorted
     assert tree.preorder_traversal() == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]  # Pre-order for right-heavy tree
     assert tree.postorder_traversal() == [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]  # Post-order for right-heavy tree
+
+def test_insert_boundary_values() -> None:
+    """
+    Test inserting the smallest and largest possible values into the binary tree.
+    """
+    # Test case 21: Insert boundary values
+    tree = BinaryTree()
+    tree.insert(float('-inf'))
+    tree.insert(float('inf'))
+    assert tree.root is not None
+    assert tree.root.data == float('-inf')  # Smallest value should be the root
+    assert tree.root.right.data == float('inf')  # Largest value should be the right child
+    assert tree.inorder_traversal() == [float('-inf'), float('inf')]

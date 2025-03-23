@@ -41,6 +41,11 @@ class BinaryTree:
         Performs a pre-order traversal of the tree.
     postorder_traversal() -> list
         Performs a post-order traversal of the tree.
+    
+    Raises
+    ------
+    ValueError
+        If duplicate values are inserted into the binary tree
     """
 
     def __init__(self) -> None:
@@ -81,6 +86,8 @@ class BinaryTree:
                 node.right = BinaryTreeNode(data)
             else:
                 self._insert_recursive(node.right, data)
+        elif data == node.data:
+            raise ValueError("Duplicate values are not allowed in the BinaryTree")
 
     def search(self, data: Any) -> bool:
         """

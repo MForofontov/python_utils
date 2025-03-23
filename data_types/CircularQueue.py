@@ -29,6 +29,11 @@ class CircularQueue:
         Checks if the queue is full.
     size() -> int
         Returns the current number of items in the queue.
+    
+    Raises
+    ------
+    ValueError
+        If the queue size is less than or equal to 0.
     """
 
     def __init__(self, size: int) -> None:
