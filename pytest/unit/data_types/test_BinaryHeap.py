@@ -1,124 +1,173 @@
 import pytest
 from data_types.BinaryHeap import BinaryHeap
 
-def test_insert_min_heap():
+def test_insert_min_heap() -> None:
     """
-    Test the insert method for a min-heap.
+    Test inserting elements into a min-heap.
     """
+    # Test case 1: Insert into a min-heap
     heap = BinaryHeap(is_min_heap=True)
     heap.insert(10)
     heap.insert(5)
-    heap.insert(15)
-    heap.insert(3)
-    assert heap.heap == [3, 5, 15, 10], "Min-heap property violated after insert"
+    heap.insert(20)
+    heap.insert(1)
+    assert heap.heap == [1, 5, 20, 10]  # Min-heap property should be maintained
 
-def test_insert_max_heap():
+def test_insert_max_heap() -> None:
     """
-    Test the insert method for a max-heap.
+    Test inserting elements into a max-heap.
     """
+    # Test case 2: Insert into a max-heap
     heap = BinaryHeap(is_min_heap=False)
     heap.insert(10)
     heap.insert(5)
-    heap.insert(15)
-    heap.insert(3)
-    assert heap.heap == [15, 10, 5, 3], "Max-heap property violated after insert"
+    heap.insert(20)
+    heap.insert(1)
+    assert heap.heap == [20, 10, 5, 1]  # Max-heap property should be maintained
 
-def test_extract_min_heap():
+def test_extract_min_heap() -> None:
     """
-    Test the extract method for a min-heap.
+    Test extracting the root from a min-heap.
     """
+    # Test case 3: Extract from a min-heap
     heap = BinaryHeap(is_min_heap=True)
-    for value in [10, 5, 15, 3]:
-        heap.insert(value)
-    assert heap.extract() == 3, "Failed to extract the smallest element"
-    assert heap.extract() == 5, "Failed to extract the next smallest element"
-    assert heap.extract() == 10, "Failed to extract the next smallest element"
-    assert heap.extract() == 15, "Failed to extract the largest element"
-    with pytest.raises(IndexError):
-        heap.extract()  # Extracting from an empty heap
+    heap.insert(10)
+    heap.insert(5)
+    heap.insert(20)
+    heap.insert(1)
+    root = heap.extract()
+    assert root == 1  # Root should be the smallest element
+    assert heap.heap == [5, 10, 20]  # Heap property should be maintained
 
-def test_extract_max_heap():
+def test_extract_max_heap() -> None:
     """
-    Test the extract method for a max-heap.
+    Test extracting the root from a max-heap.
     """
+    # Test case 4: Extract from a max-heap
     heap = BinaryHeap(is_min_heap=False)
-    for value in [10, 5, 15, 3]:
-        heap.insert(value)
-    assert heap.extract() == 15, "Failed to extract the largest element"
-    assert heap.extract() == 10, "Failed to extract the next largest element"
-    assert heap.extract() == 5, "Failed to extract the next largest element"
-    assert heap.extract() == 3, "Failed to extract the smallest element"
-    with pytest.raises(IndexError):
-        heap.extract()  # Extracting from an empty heap
+    heap.insert(10)
+    heap.insert(5)
+    heap.insert(20)
+    heap.insert(1)
+    root = heap.extract()
+    assert root == 20  # Root should be the largest element
+    assert heap.heap == [10, 1, 5]  # Heap property should be maintained
 
-def test_heapify_up_min_heap():
-    """
-    Test the _heapify_up method for a min-heap.
-    """
-    heap = BinaryHeap(is_min_heap=True)
-    heap.heap = [10, 20, 15, 5]
-    heap._heapify_up(3)
-    assert heap.heap == [5, 10, 15, 20], "Min-heap property violated after _heapify_up"
-
-def test_heapify_up_max_heap():
-    """
-    Test the _heapify_up method for a max-heap.
-    """
-    heap = BinaryHeap(is_min_heap=False)
-    heap.heap = [10, 5, 15, 20]
-    heap._heapify_up(3)
-    assert heap.heap == [20, 10, 15, 5], "Max-heap property violated after _heapify_up"
-
-def test_heapify_down_min_heap():
-    """
-    Test the _heapify_down method for a min-heap.
-    """
-    heap = BinaryHeap(is_min_heap=True)
-    heap.heap = [20, 10, 15, 5]
-    heap._heapify_down(0)
-    assert heap.heap == [10, 5, 15, 20], "Min-heap property violated after _heapify_down"
-
-def test_heapify_down_max_heap():
-    """
-    Test the _heapify_down method for a max-heap.
-    """
-    heap = BinaryHeap(is_min_heap=False)
-    heap.heap = [5, 20, 15, 10]
-    heap._heapify_down(0)
-    assert heap.heap == [20, 10, 15, 5], "Max-heap property violated after _heapify_down"
-
-def test_compare_min_heap():
-    """
-    Test the _compare method for a min-heap.
-    """
-    heap = BinaryHeap(is_min_heap=True)
-    assert heap._compare(5, 10) is True, "Min-heap comparison failed"
-    assert heap._compare(10, 5) is False, "Min-heap comparison failed"
-
-def test_compare_max_heap():
-    """
-    Test the _compare method for a max-heap.
-    """
-    heap = BinaryHeap(is_min_heap=False)
-    assert heap._compare(10, 5) is True, "Max-heap comparison failed"
-    assert heap._compare(5, 10) is False, "Max-heap comparison failed"
-
-def test_empty_heap_extraction():
+def test_extract_from_empty_heap() -> None:
     """
     Test extracting from an empty heap.
     """
-    heap = BinaryHeap(is_min_heap=True)
+    # Test case 5: Extract from an empty heap
+    heap = BinaryHeap()
     with pytest.raises(IndexError):
-        heap.extract()
+        heap.extract()  # Should raise an IndexError
 
-def test_large_numbers():
+def test_heapify_min_heap() -> None:
     """
-    Test the heap with very large numbers.
+    Test heapifying a list into a min-heap.
     """
+    # Test case 6: Heapify a list into a min-heap
     heap = BinaryHeap(is_min_heap=True)
-    heap.insert(10**6)
-    heap.insert(10**9)
-    heap.insert(10**3)
-    assert heap.extract() == 10**3, "Failed to extract smallest large number"
-    assert heap.extract() == 10**6, "Failed to extract next smallest large number"
-    assert heap.extract() == 10**9, "Failed to extract largest large number"
+    heap.heap = [10, 5, 20, 1]
+    heap._heapify_down(0)
+    assert heap.heap == [1, 5, 20, 10]  # Min-heap property should be maintained
+
+def test_heapify_max_heap() -> None:
+    """
+    Test heapifying a list into a max-heap.
+    """
+    # Test case 7: Heapify a list into a max-heap
+    heap = BinaryHeap(is_min_heap=False)
+    heap.heap = [10, 5, 20, 1]
+    heap._heapify_down(0)
+    assert heap.heap == [20, 10, 5, 1]  # Max-heap property should be maintained
+
+def test_insert_and_extract_min_heap() -> None:
+    """
+    Test inserting and extracting elements from a min-heap.
+    """
+    # Test case 8: Insert and extract from a min-heap
+    heap = BinaryHeap(is_min_heap=True)
+    heap.insert(10)
+    heap.insert(5)
+    heap.insert(20)
+    heap.insert(1)
+    assert heap.extract() == 1
+    assert heap.extract() == 5
+    assert heap.extract() == 10
+    assert heap.extract() == 20
+    assert heap.heap == []
+
+def test_insert_and_extract_max_heap() -> None:
+    """
+    Test inserting and extracting elements from a max-heap.
+    """
+    # Test case 9: Insert and extract from a max-heap
+    heap = BinaryHeap(is_min_heap=False)
+    heap.insert(10)
+    heap.insert(5)
+    heap.insert(20)
+    heap.insert(1)
+    assert heap.extract() == 20
+    assert heap.extract() == 10
+    assert heap.extract() == 5
+    assert heap.extract() == 1
+    assert heap.heap == []
+
+def test_large_heap_operations() -> None:
+    """
+    Test inserting and extracting a large number of elements.
+    """
+    # Test case 10: Large heap operations
+    heap = BinaryHeap(is_min_heap=True)
+    for i in range(100, 0, -1):  # Insert 100 to 1
+        heap.insert(i)
+    for i in range(1, 101):  # Extract 1 to 100
+        assert heap.extract() == i
+    assert heap.heap == []
+
+def test_insert_duplicate_elements_min_heap() -> None:
+    """
+    Test inserting duplicate elements into a min-heap.
+    """
+    # Test case 11: Insert duplicate elements into a min-heap
+    heap = BinaryHeap(is_min_heap=True)
+    heap.insert(10)
+    heap.insert(10)
+    heap.insert(5)
+    heap.insert(5)
+    assert heap.heap == [5, 5, 10, 10]  # Min-heap property should be maintained
+
+def test_insert_duplicate_elements_max_heap() -> None:
+    """
+    Test inserting duplicate elements into a max-heap.
+    """
+    # Test case 12: Insert duplicate elements into a max-heap
+    heap = BinaryHeap(is_min_heap=False)
+    heap.insert(10)
+    heap.insert(10)
+    heap.insert(20)
+    heap.insert(20)
+    assert heap.heap == [20, 20, 10, 10]  # Max-heap property should be maintained
+
+def test_extract_single_element() -> None:
+    """
+    Test extracting the only element from a heap.
+    """
+    # Test case 13: Extract the only element
+    heap = BinaryHeap(is_min_heap=True)
+    heap.insert(42)
+    assert heap.extract() == 42
+    assert heap.heap == []  # Heap should be empty
+
+def test_large_heap_operations_max_heap() -> None:
+    """
+    Test inserting and extracting a large number of elements in a max-heap.
+    """
+    # Test case 14: Large heap operations for max-heap
+    heap = BinaryHeap(is_min_heap=False)
+    for i in range(1, 101):  # Insert 1 to 100
+        heap.insert(i)
+    for i in range(100, 0, -1):  # Extract 100 to 1
+        assert heap.extract() == i
+    assert heap.heap == []
