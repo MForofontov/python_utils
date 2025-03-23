@@ -195,3 +195,11 @@ def test_enqueue_after_dequeue_empty() -> None:
     assert queue.enqueue(40) is True  # Enqueue after emptying
     assert queue.peek() == 40
     assert queue.size() == 1
+
+def test_queue_with_zero_size() -> None:
+    """
+    Test initializing a CircularQueue with a size of 0.
+    """
+    # Test case 17: Queue with zero size
+    with pytest.raises(ValueError, match="Queue size must be greater than 0"):
+        CircularQueue(0)

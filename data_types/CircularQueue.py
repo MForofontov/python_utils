@@ -32,6 +32,8 @@ class CircularQueue:
     """
 
     def __init__(self, size: int) -> None:
+        if size <= 0:
+            raise ValueError("Queue size must be greater than 0")
         self.size: int = size
         self.queue: list[Optional[Any]] = [None] * size
         self.front: int = -1
