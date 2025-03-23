@@ -1,6 +1,9 @@
-from typing import Any, Optional
+from typing import Generic, TypeVar, Optional
 
-class CircularQueue:
+# Define a generic type variable
+T = TypeVar('T')
+
+class CircularQueue(Generic[T]):
     """
     A Circular Queue data structure.
 
@@ -8,7 +11,7 @@ class CircularQueue:
     ----------
     size : int
         The maximum number of items the queue can hold.
-    queue : list[Optional[Any]]
+    queue : list[Optional[T]]
         The list of items in the queue.
     front : int
         The index of the front of the queue.
@@ -17,33 +20,40 @@ class CircularQueue:
 
     Methods
     -------
-    enqueue(item: Any) -> bool
+    enqueue(item: T) -> bool
         Adds an item to the queue.
-    dequeue() -> Optional[Any]
+    dequeue() -> Optional[T]
         Removes and returns the front item of the queue.
-    peek() -> Optional[Any]
+    peek() -> Optional[T]
         Returns the front item without removing it.
     is_empty() -> bool
         Checks if the queue is empty.
     is_full() -> bool
         Checks if the queue is full.
-    size() -> int
+    current_size() -> int
         Returns the current number of items in the queue.
+    
+    Raises
+    ------
+    ValueError
+        If the queue size is less than or equal to 0.
     """
 
     def __init__(self, size: int) -> None:
+        if size <= 0:
+            raise ValueError("Queue size must be greater than 0")
         self.size: int = size
-        self.queue: list[Optional[Any]] = [None] * size
+        self.queue: list[Optional[T]] = [None] * size
         self.front: int = -1
         self.rear: int = -1
 
-    def enqueue(self, item: Any) -> bool:
+    def enqueue(self, item: T) -> bool:
         """
         Adds an item to the queue.
 
         Parameters
         ----------
-        item : Any
+        item : T
             The item to add to the queue.
 
         Returns
@@ -59,13 +69,13 @@ class CircularQueue:
         self.queue[self.rear] = item
         return True
 
-    def dequeue(self) -> Optional[Any]:
+    def dequeue(self) -> Optional[T]:
         """
         Removes and returns the front item of the queue.
 
         Returns
         -------
-        Optional[Any]
+        Optional[T]
             The front item of the queue, or None if the queue is empty.
         """
         if self.is_empty():
@@ -77,13 +87,13 @@ class CircularQueue:
             self.front = (self.front + 1) % self.size
         return item
 
-    def peek(self) -> Optional[Any]:
+    def peek(self) -> Optional[T]:
         """
         Returns the front item without removing it.
 
         Returns
         -------
-        Optional[Any]
+        Optional[T]
             The front item of the queue, or None if the queue is empty.
         """
         if self.is_empty():
@@ -112,7 +122,7 @@ class CircularQueue:
         """
         return (self.rear + 1) % self.size == self.front
 
-    def size(self) -> int:
+    def current_size(self) -> int:
         """
         Returns the current number of items in the queue.
 
