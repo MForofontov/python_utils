@@ -129,7 +129,7 @@ def test_delete_non_existing_key() -> None:
     tree.insert(10)
     tree.insert(20)
     with pytest.raises(ValueError):
-        tree.delete(30)  # Should not raise an error
+        tree.delete(30)
     assert tree.root.key == 10
     assert tree.root.right.key == 20
 
@@ -155,9 +155,9 @@ def test_delete_root_node() -> None:
     tree.insert(10)
     tree.insert(20)
     tree.insert(5)
-    tree.delete(10)  # Delete the root
+    tree.delete(10)
     assert tree.root is not None
-    assert tree.root.key in [5, 20]  # Either 5 or 20 becomes the new root
+    assert tree.root.key in [5, 20]
 
 def test_large_tree_balance() -> None:
     """
@@ -165,10 +165,10 @@ def test_large_tree_balance() -> None:
     """
     # Test case 13: Large tree balance
     tree = AVLTree()
-    for i in range(1, 101):  # Insert 100 nodes
+    for i in range(1, 101):
         tree.insert(i)
     assert tree.root is not None
-    assert abs(tree._get_balance(tree.root)) <= 1  # Root should be balanced
+    assert abs(tree._get_balance(tree.root)) <= 1
 
 def test_delete_all_nodes() -> None:
     """
@@ -182,7 +182,7 @@ def test_delete_all_nodes() -> None:
     tree.delete(10)
     tree.delete(20)
     tree.delete(30)
-    assert tree.root is None  # Tree should be empty
+    assert tree.root is None
 
 def test_search_in_empty_tree() -> None:
     """
@@ -191,7 +191,7 @@ def test_search_in_empty_tree() -> None:
     # Test case 15: Search in an empty tree
     tree = AVLTree()
     node = tree.search(10)
-    assert node is None  # Should return None as the tree is empty
+    assert node is None
 
 def test_height_of_empty_tree() -> None:
     """
@@ -199,7 +199,7 @@ def test_height_of_empty_tree() -> None:
     """
     # Test case 16: Height of an empty tree
     tree = AVLTree()
-    assert tree._get_height(tree.root) == 0  # Height of an empty tree should be 0
+    assert tree._get_height(tree.root) == 0
 
 def test_balance_of_empty_tree() -> None:
     """
@@ -207,4 +207,4 @@ def test_balance_of_empty_tree() -> None:
     """
     # Test case 17: Balance of an empty tree
     tree = AVLTree()
-    assert tree._get_balance(tree.root) == 0  # Balance factor of an empty tree should be 0
+    assert tree._get_balance(tree.root) == 0
