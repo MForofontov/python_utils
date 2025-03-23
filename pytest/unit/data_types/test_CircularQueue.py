@@ -202,4 +202,4 @@ def test_queue_with_zero_size() -> None:
     """
     # Test case 17: Queue with zero size
     with pytest.raises(ValueError, match="Queue size must be greater than 0"):
-        CircularQueue[int](0)
+        CircularQueue[int](0)  # Zero size is not allowed
