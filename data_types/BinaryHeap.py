@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Any
 
 class BinaryHeap:
     """
@@ -6,44 +6,44 @@ class BinaryHeap:
 
     Attributes
     ----------
-    heap : List[int]
+    heap : List[Any]
         A list representing the binary heap.
     is_min_heap : bool
         A flag indicating whether it's a min-heap or max-heap.
 
     Methods
     -------
-    insert(value: int) -> None
+    insert(value: Any) -> None
         Inserts a value into the heap.
-    extract() -> int
+    extract() -> Any
         Extracts the root value (min or max) from the heap.
     heapify() -> None
         Converts the list into a valid heap.
     """
 
     def __init__(self, is_min_heap: bool = True) -> None:
-        self.heap: List[int] = []
+        self.heap: List[Any] = []
         self.is_min_heap: bool = is_min_heap
 
-    def insert(self, value: int) -> None:
+    def insert(self, value: Any) -> None:
         """
         Inserts a value into the heap.
 
         Parameters
         ----------
-        value : int
+        value : Any
             The value to insert into the heap.
         """
         self.heap.append(value)
         self._heapify_up(len(self.heap) - 1)
 
-    def extract(self) -> int:
+    def extract(self) -> Any:
         """
         Extracts the root value (min or max) from the heap.
 
         Returns
         -------
-        int
+        Any
             The root value of the heap.
         """
         if len(self.heap) == 0:
@@ -90,15 +90,15 @@ class BinaryHeap:
             self.heap[index], self.heap[smallest_or_largest] = self.heap[smallest_or_largest], self.heap[index]
             self._heapify_down(smallest_or_largest)
 
-    def _compare(self, a: int, b: int) -> bool:
+    def _compare(self, a: Any, b: Any) -> bool:
         """
         Compares two elements based on the heap type (min-heap or max-heap).
 
         Parameters
         ----------
-        a : int
+        a : Any
             The first element.
-        b : int
+        b : Any
             The second element.
 
         Returns
