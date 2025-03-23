@@ -1,63 +1,66 @@
-from typing import Any, Optional
+from typing import Optional, TypeVar, Generic, List
 
-class BinaryTreeNode:
+# Define a generic type variable
+T = TypeVar('T')
+
+class BinaryTreeNode(Generic[T]):
     """
     A node in the binary tree.
 
     Attributes
     ----------
-    data : Any
+    data : T
         The data stored in the node.
-    left : Optional[BinaryTreeNode]
+    left : Optional[BinaryTreeNode[T]]
         The left child of the node.
-    right : Optional[BinaryTreeNode]
+    right : Optional[BinaryTreeNode[T]]
         The right child of the node.
     """
 
-    def __init__(self, data: Any) -> None:
-        self.data: Any = data
-        self.left: Optional[BinaryTreeNode] = None
-        self.right: Optional[BinaryTreeNode] = None
+    def __init__(self, data: T) -> None:
+        self.data: T = data
+        self.left: Optional[BinaryTreeNode[T]] = None
+        self.right: Optional[BinaryTreeNode[T]] = None
 
 
-class BinaryTree:
+class BinaryTree(Generic[T]):
     """
     A binary tree data structure.
 
     Attributes
     ----------
-    root : Optional[BinaryTreeNode]
+    root : Optional[BinaryTreeNode[T]]
         The root node of the binary tree.
 
     Methods
     -------
-    insert(data: Any) -> None
+    insert(data: T) -> None
         Inserts data into the binary tree.
-    search(data: Any) -> bool
+    search(data: T) -> bool
         Searches for data in the binary tree.
-    inorder_traversal() -> list
+    inorder_traversal() -> List[T]
         Performs an in-order traversal of the tree.
-    preorder_traversal() -> list
+    preorder_traversal() -> List[T]
         Performs a pre-order traversal of the tree.
-    postorder_traversal() -> list
+    postorder_traversal() -> List[T]
         Performs a post-order traversal of the tree.
     
     Raises
     ------
     ValueError
-        If duplicate values are inserted into the binary tree
+        If duplicate values are inserted into the binary tree.
     """
 
     def __init__(self) -> None:
-        self.root: Optional[BinaryTreeNode] = None
+        self.root: Optional[BinaryTreeNode[T]] = None
 
-    def insert(self, data: Any) -> None:
+    def insert(self, data: T) -> None:
         """
         Inserts data into the binary tree.
 
         Parameters
         ----------
-        data : Any
+        data : T
             The data to insert into the binary tree.
         """
         if self.root is None:
@@ -65,15 +68,15 @@ class BinaryTree:
         else:
             self._insert_recursive(self.root, data)
 
-    def _insert_recursive(self, node: BinaryTreeNode, data: Any) -> None:
+    def _insert_recursive(self, node: BinaryTreeNode[T], data: T) -> None:
         """
         A helper method to insert data recursively.
 
         Parameters
         ----------
-        node : BinaryTreeNode
+        node : BinaryTreeNode[T]
             The current node to check for insertion.
-        data : Any
+        data : T
             The data to insert.
         """
         if data < node.data:
@@ -89,13 +92,13 @@ class BinaryTree:
         elif data == node.data:
             raise ValueError("Duplicate values are not allowed in the BinaryTree")
 
-    def search(self, data: Any) -> bool:
+    def search(self, data: T) -> bool:
         """
         Searches for data in the binary tree.
 
         Parameters
         ----------
-        data : Any
+        data : T
             The data to search for.
 
         Returns
@@ -105,15 +108,15 @@ class BinaryTree:
         """
         return self._search_recursive(self.root, data)
 
-    def _search_recursive(self, node: Optional[BinaryTreeNode], data: Any) -> bool:
+    def _search_recursive(self, node: Optional[BinaryTreeNode[T]], data: T) -> bool:
         """
         A helper method to search for data recursively.
 
         Parameters
         ----------
-        node : Optional[BinaryTreeNode]
+        node : Optional[BinaryTreeNode[T]]
             The current node to check for data.
-        data : Any
+        data : T
             The data to search for.
 
         Returns
@@ -130,29 +133,29 @@ class BinaryTree:
         else:
             return self._search_recursive(node.right, data)
 
-    def inorder_traversal(self) -> list:
+    def inorder_traversal(self) -> List[T]:
         """
         Performs an in-order traversal of the tree.
 
         Returns
         -------
-        list
+        List[T]
             A list of data in in-order.
         """
         return self._inorder_traversal_recursive(self.root)
 
-    def _inorder_traversal_recursive(self, node: Optional[BinaryTreeNode]) -> list:
+    def _inorder_traversal_recursive(self, node: Optional[BinaryTreeNode[T]]) -> List[T]:
         """
         A helper method to perform an in-order traversal recursively.
 
         Parameters
         ----------
-        node : Optional[BinaryTreeNode]
+        node : Optional[BinaryTreeNode[T]]
             The current node to traverse.
 
         Returns
         -------
-        list
+        List[T]
             A list of data in in-order.
         """
         if node is None:
@@ -161,58 +164,58 @@ class BinaryTree:
                 [node.data] +
                 self._inorder_traversal_recursive(node.right))
 
-    def preorder_traversal(self) -> list:
+    def preorder_traversal(self) -> List[T]:
         """
         Performs a pre-order traversal of the tree.
 
         Returns
         -------
-        list
+        List[T]
             A list of data in pre-order.
         """
         return self._preorder_traversal_recursive(self.root)
 
-    def _preorder_traversal_recursive(self, node: Optional[BinaryTreeNode]) -> list:
+    def _preorder_traversal_recursive(self, node: Optional[BinaryTreeNode[T]]) -> List[T]:
         """
         A helper method to perform a pre-order traversal recursively.
 
         Parameters
         ----------
-        node : Optional[BinaryTreeNode]
+        node : Optional[BinaryTreeNode[T]]
             The current node to traverse.
 
         Returns
         -------
-        list
+        List[T]
             A list of data in pre-order.
         """
         if node is None:
             return []
         return [node.data] + self._preorder_traversal_recursive(node.left) + self._preorder_traversal_recursive(node.right)
 
-    def postorder_traversal(self) -> list:
+    def postorder_traversal(self) -> List[T]:
         """
         Performs a post-order traversal of the tree.
 
         Returns
         -------
-        list
+        List[T]
             A list of data in post-order.
         """
         return self._postorder_traversal_recursive(self.root)
 
-    def _postorder_traversal_recursive(self, node: Optional[BinaryTreeNode]) -> list:
+    def _postorder_traversal_recursive(self, node: Optional[BinaryTreeNode[T]]) -> List[T]:
         """
         A helper method to perform a post-order traversal recursively.
 
         Parameters
         ----------
-        node : Optional[BinaryTreeNode]
+        node : Optional[BinaryTreeNode[T]]
             The current node to traverse.
 
         Returns
         -------
-        list
+        List[T]
             A list of data in post-order.
         """
         if node is None:
