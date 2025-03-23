@@ -1,50 +1,58 @@
-from typing import List, Any
+from typing import List, TypeVar, Generic
 
-class BinaryHeap:
+# Define a generic type variable
+T = TypeVar('T')
+
+class BinaryHeap(Generic[T]):
     """
     A Binary Heap data structure.
 
     Attributes
     ----------
-    heap : List[Any]
+    heap : List[T]
         A list representing the binary heap.
     is_min_heap : bool
         A flag indicating whether it's a min-heap or max-heap.
 
     Methods
     -------
-    insert(value: Any) -> None
+    insert(value: T) -> None
         Inserts a value into the heap.
-    extract() -> Any
+    extract() -> T
         Extracts the root value (min or max) from the heap.
     heapify() -> None
         Converts the list into a valid heap.
     """
 
     def __init__(self, is_min_heap: bool = True) -> None:
-        self.heap: List[Any] = []
+        self.heap: List[T] = []
         self.is_min_heap: bool = is_min_heap
 
-    def insert(self, value: Any) -> None:
+    def insert(self, value: T) -> None:
         """
         Inserts a value into the heap.
 
         Parameters
         ----------
-        value : Any
+        value : T
             The value to insert into the heap.
         """
         self.heap.append(value)
         self._heapify_up(len(self.heap) - 1)
 
-    def extract(self) -> Any:
+    def extract(self) -> T:
         """
         Extracts the root value (min or max) from the heap.
 
         Returns
         -------
-        Any
+        T
             The root value of the heap.
+
+        Raises
+        ------
+        IndexError
+            If the heap is empty.
         """
         if len(self.heap) == 0:
             raise IndexError("extract from empty heap")
@@ -90,15 +98,15 @@ class BinaryHeap:
             self.heap[index], self.heap[smallest_or_largest] = self.heap[smallest_or_largest], self.heap[index]
             self._heapify_down(smallest_or_largest)
 
-    def _compare(self, a: Any, b: Any) -> bool:
+    def _compare(self, a: T, b: T) -> bool:
         """
         Compares two elements based on the heap type (min-heap or max-heap).
 
         Parameters
         ----------
-        a : Any
+        a : T
             The first element.
-        b : Any
+        b : T
             The second element.
 
         Returns
