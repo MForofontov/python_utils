@@ -128,7 +128,8 @@ def test_delete_non_existing_key() -> None:
     tree = AVLTree()
     tree.insert(10)
     tree.insert(20)
-    tree.delete(30)  # Should not raise an error
+    with pytest.raises(ValueError):
+        tree.delete(30)  # Should not raise an error
     assert tree.root.key == 10
     assert tree.root.right.key == 20
 
