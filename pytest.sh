@@ -21,7 +21,7 @@ echo "[Info] Allure results generated successfully in $ALLURE_RESULTS_DIR!"
 
 echo "[Info] Generating Allure report..."
 # Generate the Allure report in the specified directory
-allure generate $ALLURE_RESULTS_DIR -o $ALLURE_REPORT_DIR --clean
+allure generate $ALLURE_RESULTS_DIR -o $ALLURE_REPORT_DIR
 echo "[Info] Allure report generated successfully in $ALLURE_REPORT_DIR!"
 
 # Open the Allure report
