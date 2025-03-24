@@ -128,3 +128,84 @@ def test_add_and_remove_all_elements() -> None:
     assert deque.remove_rear() == 25
     assert deque.remove_rear() == 20
     assert deque.is_empty() is True
+
+import pytest
+from data_types.Deque import Deque
+
+def test_single_element_operations() -> None:
+    """
+    Test adding and removing a single element.
+    """
+    # Test case 13: Single element operations
+    deque = Deque[int]()
+    deque.add_front(10)
+    assert deque.size() == 1
+    assert deque.remove_front() == 10
+    assert deque.is_empty() is True
+
+    deque.add_rear(20)
+    assert deque.size() == 1
+    assert deque.remove_rear() == 20
+    assert deque.is_empty() is True
+
+def test_large_deque_operations() -> None:
+    """
+    Test adding and removing a large number of elements.
+    """
+    # Test case 14: Large deque operations
+    deque = Deque[int]()
+    for i in range(1000):  # Add 1000 elements to the rear
+        deque.add_rear(i)
+    assert deque.size() == 1000
+
+    for i in range(500):  # Remove 500 elements from the front
+        assert deque.remove_front() == i
+    assert deque.size() == 500
+
+    for i in range(999, 499, -1):  # Remove 500 elements from the rear
+        assert deque.remove_rear() == i
+    assert deque.is_empty() is True
+
+def test_custom_type_operations() -> None:
+    """
+    Test deque operations with a custom type.
+    """
+    # Test case 15: Custom type operations
+    class CustomType:
+        def __init__(self, value: int) -> None:
+            self.value = value
+
+        def __eq__(self, other: object) -> bool:
+            if isinstance(other, CustomType):
+                return self.value == other.value
+            return False
+
+    deque = Deque[CustomType]()
+    obj1 = CustomType(1)
+    obj2 = CustomType(2)
+    obj3 = CustomType(3)
+
+    deque.add_front(obj1)
+    deque.add_rear(obj2)
+    deque.add_front(obj3)
+
+    assert deque.size() == 3
+    assert deque.remove_front() == obj3
+    assert deque.remove_rear() == obj2
+    assert deque.remove_front() == obj1
+    assert deque.is_empty() is True
+
+def test_empty_deque_boundary() -> None:
+    """
+    Test operations on an empty deque.
+    """
+    # Test case 16: Empty deque boundary
+    deque = Deque[int]()
+    assert deque.is_empty() is True
+    assert deque.size() == 0
+
+    with pytest.raises(IndexError, match="Remove from an empty deque"):
+        deque.remove_front()
+
+    with pytest.raises(IndexError, match="Remove from an empty deque"):
+        deque.remove_rear()
