@@ -121,3 +121,28 @@ def test_empty_graph() -> None:
     graph = Graph[int]()
     assert graph.adjacency_list == {}
     assert graph.get_neighbors(1) == []
+
+def test_large_graph() -> None:
+    """
+    Test adding a large number of vertices and edges.
+    """
+    # Test case 10: Large graph
+    graph = Graph[int]()
+    for i in range(1000):
+        graph.add_vertex(i)
+    for i in range(999):
+        graph.add_edge(i, i + 1)
+    assert len(graph.adjacency_list) == 1000
+    assert graph.get_neighbors(0) == [1]
+    assert graph.get_neighbors(999) == [998]
+
+def test_order_of_neighbors() -> None:
+    """
+    Test that the order of neighbors is preserved.
+    """
+    # Test case 11: Order of neighbors
+    graph = Graph[int]()
+    graph.add_edge(1, 2)
+    graph.add_edge(1, 3)
+    graph.add_edge(1, 4)
+    assert graph.get_neighbors(1) == [2, 3, 4]
