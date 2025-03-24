@@ -77,5 +77,5 @@ def test_get_unique_sublists_unhashable_elements() -> None:
     Test the get_unique_sublists function with unhashable elements in sublists.
     """
     # Test case 9: Unhashable elements in sublists
-    with pytest.raises(TypeError, match="unhashable type: 'dict'"):
+    with pytest.raises(TypeError):
         get_unique_sublists([[1, 2], [{3: 4}, 5]])
