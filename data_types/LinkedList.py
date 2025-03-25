@@ -1,50 +1,53 @@
-from typing import Any
+from typing import Any, Generic, Optional, TypeVar
 
-class Node:
+# Define a generic type variable
+T = TypeVar('T')
+
+class Node(Generic[T]):
     """
     A Node in a Linked List.
 
     Attributes
     ----------
-    data : Any
+    data : T
         The data stored in the node.
-    next : Node or None
+    next : Optional[Node[T]]
         The next node in the linked list, or None if it is the last node.
     """
 
-    def __init__(self, data: Any) -> None:
+    def __init__(self, data: T) -> None:
         """
         Initializes a new node with the given data.
 
         Parameters
         ----------
-        data : Any
+        data : T
             The data to store in the node.
         """
-        self.data = data
-        self.next = None
+        self.data: T = data
+        self.next: Optional[Node[T]] = None
 
 
-class LinkedList:
+class LinkedList(Generic[T]):
     """
     A singly Linked List data structure.
 
     Attributes
     ----------
-    head : Node or None
+    head : Optional[Node[T]]
         The first node in the linked list.
 
     Methods
     -------
-    append(data)
+    append(data: T) -> None
         Adds a new node with the given data to the end of the list.
-    prepend(data)
+    prepend(data: T) -> None
         Adds a new node with the given data to the beginning of the list.
-    delete(data)
+    delete(data: T) -> None
         Removes the first node containing the specified data.
-    search(data)
+    search(data: T) -> bool
         Searches for the first node containing the specified data.
-    size()
+    size() -> int
         Returns the number of nodes in the list.
     """
 
@@ -52,15 +55,15 @@ class LinkedList:
         """
         Initializes an empty linked list.
         """
-        self.head: Node = None
+        self.head: Optional[Node[T]] = None
 
-    def append(self, data: Any) -> None:
+    def append(self, data: T) -> None:
         """
         Adds a new node with the given data to the end of the list.
 
         Parameters
         ----------
-        data : Any
+        data : T
             The data to store in the new node.
         """
         new_node = Node(data)
@@ -72,26 +75,26 @@ class LinkedList:
             last = last.next
         last.next = new_node
 
-    def prepend(self, data: Any) -> None:
+    def prepend(self, data: T) -> None:
         """
         Adds a new node with the given data to the beginning of the list.
 
         Parameters
         ----------
-        data : Any
+        data : T
             The data to store in the new node.
         """
         new_node = Node(data)
         new_node.next = self.head
         self.head = new_node
 
-    def delete(self, data: Any) -> None:
+    def delete(self, data: T) -> None:
         """
         Removes the first node containing the specified data.
 
         Parameters
         ----------
-        data : Any
+        data : T
             The data to remove from the list.
 
         Raises
@@ -111,13 +114,13 @@ class LinkedList:
             raise ValueError(f"Data {data} not found in the list")
         prev.next = current.next
 
-    def search(self, data: Any) -> bool:
+    def search(self, data: T) -> bool:
         """
         Searches for the first node containing the specified data.
 
         Parameters
         ----------
-        data : Any
+        data : T
             The data to search for.
 
         Returns
