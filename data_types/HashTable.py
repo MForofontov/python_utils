@@ -1,6 +1,10 @@
-from typing import List, Tuple, Any
+from typing import List, Tuple, TypeVar, Generic
 
-class HashTable:
+# Define generic type variables for keys and values
+K = TypeVar('K')  # Key type
+V = TypeVar('V')  # Value type
+
+class HashTable(Generic[K, V]):
     """
     A simple Hash Table data structure.
 
@@ -8,18 +12,18 @@ class HashTable:
     ----------
     size : int
         The number of buckets in the hash table.
-    table : List[List[Tuple[Any, Any]]]
+    table : List[List[Tuple[K, V]]]
         The list of buckets where each bucket stores key-value pairs as tuples.
 
     Methods
     -------
-    insert(key, value)
+    insert(key: K, value: V) -> None
         Inserts a key-value pair into the hash table.
-    get(key)
+    get(key: K) -> V
         Retrieves the value associated with a key.
-    remove(key)
+    remove(key: K) -> None
         Removes a key-value pair from the hash table.
-    contains(key)
+    contains(key: K) -> bool
         Checks if the hash table contains a key.
     """
 
@@ -33,15 +37,15 @@ class HashTable:
             The number of buckets in the hash table. Default is 10.
         """
         self.size = size
-        self.table: List[List[Tuple[Any, Any]]] = [[] for _ in range(self.size)]
+        self.table: List[List[Tuple[K, V]]] = [[] for _ in range(self.size)]
 
-    def _hash(self, key: Any) -> int:
+    def _hash(self, key: K) -> int:
         """
         Hash function to compute the index for a given key.
 
         Parameters
         ----------
-        key : Any
+        key : K
             The key to hash.
 
         Returns
@@ -51,15 +55,15 @@ class HashTable:
         """
         return hash(key) % self.size
 
-    def insert(self, key: Any, value: Any) -> None:
+    def insert(self, key: K, value: V) -> None:
         """
         Inserts a key-value pair into the hash table.
 
         Parameters
         ----------
-        key : Any
+        key : K
             The key to insert.
-        value : Any
+        value : V
             The value associated with the key.
         """
         index = self._hash(key)
@@ -69,18 +73,18 @@ class HashTable:
                 return
         self.table[index].append((key, value))
 
-    def get(self, key: Any) -> Any:
+    def get(self, key: K) -> V:
         """
         Retrieves the value associated with a key.
 
         Parameters
         ----------
-        key : Any
+        key : K
             The key to look up.
 
         Returns
         -------
-        Any
+        V
             The value associated with the key.
 
         Raises
@@ -94,13 +98,13 @@ class HashTable:
                 return v
         raise KeyError(f"Key {key} not found in the hash table")
 
-    def remove(self, key: Any) -> None:
+    def remove(self, key: K) -> None:
         """
         Removes a key-value pair from the hash table.
 
         Parameters
         ----------
-        key : Any
+        key : K
             The key to remove.
 
         Raises
@@ -115,13 +119,13 @@ class HashTable:
                 return
         raise KeyError(f"Key {key} not found in the hash table")
 
-    def contains(self, key: Any) -> bool:
+    def contains(self, key: K) -> bool:
         """
         Checks if the hash table contains a key.
 
         Parameters
         ----------
-        key : Any
+        key : K
             The key to check.
 
         Returns
