@@ -120,7 +120,6 @@ def test_custom_value_type() -> None:
     assert hash_table.get(1).value == 100
     assert hash_table.get(2).value == 200
 
-# Error-related tests
 def test_empty_hash_table() -> None:
     """
     Test operations on an empty hash table.
