@@ -9,3 +9,26 @@ pytest_run_tests/
 
 # Ignore all __pycache__ directories
 __pycache__/
+
+# Ignore all .pyc files
+*.pyc
+# Ignore all .pyo files
+*.pyo
+# Ignore all .pyd files
+*.pyd
+# Ignore all .pdb files
+*.pdb
+# Ignore all .egg-info directories
+*.egg-info/
+# Ignore all .egg files
+*.egg
+# Ignore all .whl files
+*.whl
+# Ignore all .mypy_cache directories
+.mypy_cache/
+# Ignore all .coverage files
+.coverage
+# Ignore all .tox directories
+.tox/
+# Ignore all .pytest_cache directories
+.pytest_cache/
