@@ -1,24 +1,27 @@
 import heapq
-from typing import Any, Tuple, List
+from typing import Any, Tuple, List, TypeVar, Generic
 
-class PriorityQueue:
+# Define a generic type variable
+T = TypeVar('T')
+
+class PriorityQueue(Generic[T]):
     """
     A Priority Queue data structure using a min-heap.
 
     Attributes
     ----------
-    heap : List[Tuple[int, Any]]
+    heap : List[Tuple[int, T]]
         The list representing the heap, where each element is a tuple of (priority, value).
 
     Methods
     -------
-    push(item, priority)
+    push(item: T, priority: int) -> None
         Adds an item with a given priority to the queue.
-    pop()
+    pop() -> T
         Removes and returns the item with the highest priority (lowest numerical value).
-    is_empty()
+    is_empty() -> bool
         Checks if the priority queue is empty.
-    size()
+    size() -> int
         Returns the number of elements in the priority queue.
     """
 
@@ -26,28 +29,28 @@ class PriorityQueue:
         """
         Initializes an empty priority queue.
         """
-        self.heap: List[Tuple[int, Any]] = []
+        self.heap: List[Tuple[int, T]] = []
 
-    def push(self, item: Any, priority: int) -> None:
+    def push(self, item: T, priority: int) -> None:
         """
         Adds an item with a given priority to the queue.
 
         Parameters
         ----------
-        item : Any
+        item : T
             The item to be added to the queue.
         priority : int
             The priority of the item (lower values indicate higher priority).
         """
         heapq.heappush(self.heap, (priority, item))
 
-    def pop(self) -> Any:
+    def pop(self) -> T:
         """
         Removes and returns the item with the highest priority.
 
         Returns
         -------
-        Any
+        T
             The item with the highest priority.
 
         Raises

@@ -1,15 +1,11 @@
 # VS Code
 .vscode/
-
 # Environment
 .python_utils_env/
-
 # Python testing folders
 pytest_run_tests/
-
 # Ignore all __pycache__ directories
 __pycache__/
-
 # Ignore all .pyc files
 *.pyc
 # Ignore all .pyo files
