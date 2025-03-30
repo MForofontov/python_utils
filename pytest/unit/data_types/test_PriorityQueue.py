@@ -41,20 +41,11 @@ def test_size() -> None:
     pq.pop()
     assert pq.size() == 0
 
-def test_pop_empty_queue() -> None:
-    """
-    Test popping from an empty priority queue.
-    """
-    # Test case 4: Pop from empty queue
-    pq = PriorityQueue[int]()
-    with pytest.raises(IndexError, match="Pop from an empty priority queue"):
-        pq.pop()
-
 def test_priority_order() -> None:
     """
     Test that elements are returned in the correct priority order.
     """
-    # Test case 5: Priority order
+    # Test case 4: Priority order
     pq = PriorityQueue[str]()
     pq.push("low", 3)
     pq.push("medium", 2)
@@ -67,7 +58,7 @@ def test_duplicate_priorities() -> None:
     """
     Test handling of elements with duplicate priorities.
     """
-    # Test case 6: Duplicate priorities
+    # Test case 5: Duplicate priorities
     pq = PriorityQueue[str]()
     pq.push("first", 1)
     pq.push("second", 1)
@@ -80,7 +71,7 @@ def test_custom_object_priority_queue() -> None:
     """
     Test the priority queue with custom objects.
     """
-    # Test case 7: Custom objects
+    # Test case 6: Custom objects
     class Task:
         def __init__(self, name: str) -> None:
             self.name = name
@@ -98,3 +89,53 @@ def test_custom_object_priority_queue() -> None:
     assert pq.pop() == task2  # Highest priority
     assert pq.pop() == task3
     assert pq.pop() == task1
+
+def test_large_priority_queue() -> None:
+    """
+    Test operations on a very large priority queue.
+    """
+    # Test case 7: Large priority queue
+    pq = PriorityQueue[int]()
+    for i in range(10000):
+        pq.push(i, i)
+    assert pq.size() == 10000
+    assert pq.pop() == 0  # Lowest priority value
+    assert pq.pop() == 1
+    assert pq.size() == 9998
+
+def test_order_of_elements() -> None:
+    """
+    Test the order of elements in the priority queue after multiple operations.
+    """
+    # Test case 8: Order verification
+    pq = PriorityQueue[int]()
+    pq.push(10, 2)
+    pq.push(20, 1)
+    pq.push(30, 3)
+    pq.pop()  # Remove the highest priority (20)
+    pq.push(40, 0)  # Add a new highest priority
+    elements = []
+    while not pq.is_empty():
+        elements.append(pq.pop())
+    assert elements == [40, 10, 30]
+
+def test_iterative_access() -> None:
+    """
+    Test iteration over the priority queue.
+    """
+    # Test case 9: Iterative access
+    pq = PriorityQueue[int]()
+    pq.push(10, 2)
+    pq.push(20, 1)
+    pq.push(30, 3)
+    elements = sorted(pq.heap)  # Access the heap directly for testing
+    assert elements == [(1, 20), (2, 10), (3, 30)]
+
+def test_pop_empty_queue() -> None:
+    """
+    Test popping from an empty priority queue.
+    """
+    # Test case 10: Pop from empty queue
+    pq = PriorityQueue[int]()
+    with pytest.raises(IndexError, match="Pop from an empty priority queue"):
+        pq.pop()
