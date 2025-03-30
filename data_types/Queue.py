@@ -1,23 +1,26 @@
-from typing import List, Any
+from typing import List, TypeVar, Generic
 
-class Queue:
+# Define a generic type variable
+T = TypeVar('T')
+
+class Queue(Generic[T]):
     """
     A Queue data structure.
 
     Attributes
     ----------
-    items : List[Any]
+    items : List[T]
         The list to store queue elements.
 
     Methods
     -------
-    enqueue(item)
+    enqueue(item: T) -> None
         Adds an element to the back of the queue.
-    dequeue()
+    dequeue() -> T
         Removes and returns the front element of the queue.
-    is_empty()
+    is_empty() -> bool
         Checks if the queue is empty.
-    size()
+    size() -> int
         Returns the number of elements in the queue.
     """
 
@@ -25,26 +28,26 @@ class Queue:
         """
         Initializes an empty queue.
         """
-        self.items: List[Any] = []
+        self.items: List[T] = []
 
-    def enqueue(self, item: Any) -> None:
+    def enqueue(self, item: T) -> None:
         """
         Adds an element to the back of the queue.
 
         Parameters
         ----------
-        item : Any
+        item : T
             The element to add to the queue.
         """
         self.items.append(item)
 
-    def dequeue(self) -> Any:
+    def dequeue(self) -> T:
         """
         Removes and returns the front element of the queue.
 
         Returns
         -------
-        Any
+        T
             The front element of the queue.
 
         Raises
