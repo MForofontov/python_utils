@@ -41,20 +41,11 @@ def test_size() -> None:
     queue.dequeue()
     assert queue.size() == 0
 
-def test_dequeue_empty_queue() -> None:
-    """
-    Test removing an element from an empty queue.
-    """
-    # Test case 4: Dequeue from empty queue
-    queue = Queue[int]()
-    with pytest.raises(IndexError, match="Dequeue from an empty queue"):
-        queue.dequeue()
-
 def test_order_of_elements() -> None:
     """
     Test the order of elements in the queue after multiple operations.
     """
-    # Test case 5: Order verification
+    # Test case 4: Order verification
     queue = Queue[int]()
     queue.enqueue(1)
     queue.enqueue(2)
@@ -70,7 +61,7 @@ def test_custom_object_queue() -> None:
     """
     Test the queue with custom objects.
     """
-    # Test case 6: Custom objects
+    # Test case 5: Custom objects
     class Task:
         def __init__(self, name: str) -> None:
             self.name = name
@@ -93,7 +84,7 @@ def test_large_queue() -> None:
     """
     Test operations on a very large queue.
     """
-    # Test case 7: Large queue
+    # Test case 6: Large queue
     queue = Queue[int]()
     for i in range(10000):
         queue.enqueue(i)
@@ -101,3 +92,35 @@ def test_large_queue() -> None:
     assert queue.dequeue() == 0  # First element
     assert queue.dequeue() == 1
     assert queue.size() == 9998
+
+def test_single_element_queue() -> None:
+    """
+    Test enqueuing and dequeuing a single element.
+    """
+    # Test case 7: Single element queue
+    queue = Queue[int]()
+    queue.enqueue(42)
+    assert queue.size() == 1
+    assert queue.dequeue() == 42
+    assert queue.is_empty() is True
+
+def test_iterative_access() -> None:
+    """
+    Test iteration over the queue.
+    """
+    # Test case 8: Iterative access
+    queue = Queue[int]()
+    queue.enqueue(1)
+    queue.enqueue(2)
+    queue.enqueue(3)
+    elements = [item for item in queue.items]  # Access the queue's items directly
+    assert elements == [1, 2, 3]
+
+def test_dequeue_empty_queue() -> None:
+    """
+    Test removing an element from an empty queue.
+    """
+    # Test case 9: Dequeue from empty queue
+    queue = Queue[int]()
+    with pytest.raises(IndexError, match="Dequeue from an empty queue"):
+        queue.dequeue()
