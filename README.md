@@ -59,6 +59,11 @@ To run the unit tests, use the following command:
 pytest --alluredir "path/to/allure/output" --cov="path/to/code/to/calculate/cov" --cov-report=xml:"path/to/xml/output
 ```
 
+To run the unit tests and generate the report, use the following command:
+```sh
+pytest.sh
+```
+
 ## Contributing
 
 Contributions are welcome! Please follow these steps:
