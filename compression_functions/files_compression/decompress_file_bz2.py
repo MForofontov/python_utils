@@ -1,4 +1,5 @@
 import bz2
+import os
 
 def decompress_file_bz2(input_bz2: str, output_file: str) -> None:
     """
@@ -27,6 +28,11 @@ def decompress_file_bz2(input_bz2: str, output_file: str) -> None:
         raise TypeError("output_file must be a string")
 
     try:
+        if not os.access(input_bz2, os.R_OK):
+            raise OSError("Input file is not readable")
+        output_dir = os.path.dirname(output_file) or "."
+        if not os.access(output_dir, os.W_OK):
+            raise OSError("Output location is not writable")
         # Open the input bz2-compressed file in binary read mode
         with bz2.open(input_bz2, 'rb') as f_in:
             # Open the output file in binary write mode

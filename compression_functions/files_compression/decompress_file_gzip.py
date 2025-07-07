@@ -1,5 +1,6 @@
 import gzip
 import shutil
+import os
 
 def decompress_file_gzip(input_gzip: str, output_file: str) -> None:
     """
@@ -28,6 +29,11 @@ def decompress_file_gzip(input_gzip: str, output_file: str) -> None:
         raise TypeError("output_file must be a string")
 
     try:
+        if not os.access(input_gzip, os.R_OK):
+            raise OSError("Input file is not readable")
+        output_dir = os.path.dirname(output_file) or "."
+        if not os.access(output_dir, os.W_OK):
+            raise OSError("Output location is not writable")
         # Open the input gzip-compressed file in binary read mode
         with gzip.open(input_gzip, 'rb') as f_in:
             # Open the output file in binary write mode

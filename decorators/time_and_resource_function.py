@@ -199,18 +199,18 @@ def time_and_resource_function(monitor_memory=True, monitor_cpu=True, monitor_io
                     print(message)
 
             # Print results
-            log_or_print(f"Execution time: {execution_time:.2f} seconds", "debug")
+            log_or_print(f"Execution time: {execution_time:.2f} seconds")
 
             if monitor_memory:
                 log_or_print(f"Maximum memory usage: {max_memory_usage / (1024 * 1024):.2f} MB")
             if monitor_cpu:
-                log_or_print(f"Maximum CPU usage: {max_cpu_usage:.2f}%", "debug")
-                log_or_print(f"Maximum CPU cores used: {max_cpu_cores:.2f}", "debug")
+                log_or_print(f"Maximum CPU usage: {max_cpu_usage:.2f}%")
+                log_or_print(f"Maximum CPU cores used: {max_cpu_cores:.2f}")
             if monitor_io and initial_io_counters and final_io_counters:
                 read_ops = final_io_counters.read_count - initial_io_counters.read_count + total_read_ops
                 write_ops = final_io_counters.write_count - initial_io_counters.write_count + total_write_ops
-                log_or_print(f"Read operations: {read_ops}", "debug")
-                log_or_print(f"Write operations: {write_ops}", "debug")
+                log_or_print(f"Read operations: {read_ops}")
+                log_or_print(f"Write operations: {write_ops}")
             if monitor_network and initial_net_io_counters and final_net_io_counters:
                 # Calculate the differences for network I/O
                 if initial_net_io_counters and final_net_io_counters:
@@ -219,24 +219,24 @@ def time_and_resource_function(monitor_memory=True, monitor_cpu=True, monitor_io
                 else:
                     bytes_sent = total_bytes_sent
                     bytes_recv = total_bytes_recv
-                log_or_print(f"Bytes sent: {bytes_sent}", "debug")
-                log_or_print(f"Bytes received: {bytes_recv}", "debug")
+                log_or_print(f"Bytes sent: {bytes_sent}")
+                log_or_print(f"Bytes received: {bytes_recv}")
             if monitor_disk and initial_disk_io_counters and final_disk_io_counters:
                 read_bytes = final_disk_io_counters.read_bytes - initial_disk_io_counters.read_bytes + total_read_bytes
                 write_bytes = final_disk_io_counters.write_bytes - initial_disk_io_counters.write_bytes + total_write_bytes
-                log_or_print(f"Disk read bytes: {read_bytes}", "debug")
-                log_or_print(f"Disk write bytes: {write_bytes}", "debug")
+                log_or_print(f"Disk read bytes: {read_bytes}")
+                log_or_print(f"Disk write bytes: {write_bytes}")
             if monitor_threads:
-                log_or_print(f"Maximum number of threads: {max_threads}", "debug")
+                log_or_print(f"Number of threads: {max_threads}")
             if monitor_gc:
-                log_or_print(f"GC collections: {total_gc_collections}", "debug")
+                log_or_print(f"GC collections: {total_gc_collections}")
             if monitor_context_switches:
-                log_or_print(f"Voluntary context switches: {total_voluntary_context_switches}", "debug")
-                log_or_print(f"Involuntary context switches: {total_involuntary_context_switches}", "debug")
+                log_or_print(f"Voluntary context switches: {total_voluntary_context_switches}")
+                log_or_print(f"Involuntary context switches: {total_involuntary_context_switches}")
             if monitor_open_files:
-                log_or_print(f"Maximum open files: {max_open_files}", "debug")
+                log_or_print(f"Maximum open files: {max_open_files}")
             if monitor_page_faults:
-                log_or_print(f"Maximum page faults: {max_page_faults}", "debug")
+                log_or_print(f"Maximum page faults: {max_page_faults}")
 
             return result
 

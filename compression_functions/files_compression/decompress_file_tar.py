@@ -28,6 +28,10 @@ def decompress_file_tar(input_tar: str, output_dir: str) -> None:
         raise TypeError("output_dir must be a string")
 
     try:
+        if not os.access(input_tar, os.R_OK):
+            raise OSError("Input file is not readable")
+        if not os.access(output_dir or ".", os.W_OK):
+            raise OSError("Output location is not writable")
         # Ensure the output directory exists
         os.makedirs(output_dir, exist_ok=True)
 

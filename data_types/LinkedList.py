@@ -150,3 +150,9 @@ class LinkedList(Generic[T]):
             count += 1
             current = current.next
         return count
+
+    def __iter__(self):
+        current = self.head
+        while current:
+            yield current
+            current = current.next

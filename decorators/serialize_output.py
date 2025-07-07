@@ -27,7 +27,7 @@ def serialize_output(format: str, logger: logging.Logger = None) -> Callable[[Ca
         If logger is not an instance of logging.Logger or
     """
     if not isinstance(logger, logging.Logger) and logger is not None:
-        raise TypeError("logger must be an instance of logging.Logger or None")
+        logger = None
 
     if not isinstance(format, str):
         if logger:
