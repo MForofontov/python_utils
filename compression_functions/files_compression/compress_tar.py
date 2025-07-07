@@ -32,23 +32,26 @@ def compress_tar(input_path: str, output_tar: str) -> None:
         raise FileNotFoundError(f"The input path {input_path} does not exist.")
 
     try:
+        check_path = input_path if os.path.isdir(input_path) else os.path.dirname(input_path) or "."
         if os.path.isdir(input_path):
-            check_path = input_path
+            if os.stat(check_path).st_mode & 0o444 == 0:
+                raise OSError("Input path is not readable")
         else:
-            check_path = os.path.dirname(input_path) or "."
-        if not os.access(check_path, os.R_OK):
-            raise OSError("Input path is not readable")
+            if os.stat(input_path).st_mode & 0o444 == 0:
+                raise OSError("Input path is not readable")
+
         output_dir = os.path.dirname(output_tar) or "."
-        if not os.access(output_dir, os.W_OK):
+        if os.stat(output_dir).st_mode & 0o222 == 0:
             raise OSError("Output location is not writable")
-        # Open the output tar file in write mode with gzip compression
-        with tarfile.open(output_tar, 'w:gz') as tar:
-            # If the input path is a directory, add the directory and all its contents to the tar file
+        if os.path.exists(output_tar) and os.stat(output_tar).st_mode & 0o222 == 0:
+            raise OSError("Output file is not writable")
+
+        with tarfile.open(output_tar, "w:gz") as tar:
             if os.path.isdir(input_path):
                 tar.add(input_path, arcname=os.path.basename(input_path))
             else:
-                # If the input path is a file, add the file to the tar file
                 tar.add(input_path, arcname=os.path.basename(input_path))
-    except OSError as e:
-        # Raise an IOError if an I/O error occurs during compression
+    except FileNotFoundError:
+        raise
+    except (PermissionError, OSError) as e:
         raise OSError(f"An I/O error occurred during compression: {e}")
