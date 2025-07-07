@@ -1,5 +1,6 @@
 import os
 import zipfile
+import stat
 
 def decompress_file_zip(input_zip: str, output_dir: str) -> None:
     """
@@ -28,10 +29,15 @@ def decompress_file_zip(input_zip: str, output_dir: str) -> None:
         raise TypeError("output_dir must be a string")
 
     try:
-        if not os.access(input_zip, os.R_OK):
+        if not os.path.exists(input_zip):
+            raise FileNotFoundError(f"The input zip file {input_zip} does not exist.")
+        mode = os.stat(input_zip).st_mode
+        if mode & (stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH) == 0:
             raise OSError("Input file is not readable")
-        if not os.access(output_dir or ".", os.W_OK):
-            raise OSError("Output location is not writable")
+        if os.path.exists(output_dir):
+            dir_mode = os.stat(output_dir).st_mode
+            if dir_mode & (stat.S_IWUSR | stat.S_IWGRP | stat.S_IWOTH) == 0:
+                raise OSError("Output location is not writable")
         # Ensure the output directory exists
         os.makedirs(output_dir, exist_ok=True)
 
