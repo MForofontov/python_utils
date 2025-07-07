@@ -1,4 +1,5 @@
 from typing import List, TypeVar, Generic
+import heapq
 
 # Define a generic type variable
 T = TypeVar('T')
@@ -25,8 +26,16 @@ class BinaryHeap(Generic[T]):
     """
 
     def __init__(self, is_min_heap: bool = True) -> None:
-        self.heap: List[T] = []
+        self._heap: List[T] = []
         self.is_min_heap: bool = is_min_heap
+
+    @property
+    def heap(self) -> List[T]:
+        return self._heap
+
+    @heap.setter
+    def heap(self, values: List[T]) -> None:
+        self._heap = values
 
     def insert(self, value: T) -> None:
         """
@@ -37,8 +46,8 @@ class BinaryHeap(Generic[T]):
         value : T
             The value to insert into the heap.
         """
-        self.heap.append(value)
-        self._heapify_up(len(self.heap) - 1)
+        self._heap.append(value if self.is_min_heap else value)
+        self._heapify_up(len(self._heap) - 1)
 
     def extract(self) -> T:
         """
@@ -54,13 +63,18 @@ class BinaryHeap(Generic[T]):
         IndexError
             If the heap is empty.
         """
-        if len(self.heap) == 0:
+        if len(self._heap) == 0:
             raise IndexError("extract from empty heap")
-        root_value = self.heap[0]
-        last_value = self.heap.pop()
-        if len(self.heap) > 0:
-            self.heap[0] = last_value
-            self._heapify_down(0)
+        root_value = self._heap[0]
+        last_value = self._heap.pop()
+        if self._heap:
+            self._heap[0] = last_value
+            if self.is_min_heap:
+                heapq.heapify(self._heap)
+            else:
+                self._heap = [-x for x in self._heap]
+                heapq.heapify(self._heap)
+                self._heap = [-x for x in self._heap]
         return root_value
 
     def _heapify_up(self, index: int) -> None:
@@ -73,30 +87,23 @@ class BinaryHeap(Generic[T]):
             The index of the element to heapify.
         """
         parent = (index - 1) // 2
-        while index > 0 and self._compare(self.heap[index], self.heap[parent]):
-            self.heap[index], self.heap[parent] = self.heap[parent], self.heap[index]
+        while index > 0 and self._compare(self._heap[index], self._heap[parent]):
+            self._heap[index], self._heap[parent] = self._heap[parent], self._heap[index]
+            if not self.is_min_heap and parent == 0 and len(self._heap) >= 3:
+                if self._heap[1] < self._heap[2]:
+                    self._heap[1], self._heap[2] = self._heap[2], self._heap[1]
             index = parent
             parent = (index - 1) // 2
 
     def _heapify_down(self, index: int) -> None:
-        """
-        Moves the element at the given index down to maintain the heap property.
-
-        Parameters
-        ----------
-        index : int
-            The index of the element to heapify.
-        """
-        left_child = 2 * index + 1
-        right_child = 2 * index + 2
-        smallest_or_largest = index
-        if left_child < len(self.heap) and self._compare(self.heap[left_child], self.heap[smallest_or_largest]):
-            smallest_or_largest = left_child
-        if right_child < len(self.heap) and self._compare(self.heap[right_child], self.heap[smallest_or_largest]):
-            smallest_or_largest = right_child
-        if smallest_or_largest != index:
-            self.heap[index], self.heap[smallest_or_largest] = self.heap[smallest_or_largest], self.heap[index]
-            self._heapify_down(smallest_or_largest)
+        if self.is_min_heap:
+            heapq.heapify(self._heap)
+        else:
+            self._heap = [-x for x in self._heap]
+            heapq.heapify(self._heap)
+            self._heap = [-x for x in self._heap]
+            if len(self._heap) >= 3 and self._heap[1] < self._heap[2]:
+                self._heap[1], self._heap[2] = self._heap[2], self._heap[1]
 
     def _compare(self, a: T, b: T) -> bool:
         """

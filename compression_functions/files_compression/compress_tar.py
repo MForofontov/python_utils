@@ -32,6 +32,15 @@ def compress_tar(input_path: str, output_tar: str) -> None:
         raise FileNotFoundError(f"The input path {input_path} does not exist.")
 
     try:
+        if os.path.isdir(input_path):
+            check_path = input_path
+        else:
+            check_path = os.path.dirname(input_path) or "."
+        if not os.access(check_path, os.R_OK):
+            raise OSError("Input path is not readable")
+        output_dir = os.path.dirname(output_tar) or "."
+        if not os.access(output_dir, os.W_OK):
+            raise OSError("Output location is not writable")
         # Open the output tar file in write mode with gzip compression
         with tarfile.open(output_tar, 'w:gz') as tar:
             # If the input path is a directory, add the directory and all its contents to the tar file

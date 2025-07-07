@@ -32,6 +32,12 @@ def compress_zip(input_path: str, output_zip: str) -> None:
         raise FileNotFoundError(f"The input path {input_path} does not exist.")
 
     try:
+        check_path = input_path if os.path.isdir(input_path) else os.path.dirname(input_path) or "."
+        if not os.access(check_path, os.R_OK):
+            raise OSError("Input path is not readable")
+        output_dir = os.path.dirname(output_zip) or "."
+        if not os.access(output_dir, os.W_OK):
+            raise OSError("Output location is not writable")
         # Open the output zip file in write mode with deflated compression
         with zipfile.ZipFile(output_zip, 'w', zipfile.ZIP_DEFLATED) as zipf:
             # If the input path is a directory, walk through the directory and its subdirectories

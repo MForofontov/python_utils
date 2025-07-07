@@ -45,18 +45,16 @@ def time_function(logger: Optional[logging.Logger] = None) -> Callable[[Callable
             """
             # Record the start time
             start_time = time.time()
-            # Call the original function and get the result
-            result = func(*args, **kwargs)
-            # Record the end time
-            end_time = time.time()
-            # Calculate the execution time
-            execution_time = end_time - start_time
-            # Log or print the execution time
-            message = f"{func.__name__} executed in {execution_time:.4f} seconds"
-            if logger:
-                logger.debug(message)
-            else:
-                print(message)
+            try:
+                result = func(*args, **kwargs)
+            finally:
+                end_time = time.time()
+                execution_time = end_time - start_time
+                message = f"{func.__name__} executed in {execution_time:.4f} seconds"
+                if logger:
+                    logger.debug(message)
+                else:
+                    print(message)
             return result
         return wrapper
     return decorator
