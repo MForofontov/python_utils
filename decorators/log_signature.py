@@ -22,6 +22,8 @@ def log_signature(logger: Optional[logging.Logger]) -> Callable[[Callable[..., A
     TypeError
         If the logger is not an instance of logging.Logger.
     """
+    if logger is None:
+        logger = logging.getLogger(__name__)
     if not isinstance(logger, logging.Logger):
         raise TypeError("logger must be an instance of logging.Logger.")
 
@@ -67,9 +69,9 @@ def log_signature(logger: Optional[logging.Logger]) -> Callable[[Callable[..., A
                 result = func(*args, **kwargs)
                 logger.info(f"{func.__name__} returned: {result}")
                 return result
-            except Exception as e:
-                logger.error(f"Exception in {func.__name__}: {e}", exc_info=True)
-                raise Exception(f"Exception in {func.__name__}:") from e
+            except Exception:
+                logger.exception(f"Exception occurred in {func.__name__}:")
+                raise
 
         return wrapper
     return decorator

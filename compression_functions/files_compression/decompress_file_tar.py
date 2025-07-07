@@ -1,5 +1,6 @@
 import os
 import tarfile
+import stat
 
 def decompress_file_tar(input_tar: str, output_dir: str) -> None:
     """
@@ -28,10 +29,21 @@ def decompress_file_tar(input_tar: str, output_dir: str) -> None:
         raise TypeError("output_dir must be a string")
 
     try:
-        if not os.access(input_tar, os.R_OK):
+        if not os.path.exists(input_tar):
+            raise FileNotFoundError(f"The input tar file {input_tar} does not exist.")
+        mode = os.stat(input_tar).st_mode
+        if mode & (stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH) == 0:
             raise OSError("Input file is not readable")
-        if not os.access(output_dir or ".", os.W_OK):
-            raise OSError("Output location is not writable")
+        if os.path.exists(output_dir):
+            dir_mode = os.stat(output_dir).st_mode
+            if dir_mode & (stat.S_IWUSR | stat.S_IWGRP | stat.S_IWOTH) == 0:
+                raise OSError("Output location is not writable")
+        else:
+            parent = os.path.dirname(output_dir) or "."
+            if os.path.exists(parent):
+                parent_mode = os.stat(parent).st_mode
+                if parent_mode & (stat.S_IWUSR | stat.S_IWGRP | stat.S_IWOTH) == 0:
+                    raise OSError("Output location is not writable")
         # Ensure the output directory exists
         os.makedirs(output_dir, exist_ok=True)
 

@@ -64,8 +64,11 @@ class AVLTree(Generic[T]):
             return AVLNode(key)
         if key < node.key:
             node.left = self._insert(node.left, key)
-        else:
+        elif key > node.key:
             node.right = self._insert(node.right, key)
+        else:
+            # Duplicate key, do not insert
+            return node
 
         node.height = 1 + max(self._get_height(node.left), self._get_height(node.right))
         return self._balance(node)
@@ -83,7 +86,7 @@ class AVLTree(Generic[T]):
 
     def _delete(self, node: Optional[AVLNode[T]], key: T) -> Optional[AVLNode[T]]:
         if node is None:
-            return node
+            raise ValueError("Key not found")
         if key < node.key:
             node.left = self._delete(node.left, key)
         elif key > node.key:
@@ -157,7 +160,9 @@ class AVLTree(Generic[T]):
     def _get_height(self, node: Optional[AVLNode[T]]) -> int:
         return 0 if node is None else node.height
 
-    def _get_balance(self, node: AVLNode[T]) -> int:
+    def _get_balance(self, node: Optional[AVLNode[T]]) -> int:
+        if node is None:
+            return 0
         return self._get_height(node.left) - self._get_height(node.right)
 
     def _get_min_value_node(self, node: AVLNode[T]) -> AVLNode[T]:
