@@ -77,9 +77,15 @@ def time_and_resource_function(monitor_memory=True, monitor_cpu=True, monitor_io
             total_write_bytes = 0
 
             # Initial counters
-            initial_io_counters = process.io_counters() if monitor_io else None
-            initial_net_io_counters = psutil.net_io_counters() if monitor_network else None
-            initial_disk_io_counters = psutil.disk_io_counters() if monitor_disk else None
+            initial_io_counters = (
+                process.io_counters() if monitor_io and hasattr(process, "io_counters") else None
+            )
+            initial_net_io_counters = (
+                psutil.net_io_counters() if monitor_network and hasattr(psutil, "net_io_counters") else None
+            )
+            initial_disk_io_counters = (
+                psutil.disk_io_counters() if monitor_disk and hasattr(psutil, "disk_io_counters") else None
+            )
 
             stop_event = threading.Event()
 
@@ -95,10 +101,16 @@ def time_and_resource_function(monitor_memory=True, monitor_cpu=True, monitor_io
                         total_memory_usage = process.memory_info().rss
                         total_cpu_usage = process.cpu_percent(interval=0.025) # For shorter runs use smaller interval e.g 0.025, because the children end quickly
                         total_threads = process.num_threads()
-                        open_files = len(process.open_files())
-                        memory_info = process.memory_full_info()
+                        open_files = len(process.open_files()) if hasattr(process, "open_files") else 0
+                        if hasattr(process, "memory_full_info"):
+                            memory_info = process.memory_full_info()
+                        else:
+                            memory_info = process.memory_info()
                         page_faults = getattr(memory_info, 'pfaults', 0)
-                        context_switches = process.num_ctx_switches()
+                        if hasattr(process, "num_ctx_switches"):
+                            context_switches = process.num_ctx_switches()
+                        else:
+                            context_switches = psutil._common.pctxsw(0, 0)
 
                         # Monitor GC statistics
                         if monitor_gc:
@@ -116,18 +128,18 @@ def time_and_resource_function(monitor_memory=True, monitor_cpu=True, monitor_io
                                     total_cpu_usage += child.cpu_percent(interval=0.025) # For shorter runs use smaller interval e.g 0.025, because the children end quickly
                                 if monitor_threads:
                                     total_threads += child.num_threads()
-                                if monitor_io:
+                                if monitor_io and hasattr(child, "io_counters"):
                                     child_io_counters = child.io_counters()
                                     total_read_ops += child_io_counters.read_count
                                     total_write_ops += child_io_counters.write_count
                                     total_read_bytes += child_io_counters.read_bytes
                                     total_write_bytes += child_io_counters.write_bytes
-                                if monitor_open_files:
+                                if monitor_open_files and hasattr(child, "open_files"):
                                     open_files += len(child.open_files())
-                                if monitor_page_faults:
+                                if monitor_page_faults and hasattr(child, "memory_full_info"):
                                     child_memory_info = child.memory_full_info()
                                     page_faults += getattr(child_memory_info, 'pfaults', 0)
-                                if monitor_context_switches:
+                                if monitor_context_switches and hasattr(child, "num_ctx_switches"):
                                     child_context_switches = child.num_ctx_switches()
                                     total_voluntary_context_switches += child_context_switches.voluntary
                                     total_involuntary_context_switches += child_context_switches.involuntary
@@ -169,9 +181,15 @@ def time_and_resource_function(monitor_memory=True, monitor_cpu=True, monitor_io
             execution_time = end_time - start_time
 
             # Final counters
-            final_io_counters = process.io_counters() if monitor_io else None
-            final_net_io_counters = psutil.net_io_counters() if monitor_network else None
-            final_disk_io_counters = psutil.disk_io_counters() if monitor_disk else None
+            final_io_counters = (
+                process.io_counters() if monitor_io and hasattr(process, "io_counters") else None
+            )
+            final_net_io_counters = (
+                psutil.net_io_counters() if monitor_network and hasattr(psutil, "net_io_counters") else None
+            )
+            final_disk_io_counters = (
+                psutil.disk_io_counters() if monitor_disk and hasattr(psutil, "disk_io_counters") else None
+            )
 
             # Print or log results
             def log_or_print(message: str):
