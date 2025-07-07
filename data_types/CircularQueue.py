@@ -9,7 +9,7 @@ class CircularQueue(Generic[T]):
 
     Attributes
     ----------
-    size : int
+    capacity : int
         The maximum number of items the queue can hold.
     queue : list[Optional[T]]
         The list of items in the queue.
@@ -32,6 +32,8 @@ class CircularQueue(Generic[T]):
         Checks if the queue is full.
     current_size() -> int
         Returns the current number of items in the queue.
+    size() -> int
+        Alias for current_size to match other data structures.
     
     Raises
     ------
@@ -42,7 +44,7 @@ class CircularQueue(Generic[T]):
     def __init__(self, size: int) -> None:
         if size <= 0:
             raise ValueError("Queue size must be greater than 0")
-        self.size: int = size
+        self.capacity: int = size
         self.queue: list[Optional[T]] = [None] * size
         self.front: int = -1
         self.rear: int = -1
@@ -65,7 +67,7 @@ class CircularQueue(Generic[T]):
             return False
         if self.front == -1:
             self.front = 0
-        self.rear = (self.rear + 1) % self.size
+        self.rear = (self.rear + 1) % self.capacity
         self.queue[self.rear] = item
         return True
 
@@ -84,7 +86,7 @@ class CircularQueue(Generic[T]):
         if self.front == self.rear:
             self.front = self.rear = -1
         else:
-            self.front = (self.front + 1) % self.size
+            self.front = (self.front + 1) % self.capacity
         return item
 
     def peek(self) -> Optional[T]:
@@ -120,7 +122,7 @@ class CircularQueue(Generic[T]):
         bool
             True if the queue is full, False otherwise.
         """
-        return (self.rear + 1) % self.size == self.front
+        return (self.rear + 1) % self.capacity == self.front
 
     def current_size(self) -> int:
         """
@@ -133,4 +135,17 @@ class CircularQueue(Generic[T]):
         """
         if self.is_empty():
             return 0
-        return (self.rear - self.front + 1) % self.size
+        if self.rear >= self.front:
+            return self.rear - self.front + 1
+        return self.capacity - (self.front - self.rear - 1)
+
+    def size(self) -> int:
+        """
+        Return the current number of elements in the queue.
+
+        Returns
+        -------
+        int
+            The number of elements currently stored.
+        """
+        return self.current_size()
