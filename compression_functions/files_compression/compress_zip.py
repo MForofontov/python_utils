@@ -33,24 +33,29 @@ def compress_zip(input_path: str, output_zip: str) -> None:
 
     try:
         check_path = input_path if os.path.isdir(input_path) else os.path.dirname(input_path) or "."
-        if not os.access(check_path, os.R_OK):
-            raise OSError("Input path is not readable")
+        if os.path.isdir(input_path):
+            if os.stat(check_path).st_mode & 0o444 == 0:
+                raise OSError("Input path is not readable")
+        else:
+            if os.stat(input_path).st_mode & 0o444 == 0:
+                raise OSError("Input path is not readable")
+
         output_dir = os.path.dirname(output_zip) or "."
-        if not os.access(output_dir, os.W_OK):
+        if os.stat(output_dir).st_mode & 0o222 == 0:
             raise OSError("Output location is not writable")
-        # Open the output zip file in write mode with deflated compression
-        with zipfile.ZipFile(output_zip, 'w', zipfile.ZIP_DEFLATED) as zipf:
-            # If the input path is a directory, walk through the directory and its subdirectories
+        if os.path.exists(output_zip) and os.stat(output_zip).st_mode & 0o222 == 0:
+            raise OSError("Output file is not writable")
+
+        with zipfile.ZipFile(output_zip, "w", zipfile.ZIP_DEFLATED) as zipf:
             if os.path.isdir(input_path):
-                for root, dirs, files in os.walk(input_path):
+                for root, _dirs, files in os.walk(input_path):
                     for file in files:
                         file_path = os.path.join(root, file)
                         arcname = os.path.relpath(file_path, start=input_path)
-                        # Write the file to the zip archive with the relative path as the archive name
                         zipf.write(file_path, arcname=arcname)
             else:
-                # If the input path is a file, add the file to the zip archive
                 zipf.write(input_path, arcname=os.path.basename(input_path))
-    except OSError as e:
-        # Raise an IOError if an I/O error occurs during compression
+    except FileNotFoundError:
+        raise
+    except (PermissionError, OSError) as e:
         raise OSError(f"An I/O error occurred during compression: {e}")

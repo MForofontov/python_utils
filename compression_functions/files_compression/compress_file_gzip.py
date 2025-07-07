@@ -28,21 +28,23 @@ def compress_file_gzip(input_file: str, output_file: str) -> None:
     if not isinstance(output_file, str):
         raise TypeError("output_file must be a string")
 
-    try:
-        if not os.access(input_file, os.R_OK):
-            raise OSError("Input file is not readable")
-        output_dir = os.path.dirname(output_file) or "."
-        if not os.access(output_dir, os.W_OK):
-            raise OSError("Output location is not writable")
-        # Open the input file in binary read mode
-        with open(input_file, 'rb') as f_in:
-            # Open the output file in binary write mode with gzip compression
-            with gzip.open(output_file, 'wb') as f_out:
-                # Copy the contents of the input file to the output file
-                shutil.copyfileobj(f_in, f_out)
-    except FileNotFoundError:
-        # Raise a FileNotFoundError if the input file does not exist
+    # Check if the input file exists
+    if not os.path.exists(input_file):
         raise FileNotFoundError(f"The input file {input_file} does not exist.")
-    except OSError as e:
-        # Raise an IOError if an I/O error occurs during compression
+
+    try:
+        if os.stat(input_file).st_mode & 0o444 == 0:
+            raise OSError("Input file is not readable")
+
+        output_dir = os.path.dirname(output_file) or "."
+        if os.stat(output_dir).st_mode & 0o222 == 0:
+            raise OSError("Output location is not writable")
+        if os.path.exists(output_file) and os.stat(output_file).st_mode & 0o222 == 0:
+            raise OSError("Output file is not writable")
+
+        with open(input_file, "rb") as f_in, gzip.open(output_file, "wb") as f_out:
+            shutil.copyfileobj(f_in, f_out)
+    except FileNotFoundError:
+        raise
+    except (PermissionError, OSError) as e:
         raise OSError(f"An I/O error occurred during compression: {e}")

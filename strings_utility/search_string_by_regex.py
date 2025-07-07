@@ -2,7 +2,7 @@ from typing import Union
 import re
 
 def search_string_by_regex(pattern: str, string: str) -> Union[str, None]:
-    """
+    r"""
     Searches for a regex pattern in a string.
 
     Parameters
@@ -24,9 +24,9 @@ def search_string_by_regex(pattern: str, string: str) -> Union[str, None]:
     
     Examples
     --------
-    >>> search_string_by_regex(r'\d+', "abc123xyz")
+    >>> search_string_by_regex(r"\d+", "abc123xyz")
     '123'
-    >>> search_string_by_regex(r'\d+', "hello world")
+    >>> search_string_by_regex(r"\d+", "hello world")
     None
     >>> search_string_by_regex(r'[a-z]+', "123")
     None
