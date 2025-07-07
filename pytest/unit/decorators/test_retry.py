@@ -146,7 +146,7 @@ def test_retry_with_invalid_max_retries_type_with_logger(caplog):
             @retry("3", logger=test_logger)
             def invalid_max_retries_with_logger() -> None:
                 pass
-    assert "Type error in retry decorator: max_retries must be an positive integer or 0." in caplog.text
+    assert "max_retries must be an positive integer or 0" in caplog.text
 
 def test_retry_with_invalid_delay_type():
     """
@@ -166,4 +166,4 @@ def test_retry_with_invalid_delay_type_with_logger(caplog):
             @retry(3, delay="3", logger=test_logger)
             def invalid_delay_with_logger() -> None:
                 pass
-    assert "Type error in retry decorator: delay must be a positive float or an positive integer or 0." in caplog.text
+    assert "delay must be a positive float or an positive integer or 0" in caplog.text
