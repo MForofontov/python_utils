@@ -41,6 +41,7 @@ bash pytest.sh
 ```
 
 The script runs tests from `pytest/unit` and stores the report under `pytest_run_tests/`.
+The Allure command-line tool is required to generate the reports. If you don't have it installed, follow the [official installation guide](https://docs.qameta.io/allure/#_installing_a_commandline).
 
 ## Example Usage
 
