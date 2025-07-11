@@ -31,6 +31,7 @@ source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 # install dependencies
 pip install -r requirements.txt
 ```
+`tqdm` is used for progress bars and is installed with the requirements file.
 
 ## Running Tests
 
