@@ -21,8 +21,8 @@ A collection of reusable Python functions covering a wide range of tasks. The pr
 
 ```bash
 # clone the repository
-git clone https://github.com/MForofontov/Python-functions
-cd Python-functions
+git clone https://github.com/MForofontov/python-utils
+cd python-utils
 
 # create and activate a virtual environment
 python -m venv venv
