@@ -78,7 +78,7 @@ def test_compress_zlib_unicode_data() -> None:
     Test the compress_zlib function with Unicode data.
     """
     # Test case 8: Unicode data
-    data: bytes = "你好，世界".encode('utf-8')
+    data: bytes = "你好，世界".encode()
     compressed_data: bytes = compress_zlib(data)
     expected_compressed_data: bytes = base64.b64encode(zlib.compress(data))
     assert compressed_data == expected_compressed_data, "Compressed data should match expected zlib compression and base64 encoding"

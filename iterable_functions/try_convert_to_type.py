@@ -1,6 +1,6 @@
-from typing import Any, Type
+from typing import Any
 
-def try_convert_to_type(value: Any, target_type: Type) -> Any:
+def try_convert_to_type(value: Any, target_type: type) -> Any:
     """
     Attempts to convert a given value to a specified type.
 

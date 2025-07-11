@@ -1,7 +1,8 @@
-from typing import Callable, Any, List, Optional
+from typing import Any
+from collections.abc import Callable
 import logging
 
-def multi_decorator(decorators: List[Callable[[Callable[..., Any]], Callable[..., Any]]], logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def multi_decorator(decorators: list[Callable[[Callable[..., Any]], Callable[..., Any]]], logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A function to apply multiple decorators to a target function.
 

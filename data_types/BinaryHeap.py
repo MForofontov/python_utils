@@ -1,4 +1,4 @@
-from typing import List, TypeVar, Generic
+from typing import TypeVar, Generic
 import heapq
 
 # Define a generic type variable
@@ -26,15 +26,15 @@ class BinaryHeap(Generic[T]):
     """
 
     def __init__(self, is_min_heap: bool = True) -> None:
-        self._heap: List[T] = []
+        self._heap: list[T] = []
         self.is_min_heap: bool = is_min_heap
 
     @property
-    def heap(self) -> List[T]:
+    def heap(self) -> list[T]:
         return self._heap
 
     @heap.setter
-    def heap(self, values: List[T]) -> None:
+    def heap(self, values: list[T]) -> None:
         self._heap = values
 
     def insert(self, value: T) -> None:

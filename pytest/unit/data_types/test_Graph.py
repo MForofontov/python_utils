@@ -1,4 +1,3 @@
-import pytest
 from data_types.Graph import Graph
 
 def test_add_vertex() -> None:

@@ -1,9 +1,10 @@
-from typing import Callable, Any, Union
+from typing import Any
+from collections.abc import Callable
 from functools import wraps
 import logging
 import time
 
-def retry(max_retries: int, delay: Union[int, float] = 1.0, logger: logging.Logger = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def retry(max_retries: int, delay: int | float = 1.0, logger: logging.Logger = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to retry a function call a specified number of times with a delay between attempts.
 

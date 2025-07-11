@@ -1,6 +1,5 @@
 import aiohttp
 import asyncio
-from typing import List
 
 async def fetch(session: aiohttp.ClientSession, url: str) -> str:
     """
@@ -22,7 +21,7 @@ async def fetch(session: aiohttp.ClientSession, url: str) -> str:
     async with session.get(url) as response:
         return await response.text()
 
-async def fetch_all(urls: List[str]) -> List[str]:
+async def fetch_all(urls: list[str]) -> list[str]:
     """
     Fetch data from multiple URLs asynchronously.
 

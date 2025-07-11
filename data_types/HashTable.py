@@ -1,4 +1,4 @@
-from typing import List, Tuple, TypeVar, Generic
+from typing import TypeVar, Generic
 
 # Define generic type variables for keys and values
 K = TypeVar('K')  # Key type
@@ -37,7 +37,7 @@ class HashTable(Generic[K, V]):
             The number of buckets in the hash table. Default is 10.
         """
         self.size = size
-        self.table: List[List[Tuple[K, V]]] = [[] for _ in range(self.size)]
+        self.table: list[list[tuple[K, V]]] = [[] for _ in range(self.size)]
 
     def _hash(self, key: K) -> int:
         """

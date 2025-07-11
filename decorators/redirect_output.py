@@ -1,4 +1,5 @@
-from typing import Callable, Any
+from typing import Any
+from collections.abc import Callable
 from contextlib import redirect_stdout
 from functools import wraps
 import logging

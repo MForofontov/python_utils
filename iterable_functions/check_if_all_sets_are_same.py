@@ -1,6 +1,6 @@
-from typing import List, Set, Any
+from typing import Any
 
-def check_if_all_sets_are_same(sets_list: List[Set[Any]]) -> bool:
+def check_if_all_sets_are_same(sets_list: list[set[Any]]) -> bool:
     """
     Checks if all sets within a list are identical.
 

@@ -1,7 +1,7 @@
 import pandas as pd
-from typing import Dict, Any
+from typing import Any
 
-def dict_to_df(dictionary: Dict[str, Any]) -> pd.DataFrame:
+def dict_to_df(dictionary: dict[str, Any]) -> pd.DataFrame:
     """
     Convert a dictionary to a pandas DataFrame.
 

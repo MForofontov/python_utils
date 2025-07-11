@@ -1,4 +1,6 @@
-from typing import Callable, TypeVar, Any, Awaitable
+from typing import TypeVar, Any
+from collections.abc import Callable
+from collections.abc import Awaitable
 import asyncio
 
 # Define a type variable T to represent the return type of the task

@@ -1,7 +1,6 @@
-from typing import List
 from .write_to_file import write_to_file
 
-def write_lines(lines: List[str], output_file: str, joiner: str = '\n', write_mode: str = 'w') -> None:
+def write_lines(lines: list[str], output_file: str, joiner: str = '\n', write_mode: str = 'w') -> None:
     """
     Write a list of strings to a file.
 

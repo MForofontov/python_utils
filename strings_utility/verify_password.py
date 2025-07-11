@@ -1,7 +1,7 @@
 import re
-from typing import List, Callable
+from collections.abc import Callable
 
-def verify_password(password: str, custom_checks: List[Callable[[str], bool]] = []) -> bool:
+def verify_password(password: str, custom_checks: list[Callable[[str], bool]] = []) -> bool:
     """
     Verify if a password meets the following criteria:
     - At least 8 characters long

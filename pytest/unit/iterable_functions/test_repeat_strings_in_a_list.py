@@ -1,5 +1,4 @@
 import pytest
-from typing import List
 from iterable_functions.repeat_strings_in_a_list import repeat_strings_in_a_list
 
 def test_repeat_strings_in_a_list_success() -> None:
@@ -19,7 +18,7 @@ def test_repeat_strings_in_a_list_zero_times() -> None:
     # Test case 2: Zero times
     string: str = "a"
     times: int = 0
-    expected_output: List[str] = []
+    expected_output: list[str] = []
     assert repeat_strings_in_a_list(string, times) == expected_output
 
 def test_repeat_strings_in_a_list_empty_string() -> None:
@@ -29,7 +28,7 @@ def test_repeat_strings_in_a_list_empty_string() -> None:
     # Test case 3: Empty string
     string: str = ""
     times: int = 3
-    expected_output: List[str] = ["", "", ""]
+    expected_output: list[str] = ["", "", ""]
     assert repeat_strings_in_a_list(string, times) == expected_output
 
 def test_repeat_strings_in_a_list_type_error_string() -> None:

@@ -1,4 +1,5 @@
-from typing import Callable, Any, TypeVar
+from typing import Any, TypeVar
+from collections.abc import Callable
 from functools import wraps
 
 T = TypeVar('T')

@@ -1,7 +1,6 @@
-from typing import List
 import re
 
-def regex_present(regex_list: List[str], string: str) -> bool:
+def regex_present(regex_list: list[str], string: str) -> bool:
     """
     Check if any regex in a list is found in a string.
 

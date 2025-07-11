@@ -1,4 +1,5 @@
-from typing import Callable, Any
+from typing import Any
+from collections.abc import Callable
 from functools import wraps
 
 def format_output(format_string: str) -> Callable[[Callable[..., Any]], Callable[..., str]]:

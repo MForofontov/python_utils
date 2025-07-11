@@ -1,4 +1,4 @@
-from typing import Any, List
+from typing import Any
 
 class Stack:
     """
@@ -27,7 +27,7 @@ class Stack:
         """
         Initializes an empty stack.
         """
-        self.items: List[Any] = []
+        self.items: list[Any] = []
 
     def push(self, item: Any) -> None:
         """

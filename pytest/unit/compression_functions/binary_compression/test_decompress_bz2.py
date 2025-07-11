@@ -67,7 +67,7 @@ def test_decompress_bz2_unicode_data() -> None:
     Test the decompress_bz2 function with Unicode data.
     """
     # Test case 7: Unicode data
-    data: bytes = "你好，世界".encode('utf-8')
+    data: bytes = "你好，世界".encode()
     compressed_data: bytes = bz2.compress(data)
     decompressed_data: bytes = decompress_bz2(compressed_data)
     assert decompressed_data == data, "Decompressed data should match the original data"

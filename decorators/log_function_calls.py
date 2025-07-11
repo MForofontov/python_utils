@@ -1,6 +1,7 @@
 import logging
 from functools import wraps
-from typing import Callable, Any
+from typing import Any
+from collections.abc import Callable
 
 def log_function_calls(logger: logging.Logger) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """

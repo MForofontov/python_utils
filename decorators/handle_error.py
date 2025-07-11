@@ -1,8 +1,9 @@
-from typing import Callable, Any, Optional
+from typing import Any
+from collections.abc import Callable
 from functools import wraps
 import logging
 
-def handle_error(error_message: str, logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def handle_error(error_message: str, logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to handle exceptions in the decorated function. If an exception occurs,
     it logs a specified error message and returns None.

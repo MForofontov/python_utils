@@ -1,13 +1,13 @@
-from typing import Callable, Any, Optional, List
+from typing import Any
+from collections.abc import Callable
 from functools import wraps
 import time
 import logging
 
 class RateLimitExceededException(Exception):
     """Exception raised when the rate limit is exceeded."""
-    pass
 
-def rate_limit(max_calls: int, period: int, logger: Optional[logging.Logger] = None, exception_message: Optional[str] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def rate_limit(max_calls: int, period: int, logger: logging.Logger | None = None, exception_message: str | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to limit the number of times a function can be called within a specific period.
 
@@ -64,7 +64,7 @@ def rate_limit(max_calls: int, period: int, logger: Optional[logging.Logger] = N
             The wrapped function
         """
         # List to store the timestamps of function calls
-        calls: List[float] = []
+        calls: list[float] = []
 
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:

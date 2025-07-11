@@ -1,7 +1,6 @@
-from typing import Dict, List, Union
 import re
 
-def identify_string_in_dict_lists_regex(target_value: str, dict_of_lists: Dict[Union[str, int], List[List[str]]], regex: str = None) -> Union[str, int, bool]:
+def identify_string_in_dict_lists_regex(target_value: str, dict_of_lists: dict[str | int, list[list[str]]], regex: str = None) -> str | int | bool:
     """
     Identifies if a string is present in any list inside a dictionary.
 

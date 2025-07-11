@@ -1,11 +1,12 @@
 from multiprocessing import Pool, cpu_count
-from typing import Callable, List, TypeVar
+from typing import TypeVar
+from collections.abc import Callable
 
 # Define type variables for input and output types
 T = TypeVar('T')
 R = TypeVar('R')
 
-def parallel_pipeline(funcs: List[Callable[[T], T]], data: List[T], num_processes: int = None) -> List[R]:
+def parallel_pipeline(funcs: list[Callable[[T], T]], data: list[T], num_processes: int = None) -> list[R]:
     """
     Apply multiple functions in a pipeline to a list of items in parallel.
 

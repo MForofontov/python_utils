@@ -1,6 +1,5 @@
-from typing import List
 
-def split_string(s: str, delimiter: str = ' ') -> List[str]:
+def split_string(s: str, delimiter: str = ' ') -> list[str]:
     """
     Split a string by a specified delimiter.
 

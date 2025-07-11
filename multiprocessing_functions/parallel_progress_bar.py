@@ -1,12 +1,13 @@
 from multiprocessing import Pool, cpu_count
-from typing import Callable, List, TypeVar
+from typing import TypeVar
+from collections.abc import Callable
 from tqdm import tqdm  # Install using: pip install tqdm
 
 # Define type variables for input and output types
 T = TypeVar('T')
 R = TypeVar('R')
 
-def parallel_progress_bar(func: Callable[[T], R], data: List[T], num_processes: int = None) -> List[R]:
+def parallel_progress_bar(func: Callable[[T], R], data: list[T], num_processes: int = None) -> list[R]:
     """
     Apply a function to a list of items in parallel and display a progress bar.
 

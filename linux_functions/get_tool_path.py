@@ -1,7 +1,6 @@
 import shutil
-from typing import Optional
 
-def get_tool_path(name: str) -> Optional[str]:
+def get_tool_path(name: str) -> str | None:
     """
     Get the path of the specified tool.
 

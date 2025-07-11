@@ -77,7 +77,7 @@ def test_compress_gzip_unicode_data() -> None:
     Test the compress_gzip function with Unicode data.
     """
     # Test case 8: Unicode data
-    data: bytes = "你好，世界".encode('utf-8')
+    data: bytes = "你好，世界".encode()
     compressed_data: bytes = compress_gzip(data)
     expected_compressed_data: bytes = gzip.compress(data)
     assert compressed_data == expected_compressed_data, "Compressed data should match expected gzip compression"

@@ -1,11 +1,12 @@
 from multiprocessing import Pool, cpu_count
 from itertools import accumulate
-from typing import Callable, List, TypeVar
+from typing import TypeVar
+from collections.abc import Callable
 
 # Define type variable for input and output types
 T = TypeVar('T')
 
-def parallel_accumulate(func: Callable[[T, T], T], data: List[T], num_processes: int = None, chunk_size: int = 1) -> List[T]:
+def parallel_accumulate(func: Callable[[T, T], T], data: list[T], num_processes: int = None, chunk_size: int = 1) -> list[T]:
     """
     Apply a cumulative computation to a list of items in parallel.
 

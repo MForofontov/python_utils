@@ -1,6 +1,5 @@
-from typing import Dict, List
 
-def tsv_to_dict(file_path: str, skip_header: bool = False, sep: str = '\t') -> Dict[str, List[str]]:
+def tsv_to_dict(file_path: str, skip_header: bool = False, sep: str = '\t') -> dict[str, list[str]]:
     """
     Converts input TSV into a dict based on the desired separator.
     
@@ -20,7 +19,7 @@ def tsv_to_dict(file_path: str, skip_header: bool = False, sep: str = '\t') -> D
     """
     data_dict = {}
 
-    with open(file_path, 'r') as f:
+    with open(file_path) as f:
         for i, line in enumerate(f):
             if i == 0 and skip_header:
                 continue

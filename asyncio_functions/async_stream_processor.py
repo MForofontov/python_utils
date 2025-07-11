@@ -1,5 +1,5 @@
-from typing import AsyncIterator, Callable
-import asyncio
+from collections.abc import Callable
+from collections.abc import AsyncIterator
 
 # Define an asynchronous function to process a stream of data
 async def async_stream_processor(stream: AsyncIterator[str], process: Callable[[str], None]) -> None:

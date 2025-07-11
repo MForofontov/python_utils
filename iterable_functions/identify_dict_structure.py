@@ -1,6 +1,6 @@
-from typing import Any, Dict, List
+from typing import Any
 
-def identify_dict_structure(list_of_dicts: List[Dict[str, Any]]) -> Dict[str, None]:
+def identify_dict_structure(list_of_dicts: list[dict[str, Any]]) -> dict[str, None]:
     """
     Identify all keys present in a list of dictionaries, including nested dictionaries.
 
@@ -26,7 +26,7 @@ def identify_dict_structure(list_of_dicts: List[Dict[str, Any]]) -> Dict[str, No
 
     keys = {}
 
-    def extract_keys(d: Dict[str, Any], parent_key: str = '') -> None:
+    def extract_keys(d: dict[str, Any], parent_key: str = '') -> None:
         for key, value in d.items():
             full_key = f"{parent_key}.{key}" if parent_key else key
             keys[full_key] = None

@@ -1,5 +1,4 @@
 import pytest
-from typing import Union
 from iterable_functions.get_max_min_values import get_max_min_values
 
 def test_get_max_min_values_list() -> None:
@@ -7,8 +6,8 @@ def test_get_max_min_values_list() -> None:
     Test the get_max_min_values function with a list of integers.
     """
     # Test case 1: List of integers
-    input_collection: list[Union[int, float]] = [1, 2, 3, 4, 5]
-    expected_output: tuple[Union[int, float], Union[int, float]] = (5, 1)
+    input_collection: list[int | float] = [1, 2, 3, 4, 5]
+    expected_output: tuple[int | float, int | float] = (5, 1)
     assert get_max_min_values(input_collection) == expected_output
 
 def test_get_max_min_values_set() -> None:
@@ -16,8 +15,8 @@ def test_get_max_min_values_set() -> None:
     Test the get_max_min_values function with a set of integers.
     """
     # Test case 2: Set of integers
-    input_collection: set[Union[int, float]] = {1, 2, 3, 4, 5}
-    expected_output: tuple[Union[int, float], Union[int, float]] = (5, 1)
+    input_collection: set[int | float] = {1, 2, 3, 4, 5}
+    expected_output: tuple[int | float, int | float] = (5, 1)
     assert get_max_min_values(input_collection) == expected_output
 
 def test_get_max_min_values_tuple() -> None:
@@ -25,8 +24,8 @@ def test_get_max_min_values_tuple() -> None:
     Test the get_max_min_values function with a tuple of integers.
     """
     # Test case 3: Tuple of integers
-    input_collection: tuple[Union[int, float], ...] = (1, 2, 3, 4, 5)
-    expected_output: tuple[Union[int, float], Union[int, float]] = (5, 1)
+    input_collection: tuple[int | float, ...] = (1, 2, 3, 4, 5)
+    expected_output: tuple[int | float, int | float] = (5, 1)
     assert get_max_min_values(input_collection) == expected_output
 
 def test_get_max_min_values_floats() -> None:
@@ -43,8 +42,8 @@ def test_get_max_min_values_mixed_types() -> None:
     Test the get_max_min_values function with a collection of mixed types.
     """
     # Test case 5: Collection of mixed types
-    input_collection: list[Union[int, float]] = [1, 2.2, 3, 4.4, 5]
-    expected_output: tuple[Union[int, float], Union[int, float]] = (5, 1)
+    input_collection: list[int | float] = [1, 2.2, 3, 4.4, 5]
+    expected_output: tuple[int | float, int | float] = (5, 1)
     assert get_max_min_values(input_collection) == expected_output
 
 def test_get_max_min_values_single_element() -> None:

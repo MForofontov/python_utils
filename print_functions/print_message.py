@@ -1,6 +1,5 @@
 import logging
 from datetime import datetime
-from typing import Optional
 from logger_functions.logger import logger
 
 def print_message(message: str, message_type: str = "info", end = '\n', flush: bool = False) -> None:
@@ -24,7 +23,7 @@ def print_message(message: str, message_type: str = "info", end = '\n', flush: b
     -------
     None
     """
-    logger_to_use: Optional[logging.Logger] = logger # This can change to a logger object if user uses --logger
+    logger_to_use: logging.Logger | None = logger # This can change to a logger object if user uses --logger
 
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     if message_type == "info":

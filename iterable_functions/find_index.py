@@ -1,6 +1,5 @@
-from typing import List, Union
 
-def find_index(input_list: List[str], target_string: str) -> Union[int, None]:
+def find_index(input_list: list[str], target_string: str) -> int | None:
     """
     Find the index of a string in a list.
 

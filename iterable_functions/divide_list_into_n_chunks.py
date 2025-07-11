@@ -1,6 +1,6 @@
-from typing import List, Any
+from typing import Any
 
-def divide_list_into_n_chunks(list_to_divide: List[Any], n: int) -> List[List[Any]]:
+def divide_list_into_n_chunks(list_to_divide: list[Any], n: int) -> list[list[Any]]:
     """
     Divides a list into a specified number of sublists.
 

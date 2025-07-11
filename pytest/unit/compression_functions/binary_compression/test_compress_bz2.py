@@ -77,7 +77,7 @@ def test_compress_bz2_unicode_data() -> None:
     Test the compress_bz2 function with Unicode data.
     """
     # Test case 8: Unicode data
-    data: bytes = "你好，世界".encode('utf-8')
+    data: bytes = "你好，世界".encode()
     compressed_data: bytes = compress_bz2(data)
     expected_compressed_data: bytes = bz2.compress(data)
     assert compressed_data == expected_compressed_data, "Compressed data should match expected bz2 compression"

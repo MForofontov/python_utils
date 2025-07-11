@@ -1,6 +1,6 @@
-from typing import List, Any
+from typing import Any
 
-def has_element_of_type(input_list: List[Any], target_type: type) -> bool:
+def has_element_of_type(input_list: list[Any], target_type: type) -> bool:
     """
     Check if any element in the input list matches the specified target type.
 

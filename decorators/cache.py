@@ -1,4 +1,5 @@
-from typing import Callable, Any, Dict, Tuple, FrozenSet
+from typing import Any
+from collections.abc import Callable
 from functools import wraps
 
 def cache(func: Callable[..., Any]) -> Callable[..., Any]:
@@ -16,7 +17,7 @@ def cache(func: Callable[..., Any]) -> Callable[..., Any]:
         A wrapper function that caches the results of the input function.
     """
 
-    cached_results: Dict[Tuple[Tuple[Any, ...], FrozenSet[Tuple[str, Any]]], Any] = {}
+    cached_results: dict[tuple[tuple[Any, ...], frozenset[tuple[str, Any]]], Any] = {}
 
     @wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> Any:
@@ -42,7 +43,7 @@ def cache(func: Callable[..., Any]) -> Callable[..., Any]:
         """
         try:
             # Create a key based on the function arguments
-            key: Tuple[Tuple[Any, ...], FrozenSet[Tuple[str, Any]]] = (args, frozenset(kwargs.items()))
+            key: tuple[tuple[Any, ...], frozenset[tuple[str, Any]]] = (args, frozenset(kwargs.items()))
 
             # Check if the result is already cached
             if key not in cached_results:

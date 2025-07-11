@@ -1,7 +1,7 @@
-from typing import Any, Dict, Tuple
+from typing import Any
 from collections import OrderedDict
 
-def sort_subdict_by_tuple(dict_: Dict[str, Dict[str, Any]], order: Tuple[str, ...]) -> Dict[str, OrderedDict]:
+def sort_subdict_by_tuple(dict_: dict[str, dict[str, Any]], order: tuple[str, ...]) -> dict[str, OrderedDict]:
     """
     Sorts the sub-dictionaries of a given dictionary based on a specified order tuple.
 
@@ -27,7 +27,7 @@ def sort_subdict_by_tuple(dict_: Dict[str, Dict[str, Any]], order: Tuple[str, ..
     if not isinstance(order, tuple) or not all(isinstance(item, str) for item in order):
         raise TypeError("order must be a tuple of strings")
 
-    sorted_data: Dict[str, OrderedDict] = {}
+    sorted_data: dict[str, OrderedDict] = {}
     for key, subdict in dict_.items():
         sorted_subdict = OrderedDict(
             sorted(subdict.items(), key=lambda item: order.index(item[0]) if item[0] in order else len(order))

@@ -1,9 +1,10 @@
-from typing import Callable, Any, Optional, Type
+from typing import Any
+from collections.abc import Callable
 from functools import wraps
 import os
 import logging
 
-def env_config(var_name: str, required: bool = True, var_type: Type = str, custom_message: Optional[str] = None, logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def env_config(var_name: str, required: bool = True, var_type: type = str, custom_message: str | None = None, logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to inject environment variables into a function.
 

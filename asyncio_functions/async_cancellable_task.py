@@ -1,4 +1,6 @@
-from typing import Callable, TypeVar, Awaitable
+from typing import TypeVar
+from collections.abc import Callable
+from collections.abc import Awaitable
 import asyncio
 
 # Define a type variable T to represent the return type of the task
@@ -38,7 +40,7 @@ async def async_cancellable_task(task: Callable[[], Awaitable[T]], cancel_event:
         # Attempt to run the task with a timeout of 5 seconds
         result = await asyncio.wait_for(task(), timeout=5)
         return result
-    except asyncio.TimeoutError:
+    except TimeoutError:
         # If a timeout occurs, set the cancel event and raise a CancelledError
         cancel_event.set()
         raise asyncio.CancelledError("Task was cancelled.")

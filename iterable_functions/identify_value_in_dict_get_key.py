@@ -1,6 +1,6 @@
-from typing import Dict, Any, Union
+from typing import Any
 
-def identify_value_in_dict_get_key(target_value: Any, dictionary: Dict[Union[str, int], Any]) -> Union[str, int, None]:
+def identify_value_in_dict_get_key(target_value: Any, dictionary: dict[str | int, Any]) -> str | int | None:
     """
     Identify the key in the dictionary where the target value is present.
 
