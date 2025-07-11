@@ -1,4 +1,4 @@
-from typing import Dict, List, TypeVar, Generic
+from typing import TypeVar, Generic
 
 # Define a generic type variable
 T = TypeVar('T')
@@ -26,7 +26,7 @@ class Graph(Generic[T]):
         """
         Initializes an empty graph.
         """
-        self.adjacency_list: Dict[T, List[T]] = {}
+        self.adjacency_list: dict[T, list[T]] = {}
 
     def add_vertex(self, vertex: T) -> None:
         """
@@ -58,7 +58,7 @@ class Graph(Generic[T]):
         self.adjacency_list[vertex1].append(vertex2)
         self.adjacency_list[vertex2].append(vertex1)
 
-    def get_neighbors(self, vertex: T) -> List[T]:
+    def get_neighbors(self, vertex: T) -> list[T]:
         """
         Returns a list of neighbors for a given vertex.
 

@@ -1,6 +1,6 @@
-from typing import List, Any
+from typing import Any
 
-def any_match_lists(list1: List[Any], list2: List[Any]) -> bool:
+def any_match_lists(list1: list[Any], list2: list[Any]) -> bool:
     """
     Check if any element of list1 is contained in list2.
 

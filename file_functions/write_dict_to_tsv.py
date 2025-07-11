@@ -1,7 +1,7 @@
-from typing import Any, Dict, List
+from typing import Any
 from itertools import zip_longest
 
-def write_dict_to_tsv(file_path: str, data: Dict[str, List[Any]]) -> None:
+def write_dict_to_tsv(file_path: str, data: dict[str, list[Any]]) -> None:
     """
     Write a dictionary to a TSV (Tab-Separated Values) file.
 

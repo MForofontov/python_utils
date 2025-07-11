@@ -1,6 +1,5 @@
-from typing import List
 
-def join_list(lst: List[str], delimiter: str) -> str:
+def join_list(lst: list[str], delimiter: str) -> str:
     """
     Join all elements in a list into a single string.
 

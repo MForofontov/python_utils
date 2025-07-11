@@ -1,5 +1,6 @@
 import asyncio
-from typing import Callable, TypeVar
+from typing import TypeVar
+from collections.abc import Callable
 
 # Define a type variable T to represent the return type of the function
 T = TypeVar('T')

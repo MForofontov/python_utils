@@ -1,9 +1,10 @@
-from typing import List, Callable, TypeVar
+from typing import TypeVar
+from collections.abc import Callable
 import asyncio
 
 T = TypeVar('T')
 
-async def run_in_parallel(tasks: List[Callable[[], T]]) -> List[T]:
+async def run_in_parallel(tasks: list[Callable[[], T]]) -> list[T]:
     """
     Run multiple asynchronous functions in parallel.
 

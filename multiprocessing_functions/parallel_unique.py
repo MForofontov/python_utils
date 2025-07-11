@@ -1,10 +1,10 @@
 from multiprocessing import Pool, cpu_count
-from typing import List, TypeVar
+from typing import TypeVar
 
 # Define type variable for input type
 T = TypeVar('T')
 
-def parallel_unique(data: List[T], num_processes: int = None, chunk_size: int = 1) -> List[T]:
+def parallel_unique(data: list[T], num_processes: int = None, chunk_size: int = 1) -> list[T]:
     """
     Get the unique elements from a list in parallel.
 

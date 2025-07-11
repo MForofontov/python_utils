@@ -1,7 +1,6 @@
 from multiprocessing import Pool, cpu_count
-from typing import List
 
-def parallel_sort(data: List[int], num_processes: int = None, chunk_size: int = 1) -> List[int]:
+def parallel_sort(data: list[int], num_processes: int = None, chunk_size: int = 1) -> list[int]:
     """
     Sort a list of integers in parallel.
 
@@ -26,7 +25,7 @@ def parallel_sort(data: List[int], num_processes: int = None, chunk_size: int = 
     [1, 2, 3, 4, 5]
     """
     # Inner function to merge two sorted lists
-    def merge(left: List[int], right: List[int]) -> List[int]:
+    def merge(left: list[int], right: list[int]) -> list[int]:
         result = []
         i = j = 0
         # Merge the two lists by comparing elements

@@ -1,6 +1,5 @@
-from typing import Tuple
 
-def decompress_number(text: str, index: int) -> Tuple[int, int]:
+def decompress_number(text: str, index: int) -> tuple[int, int]:
     """
     Decompress a number from a polyline-encoded string.
 

@@ -1,10 +1,11 @@
 from multiprocessing import Pool, cpu_count
-from typing import Callable, List, TypeVar
+from typing import TypeVar
+from collections.abc import Callable
 
 # Define a type variable for the input type
 T = TypeVar('T')
 
-def parallel_filter(condition: Callable[[T], bool], data: List[T], num_processes: int = None) -> List[T]:
+def parallel_filter(condition: Callable[[T], bool], data: list[T], num_processes: int = None) -> list[T]:
     """
     Filter a list of items in parallel, keeping only those that satisfy the condition.
 

@@ -1,11 +1,12 @@
 from multiprocessing import Pool, cpu_count
-from typing import Callable, List, TypeVar
+from typing import TypeVar
+from collections.abc import Callable
 from functools import reduce
 
 # Define a type variable for generic type support
 T = TypeVar('T')
 
-def parallel_reduce(func: Callable[[T, T], T], data: List[T], num_processes: int = None, chunk_size: int = 1) -> T:
+def parallel_reduce(func: Callable[[T, T], T], data: list[T], num_processes: int = None, chunk_size: int = 1) -> T:
     """
     Reduce a list to a single value in parallel using the given reduction function.
 

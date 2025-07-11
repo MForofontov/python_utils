@@ -1,6 +1,7 @@
 import pytest
 import logging
-from typing import Any, Callable
+from typing import Any
+from collections.abc import Callable
 from decorators.multi_decorator import multi_decorator
 
 # Configure test_logger

@@ -1,11 +1,12 @@
 from multiprocessing import Pool, cpu_count
-from typing import Callable, List, TypeVar, Tuple
+from typing import TypeVar
+from collections.abc import Callable
 
 # Define type variables for input and output types
 T = TypeVar('T')
 R = TypeVar('R')
 
-def parallel_gather_errors(func: Callable[[T], R], data: List[T], num_processes: int = None) -> Tuple[List[R], List[Exception]]:
+def parallel_gather_errors(func: Callable[[T], R], data: list[T], num_processes: int = None) -> tuple[list[R], list[Exception]]:
     """
     Apply a function to a list of items in parallel and gather any exceptions raised by the processes.
 

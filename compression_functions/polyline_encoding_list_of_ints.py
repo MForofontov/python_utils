@@ -1,6 +1,5 @@
-from typing import List
 
-def polyline_encoding_list_of_ints(list_of_ints: List[int]) -> str:
+def polyline_encoding_list_of_ints(list_of_ints: list[int]) -> str:
     """
     Encode a list of integers using polyline encoding.
 

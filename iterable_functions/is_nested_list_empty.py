@@ -1,6 +1,6 @@
-from typing import Any, List
+from typing import Any
 
-def is_nested_list_empty(input_list: List[Any]) -> bool:
+def is_nested_list_empty(input_list: list[Any]) -> bool:
     """
     Check if a nested list is empty.
     

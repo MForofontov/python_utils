@@ -1,6 +1,6 @@
-from typing import Any, List
+from typing import Any
 
-def partially_contains_fragment_of_list(target_list: List[Any], list_of_lists: List[List[Any]]) -> bool:
+def partially_contains_fragment_of_list(target_list: list[Any], list_of_lists: list[list[Any]]) -> bool:
     """
     Check if the target_list is contained inside sublist even if it partially.
     e.g partially_contains_fragment_of_list(['a', 'b'], [['a', 'b', 'c'], ['d', 'e']])

@@ -1,7 +1,6 @@
 import os
-from typing import List
 
-def get_paths_in_directory(directory: str, type_: str) -> List[str]:
+def get_paths_in_directory(directory: str, type_: str) -> list[str]:
     """
     Get all paths of items in the specified directory filtered by type.
 
@@ -38,7 +37,7 @@ def get_paths_in_directory(directory: str, type_: str) -> List[str]:
     else:
         raise ValueError(f"Invalid type: {type_}")
 
-    all_items: List[str] = os.listdir(directory)
-    file_paths: List[str] = [os.path.join(directory, item) for item in all_items if if_type(os.path.join(directory, item))]
+    all_items: list[str] = os.listdir(directory)
+    file_paths: list[str] = [os.path.join(directory, item) for item in all_items if if_type(os.path.join(directory, item))]
     
     return file_paths

@@ -1,5 +1,4 @@
 import pytest
-import asyncio
 import logging
 from decorators.async_wrapper import async_wrapper
 

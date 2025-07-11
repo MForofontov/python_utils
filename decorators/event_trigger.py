@@ -1,4 +1,5 @@
-from typing import Callable, Any, Dict, List, Optional
+from typing import Any
+from collections.abc import Callable
 from functools import wraps
 import logging
 
@@ -25,7 +26,7 @@ class EventManager:
         """
         Initializes the EventManager with an empty events dictionary.
         """
-        self.events: Dict[str, List[Callable[..., Any]]] = {}
+        self.events: dict[str, list[Callable[..., Any]]] = {}
 
     def subscribe(self, event_name: str, callback: Callable[..., Any]) -> None:
         """
@@ -59,7 +60,7 @@ class EventManager:
             for callback in self.events[event_name]:
                 callback(payload)
 
-def event_trigger(event_manager: EventManager, event_name: str, logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def event_trigger(event_manager: EventManager, event_name: str, logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to trigger an event before executing the decorated function.
 

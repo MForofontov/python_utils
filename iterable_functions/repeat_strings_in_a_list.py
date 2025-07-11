@@ -1,6 +1,5 @@
-from typing import List
 
-def repeat_strings_in_a_list(string: str, times: int) -> List[str]:
+def repeat_strings_in_a_list(string: str, times: int) -> list[str]:
     """
     Creates a list where a given string is repeated a specified number of times.
 

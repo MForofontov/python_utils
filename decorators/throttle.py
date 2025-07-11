@@ -1,9 +1,10 @@
-from typing import Callable, Any, Union
+from typing import Any
+from collections.abc import Callable
 from functools import wraps
 import time
 import logging
 
-def throttle(rate_limit: Union[int, float], logger: logging.Logger = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def throttle(rate_limit: int | float, logger: logging.Logger = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to enforce a rate limit on a function, ensuring it is not called more often than the specified rate.
 

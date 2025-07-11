@@ -1,7 +1,6 @@
 import os
-from typing import List
 
-def join_paths(parent_path: str, child_paths: List[str]) -> str:
+def join_paths(parent_path: str, child_paths: list[str]) -> str:
     """
     Create a path by joining a parent directory and a list of child paths.
 

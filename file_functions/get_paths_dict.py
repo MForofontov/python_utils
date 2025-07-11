@@ -1,7 +1,6 @@
 import os
-from typing import Dict, List
 
-def get_paths_dict(directory: str, type_: str) -> Dict[str, str]:
+def get_paths_dict(directory: str, type_: str) -> dict[str, str]:
     """
     Get a dictionary where keys are filenames and values are file paths within the directory,
     filtered by the specified type: files, directories, or all items.
@@ -36,8 +35,8 @@ def get_paths_dict(directory: str, type_: str) -> Dict[str, str]:
     else:
         raise ValueError(f"Invalid type: {type_}")
 
-    paths_dict: Dict[str, str] = {}
-    all_items: List[str] = os.listdir(directory)
+    paths_dict: dict[str, str] = {}
+    all_items: list[str] = os.listdir(directory)
     
     for filename in all_items:
         file_path: str = os.path.join(directory, filename)

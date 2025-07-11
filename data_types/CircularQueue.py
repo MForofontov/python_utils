@@ -1,4 +1,4 @@
-from typing import Generic, TypeVar, Optional
+from typing import Generic, TypeVar
 
 # Define a generic type variable
 T = TypeVar('T')
@@ -45,7 +45,7 @@ class CircularQueue(Generic[T]):
         if size <= 0:
             raise ValueError("Queue size must be greater than 0")
         self.capacity: int = size
-        self.queue: list[Optional[T]] = [None] * size
+        self.queue: list[T | None] = [None] * size
         self.front: int = -1
         self.rear: int = -1
 
@@ -71,7 +71,7 @@ class CircularQueue(Generic[T]):
         self.queue[self.rear] = item
         return True
 
-    def dequeue(self) -> Optional[T]:
+    def dequeue(self) -> T | None:
         """
         Removes and returns the front item of the queue.
 
@@ -89,7 +89,7 @@ class CircularQueue(Generic[T]):
             self.front = (self.front + 1) % self.capacity
         return item
 
-    def peek(self) -> Optional[T]:
+    def peek(self) -> T | None:
         """
         Returns the front item without removing it.
 

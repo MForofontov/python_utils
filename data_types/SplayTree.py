@@ -1,4 +1,3 @@
-from typing import Optional
 
 class SplayNode:
     """
@@ -18,9 +17,9 @@ class SplayNode:
 
     def __init__(self, key: int) -> None:
         self.key: int = key
-        self.left: Optional[SplayNode] = None
-        self.right: Optional[SplayNode] = None
-        self.parent: Optional[SplayNode] = None
+        self.left: SplayNode | None = None
+        self.right: SplayNode | None = None
+        self.parent: SplayNode | None = None
 
 
 class SplayTree:
@@ -47,7 +46,7 @@ class SplayTree:
     """
 
     def __init__(self) -> None:
-        self.root: Optional[SplayNode] = None
+        self.root: SplayNode | None = None
 
     def insert(self, key: int) -> None:
         """
@@ -76,7 +75,7 @@ class SplayTree:
             parent.right = new_node
         self._splay(new_node)
 
-    def search(self, key: int) -> Optional[SplayNode]:
+    def search(self, key: int) -> SplayNode | None:
         """
         Searches for a key in the Splay Tree.
 

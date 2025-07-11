@@ -1,4 +1,4 @@
-from typing import List, TypeVar, Generic
+from typing import TypeVar, Generic
 
 # Define a generic type variable
 T = TypeVar('T')
@@ -28,7 +28,7 @@ class Queue(Generic[T]):
         """
         Initializes an empty queue.
         """
-        self.items: List[T] = []
+        self.items: list[T] = []
 
     def enqueue(self, item: T) -> None:
         """

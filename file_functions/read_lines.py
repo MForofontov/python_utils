@@ -1,7 +1,6 @@
 from itertools import islice
-from typing import List, Union
 
-def read_lines(input_file: str, strip: bool = True, num_lines: Union[int, None] = None) -> List[str]:
+def read_lines(input_file: str, strip: bool = True, num_lines: int | None = None) -> list[str]:
     """
     Read lines in a file.
 
@@ -19,9 +18,9 @@ def read_lines(input_file: str, strip: bool = True, num_lines: Union[int, None] 
     List[str]
         List with the lines read from the input file.
     """
-    with open(input_file, 'r') as infile:
+    with open(input_file) as infile:
         if num_lines is None:
-            lines: List[str] = [line for line in infile.readlines()]
+            lines: list[str] = [line for line in infile.readlines()]
         else:
             lines = list(islice(infile, num_lines))
 

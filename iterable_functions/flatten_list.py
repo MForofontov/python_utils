@@ -1,7 +1,7 @@
 import itertools
-from typing import Any, List
+from typing import Any
 
-def flatten_list(list_to_flatten: List[List[Any]]) -> List[Any]:
+def flatten_list(list_to_flatten: list[list[Any]]) -> list[Any]:
     """
     Flatten one level of a nested list.
 

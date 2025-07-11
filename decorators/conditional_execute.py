@@ -1,9 +1,10 @@
-from typing import Callable, Any, TypeVar, Optional
+from typing import Any, TypeVar
+from collections.abc import Callable
 from functools import wraps
 
 T = TypeVar('T')
 
-def conditional_execute(predicate: Callable[[], bool]) -> Callable[[Callable[..., T]], Callable[..., Optional[T]]]:
+def conditional_execute(predicate: Callable[[], bool]) -> Callable[[Callable[..., T]], Callable[..., T | None]]:
     """
     Decorator to conditionally execute a function based on a predicate.
 
@@ -25,7 +26,7 @@ def conditional_execute(predicate: Callable[[], bool]) -> Callable[[Callable[...
     if not callable(predicate):
         raise TypeError("Predicate must be callable")
 
-    def decorator(func: Callable[..., T]) -> Callable[..., Optional[T]]:
+    def decorator(func: Callable[..., T]) -> Callable[..., T | None]:
         """
         Decorator function.
 
@@ -40,7 +41,7 @@ def conditional_execute(predicate: Callable[[], bool]) -> Callable[[Callable[...
             The wrapped function with conditional execution logic.
         """
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Optional[T]:
+        def wrapper(*args: Any, **kwargs: Any) -> T | None:
             """
             Wrapper function to conditionally execute the input function.
 

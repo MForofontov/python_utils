@@ -1,4 +1,5 @@
-from typing import Callable, Any, List
+from typing import Any
+from collections.abc import Callable
 from functools import wraps
 import logging
 import inspect
@@ -47,7 +48,7 @@ def requires_permission(permission: str, logger: logging.Logger = None) -> Calla
             The wrapped function.
         """
         @wraps(func)
-        def wrapper(user_permissions: List[str], *args: Any, **kwargs: Any) -> Any:
+        def wrapper(user_permissions: list[str], *args: Any, **kwargs: Any) -> Any:
             """
             The wrapper function that checks for the required permission.
 

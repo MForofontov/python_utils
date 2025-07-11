@@ -1,7 +1,7 @@
 from collections import Counter
-from typing import List, Any
+from typing import Any
 
-def get_duplicates(input_list: List[Any]) -> List[Any]:
+def get_duplicates(input_list: list[Any]) -> list[Any]:
     """
     Identify duplicate elements in a list.
 

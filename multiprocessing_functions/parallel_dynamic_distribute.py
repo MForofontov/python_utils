@@ -1,11 +1,12 @@
 from multiprocessing import Pool, cpu_count
-from typing import Callable, List, TypeVar
+from typing import TypeVar
+from collections.abc import Callable
 
 # Define type variables for input and output types
 T = TypeVar('T')
 R = TypeVar('R')
 
-def parallel_dynamic_distribute(func: Callable[[T], R], data: List[T], num_processes: int = None, chunk_size: int = 1) -> List[R]:
+def parallel_dynamic_distribute(func: Callable[[T], R], data: list[T], num_processes: int = None, chunk_size: int = 1) -> list[R]:
     """
     Dynamically distribute tasks to worker processes for parallel execution.
 

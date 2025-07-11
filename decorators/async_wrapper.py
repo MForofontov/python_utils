@@ -2,9 +2,10 @@ import asyncio
 import inspect
 import logging
 from functools import wraps, partial
-from typing import Any, Callable, Optional
+from typing import Any
+from collections.abc import Callable
 
-def async_wrapper(logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def async_wrapper(logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     Wraps a synchronous function to be executed asynchronously.
 

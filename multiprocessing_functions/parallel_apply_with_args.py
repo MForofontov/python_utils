@@ -1,11 +1,12 @@
 from multiprocessing import Pool, cpu_count
-from typing import Callable, List, Tuple, TypeVar, Any
+from typing import TypeVar, Any
+from collections.abc import Callable
 
 # Define type variables for input and output types
 T = TypeVar('T')
 R = TypeVar('R')
 
-def parallel_apply_with_args(func: Callable[[T, Any], R], data: List[T], args: Tuple = (), num_processes: int = None) -> List[R]:
+def parallel_apply_with_args(func: Callable[[T, Any], R], data: list[T], args: tuple = (), num_processes: int = None) -> list[R]:
     """
     Apply a function to a list of items in parallel, passing additional arguments to the function.
 

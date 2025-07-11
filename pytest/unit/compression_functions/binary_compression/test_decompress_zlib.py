@@ -68,7 +68,7 @@ def test_decompress_zlib_unicode_data() -> None:
     Test the decompress_zlib function with Unicode data.
     """
     # Test case 7: Unicode data
-    data: bytes = "你好，世界".encode('utf-8')
+    data: bytes = "你好，世界".encode()
     compressed_data: bytes = base64.b64encode(zlib.compress(data))
     decompressed_data: bytes = decompress_zlib(compressed_data)
     assert decompressed_data == data, "Decompressed data should match the original data"

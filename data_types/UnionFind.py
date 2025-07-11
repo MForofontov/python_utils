@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any
 
 class UnionFind:
     """
@@ -22,8 +22,8 @@ class UnionFind:
     """
 
     def __init__(self) -> None:
-        self.parent: Dict[Any, Any] = {}
-        self.rank: Dict[Any, int] = {}
+        self.parent: dict[Any, Any] = {}
+        self.rank: dict[Any, int] = {}
 
     def find(self, element: Any) -> Any:
         """

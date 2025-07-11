@@ -1,8 +1,7 @@
 import os 
 import shutil
-from typing import List
 
-def cleanup(directory: str, exclude: List[str]) -> None:
+def cleanup(directory: str, exclude: list[str]) -> None:
     """
     Clean up a directory by removing all files and subdirectories except those specified in the exclusion list.
 

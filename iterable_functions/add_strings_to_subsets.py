@@ -1,6 +1,5 @@
-from typing import List, Set
 
-def add_strings_to_subsets(my_list: List[Set[str]], my_strings: List[str]) -> bool:
+def add_strings_to_subsets(my_list: list[set[str]], my_strings: list[str]) -> bool:
     """
     Clustering algorithm that finds a string in a list of strings in
     a list of sets and adds the whole list to the set if any string of 

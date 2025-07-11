@@ -1,4 +1,4 @@
-from typing import List, TypeVar, Generic
+from typing import TypeVar, Generic
 
 # Define a generic type variable
 T = TypeVar('T')
@@ -32,7 +32,7 @@ class Deque(Generic[T]):
         """
         Initializes an empty deque.
         """
-        self.items: List[T] = []
+        self.items: list[T] = []
 
     def add_front(self, item: T) -> None:
         """

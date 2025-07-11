@@ -21,7 +21,7 @@ def test_redirect_output_basic(tmpdir):
         print("Function executed")
     
     sample_function()
-    with open(output_file, 'r') as f:
+    with open(output_file) as f:
         assert f.read().strip() == "Function executed"
 
 def test_redirect_output_with_args(tmpdir):
@@ -35,7 +35,7 @@ def test_redirect_output_with_args(tmpdir):
         print(a + b)
     
     function_with_args(1, 2)
-    with open(output_file, 'r') as f:
+    with open(output_file) as f:
         assert f.read().strip() == "3"
 
 def test_redirect_output_with_kwargs(tmpdir):
@@ -49,7 +49,7 @@ def test_redirect_output_with_kwargs(tmpdir):
         print(a + b)
     
     function_with_kwargs(1, b=2)
-    with open(output_file, 'r') as f:
+    with open(output_file) as f:
         assert f.read().strip() == "3"
 
 def test_redirect_output_with_var_args(tmpdir):
@@ -63,7 +63,7 @@ def test_redirect_output_with_var_args(tmpdir):
         print(f"{a} - {args} - {kwargs}")
     
     function_with_var_args(1, "arg1", "arg2", kwarg1=1.0, kwarg2=2.0)
-    with open(output_file, 'r') as f:
+    with open(output_file) as f:
         assert f.read().strip() == "1 - ('arg1', 'arg2') - {'kwarg1': 1.0, 'kwarg2': 2.0}"
 
 def test_redirect_output_run_time_error_no_logger(tmpdir):

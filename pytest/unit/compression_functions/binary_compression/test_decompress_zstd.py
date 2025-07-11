@@ -73,7 +73,7 @@ def test_decompress_zstd_unicode_data() -> None:
     Test the decompress_zstd function with Unicode data.
     """
     # Test case 7: Unicode data
-    data: bytes = "你好，世界".encode('utf-8')
+    data: bytes = "你好，世界".encode()
     compressor = zstd.ZstdCompressor()
     compressed_data: bytes = compressor.compress(data)
     decompressed_data: bytes = decompress_zstd(compressed_data)
