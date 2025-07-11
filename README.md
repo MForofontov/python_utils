@@ -31,6 +31,7 @@ source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 # install dependencies
 pip install -r requirements.txt
 ```
+`tqdm` is used for progress bars and is installed with the requirements file.
 
 ## Running Tests
 
@@ -41,6 +42,7 @@ bash pytest.sh
 ```
 
 The script runs tests from `pytest/unit` and stores the report under `pytest_run_tests/`.
+The Allure command-line tool is required to generate the reports. If you don't have it installed, follow the [official installation guide](https://docs.qameta.io/allure/#_installing_a_commandline).
 
 ## Example Usage
 
