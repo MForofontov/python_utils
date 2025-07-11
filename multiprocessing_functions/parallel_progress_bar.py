@@ -1,4 +1,4 @@
-from multiprocessing import Pool
+from multiprocessing import Pool, cpu_count
 from typing import Callable, List, TypeVar
 from tqdm import tqdm  # Install using: pip install tqdm
 
