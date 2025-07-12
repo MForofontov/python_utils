@@ -24,7 +24,7 @@ def serialize_output(format: str, logger: logging.Logger = None) -> Callable[[Ca
     ValueError
         If the format is not supported.
     TypeError
-        If logger is not an instance of logging.Logger or
+        If logger is not an instance of logging.Logger or None.
     """
     if not isinstance(logger, logging.Logger) and logger is not None:
         logger = None
