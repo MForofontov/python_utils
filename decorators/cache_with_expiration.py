@@ -19,8 +19,8 @@ def cache_with_expiration(expiration_time: int) -> Callable[[Callable[..., Any]]
     
     Raises
     ------
-    TypeError
-        If the input function is not a positive integer.
+    ValueError
+        If `expiration_time` is not a positive integer.
     """
     if not isinstance(expiration_time, int) or expiration_time < 0:
         raise ValueError("expiration_time must be a positive integer")

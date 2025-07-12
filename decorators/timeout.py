@@ -26,7 +26,8 @@ def timeout(seconds: int, logger: logging.Logger | None = None) -> Callable[[Cal
     Raises
     ------
     TypeError
-        If seconds is not an integer or if logger is not an instance of logging.Logger or
+        If ``seconds`` is not an integer or if ``logger`` is not an instance of
+        ``logging.Logger`` or ``None``.
     """
     if not isinstance(logger, logging.Logger) and logger is not None:
         raise TypeError("logger must be an instance of logging.Logger or None")
