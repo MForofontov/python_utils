@@ -1,4 +1,4 @@
-from typing import Any, Generic, Optional, TypeVar
+from typing import Generic, TypeVar
 
 # Define a generic type variable
 T = TypeVar('T')
@@ -25,7 +25,7 @@ class Node(Generic[T]):
             The data to store in the node.
         """
         self.data: T = data
-        self.next: Optional[Node[T]] = None
+        self.next: Node[T] | None = None
 
 
 class LinkedList(Generic[T]):
@@ -55,7 +55,7 @@ class LinkedList(Generic[T]):
         """
         Initializes an empty linked list.
         """
-        self.head: Optional[Node[T]] = None
+        self.head: Node[T] | None = None
 
     def append(self, data: T) -> None:
         """

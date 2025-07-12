@@ -3,14 +3,15 @@ import psutil
 import logging
 import threading
 import gc
-from typing import Callable, Any, Optional
+from typing import Any
+from collections.abc import Callable
 from functools import wraps
 
 def time_and_resource_function(monitor_memory=True, monitor_cpu=True, monitor_io=True,
                                monitor_network=True, monitor_disk=True, monitor_threads=True,
                                monitor_gc=True, monitor_context_switches=True, monitor_open_files=True,
                                monitor_page_faults=True, interval=0.1,
-                               logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+                               logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     Decorator to measure the execution time and optionally the maximum memory, CPU usage, I/O operations, network usage, disk usage, number of threads, GC statistics, context switches, open files, and page faults of a function.
 

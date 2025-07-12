@@ -1,7 +1,7 @@
-from typing import Dict, List, Any
+from typing import Any
 from collections import Counter
 
-def get_shared_elements(dict_: Dict[str, List[Any]]) -> List[Any]:
+def get_shared_elements(dict_: dict[str, list[Any]]) -> list[Any]:
     """
     Identify elements that appear in at least two lists within a dictionary.
 

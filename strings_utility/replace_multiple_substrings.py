@@ -1,6 +1,5 @@
-from typing import Dict
 
-def replace_multiple_substrings(s: str, replacements: Dict[str, str]) -> str:
+def replace_multiple_substrings(s: str, replacements: dict[str, str]) -> str:
     """
     Replace multiple substrings in a string with specified replacements.
 

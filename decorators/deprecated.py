@@ -1,9 +1,10 @@
-from typing import Callable, Any, Optional
+from typing import Any
+from collections.abc import Callable
 from functools import wraps
 import warnings
 import logging
 
-def deprecated(logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def deprecated(logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     Decorator to mark functions as deprecated. It will result in a warning being emitted when the function is used.
 

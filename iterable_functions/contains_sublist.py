@@ -1,7 +1,7 @@
-from typing import List, Any
+from typing import Any
 from iterable_functions.all_match_lists import all_match_lists
 
-def contains_sublist(main_list: List[Any], list_of_lists: List[List[Any]]) -> bool:
+def contains_sublist(main_list: list[Any], list_of_lists: list[list[Any]]) -> bool:
     """
     Check if elements of the main list are fully contained in any sublist of the list of lists.
 

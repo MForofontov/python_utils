@@ -1,10 +1,12 @@
-from typing import List, Callable, TypeVar, Awaitable, Union, cast
+from typing import TypeVar, cast
+from collections.abc import Callable
+from collections.abc import Awaitable
 
 # Define type variables T and R to represent input and output types
 T = TypeVar('T')
 R = TypeVar('R')
 
-async def async_chain(functions: List[Callable[[Union[T, R]], Awaitable[R]]], input_value: T) -> R:
+async def async_chain(functions: list[Callable[[T | R], Awaitable[R]]], input_value: T) -> R:
     """
     Chain multiple asynchronous functions together.
 
@@ -34,7 +36,7 @@ async def async_chain(functions: List[Callable[[Union[T, R]], Awaitable[R]]], in
     >>> print(result)  # Output: 12
     """
     # Initialize the value with the input value
-    value: Union[T, R] = input_value
+    value: T | R = input_value
     
     # Iterate over each function in the list
     for func in functions:

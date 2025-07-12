@@ -1,4 +1,3 @@
-from typing import Dict
 
 class TrieNode:
     """
@@ -16,7 +15,7 @@ class TrieNode:
         """
         Initializes a TrieNode.
         """
-        self.children: Dict[str, TrieNode] = {}
+        self.children: dict[str, TrieNode] = {}
         self.is_end_of_word = False
 
 

@@ -1,6 +1,6 @@
-from typing import List, Any
+from typing import Any
 
-def get_common_elements_in_lists(list_of_lists: List[List[Any]]) -> List[Any]:
+def get_common_elements_in_lists(list_of_lists: list[list[Any]]) -> list[Any]:
     """
     Finds common elements between various lists.
 

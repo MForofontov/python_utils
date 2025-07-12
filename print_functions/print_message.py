@@ -1,6 +1,5 @@
 import logging
 from datetime import datetime
-from typing import Optional
 from logger_functions.logger import logger
 
 def print_message(message: str, message_type: str = "info", end = '\n', flush: bool = False) -> None:
@@ -17,6 +16,7 @@ end : str
     The end character to use in the print function.
 flush : bool
     Whether to flush the print buffer.
+
 
 Returns
 -------

@@ -1,4 +1,4 @@
-from typing import Optional, TypeVar, Generic, List
+from typing import TypeVar, Generic
 
 # Define a generic type variable
 T = TypeVar('T')
@@ -19,8 +19,8 @@ class BinaryTreeNode(Generic[T]):
 
     def __init__(self, data: T) -> None:
         self.data: T = data
-        self.left: Optional[BinaryTreeNode[T]] = None
-        self.right: Optional[BinaryTreeNode[T]] = None
+        self.left: BinaryTreeNode[T] | None = None
+        self.right: BinaryTreeNode[T] | None = None
 
 
 class BinaryTree(Generic[T]):
@@ -52,7 +52,7 @@ class BinaryTree(Generic[T]):
     """
 
     def __init__(self) -> None:
-        self.root: Optional[BinaryTreeNode[T]] = None
+        self.root: BinaryTreeNode[T] | None = None
 
     def insert(self, data: T) -> None:
         """
@@ -108,7 +108,7 @@ class BinaryTree(Generic[T]):
         """
         return self._search_recursive(self.root, data)
 
-    def _search_recursive(self, node: Optional[BinaryTreeNode[T]], data: T) -> bool:
+    def _search_recursive(self, node: BinaryTreeNode[T] | None, data: T) -> bool:
         """
         A helper method to search for data recursively.
 
@@ -133,7 +133,7 @@ class BinaryTree(Generic[T]):
         else:
             return self._search_recursive(node.right, data)
 
-    def inorder_traversal(self) -> List[T]:
+    def inorder_traversal(self) -> list[T]:
         """
         Performs an in-order traversal of the tree.
 
@@ -144,7 +144,7 @@ class BinaryTree(Generic[T]):
         """
         return self._inorder_traversal_recursive(self.root)
 
-    def _inorder_traversal_recursive(self, node: Optional[BinaryTreeNode[T]]) -> List[T]:
+    def _inorder_traversal_recursive(self, node: BinaryTreeNode[T] | None) -> list[T]:
         """
         A helper method to perform an in-order traversal recursively.
 
@@ -164,7 +164,7 @@ class BinaryTree(Generic[T]):
                 [node.data] +
                 self._inorder_traversal_recursive(node.right))
 
-    def preorder_traversal(self) -> List[T]:
+    def preorder_traversal(self) -> list[T]:
         """
         Performs a pre-order traversal of the tree.
 
@@ -175,7 +175,7 @@ class BinaryTree(Generic[T]):
         """
         return self._preorder_traversal_recursive(self.root)
 
-    def _preorder_traversal_recursive(self, node: Optional[BinaryTreeNode[T]]) -> List[T]:
+    def _preorder_traversal_recursive(self, node: BinaryTreeNode[T] | None) -> list[T]:
         """
         A helper method to perform a pre-order traversal recursively.
 
@@ -193,7 +193,7 @@ class BinaryTree(Generic[T]):
             return []
         return [node.data] + self._preorder_traversal_recursive(node.left) + self._preorder_traversal_recursive(node.right)
 
-    def postorder_traversal(self) -> List[T]:
+    def postorder_traversal(self) -> list[T]:
         """
         Performs a post-order traversal of the tree.
 
@@ -204,7 +204,7 @@ class BinaryTree(Generic[T]):
         """
         return self._postorder_traversal_recursive(self.root)
 
-    def _postorder_traversal_recursive(self, node: Optional[BinaryTreeNode[T]]) -> List[T]:
+    def _postorder_traversal_recursive(self, node: BinaryTreeNode[T] | None) -> list[T]:
         """
         A helper method to perform a post-order traversal recursively.
 

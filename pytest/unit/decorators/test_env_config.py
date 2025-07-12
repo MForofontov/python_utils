@@ -1,6 +1,5 @@
 import pytest
 import logging
-from typing import Optional
 from decorators.env_config import env_config
 
 # Configure test_logger
@@ -21,7 +20,7 @@ def sample_function_int(test_var: int) -> str:
     return f"Value: {test_var}"
 
 @env_config("TEST_VAR", required=False, logger=test_logger)
-def sample_function_optional(test_var: Optional[str]) -> str:
+def sample_function_optional(test_var: str | None) -> str:
     return f"Value: {test_var}"
 
 @env_config("TEST_VAR", var_type=int, custom_message="Custom error message", logger=test_logger)

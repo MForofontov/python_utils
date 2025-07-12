@@ -1,9 +1,10 @@
-from typing import Callable, Any, Optional
+from typing import Any
+from collections.abc import Callable
 from functools import wraps
 import inspect
 import logging
 
-def log_signature(logger: Optional[logging.Logger]) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def log_signature(logger: logging.Logger | None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to log the function signature and the arguments passed to it.
 

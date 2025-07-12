@@ -1,10 +1,10 @@
-from typing import Callable, Any, Optional
+from typing import Any
+from collections.abc import Callable
 from functools import wraps
-import asyncio
 import inspect
 import logging
 
-def async_handle_error(logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def async_handle_error(logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     Decorator to handle errors in asynchronous functions.
 

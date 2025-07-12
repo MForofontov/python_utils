@@ -1,4 +1,3 @@
-from typing import Optional
 
 class RedBlackNode:
     """
@@ -20,10 +19,10 @@ class RedBlackNode:
 
     def __init__(self, key: int) -> None:
         self.key: int = key
-        self.left: Optional[RedBlackNode] = None
-        self.right: Optional[RedBlackNode] = None
+        self.left: RedBlackNode | None = None
+        self.right: RedBlackNode | None = None
         self.color: str = 'RED'
-        self.parent: Optional[RedBlackNode] = None
+        self.parent: RedBlackNode | None = None
 
 
 class RedBlackTree:
@@ -48,7 +47,7 @@ class RedBlackTree:
     """
 
     def __init__(self) -> None:
-        self.root: Optional[RedBlackNode] = None
+        self.root: RedBlackNode | None = None
 
     def insert(self, key: int) -> None:
         """

@@ -1,5 +1,5 @@
 import pytest
-from typing import Any, Union
+from typing import Any
 from iterable_functions.identify_value_in_dict_get_key import identify_value_in_dict_get_key
 
 def test_identify_value_in_dict_get_key_success() -> None:
@@ -47,9 +47,9 @@ def test_identify_value_in_dict_get_key_mixed_types() -> None:
     Test the identify_value_in_dict_get_key function with mixed types.
     """
     # Test case 5: Mixed types
-    dictionary: dict[Union[str, int], Any] = {"a": 1, 2: "banana", "c": 3.14}
+    dictionary: dict[str | int, Any] = {"a": 1, 2: "banana", "c": 3.14}
     target_value: Any = "banana"
-    expected_output: Union[str, int] = 2
+    expected_output: str | int = 2
     assert identify_value_in_dict_get_key(target_value, dictionary) == expected_output
 
 def test_identify_value_in_dict_get_key_type_error_dict() -> None:

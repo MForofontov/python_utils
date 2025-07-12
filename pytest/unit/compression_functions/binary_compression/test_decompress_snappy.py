@@ -67,7 +67,7 @@ def test_decompress_snappy_unicode_data() -> None:
     Test the decompress_snappy function with Unicode data.
     """
     # Test case 7: Unicode data
-    data: bytes = "你好，世界".encode('utf-8')
+    data: bytes = "你好，世界".encode()
     compressed_data: bytes = snappy.compress(data)
     decompressed_data: bytes = decompress_snappy(compressed_data)
     assert decompressed_data == data, "Decompressed data should match the original data"

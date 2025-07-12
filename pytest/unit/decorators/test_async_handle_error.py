@@ -1,5 +1,4 @@
 import pytest
-import asyncio
 import logging
 from decorators.async_handle_error import async_handle_error
 

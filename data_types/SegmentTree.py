@@ -1,4 +1,3 @@
-from typing import List
 
 class SegmentTree:
     """
@@ -22,10 +21,10 @@ class SegmentTree:
     """
 
     def __init__(self) -> None:
-        self.tree: List[int] = []
+        self.tree: list[int] = []
         self.n: int = 0
 
-    def build(self, arr: List[int]) -> None:
+    def build(self, arr: list[int]) -> None:
         """
         Builds the segment tree from the input array.
 

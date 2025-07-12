@@ -1,4 +1,5 @@
-from typing import Callable, Any, Dict, Tuple, FrozenSet
+from typing import Any
+from collections.abc import Callable
 from functools import wraps
 import time
 
@@ -38,7 +39,7 @@ def cache_with_expiration(expiration_time: int) -> Callable[[Callable[..., Any]]
         Callable[..., Any]]
             The wrapped function.
         """
-        cached_results: Dict[Tuple[Tuple[Any, ...], FrozenSet[Tuple[str, Any]]], Tuple[float, Any]] = {}
+        cached_results: dict[tuple[tuple[Any, ...], frozenset[tuple[str, Any]]], tuple[float, Any]] = {}
 
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
@@ -64,7 +65,7 @@ def cache_with_expiration(expiration_time: int) -> Callable[[Callable[..., Any]]
             """
             try:
                 # Create a key based on the function arguments
-                key: Tuple[Tuple[Any, ...], FrozenSet[Tuple[str, Any]]] = (args, frozenset(kwargs.items()))
+                key: tuple[tuple[Any, ...], frozenset[tuple[str, Any]]] = (args, frozenset(kwargs.items()))
 
                 current_time = time.time()
                 if key in cached_results:

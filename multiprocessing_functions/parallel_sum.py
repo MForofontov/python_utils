@@ -1,7 +1,6 @@
 from multiprocessing import Pool, cpu_count
-from typing import List
 
-def parallel_sum(data: List[int], num_processes: int = None, chunk_size: int = 1) -> int:
+def parallel_sum(data: list[int], num_processes: int = None, chunk_size: int = 1) -> int:
     """
     Sum a list of integers in parallel.
 

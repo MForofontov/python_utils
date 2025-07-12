@@ -1,11 +1,12 @@
 from multiprocessing import Pool, cpu_count
-from typing import Callable, List, TypeVar
+from typing import TypeVar
+from collections.abc import Callable
 
 # Define type variables for input and output types
 T = TypeVar('T')
 R = TypeVar('R')
 
-def parallel_broadcast(func: Callable[[T, T], R], shared_input: T, data: List[T], num_processes: int = None) -> List[R]:
+def parallel_broadcast(func: Callable[[T, T], R], shared_input: T, data: list[T], num_processes: int = None) -> list[R]:
     """
     Apply a function in parallel to a list of items, with a shared input broadcasted to all processes.
 

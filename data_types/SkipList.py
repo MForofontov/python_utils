@@ -1,4 +1,3 @@
-from typing import Optional
 import random
 
 class SkipNode:
@@ -15,7 +14,7 @@ class SkipNode:
 
     def __init__(self, key: int, level: int) -> None:
         self.key: int = key
-        self.forward: list[Optional[SkipNode]] = [None] * (level + 1)
+        self.forward: list[SkipNode | None] = [None] * (level + 1)
 
 
 class SkipList:
@@ -73,7 +72,7 @@ class SkipList:
                 new_node.forward[i] = update[i].forward[i]
                 update[i].forward[i] = new_node
 
-    def search(self, key: int) -> Optional[SkipNode]:
+    def search(self, key: int) -> SkipNode | None:
         """
         Searches for a key in the Skip List.
 

@@ -1,11 +1,13 @@
 # Import necessary types from the typing module
-from typing import List, Callable, TypeVar, Awaitable
+from typing import TypeVar
+from collections.abc import Callable
+from collections.abc import Awaitable
 
 # Define a type variable T to represent the return type of the tasks
 T = TypeVar('T')
 
-async def async_await_with_error_handling(tasks: List[Callable[[], Awaitable[T]]], 
-                                           error_handler: Callable[[Exception], None]) -> List[T]:
+async def async_await_with_error_handling(tasks: list[Callable[[], Awaitable[T]]], 
+                                           error_handler: Callable[[Exception], None]) -> list[T]:
     """
     Execute multiple asynchronous tasks with custom error handling.
 

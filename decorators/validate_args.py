@@ -1,8 +1,9 @@
 import logging
-from typing import Callable, Any, Optional
+from typing import Any
+from collections.abc import Callable
 from functools import wraps
 
-def validate_args(validation_func: Callable[..., bool], logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def validate_args(validation_func: Callable[..., bool], logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator that validates the arguments of a function using a provided validation function.
 

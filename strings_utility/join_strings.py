@@ -1,6 +1,5 @@
-from typing import List
 
-def join_strings(strings: List[str], delimiter: str = ' ') -> str:
+def join_strings(strings: list[str], delimiter: str = ' ') -> str:
     """
     Join a list of strings into a single string with a specified delimiter.
 

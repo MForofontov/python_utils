@@ -1,5 +1,5 @@
 import heapq
-from typing import Any, Tuple, List, TypeVar, Generic
+from typing import TypeVar, Generic
 
 # Define a generic type variable
 T = TypeVar('T')
@@ -29,7 +29,7 @@ class PriorityQueue(Generic[T]):
         """
         Initializes an empty priority queue.
         """
-        self.heap: List[Tuple[int, T]] = []
+        self.heap: list[tuple[int, T]] = []
 
     def push(self, item: T, priority: int) -> None:
         """

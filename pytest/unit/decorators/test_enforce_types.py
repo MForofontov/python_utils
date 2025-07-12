@@ -1,6 +1,5 @@
 import pytest
 import logging
-from typing import Dict
 from decorators.enforce_types import enforce_types
 
 # Configure test_logger
@@ -89,7 +88,7 @@ def test_variable_length_arguments():
     Test case 7: Function with variable length arguments (*args and **kwargs)
     """
     @enforce_types()
-    def sample_function_var_args(a: int, *args: str, **kwargs: Dict[str, float]) -> str:
+    def sample_function_var_args(a: int, *args: str, **kwargs: dict[str, float]) -> str:
         return f"{a} - {args} - {kwargs}"
     
     result = sample_function_var_args(1, "arg1", "arg2", kwarg1=1.0, kwarg2=2.0)

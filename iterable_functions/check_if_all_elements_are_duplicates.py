@@ -1,7 +1,7 @@
-from typing import List, Any
+from typing import Any
 from collections import Counter
 
-def check_if_all_elements_are_duplicates(input_list: List[Any]) -> bool:
+def check_if_all_elements_are_duplicates(input_list: list[Any]) -> bool:
     """
     Check if all elements in the list are duplicates.
 

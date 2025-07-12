@@ -1,6 +1,6 @@
-from typing import Dict, Any
+from typing import Any
 
-def remove_empty_dicts_recursive(nested_dict: Dict[Any, Any]) -> Dict[Any, Any]:
+def remove_empty_dicts_recursive(nested_dict: dict[Any, Any]) -> dict[Any, Any]:
     """
     Recursively removes empty dictionary entries from a nested dictionary.
 
@@ -22,7 +22,7 @@ def remove_empty_dicts_recursive(nested_dict: Dict[Any, Any]) -> Dict[Any, Any]:
     if not isinstance(nested_dict, dict):
         raise TypeError("nested_dict must be a dictionary")
 
-    def _remove_empty(d: Dict[Any, Any]) -> Dict[Any, Any]:
+    def _remove_empty(d: dict[Any, Any]) -> dict[Any, Any]:
         if isinstance(d, dict):
             for key in list(d.keys()):
                 d[key] = _remove_empty(d[key])

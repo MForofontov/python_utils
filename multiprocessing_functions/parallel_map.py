@@ -1,10 +1,11 @@
 from multiprocessing import Pool, cpu_count
-from typing import Callable, List, TypeVar
+from typing import TypeVar
+from collections.abc import Callable
 
 T = TypeVar('T')
 R = TypeVar('R')
 
-def parallel_map(func: Callable[[T], R], data: List[T], num_processes: int = None) -> List[R]:
+def parallel_map(func: Callable[[T], R], data: list[T], num_processes: int = None) -> list[R]:
     """
     Apply a function to a list of items in parallel.
 

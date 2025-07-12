@@ -1,7 +1,6 @@
-from typing import List, Tuple
 from compression_decompression_functions.decompress_number import decompress_number
 
-def polyline_decoding_list_of_ints(encoded_text: str) -> List[float]:
+def polyline_decoding_list_of_ints(encoded_text: str) -> list[float]:
     """
     Decode a list of integers compressed with polyline encoding.
 
@@ -23,7 +22,7 @@ def polyline_decoding_list_of_ints(encoded_text: str) -> List[float]:
     if not encoded_text:
         raise ValueError("Encoded text cannot be empty.")
 
-    decoded_numbers: List[int] = []
+    decoded_numbers: list[int] = []
     index: int = 0
     last_number: int = 0
 

@@ -1,6 +1,6 @@
-from typing import List, Any, Union
+from typing import Any
 
-def find_sublist_index(input_list_of_lists: List[List[Any]], target_value: Any) -> Union[int, None]:
+def find_sublist_index(input_list_of_lists: list[list[Any]], target_value: Any) -> int | None:
     """
     Finds the index of the sublist that contains the target value within a list of lists.
 

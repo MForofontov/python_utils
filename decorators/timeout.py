@@ -1,12 +1,13 @@
 import signal
 import logging
-from typing import Callable, Any, Optional
+from typing import Any
+from collections.abc import Callable
 from functools import wraps
 
 class TimeoutException(Exception):
     pass
 
-def timeout(seconds: int, logger: Optional[logging.Logger] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def timeout(seconds: int, logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator that enforces a timeout on a function.
 

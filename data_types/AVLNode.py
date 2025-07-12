@@ -1,4 +1,4 @@
-from typing import Optional, TypeVar, Generic
+from typing import TypeVar, Generic
 
 # Define a generic type variable
 T = TypeVar('T')
@@ -21,8 +21,8 @@ class AVLNode(Generic[T]):
 
     def __init__(self, key: T) -> None:
         self.key: T = key
-        self.left: Optional[AVLNode[T]] = None
-        self.right: Optional[AVLNode[T]] = None
+        self.left: AVLNode[T] | None = None
+        self.right: AVLNode[T] | None = None
         self.height: int = 1
 
 
@@ -46,7 +46,7 @@ class AVLTree(Generic[T]):
     """
 
     def __init__(self) -> None:
-        self.root: Optional[AVLNode[T]] = None
+        self.root: AVLNode[T] | None = None
 
     def insert(self, key: T) -> None:
         """
@@ -59,7 +59,7 @@ class AVLTree(Generic[T]):
         """
         self.root = self._insert(self.root, key)
 
-    def _insert(self, node: Optional[AVLNode[T]], key: T) -> AVLNode[T]:
+    def _insert(self, node: AVLNode[T] | None, key: T) -> AVLNode[T]:
         if node is None:
             return AVLNode(key)
         if key < node.key:
@@ -84,7 +84,7 @@ class AVLTree(Generic[T]):
         """
         self.root = self._delete(self.root, key)
 
-    def _delete(self, node: Optional[AVLNode[T]], key: T) -> Optional[AVLNode[T]]:
+    def _delete(self, node: AVLNode[T] | None, key: T) -> AVLNode[T] | None:
         if node is None:
             raise ValueError("Key not found")
         if key < node.key:
@@ -103,7 +103,7 @@ class AVLTree(Generic[T]):
         node.height = 1 + max(self._get_height(node.left), self._get_height(node.right))
         return self._balance(node)
 
-    def search(self, key: T) -> Optional[AVLNode[T]]:
+    def search(self, key: T) -> AVLNode[T] | None:
         """
         Searches for a key in the AVL tree.
 
@@ -119,7 +119,7 @@ class AVLTree(Generic[T]):
         """
         return self._search(self.root, key)
 
-    def _search(self, node: Optional[AVLNode[T]], key: T) -> Optional[AVLNode[T]]:
+    def _search(self, node: AVLNode[T] | None, key: T) -> AVLNode[T] | None:
         if node is None or node.key == key:
             return node
         if key < node.key:
@@ -157,10 +157,10 @@ class AVLTree(Generic[T]):
 
         return node
 
-    def _get_height(self, node: Optional[AVLNode[T]]) -> int:
+    def _get_height(self, node: AVLNode[T] | None) -> int:
         return 0 if node is None else node.height
 
-    def _get_balance(self, node: Optional[AVLNode[T]]) -> int:
+    def _get_balance(self, node: AVLNode[T] | None) -> int:
         if node is None:
             return 0
         return self._get_height(node.left) - self._get_height(node.right)

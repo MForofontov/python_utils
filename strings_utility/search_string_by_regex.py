@@ -1,7 +1,6 @@
-from typing import Union
 import re
 
-def search_string_by_regex(pattern: str, string: str) -> Union[str, None]:
+def search_string_by_regex(pattern: str, string: str) -> str | None:
     r"""
     Searches for a regex pattern in a string.
 
