@@ -30,7 +30,7 @@ class AsyncConnectionPool:
         self.max_connections = max_connections
         self._pool: asyncio.Queue[Any] = asyncio.Queue(max_connections)
 
-    async def acquire(self):
+    async def acquire(self) -> Any:
         """
         Acquire a connection from the pool.
 
@@ -43,7 +43,7 @@ class AsyncConnectionPool:
         conn = await self._pool.get()
         return conn
 
-    async def release(self, conn):
+    async def release(self, conn: Any) -> None:
         """
         Release a connection back to the pool.
 
@@ -55,7 +55,7 @@ class AsyncConnectionPool:
         # Put the connection back into the pool
         await self._pool.put(conn)
 
-    async def add_connection(self, conn):
+    async def add_connection(self, conn: Any) -> None:
         """
         Add a new connection to the pool.
 
