@@ -1,12 +1,12 @@
 import os
 
-def create_directory(dir: str) -> bool:
+def create_directory(directory: str) -> bool:
     """
-    Creates a directory based on the input dir path.
+    Creates a directory based on the input directory path.
 
     Parameters
     ----------
-    dir : str
+    directory : str
         Directory path.
 
     Returns
@@ -14,8 +14,8 @@ def create_directory(dir: str) -> bool:
     bool
         True if the directory was created, False if it already exists.
     """
-    if not os.path.exists(dir):
-        os.makedirs(dir)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
         return True
     else:
         return False
