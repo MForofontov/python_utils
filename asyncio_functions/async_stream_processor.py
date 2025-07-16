@@ -1,8 +1,12 @@
 from collections.abc import Callable
 from collections.abc import AsyncIterator
+from typing import Awaitable
 
 # Define an asynchronous function to process a stream of data
-async def async_stream_processor(stream: AsyncIterator[str], process: Callable[[str], None]) -> None:
+async def async_stream_processor(
+    stream: AsyncIterator[str],
+    process: Callable[[str], Awaitable[None]],
+) -> None:
     """
     Process a stream of data asynchronously.
 
@@ -10,8 +14,8 @@ async def async_stream_processor(stream: AsyncIterator[str], process: Callable[[
     ----------
     stream : AsyncIterator[str]
         An asynchronous iterator representing the data stream.
-    process : Callable[[str], None]
-        A function to process each item from the stream.
+    process : Callable[[str], Awaitable[None]]
+        An asynchronous function to process each item from the stream.
 
     Returns
     -------

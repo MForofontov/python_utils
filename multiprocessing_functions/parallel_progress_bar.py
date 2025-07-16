@@ -18,8 +18,9 @@ def parallel_progress_bar(func: Callable[[T], R], data: list[T], num_processes: 
     data : List[T]
         The list of data items to process.
     num_processes : int, optional
-        The number of processes to use for parallel execution. If None, it defaults 
-        to the number of available CPUs (by default None).
+        The number of processes to use for parallel execution. If ``None``,
+        it defaults to the number of available CPUs minus one with a minimum
+        of one process.
 
     Returns
     -------
@@ -34,7 +35,8 @@ def parallel_progress_bar(func: Callable[[T], R], data: list[T], num_processes: 
     [1, 4, 9, 16, 25]
     """
     if num_processes is None:
-        num_processes = cpu_count() - 1 # Pool will default to the number of available CPUs (minus 1)
+        # Ensure at least one process is used
+        num_processes = max(cpu_count() - 1, 1)
 
     # Create a pool of worker processes
     with Pool(processes=num_processes) as pool:

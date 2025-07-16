@@ -30,7 +30,7 @@ def test_validate_args_failure():
     """
     Test case 2: Function raises ValueError with invalid arguments
     """
-    with pytest.raises(ValueError, match="Function arguments did not pass validation."):
+    with pytest.raises(ValueError, match="Function sample_function arguments did not pass validation."):
         sample_function(-1, 2)
 
 def test_validate_args_with_logger(caplog):

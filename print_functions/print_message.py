@@ -1,32 +1,36 @@
 import logging
 from datetime import datetime
-from logger_functions.logger import logger
+from typing import Optional
+try:
+    from logger_functions.logger import logger
+except ModuleNotFoundError:  # pragma: no cover - fallback for standalone execution
+    logger = logging.getLogger(__name__)
 
-def print_message(message: str, message_type: str = "info", end = '\n', flush: bool = False) -> None:
-"""
-Print a formatted message with the current time and message type.
+def print_message(message: str, message_type: str = "info", end: str = '\n', flush: bool = False) -> None:
+    """
+    Print a formatted message with the current time and message type.
 
-Parameters
-----------
-message : str
-    The message to print.
-message_type : str
-    The type of message (e.g., "info", "warning", "error").
-end : str
-    The end character to use in the print function.
-flush : bool
-    Whether to flush the print buffer.
+    Parameters
+    ----------
+    message : str
+        The message to print.
+    message_type : str
+        The type of message (e.g., "info", "warning", "error").
+    end : str
+        The end character to use in the print function.
+    flush : bool
+        Whether to flush the print buffer.
 
 
-Returns
--------
-None
+    Returns
+    -------
+    None
 
-Notes
------
-Messages are logged through the :data:`logger` object imported from
-``logger_functions.logger``.
-"""
+    Notes
+    -----
+    Messages are logged through the :data:`logger` object imported from
+    ``logger_functions.logger``.
+    """
     logger_to_use: Optional[logging.Logger] = logger # This can change to a logger object if user uses --logger
 
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
