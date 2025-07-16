@@ -1,49 +1,59 @@
 from typing import TypeVar
-from collections.abc import Callable
+from collections.abc import Callable, Awaitable
+import asyncio
+import time
 
-# Define type variables for input and output types
 T = TypeVar('T')
 R = TypeVar('R')
 
-async def async_batch(func: Callable[[list[T]], list[R]], items: list[T], batch_size: int) -> list[R]:
-    """
-    Process items in batches using an asynchronous function.
+async def async_rate_limited(func: Callable[[T], Awaitable[R]], items: list[T], max_calls: int, period: float = 1.0) -> list[R]:
+    """Process items with a rate limit using an asynchronous function.
 
     Parameters
     ----------
-    func : Callable[[List[T]], List[R]]
-        The asynchronous function to apply to each batch of items.
-    items : List[T]
+    func : Callable[[T], Awaitable[R]]
+        The asynchronous function to apply to each item.
+    items : list[T]
         The list of items to process.
-    batch_size : int
-        The size of each batch.
+    max_calls : int
+        Maximum number of calls allowed within the given period.
+    period : float, optional
+        Time window in seconds for the rate limit (default is 1.0).
 
     Returns
     -------
-    List[R]
-        A list of results from processing all the batches.
+    list[R]
+        A list of results from processing the items.
+
+    Raises
+    ------
+    ValueError
+        If ``max_calls`` is not a positive integer or ``period`` is not a positive number.
 
     Examples
     --------
-    >>> async def process_batch(batch: List[int]) -> List[int]:
-    >>>     await asyncio.sleep(1)
-    >>>     return [x * 2 for x in batch]
-    >>> asyncio.run(async_batch(process_batch, [1, 2, 3, 4, 5], batch_size=2))
-    [2, 4, 6, 8, 10]
+    >>> async def double(x: int) -> int:
+    ...     await asyncio.sleep(0.1)
+    ...     return x * 2
+    >>> asyncio.run(async_rate_limited(double, [1, 2, 3], max_calls=2, period=1))
+    [2, 4, 6]
     """
-    # Initialize an empty list to store the results
-    results = []
-    
-    # Iterate over the items in batches of the specified batch_size
-    for i in range(0, len(items), batch_size):
-        # Get the current batch of items
-        batch = items[i:i + batch_size]
-        
-        # Apply the asynchronous function to the current batch and await the result
-        result = await func(batch)
-        
-        # Extend the results list with the result of the current batch
-        results.extend(result)
-    
-    # Return the list of results from processing all the batches
+    if not isinstance(max_calls, int) or max_calls <= 0:
+        raise ValueError("max_calls must be a positive integer")
+    if not isinstance(period, (int, float)) or period <= 0:
+        raise ValueError("period must be a positive number")
+
+    results: list[R] = []
+    timestamps: list[float] = []
+
+    for item in items:
+        now = time.monotonic()
+        timestamps = [t for t in timestamps if now - t < period]
+        if len(timestamps) >= max_calls:
+            await asyncio.sleep(period - (now - timestamps[0]))
+            now = time.monotonic()
+            timestamps = [t for t in timestamps if now - t < period]
+        timestamps.append(now)
+        results.append(await func(item))
+
     return results
