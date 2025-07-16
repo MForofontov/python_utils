@@ -1,16 +1,16 @@
-from typing import TypeVar
+from typing import TypeVar, Awaitable
 from collections.abc import Callable
 import asyncio
 
 T = TypeVar('T')
 
-async def run_in_parallel(tasks: list[Callable[[], T]]) -> list[T]:
+async def run_in_parallel(tasks: list[Callable[..., Awaitable[T]]]) -> list[T]:
     """
     Run multiple asynchronous functions in parallel.
 
     Parameters
     ----------
-    tasks : List[Callable[[], T]]
+    tasks : list[Callable[..., Awaitable[T]]]
         A list of asynchronous functions to execute.
 
     Returns

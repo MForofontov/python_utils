@@ -1,17 +1,17 @@
 import asyncio
-from typing import TypeVar
+from typing import TypeVar, Awaitable
 from collections.abc import Callable
 
 T = TypeVar('T')
 R = TypeVar('R')
 
-async def async_map(func: Callable[[T], R], items: list[T]) -> list[R]:
+async def async_map(func: Callable[[T], Awaitable[R]], items: list[T]) -> list[R]:
     """
     Apply an asynchronous function to a list of items concurrently.
 
     Parameters
     ----------
-    func : Callable[[T], R]
+    func : Callable[[T], Awaitable[R]]
         The asynchronous function to apply to each item.
     items : List[T]
         The list of items to process.
