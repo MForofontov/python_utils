@@ -1,17 +1,17 @@
-from typing import TypeVar
+from typing import TypeVar, Awaitable
 from collections.abc import Callable
 import asyncio
 
 # Define a type variable T to represent the return type of the function
 T = TypeVar('T')
 
-async def async_timeout(func: Callable[[], T], timeout: float) -> T:
+async def async_timeout(func: Callable[..., Awaitable[T]], timeout: float) -> T:
     """
     Add a timeout to an asynchronous function.
 
     Parameters
     ----------
-    func : Callable[[], T]
+    func : Callable[..., Awaitable[T]]
         The asynchronous function to run.
     timeout : float
         The time in seconds after which to timeout the function.

@@ -1,17 +1,22 @@
 import asyncio
-from typing import TypeVar
+from typing import TypeVar, Awaitable
 from collections.abc import Callable
 
 # Define a type variable T to represent the return type of the function
 T = TypeVar('T')
 
-async def async_retry_with_backoff(func: Callable[[], T], retries: int, initial_delay: float, backoff_factor: float) -> T:
+async def async_retry_with_backoff(
+    func: Callable[..., Awaitable[T]],
+    retries: int,
+    initial_delay: float,
+    backoff_factor: float,
+) -> T:
     """
     Retry an asynchronous function on failure, using exponential backoff.
 
     Parameters
     ----------
-    func : Callable[[], T]
+    func : Callable[..., Awaitable[T]]
         The asynchronous function to retry.
     retries : int
         The maximum number of retry attempts.
