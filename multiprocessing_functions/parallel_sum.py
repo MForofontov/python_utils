@@ -24,7 +24,7 @@ def parallel_sum(data: list[int], num_processes: int = None, chunk_size: int = 1
     >>> parallel_sum([1, 2, 3, 4, 5])
     15
     """
-    if num_processes == None:
+    if num_processes is None:
         num_processes = cpu_count() - 1 # Pool will default to the number of available CPUs (minus 1)
     
     # Create a pool of worker processes
