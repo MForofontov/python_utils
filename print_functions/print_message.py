@@ -42,7 +42,7 @@ def print_message(message: str, message_type: str = "info", end: str = '\n', flu
         formatted_message = f"[ERROR] {current_time} - {message}"
     elif message_type == "debug":
         formatted_message = f"[DEBUG] {current_time} - {message}"
-    elif message_type == None:
+    elif message_type is None:
         formatted_message = f"{message}"
     else:
         formatted_message = f"{current_time} - {message}"
