@@ -1,4 +1,4 @@
-from compression_decompression_functions.decompress_number import decompress_number
+from compression_functions.decompress_number import decompress_number
 
 def polyline_decoding_list_of_ints(encoded_text: str) -> list[float]:
     """
