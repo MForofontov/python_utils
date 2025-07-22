@@ -81,3 +81,4 @@ def test_count_consonants_invalid_type() -> None:
     # Test case 20: Invalid type
     with pytest.raises(TypeError):
         count_consonants(12345)
+

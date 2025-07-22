@@ -136,3 +136,4 @@ def test_join_strings_invalid_delimiter_type() -> None:
     with pytest.raises(TypeError):
         join_strings(["hello", "world"], delimiter=123)
 
+

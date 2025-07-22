@@ -99,3 +99,4 @@ async def use_connection(pool: AsyncConnectionPool, task: Callable[[Any], Awaita
     finally:
         # Release the connection back to the pool
         await pool.release(conn)
+

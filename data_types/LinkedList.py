@@ -156,3 +156,4 @@ class LinkedList(Generic[T]):
         while current:
             yield current
             current = current.next
+

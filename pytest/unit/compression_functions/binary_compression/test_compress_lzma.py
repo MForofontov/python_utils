@@ -103,3 +103,4 @@ def test_compress_lzma_compression_error() -> None:
             compress_lzma(b"data")
         finally:
             lzma.compress = original_compress
+

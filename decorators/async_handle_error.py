@@ -83,3 +83,4 @@ def async_handle_error(logger: logging.Logger | None = None) -> Callable[[Callab
                 return None
         return wrapper
     return decorator
+

@@ -79,3 +79,4 @@ def print_system_info_in_terminal() -> None:
     uptime_remaining_seconds = int(uptime_seconds % 60)
     print_message(f"System Uptime: {uptime_days} days, {uptime_hours} hours, {uptime_minutes} minutes, {uptime_remaining_seconds} seconds", 'info')
     print_message(separator, None)
+

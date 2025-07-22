@@ -94,3 +94,4 @@ def test_truncate_string_invalid_length_type() -> None:
     with pytest.raises(TypeError):
         truncate_string("hello", "3")
 
+

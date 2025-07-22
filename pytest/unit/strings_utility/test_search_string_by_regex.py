@@ -56,3 +56,4 @@ def test_search_string_by_regex_type_error_string() -> None:
     # Test case 6: Invalid type for string
     with pytest.raises(TypeError):
         search_string_by_regex(r"\bapple\b", 123)
+

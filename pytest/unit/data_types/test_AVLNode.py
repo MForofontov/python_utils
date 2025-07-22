@@ -208,3 +208,4 @@ def test_balance_of_empty_tree() -> None:
     # Test case 17: Balance of an empty tree
     tree = AVLTree[int]()
     assert tree._get_balance(tree.root) == 0
+

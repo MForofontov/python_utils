@@ -112,3 +112,4 @@ def test_manipulate_output_invalid_logger() -> None:
         @manipulate_output(add_exclamation, logger="invalid_logger")
         def sample_function_invalid_logger(a: str, b: str) -> str:
             return f"{a} - {b}"
+

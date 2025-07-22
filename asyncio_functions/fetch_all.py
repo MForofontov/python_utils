@@ -45,3 +45,4 @@ async def fetch_all(urls: list[str]) -> list[str]:
     async with aiohttp.ClientSession() as session:
         tasks = [fetch(session, url) for url in urls] # Create a list of tasks to fetch data from each URL
         return await asyncio.gather(*tasks)
+

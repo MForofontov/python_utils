@@ -81,3 +81,4 @@ def serialize_output(format: str, logger: logging.Logger = None) -> Callable[[Ca
                 raise
         return wrapper
     return decorator
+

@@ -56,3 +56,4 @@ def test_remove_by_regex_type_error_pattern() -> None:
     # Test case 6: Invalid type for pattern
     with pytest.raises(TypeError):
         remove_by_regex("I have an apple and a banana.", 123)
+

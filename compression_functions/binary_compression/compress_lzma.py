@@ -32,3 +32,4 @@ def compress_lzma(data: bytes) -> bytes:
     except Exception as e:
         # Raise a ValueError if an error occurs during compression
         raise ValueError(f"An error occurred during compression: {e}")
+

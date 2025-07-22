@@ -139,3 +139,4 @@ def test_pop_empty_queue() -> None:
     pq = PriorityQueue[int]()
     with pytest.raises(IndexError, match="Pop from an empty priority queue"):
         pq.pop()
+

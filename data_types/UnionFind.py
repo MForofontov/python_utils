@@ -84,3 +84,4 @@ class UnionFind:
             True if the two elements are in the same set, False otherwise.
         """
         return self.find(element1) == self.find(element2)
+

@@ -116,3 +116,4 @@ def test_invalid_format_with_logger(caplog):
                 pass
         assert "Value error in serialize_output decorator: Unsupported format." in caplog.text
 
+

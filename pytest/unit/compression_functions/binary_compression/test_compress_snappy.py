@@ -103,3 +103,4 @@ def test_compress_snappy_compression_error() -> None:
             compress_snappy(b"data")
         finally:
             snappy.compress = original_compress
+

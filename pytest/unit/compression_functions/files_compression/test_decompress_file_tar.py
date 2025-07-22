@@ -204,3 +204,4 @@ def test_decompress_file_tar_io_error_on_read_only_output_dir(tmp_path) -> None:
     finally:
         # Restore permissions to delete the temporary directory
         os.chmod(output_dir, 0o600)
+
