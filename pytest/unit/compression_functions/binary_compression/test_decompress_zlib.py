@@ -90,3 +90,4 @@ def test_decompress_zlib_decompression_error() -> None:
         # Provide invalid compressed data
         invalid_compressed_data: bytes = b"invalid compressed data"
         decompress_zlib(invalid_compressed_data)
+

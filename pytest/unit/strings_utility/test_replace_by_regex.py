@@ -90,3 +90,4 @@ def test_replace_by_regex_type_error_replacement() -> None:
     # Test case 9: Invalid type for replacement
     with pytest.raises(TypeError):
         replace_by_regex("I have an apple and a banana.", r"\bapple\b", 123)
+

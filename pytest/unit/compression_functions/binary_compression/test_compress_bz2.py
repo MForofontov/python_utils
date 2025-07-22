@@ -103,3 +103,4 @@ def test_compress_bz2_compression_error() -> None:
             compress_bz2(b"data")
         finally:
             bz2.compress = original_compress
+

@@ -164,3 +164,4 @@ def test_contains_substring_invalid_substring_type() -> None:
     with pytest.raises(TypeError):
         contains_substring("hello world", 123)
 
+

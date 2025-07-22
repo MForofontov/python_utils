@@ -124,3 +124,4 @@ def test_dequeue_empty_queue() -> None:
     queue = Queue[int]()
     with pytest.raises(IndexError, match="Dequeue from an empty queue"):
         queue.dequeue()
+

@@ -130,3 +130,4 @@ def test_compress_zstd_compression_error() -> None:
             compress_zstd(b"data")
         finally:
             zstd.ZstdCompressor = original_compressor
+

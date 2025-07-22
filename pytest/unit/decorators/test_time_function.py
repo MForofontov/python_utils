@@ -100,3 +100,4 @@ def test_time_function_exception(capfd):
     
     captured = capfd.readouterr()
     assert "function_with_exception executed in" in captured.out
+

@@ -104,3 +104,4 @@ def test_invalid_logger_type():
         @deprecated(logger="invalid_logger")
         def invalid_logger_type():
             return "Invalid logger type"
+

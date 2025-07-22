@@ -103,3 +103,4 @@ def test_compress_gzip_compression_error() -> None:
             compress_gzip(b"data")
         finally:
             gzip.GzipFile = original_gzipfile
+

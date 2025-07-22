@@ -168,3 +168,4 @@ def test_conditional_execute_invalid_predicate():
         @conditional_execute("not a callable")
         def example_function_invalid(a, b):
             return f"Result: {a + b}"
+

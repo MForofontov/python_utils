@@ -104,3 +104,4 @@ def test_compress_zlib_compression_error() -> None:
             compress_zlib(b"data")
         finally:
             zlib.compress = original_compress
+

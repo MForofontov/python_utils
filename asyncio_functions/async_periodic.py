@@ -31,3 +31,4 @@ async def async_periodic(func: Callable[[], Awaitable[None]], interval: float) -
         await func()
         # Await for the specified interval before the next execution
         await asyncio.sleep(interval)
+

@@ -145,3 +145,4 @@ def test_order_of_neighbors() -> None:
     graph.add_edge(1, 3)
     graph.add_edge(1, 4)
     assert graph.get_neighbors(1) == [2, 3, 4]
+

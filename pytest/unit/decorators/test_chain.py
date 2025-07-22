@@ -157,3 +157,4 @@ def test_chain_method_with_custom_exception():
 
     with pytest.raises(RuntimeError, match="Error calling 'chain' method on result of return_chainable_with_custom_exception: Custom chain method error"):
         return_chainable_with_custom_exception()
+

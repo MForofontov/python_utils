@@ -87,3 +87,4 @@ def retry(max_retries: int, delay: int | float = 1.0, logger: logging.Logger = N
                     time.sleep(delay)
         return wrapper
     return decorator
+

@@ -89,3 +89,4 @@ def test_decompress_gzip_decompression_error() -> None:
         # Provide invalid compressed data
         invalid_compressed_data: bytes = b"invalid compressed data"
         decompress_gzip(invalid_compressed_data)
+
