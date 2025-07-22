@@ -1,16 +1,19 @@
 from typing import TypeVar, Generic
+from collections import deque
 
 # Define a generic type variable
 T = TypeVar('T')
 
 class Queue(Generic[T]):
     """
-    A Queue data structure.
+    A Queue data structure built on :class:`collections.deque`.
+    All queue operations run in constant time.
 
     Attributes
     ----------
-    items : List[T]
-        The list to store queue elements.
+    items : deque[T]
+        A deque to store queue elements. Operations from the front or
+        back run in constant time.
 
     Methods
     -------
@@ -28,7 +31,7 @@ class Queue(Generic[T]):
         """
         Initializes an empty queue.
         """
-        self.items: list[T] = []
+        self.items: deque[T] = deque()
 
     def enqueue(self, item: T) -> None:
         """
@@ -57,7 +60,7 @@ class Queue(Generic[T]):
         """
         if self.is_empty():
             raise IndexError("Dequeue from an empty queue")
-        return self.items.pop(0)
+        return self.items.popleft()
 
     def is_empty(self) -> bool:
         """

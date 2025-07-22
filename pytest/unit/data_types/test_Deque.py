@@ -9,7 +9,7 @@ def test_add_front() -> None:
     deque = Deque[int]()
     deque.add_front(10)
     deque.add_front(20)
-    assert deque.items == [20, 10]  # The most recent element should be at the front
+    assert list(deque.items) == [20, 10]  # The most recent element should be at the front
 
 def test_add_rear() -> None:
     """
@@ -19,7 +19,7 @@ def test_add_rear() -> None:
     deque = Deque[int]()
     deque.add_rear(10)
     deque.add_rear(20)
-    assert deque.items == [10, 20]  # The most recent element should be at the rear
+    assert list(deque.items) == [10, 20]  # The most recent element should be at the rear
 
 def test_remove_front() -> None:
     """
@@ -30,7 +30,7 @@ def test_remove_front() -> None:
     deque.add_front(10)
     deque.add_front(20)
     assert deque.remove_front() == 20  # The front element should be removed
-    assert deque.items == [10]
+    assert list(deque.items) == [10]
 
 def test_remove_rear() -> None:
     """
@@ -41,7 +41,7 @@ def test_remove_rear() -> None:
     deque.add_rear(10)
     deque.add_rear(20)
     assert deque.remove_rear() == 20  # The rear element should be removed
-    assert deque.items == [10]
+    assert list(deque.items) == [10]
 
 def test_is_empty_on_empty_deque() -> None:
     """
@@ -106,10 +106,10 @@ def test_mixed_operations() -> None:
     deque.add_rear(20)
     deque.add_front(5)
     deque.add_rear(25)
-    assert deque.items == [5, 10, 20, 25]
+    assert list(deque.items) == [5, 10, 20, 25]
     assert deque.remove_front() == 5
     assert deque.remove_rear() == 25
-    assert deque.items == [10, 20]
+    assert list(deque.items) == [10, 20]
     assert deque.size() == 2
     assert deque.is_empty() is False
 
