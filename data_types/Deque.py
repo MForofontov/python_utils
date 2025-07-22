@@ -1,16 +1,18 @@
 from typing import TypeVar, Generic
+from collections import deque
 
 # Define a generic type variable
 T = TypeVar('T')
 
 class Deque(Generic[T]):
     """
-    A Deque (Double-Ended Queue) data structure.
+    A Deque (Double-Ended Queue) data structure implemented using
+    :class:`collections.deque`. All operations run in constant time.
 
     Attributes
     ----------
-    items : List[T]
-        The list to store deque elements.
+    items : deque[T]
+        The deque storing elements.
 
     Methods
     -------
@@ -32,7 +34,7 @@ class Deque(Generic[T]):
         """
         Initializes an empty deque.
         """
-        self.items: list[T] = []
+        self.items: deque[T] = deque()
 
     def add_front(self, item: T) -> None:
         """
@@ -43,7 +45,7 @@ class Deque(Generic[T]):
         item : T
             The element to add to the deque.
         """
-        self.items.insert(0, item)
+        self.items.appendleft(item)
 
     def add_rear(self, item: T) -> None:
         """
@@ -72,7 +74,7 @@ class Deque(Generic[T]):
         """
         if self.is_empty():
             raise IndexError("Remove from an empty deque")
-        return self.items.pop(0)
+        return self.items.popleft()
 
     def remove_rear(self) -> T:
         """
