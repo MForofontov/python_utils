@@ -1,5 +1,6 @@
 from typing import Any
 from collections.abc import Callable
+from collections import deque
 from functools import wraps
 import time
 import logging
@@ -63,8 +64,8 @@ def rate_limit(max_calls: int, period: int, logger: logging.Logger | None = None
         Callable[..., Any]
             The wrapped function
         """
-        # List to store the timestamps of function calls
-        calls: list[float] = []
+        # Store timestamps of function calls using a deque with fixed length
+        calls: deque[float] = deque(maxlen=max_calls)
 
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
@@ -88,10 +89,12 @@ def rate_limit(max_calls: int, period: int, logger: logging.Logger | None = None
             RateLimitExceededException
                 If the rate limit is exceeded.
             """
-            nonlocal calls  # Indicates that 'calls' refers to the list in the enclosing scope
+            nonlocal calls  # Indicates that 'calls' refers to the deque in the enclosing scope
             current_time = time.time()
-            # Filter out calls that are outside the period
-            calls = [call for call in calls if current_time - call < period]
+            # Remove calls that are outside the allowed period
+            while calls and current_time - calls[0] >= period:
+                calls.popleft()
+
             # Check if the number of calls exceeds the limit
             if len(calls) >= max_calls:
                 message = exception_message or f"Rate limit exceeded for {func.__name__}. Try again later."
