@@ -142,3 +142,4 @@ def test_is_palindrome_invalid_type() -> None:
     with pytest.raises(TypeError):
         is_palindrome(12345)
 
+

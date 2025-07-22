@@ -77,3 +77,4 @@ def validate_args(validation_func: Callable[..., bool], logger: logging.Logger |
             return func(*args, **kwargs)
         return wrapper
     return decorator
+

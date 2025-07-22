@@ -150,3 +150,4 @@ def test_count_substring_invalid_substring_type() -> None:
     with pytest.raises(TypeError):
         count_substring("hello world", 123)
 
+

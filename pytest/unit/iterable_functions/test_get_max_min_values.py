@@ -79,3 +79,4 @@ def test_get_max_min_values_type_error_elements() -> None:
     # Test case 9: Invalid elements in input_collection
     with pytest.raises(TypeError):
         get_max_min_values([1, 2, "three", 4, 5])
+

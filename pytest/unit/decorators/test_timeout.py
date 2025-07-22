@@ -110,3 +110,4 @@ def test_negative_seconds_value():
         @timeout(seconds=-1)
         def negative_seconds_function() -> None:
             pass
+

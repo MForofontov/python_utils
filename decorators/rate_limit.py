@@ -105,3 +105,4 @@ def rate_limit(max_calls: int, period: int, logger: logging.Logger | None = None
 
         return wrapper
     return decorator
+

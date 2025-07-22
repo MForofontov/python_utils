@@ -56,3 +56,4 @@ def decompress_file_gzip(input_gzip: str, output_file: str) -> None:
     except OSError as e:
         # Raise an IOError if an I/O error occurs during decompression
         raise OSError(f"An I/O error occurred during decompression: {e}")
+

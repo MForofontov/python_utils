@@ -165,3 +165,4 @@ class RedBlackTree:
             node.parent.left = left_child
         left_child.right = node
         node.parent = left_child
+

@@ -74,3 +74,4 @@ def test_divide_list_into_n_chunks_value_error_n() -> None:
     # Test case 8: Invalid value for n
     with pytest.raises(ValueError):
         divide_list_into_n_chunks([1, 2, 3], 0)
+

@@ -86,3 +86,4 @@ class SegmentTree:
             left //= 2
             right //= 2
         return result
+

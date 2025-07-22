@@ -76,3 +76,4 @@ def log_signature(logger: logging.Logger | None) -> Callable[[Callable[..., Any]
 
         return wrapper
     return decorator
+

@@ -164,3 +164,4 @@ def test_normalize_input_normalization_failure_no_logger() -> None:
     
     with pytest.raises(TypeError, match="Normalization failed: Normalization failed"):
         sample_function_normalization_failure("hello", "world")
+

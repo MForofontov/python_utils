@@ -135,3 +135,4 @@ def test_invalid_logger_type():
         @requires_permission('admin', logger="not_a_logger")
         def invalid_logger_function() -> None:
             pass
+

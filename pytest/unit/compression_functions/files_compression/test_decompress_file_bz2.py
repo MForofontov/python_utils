@@ -181,3 +181,4 @@ def test_decompress_file_bz2_io_error_on_read_only_output_file(tmp_path) -> None
     finally:
         # Restore permissions to delete the temporary file
         os.chmod(output_file, 0o600)
+

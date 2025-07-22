@@ -60,3 +60,4 @@ def print_message(message: str, message_type: str = "info", end: str = '\n', flu
             logger_to_use.info(message)
     
     print(formatted_message, end = end, flush = flush)
+

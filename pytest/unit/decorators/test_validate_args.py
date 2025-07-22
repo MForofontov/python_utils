@@ -85,3 +85,4 @@ def test_invalid_logger_type():
         @validate_args(is_positive, logger="not_a_logger")
         def invalid_logger_function() -> None:
             pass
+

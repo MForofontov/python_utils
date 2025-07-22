@@ -19,3 +19,4 @@ def test_parallel_reduce_chunk_size() -> None:
     data: list[int] = [1, 2, 3, 4]
     result: int = parallel_reduce(add, data, chunk_size=2)
     assert result == 10
+

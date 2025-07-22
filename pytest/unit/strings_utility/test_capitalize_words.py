@@ -149,3 +149,4 @@ def test_capitalize_words_invalid_type() -> None:
     with pytest.raises(TypeError):
         capitalize_words(12345)
 
+

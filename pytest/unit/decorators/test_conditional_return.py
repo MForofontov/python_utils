@@ -105,3 +105,4 @@ def test_conditional_return_invalid_condition():
         @conditional_return("not_callable", return_value="Condition met")
         def sample_function(x):
             return "Condition not met"
+

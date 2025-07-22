@@ -71,3 +71,4 @@ def test_flatten_list_type_error_elements() -> None:
     # Test case 8: Invalid elements in list_to_flatten
     with pytest.raises(TypeError):
         flatten_list([[1, 2], "not a list"])
+

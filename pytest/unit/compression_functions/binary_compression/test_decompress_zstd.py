@@ -96,3 +96,4 @@ def test_decompress_zstd_decompression_error() -> None:
         # Provide invalid compressed data
         invalid_compressed_data: bytes = b"invalid compressed data"
         decompress_zstd(invalid_compressed_data)
+

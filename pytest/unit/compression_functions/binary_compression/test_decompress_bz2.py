@@ -89,3 +89,4 @@ def test_decompress_bz2_decompression_error() -> None:
         # Provide invalid compressed data
         invalid_compressed_data: bytes = b"invalid compressed data"
         decompress_bz2(invalid_compressed_data)
+

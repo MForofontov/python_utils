@@ -55,7 +55,7 @@ def log_function_calls(logger: logging.Logger) -> Callable[[Callable[..., Any]],
                 return result
             except Exception as e:
                 logger.error(f"Exception in {func.__name__}: {e}", exc_info=True)
-                raise Exception(f"Exception in {func.__name__}:") from e
+                raise
 
         return wrapper
     

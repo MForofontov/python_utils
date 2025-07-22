@@ -150,3 +150,4 @@ def test_cache_with_exception():
     
     with pytest.raises(ValueError, match="An error occurred"):
         example_function_exception(1, 2)
+
