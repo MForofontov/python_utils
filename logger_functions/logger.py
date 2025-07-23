@@ -1,3 +1,5 @@
+"""Utilities for creating module-specific loggers and validating logger instances."""
+
 import logging
 from logging import Logger, NullHandler
 
@@ -9,7 +11,12 @@ def get_logger(name: str = __name__) -> Logger:
     return logger
 
 
-def validate_logger(logger: Logger | None, *, allow_none: bool = True, message: str | None = None) -> None:
+def validate_logger(
+    logger: Logger | None,
+    *,
+    allow_none: bool = True,
+    message: str | None = None,
+) -> None:
     """Validate that ``logger`` is a ``logging.Logger`` or ``None``.
 
     Parameters
@@ -33,4 +40,4 @@ def validate_logger(logger: Logger | None, *, allow_none: bool = True, message: 
         raise TypeError(message)
 
 
-logger = get_logger(__name__)
+module_logger = get_logger(__name__)
