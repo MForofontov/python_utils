@@ -3,6 +3,7 @@ from collections.abc import Callable
 from functools import wraps
 import os
 import logging
+from logger_functions.logger import validate_logger
 
 def env_config(var_name: str, required: bool = True, var_type: type = str, custom_message: str | None = None, logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
@@ -44,8 +45,7 @@ def env_config(var_name: str, required: bool = True, var_type: type = str, custo
             logger.error(message, exc_info=True)
         raise TypeError(message)
 
-    if not isinstance(logger, logging.Logger) and logger is not None:
-        raise TypeError("logger must be an instance of logging.Logger or None")
+    validate_logger(logger)
 
     if not isinstance(var_name, str) or not var_name:
         log_or_raise_error("var_name must be a non-empty string")

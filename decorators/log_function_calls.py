@@ -2,6 +2,7 @@ import logging
 from functools import wraps
 from typing import Any
 from collections.abc import Callable
+from logger_functions.logger import validate_logger
 
 def log_function_calls(logger: logging.Logger) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
@@ -22,8 +23,7 @@ def log_function_calls(logger: logging.Logger) -> Callable[[Callable[..., Any]],
     TypeError
         If the logger is not an instance of logging.Logger.
     """
-    if not isinstance(logger, logging.Logger):
-        raise TypeError("logger must be an instance of logging.Logger.")
+    validate_logger(logger, allow_none=False)
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)

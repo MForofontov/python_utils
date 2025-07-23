@@ -3,6 +3,7 @@ import logging
 from typing import Any
 from collections.abc import Callable
 from functools import wraps
+from logger_functions.logger import validate_logger
 
 def time_function(logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
@@ -23,8 +24,7 @@ def time_function(logger: logging.Logger | None = None) -> Callable[[Callable[..
     TypeError
         If logger is not an instance of logging.Logger or None.
     """
-    if not isinstance(logger, logging.Logger) and logger is not None:
-        raise TypeError("logger must be an instance of logging.Logger or None")
+    validate_logger(logger)
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)

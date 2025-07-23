@@ -3,6 +3,7 @@ from collections.abc import Callable
 from functools import wraps
 import time
 import logging
+from logger_functions.logger import validate_logger
 
 def throttle(rate_limit: int | float, logger: logging.Logger = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
@@ -25,8 +26,7 @@ def throttle(rate_limit: int | float, logger: logging.Logger = None) -> Callable
     TypeError
         If rate_limit is not a float or an integer.
     """
-    if not isinstance(logger, logging.Logger) and logger is not None:
-        raise TypeError("logger must be an instance of logging.Logger or None")
+    validate_logger(logger)
 
     if not isinstance(rate_limit, (int, float)) or rate_limit < 0:
         if logger:

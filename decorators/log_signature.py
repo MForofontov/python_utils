@@ -3,6 +3,7 @@ from collections.abc import Callable
 from functools import wraps
 import inspect
 import logging
+from logger_functions.logger import validate_logger
 
 def log_signature(logger: logging.Logger | None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
@@ -25,8 +26,7 @@ def log_signature(logger: logging.Logger | None) -> Callable[[Callable[..., Any]
     """
     if logger is None:
         logger = logging.getLogger(__name__)
-    if not isinstance(logger, logging.Logger):
-        raise TypeError("logger must be an instance of logging.Logger.")
+    validate_logger(logger, allow_none=False)
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         """

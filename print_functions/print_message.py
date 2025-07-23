@@ -1,10 +1,9 @@
 import logging
 from datetime import datetime
 from typing import Optional
-try:
-    from logger_functions.logger import logger
-except ModuleNotFoundError:  # pragma: no cover - fallback for standalone execution
-    logger = logging.getLogger(__name__)
+from logger_functions.logger import get_logger
+
+logger = get_logger(__name__)
 
 def print_message(message: str, message_type: str = "info", end: str = '\n', flush: bool = False) -> None:
     """
