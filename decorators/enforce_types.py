@@ -3,6 +3,7 @@ from functools import wraps
 from typing import Any, get_type_hints, get_origin, get_args
 import inspect
 from collections.abc import Callable
+from logger_functions.logger import validate_logger
 
 def enforce_types(logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
@@ -23,8 +24,7 @@ def enforce_types(logger: logging.Logger | None = None) -> Callable[[Callable[..
     TypeError
         If the logger is not an instance of logging.Logger or None.
     """
-    if not isinstance(logger, logging.Logger) and logger is not None:
-        raise TypeError("logger must be an instance of logging.Logger or None")
+    validate_logger(logger)
     
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         """

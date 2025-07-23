@@ -2,6 +2,7 @@ from typing import Any
 from collections.abc import Callable
 from functools import wraps
 import logging
+from logger_functions.logger import validate_logger
 
 def normalize_input(normalization_func: Callable[[Any], Any], logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
@@ -24,8 +25,7 @@ def normalize_input(normalization_func: Callable[[Any], Any], logger: logging.Lo
     TypeError
         If the input function is not callable or if logger is not an instance of logging.Logger or None.
     """
-    if not isinstance(logger, logging.Logger) and logger is not None:
-        raise TypeError("logger must be an instance of logging.Logger or None")
+    validate_logger(logger)
     if not callable(normalization_func):
         if logger:
             logger.error(f"Normalizer {normalization_func} is not callable", exc_info=True)

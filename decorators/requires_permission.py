@@ -3,6 +3,7 @@ from collections.abc import Callable
 from functools import wraps
 import logging
 import inspect
+from logger_functions.logger import validate_logger
 
 def requires_permission(permission: str, logger: logging.Logger = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
@@ -25,8 +26,7 @@ def requires_permission(permission: str, logger: logging.Logger = None) -> Calla
     TypeError
         If logger is not an instance of logging.Logger or None.
     """
-    if not isinstance(logger, logging.Logger) and logger is not None:
-        raise TypeError("logger must be an instance of logging.Logger or None")
+    validate_logger(logger)
     if not isinstance(permission, str):
         if logger:
             logger.error("Type error in requires_permission decorator: permission must be a string", exc_info=True)

@@ -1,6 +1,7 @@
 from typing import Any
 from collections.abc import Callable
 import logging
+from logger_functions.logger import validate_logger
 
 def multi_decorator(decorators: list[Callable[[Callable[..., Any]], Callable[..., Any]]], logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
@@ -30,8 +31,7 @@ def multi_decorator(decorators: list[Callable[[Callable[..., Any]], Callable[...
                 logger.error(message, exc_info=True)
             raise TypeError(message)
     
-    if not isinstance(logger, logging.Logger) and logger is not None:
-        raise TypeError("logger must be an instance of logging.Logger or None")
+    validate_logger(logger)
 
     def combine(func: Callable[..., Any]) -> Callable[..., Any]:
         """

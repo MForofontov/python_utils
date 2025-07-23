@@ -3,6 +3,7 @@ import logging
 from typing import Any
 from collections.abc import Callable
 from functools import wraps
+from logger_functions.logger import validate_logger
 
 class TimeoutException(Exception):
     pass
@@ -29,8 +30,7 @@ def timeout(seconds: int, logger: logging.Logger | None = None) -> Callable[[Cal
         If ``seconds`` is not an integer or if ``logger`` is not an instance of
         ``logging.Logger`` or ``None``.
     """
-    if not isinstance(logger, logging.Logger) and logger is not None:
-        raise TypeError("logger must be an instance of logging.Logger or None")
+    validate_logger(logger)
 
     if not isinstance(seconds, int) or seconds < 0:
         if logger:

@@ -3,6 +3,7 @@ import psutil
 import logging
 import threading
 import gc
+from logger_functions.logger import validate_logger
 from typing import Any
 from collections.abc import Callable
 from functools import wraps
@@ -50,8 +51,7 @@ def time_and_resource_function(monitor_memory=True, monitor_cpu=True, monitor_io
     TypeError
         If logger is not an instance of logging.Logger or None.
     """
-    if not isinstance(logger, logging.Logger) and logger is not None:
-        raise TypeError("logger must be an instance of logging.Logger or None")
+    validate_logger(logger)
 
     def decorator(func) -> Callable[..., Any]:
         @wraps(func)

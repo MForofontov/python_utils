@@ -4,6 +4,7 @@ from collections import deque
 from functools import wraps
 import time
 import logging
+from logger_functions.logger import validate_logger
 
 class RateLimitExceededException(Exception):
     """Exception raised when the rate limit is exceeded."""
@@ -35,8 +36,7 @@ def rate_limit(max_calls: int, period: int, logger: logging.Logger | None = None
     TypeError
         If logger is not an instance of logging.Logger or None.
     """
-    if not isinstance(logger, logging.Logger) and logger is not None:
-        raise TypeError("logger must be an instance of logging.Logger or None")
+    validate_logger(logger)
     if not isinstance(max_calls, int) or max_calls <= 0:
         if logger:
             logger.error("max_calls must be a positive integer", exc_info=True)

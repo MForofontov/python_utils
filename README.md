@@ -54,6 +54,28 @@ from strings_utility.capitalize_words import capitalize_words
 print(capitalize_words("hello world"))  # -> 'Hello World'
 ```
 
+## Logging
+
+Set up a logger once in your application and pass it to any decorator that
+accepts the optional ``logger`` parameter.
+
+```python
+import logging
+
+logger = logging.getLogger("python_utils")
+handler = logging.StreamHandler()
+formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+logger.setLevel(logging.INFO)
+
+from decorators.throttle import throttle
+
+@throttle(0.5, logger=logger)
+def my_function():
+    ...
+```
+
 ## Contributing
 
 1. Fork the repository and create a new branch.
