@@ -5,28 +5,26 @@ import inspect
 import logging
 
 def async_handle_error(logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
-    """
-    Decorator to handle errors in asynchronous functions.
+    """Decorator for handling errors in asynchronous functions.
 
     Parameters
     ----------
-    error_message : str
-        The error message to print when an exception occurs.
-    logger : Optional[logging.Logger]
-        The logger to use for logging errors. If None, the default logger will be used.
+    logger : logging.Logger | None, optional
+        Logger used to record errors. If ``None``, the exception is printed and
+        re-raised.
 
     Returns
     -------
     Callable[[Callable[..., Any]], Callable[..., Any]]
-        A decorator that wraps the input function with error handling.
+        A decorator that wraps an asynchronous function with error handling.
 
     Raises
     ------
     TypeError
-        If the logger is not an instance of logging.Logger.
+        If ``logger`` is not an instance of :class:`logging.Logger` or ``None``.
     """
     if not isinstance(logger, logging.Logger) and logger is not None:
-        raise TypeError("The logger must be an instance of logging.Logger")
+        raise TypeError("logger must be an instance of logging.Logger or None")
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         """
@@ -68,7 +66,9 @@ def async_handle_error(logger: logging.Logger | None = None) -> Callable[[Callab
             Returns
             -------
             Any
-                The result of the wrapped function, or None if an exception occurs.
+                The result of the wrapped function. If an exception occurs and a
+                logger is provided, ``None`` is returned after logging. If no
+                logger is provided, the exception is re-raised.
             """
             try:
                 # Attempt to call the original asynchronous function
@@ -78,9 +78,13 @@ def async_handle_error(logger: logging.Logger | None = None) -> Callable[[Callab
                 print(f"An error occurred in {func.__name__}: {e}")
                 # Log the error message and the exception if logging is enabled
                 if logger:
-                    logger.error(f"An error occurred in {func.__name__}: {e}", exc_info=True)
-                # Return None if an exception occurs
-                return None
+                    logger.error(
+                        f"An error occurred in {func.__name__}: {e}", exc_info=True
+                    )
+                    # Return None when logging the exception
+                    return None
+                # Re-raise the exception when no logger is provided
+                raise
         return wrapper
     return decorator
 
