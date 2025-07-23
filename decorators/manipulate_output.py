@@ -2,6 +2,7 @@ from typing import Any
 from collections.abc import Callable
 from functools import wraps
 import logging
+from logger_functions.logger import validate_logger
 
 def manipulate_output(manipulation_func: Callable[[Any], Any], logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
@@ -25,8 +26,7 @@ def manipulate_output(manipulation_func: Callable[[Any], Any], logger: logging.L
         If the logger is not an instance of logging.Logger or None.
         If the manipulation_func is not a callable function.
     """
-    if logger is not None and not isinstance(logger, logging.Logger):
-        raise TypeError("logger must be an instance of logging.Logger or None.")
+    validate_logger(logger)
     if not callable(manipulation_func):
         if logger is not None:
             logger.error("manipulation_func must be a callable function.")

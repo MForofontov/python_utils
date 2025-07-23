@@ -3,6 +3,7 @@ from collections.abc import Callable
 from functools import wraps
 import logging
 import time
+from logger_functions.logger import validate_logger
 
 def retry(max_retries: int, delay: int | float = 1.0, logger: logging.Logger = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
@@ -27,8 +28,7 @@ def retry(max_retries: int, delay: int | float = 1.0, logger: logging.Logger = N
     TypeError
         If max_retries is not an integer or delay is not a float.
     """
-    if not isinstance(logger, logging.Logger) and logger is not None:
-        raise TypeError("logger must be an instance of logging.Logger or None")
+    validate_logger(logger)
     if not isinstance(max_retries, int) or max_retries < 0:
         if logger:
             logger.error("max_retries must be an positive integer or 0", exc_info=True)

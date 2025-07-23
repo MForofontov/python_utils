@@ -3,6 +3,7 @@ from collections.abc import Callable
 from functools import wraps
 import inspect
 import logging
+from logger_functions.logger import validate_logger
 
 def async_handle_error(logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """Decorator for handling errors in asynchronous functions.
@@ -23,8 +24,7 @@ def async_handle_error(logger: logging.Logger | None = None) -> Callable[[Callab
     TypeError
         If ``logger`` is not an instance of :class:`logging.Logger` or ``None``.
     """
-    if not isinstance(logger, logging.Logger) and logger is not None:
-        raise TypeError("logger must be an instance of logging.Logger or None")
+    validate_logger(logger)
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         """

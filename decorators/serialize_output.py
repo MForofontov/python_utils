@@ -3,6 +3,7 @@ from collections.abc import Callable
 from functools import wraps
 import json
 import logging
+from logger_functions.logger import validate_logger
 
 def serialize_output(format: str, logger: logging.Logger = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
@@ -27,7 +28,9 @@ def serialize_output(format: str, logger: logging.Logger = None) -> Callable[[Ca
     TypeError
         If logger is not an instance of logging.Logger or None.
     """
-    if not isinstance(logger, logging.Logger) and logger is not None:
+    try:
+        validate_logger(logger)
+    except TypeError:
         logger = None
 
     if not isinstance(format, str):
