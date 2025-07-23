@@ -101,8 +101,7 @@ async def test_sync_function_with_logger_raises_value_error():
     """
     # Test case 7: Synchronous function that raises a ValueError
     with pytest.raises(ValueError, match="Test exception"):
-        result = await sample_function_exception(1, 2)
-    assert result is None
+        await sample_function_exception(1, 2)
 
 def test_async_function_with_logger(caplog):
     """
