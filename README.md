@@ -28,14 +28,20 @@ cd python-utils
 python -m venv venv
 source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 
-# install dependencies
+# install runtime dependencies
 pip install -r requirements.txt
+
+# install additional packages for development and testing
+pip install -r requirements_dev.txt
 ```
-`tqdm` is used for progress bars and is installed with the requirements file.
+`tqdm` is used for progress bars and is installed with the runtime requirements file.
 
 ## Running Tests
 
-The repository uses `pytest`. You can run all tests and generate an Allure report using the helper script:
+Tests rely on the packages listed in `requirements_dev.txt`, which installs
+`pytest` and `pytest-asyncio` in addition to the runtime dependencies. After
+installing these dependencies you can run all tests and generate an Allure
+report using the helper script:
 
 ```bash
 bash pytest.sh
