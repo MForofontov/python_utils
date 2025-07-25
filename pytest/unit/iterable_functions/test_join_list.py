@@ -1,6 +1,7 @@
 import pytest
 from iterable_functions.join_list import join_list
 
+
 def test_join_list_success() -> None:
     """
     Test the join_list function with valid inputs.
@@ -10,6 +11,7 @@ def test_join_list_success() -> None:
     delimiter: str = ", "
     expected_output: str = "apple, banana, cherry"
     assert join_list(lst, delimiter) == expected_output
+
 
 def test_join_list_empty_list() -> None:
     """
@@ -21,6 +23,7 @@ def test_join_list_empty_list() -> None:
     expected_output: str = ""
     assert join_list(lst, delimiter) == expected_output
 
+
 def test_join_list_single_element() -> None:
     """
     Test the join_list function with a single element.
@@ -31,6 +34,7 @@ def test_join_list_single_element() -> None:
     expected_output: str = "apple"
     assert join_list(lst, delimiter) == expected_output
 
+
 def test_join_list_type_error_list() -> None:
     """
     Test the join_list function with invalid type for lst.
@@ -39,6 +43,7 @@ def test_join_list_type_error_list() -> None:
     with pytest.raises(TypeError):
         join_list("not a list", ", ")
 
+
 def test_join_list_type_error_elements() -> None:
     """
     Test the join_list function with invalid elements in lst.
@@ -46,6 +51,7 @@ def test_join_list_type_error_elements() -> None:
     # Test case 5: Invalid elements in lst
     with pytest.raises(TypeError):
         join_list(["apple", 1, "cherry"], ", ")
+
 
 def test_join_list_type_error_delimiter() -> None:
     """

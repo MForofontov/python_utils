@@ -2,6 +2,7 @@ import pytest
 from typing import Any
 from iterable_functions.partially_contains_sublist import partially_contains_sublist
 
+
 def test_partially_contains_sublist_success() -> None:
     """
     Test the partially_contains_sublist function with valid inputs.
@@ -11,6 +12,7 @@ def test_partially_contains_sublist_success() -> None:
     list_of_lists: list[list[str]] = [["a", "b", "c"], ["d", "e"]]
     expected_output: bool = True
     assert partially_contains_sublist(main_list, list_of_lists) == expected_output
+
 
 def test_partially_contains_sublist_not_found() -> None:
     """
@@ -22,6 +24,7 @@ def test_partially_contains_sublist_not_found() -> None:
     expected_output: bool = False
     assert partially_contains_sublist(main_list, list_of_lists) == expected_output
 
+
 def test_partially_contains_sublist_empty_main_list() -> None:
     """
     Test the partially_contains_sublist function with an empty main_list.
@@ -31,6 +34,7 @@ def test_partially_contains_sublist_empty_main_list() -> None:
     list_of_lists: list[list[str]] = [["a", "b", "c"], ["d", "e"]]
     expected_output: bool = False
     assert partially_contains_sublist(main_list, list_of_lists) == expected_output
+
 
 def test_partially_contains_sublist_empty_list_of_lists() -> None:
     """
@@ -42,6 +46,7 @@ def test_partially_contains_sublist_empty_list_of_lists() -> None:
     expected_output: bool = False
     assert partially_contains_sublist(main_list, list_of_lists) == expected_output
 
+
 def test_partially_contains_sublist_integers() -> None:
     """
     Test the partially_contains_sublist function with lists of integers.
@@ -51,6 +56,7 @@ def test_partially_contains_sublist_integers() -> None:
     list_of_lists: list[list[int]] = [[1, 2, 3], [4, 5, 6]]
     expected_output: bool = True
     assert partially_contains_sublist(main_list, list_of_lists) == expected_output
+
 
 def test_partially_contains_sublist_mixed_types() -> None:
     """
@@ -62,6 +68,7 @@ def test_partially_contains_sublist_mixed_types() -> None:
     expected_output: bool = True
     assert partially_contains_sublist(main_list, list_of_lists) == expected_output
 
+
 def test_partially_contains_sublist_type_error_main_list() -> None:
     """
     Test the partially_contains_sublist function with invalid type for main_list.
@@ -70,6 +77,7 @@ def test_partially_contains_sublist_type_error_main_list() -> None:
     with pytest.raises(TypeError):
         partially_contains_sublist("not a list", [["a", "b", "c"], ["d", "e"]])
 
+
 def test_partially_contains_sublist_type_error_list_of_lists() -> None:
     """
     Test the partially_contains_sublist function with invalid type for list_of_lists.
@@ -77,6 +85,7 @@ def test_partially_contains_sublist_type_error_list_of_lists() -> None:
     # Test case 8: Invalid type for list_of_lists
     with pytest.raises(TypeError):
         partially_contains_sublist(["a", "b"], "not a list of lists")
+
 
 def test_partially_contains_sublist_type_error_elements() -> None:
     """

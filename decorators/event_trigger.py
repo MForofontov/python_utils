@@ -4,6 +4,7 @@ from functools import wraps
 import logging
 from logger_functions.logger import validate_logger
 
+
 class EventManager:
     """
     A class to manage events and their associated callbacks.
@@ -23,6 +24,7 @@ class EventManager:
         Executes all callback functions associated with the given event name
         using the provided payload.
     """
+
     def __init__(self):
         """
         Initializes the EventManager with an empty events dictionary.
@@ -61,7 +63,10 @@ class EventManager:
             for callback in self.events[event_name]:
                 callback(payload)
 
-def event_trigger(event_manager: EventManager, event_name: str, logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+
+def event_trigger(
+    event_manager: EventManager, event_name: str, logger: logging.Logger | None = None
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to trigger an event before executing the decorated function.
 
@@ -84,6 +89,7 @@ def event_trigger(event_manager: EventManager, event_name: str, logger: logging.
     TypeError
         If any of the parameters do not match the expected types.
     """
+
     def log_or_raise_error(message: str) -> None:
         """
         Helper function to log an error or raise an exception.
@@ -96,9 +102,9 @@ def event_trigger(event_manager: EventManager, event_name: str, logger: logging.
         if logger:
             logger.error(message, exc_info=True)
         raise TypeError(message)
-    
+
     validate_logger(logger)
-    
+
     if not isinstance(event_manager, EventManager):
         log_or_raise_error("event_manager must be an instance of EventManager")
 
@@ -119,6 +125,7 @@ def event_trigger(event_manager: EventManager, event_name: str, logger: logging.
         Callable[..., Any]
             The wrapped function.
         """
+
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
@@ -144,5 +151,7 @@ def event_trigger(event_manager: EventManager, event_name: str, logger: logging.
                 if logger:
                     logger.error(str(e), exc_info=True)
                 raise
+
         return wrapper
+
     return decorator

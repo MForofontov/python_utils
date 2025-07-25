@@ -1,5 +1,6 @@
 import shutil
 
+
 def get_tool_path(name: str) -> str | None:
     """
     Get the path of the specified tool.

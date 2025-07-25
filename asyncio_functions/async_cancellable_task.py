@@ -4,9 +4,12 @@ from collections.abc import Awaitable
 import asyncio
 
 # Define a type variable T to represent the return type of the task
-T = TypeVar('T')
+T = TypeVar("T")
 
-async def async_cancellable_task(task: Callable[[], Awaitable[T]], cancel_event: asyncio.Event) -> T:
+
+async def async_cancellable_task(
+    task: Callable[[], Awaitable[T]], cancel_event: asyncio.Event
+) -> T:
     """
     Run an asynchronous task that can be cancelled.
 
@@ -32,7 +35,7 @@ async def async_cancellable_task(task: Callable[[], Awaitable[T]], cancel_event:
     >>> async def long_running_task() -> str:
     >>>     await asyncio.sleep(10)
     >>>     return "Completed"
-    >>> 
+    >>>
     >>> cancel_event = asyncio.Event()
     >>> result = asyncio.run(async_cancellable_task(long_running_task, cancel_event))
     """

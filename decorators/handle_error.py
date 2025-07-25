@@ -4,7 +4,10 @@ from functools import wraps
 import logging
 from logger_functions.logger import validate_logger
 
-def handle_error(error_message: str, logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+
+def handle_error(
+    error_message: str, logger: logging.Logger | None = None
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to handle exceptions in the decorated function. If an exception occurs,
     it logs a specified error message and returns None.
@@ -42,6 +45,7 @@ def handle_error(error_message: str, logger: logging.Logger | None = None) -> Ca
         Callable[..., Any]
             The wrapped function.
         """
+
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
@@ -67,5 +71,7 @@ def handle_error(error_message: str, logger: logging.Logger | None = None) -> Ca
                 else:
                     print(f"{error_message}: {e}")
                 return None
+
         return wrapper
+
     return decorator

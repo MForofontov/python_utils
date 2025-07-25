@@ -2,6 +2,7 @@ import os
 import tarfile
 import stat
 
+
 def decompress_file_tar(input_tar: str, output_dir: str) -> None:
     """
     Decompress a tar-compressed file.
@@ -48,7 +49,7 @@ def decompress_file_tar(input_tar: str, output_dir: str) -> None:
         os.makedirs(output_dir, exist_ok=True)
 
         # Open the input tar-compressed file in read mode with gzip compression
-        with tarfile.open(input_tar, 'r:gz') as tar:
+        with tarfile.open(input_tar, "r:gz") as tar:
             # Extract all files to the specified output directory
             tar.extractall(path=output_dir)
     except FileNotFoundError:
@@ -57,4 +58,3 @@ def decompress_file_tar(input_tar: str, output_dir: str) -> None:
     except OSError as e:
         # Raise an IOError if an I/O error occurs during decompression
         raise OSError(f"An I/O error occurred during decompression: {e}")
-

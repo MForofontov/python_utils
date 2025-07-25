@@ -1,5 +1,6 @@
 import re
 
+
 def search_string_by_regex(pattern: str, string: str) -> str | None:
     r"""
     Searches for a regex pattern in a string.
@@ -20,7 +21,7 @@ def search_string_by_regex(pattern: str, string: str) -> str | None:
     ------
     TypeError
         If pattern or string is not a string.
-    
+
     Examples
     --------
     >>> search_string_by_regex(r"\d+", "abc123xyz")

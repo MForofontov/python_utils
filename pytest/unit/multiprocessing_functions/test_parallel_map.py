@@ -1,11 +1,14 @@
 import pytest
 from multiprocessing_functions.parallel_map import parallel_map
 
+
 def square(x: int) -> int:
     return x * x
 
+
 def add_one(x: int) -> int:
     return x + 1
+
 
 def test_parallel_map_basic() -> None:
     """Test the parallel_map function with a simple square function."""

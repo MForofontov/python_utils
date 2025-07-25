@@ -2,6 +2,7 @@ import pytest
 import lzma
 from compression_functions.binary_compression.decompress_lzma import decompress_lzma
 
+
 def test_decompress_lzma_basic() -> None:
     """
     Test the decompress_lzma function with basic input.
@@ -11,6 +12,7 @@ def test_decompress_lzma_basic() -> None:
     compressed_data: bytes = lzma.compress(data)
     decompressed_data: bytes = decompress_lzma(compressed_data)
     assert decompressed_data == data, "Decompressed data should match the original data"
+
 
 def test_decompress_lzma_empty() -> None:
     """
@@ -22,6 +24,7 @@ def test_decompress_lzma_empty() -> None:
     decompressed_data: bytes = decompress_lzma(compressed_data)
     assert decompressed_data == data, "Decompressed data should match the original data"
 
+
 def test_decompress_lzma_large_data() -> None:
     """
     Test the decompress_lzma function with large data.
@@ -31,6 +34,7 @@ def test_decompress_lzma_large_data() -> None:
     compressed_data: bytes = lzma.compress(data)
     decompressed_data: bytes = decompress_lzma(compressed_data)
     assert decompressed_data == data, "Decompressed data should match the original data"
+
 
 def test_decompress_lzma_special_characters() -> None:
     """
@@ -42,6 +46,7 @@ def test_decompress_lzma_special_characters() -> None:
     decompressed_data: bytes = decompress_lzma(compressed_data)
     assert decompressed_data == data, "Decompressed data should match the original data"
 
+
 def test_decompress_lzma_binary_data() -> None:
     """
     Test the decompress_lzma function with binary data.
@@ -51,6 +56,7 @@ def test_decompress_lzma_binary_data() -> None:
     compressed_data: bytes = lzma.compress(data)
     decompressed_data: bytes = decompress_lzma(compressed_data)
     assert decompressed_data == data, "Decompressed data should match the original data"
+
 
 def test_decompress_lzma_small_data() -> None:
     """
@@ -62,6 +68,7 @@ def test_decompress_lzma_small_data() -> None:
     decompressed_data: bytes = decompress_lzma(compressed_data)
     assert decompressed_data == data, "Decompressed data should match the original data"
 
+
 def test_decompress_lzma_unicode_data() -> None:
     """
     Test the decompress_lzma function with Unicode data.
@@ -72,6 +79,7 @@ def test_decompress_lzma_unicode_data() -> None:
     decompressed_data: bytes = decompress_lzma(compressed_data)
     assert decompressed_data == data, "Decompressed data should match the original data"
 
+
 def test_decompress_lzma_invalid_type() -> None:
     """
     Test the decompress_lzma function with invalid data type.
@@ -79,6 +87,7 @@ def test_decompress_lzma_invalid_type() -> None:
     # Test case 8: Invalid data type (non-bytes)
     with pytest.raises(TypeError):
         decompress_lzma("not bytes")  # type: ignore
+
 
 def test_decompress_lzma_decompression_error() -> None:
     """
@@ -89,4 +98,3 @@ def test_decompress_lzma_decompression_error() -> None:
         # Provide invalid compressed data
         invalid_compressed_data: bytes = b"invalid compressed data"
         decompress_lzma(invalid_compressed_data)
-

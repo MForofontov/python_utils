@@ -1,6 +1,7 @@
 import bz2
 import os
 
+
 def compress_file_bz2(input_file: str, output_file: str) -> None:
     """
     Compress a file using bz2.

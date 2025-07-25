@@ -1,5 +1,6 @@
 from typing import Any
 
+
 class UnionFind:
     """
     A Union-Find (Disjoint Set) data structure.
@@ -84,4 +85,3 @@ class UnionFind:
             True if the two elements are in the same set, False otherwise.
         """
         return self.find(element1) == self.find(element2)
-

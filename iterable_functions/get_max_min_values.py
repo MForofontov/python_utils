@@ -1,5 +1,6 @@
-
-def get_max_min_values(input_collection: list[int | float] | set[int | float] | tuple[int | float, ...]) -> tuple[int | float, int | float]:
+def get_max_min_values(
+    input_collection: list[int | float] | set[int | float] | tuple[int | float, ...],
+) -> tuple[int | float, int | float]:
     """
     From an input list, set, or tuple, return the maximum and minimum integer or float values.
 

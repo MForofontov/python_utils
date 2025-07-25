@@ -5,7 +5,10 @@ import json
 import logging
 from logger_functions.logger import validate_logger
 
-def serialize_output(format: str, logger: logging.Logger = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+
+def serialize_output(
+    format: str, logger: logging.Logger = None
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to serialize the output of a function into a specified format.
 
@@ -35,12 +38,18 @@ def serialize_output(format: str, logger: logging.Logger = None) -> Callable[[Ca
 
     if not isinstance(format, str):
         if logger:
-            logger.error("Type error in serialize_output decorator: format must be a string.", exc_info=True)
+            logger.error(
+                "Type error in serialize_output decorator: format must be a string.",
+                exc_info=True,
+            )
         raise TypeError("format must be a string.")
 
-    if format not in ['json']:
+    if format not in ["json"]:
         if logger:
-            logger.error("Value error in serialize_output decorator: Unsupported format.", exc_info=True)
+            logger.error(
+                "Value error in serialize_output decorator: Unsupported format.",
+                exc_info=True,
+            )
         raise ValueError("Unsupported format. Currently, only 'json' is supported.")
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
@@ -57,6 +66,7 @@ def serialize_output(format: str, logger: logging.Logger = None) -> Callable[[Ca
         Callable[..., Any]
             The wrapped function.
         """
+
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> str:
             """
@@ -76,12 +86,16 @@ def serialize_output(format: str, logger: logging.Logger = None) -> Callable[[Ca
             """
             try:
                 result = func(*args, **kwargs)
-                if format == 'json':
+                if format == "json":
                     return json.dumps(result)
             except Exception as e:
                 if logger:
-                    logger.error(f"Error serializing output in {func.__name__}: {e}", exc_info=True)
+                    logger.error(
+                        f"Error serializing output in {func.__name__}: {e}",
+                        exc_info=True,
+                    )
                 raise
-        return wrapper
-    return decorator
 
+        return wrapper
+
+    return decorator

@@ -1,5 +1,6 @@
 import re
 
+
 def regex_present(regex_list: list[str], string: str) -> bool:
     """
     Check if any regex in a list is found in a string.
@@ -20,7 +21,7 @@ def regex_present(regex_list: list[str], string: str) -> bool:
     ------
     TypeError
         If regex_list is not a list of strings or string is not a string.
-    
+
     Examples
     --------
     >>> regex_present(["[0-9]", "[a-z]"], "123")

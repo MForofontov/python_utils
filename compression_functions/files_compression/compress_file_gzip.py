@@ -2,6 +2,7 @@ import gzip
 import shutil
 import os
 
+
 def compress_file_gzip(input_file: str, output_file: str) -> None:
     """
     Compress a file using gzip.

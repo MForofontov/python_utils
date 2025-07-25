@@ -2,6 +2,7 @@ import pytest
 from typing import Any
 from iterable_functions.try_convert_to_type import try_convert_to_type
 
+
 def test_try_convert_to_type_success_int() -> None:
     """
     Test the try_convert_to_type function with valid integer conversion.
@@ -10,6 +11,7 @@ def test_try_convert_to_type_success_int() -> None:
     target_type = int
     expected_output = 123
     assert try_convert_to_type(value, target_type) == expected_output
+
 
 def test_try_convert_to_type_success_float() -> None:
     """
@@ -20,6 +22,7 @@ def test_try_convert_to_type_success_float() -> None:
     expected_output = 123.45
     assert try_convert_to_type(value, target_type) == expected_output
 
+
 def test_try_convert_to_type_success_str() -> None:
     """
     Test the try_convert_to_type function with valid string conversion.
@@ -28,6 +31,7 @@ def test_try_convert_to_type_success_str() -> None:
     target_type = str
     expected_output = "123"
     assert try_convert_to_type(value, target_type) == expected_output
+
 
 def test_try_convert_to_type_invalid_conversion() -> None:
     """
@@ -38,12 +42,14 @@ def test_try_convert_to_type_invalid_conversion() -> None:
     with pytest.raises(ValueError):
         try_convert_to_type(value, target_type)
 
+
 def test_try_convert_to_type_type_error() -> None:
     """
     Test the try_convert_to_type function with invalid type for target_type.
     """
     with pytest.raises(TypeError):
         try_convert_to_type("123", "not a type")
+
 
 def test_try_convert_to_type_success_list() -> None:
     """
@@ -54,6 +60,7 @@ def test_try_convert_to_type_success_list() -> None:
     expected_output = [1, 2, 3]
     assert try_convert_to_type(value, target_type) == expected_output
 
+
 def test_try_convert_to_type_success_bool() -> None:
     """
     Test the try_convert_to_type function with bool conversion.
@@ -63,10 +70,12 @@ def test_try_convert_to_type_success_bool() -> None:
     expected_output = False
     assert try_convert_to_type(value, target_type) is expected_output
 
+
 def test_try_convert_to_type_custom_class() -> None:
     """
     Test the try_convert_to_type function with a custom class.
     """
+
     class Custom:
         def __init__(self, val: Any) -> None:
             self.val = int(val)
@@ -78,6 +87,7 @@ def test_try_convert_to_type_custom_class() -> None:
     target_type = Custom
     expected_output = Custom(5)
     assert try_convert_to_type(value, target_type) == expected_output
+
 
 def test_try_convert_to_type_invalid_list_conversion() -> None:
     """

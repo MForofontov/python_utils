@@ -2,6 +2,7 @@ import pytest
 from typing import Any
 from iterable_functions.check_if_all_sets_are_same import check_if_all_sets_are_same
 
+
 def test_check_if_all_sets_are_same_identical_sets() -> None:
     """
     Test the check_if_all_sets_are_same function with identical sets.
@@ -9,6 +10,7 @@ def test_check_if_all_sets_are_same_identical_sets() -> None:
     # Test case 1: Identical sets
     sets_list: list[set[int]] = [{1, 2, 3}, {1, 2, 3}, {1, 2, 3}]
     assert check_if_all_sets_are_same(sets_list) == True
+
 
 def test_check_if_all_sets_are_same_different_sets() -> None:
     """
@@ -18,6 +20,7 @@ def test_check_if_all_sets_are_same_different_sets() -> None:
     sets_list: list[set[int]] = [{1, 2, 3}, {4, 5, 6}, {1, 2, 3}]
     assert check_if_all_sets_are_same(sets_list) == False
 
+
 def test_check_if_all_sets_are_same_single_set() -> None:
     """
     Test the check_if_all_sets_are_same function with a single set.
@@ -25,6 +28,7 @@ def test_check_if_all_sets_are_same_single_set() -> None:
     # Test case 3: Single set
     sets_list: list[set[int]] = [{1, 2, 3}]
     assert check_if_all_sets_are_same(sets_list) == True
+
 
 def test_check_if_all_sets_are_same_empty_list() -> None:
     """
@@ -34,6 +38,7 @@ def test_check_if_all_sets_are_same_empty_list() -> None:
     sets_list: list[set[int]] = []
     assert check_if_all_sets_are_same(sets_list) == True
 
+
 def test_check_if_all_sets_are_same_empty_sets() -> None:
     """
     Test the check_if_all_sets_are_same function with empty sets.
@@ -42,21 +47,32 @@ def test_check_if_all_sets_are_same_empty_sets() -> None:
     sets_list: list[set[int]] = [set(), set(), set()]
     assert check_if_all_sets_are_same(sets_list) == True
 
+
 def test_check_if_all_sets_are_same_strings() -> None:
     """
     Test the check_if_all_sets_are_same function with sets of strings.
     """
     # Test case 6: Sets of strings
-    sets_list: list[set[str]] = [{"apple", "banana"}, {"apple", "banana"}, {"apple", "banana"}]
+    sets_list: list[set[str]] = [
+        {"apple", "banana"},
+        {"apple", "banana"},
+        {"apple", "banana"},
+    ]
     assert check_if_all_sets_are_same(sets_list) == True
+
 
 def test_check_if_all_sets_are_same_mixed_types() -> None:
     """
     Test the check_if_all_sets_are_same function with sets of mixed types.
     """
     # Test case 7: Sets of mixed types
-    sets_list: list[set[Any]] = [{1, "banana", 3.14}, {1, "banana", 3.14}, {1, "banana", 3.14}]
+    sets_list: list[set[Any]] = [
+        {1, "banana", 3.14},
+        {1, "banana", 3.14},
+        {1, "banana", 3.14},
+    ]
     assert check_if_all_sets_are_same(sets_list) == True
+
 
 def test_check_if_all_sets_are_same_type_error() -> None:
     """
@@ -65,6 +81,7 @@ def test_check_if_all_sets_are_same_type_error() -> None:
     # Test case 8: Invalid type for sets_list
     with pytest.raises(TypeError):
         check_if_all_sets_are_same("not a list")
+
 
 def test_check_if_all_sets_are_same_type_error_elements() -> None:
     """

@@ -2,6 +2,7 @@ import pytest
 import zstandard as zstd
 from compression_functions.binary_compression.decompress_zstd import decompress_zstd
 
+
 def test_decompress_zstd_basic() -> None:
     """
     Test the decompress_zstd function with basic input.
@@ -12,6 +13,7 @@ def test_decompress_zstd_basic() -> None:
     compressed_data: bytes = compressor.compress(data)
     decompressed_data: bytes = decompress_zstd(compressed_data)
     assert decompressed_data == data, "Decompressed data should match the original data"
+
 
 def test_decompress_zstd_empty() -> None:
     """
@@ -24,6 +26,7 @@ def test_decompress_zstd_empty() -> None:
     decompressed_data: bytes = decompress_zstd(compressed_data)
     assert decompressed_data == data, "Decompressed data should match the original data"
 
+
 def test_decompress_zstd_large_data() -> None:
     """
     Test the decompress_zstd function with large data.
@@ -34,6 +37,7 @@ def test_decompress_zstd_large_data() -> None:
     compressed_data: bytes = compressor.compress(data)
     decompressed_data: bytes = decompress_zstd(compressed_data)
     assert decompressed_data == data, "Decompressed data should match the original data"
+
 
 def test_decompress_zstd_special_characters() -> None:
     """
@@ -46,6 +50,7 @@ def test_decompress_zstd_special_characters() -> None:
     decompressed_data: bytes = decompress_zstd(compressed_data)
     assert decompressed_data == data, "Decompressed data should match the original data"
 
+
 def test_decompress_zstd_binary_data() -> None:
     """
     Test the decompress_zstd function with binary data.
@@ -56,6 +61,7 @@ def test_decompress_zstd_binary_data() -> None:
     compressed_data: bytes = compressor.compress(data)
     decompressed_data: bytes = decompress_zstd(compressed_data)
     assert decompressed_data == data, "Decompressed data should match the original data"
+
 
 def test_decompress_zstd_small_data() -> None:
     """
@@ -68,6 +74,7 @@ def test_decompress_zstd_small_data() -> None:
     decompressed_data: bytes = decompress_zstd(compressed_data)
     assert decompressed_data == data, "Decompressed data should match the original data"
 
+
 def test_decompress_zstd_unicode_data() -> None:
     """
     Test the decompress_zstd function with Unicode data.
@@ -79,6 +86,7 @@ def test_decompress_zstd_unicode_data() -> None:
     decompressed_data: bytes = decompress_zstd(compressed_data)
     assert decompressed_data == data, "Decompressed data should match the original data"
 
+
 def test_decompress_zstd_invalid_type() -> None:
     """
     Test the decompress_zstd function with invalid data type.
@@ -86,6 +94,7 @@ def test_decompress_zstd_invalid_type() -> None:
     # Test case 8: Invalid data type (non-bytes)
     with pytest.raises(TypeError):
         decompress_zstd("not bytes")  # type: ignore
+
 
 def test_decompress_zstd_decompression_error() -> None:
     """
@@ -96,4 +105,3 @@ def test_decompress_zstd_decompression_error() -> None:
         # Provide invalid compressed data
         invalid_compressed_data: bytes = b"invalid compressed data"
         decompress_zstd(invalid_compressed_data)
-

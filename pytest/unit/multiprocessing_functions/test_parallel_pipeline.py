@@ -1,11 +1,14 @@
 import pytest
 from multiprocessing_functions.parallel_pipeline import parallel_pipeline
 
+
 def square(x: int) -> int:
     return x * x
 
+
 def add_one(x: int) -> int:
     return x + 1
+
 
 def double(x: int) -> int:
     return x * 2

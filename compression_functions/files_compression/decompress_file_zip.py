@@ -2,6 +2,7 @@ import os
 import zipfile
 import stat
 
+
 def decompress_file_zip(input_zip: str, output_dir: str) -> None:
     """
     Decompress a zip-compressed file.
@@ -42,7 +43,7 @@ def decompress_file_zip(input_zip: str, output_dir: str) -> None:
         os.makedirs(output_dir, exist_ok=True)
 
         # Open the input zip-compressed file in read mode
-        with zipfile.ZipFile(input_zip, 'r') as zipf:
+        with zipfile.ZipFile(input_zip, "r") as zipf:
             # Extract all files to the specified output directory
             zipf.extractall(output_dir)
     except FileNotFoundError:
@@ -51,4 +52,3 @@ def decompress_file_zip(input_zip: str, output_dir: str) -> None:
     except OSError as e:
         # Raise an IOError if an I/O error occurs during decompression
         raise OSError(f"An I/O error occurred during decompression: {e}")
-

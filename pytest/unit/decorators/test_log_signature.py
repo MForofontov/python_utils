@@ -3,28 +3,33 @@ import logging
 from decorators.log_signature import log_signature
 
 # Configure test_logger
-test_logger = logging.getLogger('test_logger')
+test_logger = logging.getLogger("test_logger")
 test_logger.setLevel(logging.DEBUG)
 handler = logging.StreamHandler()
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 handler.setFormatter(formatter)
 test_logger.addHandler(handler)
+
 
 @log_signature(logger=test_logger)
 def add(a, b):
     return a + b
 
+
 @log_signature(logger=test_logger)
 def greet(name):
     return f"Hello, {name}!"
+
 
 @log_signature(logger=test_logger)
 def raise_value_error():
     raise ValueError("This is a ValueError")
 
+
 @log_signature(logger=test_logger)
 def return_value(value):
     return value
+
 
 def test_log_signature_add(caplog):
     """
@@ -36,6 +41,7 @@ def test_log_signature_add(caplog):
         assert result == 3
         assert "Executing add(a, b) with args: (1, 2) and kwargs: {}" in caplog.text
 
+
 def test_log_signature_greet(caplog):
     """
     Test case 2: Logging function signature for greet function
@@ -44,7 +50,10 @@ def test_log_signature_greet(caplog):
     with caplog.at_level(logging.DEBUG):
         result = greet("Alice")
         assert result == "Hello, Alice!"
-        assert "Executing greet(name) with args: ('Alice',) and kwargs: {}" in caplog.text
+        assert (
+            "Executing greet(name) with args: ('Alice',) and kwargs: {}" in caplog.text
+        )
+
 
 def test_log_signature_raise_value_error(caplog):
     """
@@ -54,7 +63,10 @@ def test_log_signature_raise_value_error(caplog):
     with caplog.at_level(logging.DEBUG):
         with pytest.raises(ValueError, match="This is a ValueError"):
             raise_value_error()
-        assert "Executing raise_value_error() with args: () and kwargs: {}" in caplog.text
+        assert (
+            "Executing raise_value_error() with args: () and kwargs: {}" in caplog.text
+        )
+
 
 def test_log_signature_return_value(caplog):
     """
@@ -64,12 +76,17 @@ def test_log_signature_return_value(caplog):
     with caplog.at_level(logging.DEBUG):
         result = return_value(5)
         assert result == 5
-        assert "Executing return_value(value) with args: (5,) and kwargs: {}" in caplog.text
+        assert (
+            "Executing return_value(value) with args: (5,) and kwargs: {}"
+            in caplog.text
+        )
+
 
 def test_log_signature_with_kwargs(caplog):
     """
     Test case 5: Logging function signature with keyword arguments
     """
+
     # Test case 5: Logging function signature with keyword arguments
     @log_signature(logger=test_logger)
     def with_kwargs(a, b=0):
@@ -78,12 +95,17 @@ def test_log_signature_with_kwargs(caplog):
     with caplog.at_level(logging.DEBUG):
         result = with_kwargs(1, b=2)
         assert result == 3
-        assert "Executing with_kwargs(a, b=0) with args: (1,) and kwargs: {'b': 2}" in caplog.text
+        assert (
+            "Executing with_kwargs(a, b=0) with args: (1,) and kwargs: {'b': 2}"
+            in caplog.text
+        )
+
 
 def test_log_signature_with_multiple_args(caplog):
     """
     Test case 6: Logging function signature with multiple arguments
     """
+
     # Test case 6: Logging function signature with multiple arguments
     @log_signature(logger=test_logger)
     def multiple_args(a, b, c):
@@ -92,7 +114,11 @@ def test_log_signature_with_multiple_args(caplog):
     with caplog.at_level(logging.DEBUG):
         result = multiple_args(1, 2, 3)
         assert result == 6
-        assert "Executing multiple_args(a, b, c) with args: (1, 2, 3) and kwargs: {}" in caplog.text
+        assert (
+            "Executing multiple_args(a, b, c) with args: (1, 2, 3) and kwargs: {}"
+            in caplog.text
+        )
+
 
 def test_log_signature_with_exception(caplog):
     """
@@ -107,15 +133,22 @@ def test_log_signature_with_exception(caplog):
     with caplog.at_level(logging.DEBUG):
         with pytest.raises(Exception, match="This is a CustomException"):
             raise_custom_exception()
-        assert "Executing raise_custom_exception() with args: () and kwargs: {}" in caplog.text
+        assert (
+            "Executing raise_custom_exception() with args: () and kwargs: {}"
+            in caplog.text
+        )
         assert "Exception occurred in raise_custom_exception():" in caplog.text
+
 
 def test_log_signature_invalid_logger():
     """
     Test case 8: Invalid logger
     """
     # Test case 8: Invalid logger
-    with pytest.raises(TypeError, match="logger must be an instance of logging.Logger."):
+    with pytest.raises(
+        TypeError, match="logger must be an instance of logging.Logger."
+    ):
+
         @log_signature(logger="not_a_logger")
         def invalid_logger_func():
             pass

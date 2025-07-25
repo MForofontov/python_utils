@@ -2,6 +2,7 @@ from collections.abc import Callable
 from collections.abc import Awaitable
 import asyncio
 
+
 # Define an asynchronous function to run another function periodically
 async def async_periodic(func: Callable[[], Awaitable[None]], interval: float) -> None:
     """
@@ -31,4 +32,3 @@ async def async_periodic(func: Callable[[], Awaitable[None]], interval: float) -
         await func()
         # Await for the specified interval before the next execution
         await asyncio.sleep(interval)
-

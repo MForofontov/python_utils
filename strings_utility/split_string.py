@@ -1,5 +1,4 @@
-
-def split_string(s: str, delimiter: str = ' ') -> list[str]:
+def split_string(s: str, delimiter: str = " ") -> list[str]:
     """
     Split a string by a specified delimiter.
 

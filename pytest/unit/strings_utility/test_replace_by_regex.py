@@ -1,6 +1,7 @@
 import pytest
 from strings_utility.replace_by_regex import replace_by_regex
 
+
 def test_replace_by_regex_success() -> None:
     """
     Test the replace_by_regex function with valid inputs.
@@ -11,6 +12,7 @@ def test_replace_by_regex_success() -> None:
     replacement: str = "orange"
     expected_output: str = "I have an orange and a banana."
     assert replace_by_regex(string, pattern, replacement) == expected_output
+
 
 def test_replace_by_regex_no_match() -> None:
     """
@@ -23,6 +25,7 @@ def test_replace_by_regex_no_match() -> None:
     expected_output: str = "I have an apple and a banana."
     assert replace_by_regex(string, pattern, replacement) == expected_output
 
+
 def test_replace_by_regex_multiple_matches() -> None:
     """
     Test the replace_by_regex function with multiple matches.
@@ -33,6 +36,7 @@ def test_replace_by_regex_multiple_matches() -> None:
     replacement: str = "orange"
     expected_output: str = "orange orange orange"
     assert replace_by_regex(string, pattern, replacement) == expected_output
+
 
 def test_replace_by_regex_empty_string() -> None:
     """
@@ -45,6 +49,7 @@ def test_replace_by_regex_empty_string() -> None:
     expected_output: str = ""
     assert replace_by_regex(string, pattern, replacement) == expected_output
 
+
 def test_replace_by_regex_empty_pattern() -> None:
     """
     Test the replace_by_regex function with an empty pattern.
@@ -55,6 +60,7 @@ def test_replace_by_regex_empty_pattern() -> None:
     replacement: str = "orange"
     expected_output: str = "I have an apple and a banana."
     assert replace_by_regex(string, pattern, replacement) == expected_output
+
 
 def test_replace_by_regex_empty_replacement() -> None:
     """
@@ -67,6 +73,7 @@ def test_replace_by_regex_empty_replacement() -> None:
     expected_output: str = "I have an and a banana."
     assert replace_by_regex(string, pattern, replacement) == expected_output
 
+
 def test_replace_by_regex_type_error_string() -> None:
     """
     Test the replace_by_regex function with invalid type for string.
@@ -74,6 +81,7 @@ def test_replace_by_regex_type_error_string() -> None:
     # Test case 7: Invalid type for string
     with pytest.raises(TypeError):
         replace_by_regex(123, r"\bapple\b", "orange")
+
 
 def test_replace_by_regex_type_error_pattern() -> None:
     """
@@ -83,6 +91,7 @@ def test_replace_by_regex_type_error_pattern() -> None:
     with pytest.raises(TypeError):
         replace_by_regex("I have an apple and a banana.", 123, "orange")
 
+
 def test_replace_by_regex_type_error_replacement() -> None:
     """
     Test the replace_by_regex function with invalid type for replacement.
@@ -90,4 +99,3 @@ def test_replace_by_regex_type_error_replacement() -> None:
     # Test case 9: Invalid type for replacement
     with pytest.raises(TypeError):
         replace_by_regex("I have an apple and a banana.", r"\bapple\b", 123)
-

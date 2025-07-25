@@ -2,7 +2,10 @@ from typing import Any
 from collections.abc import Callable
 from functools import wraps
 
-def format_output(format_string: str) -> Callable[[Callable[..., Any]], Callable[..., str]]:
+
+def format_output(
+    format_string: str,
+) -> Callable[[Callable[..., Any]], Callable[..., str]]:
     """
     A decorator to format the output of a function using a specified format string.
 
@@ -15,7 +18,7 @@ def format_output(format_string: str) -> Callable[[Callable[..., Any]], Callable
     -------
     Callable[[Callable[..., Any]], Callable[..., str]]
         The decorator function.
-    
+
     Raises
     ------
     TypeError
@@ -38,6 +41,7 @@ def format_output(format_string: str) -> Callable[[Callable[..., Any]], Callable
         Callable[..., str]
             The wrapped function.
         """
+
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> str:
             """
@@ -57,5 +61,7 @@ def format_output(format_string: str) -> Callable[[Callable[..., Any]], Callable
             """
             result = func(*args, **kwargs)
             return format_string.format(result)
+
         return wrapper
+
     return decorator

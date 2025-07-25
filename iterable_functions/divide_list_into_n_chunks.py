@@ -1,5 +1,6 @@
 from typing import Any
 
+
 def divide_list_into_n_chunks(list_to_divide: list[Any], n: int) -> list[list[Any]]:
     """
     Divides a list into a specified number of sublists.
@@ -33,7 +34,7 @@ def divide_list_into_n_chunks(list_to_divide: list[Any], n: int) -> list[list[An
     sublists = []
     list_length = len(list_to_divide)
     sublist_size, remainder = divmod(list_length, n)
-    
+
     start_idx = 0
     for i in range(n):
         sublist_length = sublist_size + (1 if i < remainder else 0)

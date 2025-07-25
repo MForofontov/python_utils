@@ -2,6 +2,7 @@ from collections.abc import Callable
 from collections.abc import AsyncIterator
 from typing import Awaitable
 
+
 # Define an asynchronous function to process a stream of data
 async def async_stream_processor(
     stream: AsyncIterator[str],
@@ -26,10 +27,10 @@ async def async_stream_processor(
     >>> async def generate_data() -> AsyncIterator[str]:
     >>>     for i in range(5):
     >>>         yield f"Data {i}"
-    >>> 
+    >>>
     >>> async def process_data(data: str) -> None:
     >>>     print(f"Processing: {data}")
-    >>> 
+    >>>
     >>> await async_stream_processor(generate_data(), process_data)
     Processing: Data 0
     Processing: Data 1
@@ -41,4 +42,3 @@ async def async_stream_processor(
     async for item in stream:
         # Process each item using the provided process function
         await process(item)
-

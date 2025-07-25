@@ -1,6 +1,7 @@
 import pytest
 from strings_utility.regex_present import regex_present
 
+
 def test_regex_present_success() -> None:
     """
     Test the regex_present function with valid inputs.
@@ -10,6 +11,7 @@ def test_regex_present_success() -> None:
     string: str = "I have an apple and a banana."
     expected_output: bool = True
     assert regex_present(regex_list, string) == expected_output
+
 
 def test_regex_present_no_match() -> None:
     """
@@ -21,6 +23,7 @@ def test_regex_present_no_match() -> None:
     expected_output: bool = False
     assert regex_present(regex_list, string) == expected_output
 
+
 def test_regex_present_empty_regex_list() -> None:
     """
     Test the regex_present function with an empty regex list.
@@ -30,6 +33,7 @@ def test_regex_present_empty_regex_list() -> None:
     string: str = "I have an apple and a banana."
     expected_output: bool = False
     assert regex_present(regex_list, string) == expected_output
+
 
 def test_regex_present_empty_string() -> None:
     """
@@ -41,6 +45,7 @@ def test_regex_present_empty_string() -> None:
     expected_output: bool = False
     assert regex_present(regex_list, string) == expected_output
 
+
 def test_regex_present_type_error_regex_list() -> None:
     """
     Test the regex_present function with invalid type for regex_list.
@@ -49,6 +54,7 @@ def test_regex_present_type_error_regex_list() -> None:
     with pytest.raises(TypeError):
         regex_present("not a list", "I have an apple and a banana.")
 
+
 def test_regex_present_type_error_elements() -> None:
     """
     Test the regex_present function with invalid elements in regex_list.
@@ -56,6 +62,7 @@ def test_regex_present_type_error_elements() -> None:
     # Test case 6: Invalid elements in regex_list
     with pytest.raises(TypeError):
         regex_present([r"\bapple\b", 123], "I have an apple and a banana.")
+
 
 def test_regex_present_type_error_string() -> None:
     """

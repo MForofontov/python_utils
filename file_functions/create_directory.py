@@ -1,5 +1,6 @@
 import os
 
+
 def create_directory(directory: str) -> bool:
     """
     Creates a directory based on the input directory path.

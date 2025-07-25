@@ -1,5 +1,6 @@
 from typing import Any
 
+
 class Stack:
     """
     A Stack data structure.

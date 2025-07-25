@@ -1,6 +1,7 @@
 import os
 import shutil
 
+
 def copy_folder(src_folder: str, dest_folder: str) -> None:
     """
     Copy the contents of one folder to another folder.
@@ -24,5 +25,5 @@ def copy_folder(src_folder: str, dest_folder: str) -> None:
     """
     if not os.path.exists(dest_folder):
         os.makedirs(dest_folder)
-    
+
     shutil.copytree(src_folder, dest_folder, dirs_exist_ok=True)

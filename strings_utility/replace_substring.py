@@ -41,7 +41,8 @@ def replace_substring(s: str, old: str, new: str) -> str:
     # If old is an empty string, return the original because there is '' between each character
     if old == "":
         return s
-    
+
     return s.replace(old, new)
+
 
 print(replace_substring("hello", "", "hi"))

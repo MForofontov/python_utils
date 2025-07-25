@@ -5,7 +5,10 @@ from collections.abc import Callable
 from functools import wraps
 from logger_functions.logger import validate_logger
 
-def time_function(logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+
+def time_function(
+    logger: logging.Logger | None = None,
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator that measures and logs or prints the execution time of a function.
 
@@ -18,7 +21,7 @@ def time_function(logger: logging.Logger | None = None) -> Callable[[Callable[..
     -------
     Callable[[Callable[..., Any]], Callable[..., Any]]
         The wrapped function that measures and logs or prints its execution time.
-    
+
     Raises
     ------
     TypeError
@@ -57,5 +60,7 @@ def time_function(logger: logging.Logger | None = None) -> Callable[[Callable[..
                 else:
                     print(message)
             return result
+
         return wrapper
+
     return decorator

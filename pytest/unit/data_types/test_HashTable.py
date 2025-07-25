@@ -1,6 +1,7 @@
 import pytest
 from data_types.HashTable import HashTable
 
+
 def test_insert_and_get() -> None:
     """
     Test inserting and retrieving key-value pairs.
@@ -12,6 +13,7 @@ def test_insert_and_get() -> None:
     assert hash_table.get(1) == "one"
     assert hash_table.get(2) == "two"
 
+
 def test_update_value() -> None:
     """
     Test updating the value of an existing key.
@@ -21,6 +23,7 @@ def test_update_value() -> None:
     hash_table.insert(1, "one")
     hash_table.insert(1, "updated_one")
     assert hash_table.get(1) == "updated_one"
+
 
 def test_remove_key() -> None:
     """
@@ -32,6 +35,7 @@ def test_remove_key() -> None:
     hash_table.remove(1)
     assert not hash_table.contains(1)
 
+
 def test_contains_key() -> None:
     """
     Test checking if a key exists in the hash table.
@@ -42,16 +46,20 @@ def test_contains_key() -> None:
     assert hash_table.contains(1) is True
     assert hash_table.contains(2) is False
 
+
 def test_collision_handling() -> None:
     """
     Test handling of hash collisions.
     """
     # Test case 5: Collision handling
-    hash_table = HashTable[int, str](size=1)  # Force collisions by using a single bucket
+    hash_table = HashTable[int, str](
+        size=1
+    )  # Force collisions by using a single bucket
     hash_table.insert(1, "one")
     hash_table.insert(2, "two")
     assert hash_table.get(1) == "one"
     assert hash_table.get(2) == "two"
+
 
 def test_large_number_of_keys() -> None:
     """
@@ -64,6 +72,7 @@ def test_large_number_of_keys() -> None:
     for i in range(1000):
         assert hash_table.get(i) == i * 10
 
+
 def test_large_keys_and_values() -> None:
     """
     Test inserting and retrieving very large keys and values.
@@ -75,10 +84,12 @@ def test_large_keys_and_values() -> None:
     hash_table.insert(large_key, large_value)
     assert hash_table.get(large_key) == large_value
 
+
 def test_custom_key_type() -> None:
     """
     Test the hash table with custom key types.
     """
+
     # Test case 8: Custom key type
     class CustomKey:
         def __init__(self, key: int) -> None:
@@ -100,10 +111,12 @@ def test_custom_key_type() -> None:
     assert hash_table.get(key1) == "one"
     assert hash_table.get(key2) == "two"
 
+
 def test_custom_value_type() -> None:
     """
     Test the hash table with custom value types.
     """
+
     # Test case 9: Custom value type
     class CustomValue:
         def __init__(self, value: int) -> None:
@@ -120,6 +133,7 @@ def test_custom_value_type() -> None:
     assert hash_table.get(1).value == 100
     assert hash_table.get(2).value == 200
 
+
 def test_empty_hash_table() -> None:
     """
     Test operations on an empty hash table.
@@ -130,6 +144,7 @@ def test_empty_hash_table() -> None:
     with pytest.raises(KeyError, match="Key 1 not found in the hash table"):
         hash_table.get(1)
 
+
 def test_get_nonexistent_key() -> None:
     """
     Test retrieving a value for a nonexistent key.
@@ -138,6 +153,7 @@ def test_get_nonexistent_key() -> None:
     hash_table = HashTable[int, str]()
     with pytest.raises(KeyError, match="Key 1 not found in the hash table"):
         hash_table.get(1)
+
 
 def test_remove_nonexistent_key() -> None:
     """

@@ -3,7 +3,11 @@ from collections.abc import Callable
 import logging
 from logger_functions.logger import validate_logger
 
-def multi_decorator(decorators: list[Callable[[Callable[..., Any]], Callable[..., Any]]], logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+
+def multi_decorator(
+    decorators: list[Callable[[Callable[..., Any]], Callable[..., Any]]],
+    logger: logging.Logger | None = None,
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A function to apply multiple decorators to a target function.
 
@@ -18,7 +22,7 @@ def multi_decorator(decorators: list[Callable[[Callable[..., Any]], Callable[...
     -------
     Callable[[Callable[..., Any]], Callable[..., Any]]
         The function that applies all the decorators to the target function.
-    
+
     Raises
     ------
     TypeError
@@ -30,7 +34,7 @@ def multi_decorator(decorators: list[Callable[[Callable[..., Any]], Callable[...
             if logger:
                 logger.error(message, exc_info=True)
             raise TypeError(message)
-    
+
     validate_logger(logger)
 
     def combine(func: Callable[..., Any]) -> Callable[..., Any]:

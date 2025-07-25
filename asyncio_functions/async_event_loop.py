@@ -4,7 +4,8 @@ from collections.abc import Callable
 from collections.abc import Awaitable
 
 # Define a type variable T to represent the return type of the function
-T = TypeVar('T')
+T = TypeVar("T")
+
 
 def async_event_loop(func: Callable[[], Awaitable[T]]) -> T:
     """
@@ -25,10 +26,11 @@ def async_event_loop(func: Callable[[], Awaitable[T]]) -> T:
     >>> async def test_function() -> str:
     >>>     await asyncio.sleep(1)
     >>>     return "Test completed"
-    >>> 
+    >>>
     >>> result = async_event_loop(test_function)
     >>> print(result)  # Output: "Test completed"
     """
+
     async def wrapper() -> T:
         return await func()
 

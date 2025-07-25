@@ -1,5 +1,6 @@
 import os
 
+
 def get_paths_dict(directory: str, type_: str) -> dict[str, str]:
     """
     Get a dictionary where keys are filenames and values are file paths within the directory,
@@ -26,21 +27,21 @@ def get_paths_dict(directory: str, type_: str) -> dict[str, str]:
     ValueError
         If the `type_` parameter is not one of the valid options ('files', 'directories', 'all').
     """
-    if type_ == 'files':
+    if type_ == "files":
         if_type = os.path.isfile
-    elif type_ == 'directories':
+    elif type_ == "directories":
         if_type = os.path.isdir
-    elif type_ == 'all':
+    elif type_ == "all":
         if_type = os.path.exists
     else:
         raise ValueError(f"Invalid type: {type_}")
 
     paths_dict: dict[str, str] = {}
     all_items: list[str] = os.listdir(directory)
-    
+
     for filename in all_items:
         file_path: str = os.path.join(directory, filename)
         if if_type(file_path):
             paths_dict[filename] = file_path
-    
+
     return paths_dict

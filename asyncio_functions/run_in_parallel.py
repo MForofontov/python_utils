@@ -2,7 +2,8 @@ from typing import TypeVar, Awaitable
 from collections.abc import Callable
 import asyncio
 
-T = TypeVar('T')
+T = TypeVar("T")
+
 
 async def run_in_parallel(tasks: list[Callable[..., Awaitable[T]]]) -> list[T]:
     """
@@ -29,5 +30,5 @@ async def run_in_parallel(tasks: list[Callable[..., Awaitable[T]]]) -> list[T]:
     >>> asyncio.run(run_in_parallel([task_a, task_b]))
     ['Task A done', 'Task B done']
     """
-    task_list = [task() for task in tasks] # Start all tasks concurrently
+    task_list = [task() for task in tasks]  # Start all tasks concurrently
     return await asyncio.gather(*task_list)

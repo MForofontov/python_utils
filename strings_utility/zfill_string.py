@@ -38,5 +38,5 @@ def zfill_string(s: str, width: int) -> str:
         raise TypeError("The width must be an integer.")
     if width < 0:
         raise ValueError("The width must be non-negative.")
-    
+
     return s.zfill(width)

@@ -2,6 +2,7 @@ import pytest
 from typing import Any
 from iterable_functions.contains_sublist import contains_sublist
 
+
 def test_contains_sublist_success() -> None:
     """
     Test the contains_sublist function with valid inputs where the main list is fully contained in a sublist.
@@ -10,6 +11,7 @@ def test_contains_sublist_success() -> None:
     main_list: list[int] = [1, 2]
     list_of_lists: list[list[int]] = [[1, 2, 3], [4, 5, 6]]
     assert contains_sublist(main_list, list_of_lists) == True
+
 
 def test_contains_sublist_no_match() -> None:
     """
@@ -20,6 +22,7 @@ def test_contains_sublist_no_match() -> None:
     list_of_lists: list[list[int]] = [[1, 2, 3], [4, 5, 6]]
     assert contains_sublist(main_list, list_of_lists) == False
 
+
 def test_contains_sublist_empty_main_list() -> None:
     """
     Test the contains_sublist function with an empty main list.
@@ -28,6 +31,7 @@ def test_contains_sublist_empty_main_list() -> None:
     main_list: list[int] = []
     list_of_lists: list[list[int]] = [[1, 2, 3], [4, 5, 6]]
     assert contains_sublist(main_list, list_of_lists) == True
+
 
 def test_contains_sublist_empty_list_of_lists() -> None:
     """
@@ -38,6 +42,7 @@ def test_contains_sublist_empty_list_of_lists() -> None:
     list_of_lists: list[list[int]] = []
     assert contains_sublist(main_list, list_of_lists) == False
 
+
 def test_contains_sublist_two_empty_lists() -> None:
     """
     Test the contains_sublist function with two empty lists.
@@ -46,6 +51,7 @@ def test_contains_sublist_two_empty_lists() -> None:
     main_list: list[int] = []
     list_of_lists: list[list[int]] = []
     assert contains_sublist(main_list, list_of_lists) == False
+
 
 def test_contains_sublist_list_with_empty_lists() -> None:
     """
@@ -56,14 +62,19 @@ def test_contains_sublist_list_with_empty_lists() -> None:
     list_of_lists: list[list[int]] = [[], [], []]
     assert contains_sublist(main_list, list_of_lists) == False
 
+
 def test_contains_sublist_strings() -> None:
     """
     Test the contains_sublist function with lists of strings.
     """
     # Test case 7: Lists of strings
     main_list: list[str] = ["apple", "banana"]
-    list_of_lists: list[list[str]] = [["apple", "banana", "cherry"], ["date", "fig", "grape"]]
+    list_of_lists: list[list[str]] = [
+        ["apple", "banana", "cherry"],
+        ["date", "fig", "grape"],
+    ]
     assert contains_sublist(main_list, list_of_lists) == True
+
 
 def test_contains_sublist_mixed_types() -> None:
     """
@@ -74,6 +85,7 @@ def test_contains_sublist_mixed_types() -> None:
     list_of_lists: list[list[Any]] = [[1, "banana", 3.14], ["apple", 1, "grape"]]
     assert contains_sublist(main_list, list_of_lists) == True
 
+
 def test_contains_sublist_type_error_main_list() -> None:
     """
     Test the contains_sublist function with invalid type for main_list.
@@ -82,6 +94,7 @@ def test_contains_sublist_type_error_main_list() -> None:
     with pytest.raises(TypeError):
         contains_sublist("not a list", [[1, 2, 3]])
 
+
 def test_contains_sublist_type_error_list_of_lists() -> None:
     """
     Test the contains_sublist function with invalid type for list_of_lists.
@@ -89,6 +102,7 @@ def test_contains_sublist_type_error_list_of_lists() -> None:
     # Test case 10: Invalid type for list_of_lists
     with pytest.raises(TypeError):
         contains_sublist([1, 2], "not a list of lists")
+
 
 def test_contains_sublist_type_error_list_of_lists_elements() -> None:
     """

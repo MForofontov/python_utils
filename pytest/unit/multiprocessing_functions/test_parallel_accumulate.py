@@ -1,6 +1,7 @@
 import pytest
 from multiprocessing_functions.parallel_accumulate import parallel_accumulate
 
+
 def add(a: int, b: int) -> int:
     return a + b
 

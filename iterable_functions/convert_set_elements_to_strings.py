@@ -1,5 +1,6 @@
 from typing import Any
 
+
 def convert_set_elements_to_strings(input_set: set[Any]) -> set[str]:
     """
     Convert all elements in the set to strings.

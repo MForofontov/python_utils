@@ -2,6 +2,7 @@ import pytest
 from typing import Any
 from iterable_functions.get_shared_elements import get_shared_elements
 
+
 def test_get_shared_elements_success() -> None:
     """
     Test the get_shared_elements function with valid inputs.
@@ -10,23 +11,21 @@ def test_get_shared_elements_success() -> None:
     dict_: dict[str, list[int]] = {
         "list1": [1, 2, 3],
         "list2": [2, 3, 4],
-        "list3": [3, 4, 5]
+        "list3": [3, 4, 5],
     }
     expected_output: list[int] = [2, 3, 4]
     assert get_shared_elements(dict_) == expected_output
+
 
 def test_get_shared_elements_no_shared_elements() -> None:
     """
     Test the get_shared_elements function with no shared elements.
     """
     # Test case 2: No shared elements
-    dict_: dict[str, list[int]] = {
-        "list1": [1, 2],
-        "list2": [3, 4],
-        "list3": [5, 6]
-    }
+    dict_: dict[str, list[int]] = {"list1": [1, 2], "list2": [3, 4], "list3": [5, 6]}
     expected_output: list[int] = []
     assert get_shared_elements(dict_) == expected_output
+
 
 def test_get_shared_elements_empty_dict() -> None:
     """
@@ -37,18 +36,16 @@ def test_get_shared_elements_empty_dict() -> None:
     expected_output: list[int] = []
     assert get_shared_elements(dict_) == expected_output
 
+
 def test_get_shared_elements_empty_lists() -> None:
     """
     Test the get_shared_elements function with empty lists.
     """
     # Test case 4: Empty lists
-    dict_: dict[str, list[int]] = {
-        "list1": [],
-        "list2": [],
-        "list3": []
-    }
+    dict_: dict[str, list[int]] = {"list1": [], "list2": [], "list3": []}
     expected_output: list[int] = []
     assert get_shared_elements(dict_) == expected_output
+
 
 def test_get_shared_elements_strings() -> None:
     """
@@ -58,10 +55,11 @@ def test_get_shared_elements_strings() -> None:
     dict_: dict[str, list[str]] = {
         "list1": ["apple", "banana"],
         "list2": ["banana", "cherry"],
-        "list3": ["banana", "date"]
+        "list3": ["banana", "date"],
     }
     expected_output: list[str] = ["banana"]
     assert get_shared_elements(dict_) == expected_output
+
 
 def test_get_shared_elements_mixed_types() -> None:
     """
@@ -71,10 +69,11 @@ def test_get_shared_elements_mixed_types() -> None:
     dict_: dict[str, list[Any]] = {
         "list1": [1, "banana"],
         "list2": [3.14, "banana"],
-        "list3": [1, "banana"]
+        "list3": [1, "banana"],
     }
     expected_output: list[Any] = [1, "banana"]
     assert get_shared_elements(dict_) == expected_output
+
 
 def test_get_shared_elements_type_error_dict() -> None:
     """
@@ -84,6 +83,7 @@ def test_get_shared_elements_type_error_dict() -> None:
     with pytest.raises(TypeError):
         get_shared_elements("not a dictionary")
 
+
 def test_get_shared_elements_type_error_elements() -> None:
     """
     Test the get_shared_elements function with invalid elements in dict_.
@@ -91,6 +91,7 @@ def test_get_shared_elements_type_error_elements() -> None:
     # Test case 8: Invalid elements in dict_
     with pytest.raises(TypeError):
         get_shared_elements({"list1": [1, 2], "list2": "not a list"})
+
 
 def test_get_shared_elements_unhashable_elements() -> None:
     """

@@ -1,6 +1,7 @@
 import aiohttp
 import asyncio
 
+
 async def fetch(session: aiohttp.ClientSession, url: str) -> str:
     """
     Fetch the content from a URL asynchronously.
@@ -20,6 +21,7 @@ async def fetch(session: aiohttp.ClientSession, url: str) -> str:
     # Perform a GET request to the URL
     async with session.get(url) as response:
         return await response.text()
+
 
 async def fetch_all(urls: list[str]) -> list[str]:
     """
@@ -43,6 +45,7 @@ async def fetch_all(urls: list[str]) -> list[str]:
     """
     # Create a new ClientSession for fetching data
     async with aiohttp.ClientSession() as session:
-        tasks = [fetch(session, url) for url in urls] # Create a list of tasks to fetch data from each URL
+        tasks = [
+            fetch(session, url) for url in urls
+        ]  # Create a list of tasks to fetch data from each URL
         return await asyncio.gather(*tasks)
-

@@ -5,10 +5,14 @@ from collections.abc import Callable
 from functools import wraps
 from logger_functions.logger import validate_logger
 
+
 class TimeoutException(Exception):
     pass
 
-def timeout(seconds: int, logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+
+def timeout(
+    seconds: int, logger: logging.Logger | None = None
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator that enforces a timeout on a function.
 
@@ -23,7 +27,7 @@ def timeout(seconds: int, logger: logging.Logger | None = None) -> Callable[[Cal
     -------
     Callable[[Callable[..., Any]], Callable[..., Any]]
         The decorator function.
-    
+
     Raises
     ------
     TypeError
@@ -34,8 +38,12 @@ def timeout(seconds: int, logger: logging.Logger | None = None) -> Callable[[Cal
 
     if not isinstance(seconds, int) or seconds < 0:
         if logger:
-            logger.error("Type error in timeout decorator: seconds must be a positive integer.", exc_info=True)
+            logger.error(
+                "Type error in timeout decorator: seconds must be a positive integer.",
+                exc_info=True,
+            )
         raise TypeError("seconds must be a positive integer")
+
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         """
         The actual decorator function.
@@ -50,6 +58,7 @@ def timeout(seconds: int, logger: logging.Logger | None = None) -> Callable[[Cal
         Callable[..., Any]
             The wrapped function.
         """
+
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
@@ -67,6 +76,7 @@ def timeout(seconds: int, logger: logging.Logger | None = None) -> Callable[[Cal
             Any
                 The result of the decorated function.
             """
+
             def _handle_timeout(signum, frame):
                 message = f"Function {func.__name__} timed out after {seconds} seconds"
                 if logger:
@@ -80,5 +90,7 @@ def timeout(seconds: int, logger: logging.Logger | None = None) -> Callable[[Cal
             finally:
                 signal.alarm(0)
             return result
+
         return wrapper
+
     return decorator

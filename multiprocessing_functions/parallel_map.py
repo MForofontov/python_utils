@@ -2,10 +2,13 @@ from multiprocessing import Pool, cpu_count
 from typing import TypeVar
 from collections.abc import Callable
 
-T = TypeVar('T')
-R = TypeVar('R')
+T = TypeVar("T")
+R = TypeVar("R")
 
-def parallel_map(func: Callable[[T], R], data: list[T], num_processes: int = None) -> list[R]:
+
+def parallel_map(
+    func: Callable[[T], R], data: list[T], num_processes: int = None
+) -> list[R]:
     """
     Apply a function to a list of items in parallel.
 
@@ -36,11 +39,11 @@ def parallel_map(func: Callable[[T], R], data: list[T], num_processes: int = Non
     if num_processes is None:
         # Ensure at least one process is used
         num_processes = max(cpu_count() - 1, 1)
-    
+
     # Create a pool of worker processes
     with Pool(processes=num_processes) as pool:
         # Map the function to the data in parallel
         results = pool.map(func, data)
-    
+
     # Return the list of results
     return results

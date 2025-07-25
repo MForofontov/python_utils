@@ -1,7 +1,8 @@
 from typing import TypeVar, Generic
 
 # Define a generic type variable
-T = TypeVar('T')
+T = TypeVar("T")
+
 
 class BinaryTreeNode(Generic[T]):
     """
@@ -44,7 +45,7 @@ class BinaryTree(Generic[T]):
         Performs a pre-order traversal of the tree.
     postorder_traversal() -> List[T]
         Performs a post-order traversal of the tree.
-    
+
     Raises
     ------
     ValueError
@@ -160,9 +161,11 @@ class BinaryTree(Generic[T]):
         """
         if node is None:
             return []
-        return (self._inorder_traversal_recursive(node.left) +
-                [node.data] +
-                self._inorder_traversal_recursive(node.right))
+        return (
+            self._inorder_traversal_recursive(node.left)
+            + [node.data]
+            + self._inorder_traversal_recursive(node.right)
+        )
 
     def preorder_traversal(self) -> list[T]:
         """
@@ -191,7 +194,11 @@ class BinaryTree(Generic[T]):
         """
         if node is None:
             return []
-        return [node.data] + self._preorder_traversal_recursive(node.left) + self._preorder_traversal_recursive(node.right)
+        return (
+            [node.data]
+            + self._preorder_traversal_recursive(node.left)
+            + self._preorder_traversal_recursive(node.right)
+        )
 
     def postorder_traversal(self) -> list[T]:
         """
@@ -220,6 +227,8 @@ class BinaryTree(Generic[T]):
         """
         if node is None:
             return []
-        return (self._postorder_traversal_recursive(node.left) +
-                self._postorder_traversal_recursive(node.right) +
-                [node.data])
+        return (
+            self._postorder_traversal_recursive(node.left)
+            + self._postorder_traversal_recursive(node.right)
+            + [node.data]
+        )

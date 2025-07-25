@@ -3,6 +3,7 @@
 import logging
 from logging import Logger, NullHandler
 
+
 def get_logger(name: str = __name__) -> Logger:
     """Return a logger configured with :class:`~logging.NullHandler`."""
     logger = logging.getLogger(name)

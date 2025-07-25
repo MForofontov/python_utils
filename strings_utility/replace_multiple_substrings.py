@@ -1,4 +1,3 @@
-
 def replace_multiple_substrings(s: str, replacements: dict[str, str]) -> str:
     """
     Replace multiple substrings in a string with specified replacements.
@@ -35,10 +34,10 @@ def replace_multiple_substrings(s: str, replacements: dict[str, str]) -> str:
         raise TypeError("The input string must be a string.")
     if not isinstance(replacements, dict):
         raise TypeError("The replacements must be a dictionary.")
-    
+
     for old, new in replacements.items():
         if not isinstance(old, str) or not isinstance(new, str):
             raise TypeError("Both keys and values in replacements must be strings.")
         s = s.replace(old, new)
-    
+
     return s

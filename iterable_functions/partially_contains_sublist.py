@@ -1,7 +1,10 @@
 from typing import Any
 from iterable_functions.any_match_lists import any_match_lists
 
-def partially_contains_sublist(main_list: list[Any], list_of_lists: list[list[Any]]) -> bool:
+
+def partially_contains_sublist(
+    main_list: list[Any], list_of_lists: list[list[Any]]
+) -> bool:
     """
     Check if elements of the main list are partially contained in any sublist of the list of lists.
 
@@ -24,7 +27,9 @@ def partially_contains_sublist(main_list: list[Any], list_of_lists: list[list[An
     """
     if not isinstance(main_list, list):
         raise TypeError("main_list must be a list")
-    if not isinstance(list_of_lists, list) or not all(isinstance(sublist, list) for sublist in list_of_lists):
+    if not isinstance(list_of_lists, list) or not all(
+        isinstance(sublist, list) for sublist in list_of_lists
+    ):
         raise TypeError("list_of_lists must be a list of lists")
 
     for sublist in list_of_lists:

@@ -3,10 +3,13 @@ from typing import TypeVar
 from collections.abc import Callable
 
 # Define type variables for input and output types
-T = TypeVar('T')
-R = TypeVar('R')
+T = TypeVar("T")
+R = TypeVar("R")
 
-def parallel_broadcast(func: Callable[[T, T], R], shared_input: T, data: list[T], num_processes: int = None) -> list[R]:
+
+def parallel_broadcast(
+    func: Callable[[T, T], R], shared_input: T, data: list[T], num_processes: int = None
+) -> list[R]:
     """
     Apply a function in parallel to a list of items, with a shared input broadcasted to all processes.
 
@@ -19,7 +22,7 @@ def parallel_broadcast(func: Callable[[T, T], R], shared_input: T, data: list[T]
     data : List[T]
         The list of data items to process.
     num_processes : int, optional
-        The number of processes to use for parallel execution. If None, it defaults 
+        The number of processes to use for parallel execution. If None, it defaults
         to the number of available CPUs (by default None).
 
     Returns
@@ -34,6 +37,7 @@ def parallel_broadcast(func: Callable[[T, T], R], shared_input: T, data: list[T]
     >>> parallel_broadcast(multiply_with_shared, 10, [1, 2, 3, 4])
     [10, 20, 30, 40]
     """
+
     def wrapped_func(item):
         """
         Wrapper function to apply the given function with the shared input.
@@ -52,7 +56,9 @@ def parallel_broadcast(func: Callable[[T, T], R], shared_input: T, data: list[T]
 
     # If num_processes is not specified, default to the number of available CPUs minus one
     if num_processes is None:
-        num_processes = cpu_count() - 1  # Pool will default to the number of available CPUs (minus 1)
+        num_processes = (
+            cpu_count() - 1
+        )  # Pool will default to the number of available CPUs (minus 1)
 
     # Create a pool of worker processes
     with Pool(processes=num_processes) as pool:

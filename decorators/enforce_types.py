@@ -5,7 +5,10 @@ import inspect
 from collections.abc import Callable
 from logger_functions.logger import validate_logger
 
-def enforce_types(logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+
+def enforce_types(
+    logger: logging.Logger | None = None,
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to enforce type checking on the arguments and return value of a function.
 
@@ -18,14 +21,14 @@ def enforce_types(logger: logging.Logger | None = None) -> Callable[[Callable[..
     -------
     Callable[[Callable[..., Any]], Callable[..., Any]]
         The decorator function.
-    
+
     Raises
     ------
     TypeError
         If the logger is not an instance of logging.Logger or None.
     """
     validate_logger(logger)
-    
+
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         """
         The actual decorator function.
@@ -40,6 +43,7 @@ def enforce_types(logger: logging.Logger | None = None) -> Callable[[Callable[..
         Callable[..., Any]
             The wrapped function.
         """
+
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
@@ -62,6 +66,7 @@ def enforce_types(logger: logging.Logger | None = None) -> Callable[[Callable[..
             TypeError
                 If an argument or return value does not match the expected type.
             """
+
             def _is_instance(value: Any, expected_type: Any) -> bool:
                 origin = get_origin(expected_type)
                 if origin is None:
@@ -87,7 +92,10 @@ def enforce_types(logger: logging.Logger | None = None) -> Callable[[Callable[..
                     if not args:
                         return True
                     key_t, val_t = args
-                    return all(_is_instance(k, key_t) and _is_instance(v, val_t) for k, v in value.items())
+                    return all(
+                        _is_instance(k, key_t) and _is_instance(v, val_t)
+                        for k, v in value.items()
+                    )
                 return isinstance(value, origin)
 
             hints = get_type_hints(func)
@@ -101,18 +109,14 @@ def enforce_types(logger: logging.Logger | None = None) -> Callable[[Callable[..
                     param = sig.parameters[arg_name]
                     if param.kind is inspect.Parameter.VAR_POSITIONAL:
                         if not all(_is_instance(v, expected_type) for v in arg_value):
-                            error_message = (
-                                f"Expected {expected_type} for *{arg_name}, got {arg_value!r}."
-                            )
+                            error_message = f"Expected {expected_type} for *{arg_name}, got {arg_value!r}."
                             if logger:
                                 logger.error(error_message, exc_info=True)
                             raise TypeError(error_message)
                         continue
                     if param.kind is inspect.Parameter.VAR_KEYWORD:
                         if not _is_instance(arg_value, expected_type):
-                            error_message = (
-                                f"Expected {expected_type} for **{arg_name}, got {type(arg_value)}."
-                            )
+                            error_message = f"Expected {expected_type} for **{arg_name}, got {type(arg_value)}."
                             if logger:
                                 logger.error(error_message, exc_info=True)
                             raise TypeError(error_message)
@@ -123,8 +127,8 @@ def enforce_types(logger: logging.Logger | None = None) -> Callable[[Callable[..
                             logger.error(error_message, exc_info=True)
                         raise TypeError(error_message)
             result = func(*args, **kwargs)
-            if 'return' in hints:
-                expected_return_type = hints['return']
+            if "return" in hints:
+                expected_return_type = hints["return"]
                 if not _is_instance(result, expected_return_type):
                     error_message = f"Expected return type {expected_return_type}, got {type(result)}."
                     if logger:

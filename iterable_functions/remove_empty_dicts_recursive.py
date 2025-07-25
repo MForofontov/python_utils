@@ -1,5 +1,6 @@
 from typing import Any
 
+
 def remove_empty_dicts_recursive(nested_dict: dict[Any, Any]) -> dict[Any, Any]:
     """
     Recursively removes empty dictionary entries from a nested dictionary.

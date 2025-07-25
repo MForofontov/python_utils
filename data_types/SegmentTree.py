@@ -1,4 +1,3 @@
-
 class SegmentTree:
     """
     A Segment Tree data structure.
@@ -86,4 +85,3 @@ class SegmentTree:
             left //= 2
             right //= 2
         return result
-

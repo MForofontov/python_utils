@@ -1,6 +1,9 @@
 from multiprocessing import Pool, cpu_count
 
-def parallel_sort(data: list[int], num_processes: int = None, chunk_size: int = 1) -> list[int]:
+
+def parallel_sort(
+    data: list[int], num_processes: int = None, chunk_size: int = 1
+) -> list[int]:
     """
     Sort a list of integers in parallel.
 
@@ -9,7 +12,7 @@ def parallel_sort(data: list[int], num_processes: int = None, chunk_size: int = 
     data : List[int]
         The list of integers to sort.
     num_processes : int, optional
-        The number of processes to use for parallel execution. If None, it defaults 
+        The number of processes to use for parallel execution. If None, it defaults
         to the number of available CPUs (by default None).
     chunk_size : int, optional
         The size of chunks to split the data into for parallel processing (default is 1).
@@ -24,6 +27,7 @@ def parallel_sort(data: list[int], num_processes: int = None, chunk_size: int = 
     >>> parallel_sort([5, 3, 2, 4, 1])
     [1, 2, 3, 4, 5]
     """
+
     # Inner function to merge two sorted lists
     def merge(left: list[int], right: list[int]) -> list[int]:
         result = []
@@ -42,12 +46,16 @@ def parallel_sort(data: list[int], num_processes: int = None, chunk_size: int = 
         return result
 
     if num_processes is None:
-        num_processes = cpu_count() - 1 # Pool will default to the number of available CPUs (minus 1)
+        num_processes = (
+            cpu_count() - 1
+        )  # Pool will default to the number of available CPUs (minus 1)
 
     # Create a pool of worker processes
     with Pool(processes=num_processes) as pool:
         # Split the data into chunks
-        data_chunks = [data[i:i + chunk_size] for i in range(0, len(data), chunk_size)]
+        data_chunks = [
+            data[i : i + chunk_size] for i in range(0, len(data), chunk_size)
+        ]
         # Sort each chunk in parallel
         sorted_chunks = pool.map(sorted, data_chunks)
 
@@ -55,7 +63,10 @@ def parallel_sort(data: list[int], num_processes: int = None, chunk_size: int = 
     while len(sorted_chunks) > 1:
         with Pool(processes=num_processes) as pool:
             # Create pairs of sorted chunks to merge
-            merge_chunks = [(sorted_chunks[i], sorted_chunks[i+1]) for i in range(0, len(sorted_chunks)-1, 2)]
+            merge_chunks = [
+                (sorted_chunks[i], sorted_chunks[i + 1])
+                for i in range(0, len(sorted_chunks) - 1, 2)
+            ]
             # Merge the pairs of chunks in parallel
             sorted_chunks = pool.starmap(merge, merge_chunks)
 

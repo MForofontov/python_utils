@@ -1,5 +1,8 @@
 import pytest
-from multiprocessing_functions.parallel_dynamic_distribute import parallel_dynamic_distribute
+from multiprocessing_functions.parallel_dynamic_distribute import (
+    parallel_dynamic_distribute,
+)
+
 
 def square(x: int) -> int:
     return x * x

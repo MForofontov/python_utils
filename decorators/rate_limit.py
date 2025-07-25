@@ -6,10 +6,17 @@ import time
 import logging
 from logger_functions.logger import validate_logger
 
+
 class RateLimitExceededException(Exception):
     """Exception raised when the rate limit is exceeded."""
 
-def rate_limit(max_calls: int, period: int, logger: logging.Logger | None = None, exception_message: str | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+
+def rate_limit(
+    max_calls: int,
+    period: int,
+    logger: logging.Logger | None = None,
+    exception_message: str | None = None,
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to limit the number of times a function can be called within a specific period.
 
@@ -28,7 +35,7 @@ def rate_limit(max_calls: int, period: int, logger: logging.Logger | None = None
     -------
     Callable[[Callable[..., Any]], Callable[..., Any]]
         The decorator function.
-    
+
     Raises
     ------
     ValueError
@@ -58,7 +65,7 @@ def rate_limit(max_calls: int, period: int, logger: logging.Logger | None = None
         ----------
         func : Callable[..., Any]
             The function to be decorated.
-        
+
         Returns
         -------
         Callable[..., Any]
@@ -97,7 +104,10 @@ def rate_limit(max_calls: int, period: int, logger: logging.Logger | None = None
 
             # Check if the number of calls exceeds the limit
             if len(calls) >= max_calls:
-                message = exception_message or f"Rate limit exceeded for {func.__name__}. Try again later."
+                message = (
+                    exception_message
+                    or f"Rate limit exceeded for {func.__name__}. Try again later."
+                )
                 if logger:
                     logger.warning(message, exc_info=True)
                 raise RateLimitExceededException(message)
@@ -107,5 +117,5 @@ def rate_limit(max_calls: int, period: int, logger: logging.Logger | None = None
             return func(*args, **kwargs)
 
         return wrapper
-    return decorator
 
+    return decorator

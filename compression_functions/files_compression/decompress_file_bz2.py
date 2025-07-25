@@ -2,6 +2,7 @@ import bz2
 import os
 import stat
 
+
 def decompress_file_bz2(input_bz2: str, output_file: str) -> None:
     """
     Decompress a bz2-compressed file.
@@ -44,9 +45,9 @@ def decompress_file_bz2(input_bz2: str, output_file: str) -> None:
         if dir_mode & (stat.S_IWUSR | stat.S_IWGRP | stat.S_IWOTH) == 0:
             raise OSError("Output location is not writable")
         # Open the input bz2-compressed file in binary read mode
-        with bz2.open(input_bz2, 'rb') as f_in:
+        with bz2.open(input_bz2, "rb") as f_in:
             # Open the output file in binary write mode
-            with open(output_file, 'wb') as f_out:
+            with open(output_file, "wb") as f_out:
                 # Write the contents of the input file to the output file
                 f_out.writelines(f_in)
     except FileNotFoundError:
@@ -55,4 +56,3 @@ def decompress_file_bz2(input_bz2: str, output_file: str) -> None:
     except OSError as e:
         # Raise an IOError if an I/O error occurs during decompression
         raise OSError(f"An I/O error occurred during decompression: {e}")
-

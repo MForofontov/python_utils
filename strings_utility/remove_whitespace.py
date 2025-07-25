@@ -30,4 +30,4 @@ def remove_whitespace(s: str) -> str:
     """
     if not isinstance(s, str):
         raise TypeError("The input must be a string.")
-    return ''.join(s.split())
+    return "".join(s.split())

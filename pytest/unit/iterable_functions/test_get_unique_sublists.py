@@ -2,6 +2,7 @@ import pytest
 from typing import Any
 from iterable_functions.get_unique_sublists import get_unique_sublists
 
+
 def test_get_unique_sublists_success() -> None:
     """
     Test the get_unique_sublists function with valid inputs.
@@ -10,6 +11,7 @@ def test_get_unique_sublists_success() -> None:
     list_of_lists: list[list[int]] = [[1, 2], [3, 4], [1, 2], [5, 6]]
     expected_output: list[list[int]] = [[1, 2], [3, 4], [5, 6]]
     assert get_unique_sublists(list_of_lists) == expected_output
+
 
 def test_get_unique_sublists_no_duplicates() -> None:
     """
@@ -20,6 +22,7 @@ def test_get_unique_sublists_no_duplicates() -> None:
     expected_output: list[list[int]] = [[1, 2], [3, 4], [5, 6]]
     assert get_unique_sublists(list_of_lists) == expected_output
 
+
 def test_get_unique_sublists_empty_list() -> None:
     """
     Test the get_unique_sublists function with an empty list of lists.
@@ -28,6 +31,7 @@ def test_get_unique_sublists_empty_list() -> None:
     list_of_lists: list[list[int]] = []
     expected_output: list[list[int]] = []
     assert get_unique_sublists(list_of_lists) == expected_output
+
 
 def test_get_unique_sublists_empty_sublists() -> None:
     """
@@ -38,14 +42,20 @@ def test_get_unique_sublists_empty_sublists() -> None:
     expected_output: list[list[int]] = [[]]
     assert get_unique_sublists(list_of_lists) == expected_output
 
+
 def test_get_unique_sublists_strings() -> None:
     """
     Test the get_unique_sublists function with lists of strings.
     """
     # Test case 5: Lists of strings
-    list_of_lists: list[list[str]] = [["apple", "banana"], ["cherry", "date"], ["apple", "banana"]]
+    list_of_lists: list[list[str]] = [
+        ["apple", "banana"],
+        ["cherry", "date"],
+        ["apple", "banana"],
+    ]
     expected_output: list[list[str]] = [["apple", "banana"], ["cherry", "date"]]
     assert get_unique_sublists(list_of_lists) == expected_output
+
 
 def test_get_unique_sublists_mixed_types() -> None:
     """
@@ -56,6 +66,7 @@ def test_get_unique_sublists_mixed_types() -> None:
     expected_output: list[list[Any]] = [[1, "banana"], [3.14, "apple"]]
     assert get_unique_sublists(list_of_lists) == expected_output
 
+
 def test_get_unique_sublists_type_error_list_of_lists() -> None:
     """
     Test the get_unique_sublists function with invalid type for list_of_lists.
@@ -64,6 +75,7 @@ def test_get_unique_sublists_type_error_list_of_lists() -> None:
     with pytest.raises(TypeError):
         get_unique_sublists("not a list of lists")
 
+
 def test_get_unique_sublists_type_error_elements() -> None:
     """
     Test the get_unique_sublists function with invalid elements in list_of_lists.
@@ -71,6 +83,7 @@ def test_get_unique_sublists_type_error_elements() -> None:
     # Test case 8: Invalid elements in list_of_lists
     with pytest.raises(TypeError):
         get_unique_sublists([[1, 2], "not a list"])
+
 
 def test_get_unique_sublists_unhashable_elements() -> None:
     """

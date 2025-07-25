@@ -3,10 +3,13 @@ from typing import TypeVar
 from collections.abc import Callable
 
 # Define type variables for input and output types
-T = TypeVar('T')
-R = TypeVar('R')
+T = TypeVar("T")
+R = TypeVar("R")
 
-def parallel_gather_errors(func: Callable[[T], R], data: list[T], num_processes: int = None) -> tuple[list[R], list[Exception]]:
+
+def parallel_gather_errors(
+    func: Callable[[T], R], data: list[T], num_processes: int = None
+) -> tuple[list[R], list[Exception]]:
     """
     Apply a function to a list of items in parallel and gather any exceptions raised by the processes.
 
@@ -17,13 +20,13 @@ def parallel_gather_errors(func: Callable[[T], R], data: list[T], num_processes:
     data : List[T]
         The list of data items to process.
     num_processes : int, optional
-        The number of processes to use for parallel execution. If None, it defaults 
+        The number of processes to use for parallel execution. If None, it defaults
         to the number of available CPUs (by default None).
 
     Returns
     -------
     Tuple[List[R], List[Exception]]
-        A tuple containing the list of results and the list of exceptions. If an exception occurs 
+        A tuple containing the list of results and the list of exceptions. If an exception occurs
         for an item, its corresponding result is not included in the result list.
 
     Examples
@@ -60,19 +63,21 @@ def parallel_gather_errors(func: Callable[[T], R], data: list[T], num_processes:
 
     # If num_processes is not specified, default to the number of available CPUs minus one
     if num_processes is None:
-        num_processes = cpu_count() - 1  # Pool will default to the number of available CPUs (minus 1)
+        num_processes = (
+            cpu_count() - 1
+        )  # Pool will default to the number of available CPUs (minus 1)
 
     # Create a pool of worker processes
     with Pool(processes=num_processes) as pool:
         # Apply the wrapper function to each item in the data list in parallel
         processed = pool.map(wrapper, data)
-    
+
     # Separate results and errors
     for result, error in processed:
         if error:
             errors.append(error)
         else:
             results.append(result)
-    
+
     # Return the list of results and the list of errors
     return results, errors

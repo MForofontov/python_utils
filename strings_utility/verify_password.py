@@ -1,7 +1,10 @@
 import re
 from collections.abc import Callable
 
-def verify_password(password: str, custom_checks: list[Callable[[str], bool]] = []) -> bool:
+
+def verify_password(
+    password: str, custom_checks: list[Callable[[str], bool]] = []
+) -> bool:
     """
     Verify if a password meets the following criteria:
     - At least 8 characters long
@@ -45,23 +48,25 @@ def verify_password(password: str, custom_checks: list[Callable[[str], bool]] = 
     """
     if not isinstance(password, str):
         raise TypeError("The password must be a string.")
-    if not isinstance(custom_checks, list) or not all(callable(check) for check in custom_checks):
+    if not isinstance(custom_checks, list) or not all(
+        callable(check) for check in custom_checks
+    ):
         raise TypeError("custom_checks must be a list of callables.")
-    
+
     # Check if the password is at least 8 characters long
     if len(password) < 8:
         return False
 
     # Check if the password contains both uppercase and lowercase characters
-    if not re.search(r'[A-Z]', password) or not re.search(r'[a-z]', password):
+    if not re.search(r"[A-Z]", password) or not re.search(r"[a-z]", password):
         return False
 
     # Check if the password contains at least one numerical digit
-    if not re.search(r'\d', password):
+    if not re.search(r"\d", password):
         return False
 
     # Check if the password contains at least one special character
-    if not re.search(r'[!@#$%^&+=]', password):
+    if not re.search(r"[!@#$%^&+=]", password):
         return False
 
     # Check custom rules

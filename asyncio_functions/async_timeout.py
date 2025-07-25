@@ -3,7 +3,8 @@ from collections.abc import Callable
 import asyncio
 
 # Define a type variable T to represent the return type of the function
-T = TypeVar('T')
+T = TypeVar("T")
+
 
 async def async_timeout(func: Callable[..., Awaitable[T]], timeout: float) -> T:
     """
@@ -35,4 +36,3 @@ async def async_timeout(func: Callable[..., Awaitable[T]], timeout: float) -> T:
     asyncio.TimeoutError: Task did not finish in 5 seconds
     """
     return await asyncio.wait_for(func(), timeout)
-

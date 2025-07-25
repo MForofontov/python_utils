@@ -1,5 +1,6 @@
 import shutil
 
+
 def copy_file(source_file: str, destination_file: str) -> None:
     """
     Copies the source file to the destination.

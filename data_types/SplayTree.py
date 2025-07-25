@@ -1,4 +1,3 @@
-
 class SplayNode:
     """
     A node in a Splay Tree.
@@ -173,5 +172,3 @@ class SplayTree:
             else:
                 self._rotate_right(node.parent)
                 self._rotate_left(node.parent)
-
-       

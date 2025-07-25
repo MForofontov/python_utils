@@ -1,6 +1,7 @@
 import pytest
 from data_types.LinkedList import LinkedList
 
+
 def test_append() -> None:
     """
     Test appending elements to the linked list.
@@ -15,6 +16,7 @@ def test_append() -> None:
     assert linked_list.search(2) is True
     assert linked_list.search(3) is True
 
+
 def test_prepend() -> None:
     """
     Test prepending elements to the linked list.
@@ -28,6 +30,7 @@ def test_prepend() -> None:
     assert linked_list.search(1) is True
     assert linked_list.search(2) is True
     assert linked_list.search(3) is True
+
 
 def test_delete() -> None:
     """
@@ -44,6 +47,7 @@ def test_delete() -> None:
     assert linked_list.search(1) is True
     assert linked_list.search(3) is True
 
+
 def test_delete_head() -> None:
     """
     Test deleting the head element from the linked list.
@@ -56,6 +60,7 @@ def test_delete_head() -> None:
     assert linked_list.size() == 1
     assert linked_list.search(1) is False
     assert linked_list.search(2) is True
+
 
 def test_search() -> None:
     """
@@ -71,6 +76,7 @@ def test_search() -> None:
     assert linked_list.search(3) is True
     assert linked_list.search(4) is False
 
+
 def test_size() -> None:
     """
     Test getting the size of the linked list.
@@ -84,10 +90,12 @@ def test_size() -> None:
     linked_list.delete(1)
     assert linked_list.size() == 1
 
+
 def test_custom_object_nodes() -> None:
     """
     Test the linked list with custom object nodes.
     """
+
     # Test case 7: Custom object nodes
     class CustomObject:
         def __init__(self, value: int) -> None:
@@ -109,6 +117,7 @@ def test_custom_object_nodes() -> None:
     linked_list.delete(obj2)
     assert linked_list.search(obj2) is False
 
+
 def test_single_node_operations() -> None:
     """
     Test adding and deleting elements in a single-node list.
@@ -121,6 +130,7 @@ def test_single_node_operations() -> None:
     linked_list.delete(1)
     assert linked_list.size() == 0
     assert linked_list.search(1) is False
+
 
 def test_large_linked_list() -> None:
     """
@@ -135,6 +145,7 @@ def test_large_linked_list() -> None:
     linked_list.delete(9999)
     assert linked_list.size() == 9999
     assert linked_list.search(9999) is False
+
 
 def test_order_of_elements() -> None:
     """
@@ -154,6 +165,7 @@ def test_order_of_elements() -> None:
         current = current.next
     assert elements == [0, 1, 3]
 
+
 def test_iterative_access() -> None:
     """
     Test iteration over the linked list.
@@ -166,6 +178,7 @@ def test_iterative_access() -> None:
     elements = [node.data for node in linked_list]
     assert elements == [1, 2, 3]
 
+
 def test_delete_nonexistent_element() -> None:
     """
     Test deleting a nonexistent element from the linked list.
@@ -176,6 +189,7 @@ def test_delete_nonexistent_element() -> None:
     linked_list.append(2)
     with pytest.raises(ValueError, match="Data 3 not found in the list"):
         linked_list.delete(3)
+
 
 def test_empty_list_operations() -> None:
     """

@@ -5,7 +5,10 @@ from functools import wraps
 import logging
 from logger_functions.logger import validate_logger
 
-def redirect_output(file_path: str, logger: logging.Logger = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+
+def redirect_output(
+    file_path: str, logger: logging.Logger = None
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to redirect the standard output of a function to a specified file.
 
@@ -20,7 +23,7 @@ def redirect_output(file_path: str, logger: logging.Logger = None) -> Callable[[
     -------
     Callable[[Callable[..., Any]], Callable[..., Any]]
         The decorator function.
-    
+
     Raises
     ------
     TypeError
@@ -46,6 +49,7 @@ def redirect_output(file_path: str, logger: logging.Logger = None) -> Callable[[
         Callable[..., Any]
             The wrapped function.
         """
+
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
@@ -64,7 +68,7 @@ def redirect_output(file_path: str, logger: logging.Logger = None) -> Callable[[
                 The result of the decorated function.
             """
             try:
-                with open(file_path, 'w') as f, redirect_stdout(f):
+                with open(file_path, "w") as f, redirect_stdout(f):
                     return func(*args, **kwargs)
             except Exception as e:
                 message = f"Failed to redirect output: {e}"
@@ -73,4 +77,5 @@ def redirect_output(file_path: str, logger: logging.Logger = None) -> Callable[[
                 raise RuntimeError(message)
 
         return wrapper
+
     return decorator

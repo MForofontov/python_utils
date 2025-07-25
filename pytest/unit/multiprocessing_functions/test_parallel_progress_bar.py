@@ -1,8 +1,10 @@
 import pytest
 from multiprocessing_functions.parallel_progress_bar import parallel_progress_bar
 
+
 def square(x: int) -> int:
     return x * x
+
 
 def add_one(x: int) -> int:
     return x + 1

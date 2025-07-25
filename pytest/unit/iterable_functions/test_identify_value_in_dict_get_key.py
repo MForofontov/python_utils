@@ -1,6 +1,9 @@
 import pytest
 from typing import Any
-from iterable_functions.identify_value_in_dict_get_key import identify_value_in_dict_get_key
+from iterable_functions.identify_value_in_dict_get_key import (
+    identify_value_in_dict_get_key,
+)
+
 
 def test_identify_value_in_dict_get_key_success() -> None:
     """
@@ -12,6 +15,7 @@ def test_identify_value_in_dict_get_key_success() -> None:
     expected_output: str = "b"
     assert identify_value_in_dict_get_key(target_value, dictionary) == expected_output
 
+
 def test_identify_value_in_dict_get_key_not_found() -> None:
     """
     Test the identify_value_in_dict_get_key function with a value not found.
@@ -21,6 +25,7 @@ def test_identify_value_in_dict_get_key_not_found() -> None:
     target_value: int = 4
     expected_output: None = None
     assert identify_value_in_dict_get_key(target_value, dictionary) == expected_output
+
 
 def test_identify_value_in_dict_get_key_empty_dict() -> None:
     """
@@ -32,6 +37,7 @@ def test_identify_value_in_dict_get_key_empty_dict() -> None:
     expected_output: None = None
     assert identify_value_in_dict_get_key(target_value, dictionary) == expected_output
 
+
 def test_identify_value_in_dict_get_key_strings() -> None:
     """
     Test the identify_value_in_dict_get_key function with strings.
@@ -42,6 +48,7 @@ def test_identify_value_in_dict_get_key_strings() -> None:
     expected_output: str = "b"
     assert identify_value_in_dict_get_key(target_value, dictionary) == expected_output
 
+
 def test_identify_value_in_dict_get_key_mixed_types() -> None:
     """
     Test the identify_value_in_dict_get_key function with mixed types.
@@ -51,6 +58,7 @@ def test_identify_value_in_dict_get_key_mixed_types() -> None:
     target_value: Any = "banana"
     expected_output: str | int = 2
     assert identify_value_in_dict_get_key(target_value, dictionary) == expected_output
+
 
 def test_identify_value_in_dict_get_key_type_error_dict() -> None:
     """

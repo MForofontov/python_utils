@@ -1,5 +1,6 @@
 import random
 
+
 class SkipNode:
     """
     A node in a Skip List.

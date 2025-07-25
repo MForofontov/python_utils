@@ -1,6 +1,7 @@
 import pytest
 from strings_utility.remove_by_regex import remove_by_regex
 
+
 def test_remove_by_regex_success() -> None:
     """
     Test the remove_by_regex function with valid inputs.
@@ -10,6 +11,7 @@ def test_remove_by_regex_success() -> None:
     pattern: str = r"\bapple\b"
     expected_output: str = "I have an and a banana."
     assert remove_by_regex(string, pattern) == expected_output
+
 
 def test_remove_by_regex_no_match() -> None:
     """
@@ -21,6 +23,7 @@ def test_remove_by_regex_no_match() -> None:
     expected_output: str = "I have an apple and a banana."
     assert remove_by_regex(string, pattern) == expected_output
 
+
 def test_remove_by_regex_empty_string() -> None:
     """
     Test the remove_by_regex function with an empty string.
@@ -30,6 +33,7 @@ def test_remove_by_regex_empty_string() -> None:
     pattern: str = r"\bapple\b"
     expected_output: str = ""
     assert remove_by_regex(string, pattern) == expected_output
+
 
 def test_remove_by_regex_empty_pattern() -> None:
     """
@@ -41,6 +45,7 @@ def test_remove_by_regex_empty_pattern() -> None:
     expected_output: str = "I have an apple and a banana."
     assert remove_by_regex(string, pattern) == expected_output
 
+
 def test_remove_by_regex_type_error_string() -> None:
     """
     Test the remove_by_regex function with invalid type for string.
@@ -49,6 +54,7 @@ def test_remove_by_regex_type_error_string() -> None:
     with pytest.raises(TypeError):
         remove_by_regex(123, r"\bapple\b")
 
+
 def test_remove_by_regex_type_error_pattern() -> None:
     """
     Test the remove_by_regex function with invalid type for pattern.
@@ -56,4 +62,3 @@ def test_remove_by_regex_type_error_pattern() -> None:
     # Test case 6: Invalid type for pattern
     with pytest.raises(TypeError):
         remove_by_regex("I have an apple and a banana.", 123)
-

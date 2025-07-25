@@ -1,7 +1,8 @@
 from typing import Generic, TypeVar
 
 # Define a generic type variable
-T = TypeVar('T')
+T = TypeVar("T")
+
 
 class Node(Generic[T]):
     """
@@ -156,4 +157,3 @@ class LinkedList(Generic[T]):
         while current:
             yield current
             current = current.next
-

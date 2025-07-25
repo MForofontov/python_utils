@@ -1,6 +1,7 @@
 import lzma
 import os
 
+
 def compress_file_lzma(input_file: str, output_file: str) -> None:
     """
     Compress a file using lzma.

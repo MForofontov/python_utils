@@ -2,6 +2,7 @@ import pytest
 from typing import Any
 from iterable_functions.get_duplicates import get_duplicates
 
+
 def test_get_duplicates_success() -> None:
     """
     Test the get_duplicates function with valid inputs.
@@ -10,6 +11,7 @@ def test_get_duplicates_success() -> None:
     input_list: list[int] = [1, 2, 2, 3, 4, 4, 5]
     expected_output: list[int] = [2, 4]
     assert get_duplicates(input_list) == expected_output
+
 
 def test_get_duplicates_no_duplicates() -> None:
     """
@@ -20,6 +22,7 @@ def test_get_duplicates_no_duplicates() -> None:
     expected_output: list[int] = []
     assert get_duplicates(input_list) == expected_output
 
+
 def test_get_duplicates_empty_list() -> None:
     """
     Test the get_duplicates function with an empty list.
@@ -28,6 +31,7 @@ def test_get_duplicates_empty_list() -> None:
     input_list: list[int] = []
     expected_output: list[int] = []
     assert get_duplicates(input_list) == expected_output
+
 
 def test_get_duplicates_strings() -> None:
     """
@@ -38,6 +42,7 @@ def test_get_duplicates_strings() -> None:
     expected_output: list[str] = ["apple", "banana"]
     assert get_duplicates(input_list) == expected_output
 
+
 def test_get_duplicates_mixed_types() -> None:
     """
     Test the get_duplicates function with a list of mixed types.
@@ -47,6 +52,7 @@ def test_get_duplicates_mixed_types() -> None:
     expected_output: list[Any] = [1, "banana"]
     assert get_duplicates(input_list) == expected_output
 
+
 def test_get_duplicates_unhashable_elements() -> None:
     """
     Test the get_duplicates function with unhashable elements.
@@ -55,6 +61,7 @@ def test_get_duplicates_unhashable_elements() -> None:
     input_list: list[Any] = [[1, 2], [1, 2], [3, 4]]
     with pytest.raises(TypeError):
         get_duplicates(input_list)
+
 
 def test_get_duplicates_type_error() -> None:
     """

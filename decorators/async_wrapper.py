@@ -6,7 +6,10 @@ from logger_functions.logger import validate_logger
 from typing import Any
 from collections.abc import Callable
 
-def async_wrapper(logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+
+def async_wrapper(
+    logger: logging.Logger | None = None,
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     Wraps a synchronous function to be executed asynchronously.
 
@@ -19,7 +22,7 @@ def async_wrapper(logger: logging.Logger | None = None) -> Callable[[Callable[..
     -------
     Callable[[Callable[..., Any]], Callable[..., Any]]
         A decorator that wraps a synchronous function in an async wrapper.
-    
+
     Raises
     ------
     TypeError
@@ -38,7 +41,7 @@ def async_wrapper(logger: logging.Logger | None = None) -> Callable[[Callable[..
         ----------
         func : Callable[..., Any]
             The synchronous function to be wrapped.
-        
+
         Returns
         -------
         Callable[..., Any]
@@ -52,7 +55,10 @@ def async_wrapper(logger: logging.Logger | None = None) -> Callable[[Callable[..
         if inspect.iscoroutinefunction(func):
             error_message = "The function to be wrapped must be synchronous"
             if logger:
-                logger.error(f"An error occurred in {func.__name__}: {error_message}", exc_info=True)
+                logger.error(
+                    f"An error occurred in {func.__name__}: {error_message}",
+                    exc_info=True,
+                )
             raise TypeError(error_message)
 
         @wraps(func)
@@ -78,10 +84,12 @@ def async_wrapper(logger: logging.Logger | None = None) -> Callable[[Callable[..
                 return await loop.run_in_executor(None, partial_func)
             except Exception as e:
                 if logger:
-                    logger.error(f"An error occurred in {func.__name__}: {e}", exc_info=True)
+                    logger.error(
+                        f"An error occurred in {func.__name__}: {e}", exc_info=True
+                    )
                 else:
                     raise
 
         return wrapper
-    
+
     return decorator  # Return the decorator instead of the wrapper itself

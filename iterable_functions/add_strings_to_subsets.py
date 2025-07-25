@@ -1,8 +1,7 @@
-
 def add_strings_to_subsets(my_list: list[set[str]], my_strings: list[str]) -> bool:
     """
     Clustering algorithm that finds a string in a list of strings in
-    a list of sets and adds the whole list to the set if any string of 
+    a list of sets and adds the whole list to the set if any string of
     that list is inside the set.
 
     Parameters
@@ -22,9 +21,13 @@ def add_strings_to_subsets(my_list: list[set[str]], my_strings: list[str]) -> bo
     TypeError
         If my_list is not a list of sets or my_strings is not a list of strings.
     """
-    if not isinstance(my_list, list) or not all(isinstance(sublist, set) for sublist in my_list):
+    if not isinstance(my_list, list) or not all(
+        isinstance(sublist, set) for sublist in my_list
+    ):
         raise TypeError("my_list must be a list of sets")
-    if not isinstance(my_strings, list) or not all(isinstance(s, str) for s in my_strings):
+    if not isinstance(my_strings, list) or not all(
+        isinstance(s, str) for s in my_strings
+    ):
         raise TypeError("my_strings must be a list of strings")
 
     found = False
@@ -37,4 +40,3 @@ def add_strings_to_subsets(my_list: list[set[str]], my_strings: list[str]) -> bo
                 found = True
                 break
     return found
-

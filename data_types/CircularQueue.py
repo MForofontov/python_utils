@@ -1,7 +1,8 @@
 from typing import Generic, TypeVar
 
 # Define a generic type variable
-T = TypeVar('T')
+T = TypeVar("T")
+
 
 class CircularQueue(Generic[T]):
     """
@@ -34,7 +35,7 @@ class CircularQueue(Generic[T]):
         Returns the current number of items in the queue.
     size() -> int
         Alias for current_size to match other data structures.
-    
+
     Raises
     ------
     ValueError
