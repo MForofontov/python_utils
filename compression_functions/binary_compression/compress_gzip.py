@@ -1,6 +1,7 @@
 import gzip
 import io
 
+
 def compress_gzip(data: bytes) -> bytes:
     """
     Compress data using gzip.
@@ -30,7 +31,7 @@ def compress_gzip(data: bytes) -> bytes:
         # Create a buffer to hold the compressed data
         buffer = io.BytesIO()
         # Open a gzip file object in write mode
-        with gzip.GzipFile(fileobj=buffer, mode='wb') as gzip_file:
+        with gzip.GzipFile(fileobj=buffer, mode="wb") as gzip_file:
             # Write the data to the gzip file
             gzip_file.write(data)
         # Return the compressed data
@@ -38,4 +39,3 @@ def compress_gzip(data: bytes) -> bytes:
     except Exception as e:
         # Raise a ValueError if an error occurs during compression
         raise ValueError(f"An error occurred during compression: {e}")
-

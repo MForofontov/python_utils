@@ -1,5 +1,6 @@
 import re
 
+
 def replace_by_regex(string: str, pattern: str, replacement: str) -> str:
     """
     Replace all occurrences of a regex pattern within a string with a specified replacement,
@@ -23,7 +24,7 @@ def replace_by_regex(string: str, pattern: str, replacement: str) -> str:
     ------
     TypeError
         If string, pattern, or replacement is not a string.
-    
+
     Examples
     --------
     >>> replace_by_regex("hello world", "o", "x")
@@ -44,6 +45,6 @@ def replace_by_regex(string: str, pattern: str, replacement: str) -> str:
         return string
 
     # Adjust the pattern to also match surrounding spaces
-    adjusted_pattern = r'\s*' + pattern + r'\s*'
-    result = re.sub(adjusted_pattern, ' ' + replacement + ' ', string).strip()
-    return re.sub(r'\s+', ' ', result)
+    adjusted_pattern = r"\s*" + pattern + r"\s*"
+    result = re.sub(adjusted_pattern, " " + replacement + " ", string).strip()
+    return re.sub(r"\s+", " ", result)

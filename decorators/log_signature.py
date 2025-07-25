@@ -5,7 +5,10 @@ import inspect
 import logging
 from logger_functions.logger import validate_logger
 
-def log_signature(logger: logging.Logger | None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+
+def log_signature(
+    logger: logging.Logger | None,
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to log the function signature and the arguments passed to it.
 
@@ -42,6 +45,7 @@ def log_signature(logger: logging.Logger | None) -> Callable[[Callable[..., Any]
         Callable[..., Any]
             The wrapped function.
         """
+
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
@@ -58,14 +62,16 @@ def log_signature(logger: logging.Logger | None) -> Callable[[Callable[..., Any]
             -------
             Any
                 The result of the decorated function.
-            
+
             Raises
             ------
             Exception
                 If an exception is raised in the decorated function
             """
             signature = inspect.signature(func)
-            logger.info(f"Executing {func.__name__}{signature} with args: {args} and kwargs: {kwargs}")
+            logger.info(
+                f"Executing {func.__name__}{signature} with args: {args} and kwargs: {kwargs}"
+            )
             try:
                 result = func(*args, **kwargs)
                 logger.info(f"{func.__name__} returned: {result}")
@@ -75,5 +81,5 @@ def log_signature(logger: logging.Logger | None) -> Callable[[Callable[..., Any]
                 raise
 
         return wrapper
-    return decorator
 
+    return decorator

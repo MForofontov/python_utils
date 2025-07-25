@@ -1,5 +1,4 @@
-
-def join_strings(strings: list[str], delimiter: str = ' ') -> str:
+def join_strings(strings: list[str], delimiter: str = " ") -> str:
     """
     Join a list of strings into a single string with a specified delimiter.
 
@@ -31,7 +30,9 @@ def join_strings(strings: list[str], delimiter: str = ' ') -> str:
     >>> join_strings(['apple', 'banana', 'cherry'])
     'apple banana cherry'
     """
-    if not isinstance(strings, list) or not all(isinstance(item, str) for item in strings):
+    if not isinstance(strings, list) or not all(
+        isinstance(item, str) for item in strings
+    ):
         raise TypeError("All elements in the list must be strings.")
     if not isinstance(delimiter, str):
         raise TypeError("The delimiter must be a string.")

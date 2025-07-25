@@ -1,4 +1,4 @@
-def rjust_string(s: str, width: int, fillchar: str = ' ') -> str:
+def rjust_string(s: str, width: int, fillchar: str = " ") -> str:
     """
     Right-justify a string in a field of a specified width.
 

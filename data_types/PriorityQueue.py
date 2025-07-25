@@ -2,7 +2,8 @@ import heapq
 from typing import TypeVar, Generic
 
 # Define a generic type variable
-T = TypeVar('T')
+T = TypeVar("T")
+
 
 class PriorityQueue(Generic[T]):
     """

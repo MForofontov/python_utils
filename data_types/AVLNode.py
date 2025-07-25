@@ -1,7 +1,8 @@
 from typing import TypeVar, Generic
 
 # Define a generic type variable
-T = TypeVar('T')
+T = TypeVar("T")
+
 
 class AVLNode(Generic[T]):
     """
@@ -131,7 +132,9 @@ class AVLTree(Generic[T]):
         node.right = right_child.left
         right_child.left = node
         node.height = 1 + max(self._get_height(node.left), self._get_height(node.right))
-        right_child.height = 1 + max(self._get_height(right_child.left), self._get_height(right_child.right))
+        right_child.height = 1 + max(
+            self._get_height(right_child.left), self._get_height(right_child.right)
+        )
         return right_child
 
     def _rotate_right(self, node: AVLNode[T]) -> AVLNode[T]:
@@ -139,7 +142,9 @@ class AVLTree(Generic[T]):
         node.left = left_child.right
         left_child.right = node
         node.height = 1 + max(self._get_height(node.left), self._get_height(node.right))
-        left_child.height = 1 + max(self._get_height(left_child.left), self._get_height(left_child.right))
+        left_child.height = 1 + max(
+            self._get_height(left_child.left), self._get_height(left_child.right)
+        )
         return left_child
 
     def _balance(self, node: AVLNode[T]) -> AVLNode[T]:

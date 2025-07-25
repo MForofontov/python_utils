@@ -3,36 +3,43 @@ import logging
 from decorators.handle_error import handle_error
 
 # Configure test_logger
-test_logger = logging.getLogger('test_logger')
+test_logger = logging.getLogger("test_logger")
 test_logger.setLevel(logging.DEBUG)
 handler = logging.StreamHandler()
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 handler.setFormatter(formatter)
 test_logger.addHandler(handler)
+
 
 @handle_error("An error occurred")
 def raise_value_error():
     raise ValueError("This is a ValueError")
 
+
 @handle_error("An error occurred")
 def raise_type_error():
     raise TypeError("This is a TypeError")
+
 
 @handle_error("An error occurred")
 def return_value(value):
     return value
 
+
 @handle_error("An error occurred")
 def add(a, b):
     return a + b
+
 
 @handle_error("An error occurred", logger=test_logger)
 def raise_value_error_with_logging():
     raise ValueError("This is a ValueError")
 
+
 @handle_error("An error occurred", logger=test_logger)
 def raise_type_error_with_logging():
     raise TypeError("This is a TypeError")
+
 
 def test_handle_error_no_error():
     """
@@ -42,6 +49,7 @@ def test_handle_error_no_error():
     assert return_value(5) == 5
     assert return_value("test") == "test"
 
+
 def test_handle_error_add():
     """
     Test case 2: Adding two numbers
@@ -50,10 +58,12 @@ def test_handle_error_add():
     assert add(1, 2) == 3
     assert add(-1, 1) == 0
 
+
 def test_handle_error_with_kwargs():
     """
     Test case 3: Function with keyword arguments
     """
+
     # Test case 3: Function with keyword arguments
     @handle_error("An error occurred")
     def with_kwargs(a, b=0):
@@ -62,10 +72,12 @@ def test_handle_error_with_kwargs():
     assert with_kwargs(1, b=2) == 3
     assert with_kwargs(a=1, b=2) == 3
 
+
 def test_handle_error_with_multiple_args():
     """
     Test case 4: Function with multiple arguments
     """
+
     # Test case 4: Function with multiple arguments
     @handle_error("An error occurred")
     def multiple_args(a, b, c):
@@ -73,6 +85,7 @@ def test_handle_error_with_multiple_args():
 
     assert multiple_args(1, 2, 3) == 6
     assert multiple_args("a", "b", "c") == "abc"
+
 
 def test_handle_error_value_error(capfd):
     """
@@ -84,6 +97,7 @@ def test_handle_error_value_error(capfd):
     assert result is None
     assert "An error occurred: This is a ValueError" in out
 
+
 def test_handle_error_type_error(capfd):
     """
     Test case 6: Handling TypeError
@@ -94,10 +108,12 @@ def test_handle_error_type_error(capfd):
     assert result is None
     assert "An error occurred: This is a TypeError" in out
 
+
 def test_handle_error_with_exception_in_kwargs(capfd):
     """
     Test case 7: Function with keyword arguments that raises an exception
     """
+
     # Test case 7: Function with keyword arguments that raises an exception
     @handle_error("An error occurred")
     def with_kwargs_exception(a, b=0):
@@ -110,10 +126,12 @@ def test_handle_error_with_exception_in_kwargs(capfd):
     assert result is None
     assert "An error occurred: b cannot be zero" in out
 
+
 def test_handle_error_with_custom_exception(capfd):
     """
     Test case 8: Function that raises a custom exception
     """
+
     # Test case 8: Function that raises a custom exception
     class CustomException(Exception):
         pass
@@ -127,15 +145,18 @@ def test_handle_error_with_custom_exception(capfd):
     assert result is None
     assert "An error occurred: This is a CustomException" in out
 
+
 def test_handle_invalid_logger():
     """
     Test case 9: Invalid logger
     """
     # Test case 9: Invalid logger
     with pytest.raises(TypeError) as e:
+
         @handle_error("An error occurred", logger="test_logger")
         def raise_value_error_invalid_logger():
             raise ValueError("This is a ValueError")
+
 
 def test_handle_error_value_error_with_logging(caplog):
     """
@@ -147,6 +168,7 @@ def test_handle_error_value_error_with_logging(caplog):
         assert result is None
         assert "An error occurred: This is a ValueError" in caplog.text
 
+
 def test_handle_error_type_error_with_logging(caplog):
     """
     Test case 11: Handling TypeError with logging
@@ -156,4 +178,3 @@ def test_handle_error_type_error_with_logging(caplog):
         result = raise_type_error_with_logging()
         assert result is None
         assert "An error occurred: This is a TypeError" in caplog.text
-

@@ -2,6 +2,7 @@ import pytest
 from typing import Any
 from iterable_functions.has_element_of_type import has_element_of_type
 
+
 def test_has_element_of_type_success() -> None:
     """
     Test the has_element_of_type function with valid inputs.
@@ -11,6 +12,7 @@ def test_has_element_of_type_success() -> None:
     target_type: type = str
     expected_output: bool = True
     assert has_element_of_type(input_list, target_type) == expected_output
+
 
 def test_has_element_of_type_no_match() -> None:
     """
@@ -22,6 +24,7 @@ def test_has_element_of_type_no_match() -> None:
     expected_output: bool = False
     assert has_element_of_type(input_list, target_type) == expected_output
 
+
 def test_has_element_of_type_empty_list() -> None:
     """
     Test the has_element_of_type function with an empty list.
@@ -31,6 +34,7 @@ def test_has_element_of_type_empty_list() -> None:
     target_type: type = str
     expected_output: bool = False
     assert has_element_of_type(input_list, target_type) == expected_output
+
 
 def test_has_element_of_type_multiple_matches() -> None:
     """
@@ -42,6 +46,7 @@ def test_has_element_of_type_multiple_matches() -> None:
     expected_output: bool = True
     assert has_element_of_type(input_list, target_type) == expected_output
 
+
 def test_has_element_of_type_type_error_list() -> None:
     """
     Test the has_element_of_type function with invalid type for input_list.
@@ -49,6 +54,7 @@ def test_has_element_of_type_type_error_list() -> None:
     # Test case 5: Invalid type for input_list
     with pytest.raises(TypeError):
         has_element_of_type("not a list", str)
+
 
 def test_has_element_of_type_type_error_target_type() -> None:
     """

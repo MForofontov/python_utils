@@ -5,7 +5,10 @@ import inspect
 import logging
 from logger_functions.logger import validate_logger
 
-def async_handle_error(logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+
+def async_handle_error(
+    logger: logging.Logger | None = None,
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """Decorator for handling errors in asynchronous functions.
 
     Parameters
@@ -48,9 +51,13 @@ def async_handle_error(logger: logging.Logger | None = None) -> Callable[[Callab
         if not inspect.iscoroutinefunction(func):
             error_message = "The function to be wrapped must be asynchronous"
             if logger:
-                logger.error(f"An error occurred in {func.__name__}: {error_message}", exc_info=True)
+                logger.error(
+                    f"An error occurred in {func.__name__}: {error_message}",
+                    exc_info=True,
+                )
             else:
                 raise TypeError(error_message)
+
         @wraps(func)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
@@ -85,6 +92,7 @@ def async_handle_error(logger: logging.Logger | None = None) -> Callable[[Callab
                     return None
                 # Re-raise the exception when no logger is provided
                 raise
-        return wrapper
-    return decorator
 
+        return wrapper
+
+    return decorator

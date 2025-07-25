@@ -3,10 +3,16 @@ from collections.abc import Callable, Awaitable
 import asyncio
 import time
 
-T = TypeVar('T')
-R = TypeVar('R')
+T = TypeVar("T")
+R = TypeVar("R")
 
-async def async_rate_limited(func: Callable[[T], Awaitable[R]], items: list[T], max_calls: int, period: float = 1.0) -> list[R]:
+
+async def async_rate_limited(
+    func: Callable[[T], Awaitable[R]],
+    items: list[T],
+    max_calls: int,
+    period: float = 1.0,
+) -> list[R]:
     """Process items with a rate limit using an asynchronous function.
 
     Parameters

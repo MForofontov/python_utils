@@ -1,6 +1,7 @@
 import csv
 
-def read_tabular(input_file: str, delimiter: str = '\t') -> list[list[str]]:
+
+def read_tabular(input_file: str, delimiter: str = "\t") -> list[list[str]]:
     """
     Read a tabular (TSV) file.
 

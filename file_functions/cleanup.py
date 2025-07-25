@@ -1,5 +1,6 @@
-import os 
+import os
 import shutil
+
 
 def cleanup(directory: str, exclude: list[str]) -> None:
     """

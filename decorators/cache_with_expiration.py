@@ -3,7 +3,10 @@ from collections.abc import Callable
 from functools import wraps
 import time
 
-def cache_with_expiration(expiration_time: int) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+
+def cache_with_expiration(
+    expiration_time: int,
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to cache the results of a function call for a specified amount of time.
 
@@ -16,7 +19,7 @@ def cache_with_expiration(expiration_time: int) -> Callable[[Callable[..., Any]]
     -------
     Callable[[Callable[..., Any]], Callable[..., Any]]
         The decorator function.
-    
+
     Raises
     ------
     ValueError
@@ -39,7 +42,9 @@ def cache_with_expiration(expiration_time: int) -> Callable[[Callable[..., Any]]
         Callable[..., Any]]
             The wrapped function.
         """
-        cached_results: dict[tuple[tuple[Any, ...], frozenset[tuple[str, Any]]], tuple[float, Any]] = {}
+        cached_results: dict[
+            tuple[tuple[Any, ...], frozenset[tuple[str, Any]]], tuple[float, Any]
+        ] = {}
 
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
@@ -57,7 +62,7 @@ def cache_with_expiration(expiration_time: int) -> Callable[[Callable[..., Any]]
             -------
             Any
                 The result of the decorated function, either from the cache or freshly computed.
-            
+
             Raises
             ------
             TypeError
@@ -65,7 +70,10 @@ def cache_with_expiration(expiration_time: int) -> Callable[[Callable[..., Any]]
             """
             try:
                 # Create a key based on the function arguments
-                key: tuple[tuple[Any, ...], frozenset[tuple[str, Any]]] = (args, frozenset(kwargs.items()))
+                key: tuple[tuple[Any, ...], frozenset[tuple[str, Any]]] = (
+                    args,
+                    frozenset(kwargs.items()),
+                )
 
                 current_time = time.time()
                 if key in cached_results:
@@ -88,4 +96,5 @@ def cache_with_expiration(expiration_time: int) -> Callable[[Callable[..., Any]]
         wrapper.cache_clear = cache_clear
 
         return wrapper
+
     return decorator

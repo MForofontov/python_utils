@@ -1,8 +1,9 @@
 from typing import TypeVar, Generic
 
 # Define generic type variables for keys and values
-K = TypeVar('K')  # Key type
-V = TypeVar('V')  # Value type
+K = TypeVar("K")  # Key type
+V = TypeVar("V")  # Value type
+
 
 class HashTable(Generic[K, V]):
     """

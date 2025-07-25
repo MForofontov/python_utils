@@ -3,9 +3,12 @@ from typing import TypeVar
 from collections.abc import Callable
 
 # Define a type variable for the input type
-T = TypeVar('T')
+T = TypeVar("T")
 
-def parallel_filter(condition: Callable[[T], bool], data: list[T], num_processes: int = None) -> list[T]:
+
+def parallel_filter(
+    condition: Callable[[T], bool], data: list[T], num_processes: int = None
+) -> list[T]:
     """
     Filter a list of items in parallel, keeping only those that satisfy the condition.
 
@@ -16,7 +19,7 @@ def parallel_filter(condition: Callable[[T], bool], data: list[T], num_processes
     data : List[T]
         The list of data items to filter.
     num_processes : int, optional
-        The number of processes to use for parallel execution. If None, it defaults 
+        The number of processes to use for parallel execution. If None, it defaults
         to the number of available CPUs (by default None).
 
     Returns
@@ -33,12 +36,14 @@ def parallel_filter(condition: Callable[[T], bool], data: list[T], num_processes
     """
     # If num_processes is not specified, use the number of available CPUs
     if num_processes is None:
-        num_processes = cpu_count - 1  # Pool will default to the number of available CPUs (minus 1)
-    
+        num_processes = (
+            cpu_count - 1
+        )  # Pool will default to the number of available CPUs (minus 1)
+
     # Create a pool of worker processes
     with Pool(processes=num_processes) as pool:
         # Apply the condition function to the data in parallel
         results = pool.map(condition, data)
-    
+
     # Return a list of items that satisfy the condition
     return [item for item, keep in zip(data, results) if keep]

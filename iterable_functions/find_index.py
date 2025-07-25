@@ -1,4 +1,3 @@
-
 def find_index(input_list: list[str], target_string: str) -> int | None:
     """
     Find the index of a string in a list.

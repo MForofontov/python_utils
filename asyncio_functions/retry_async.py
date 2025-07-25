@@ -3,7 +3,8 @@ from collections.abc import Callable
 import asyncio
 
 # Define a type variable for the return type of the function
-T = TypeVar('T')
+T = TypeVar("T")
+
 
 async def retry_async(
     func: Callable[..., Awaitable[T]],
@@ -49,4 +50,3 @@ async def retry_async(
                 await asyncio.sleep(delay)
             else:
                 raise e
-

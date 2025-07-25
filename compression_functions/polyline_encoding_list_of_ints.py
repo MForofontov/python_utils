@@ -1,4 +1,3 @@
-
 def polyline_encoding_list_of_ints(list_of_ints: list[int]) -> str:
     """
     Encode a list of integers using polyline encoding.
@@ -31,7 +30,7 @@ def polyline_encoding_list_of_ints(list_of_ints: list[int]) -> str:
         # Encode the delta using the polyline encoding scheme
         delta = ~(delta << 1) if delta < 0 else (delta << 1)
         while delta >= 0x20:
-            encoded_text += chr((0x20 | (delta & 0x1f)) + 63)
+            encoded_text += chr((0x20 | (delta & 0x1F)) + 63)
             delta >>= 5
         encoded_text += chr(delta + 63)
 

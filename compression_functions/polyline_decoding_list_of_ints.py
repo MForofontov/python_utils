@@ -1,5 +1,6 @@
 from compression_functions.decompress_number import decompress_number
 
+
 def polyline_decoding_list_of_ints(encoded_text: str) -> list[float]:
     """
     Decode a list of integers compressed with polyline encoding.
@@ -42,4 +43,3 @@ def polyline_decoding_list_of_ints(encoded_text: str) -> list[float]:
     # Adjust numbers for precision
     scale_factor: float = 10 ** (-precision)
     return [round(number * scale_factor, precision) for number in decoded_numbers]
-

@@ -2,8 +2,9 @@ import asyncio
 from typing import TypeVar, Awaitable
 from collections.abc import Callable
 
-T = TypeVar('T')
-R = TypeVar('R')
+T = TypeVar("T")
+R = TypeVar("R")
+
 
 async def async_map(func: Callable[[T], Awaitable[R]], items: list[T]) -> list[R]:
     """

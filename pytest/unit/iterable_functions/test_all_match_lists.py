@@ -2,6 +2,7 @@ import pytest
 from typing import Any
 from iterable_functions.all_match_lists import all_match_lists
 
+
 def test_all_match_lists_success() -> None:
     """
     Test the all_match_lists function with valid inputs where all elements match.
@@ -10,6 +11,7 @@ def test_all_match_lists_success() -> None:
     list1: list[int] = [1, 2, 3]
     list2: list[int] = [1, 2, 3, 4, 5]
     assert all_match_lists(list1, list2) == True
+
 
 def test_all_match_lists_partial_match() -> None:
     """
@@ -20,6 +22,7 @@ def test_all_match_lists_partial_match() -> None:
     list2: list[int] = [1, 2, 3, 4, 5]
     assert all_match_lists(list1, list2) == False
 
+
 def test_all_match_lists_empty_list1() -> None:
     """
     Test the all_match_lists function with an empty list1.
@@ -28,6 +31,7 @@ def test_all_match_lists_empty_list1() -> None:
     list1: list[int] = []
     list2: list[int] = [1, 2, 3, 4, 5]
     assert all_match_lists(list1, list2) == True
+
 
 def test_all_match_lists_empty_list2() -> None:
     """
@@ -38,6 +42,7 @@ def test_all_match_lists_empty_list2() -> None:
     list2: list[int] = []
     assert all_match_lists(list1, list2) == False
 
+
 def test_all_match_lists_two_empty_lists() -> None:
     """
     Test the all_match_lists function with two empty lists.
@@ -46,6 +51,7 @@ def test_all_match_lists_two_empty_lists() -> None:
     list1: list[int] = []
     list2: list[int] = []
     assert all_match_lists(list1, list2) == True
+
 
 def test_all_match_lists_strings() -> None:
     """
@@ -56,6 +62,7 @@ def test_all_match_lists_strings() -> None:
     list2: list[str] = ["apple", "banana", "cherry"]
     assert all_match_lists(list1, list2) == True
 
+
 def test_all_match_lists_mixed_types() -> None:
     """
     Test the all_match_lists function with lists of mixed types.
@@ -64,6 +71,7 @@ def test_all_match_lists_mixed_types() -> None:
     list1: list[Any] = [1, "banana", 3.14]
     list2: list[Any] = [1, "banana", 3.14, "apple"]
     assert all_match_lists(list1, list2) == True
+
 
 def test_all_match_lists_unhashable_elements() -> None:
     """
@@ -74,6 +82,7 @@ def test_all_match_lists_unhashable_elements() -> None:
     list2: list[Any] = [[1, 2], [3, 4], [5, 6]]
     assert all_match_lists(list1, list2) == True
 
+
 def test_all_match_lists_type_error_list1() -> None:
     """
     Test the all_match_lists function with invalid type for list1.
@@ -81,6 +90,7 @@ def test_all_match_lists_type_error_list1() -> None:
     # Test case 9: Invalid type for list1
     with pytest.raises(TypeError):
         all_match_lists("not a list", [1, 2, 3])
+
 
 def test_all_match_lists_type_error_list2() -> None:
     """

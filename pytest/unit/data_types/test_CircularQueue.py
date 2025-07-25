@@ -1,6 +1,7 @@
 import pytest
 from data_types.CircularQueue import CircularQueue
 
+
 def test_enqueue_to_empty_queue() -> None:
     """
     Test enqueuing an item to an empty queue.
@@ -10,6 +11,7 @@ def test_enqueue_to_empty_queue() -> None:
     assert queue.enqueue(10) is True
     assert queue.peek() == 10
     assert queue.size() == 1
+
 
 def test_enqueue_to_full_queue() -> None:
     """
@@ -23,6 +25,7 @@ def test_enqueue_to_full_queue() -> None:
     assert queue.enqueue(40) is False  # Queue is full
     assert queue.size() == 3
 
+
 def test_dequeue_from_empty_queue() -> None:
     """
     Test dequeuing an item from an empty queue.
@@ -30,6 +33,7 @@ def test_dequeue_from_empty_queue() -> None:
     # Test case 3: Dequeue from an empty queue
     queue = CircularQueue[int](3)
     assert queue.dequeue() is None  # Queue is empty
+
 
 def test_dequeue_from_non_empty_queue() -> None:
     """
@@ -43,6 +47,7 @@ def test_dequeue_from_non_empty_queue() -> None:
     assert queue.size() == 1
     assert queue.peek() == 20
 
+
 def test_peek_empty_queue() -> None:
     """
     Test peeking into an empty queue.
@@ -50,6 +55,7 @@ def test_peek_empty_queue() -> None:
     # Test case 5: Peek into an empty queue
     queue = CircularQueue[int](3)
     assert queue.peek() is None  # Queue is empty
+
 
 def test_peek_non_empty_queue() -> None:
     """
@@ -62,6 +68,7 @@ def test_peek_non_empty_queue() -> None:
     assert queue.peek() == 10  # Peek should return the first item
     assert queue.size() == 2  # Size should remain unchanged
 
+
 def test_is_empty_on_empty_queue() -> None:
     """
     Test checking if an empty queue is empty.
@@ -69,6 +76,7 @@ def test_is_empty_on_empty_queue() -> None:
     # Test case 7: Check is_empty on an empty queue
     queue = CircularQueue[int](3)
     assert queue.is_empty() is True
+
 
 def test_is_empty_on_non_empty_queue() -> None:
     """
@@ -78,6 +86,7 @@ def test_is_empty_on_non_empty_queue() -> None:
     queue = CircularQueue[int](3)
     queue.enqueue(10)
     assert queue.is_empty() is False
+
 
 def test_is_full_on_full_queue() -> None:
     """
@@ -90,6 +99,7 @@ def test_is_full_on_full_queue() -> None:
     queue.enqueue(30)
     assert queue.is_full() is True
 
+
 def test_is_full_on_non_full_queue() -> None:
     """
     Test checking if a non-full queue is full.
@@ -98,6 +108,7 @@ def test_is_full_on_non_full_queue() -> None:
     queue = CircularQueue[int](3)
     queue.enqueue(10)
     assert queue.is_full() is False
+
 
 def test_circular_behavior() -> None:
     """
@@ -113,6 +124,7 @@ def test_circular_behavior() -> None:
     assert queue.peek() == 20  # The front should now be 20
     assert queue.size() == 3  # Queue should still be full
     assert queue.is_full() is True
+
 
 def test_enqueue_and_dequeue_multiple_times() -> None:
     """
@@ -132,6 +144,7 @@ def test_enqueue_and_dequeue_multiple_times() -> None:
     assert queue.dequeue() == 50  # Remove the fifth item
     assert queue.is_empty() is True  # Queue should now be empty
 
+
 def test_enqueue_to_full_then_dequeue_all() -> None:
     """
     Test filling the queue completely, then dequeuing all items.
@@ -147,6 +160,7 @@ def test_enqueue_to_full_then_dequeue_all() -> None:
     assert queue.dequeue() == 30
     assert queue.is_empty() is True
 
+
 def test_peek_after_enqueue_and_dequeue() -> None:
     """
     Test peeking after enqueuing and dequeuing items.
@@ -159,6 +173,7 @@ def test_peek_after_enqueue_and_dequeue() -> None:
     assert queue.peek() == 20  # Peek should return the next front item
     queue.enqueue(30)
     assert queue.peek() == 20  # Peek should still return the front item
+
 
 def test_size_after_multiple_operations() -> None:
     """
@@ -179,6 +194,7 @@ def test_size_after_multiple_operations() -> None:
     queue.dequeue()
     assert queue.size() == 1  # One item left
 
+
 def test_enqueue_after_dequeue_empty() -> None:
     """
     Test enqueuing after dequeuing all items to empty the queue.
@@ -195,6 +211,7 @@ def test_enqueue_after_dequeue_empty() -> None:
     assert queue.enqueue(40) is True  # Enqueue after emptying
     assert queue.peek() == 40
     assert queue.size() == 1
+
 
 def test_queue_with_zero_size() -> None:
     """

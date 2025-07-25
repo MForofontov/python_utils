@@ -1,6 +1,7 @@
 import pytest
 from strings_utility.create_whitespace_string import create_whitespace_string
 
+
 def test_create_whitespace_string_success() -> None:
     """
     Test the create_whitespace_string function with a valid input string.
@@ -9,6 +10,7 @@ def test_create_whitespace_string_success() -> None:
     input_string: str = "hello"
     expected_output: str = "     "
     assert create_whitespace_string(input_string) == expected_output
+
 
 def test_create_whitespace_string_empty_string() -> None:
     """
@@ -19,6 +21,7 @@ def test_create_whitespace_string_empty_string() -> None:
     expected_output: str = ""
     assert create_whitespace_string(input_string) == expected_output
 
+
 def test_create_whitespace_string_single_character() -> None:
     """
     Test the create_whitespace_string function with a single character input string.
@@ -28,6 +31,7 @@ def test_create_whitespace_string_single_character() -> None:
     expected_output: str = " "
     assert create_whitespace_string(input_string) == expected_output
 
+
 def test_create_whitespace_string_whitespace_string() -> None:
     """
     Test the create_whitespace_string function with a whitespace input string.
@@ -36,6 +40,7 @@ def test_create_whitespace_string_whitespace_string() -> None:
     input_string: str = "   "
     expected_output: str = "   "
     assert create_whitespace_string(input_string) == expected_output
+
 
 def test_create_whitespace_string_type_error() -> None:
     """

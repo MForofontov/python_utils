@@ -3,6 +3,7 @@ import shutil
 import os
 import stat
 
+
 def decompress_file_gzip(input_gzip: str, output_file: str) -> None:
     """
     Decompress a gzip-compressed file.
@@ -45,9 +46,9 @@ def decompress_file_gzip(input_gzip: str, output_file: str) -> None:
         if dir_mode & (stat.S_IWUSR | stat.S_IWGRP | stat.S_IWOTH) == 0:
             raise OSError("Output location is not writable")
         # Open the input gzip-compressed file in binary read mode
-        with gzip.open(input_gzip, 'rb') as f_in:
+        with gzip.open(input_gzip, "rb") as f_in:
             # Open the output file in binary write mode
-            with open(output_file, 'wb') as f_out:
+            with open(output_file, "wb") as f_out:
                 # Copy the contents of the input file to the output file
                 shutil.copyfileobj(f_in, f_out)
     except FileNotFoundError:
@@ -56,4 +57,3 @@ def decompress_file_gzip(input_gzip: str, output_file: str) -> None:
     except OSError as e:
         # Raise an IOError if an I/O error occurs during decompression
         raise OSError(f"An I/O error occurred during decompression: {e}")
-

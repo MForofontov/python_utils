@@ -2,6 +2,7 @@ import pytest
 import bz2
 from compression_functions.binary_compression.decompress_bz2 import decompress_bz2
 
+
 def test_decompress_bz2_basic() -> None:
     """
     Test the decompress_bz2 function with basic input.
@@ -11,6 +12,7 @@ def test_decompress_bz2_basic() -> None:
     compressed_data: bytes = bz2.compress(data)
     decompressed_data: bytes = decompress_bz2(compressed_data)
     assert decompressed_data == data, "Decompressed data should match the original data"
+
 
 def test_decompress_bz2_empty() -> None:
     """
@@ -22,6 +24,7 @@ def test_decompress_bz2_empty() -> None:
     decompressed_data: bytes = decompress_bz2(compressed_data)
     assert decompressed_data == data, "Decompressed data should match the original data"
 
+
 def test_decompress_bz2_large_data() -> None:
     """
     Test the decompress_bz2 function with large data.
@@ -31,6 +34,7 @@ def test_decompress_bz2_large_data() -> None:
     compressed_data: bytes = bz2.compress(data)
     decompressed_data: bytes = decompress_bz2(compressed_data)
     assert decompressed_data == data, "Decompressed data should match the original data"
+
 
 def test_decompress_bz2_special_characters() -> None:
     """
@@ -42,6 +46,7 @@ def test_decompress_bz2_special_characters() -> None:
     decompressed_data: bytes = decompress_bz2(compressed_data)
     assert decompressed_data == data, "Decompressed data should match the original data"
 
+
 def test_decompress_bz2_binary_data() -> None:
     """
     Test the decompress_bz2 function with binary data.
@@ -51,6 +56,7 @@ def test_decompress_bz2_binary_data() -> None:
     compressed_data: bytes = bz2.compress(data)
     decompressed_data: bytes = decompress_bz2(compressed_data)
     assert decompressed_data == data, "Decompressed data should match the original data"
+
 
 def test_decompress_bz2_small_data() -> None:
     """
@@ -62,6 +68,7 @@ def test_decompress_bz2_small_data() -> None:
     decompressed_data: bytes = decompress_bz2(compressed_data)
     assert decompressed_data == data, "Decompressed data should match the original data"
 
+
 def test_decompress_bz2_unicode_data() -> None:
     """
     Test the decompress_bz2 function with Unicode data.
@@ -72,6 +79,7 @@ def test_decompress_bz2_unicode_data() -> None:
     decompressed_data: bytes = decompress_bz2(compressed_data)
     assert decompressed_data == data, "Decompressed data should match the original data"
 
+
 def test_decompress_bz2_invalid_type() -> None:
     """
     Test the decompress_bz2 function with invalid data type.
@@ -79,6 +87,7 @@ def test_decompress_bz2_invalid_type() -> None:
     # Test case 8: Invalid data type (non-bytes)
     with pytest.raises(TypeError):
         decompress_bz2("not bytes")  # type: ignore
+
 
 def test_decompress_bz2_decompression_error() -> None:
     """
@@ -89,4 +98,3 @@ def test_decompress_bz2_decompression_error() -> None:
         # Provide invalid compressed data
         invalid_compressed_data: bytes = b"invalid compressed data"
         decompress_bz2(invalid_compressed_data)
-

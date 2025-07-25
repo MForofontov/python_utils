@@ -1,6 +1,7 @@
 import pytest
 from data_types.BinaryHeap import BinaryHeap
 
+
 def test_insert_min_heap() -> None:
     """
     Test inserting elements into a min-heap.
@@ -13,6 +14,7 @@ def test_insert_min_heap() -> None:
     heap.insert(1)
     assert heap.heap == [1, 5, 20, 10]  # Min-heap property should be maintained
 
+
 def test_insert_max_heap() -> None:
     """
     Test inserting elements into a max-heap.
@@ -24,6 +26,7 @@ def test_insert_max_heap() -> None:
     heap.insert(20)
     heap.insert(1)
     assert heap.heap == [-20, -5, -10, -1]  # Internal representation uses negatives
+
 
 def test_extract_min_heap() -> None:
     """
@@ -39,6 +42,7 @@ def test_extract_min_heap() -> None:
     assert root == 1  # Root should be the smallest element
     assert heap.heap == [5, 10, 20]  # Heap property should be maintained
 
+
 def test_extract_max_heap() -> None:
     """
     Test extracting the root from a max-heap.
@@ -52,6 +56,7 @@ def test_extract_max_heap() -> None:
     root = heap.extract()
     assert root == 20  # Root should be the largest element
     assert heap.heap == [-10, -5, -1]  # Internal representation after extraction
+
 
 def test_insert_and_extract_min_heap() -> None:
     """
@@ -69,6 +74,7 @@ def test_insert_and_extract_min_heap() -> None:
     assert heap.extract() == 20
     assert heap.heap == []
 
+
 def test_insert_and_extract_max_heap() -> None:
     """
     Test inserting and extracting elements from a max-heap.
@@ -85,6 +91,7 @@ def test_insert_and_extract_max_heap() -> None:
     assert heap.extract() == 1
     assert heap.heap == []
 
+
 def test_large_heap_operations() -> None:
     """
     Test inserting and extracting a large number of elements.
@@ -96,6 +103,7 @@ def test_large_heap_operations() -> None:
     for i in range(1, 101):  # Extract 1 to 100
         assert heap.extract() == i
     assert heap.heap == []
+
 
 def test_large_heap_operations_max_heap() -> None:
     """
@@ -109,6 +117,7 @@ def test_large_heap_operations_max_heap() -> None:
         assert heap.extract() == i
     assert heap.heap == []
 
+
 def test_insert_duplicate_elements_min_heap() -> None:
     """
     Test inserting duplicate elements into a min-heap.
@@ -120,6 +129,7 @@ def test_insert_duplicate_elements_min_heap() -> None:
     heap.insert(5)
     heap.insert(5)
     assert heap.heap == [5, 5, 10, 10]  # Min-heap property should be maintained
+
 
 def test_insert_duplicate_elements_max_heap() -> None:
     """
@@ -133,16 +143,18 @@ def test_insert_duplicate_elements_max_heap() -> None:
     heap.insert(20)
     assert heap.heap == [-20, -20, -10, -10]  # Internal representation uses negatives
 
+
 def test_insert_boundary_values() -> None:
     """
     Test inserting boundary values into the heap.
     """
     # Test case 11: Insert boundary values
     heap = BinaryHeap[int](is_min_heap=True)
-    heap.insert(float('-inf'))
-    heap.insert(float('inf'))
-    assert heap.extract() == float('-inf')  # Smallest value for min-heap
-    assert heap.extract() == float('inf')  # Largest value for min-heap
+    heap.insert(float("-inf"))
+    heap.insert(float("inf"))
+    assert heap.extract() == float("-inf")  # Smallest value for min-heap
+    assert heap.extract() == float("inf")  # Largest value for min-heap
+
 
 def test_extract_single_element() -> None:
     """
@@ -154,6 +166,7 @@ def test_extract_single_element() -> None:
     assert heap.extract() == 42
     assert heap.heap == []  # Heap should be empty
 
+
 def test_heapify_min_heap() -> None:
     """
     Test heapifying a list into a min-heap.
@@ -164,6 +177,7 @@ def test_heapify_min_heap() -> None:
     heap.heapify()
     assert heap.heap == [1, 5, 20, 10]  # Min-heap property should be maintained
 
+
 def test_heapify_max_heap() -> None:
     """
     Test heapifying a list into a max-heap.
@@ -173,6 +187,7 @@ def test_heapify_max_heap() -> None:
     heap.heap = [10, 5, 20, 1]
     heap.heapify()
     assert heap.heap == [-20, -5, -10, -1]  # Internal representation uses negatives
+
 
 def test_extract_from_empty_heap() -> None:
     """

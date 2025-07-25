@@ -4,7 +4,8 @@ from collections.abc import Awaitable
 import asyncio
 
 # Define a type variable T to represent the return type of the task
-T = TypeVar('T')
+T = TypeVar("T")
+
 
 class AsyncConnectionPool:
     """
@@ -75,7 +76,10 @@ class AsyncConnectionPool:
         else:
             raise RuntimeError("Connection pool is full.")
 
-async def use_connection(pool: AsyncConnectionPool, task: Callable[[Any], Awaitable[T]]) -> T:
+
+async def use_connection(
+    pool: AsyncConnectionPool, task: Callable[[Any], Awaitable[T]]
+) -> T:
     """
     Use a connection from the pool to perform a task.
 
@@ -99,4 +103,3 @@ async def use_connection(pool: AsyncConnectionPool, task: Callable[[Any], Awaita
     finally:
         # Release the connection back to the pool
         await pool.release(conn)
-

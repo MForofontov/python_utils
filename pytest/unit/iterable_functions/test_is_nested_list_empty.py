@@ -2,6 +2,7 @@ import pytest
 from typing import Any
 from iterable_functions.is_nested_list_empty import is_nested_list_empty
 
+
 def test_is_list_empty_success() -> None:
     """
     Test the is_list_empty function with valid inputs.
@@ -10,6 +11,7 @@ def test_is_list_empty_success() -> None:
     input_list: list[Any] = []
     expected_output: bool = True
     assert is_nested_list_empty(input_list) == expected_output
+
 
 def test_is_list_empty_nested_empty_lists() -> None:
     """
@@ -20,6 +22,7 @@ def test_is_list_empty_nested_empty_lists() -> None:
     expected_output: bool = True
     assert is_nested_list_empty(input_list) == expected_output
 
+
 def test_is_list_empty_non_empty_list() -> None:
     """
     Test the is_list_empty function with a non-empty list.
@@ -29,6 +32,7 @@ def test_is_list_empty_non_empty_list() -> None:
     expected_output: bool = False
     assert is_nested_list_empty(input_list) == expected_output
 
+
 def test_is_list_empty_mixed_nested_lists() -> None:
     """
     Test the is_list_empty function with mixed nested lists.
@@ -37,6 +41,7 @@ def test_is_list_empty_mixed_nested_lists() -> None:
     input_list: list[Any] = [[], [1, 2], [[], [3]]]
     expected_output: bool = False
     assert is_nested_list_empty(input_list) == expected_output
+
 
 def test_is_list_empty_type_error() -> None:
     """

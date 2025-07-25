@@ -2,7 +2,8 @@ from typing import TypeVar, Generic
 from collections import deque
 
 # Define a generic type variable
-T = TypeVar('T')
+T = TypeVar("T")
+
 
 class Queue(Generic[T]):
     """

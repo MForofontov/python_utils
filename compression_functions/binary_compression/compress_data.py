@@ -4,7 +4,8 @@ from compression_functions.binary_compression.compress_lzma import compress_lzma
 from compression_functions.binary_compression.compress_snappy import compress_snappy
 from compression_functions.binary_compression.compress_zstd import compress_zstd
 
-def compress_data(data: bytes, algorithm: str = 'gzip', level: int = 3) -> bytes:
+
+def compress_data(data: bytes, algorithm: str = "gzip", level: int = 3) -> bytes:
     """
     Compress data using the specified algorithm.
 
@@ -34,15 +35,15 @@ def compress_data(data: bytes, algorithm: str = 'gzip', level: int = 3) -> bytes
     if not isinstance(level, int):
         raise TypeError("level must be an integer")
 
-    if algorithm == 'gzip':
+    if algorithm == "gzip":
         return compress_gzip(data)
-    elif algorithm == 'bz2':
+    elif algorithm == "bz2":
         return compress_bz2(data)
-    elif algorithm == 'lzma':
+    elif algorithm == "lzma":
         return compress_lzma(data)
-    elif algorithm == 'snappy':
+    elif algorithm == "snappy":
         return compress_snappy(data)
-    elif algorithm == 'zstd':
+    elif algorithm == "zstd":
         return compress_zstd(data, level=level)
     else:
         raise ValueError(f"Unsupported algorithm: {algorithm}")

@@ -1,5 +1,6 @@
 from typing import Any
 
+
 def all_match_lists(list1: list[Any], list2: list[Any]) -> bool:
     """
     Check if all elements of list1 are contained in list2.

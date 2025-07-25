@@ -1,4 +1,4 @@
-def ljust_string(s: str, width: int, fillchar: str = ' ') -> str:
+def ljust_string(s: str, width: int, fillchar: str = " ") -> str:
     """
     Left-justify a string in a field of a specified width.
 

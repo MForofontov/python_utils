@@ -1,5 +1,6 @@
 from typing import Any
 
+
 def get_common_elements_in_lists(list_of_lists: list[list[Any]]) -> list[Any]:
     """
     Finds common elements between various lists.
@@ -19,7 +20,9 @@ def get_common_elements_in_lists(list_of_lists: list[list[Any]]) -> list[Any]:
     TypeError
         If list_of_lists is not a list of lists.
     """
-    if not isinstance(list_of_lists, list) or not all(isinstance(lst, list) for lst in list_of_lists):
+    if not isinstance(list_of_lists, list) or not all(
+        isinstance(lst, list) for lst in list_of_lists
+    ):
         raise TypeError("list_of_lists must be a list of lists")
 
     intersection_set = None

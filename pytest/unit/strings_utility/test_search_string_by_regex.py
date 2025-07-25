@@ -1,6 +1,7 @@
 import pytest
 from strings_utility.search_string_by_regex import search_string_by_regex
 
+
 def test_search_string_by_regex_success() -> None:
     """
     Test the search_string_by_regex function with valid inputs.
@@ -10,6 +11,7 @@ def test_search_string_by_regex_success() -> None:
     string: str = "I have an apple and a banana."
     expected_output: str = "apple"
     assert search_string_by_regex(pattern, string) == expected_output
+
 
 def test_search_string_by_regex_no_match() -> None:
     """
@@ -21,6 +23,7 @@ def test_search_string_by_regex_no_match() -> None:
     expected_output: None = None
     assert search_string_by_regex(pattern, string) == expected_output
 
+
 def test_search_string_by_regex_empty_string() -> None:
     """
     Test the search_string_by_regex function with an empty string.
@@ -30,6 +33,7 @@ def test_search_string_by_regex_empty_string() -> None:
     string: str = ""
     expected_output: None = None
     assert search_string_by_regex(pattern, string) == expected_output
+
 
 def test_search_string_by_regex_empty_pattern() -> None:
     """
@@ -41,6 +45,7 @@ def test_search_string_by_regex_empty_pattern() -> None:
     expected_output: None = None
     assert search_string_by_regex(pattern, string) == expected_output
 
+
 def test_search_string_by_regex_type_error_pattern() -> None:
     """
     Test the search_string_by_regex function with invalid type for pattern.
@@ -49,6 +54,7 @@ def test_search_string_by_regex_type_error_pattern() -> None:
     with pytest.raises(TypeError):
         search_string_by_regex(123, "I have an apple and a banana.")
 
+
 def test_search_string_by_regex_type_error_string() -> None:
     """
     Test the search_string_by_regex function with invalid type for string.
@@ -56,4 +62,3 @@ def test_search_string_by_regex_type_error_string() -> None:
     # Test case 6: Invalid type for string
     with pytest.raises(TypeError):
         search_string_by_regex(r"\bapple\b", 123)
-

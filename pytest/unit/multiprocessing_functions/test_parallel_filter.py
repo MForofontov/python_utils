@@ -1,8 +1,10 @@
 import pytest
 from multiprocessing_functions.parallel_filter import parallel_filter
 
+
 def is_even(x: int) -> bool:
     return x % 2 == 0
+
 
 def greater_than_two(x: int) -> bool:
     return x > 2

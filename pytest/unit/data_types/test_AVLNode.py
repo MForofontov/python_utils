@@ -1,6 +1,7 @@
 import pytest
 from data_types.AVLNode import AVLTree
 
+
 def test_insert_single_node() -> None:
     """
     Test inserting a single node into the AVL tree.
@@ -11,6 +12,7 @@ def test_insert_single_node() -> None:
     assert tree.root is not None
     assert tree.root.key == 10
     assert tree.root.height == 1
+
 
 def test_insert_multiple_nodes_balanced() -> None:
     """
@@ -24,6 +26,7 @@ def test_insert_multiple_nodes_balanced() -> None:
     assert tree.root.key == 20
     assert tree.root.left.key == 10
     assert tree.root.right.key == 30
+
 
 def test_delete_leaf_node() -> None:
     """
@@ -39,6 +42,7 @@ def test_delete_leaf_node() -> None:
     assert tree.root.right.key == 20
     assert tree.root.right.right is None
 
+
 def test_delete_node_with_one_child() -> None:
     """
     Test deleting a node with one child.
@@ -51,6 +55,7 @@ def test_delete_node_with_one_child() -> None:
     tree.delete(20)
     assert tree.root.right is not None
     assert tree.root.right.key == 15
+
 
 def test_delete_node_with_two_children() -> None:
     """
@@ -67,6 +72,7 @@ def test_delete_node_with_two_children() -> None:
     assert tree.root.right.key == 25
     assert tree.root.right.left.key == 15
 
+
 def test_search_existing_key() -> None:
     """
     Test searching for an existing key in the AVL tree.
@@ -80,6 +86,7 @@ def test_search_existing_key() -> None:
     assert node is not None
     assert node.key == 20
 
+
 def test_search_non_existing_key() -> None:
     """
     Test searching for a non-existing key in the AVL tree.
@@ -91,6 +98,7 @@ def test_search_non_existing_key() -> None:
     tree.insert(30)
     node = tree.search(40)
     assert node is None
+
 
 def test_balance_after_insertions() -> None:
     """
@@ -107,6 +115,7 @@ def test_balance_after_insertions() -> None:
     assert tree.root.left.key == 20
     assert tree.root.right.key == 40
 
+
 def test_height_update_after_operations() -> None:
     """
     Test that the height of nodes is updated correctly after operations.
@@ -119,6 +128,7 @@ def test_height_update_after_operations() -> None:
     assert tree.root.height == 2
     tree.delete(30)
     assert tree.root.height == 1
+
 
 def test_delete_non_existing_key() -> None:
     """
@@ -133,6 +143,7 @@ def test_delete_non_existing_key() -> None:
     assert tree.root.key == 10
     assert tree.root.right.key == 20
 
+
 def test_insert_duplicate_key() -> None:
     """
     Test inserting a duplicate key into the AVL tree.
@@ -145,6 +156,7 @@ def test_insert_duplicate_key() -> None:
     assert tree.root.key == 10
     assert tree.root.left is None
     assert tree.root.right is None  # No duplicate node should be added
+
 
 def test_delete_root_node() -> None:
     """
@@ -159,6 +171,7 @@ def test_delete_root_node() -> None:
     assert tree.root is not None
     assert tree.root.key in [5, 20]
 
+
 def test_large_tree_balance() -> None:
     """
     Test the balance of a large AVL tree after multiple insertions.
@@ -169,6 +182,7 @@ def test_large_tree_balance() -> None:
         tree.insert(i)
     assert tree.root is not None
     assert abs(tree._get_balance(tree.root)) <= 1
+
 
 def test_delete_all_nodes() -> None:
     """
@@ -184,6 +198,7 @@ def test_delete_all_nodes() -> None:
     tree.delete(30)
     assert tree.root is None
 
+
 def test_search_in_empty_tree() -> None:
     """
     Test searching for a key in an empty AVL tree.
@@ -193,6 +208,7 @@ def test_search_in_empty_tree() -> None:
     node = tree.search(10)
     assert node is None
 
+
 def test_height_of_empty_tree() -> None:
     """
     Test the height of an empty AVL tree.
@@ -201,6 +217,7 @@ def test_height_of_empty_tree() -> None:
     tree = AVLTree[int]()
     assert tree._get_height(tree.root) == 0
 
+
 def test_balance_of_empty_tree() -> None:
     """
     Test the balance factor of an empty AVL tree.
@@ -208,4 +225,3 @@ def test_balance_of_empty_tree() -> None:
     # Test case 17: Balance of an empty tree
     tree = AVLTree[int]()
     assert tree._get_balance(tree.root) == 0
-

@@ -3,9 +3,12 @@ from collections.abc import Callable
 from collections.abc import Awaitable
 
 # Define a type variable T to represent the return type of the main task
-T = TypeVar('T')
+T = TypeVar("T")
 
-async def async_cleanup(func: Callable[[], Awaitable[T]], cleanup: Callable[[], Awaitable[None]]) -> T:
+
+async def async_cleanup(
+    func: Callable[[], Awaitable[T]], cleanup: Callable[[], Awaitable[None]]
+) -> T:
     """
     Ensure proper cleanup after an asynchronous task, even if it fails.
 
@@ -26,10 +29,10 @@ async def async_cleanup(func: Callable[[], Awaitable[T]], cleanup: Callable[[], 
     >>> async def risky_task() -> str:
     >>>     await asyncio.sleep(1)
     >>>     raise ValueError("An error occurred")
-    >>> 
+    >>>
     >>> async def close_resources() -> None:
     >>>     print("Resources cleaned up")
-    >>> 
+    >>>
     >>> try:
     >>>     result = asyncio.run(async_cleanup(risky_task, close_resources))
     >>> except Exception as e:

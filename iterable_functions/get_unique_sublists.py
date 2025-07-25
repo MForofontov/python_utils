@@ -1,5 +1,6 @@
 from typing import Any
 
+
 def get_unique_sublists(list_of_lists: list[list[Any]]) -> list[list[Any]]:
     """
     Identify unique sublists within a list of lists.

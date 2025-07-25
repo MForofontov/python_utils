@@ -2,6 +2,7 @@ import pytest
 from typing import Any
 from iterable_functions.flatten_list import flatten_list
 
+
 def test_flatten_list_success() -> None:
     """
     Test the flatten_list function with valid inputs.
@@ -10,6 +11,7 @@ def test_flatten_list_success() -> None:
     list_to_flatten: list[list[int]] = [[1, 2], [3, 4], [5, 6]]
     expected_output: list[int] = [1, 2, 3, 4, 5, 6]
     assert flatten_list(list_to_flatten) == expected_output
+
 
 def test_flatten_list_empty_list() -> None:
     """
@@ -20,6 +22,7 @@ def test_flatten_list_empty_list() -> None:
     expected_output: list[int] = []
     assert flatten_list(list_to_flatten) == expected_output
 
+
 def test_flatten_list_empty_sublists() -> None:
     """
     Test the flatten_list function with empty sublists.
@@ -29,14 +32,20 @@ def test_flatten_list_empty_sublists() -> None:
     expected_output: list[int] = []
     assert flatten_list(list_to_flatten) == expected_output
 
+
 def test_flatten_list_strings() -> None:
     """
     Test the flatten_list function with lists of strings.
     """
     # Test case 4: Lists of strings
-    list_to_flatten: list[list[str]] = [["apple", "banana"], ["cherry", "date"], ["fig", "grape"]]
+    list_to_flatten: list[list[str]] = [
+        ["apple", "banana"],
+        ["cherry", "date"],
+        ["fig", "grape"],
+    ]
     expected_output: list[str] = ["apple", "banana", "cherry", "date", "fig", "grape"]
     assert flatten_list(list_to_flatten) == expected_output
+
 
 def test_flatten_list_mixed_types() -> None:
     """
@@ -47,6 +56,7 @@ def test_flatten_list_mixed_types() -> None:
     expected_output: list[Any] = [1, "banana", 3.14, "apple", True, None]
     assert flatten_list(list_to_flatten) == expected_output
 
+
 def test_flatten_list_nested_levels() -> None:
     """
     Test the flatten_list function with several levels of nested lists.
@@ -56,6 +66,7 @@ def test_flatten_list_nested_levels() -> None:
     expected_output: list[Any] = [1, [2, 3], 4, [5, 6], 7, [8, 9]]
     assert flatten_list(list_to_flatten) == expected_output
 
+
 def test_flatten_list_type_error_list() -> None:
     """
     Test the flatten_list function with invalid type for list_to_flatten.
@@ -64,6 +75,7 @@ def test_flatten_list_type_error_list() -> None:
     with pytest.raises(TypeError):
         flatten_list("not a list of lists")
 
+
 def test_flatten_list_type_error_elements() -> None:
     """
     Test the flatten_list function with invalid elements in list_to_flatten.
@@ -71,4 +83,3 @@ def test_flatten_list_type_error_elements() -> None:
     # Test case 8: Invalid elements in list_to_flatten
     with pytest.raises(TypeError):
         flatten_list([[1, 2], "not a list"])
-

@@ -1,4 +1,4 @@
-def center_string(s: str, width: int, fillchar: str = ' ') -> str:
+def center_string(s: str, width: int, fillchar: str = " ") -> str:
     """
     Center a string in a field of a specified width.
 

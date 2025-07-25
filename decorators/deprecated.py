@@ -5,7 +5,10 @@ import warnings
 import logging
 from logger_functions.logger import validate_logger
 
-def deprecated(logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+
+def deprecated(
+    logger: logging.Logger | None = None,
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     Decorator to mark functions as deprecated. It will result in a warning being emitted when the function is used.
 
@@ -40,6 +43,7 @@ def deprecated(logger: logging.Logger | None = None) -> Callable[[Callable[..., 
         Callable[..., Any]
             A wrapper function that emits a deprecation warning when the input function is called.
         """
+
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
@@ -59,13 +63,17 @@ def deprecated(logger: logging.Logger | None = None) -> Callable[[Callable[..., 
             """
             # Log the deprecation warning
             if logger is not None:
-                logger.warning(f"Call to deprecated function {func.__name__}.", exc_info=True)
+                logger.warning(
+                    f"Call to deprecated function {func.__name__}.", exc_info=True
+                )
             # Emit a deprecation warning
             else:
-                warnings.warn(f"{func.__name__} is deprecated.", DeprecationWarning, stacklevel=2)
+                warnings.warn(
+                    f"{func.__name__} is deprecated.", DeprecationWarning, stacklevel=2
+                )
             # Call the original function and return its result
             return func(*args, **kwargs)
-        
+
         return wrapper
-    
+
     return decorator

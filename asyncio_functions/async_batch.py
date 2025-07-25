@@ -3,10 +3,13 @@ from collections.abc import Callable
 from collections.abc import Awaitable
 
 # Define type variables for input and output types
-T = TypeVar('T')
-R = TypeVar('R')
+T = TypeVar("T")
+R = TypeVar("R")
 
-async def async_batch(func: Callable[[list[T]], Awaitable[list[R]]], items: list[T], batch_size: int) -> list[R]:
+
+async def async_batch(
+    func: Callable[[list[T]], Awaitable[list[R]]], items: list[T], batch_size: int
+) -> list[R]:
     """
     Process items in batches using an asynchronous function.
 
@@ -34,17 +37,17 @@ async def async_batch(func: Callable[[list[T]], Awaitable[list[R]]], items: list
     """
     # Initialize an empty list to store the results
     results = []
-    
+
     # Iterate over the items in batches of the specified batch_size
     for i in range(0, len(items), batch_size):
         # Get the current batch of items
-        batch = items[i:i + batch_size]
-        
+        batch = items[i : i + batch_size]
+
         # Apply the asynchronous function to the current batch and await the result
         result = await func(batch)
-        
+
         # Extend the results list with the result of the current batch
         results.extend(result)
-    
+
     # Return the list of results from processing all the batches
     return results

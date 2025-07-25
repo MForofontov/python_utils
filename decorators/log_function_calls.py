@@ -4,7 +4,10 @@ from typing import Any
 from collections.abc import Callable
 from logger_functions.logger import validate_logger
 
-def log_function_calls(logger: logging.Logger) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+
+def log_function_calls(
+    logger: logging.Logger,
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to log function calls, including arguments passed and the result returned.
 
@@ -42,14 +45,16 @@ def log_function_calls(logger: logging.Logger) -> Callable[[Callable[..., Any]],
             -------
             Any
                 The result of the decorated function.
-            
+
             Raises
             ------
             Exception
                 If an exception occurs during the function call.
             """
             try:
-                logger.info(f"Calling {func.__name__} with args: {args} and kwargs: {kwargs}")
+                logger.info(
+                    f"Calling {func.__name__} with args: {args} and kwargs: {kwargs}"
+                )
                 result = func(*args, **kwargs)
                 logger.info(f"{func.__name__} returned: {result}")
                 return result
@@ -58,5 +63,5 @@ def log_function_calls(logger: logging.Logger) -> Callable[[Callable[..., Any]],
                 raise
 
         return wrapper
-    
+
     return decorator

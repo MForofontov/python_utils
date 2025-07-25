@@ -1,6 +1,9 @@
 from typing import Any
 
-def find_sublist_index(input_list_of_lists: list[list[Any]], target_value: Any) -> int | None:
+
+def find_sublist_index(
+    input_list_of_lists: list[list[Any]], target_value: Any
+) -> int | None:
     """
     Finds the index of the sublist that contains the target value within a list of lists.
 
@@ -21,7 +24,9 @@ def find_sublist_index(input_list_of_lists: list[list[Any]], target_value: Any) 
     TypeError
         If input_list_of_lists is not a list of lists.
     """
-    if not isinstance(input_list_of_lists, list) or not all(isinstance(sublist, list) for sublist in input_list_of_lists):
+    if not isinstance(input_list_of_lists, list) or not all(
+        isinstance(sublist, list) for sublist in input_list_of_lists
+    ):
         raise TypeError("input_list_of_lists must be a list of lists")
 
     for index, sublist in enumerate(input_list_of_lists):

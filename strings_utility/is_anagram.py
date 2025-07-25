@@ -1,5 +1,6 @@
 from collections import Counter
 
+
 def is_anagram(string_1: str, string_2: str) -> bool:
     """
     Check if two strings are anagrams.
@@ -20,7 +21,7 @@ def is_anagram(string_1: str, string_2: str) -> bool:
     ------
     TypeError
         If either of the inputs is not a string.
-    
+
     Examples
     --------
     >>> is_anagram("listen", "silent")

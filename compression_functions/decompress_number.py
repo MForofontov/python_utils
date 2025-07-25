@@ -1,4 +1,3 @@
-
 def decompress_number(text: str, index: int) -> tuple[int, int]:
     """
     Decompress a number from a polyline-encoded string.
@@ -30,7 +29,7 @@ def decompress_number(text: str, index: int) -> tuple[int, int]:
     bitwise_shift: int = 0
 
     while True:
-        n: int = (ord(text[index]) - 63)
+        n: int = ord(text[index]) - 63
         index += 1
         number |= (n & 0x1F) << bitwise_shift
         bitwise_shift += 5

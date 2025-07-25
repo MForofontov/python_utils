@@ -1,6 +1,7 @@
 from typing import Any
 from collections import Counter
 
+
 def check_if_all_elements_are_duplicates(input_list: list[Any]) -> bool:
     """
     Check if all elements in the list are duplicates.
@@ -24,6 +25,11 @@ def check_if_all_elements_are_duplicates(input_list: list[Any]) -> bool:
     if not isinstance(input_list, list):
         raise TypeError("input_list must be a list")
 
-    element_counts = Counter(tuple(element) if isinstance(element, list) else element for element in input_list)
+    element_counts = Counter(
+        tuple(element) if isinstance(element, list) else element
+        for element in input_list
+    )
 
-    return all(count > 1 for count in element_counts.values()) if element_counts else False
+    return (
+        all(count > 1 for count in element_counts.values()) if element_counts else False
+    )

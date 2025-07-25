@@ -4,7 +4,10 @@ from functools import wraps
 import logging
 from logger_functions.logger import validate_logger
 
-def normalize_input(normalization_func: Callable[[Any], Any], logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+
+def normalize_input(
+    normalization_func: Callable[[Any], Any], logger: logging.Logger | None = None
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to normalize the input arguments of a function using a specified normalization function.
 
@@ -19,7 +22,7 @@ def normalize_input(normalization_func: Callable[[Any], Any], logger: logging.Lo
     -------
     Callable[[Callable[..., Any]], Callable[..., Any]]
         The decorator function.
-    
+
     Raises
     ------
     TypeError
@@ -28,7 +31,9 @@ def normalize_input(normalization_func: Callable[[Any], Any], logger: logging.Lo
     validate_logger(logger)
     if not callable(normalization_func):
         if logger:
-            logger.error(f"Normalizer {normalization_func} is not callable", exc_info=True)
+            logger.error(
+                f"Normalizer {normalization_func} is not callable", exc_info=True
+            )
         raise TypeError(f"Normalizer {normalization_func} is not callable")
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
@@ -45,6 +50,7 @@ def normalize_input(normalization_func: Callable[[Any], Any], logger: logging.Lo
         Callable[..., Any]
             The wrapped function.
         """
+
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
@@ -64,7 +70,9 @@ def normalize_input(normalization_func: Callable[[Any], Any], logger: logging.Lo
             """
             try:
                 normalized_args = tuple(normalization_func(arg) for arg in args)
-                normalized_kwargs = {k: normalization_func(v) for k, v in kwargs.items()}
+                normalized_kwargs = {
+                    k: normalization_func(v) for k, v in kwargs.items()
+                }
             except Exception as e:
                 message = f"Normalization failed: {e}"
                 if logger:
@@ -72,5 +80,7 @@ def normalize_input(normalization_func: Callable[[Any], Any], logger: logging.Lo
                 raise TypeError(message)
 
             return func(*normalized_args, **normalized_kwargs)
+
         return wrapper
+
     return decorator

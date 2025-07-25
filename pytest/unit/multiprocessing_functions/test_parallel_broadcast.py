@@ -1,8 +1,10 @@
 import pytest
 from multiprocessing_functions.parallel_broadcast import parallel_broadcast
 
+
 def multiply_shared(x: int, shared: int) -> int:
     return x * shared
+
 
 def add_shared(x: int, shared: int) -> int:
     return x + shared

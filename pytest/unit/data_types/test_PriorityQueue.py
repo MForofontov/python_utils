@@ -1,6 +1,7 @@
 import pytest
 from data_types.PriorityQueue import PriorityQueue
 
+
 def test_push_and_pop() -> None:
     """
     Test adding and removing elements from the priority queue.
@@ -14,6 +15,7 @@ def test_push_and_pop() -> None:
     assert pq.pop() == 10
     assert pq.pop() == 30
 
+
 def test_is_empty() -> None:
     """
     Test checking if the priority queue is empty.
@@ -25,6 +27,7 @@ def test_is_empty() -> None:
     assert pq.is_empty() is False
     pq.pop()
     assert pq.is_empty() is True
+
 
 def test_size() -> None:
     """
@@ -41,6 +44,7 @@ def test_size() -> None:
     pq.pop()
     assert pq.size() == 0
 
+
 def test_priority_order() -> None:
     """
     Test that elements are returned in the correct priority order.
@@ -53,6 +57,7 @@ def test_priority_order() -> None:
     assert pq.pop() == "high"  # Highest priority
     assert pq.pop() == "medium"
     assert pq.pop() == "low"
+
 
 def test_duplicate_priorities() -> None:
     """
@@ -67,10 +72,12 @@ def test_duplicate_priorities() -> None:
     assert pq.pop() == "second"
     assert pq.pop() == "third"
 
+
 def test_custom_object_priority_queue() -> None:
     """
     Test the priority queue with custom objects.
     """
+
     # Test case 6: Custom objects
     class Task:
         def __init__(self, name: str) -> None:
@@ -90,6 +97,7 @@ def test_custom_object_priority_queue() -> None:
     assert pq.pop() == task3
     assert pq.pop() == task1
 
+
 def test_large_priority_queue() -> None:
     """
     Test operations on a very large priority queue.
@@ -102,6 +110,7 @@ def test_large_priority_queue() -> None:
     assert pq.pop() == 0  # Lowest priority value
     assert pq.pop() == 1
     assert pq.size() == 9998
+
 
 def test_order_of_elements() -> None:
     """
@@ -119,6 +128,7 @@ def test_order_of_elements() -> None:
         elements.append(pq.pop())
     assert elements == [40, 10, 30]
 
+
 def test_iterative_access() -> None:
     """
     Test iteration over the priority queue.
@@ -131,6 +141,7 @@ def test_iterative_access() -> None:
     elements = sorted(pq.heap)  # Access the heap directly for testing
     assert elements == [(1, 20), (2, 10), (3, 30)]
 
+
 def test_pop_empty_queue() -> None:
     """
     Test popping from an empty priority queue.
@@ -139,4 +150,3 @@ def test_pop_empty_queue() -> None:
     pq = PriorityQueue[int]()
     with pytest.raises(IndexError, match="Pop from an empty priority queue"):
         pq.pop()
-

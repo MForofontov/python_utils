@@ -1,5 +1,6 @@
 from data_types.Graph import Graph
 
+
 def test_add_vertex() -> None:
     """
     Test adding vertices to the graph.
@@ -13,6 +14,7 @@ def test_add_vertex() -> None:
     assert graph.adjacency_list[1] == []
     assert graph.adjacency_list[2] == []
 
+
 def test_add_edge() -> None:
     """
     Test adding edges between vertices.
@@ -24,6 +26,7 @@ def test_add_edge() -> None:
     assert 2 in graph.adjacency_list
     assert graph.adjacency_list[1] == [2]
     assert graph.adjacency_list[2] == [1]
+
 
 def test_get_neighbors() -> None:
     """
@@ -37,6 +40,7 @@ def test_get_neighbors() -> None:
     assert graph.get_neighbors(2) == [1]
     assert graph.get_neighbors(3) == [1]
 
+
 def test_add_duplicate_vertex() -> None:
     """
     Test adding a duplicate vertex.
@@ -47,6 +51,7 @@ def test_add_duplicate_vertex() -> None:
     graph.add_vertex(1)  # Adding the same vertex again
     assert len(graph.adjacency_list) == 1
     assert graph.adjacency_list[1] == []
+
 
 def test_add_edge_between_existing_vertices() -> None:
     """
@@ -60,6 +65,7 @@ def test_add_edge_between_existing_vertices() -> None:
     assert graph.adjacency_list[1] == [2]
     assert graph.adjacency_list[2] == [1]
 
+
 def test_add_edge_creates_vertices() -> None:
     """
     Test that adding an edge creates vertices if they don't exist.
@@ -72,6 +78,7 @@ def test_add_edge_creates_vertices() -> None:
     assert graph.adjacency_list[1] == [2]
     assert graph.adjacency_list[2] == [1]
 
+
 def test_get_neighbors_of_nonexistent_vertex() -> None:
     """
     Test getting neighbors of a vertex that doesn't exist.
@@ -80,10 +87,12 @@ def test_get_neighbors_of_nonexistent_vertex() -> None:
     graph = Graph[int]()
     assert graph.get_neighbors(1) == []
 
+
 def test_graph_with_custom_objects() -> None:
     """
     Test the graph with custom object vertices.
     """
+
     # Test case 8: Graph with custom objects
     class CustomVertex:
         def __init__(self, name: str) -> None:
@@ -112,6 +121,7 @@ def test_graph_with_custom_objects() -> None:
     assert graph.get_neighbors(vertex2) == [vertex1]
     assert graph.get_neighbors(vertex3) == [vertex1]
 
+
 def test_empty_graph() -> None:
     """
     Test operations on an empty graph.
@@ -120,6 +130,7 @@ def test_empty_graph() -> None:
     graph = Graph[int]()
     assert graph.adjacency_list == {}
     assert graph.get_neighbors(1) == []
+
 
 def test_large_graph() -> None:
     """
@@ -135,6 +146,7 @@ def test_large_graph() -> None:
     assert graph.get_neighbors(0) == [1]
     assert graph.get_neighbors(999) == [998]
 
+
 def test_order_of_neighbors() -> None:
     """
     Test that the order of neighbors is preserved.
@@ -145,4 +157,3 @@ def test_order_of_neighbors() -> None:
     graph.add_edge(1, 3)
     graph.add_edge(1, 4)
     assert graph.get_neighbors(1) == [2, 3, 4]
-

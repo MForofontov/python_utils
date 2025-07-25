@@ -42,5 +42,5 @@ def truncate_string_range(s: str, start: int, end: int) -> str:
         raise TypeError("The start and end indices must be integers.")
     if start > end:
         raise ValueError("The start index must be less than or equal to the end index.")
-    
+
     return s[start:end]

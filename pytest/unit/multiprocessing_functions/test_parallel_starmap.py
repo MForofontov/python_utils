@@ -1,8 +1,10 @@
 import pytest
 from multiprocessing_functions.parallel_starmap import parallel_starmap
 
+
 def multiply(a: int, b: int) -> int:
     return a * b
+
 
 def add(a: int, b: int) -> int:
     return a + b

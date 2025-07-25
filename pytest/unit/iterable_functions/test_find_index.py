@@ -1,6 +1,7 @@
 import pytest
 from iterable_functions.find_index import find_index
 
+
 def test_find_index_success() -> None:
     """
     Test the find_index function with valid inputs where the target string is found.
@@ -10,6 +11,7 @@ def test_find_index_success() -> None:
     target_string: str = "banana"
     expected_output: int = 1
     assert find_index(input_list, target_string) == expected_output
+
 
 def test_find_index_not_found() -> None:
     """
@@ -21,6 +23,7 @@ def test_find_index_not_found() -> None:
     expected_output: None = None
     assert find_index(input_list, target_string) == expected_output
 
+
 def test_find_index_empty_list() -> None:
     """
     Test the find_index function with an empty list.
@@ -30,6 +33,7 @@ def test_find_index_empty_list() -> None:
     target_string: str = "apple"
     expected_output: None = None
     assert find_index(input_list, target_string) == expected_output
+
 
 def test_find_index_multiple_occurrences() -> None:
     """
@@ -41,6 +45,7 @@ def test_find_index_multiple_occurrences() -> None:
     expected_output: int = 0
     assert find_index(input_list, target_string) == expected_output
 
+
 def test_find_index_type_error_input_list() -> None:
     """
     Test the find_index function with invalid type for input_list.
@@ -49,6 +54,7 @@ def test_find_index_type_error_input_list() -> None:
     with pytest.raises(TypeError):
         find_index("not a list", "apple")
 
+
 def test_find_index_type_error_elements() -> None:
     """
     Test the find_index function with invalid elements in input_list.
@@ -56,6 +62,7 @@ def test_find_index_type_error_elements() -> None:
     # Test case 6: Invalid elements in input_list
     with pytest.raises(TypeError):
         find_index(["apple", 1, "cherry"], "apple")
+
 
 def test_find_index_type_error_target_string() -> None:
     """

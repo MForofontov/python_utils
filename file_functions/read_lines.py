@@ -1,6 +1,9 @@
 from itertools import islice
 
-def read_lines(input_file: str, strip: bool = True, num_lines: int | None = None) -> list[str]:
+
+def read_lines(
+    input_file: str, strip: bool = True, num_lines: int | None = None
+) -> list[str]:
     """
     Read lines in a file.
 

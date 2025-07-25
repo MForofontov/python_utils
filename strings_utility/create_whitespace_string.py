@@ -16,7 +16,7 @@ def create_whitespace_string(input_string: str) -> str:
     ------
     TypeError
         If input_string is not a string.
-    
+
     Examples
     --------
     >>> create_whitespace_string("hello")

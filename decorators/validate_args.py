@@ -4,7 +4,10 @@ from collections.abc import Callable
 from functools import wraps
 from logger_functions.logger import validate_logger
 
-def validate_args(validation_func: Callable[..., bool], logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+
+def validate_args(
+    validation_func: Callable[..., bool], logger: logging.Logger | None = None
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator that validates the arguments of a function using a provided validation function.
 
@@ -19,7 +22,7 @@ def validate_args(validation_func: Callable[..., bool], logger: logging.Logger |
     -------
     Callable[[Callable[..., Any]], Callable[..., Any]]
         The decorator function.
-    
+
     Raises
     ------
     TypeError
@@ -28,7 +31,9 @@ def validate_args(validation_func: Callable[..., bool], logger: logging.Logger |
     validate_logger(logger)
     if not callable(validation_func):
         if logger:
-            logger.error(f"Validation function {validation_func} is not callable", exc_info=True)
+            logger.error(
+                f"Validation function {validation_func} is not callable", exc_info=True
+            )
         raise TypeError("validation_func must be callable")
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
@@ -45,6 +50,7 @@ def validate_args(validation_func: Callable[..., bool], logger: logging.Logger |
         Callable[..., Any]
             The wrapped function.
         """
+
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
@@ -75,6 +81,7 @@ def validate_args(validation_func: Callable[..., bool], logger: logging.Logger |
                 raise ValueError(message)
             # Call the original function with the validated arguments
             return func(*args, **kwargs)
-        return wrapper
-    return decorator
 
+        return wrapper
+
+    return decorator

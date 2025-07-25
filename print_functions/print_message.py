@@ -5,7 +5,10 @@ from logger_functions.logger import get_logger
 
 logger = get_logger(__name__)
 
-def print_message(message: str, message_type: str = "info", end: str = '\n', flush: bool = False) -> None:
+
+def print_message(
+    message: str, message_type: str = "info", end: str = "\n", flush: bool = False
+) -> None:
     """
     Print a formatted message with the current time and message type.
 
@@ -30,7 +33,9 @@ def print_message(message: str, message_type: str = "info", end: str = '\n', flu
     Messages are logged through the :data:`logger` object imported from
     ``logger_functions.logger``.
     """
-    logger_to_use: Optional[logging.Logger] = logger # This can change to a logger object if user uses --logger
+    logger_to_use: Optional[logging.Logger] = (
+        logger  # This can change to a logger object if user uses --logger
+    )
 
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     if message_type == "info":
@@ -57,6 +62,5 @@ def print_message(message: str, message_type: str = "info", end: str = '\n', flu
             logger_to_use.debug(message)
         else:
             logger_to_use.info(message)
-    
-    print(formatted_message, end = end, flush = flush)
 
+    print(formatted_message, end=end, flush=flush)

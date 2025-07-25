@@ -1,6 +1,7 @@
 import zipfile
 import os
 
+
 def compress_zip(input_path: str, output_zip: str) -> None:
     """
     Compress a file or folder using zip.
@@ -32,7 +33,11 @@ def compress_zip(input_path: str, output_zip: str) -> None:
         raise FileNotFoundError(f"The input path {input_path} does not exist.")
 
     try:
-        check_path = input_path if os.path.isdir(input_path) else os.path.dirname(input_path) or "."
+        check_path = (
+            input_path
+            if os.path.isdir(input_path)
+            else os.path.dirname(input_path) or "."
+        )
         if os.path.isdir(input_path):
             if os.stat(check_path).st_mode & 0o444 == 0:
                 raise OSError("Input path is not readable")

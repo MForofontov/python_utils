@@ -1,5 +1,6 @@
 import re
 
+
 def remove_by_regex(string: str, pattern: str) -> str:
     """
     Remove all occurrences of a pattern from a string, ensuring no extra spaces are left.
@@ -20,7 +21,7 @@ def remove_by_regex(string: str, pattern: str) -> str:
     ------
     TypeError
         If string is not a string or pattern is not a string.
-    
+
     Examples
     --------
     >>> remove_by_regex("hello world", "o")
@@ -39,6 +40,6 @@ def remove_by_regex(string: str, pattern: str) -> str:
         return string
 
     # Adjust the pattern to also match surrounding spaces
-    adjusted_pattern = r'\s*' + pattern + r'\s*'
-    result = re.sub(adjusted_pattern, ' ', string).strip()
-    return re.sub(r'\s+', ' ', result)
+    adjusted_pattern = r"\s*" + pattern + r"\s*"
+    result = re.sub(adjusted_pattern, " ", string).strip()
+    return re.sub(r"\s+", " ", result)

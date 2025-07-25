@@ -1,5 +1,6 @@
 import snappy
 
+
 def compress_snappy(data: bytes) -> bytes:
     """
     Compress data using Snappy.
@@ -32,5 +33,3 @@ def compress_snappy(data: bytes) -> bytes:
     except Exception as e:
         # Raise a ValueError if an error occurs during compression
         raise ValueError(f"An error occurred during compression: {e}")
-
-

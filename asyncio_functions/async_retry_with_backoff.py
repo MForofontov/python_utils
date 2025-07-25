@@ -3,7 +3,8 @@ from typing import TypeVar, Awaitable
 from collections.abc import Callable
 
 # Define a type variable T to represent the return type of the function
-T = TypeVar('T')
+T = TypeVar("T")
+
 
 async def async_retry_with_backoff(
     func: Callable[..., Awaitable[T]],
@@ -46,7 +47,7 @@ async def async_retry_with_backoff(
     """
     # Initialize the delay with the initial delay value
     delay = initial_delay
-    
+
     # Loop through the number of retries
     for attempt in range(retries):
         try:

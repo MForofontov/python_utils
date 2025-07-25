@@ -1,6 +1,7 @@
 import pytest
 from iterable_functions.repeat_strings_in_a_list import repeat_strings_in_a_list
 
+
 def test_repeat_strings_in_a_list_success() -> None:
     """
     Test the repeat_strings_in_a_list function with valid inputs.
@@ -10,6 +11,7 @@ def test_repeat_strings_in_a_list_success() -> None:
     times = 3
     expected_output = ["a", "a", "a"]
     assert repeat_strings_in_a_list(string, times) == expected_output
+
 
 def test_repeat_strings_in_a_list_zero_times() -> None:
     """
@@ -21,6 +23,7 @@ def test_repeat_strings_in_a_list_zero_times() -> None:
     expected_output: list[str] = []
     assert repeat_strings_in_a_list(string, times) == expected_output
 
+
 def test_repeat_strings_in_a_list_empty_string() -> None:
     """
     Test the repeat_strings_in_a_list function with an empty string.
@@ -31,6 +34,7 @@ def test_repeat_strings_in_a_list_empty_string() -> None:
     expected_output: list[str] = ["", "", ""]
     assert repeat_strings_in_a_list(string, times) == expected_output
 
+
 def test_repeat_strings_in_a_list_type_error_string() -> None:
     """
     Test the repeat_strings_in_a_list function with invalid type for string.
@@ -39,6 +43,7 @@ def test_repeat_strings_in_a_list_type_error_string() -> None:
     with pytest.raises(TypeError):
         repeat_strings_in_a_list(123, 3)
 
+
 def test_repeat_strings_in_a_list_type_error_times() -> None:
     """
     Test the repeat_strings_in_a_list function with invalid type for times.
@@ -46,6 +51,7 @@ def test_repeat_strings_in_a_list_type_error_times() -> None:
     # Test case 5: Invalid type for times
     with pytest.raises(TypeError):
         repeat_strings_in_a_list("a", "3")
+
 
 def test_repeat_strings_in_a_list_value_error_times() -> None:
     """

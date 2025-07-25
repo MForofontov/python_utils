@@ -1,6 +1,9 @@
 from .write_to_file import write_to_file
 
-def write_lines(lines: list[str], output_file: str, joiner: str = '\n', write_mode: str = 'w') -> None:
+
+def write_lines(
+    lines: list[str], output_file: str, joiner: str = "\n", write_mode: str = "w"
+) -> None:
     """
     Write a list of strings to a file.
 
@@ -21,4 +24,4 @@ def write_lines(lines: list[str], output_file: str, joiner: str = '\n', write_mo
     None
     """
     joined_lines: str = joiner.join(lines)
-    write_to_file(joined_lines, output_file, write_mode, '\n')
+    write_to_file(joined_lines, output_file, write_mode, "\n")

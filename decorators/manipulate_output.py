@@ -4,7 +4,10 @@ from functools import wraps
 import logging
 from logger_functions.logger import validate_logger
 
-def manipulate_output(manipulation_func: Callable[[Any], Any], logger: logging.Logger | None = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+
+def manipulate_output(
+    manipulation_func: Callable[[Any], Any], logger: logging.Logger | None = None
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to manipulate the output of a function using a specified manipulation function.
 
@@ -46,6 +49,7 @@ def manipulate_output(manipulation_func: Callable[[Any], Any], logger: logging.L
         Callable[..., Any]
             The wrapped function.
         """
+
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
@@ -68,4 +72,5 @@ def manipulate_output(manipulation_func: Callable[[Any], Any], logger: logging.L
             return manipulated_result
 
         return wrapper
+
     return decorator

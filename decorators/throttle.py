@@ -5,7 +5,10 @@ import time
 import logging
 from logger_functions.logger import validate_logger
 
-def throttle(rate_limit: int | float, logger: logging.Logger = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+
+def throttle(
+    rate_limit: int | float, logger: logging.Logger = None
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to enforce a rate limit on a function, ensuring it is not called more often than the specified rate.
 
@@ -30,7 +33,10 @@ def throttle(rate_limit: int | float, logger: logging.Logger = None) -> Callable
 
     if not isinstance(rate_limit, (int, float)) or rate_limit < 0:
         if logger:
-            logger.error("Type error in throttle decorator: rate_limit must be a positive float or an integer.", exc_info=True)
+            logger.error(
+                "Type error in throttle decorator: rate_limit must be a positive float or an integer.",
+                exc_info=True,
+            )
         raise TypeError("rate_limit must be a positive float or an integer")
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
@@ -71,9 +77,16 @@ def throttle(rate_limit: int | float, logger: logging.Logger = None) -> Callable
             elapsed_time = current_time - last_called
             if elapsed_time < rate_limit:
                 if logger:
-                    logger.error(f"Function {func.__name__} called too frequently. Rate limit: {rate_limit} seconds.", exc_info=True)
-                raise RuntimeError(f"Function {func.__name__} called too frequently. Rate limit: {rate_limit} seconds.")
+                    logger.error(
+                        f"Function {func.__name__} called too frequently. Rate limit: {rate_limit} seconds.",
+                        exc_info=True,
+                    )
+                raise RuntimeError(
+                    f"Function {func.__name__} called too frequently. Rate limit: {rate_limit} seconds."
+                )
             last_called = current_time
             return func(*args, **kwargs)
+
         return wrapper
+
     return decorator

@@ -4,9 +4,15 @@ from collections.abc import Callable
 from functools import reduce
 
 # Define a type variable for generic type support
-T = TypeVar('T')
+T = TypeVar("T")
 
-def parallel_reduce(func: Callable[[T, T], T], data: list[T], num_processes: int = None, chunk_size: int = 1) -> T:
+
+def parallel_reduce(
+    func: Callable[[T, T], T],
+    data: list[T],
+    num_processes: int = None,
+    chunk_size: int = 1,
+) -> T:
     """
     Reduce a list to a single value in parallel using the given reduction function.
 
@@ -17,7 +23,7 @@ def parallel_reduce(func: Callable[[T, T], T], data: list[T], num_processes: int
     data : List[T]
         The list of data items to reduce.
     num_processes : int, optional
-        The number of processes to use for parallel execution. If None, it defaults 
+        The number of processes to use for parallel execution. If None, it defaults
         to the number of available CPUs (by default None).
     chunk_size : int, optional
         The size of chunks to split the data into for parallel processing (default is 1).
@@ -34,18 +40,23 @@ def parallel_reduce(func: Callable[[T, T], T], data: list[T], num_processes: int
     >>> parallel_reduce(sum_two, [1, 2, 3, 4, 5])
     15
     """
+
     # Inner function to reduce a chunk of data using the provided function
     def pair_reduce(data_chunk):
         return reduce(func, data_chunk)
 
     # If num_processes is not specified, use the number of available CPUs
     if num_processes is None:
-        num_processes = cpu_count() - 1  # Pool will default to the number of available CPUs (minus 1)
+        num_processes = (
+            cpu_count() - 1
+        )  # Pool will default to the number of available CPUs (minus 1)
 
     # Create a pool of worker processes
     with Pool(processes=num_processes) as pool:
         # Split the data into chunks
-        data_chunks = [data[i:i + chunk_size] for i in range(0, len(data), chunk_size)]
+        data_chunks = [
+            data[i : i + chunk_size] for i in range(0, len(data), chunk_size)
+        ]
         # Apply the pair_reduce function to each chunk in parallel
         reduced_chunks = pool.map(pair_reduce, data_chunks)
 

@@ -4,6 +4,7 @@ import shutil
 from importlib.metadata import version, PackageNotFoundError
 from print_functions.print_message import print_message
 
+
 def print_dependencies_info_in_terminal(dependencies):
     """
     Print the dependencies information in the terminal.
@@ -24,12 +25,12 @@ def print_dependencies_info_in_terminal(dependencies):
 
     print_message(separator, None)
     print_message("Dependencies Information".center(terminal_width), None)
-    print_message(f"Python Version: {platform.python_version()}", 'info')
+    print_message(f"Python Version: {platform.python_version()}", "info")
     for dep in dependencies:
         try:
             dep_version = version(dep)
-            print_message(f"{dep} version: {dep_version}", 'info')
+            print_message(f"{dep} version: {dep_version}", "info")
         except PackageNotFoundError:
-            print_message(f"{dep} is not installed", 'warning')
+            print_message(f"{dep} is not installed", "warning")
 
     print_message(separator, None)

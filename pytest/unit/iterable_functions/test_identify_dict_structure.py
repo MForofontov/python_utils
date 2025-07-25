@@ -2,6 +2,7 @@ import pytest
 from typing import Any
 from iterable_functions.identify_dict_structure import identify_dict_structure
 
+
 def test_identify_dict_structure_success() -> None:
     """
     Test the identify_dict_structure function with valid inputs.
@@ -10,7 +11,7 @@ def test_identify_dict_structure_success() -> None:
     list_of_dicts: list[dict[str, Any]] = [
         {"a": 1, "b": "string"},
         {"b": "another string", "c": [1, 2, 3]},
-        {"d": {"nested": "dict", "e": {"nested_again": "value"}}}
+        {"d": {"nested": "dict", "e": {"nested_again": "value"}}},
     ]
     expected_output: dict[str, None] = {
         "a": None,
@@ -19,9 +20,10 @@ def test_identify_dict_structure_success() -> None:
         "d": None,
         "d.nested": None,
         "d.e": None,
-        "d.e.nested_again": None
+        "d.e.nested_again": None,
     }
     assert identify_dict_structure(list_of_dicts) == expected_output
+
 
 def test_identify_dict_structure_empty_list() -> None:
     """
@@ -32,6 +34,7 @@ def test_identify_dict_structure_empty_list() -> None:
     expected_output: dict[str, None] = {}
     assert identify_dict_structure(list_of_dicts) == expected_output
 
+
 def test_identify_dict_structure_single_dict() -> None:
     """
     Test the identify_dict_structure function with a single dictionary.
@@ -41,6 +44,7 @@ def test_identify_dict_structure_single_dict() -> None:
     expected_output: dict[str, None] = {"a": None, "b": None}
     assert identify_dict_structure(list_of_dicts) == expected_output
 
+
 def test_identify_dict_structure_nested_dicts() -> None:
     """
     Test the identify_dict_structure function with nested dictionaries.
@@ -48,7 +52,7 @@ def test_identify_dict_structure_nested_dicts() -> None:
     # Test case 4: Nested dictionaries
     list_of_dicts: list[dict[str, Any]] = [
         {"a": 1, "b": {"nested": "dict"}},
-        {"c": {"nested_again": {"deeply_nested": "value"}}}
+        {"c": {"nested_again": {"deeply_nested": "value"}}},
     ]
     expected_output: dict[str, None] = {
         "a": None,
@@ -56,9 +60,10 @@ def test_identify_dict_structure_nested_dicts() -> None:
         "b.nested": None,
         "c": None,
         "c.nested_again": None,
-        "c.nested_again.deeply_nested": None
+        "c.nested_again.deeply_nested": None,
     }
     assert identify_dict_structure(list_of_dicts) == expected_output
+
 
 def test_identify_dict_structure_dict_with_list_of_dicts() -> None:
     """
@@ -73,9 +78,10 @@ def test_identify_dict_structure_dict_with_list_of_dicts() -> None:
         "b": None,
         "b.nested": None,
         "b.nested.key1": None,
-        "b.nested.key2": None
+        "b.nested.key2": None,
     }
     assert identify_dict_structure(list_of_dicts) == expected_output
+
 
 def test_identify_dict_structure_type_error_list_of_dicts() -> None:
     """
@@ -84,6 +90,7 @@ def test_identify_dict_structure_type_error_list_of_dicts() -> None:
     # Test case 6: Invalid type for list_of_dicts
     with pytest.raises(TypeError):
         identify_dict_structure("not a list")
+
 
 def test_identify_dict_structure_type_error_elements() -> None:
     """

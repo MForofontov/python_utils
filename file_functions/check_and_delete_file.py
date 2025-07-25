@@ -1,5 +1,6 @@
 import os
 
+
 def check_and_delete_file(file: str) -> None:
     """
     Deletes a file based on the input file path.

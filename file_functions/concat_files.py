@@ -1,5 +1,6 @@
 import shutil
 
+
 def concat_files(source_file: str, destination_file: str) -> None:
     """
     Concatenates the source file to the destination file.
@@ -15,5 +16,5 @@ def concat_files(source_file: str, destination_file: str) -> None:
     -------
     None
     """
-    with open(destination_file, 'a') as outfile, open(source_file) as infile:
+    with open(destination_file, "a") as outfile, open(source_file) as infile:
         shutil.copyfileobj(infile, outfile)

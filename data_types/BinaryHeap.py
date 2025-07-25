@@ -2,7 +2,8 @@ from typing import TypeVar, Generic
 import heapq
 
 # Define a generic type variable
-T = TypeVar('T')
+T = TypeVar("T")
+
 
 class BinaryHeap(Generic[T]):
     """

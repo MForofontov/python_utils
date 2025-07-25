@@ -1,4 +1,3 @@
-
 class TrieNode:
     """
     A TrieNode used in a Trie data structure.

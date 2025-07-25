@@ -2,6 +2,7 @@ import pytest
 import snappy
 from compression_functions.binary_compression.compress_snappy import compress_snappy
 
+
 def test_compress_snappy_basic() -> None:
     """
     Test the compress_snappy function with basic input.
@@ -10,7 +11,10 @@ def test_compress_snappy_basic() -> None:
     data: bytes = b"hello world"
     compressed_data: bytes = compress_snappy(data)
     expected_compressed_data: bytes = snappy.compress(data)
-    assert compressed_data == expected_compressed_data, "Compressed data should match expected snappy compression"
+    assert (
+        compressed_data == expected_compressed_data
+    ), "Compressed data should match expected snappy compression"
+
 
 def test_compress_snappy_empty() -> None:
     """
@@ -20,7 +24,10 @@ def test_compress_snappy_empty() -> None:
     data: bytes = b""
     compressed_data: bytes = compress_snappy(data)
     expected_compressed_data: bytes = snappy.compress(data)
-    assert compressed_data == expected_compressed_data, "Compressed data should match expected snappy compression"
+    assert (
+        compressed_data == expected_compressed_data
+    ), "Compressed data should match expected snappy compression"
+
 
 def test_compress_snappy_large_data() -> None:
     """
@@ -30,7 +37,10 @@ def test_compress_snappy_large_data() -> None:
     data: bytes = b"a" * 1000000  # 1 MB of data
     compressed_data: bytes = compress_snappy(data)
     expected_compressed_data: bytes = snappy.compress(data)
-    assert compressed_data == expected_compressed_data, "Compressed data should match expected snappy compression"
+    assert (
+        compressed_data == expected_compressed_data
+    ), "Compressed data should match expected snappy compression"
+
 
 def test_compress_snappy_special_characters() -> None:
     """
@@ -40,7 +50,10 @@ def test_compress_snappy_special_characters() -> None:
     data: bytes = b"!@#$%^&*()_+-=[]{}|;':,.<>/?"
     compressed_data: bytes = compress_snappy(data)
     expected_compressed_data: bytes = snappy.compress(data)
-    assert compressed_data == expected_compressed_data, "Compressed data should match expected snappy compression"
+    assert (
+        compressed_data == expected_compressed_data
+    ), "Compressed data should match expected snappy compression"
+
 
 def test_compress_snappy_binary_data() -> None:
     """
@@ -50,7 +63,10 @@ def test_compress_snappy_binary_data() -> None:
     data: bytes = bytes(range(256))
     compressed_data: bytes = compress_snappy(data)
     expected_compressed_data: bytes = snappy.compress(data)
-    assert compressed_data == expected_compressed_data, "Compressed data should match expected snappy compression"
+    assert (
+        compressed_data == expected_compressed_data
+    ), "Compressed data should match expected snappy compression"
+
 
 def test_compress_snappy_small_data() -> None:
     """
@@ -60,7 +76,10 @@ def test_compress_snappy_small_data() -> None:
     data: bytes = b"a"
     compressed_data: bytes = compress_snappy(data)
     expected_compressed_data: bytes = snappy.compress(data)
-    assert compressed_data == expected_compressed_data, "Compressed data should match expected snappy compression"
+    assert (
+        compressed_data == expected_compressed_data
+    ), "Compressed data should match expected snappy compression"
+
 
 def test_compress_snappy_already_compressed_data() -> None:
     """
@@ -70,7 +89,10 @@ def test_compress_snappy_already_compressed_data() -> None:
     data: bytes = snappy.compress(b"hello world")
     compressed_data: bytes = compress_snappy(data)
     expected_compressed_data: bytes = snappy.compress(data)
-    assert compressed_data == expected_compressed_data, "Compressed data should match expected snappy compression"
+    assert (
+        compressed_data == expected_compressed_data
+    ), "Compressed data should match expected snappy compression"
+
 
 def test_compress_snappy_unicode_data() -> None:
     """
@@ -80,7 +102,10 @@ def test_compress_snappy_unicode_data() -> None:
     data: bytes = "你好，世界".encode()
     compressed_data: bytes = compress_snappy(data)
     expected_compressed_data: bytes = snappy.compress(data)
-    assert compressed_data == expected_compressed_data, "Compressed data should match expected snappy compression"
+    assert (
+        compressed_data == expected_compressed_data
+    ), "Compressed data should match expected snappy compression"
+
 
 def test_compress_snappy_invalid_type() -> None:
     """
@@ -89,6 +114,7 @@ def test_compress_snappy_invalid_type() -> None:
     # Test case 9: Invalid data type (non-bytes)
     with pytest.raises(TypeError):
         compress_snappy("not bytes")  # type: ignore
+
 
 def test_compress_snappy_compression_error() -> None:
     """
@@ -103,4 +129,3 @@ def test_compress_snappy_compression_error() -> None:
             compress_snappy(b"data")
         finally:
             snappy.compress = original_compress
-

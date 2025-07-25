@@ -1,7 +1,8 @@
 from typing import TypeVar, Generic
 
 # Define a generic type variable
-T = TypeVar('T')
+T = TypeVar("T")
+
 
 class Graph(Generic[T]):
     """

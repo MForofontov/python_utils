@@ -1,10 +1,12 @@
 import pytest
 from multiprocessing_functions.parallel_gather_errors import parallel_gather_errors
 
+
 def risky(x: int) -> int:
     if x == 2:
         raise ValueError("bad")
     return x * x
+
 
 def inc(x: int) -> int:
     return x + 1

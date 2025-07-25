@@ -4,7 +4,8 @@ from .decompress_lzma import decompress_lzma
 from .decompress_snappy import decompress_snappy
 from .decompress_zstd import decompress_zstd
 
-def decompress_data(compressed_data: bytes, algorithm: str = 'gzip') -> bytes:
+
+def decompress_data(compressed_data: bytes, algorithm: str = "gzip") -> bytes:
     """
     Decompress binary data using the specified algorithm.
 
@@ -28,15 +29,15 @@ def decompress_data(compressed_data: bytes, algorithm: str = 'gzip') -> bytes:
     if not isinstance(compressed_data, bytes):
         raise TypeError("data must be bytes")
 
-    if algorithm == 'gzip':
+    if algorithm == "gzip":
         return decompress_gzip(compressed_data)
-    elif algorithm == 'bz2':
+    elif algorithm == "bz2":
         return decompress_bz2(compressed_data)
-    elif algorithm == 'lzma':
+    elif algorithm == "lzma":
         return decompress_lzma(compressed_data)
-    elif algorithm == 'snappy':
+    elif algorithm == "snappy":
         return decompress_snappy(compressed_data)
-    elif algorithm == 'zstd':
+    elif algorithm == "zstd":
         return decompress_zstd(compressed_data)
     else:
         raise ValueError(f"Unsupported algorithm: {algorithm}")

@@ -1,6 +1,7 @@
 import zlib
 import base64
 
+
 def decompress_zlib(compressed_data: bytes) -> bytes:
     """
     Decompress a base64-encoded, zlib-compressed string.
@@ -35,4 +36,3 @@ def decompress_zlib(compressed_data: bytes) -> bytes:
     except Exception as e:
         # Raise a ValueError if an error occurs during decompression
         raise ValueError(f"An error occurred during decompression: {e}")
-

@@ -30,4 +30,4 @@ def remove_digits(s: str) -> str:
     """
     if not isinstance(s, str):
         raise TypeError("Input must be a string.")
-    return ''.join(char for char in s if not char.isdigit())
+    return "".join(char for char in s if not char.isdigit())
