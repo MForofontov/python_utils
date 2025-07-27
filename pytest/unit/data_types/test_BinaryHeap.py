@@ -1,5 +1,5 @@
 import pytest
-from data_types.BinaryHeap import BinaryHeap
+from data_types.binary_heap import BinaryHeap
 
 
 def test_insert_min_heap() -> None:

@@ -1,5 +1,5 @@
 import pytest
-from data_types.Queue import Queue
+from data_types.queue import Queue
 
 
 def test_enqueue_and_dequeue() -> None:
