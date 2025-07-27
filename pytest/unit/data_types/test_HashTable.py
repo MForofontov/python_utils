@@ -1,5 +1,5 @@
 import pytest
-from data_types.HashTable import HashTable
+from data_types.hash_table import HashTable
 
 
 def test_insert_and_get() -> None:

@@ -1,5 +1,5 @@
 import pytest
-from data_types.CircularQueue import CircularQueue
+from data_types.circular_queue import CircularQueue
 
 
 def test_enqueue_to_empty_queue() -> None:

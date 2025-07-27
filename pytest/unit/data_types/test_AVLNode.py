@@ -1,5 +1,5 @@
 import pytest
-from data_types.AVLNode import AVLTree
+from data_types.avl_node import AVLTree
 
 
 def test_insert_single_node() -> None:
