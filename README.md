@@ -19,6 +19,8 @@ A collection of reusable Python functions covering a wide range of tasks. The pr
 
 ## Installation
 
+This project requires Python 3.10 or later.
+
 ```bash
 # clone the repository
 git clone https://github.com/MForofontov/python-utils
