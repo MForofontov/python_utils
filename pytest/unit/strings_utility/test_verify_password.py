@@ -87,3 +87,20 @@ def test_verify_password_invalid_type() -> None:
     # Test case 10: Invalid type
     with pytest.raises(TypeError):
         verify_password(12345)
+
+
+def test_verify_password_no_shared_state() -> None:
+    """
+    Test that repeated calls do not share state between invocations.
+    """
+    calls: list[str] = []
+
+    def custom_check(p: str) -> bool:
+        calls.append(p)
+        return True
+
+    assert verify_password("Password123!", custom_checks=[custom_check])
+    assert calls == ["Password123!"]
+
+    assert verify_password("Password123!")
+    assert calls == ["Password123!"]

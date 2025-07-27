@@ -1,9 +1,10 @@
 import re
-from collections.abc import Callable
+from collections.abc import Callable, Iterable
 
 
 def verify_password(
-    password: str, custom_checks: list[Callable[[str], bool]] = []
+    password: str,
+    custom_checks: Iterable[Callable[[str], bool]] | None = None,
 ) -> bool:
     """
     Verify if a password meets the following criteria:
@@ -17,8 +18,9 @@ def verify_password(
     ----------
     password : str
         The password to verify.
-    custom_checks : List[Callable[[str], bool]], optional
-        A list of custom check functions that take the password as input and return a boolean.
+    custom_checks : Iterable[Callable[[str], bool]], optional
+        An iterable of custom check functions that take the password as input and
+        return a boolean. Defaults to ``None``.
 
     Returns
     -------
@@ -28,7 +30,8 @@ def verify_password(
     Raises
     ------
     TypeError
-        If the password is not a string or if custom_checks is not a list of callables.
+        If the password is not a string or if ``custom_checks`` is not an
+        iterable of callables.
 
     Examples
     --------
@@ -48,10 +51,13 @@ def verify_password(
     """
     if not isinstance(password, str):
         raise TypeError("The password must be a string.")
-    if not isinstance(custom_checks, list) or not all(
-        callable(check) for check in custom_checks
-    ):
-        raise TypeError("custom_checks must be a list of callables.")
+
+    if custom_checks is None:
+        custom_checks = []
+    elif not isinstance(custom_checks, Iterable) or isinstance(
+        custom_checks, (str, bytes)
+    ) or not all(callable(check) for check in custom_checks):
+        raise TypeError("custom_checks must be an iterable of callables.")
 
     # Check if the password is at least 8 characters long
     if len(password) < 8:
