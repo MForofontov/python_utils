@@ -33,8 +33,9 @@ def parallel_unique(
     """
     # If num_processes is not specified, use the number of available CPUs minus one
     if num_processes is None:
-        num_processes = (
-            cpu_count() - 1
+        num_processes = max(
+            cpu_count() - 1,
+            1,
         )  # Pool will default to the number of available CPUs (minus 1)
 
     # Split the data into chunks of specified chunk_size

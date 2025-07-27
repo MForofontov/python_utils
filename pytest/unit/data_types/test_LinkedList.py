@@ -1,5 +1,5 @@
 import pytest
-from data_types.LinkedList import LinkedList
+from data_types.linked_list import LinkedList
 
 
 def test_append() -> None:

@@ -79,11 +79,27 @@ def test_verify_password_custom_check_fail() -> None:
         verify_password("Password123!", custom_checks=[custom_check]) == False
     ), "Failed on custom check that fails"
 
+def test_verify_password_no_shared_state() -> None:
+    """
+    Test that repeated calls do not share state between invocations.
+    """
+    # Test case 10: Ensure no shared state between calls
+    calls: list[str] = []
+
+    def custom_check(p: str) -> bool:
+        calls.append(p)
+        return True
+
+    assert verify_password("Password123!", custom_checks=[custom_check])
+    assert calls == ["Password123!"]
+
+    assert verify_password("Password123!")
+    assert calls == ["Password123!"]
 
 def test_verify_password_invalid_type() -> None:
     """
     Test the verify_password function with an invalid type.
     """
-    # Test case 10: Invalid type
+    # Test case 11: Invalid type
     with pytest.raises(TypeError):
         verify_password(12345)

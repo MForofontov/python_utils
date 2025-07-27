@@ -19,6 +19,8 @@ A collection of reusable Python functions covering a wide range of tasks. The pr
 
 ## Installation
 
+This project requires Python 3.10 or later.
+
 ```bash
 # clone the repository
 git clone https://github.com/MForofontov/python-utils
@@ -33,6 +35,8 @@ pip install -r requirements.txt
 
 # install additional packages for development and testing
 pip install -r requirements_dev.txt
+# alternatively install the optional "dev" extras defined in `pyproject.toml`
+pip install -e .[dev]
 ```
 `tqdm` is used for progress bars and is installed with the runtime requirements file.
 

@@ -1,5 +1,5 @@
 import pytest
-from data_types.Deque import Deque
+from data_types.deque import Deque
 
 
 def test_add_front() -> None:
@@ -149,7 +149,7 @@ def test_add_and_remove_all_elements() -> None:
 
 
 import pytest
-from data_types.Deque import Deque
+from data_types.deque import Deque
 
 
 def test_single_element_operations() -> None:

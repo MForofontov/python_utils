@@ -1,4 +1,4 @@
-from data_types.Graph import Graph
+from data_types.graph import Graph
 
 
 def test_add_vertex() -> None:

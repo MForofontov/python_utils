@@ -1,5 +1,5 @@
 import pytest
-from data_types.PriorityQueue import PriorityQueue
+from data_types.priority_queue import PriorityQueue
 
 
 def test_push_and_pop() -> None:
