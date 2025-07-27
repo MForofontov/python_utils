@@ -35,8 +35,9 @@ def parallel_starmap(
     """
     # If num_processes is not specified, use the number of available CPUs
     if num_processes is None:
-        num_processes = (
-            cpu_count() - 1
+        num_processes = max(
+            cpu_count() - 1,
+            1,
         )  # Pool will default to the number of available CPUs (minus 1)
 
     # Create a pool of worker processes
