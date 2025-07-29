@@ -41,3 +41,5 @@ def replace_multiple_substrings(s: str, replacements: dict[str, str]) -> str:
         s = s.replace(old, new)
 
     return s
+
+__all__ = ['replace_multiple_substrings']

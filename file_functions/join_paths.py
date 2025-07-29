@@ -19,3 +19,5 @@ def join_paths(parent_path: str, child_paths: list[str]) -> str:
     """
     joined_paths: str = os.path.join(parent_path, *child_paths)
     return joined_paths
+
+__all__ = ['join_paths']

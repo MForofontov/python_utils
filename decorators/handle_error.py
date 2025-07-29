@@ -75,3 +75,5 @@ def handle_error(
         return wrapper
 
     return decorator
+
+__all__ = ['handle_error']

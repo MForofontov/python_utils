@@ -38,3 +38,5 @@ def replace_tabs(s: str, tabsize: int = 4) -> str:
         raise ValueError("The tab size must be non-negative.")
 
     return s.replace("\t", " " * tabsize)
+
+__all__ = ['replace_tabs']

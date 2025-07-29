@@ -33,3 +33,5 @@ def get_common_elements_in_lists(list_of_lists: list[list[Any]]) -> list[Any]:
             intersection_set.intersection_update(lst)
 
     return list(intersection_set) if intersection_set is not None else []
+
+__all__ = ['get_common_elements_in_lists']

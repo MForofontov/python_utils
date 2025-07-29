@@ -96,3 +96,5 @@ def async_handle_error(
         return wrapper
 
     return decorator
+
+__all__ = ['async_handle_error']

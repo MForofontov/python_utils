@@ -81,3 +81,5 @@ def verify_password(
             return False
 
     return True
+
+__all__ = ['verify_password']

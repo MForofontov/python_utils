@@ -54,3 +54,5 @@ def parallel_apply_with_args(
 
     # Return the list of results
     return results
+
+__all__ = ['parallel_apply_with_args']

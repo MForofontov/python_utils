@@ -64,3 +64,5 @@ def print_message(
             logger_to_use.info(message)
 
     print(formatted_message, end=end, flush=flush)
+
+__all__ = ['print_message']

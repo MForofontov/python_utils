@@ -43,3 +43,5 @@ def remove_by_regex(string: str, pattern: str) -> str:
     adjusted_pattern = r"\s*" + pattern + r"\s*"
     result = re.sub(adjusted_pattern, " ", string).strip()
     return re.sub(r"\s+", " ", result)
+
+__all__ = ['remove_by_regex']

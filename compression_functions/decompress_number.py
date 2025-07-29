@@ -37,3 +37,5 @@ def decompress_number(text: str, index: int) -> tuple[int, int]:
             break
 
     return index, (~number >> 1) if (number & 1) else (number >> 1)
+
+__all__ = ['decompress_number']

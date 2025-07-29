@@ -99,3 +99,5 @@ def serialize_output(
         return wrapper
 
     return decorator
+
+__all__ = ['serialize_output']

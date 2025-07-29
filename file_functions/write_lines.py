@@ -25,3 +25,5 @@ def write_lines(
     """
     joined_lines: str = joiner.join(lines)
     write_to_file(joined_lines, output_file, write_mode, "\n")
+
+__all__ = ['write_lines']

@@ -84,3 +84,5 @@ def normalize_input(
         return wrapper
 
     return decorator
+
+__all__ = ['normalize_input']

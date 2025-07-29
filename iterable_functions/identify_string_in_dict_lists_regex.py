@@ -49,3 +49,5 @@ def identify_string_in_dict_lists_regex(
                 if target_value in list_:
                     return key
     return False
+
+__all__ = ['identify_string_in_dict_lists_regex']

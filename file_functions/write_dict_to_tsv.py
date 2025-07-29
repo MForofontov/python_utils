@@ -22,3 +22,5 @@ def write_dict_to_tsv(file_path: str, data: dict[str, list[Any]]) -> None:
         for row in zip_longest(*data.values(), fillvalue=""):
             row_str: str = "\t".join(map(str, row))
             f.write(row_str + "\n")
+
+__all__ = ['write_dict_to_tsv']

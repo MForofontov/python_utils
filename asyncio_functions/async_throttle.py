@@ -44,3 +44,5 @@ async def async_throttle(
         yield item
         # Introduce a delay before yielding the next item
         await asyncio.sleep(delay)
+
+__all__ = ['async_throttle']

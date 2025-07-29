@@ -46,3 +46,5 @@ def get_paths_in_directory(directory: str, type_: str) -> list[str]:
     ]
 
     return file_paths
+
+__all__ = ['get_paths_in_directory']

@@ -44,3 +44,5 @@ def parallel_sum(
 
     # Sum the results from each chunk to get the final result
     return sum(chunk_sums)
+
+__all__ = ['parallel_sum']

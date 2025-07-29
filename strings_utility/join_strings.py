@@ -37,3 +37,5 @@ def join_strings(strings: list[str], delimiter: str = " ") -> str:
     if not isinstance(delimiter, str):
         raise TypeError("The delimiter must be a string.")
     return delimiter.join(strings)
+
+__all__ = ['join_strings']

@@ -33,3 +33,5 @@ def decompress_snappy(compressed_data: bytes) -> bytes:
     except Exception as e:
         # Raise a ValueError if an error occurs during decompression
         raise ValueError(f"An error occurred during decompression: {e}")
+
+__all__ = ['decompress_snappy']

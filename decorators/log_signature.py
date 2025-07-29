@@ -83,3 +83,5 @@ def log_signature(
         return wrapper
 
     return decorator
+
+__all__ = ['log_signature']

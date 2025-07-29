@@ -47,3 +47,5 @@ def parallel_filter(
 
     # Return a list of items that satisfy the condition
     return [item for item, keep in zip(data, results) if keep]
+
+__all__ = ['parallel_filter']

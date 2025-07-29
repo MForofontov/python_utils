@@ -90,3 +90,5 @@ def throttle(
         return wrapper
 
     return decorator
+
+__all__ = ['throttle']

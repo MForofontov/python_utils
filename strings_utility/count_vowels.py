@@ -32,3 +32,5 @@ def count_vowels(s: str) -> int:
         raise TypeError("The input must be a string.")
     vowels = "aeiouAEIOU"
     return sum(1 for char in s if char in vowels)
+
+__all__ = ['count_vowels']

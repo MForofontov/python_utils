@@ -34,3 +34,5 @@ def print_dependencies_info_in_terminal(dependencies):
             print_message(f"{dep} is not installed", "warning")
 
     print_message(separator, None)
+
+__all__ = ['print_dependencies_info_in_terminal']

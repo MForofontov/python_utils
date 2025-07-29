@@ -31,3 +31,5 @@ async def async_map(func: Callable[[T], Awaitable[R]], items: list[T]) -> list[R
     """
     tasks = [func(item) for item in items]
     return await asyncio.gather(*tasks)
+
+__all__ = ['async_map']

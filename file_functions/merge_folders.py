@@ -58,3 +58,5 @@ def merge_folders(folder1: str, folder2: str, output_folder: str) -> None:
 
     copy_files(folder1)
     copy_files(folder2)
+
+__all__ = ['merge_folders']

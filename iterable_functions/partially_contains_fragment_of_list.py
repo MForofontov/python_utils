@@ -40,3 +40,5 @@ def partially_contains_fragment_of_list(
         ):
             return True
     return False
+
+__all__ = ['partially_contains_fragment_of_list']

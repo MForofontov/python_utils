@@ -39,3 +39,5 @@ def rjust_string(s: str, width: int, fillchar: str = " ") -> str:
     if not isinstance(fillchar, str) or len(fillchar) != 1:
         raise TypeError("The fill character must be a single character string.")
     return s.rjust(width, fillchar)
+
+__all__ = ['rjust_string']

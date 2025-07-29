@@ -65,3 +65,5 @@ def log_function_calls(
         return wrapper
 
     return decorator
+
+__all__ = ['log_function_calls']

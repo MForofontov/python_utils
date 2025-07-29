@@ -34,3 +34,5 @@ def contains_sublist(main_list: list[Any], list_of_lists: list[list[Any]]) -> bo
         if all_match_lists(main_list, sublist):
             return True
     return False
+
+__all__ = ['contains_sublist']
