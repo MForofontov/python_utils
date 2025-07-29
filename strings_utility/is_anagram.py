@@ -40,3 +40,5 @@ def is_anagram(string_1: str, string_2: str) -> bool:
 
     # Use Counter to compare the frequency of characters in both strings
     return Counter(string_1) == Counter(string_2)
+
+__all__ = ['is_anagram']

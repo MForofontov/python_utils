@@ -68,3 +68,5 @@ def cache(func: Callable[..., Any]) -> Callable[..., Any]:
     wrapper.cache_clear = cache_clear
 
     return wrapper
+
+__all__ = ['cache']

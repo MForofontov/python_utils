@@ -42,3 +42,5 @@ def identify_dict_structure(list_of_dicts: list[dict[str, Any]]) -> dict[str, No
         extract_keys(dictionary)
 
     return keys
+
+__all__ = ['identify_dict_structure']

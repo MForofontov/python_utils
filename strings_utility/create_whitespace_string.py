@@ -30,3 +30,5 @@ def create_whitespace_string(input_string: str) -> str:
         raise TypeError("input_string must be a string")
 
     return " " * len(input_string)
+
+__all__ = ['create_whitespace_string']

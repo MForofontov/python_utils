@@ -40,3 +40,5 @@ def add_strings_to_subsets(my_list: list[set[str]], my_strings: list[str]) -> bo
                 found = True
                 break
     return found
+
+__all__ = ['add_strings_to_subsets']

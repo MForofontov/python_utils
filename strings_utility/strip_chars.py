@@ -35,3 +35,5 @@ def strip_chars(s: str, chars: str) -> str:
     if not isinstance(chars, str):
         raise TypeError("The characters to strip must be a string.")
     return s.strip(chars)
+
+__all__ = ['strip_chars']

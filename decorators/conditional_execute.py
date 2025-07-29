@@ -76,3 +76,5 @@ def conditional_execute(
         return wrapper
 
     return decorator
+
+__all__ = ['conditional_execute']

@@ -35,3 +35,5 @@ def count_substring(s: str, substring: str) -> int:
     if not isinstance(substring, str):
         raise TypeError("The substring must be a string.")
     return s.count(substring)
+
+__all__ = ['count_substring']

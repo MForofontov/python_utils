@@ -47,3 +47,5 @@ def parallel_progress_bar(
         results = list(tqdm(pool.imap(func, data), total=len(data)))
     # Return the list of results
     return results
+
+__all__ = ['parallel_progress_bar']

@@ -77,3 +77,5 @@ def deprecated(
         return wrapper
 
     return decorator
+
+__all__ = ['deprecated']

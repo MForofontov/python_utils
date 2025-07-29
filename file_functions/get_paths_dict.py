@@ -45,3 +45,5 @@ def get_paths_dict(directory: str, type_: str) -> dict[str, str]:
             paths_dict[filename] = file_path
 
     return paths_dict
+
+__all__ = ['get_paths_dict']

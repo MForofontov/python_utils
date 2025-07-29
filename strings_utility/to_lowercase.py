@@ -31,3 +31,5 @@ def to_lowercase(s: str) -> str:
     if not isinstance(s, str):
         raise TypeError("The input must be a string.")
     return s.lower()
+
+__all__ = ['to_lowercase']

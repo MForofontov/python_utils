@@ -27,3 +27,5 @@ def join_list(lst: list[str], delimiter: str) -> str:
         raise TypeError("delimiter must be a string")
 
     return delimiter.join(lst)
+
+__all__ = ['join_list']

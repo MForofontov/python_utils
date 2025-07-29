@@ -59,3 +59,5 @@ def parallel_pipeline(
 
     # Return the list of results
     return results
+
+__all__ = ['parallel_pipeline']

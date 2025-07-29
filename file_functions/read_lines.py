@@ -31,3 +31,5 @@ def read_lines(
         lines = [line.strip() for line in lines]
 
     return lines
+
+__all__ = ['read_lines']

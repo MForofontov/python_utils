@@ -31,3 +31,5 @@ def has_element_of_type(input_list: list[Any], target_type: type) -> bool:
         if isinstance(element, target_type):
             return True
     return False
+
+__all__ = ['has_element_of_type']

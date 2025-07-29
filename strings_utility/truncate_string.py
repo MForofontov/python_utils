@@ -38,3 +38,5 @@ def truncate_string(s: str, length: int) -> str:
         raise TypeError("The length must be an integer.")
 
     return s[:length]
+
+__all__ = ['truncate_string']

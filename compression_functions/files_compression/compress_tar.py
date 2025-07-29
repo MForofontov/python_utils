@@ -60,3 +60,5 @@ def compress_tar(input_path: str, output_tar: str) -> None:
         raise
     except (PermissionError, OSError) as e:
         raise OSError(f"An I/O error occurred during compression: {e}")
+
+__all__ = ['compress_tar']

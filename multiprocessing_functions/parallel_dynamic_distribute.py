@@ -52,3 +52,5 @@ def parallel_dynamic_distribute(
         results = pool.imap(func, data, chunksize=chunk_size)
     # Convert the results to a list and return
     return list(results)
+
+__all__ = ['parallel_dynamic_distribute']

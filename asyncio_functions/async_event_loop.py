@@ -36,3 +36,5 @@ def async_event_loop(func: Callable[[], Awaitable[T]]) -> T:
 
     # Run the provided asynchronous function in an event loop and return the result
     return asyncio.run(wrapper())
+
+__all__ = ['async_event_loop']

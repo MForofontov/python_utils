@@ -16,3 +16,5 @@ def get_tool_path(name: str) -> str | None:
         The path of the tool if it is found in the PATH. If the tool is not found, returns None.
     """
     return shutil.which(name)
+
+__all__ = ['get_tool_path']

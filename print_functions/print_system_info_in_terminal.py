@@ -94,3 +94,5 @@ def print_system_info_in_terminal() -> None:
         "info",
     )
     print_message(separator, None)
+
+__all__ = ['print_system_info_in_terminal']

@@ -64,3 +64,5 @@ def time_function(
         return wrapper
 
     return decorator
+
+__all__ = ['time_function']

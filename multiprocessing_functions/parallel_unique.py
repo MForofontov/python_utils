@@ -53,3 +53,5 @@ def parallel_unique(
 
     # Convert the set of unique elements back to a list and return
     return list(unique_combined)
+
+__all__ = ['parallel_unique']

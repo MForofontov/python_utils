@@ -35,3 +35,5 @@ def repeat_string(s: str, n: int) -> str:
     if not isinstance(n, int):
         raise TypeError("The number of times must be an integer.")
     return s * n
+
+__all__ = ['repeat_string']

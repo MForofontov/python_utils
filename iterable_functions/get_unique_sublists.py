@@ -38,3 +38,5 @@ def get_unique_sublists(list_of_lists: list[list[Any]]) -> list[list[Any]]:
             seen.add(sublist_tuple)
             unique_sublists.append(sublist)
     return unique_sublists
+
+__all__ = ['get_unique_sublists']

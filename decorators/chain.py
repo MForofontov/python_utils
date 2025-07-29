@@ -53,3 +53,5 @@ def chain(func: Callable[..., T]) -> Callable[..., T | Any]:
         return result
 
     return wrapper
+
+__all__ = ['chain']

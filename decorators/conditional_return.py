@@ -78,3 +78,5 @@ def conditional_return(
         return wrapper
 
     return decorator
+
+__all__ = ['conditional_return']

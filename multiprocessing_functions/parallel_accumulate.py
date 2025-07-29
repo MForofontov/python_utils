@@ -88,3 +88,5 @@ def parallel_accumulate(
 
     # Return the final cumulative results
     return results
+
+__all__ = ['parallel_accumulate']

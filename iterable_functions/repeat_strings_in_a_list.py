@@ -29,3 +29,5 @@ def repeat_strings_in_a_list(string: str, times: int) -> list[str]:
         raise ValueError("times must be non-negative")
 
     return [string for _ in range(times)]
+
+__all__ = ['repeat_strings_in_a_list']

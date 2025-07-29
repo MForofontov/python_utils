@@ -73,3 +73,5 @@ def parallel_sort(
 
     # Return the final sorted list
     return sorted_chunks[0] if sorted_chunks else []
+
+__all__ = ['parallel_sort']

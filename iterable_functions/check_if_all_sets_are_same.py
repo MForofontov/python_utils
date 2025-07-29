@@ -35,3 +35,5 @@ def check_if_all_sets_are_same(sets_list: list[set[Any]]) -> bool:
             return False
 
     return True
+
+__all__ = ['check_if_all_sets_are_same']

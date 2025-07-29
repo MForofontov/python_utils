@@ -63,3 +63,5 @@ def parallel_reduce(
 
     # Reduce the results from each chunk to a single value
     return reduce(func, reduced_chunks)
+
+__all__ = ['parallel_reduce']

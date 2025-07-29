@@ -20,3 +20,5 @@ def write_to_file(text: str, output_file: str, write_mode: str, end_char: str) -
     """
     with open(output_file, write_mode) as out:
         out.write(text + end_char)
+
+__all__ = ['write_to_file']
