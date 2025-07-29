@@ -38,7 +38,8 @@ pip install -r requirements_dev.txt
 # alternatively install the optional "dev" extras defined in `pyproject.toml`
 pip install -e .[dev]
 ```
-`tqdm` is used for progress bars and is installed with the runtime requirements file.
+`tqdm` is used for progress bars. The runtime requirements file also installs
+`aiohttp` for asynchronous HTTP helpers and `pandas` for the dataframe utilities.
 
 ## Running Tests
 
