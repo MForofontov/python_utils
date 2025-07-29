@@ -21,25 +21,29 @@ log_with_time "[Info] Running tests in: $TEST_DIR"
 if [ "$GENERATE_ALLURE" = "true" ]; then
     log_with_time "[Info] Storing Allure results in: $ALLURE_RESULTS_DIR"
     log_with_time "[Info] Generating Allure report in: $ALLURE_REPORT_DIR"
-    
+
     # Run pytest with Allure results
-    pytest $TEST_DIR --alluredir=$ALLURE_RESULTS_DIR
-    
+    pytest "$TEST_DIR" --alluredir="$ALLURE_RESULTS_DIR"
+
     log_with_time "[Info] Allure results generated successfully in $ALLURE_RESULTS_DIR!"
-    
-    log_with_time "[Info] Generating Allure report..."
-    # Generate the Allure report in the specified directory
-    allure generate $ALLURE_RESULTS_DIR -o $ALLURE_REPORT_DIR --clean
-    log_with_time "[Info] Allure report generated successfully in $ALLURE_REPORT_DIR!"
-    
-    # Only open report if not in CI environment
-    if [ -z "$CI" ]; then
-        allure open $ALLURE_REPORT_DIR
+
+    if command -v allure >/dev/null 2>&1; then
+        log_with_time "[Info] Generating Allure report..."
+        # Generate the Allure report in the specified directory
+        allure generate "$ALLURE_RESULTS_DIR" -o "$ALLURE_REPORT_DIR" --clean
+        log_with_time "[Info] Allure report generated successfully in $ALLURE_REPORT_DIR!"
+
+        # Only open report if not in CI environment
+        if [ -z "$CI" ]; then
+            allure open "$ALLURE_REPORT_DIR"
+        else
+            log_with_time "[Info] Skipping report opening in CI environment"
+        fi
     else
-        log_with_time "[Info] Skipping report opening in CI environment"
+        log_with_time "[Warn] Allure CLI not found. Skipping report generation."
     fi
 else
     log_with_time "[Info] Skipping Allure report generation"
     # Run pytest without Allure
-    pytest $TEST_DIR
+    pytest "$TEST_DIR"
 fi
