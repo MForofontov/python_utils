@@ -3,6 +3,7 @@ import psutil
 import logging
 import threading
 import gc
+from types import SimpleNamespace
 from logger_functions.logger import validate_logger
 from typing import Any
 from collections.abc import Callable
@@ -137,7 +138,7 @@ def time_and_resource_function(
                         if hasattr(process, "num_ctx_switches"):
                             context_switches = process.num_ctx_switches()
                         else:
-                            context_switches = psutil._common.pctxsw(0, 0)
+                            context_switches = SimpleNamespace(voluntary=0, involuntary=0)
 
                         # Monitor GC statistics
                         if monitor_gc:
