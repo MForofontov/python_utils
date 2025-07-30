@@ -1,5 +1,6 @@
 import pytest
 import logging
+import re
 from decorators.requires_permission import requires_permission
 
 # Configure test_logger
@@ -81,9 +82,7 @@ def test_requires_permission_type_with_logger(caplog):
     Test case 6: Logger functionality when type error occurs for permission
     """
     with caplog.at_level(logging.ERROR):
-        with pytest.raises(
-            TypeError, match="logger must be an instance of logging.Logger or None"
-        ):
+        with pytest.raises(TypeError, match="permission must be a string"):
 
             @requires_permission(123, logger=test_logger)
             def invalid_logger_function() -> None:
@@ -153,7 +152,9 @@ def test_requires_permission_with_logger(caplog):
     with caplog.at_level(logging.ERROR):
         with pytest.raises(
             PermissionError,
-            match="User does not have the required permission. Required permission: 'admin', User permissions: ['user']",
+            match=re.escape(
+                "User does not have the required permission. Required permission: 'admin', User permissions: ['user']"
+            ),
         ):
             logged_function(["user"])
         assert (

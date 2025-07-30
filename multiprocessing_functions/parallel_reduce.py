@@ -7,6 +7,12 @@ from functools import reduce
 T = TypeVar("T")
 
 
+def _pair_reduce(args: tuple[list[T], Callable[[T, T], T]]) -> T:
+    """Reduce a chunk using ``func``."""
+    data_chunk, func = args
+    return reduce(func, data_chunk)
+
+
 def parallel_reduce(
     func: Callable[[T, T], T],
     data: list[T],
@@ -41,9 +47,6 @@ def parallel_reduce(
     15
     """
 
-    # Inner function to reduce a chunk of data using the provided function
-    def pair_reduce(data_chunk):
-        return reduce(func, data_chunk)
 
     # If num_processes is not specified, use the number of available CPUs
     if num_processes is None:
@@ -59,7 +62,9 @@ def parallel_reduce(
             data[i : i + chunk_size] for i in range(0, len(data), chunk_size)
         ]
         # Apply the pair_reduce function to each chunk in parallel
-        reduced_chunks = pool.map(pair_reduce, data_chunks)
+        reduced_chunks = pool.map(
+            _pair_reduce, [(chunk, func) for chunk in data_chunks]
+        )
 
     # Reduce the results from each chunk to a single value
     return reduce(func, reduced_chunks)

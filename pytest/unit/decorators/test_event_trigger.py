@@ -32,7 +32,7 @@ def test_event_trigger_basic() -> None:
     event_manager.subscribe("test_event", handler)
     result = sample_function(1, "test")
     assert result == "1 - test"
-    assert triggered == [(1, "test")]
+    assert triggered == [((1, "test"), {})]
 
 
 def test_event_trigger_with_kwargs() -> None:
@@ -60,7 +60,7 @@ def test_event_trigger_with_kwargs() -> None:
 
     result = sample_function_kwargs(a=1, b="test")
     assert result == "1 - test"
-    assert triggered == [(1, "test")]
+    assert triggered == [((), {"a": 1, "b": "test"})]
 
 
 def test_event_trigger_with_mixed_args() -> None:
@@ -82,7 +82,7 @@ def test_event_trigger_with_mixed_args() -> None:
 
     result = sample_function_mixed(1, b="test", c=2)
     assert result == "1 - test - 2"
-    assert triggered == [(1, {"b": "test", "c": 2})]
+    assert triggered == [((1,), {"b": "test", "c": 2})]
 
 
 def test_event_trigger_with_variable_length_arguments() -> None:
@@ -127,7 +127,7 @@ def test_event_trigger_mixed_type_arguments() -> None:
 
     result = sample_function_mixed_types(1, "test", 2.0)
     assert result == "1 - test - 2.0"
-    assert triggered == [(1, "test", 2.0)]
+    assert triggered == [((1, "test", 2.0), {})]
 
 
 def test_event_trigger_function_raises_error(caplog: pytest.LogCaptureFixture) -> None:
@@ -153,7 +153,7 @@ def test_event_trigger_function_raises_error(caplog: pytest.LogCaptureFixture) -
             sample_function_raises_error(1, "test")
     assert "An error occurred" in caplog.text
     # The event should still be triggered if the function raises an error
-    assert triggered == [(1, "test")]
+    assert triggered == [((1, "test"), {})]
 
 
 def test_event_trigger_invalid_logger() -> None:

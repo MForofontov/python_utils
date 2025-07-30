@@ -50,7 +50,7 @@ def parallel_apply_with_args(
     # Create a pool of worker processes
     with Pool(processes=num_processes) as pool:
         # Use starmap to apply the function to the data in parallel, passing additional arguments
-        results = pool.starmap(lambda x: func(x, *args), [(item,) for item in data])
+        results = pool.starmap(func, [(item, *args) for item in data])
 
     # Return the list of results
     return results

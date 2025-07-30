@@ -20,9 +20,9 @@ class EventManager:
         Initializes the EventManager with an empty events dictionary.
     subscribe(event_name: str, callback: Callable[..., Any]):
         Adds a callback function to the list of callbacks for a given event name.
-    trigger(event_name: str, payload: Any):
+    trigger(event_name: str, *args: Any, **kwargs: Any):
         Executes all callback functions associated with the given event name
-        using the provided payload.
+        using the provided arguments.
     """
 
     def __init__(self):
@@ -46,7 +46,7 @@ class EventManager:
             self.events[event_name] = []
         self.events[event_name].append(callback)
 
-    def trigger(self, event_name: str, payload: Any) -> None:
+    def trigger(self, event_name: str, *args: Any, **kwargs: Any) -> None:
         """
         Executes all callback functions associated with the given event name.
 
@@ -54,14 +54,14 @@ class EventManager:
         ----------
         event_name : str
             The name of the event.
-        payload : Any
-            The payload to pass to the callback functions. This is a tuple of
-            positional arguments when no keyword arguments are present, or a
-            ``(args, kwargs)`` tuple when keyword arguments exist.
+        *args : Any
+            Positional arguments forwarded to the callbacks.
+        **kwargs : Any
+            Keyword arguments forwarded to the callbacks.
         """
         if event_name in self.events:
             for callback in self.events[event_name]:
-                callback(payload)
+                callback(*args, **kwargs)
 
 
 def event_trigger(
@@ -143,8 +143,7 @@ def event_trigger(
             Any
                 The result of the decorated function.
             """
-            payload = (args, kwargs) if kwargs else args
-            event_manager.trigger(event_name, payload)
+            event_manager.trigger(event_name, *args, **kwargs)
             try:
                 return func(*args, **kwargs)
             except Exception as e:

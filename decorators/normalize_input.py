@@ -79,7 +79,12 @@ def normalize_input(
                     logger.error(message, exc_info=True)
                 raise TypeError(message)
 
-            return func(*normalized_args, **normalized_kwargs)
+            try:
+                return func(*normalized_args, **normalized_kwargs)
+            except Exception as e:
+                if logger:
+                    logger.error(str(e), exc_info=True)
+                raise
 
         return wrapper
 

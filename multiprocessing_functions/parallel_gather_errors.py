@@ -42,20 +42,8 @@ def parallel_gather_errors(
     results = []
     errors = []
 
-    def wrapper(item):
-        """
-        Wrapper function to apply the given function and catch exceptions.
-
-        Parameters
-        ----------
-        item : T
-            The data item to process.
-
-        Returns
-        -------
-        Tuple[Optional[R], Optional[Exception]]
-            A tuple containing the result or the exception if an error occurred.
-        """
+    def _wrapper(item: T) -> tuple[R | None, Exception | None]:
+        """Apply ``func`` and capture any raised exception."""
         try:
             return func(item), None
         except Exception as e:
@@ -71,7 +59,7 @@ def parallel_gather_errors(
     # Create a pool of worker processes
     with Pool(processes=num_processes) as pool:
         # Apply the wrapper function to each item in the data list in parallel
-        processed = pool.map(wrapper, data)
+        processed = pool.map(_wrapper, data)
 
     # Separate results and errors
     for result, error in processed:

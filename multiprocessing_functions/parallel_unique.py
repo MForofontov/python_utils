@@ -5,6 +5,11 @@ from typing import TypeVar
 T = TypeVar("T")
 
 
+def _unique(chunk: list[T]) -> list[T]:
+    """Return unique elements from ``chunk``."""
+    return list(set(chunk))
+
+
 def parallel_unique(
     data: list[T], num_processes: int = None, chunk_size: int = 1
 ) -> list[T]:
@@ -43,8 +48,7 @@ def parallel_unique(
 
     # Create a pool of worker processes
     with Pool(processes=num_processes) as pool:
-        # Apply the set function to each chunk in parallel to get unique elements in each chunk
-        unique_chunks = pool.map(lambda chunk: list(set(chunk)), data_chunks)
+        unique_chunks = pool.map(_unique, data_chunks)
 
     # Combine the unique elements from all chunks into a single set
     unique_combined = set()

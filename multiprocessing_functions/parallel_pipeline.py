@@ -7,6 +7,14 @@ T = TypeVar("T")
 R = TypeVar("R")
 
 
+def _apply_pipeline(args: tuple[T, list[Callable[[T], T]]]) -> R:
+    """Apply a pipeline of functions to ``item``."""
+    item, funcs = args
+    for func in funcs:
+        item = func(item)
+    return item
+
+
 def parallel_pipeline(
     funcs: list[Callable[[T], T]], data: list[T], num_processes: int = None
 ) -> list[R]:
@@ -38,12 +46,6 @@ def parallel_pipeline(
     [2, 5, 10, 17]
     """
 
-    # Inner function to apply the pipeline of functions to a single item
-    def apply_pipeline(item: T) -> R:
-        # Apply each function in the pipeline sequentially
-        for func in funcs:
-            item = func(item)
-        return item
 
     # If num_processes is not specified, use the number of available CPUs
     if num_processes is None:
@@ -55,7 +57,7 @@ def parallel_pipeline(
     # Create a pool of worker processes
     with Pool(processes=num_processes) as pool:
         # Apply the pipeline to each item in the data list in parallel
-        results = pool.map(apply_pipeline, data)
+        results = pool.map(_apply_pipeline, [(item, funcs) for item in data])
 
     # Return the list of results
     return results
