@@ -19,14 +19,14 @@ def sample_function() -> str:
     return "Function executed"
 
 
-def test_time_and_resource_function_success(caplog):
+def test_time_and_resource_function_success(capfd):
     """
-    Test case 1: Function executes successfully and logs time and resource usage
+    Test case 1: Function executes successfully and prints time and resource usage
     """
-    with caplog.at_level(logging.DEBUG):
-        result = sample_function()
-        assert result == "Function executed"
-        assert "Execution time" in caplog.text
+    result = sample_function()
+    assert result == "Function executed"
+    captured = capfd.readouterr()
+    assert "Execution time" in captured.out
 
 
 def test_time_and_resource_function_with_logger(caplog):
@@ -45,7 +45,7 @@ def test_time_and_resource_function_with_logger(caplog):
         assert "Execution time" in caplog.text
 
 
-def test_time_and_resource_function_with_all_monitors(caplog):
+def test_time_and_resource_function_with_all_monitors(capfd):
     """
     Test case 3: Function executes successfully with all monitors enabled
     """
@@ -66,23 +66,24 @@ def test_time_and_resource_function_with_all_monitors(caplog):
         time.sleep(1)
         return "Function executed"
 
-    with caplog.at_level(logging.DEBUG):
-        result = function_with_all_monitors()
-        assert result == "Function executed"
-        assert "Execution time" in caplog.text
-        assert "Maximum memory usage" in caplog.text
-        assert "Maximum CPU usage" in caplog.text
-        assert "Read operations" in caplog.text
-        assert "Write operations" in caplog.text
-        assert "Bytes sent" in caplog.text
-        assert "Bytes received" in caplog.text
-        assert "Disk read bytes" in caplog.text
-        assert "Disk write bytes" in caplog.text
-        assert "Number of threads" in caplog.text
-        assert "GC collections" in caplog.text
-        assert "Context switches" in caplog.text
-        assert "Open files" in caplog.text
-        assert "Page faults" in caplog.text
+    result = function_with_all_monitors()
+    assert result == "Function executed"
+    captured = capfd.readouterr()
+    assert "Execution time" in captured.out
+    assert "Maximum memory usage" in captured.out
+    assert "Maximum CPU usage" in captured.out
+    assert "Read operations" in captured.out
+    assert "Write operations" in captured.out
+    assert "Bytes sent" in captured.out
+    assert "Bytes received" in captured.out
+    assert "Disk read bytes" in captured.out
+    assert "Disk write bytes" in captured.out
+    assert "Number of threads" in captured.out
+    assert "GC collections" in captured.out
+    assert "Voluntary context switches" in captured.out
+    assert "Involuntary context switches" in captured.out
+    assert "Maximum open files" in captured.out
+    assert "Maximum page faults" in captured.out
 
 
 def test_time_and_resource_function_prints(capfd):
@@ -121,9 +122,10 @@ def test_time_and_resource_function_prints(capfd):
     assert "Disk write bytes" in captured.out
     assert "Number of threads" in captured.out
     assert "GC collections" in captured.out
-    assert "Context switches" in captured.out
-    assert "Open files" in captured.out
-    assert "Page faults" in captured.out
+    assert "Voluntary context switches" in captured.out
+    assert "Involuntary context switches" in captured.out
+    assert "Maximum open files" in captured.out
+    assert "Maximum page faults" in captured.out
 
 
 def test_invalid_logger_type():

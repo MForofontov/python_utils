@@ -38,22 +38,6 @@ def parallel_broadcast(
     [10, 20, 30, 40]
     """
 
-    def wrapped_func(item):
-        """
-        Wrapper function to apply the given function with the shared input.
-
-        Parameters
-        ----------
-        item : T
-            The data item to process.
-
-        Returns
-        -------
-        R
-            The result of applying the function to the item with the shared input.
-        """
-        return func(item, shared_input)
-
     # If num_processes is not specified, default to the number of available CPUs minus one
     if num_processes is None:
         num_processes = max(
@@ -64,7 +48,7 @@ def parallel_broadcast(
     # Create a pool of worker processes
     with Pool(processes=num_processes) as pool:
         # Apply the wrapped function to each item in the data list in parallel
-        results = pool.map(wrapped_func, data)
+        results = pool.starmap(func, [(item, shared_input) for item in data])
 
     # Return the list of results
     return results

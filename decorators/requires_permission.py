@@ -36,7 +36,6 @@ def requires_permission(
                 "Type error in requires_permission decorator: permission must be a string",
                 exc_info=True,
             )
-            raise TypeError("logger must be an instance of logging.Logger or None")
         raise TypeError("permission must be a string")
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
@@ -91,8 +90,10 @@ def requires_permission(
 
             # Check if the required permission is in the user's permissions
             if permission not in user_permissions:
-                permissions_str = ", ".join(map(str, user_permissions))
-                error_message = f"User does not have the required permission. Required permission: '{permission}', User permissions: {permissions_str}"
+                permissions_str = repr(user_permissions)
+                error_message = (
+                    f"User does not have the required permission. Required permission: '{permission}', User permissions: {permissions_str}"
+                )
                 if logger:
                     logger.error(
                         f"Permission error in {func.__name__}: {error_message}",

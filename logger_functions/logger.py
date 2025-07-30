@@ -36,8 +36,7 @@ def validate_logger(
             message = "logger must be an instance of logging.Logger"
             if allow_none:
                 message += " or None"
-            else:
-                message += "."
+            message += "."
         raise TypeError(message)
 
 
