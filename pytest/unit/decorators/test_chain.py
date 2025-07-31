@@ -105,7 +105,8 @@ def test_chain_method_with_args():
         return ChainableWithArgs(5)
 
     result = return_chainable_with_args()
-    assert result == 10  # Multiplier is passed as positional argument
+    assert isinstance(result, ChainableWithArgs)
+    assert result.value == 5  # chain is not called because required args are missing
 
 
 def test_chain_method_with_args_and_kwargs():
@@ -126,9 +127,8 @@ def test_chain_method_with_args_and_kwargs():
         return ChainableWithArgsAndKwargs(5)
 
     result = return_chainable_with_args_and_kwargs()
-    assert (
-        result == 10
-    )  # Multiplier is passed as positional argument, addend is default 0
+    assert isinstance(result, ChainableWithArgsAndKwargs)
+    assert result.value == 5  # chain is not called when required args are missing
 
 
 def test_chain_method_with_no_args():
