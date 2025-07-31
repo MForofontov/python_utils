@@ -89,6 +89,10 @@ def my_function():
     ...
 ```
 
+The `timeout` decorator is also thread-based so it works on all platforms,
+including Windows. When the specified limit is reached a `TimeoutException` is
+raised while the underlying thread may still finish in the background.
+
 ## Contributing
 
 1. Fork the repository and create a new branch.
