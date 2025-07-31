@@ -41,7 +41,7 @@ def test_deprecated_without_logger(capsys):
         result = old_function_no_logger()
     captured = capsys.readouterr()
     assert result == "This is an old function."
-    assert "old_function_no_logger is deprecated." in record.out
+    assert "old_function_no_logger is deprecated." in str(record[0].message)
 
 
 def test_deprecated_with_args(caplog):
