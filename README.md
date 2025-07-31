@@ -43,10 +43,12 @@ pip install -e .[dev]
 
 ## Running Tests
 
-Tests rely on the packages listed in `requirements_dev.txt`, which installs
-`pytest` and `pytest-asyncio` in addition to the runtime dependencies. After
-installing these dependencies you can run all tests and generate an Allure
-report using the helper script:
+You **must** install the development dependencies before running tests. Use
+`pip install -r requirements_dev.txt` or install the optional `dev` extras via
+`pip install -e .[dev]`. These packages include `pytest` and
+`pytest-asyncio` in addition to the runtime requirements. If they are missing,
+tests will raise import errors. After installing the dependencies, you can run
+all tests and generate an Allure report using the helper script:
 
 ```bash
 bash pytest.sh
