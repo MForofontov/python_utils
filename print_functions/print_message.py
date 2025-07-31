@@ -3,11 +3,16 @@ from datetime import datetime
 from typing import Optional
 from logger_functions.logger import get_logger
 
-logger = get_logger(__name__)
+# Module level logger used when no logger is provided by the caller
+module_logger = get_logger(__name__)
 
 
 def print_message(
-    message: str, message_type: str = "info", end: str = "\n", flush: bool = False
+    message: str,
+    message_type: str = "info",
+    end: str = "\n",
+    flush: bool = False,
+    logger: Optional[logging.Logger] | None = None,
 ) -> None:
     """
     Print a formatted message with the current time and message type.
@@ -22,6 +27,8 @@ def print_message(
         The end character to use in the print function.
     flush : bool
         Whether to flush the print buffer.
+    logger : logging.Logger | None, optional
+        Logger used to log the message. If ``None``, the module logger is used.
 
 
     Returns
@@ -30,12 +37,11 @@ def print_message(
 
     Notes
     -----
-    Messages are logged through the :data:`logger` object imported from
-    ``logger_functions.logger``.
+    Messages are logged through the provided ``logger`` or the module level
+    :data:`module_logger` from ``logger_functions.logger`` when no logger is
+    given.
     """
-    logger_to_use: Optional[logging.Logger] = (
-        logger  # This can change to a logger object if user uses --logger
-    )
+    logger_to_use: Optional[logging.Logger] = logger or module_logger
 
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     if message_type == "info":
