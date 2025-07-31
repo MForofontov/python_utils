@@ -24,6 +24,7 @@ def test_cache_basic():
     call_counts["add"] = 0
     assert add(1, 2) == 3
     assert add(1, 2) == 3  # Should return cached result
+    add.cache_clear()
     assert call_counts["add"] == 1  # Function should be called only once
     call_counts["add"] = 0
 
@@ -36,7 +37,8 @@ def test_cache_different_args():
     call_counts["add"] = 0
     assert add(1, 2) == 3
     assert add(2, 3) == 5  # Different arguments, should not use cache
-    assert call_counts["add"] == 1  # Function should be called twice
+    add.cache_clear()
+    assert call_counts["add"] == 2  # Function should be called twice
     call_counts["add"] = 0
 
 
@@ -48,6 +50,7 @@ def test_cache_with_kwargs():
     call_counts["add"] = 0
     assert add(a=1, b=2) == 3
     assert add(a=1, b=2) == 3  # Should return cached result
+    add.cache_clear()
     assert call_counts["add"] == 1  # Function should be called only once
     call_counts["add"] = 0
 
