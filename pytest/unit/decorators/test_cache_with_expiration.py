@@ -108,6 +108,7 @@ def test_cache_clear():
     """
     # Test case 8: Clearing the cache
     call_counts["add"] = 0
+    add.cache_clear()
     assert add(1, 2) == 3
     add.cache_clear()
     assert add(1, 2) == 3  # Should recompute as cache was cleared
