@@ -1,5 +1,5 @@
-import signal
 import logging
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
 from typing import Any
 from collections.abc import Callable
 from functools import wraps
@@ -15,6 +15,10 @@ def timeout(
 ) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator that enforces a timeout on a function.
+    The wrapped function runs in a separate thread so this implementation works
+    on all platforms, including Windows. If the timeout is reached, the
+    decorated call returns ``TimeoutException`` while the original thread may
+    continue running in the background.
 
     Parameters
     ----------
@@ -77,19 +81,22 @@ def timeout(
                 The result of the decorated function.
             """
 
-            def _handle_timeout(signum, frame):
-                message = f"Function {func.__name__} timed out after {seconds} seconds"
-                if logger:
-                    logger.error(message)
-                raise TimeoutException(message)
+            def _run_func() -> Any:
+                return func(*args, **kwargs)
 
-            signal.signal(signal.SIGALRM, _handle_timeout)
-            signal.alarm(seconds)
-            try:
-                result = func(*args, **kwargs)
-            finally:
-                signal.alarm(0)
-            return result
+            with ThreadPoolExecutor(max_workers=1) as executor:
+                future = executor.submit(_run_func)
+                try:
+                    return future.result(timeout=seconds)
+                except FuturesTimeoutError:
+                    message = (
+                        f"Function {func.__name__} timed out after {seconds} seconds"
+                    )
+                    if logger:
+                        logger.error(message)
+                    # Attempt to cancel but function may continue running in background
+                    future.cancel()
+                    raise TimeoutException(message)
 
         return wrapper
 
