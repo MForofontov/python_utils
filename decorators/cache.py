@@ -59,10 +59,9 @@ def cache(func: Callable[..., Any]) -> Callable[..., Any]:
         # Return the cached result
         return cached_results[key]
 
-    def cache_clear():
-        """
-        Clear the cache.
-        """
+    def cache_clear() -> None:
+        """Public method to clear the cached results for ``func``."""
+
         cached_results.clear()
 
     wrapper.cache_clear = cache_clear
