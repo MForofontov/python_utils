@@ -33,3 +33,5 @@ def find_substring(s: str, substring: str) -> int:
     if not isinstance(s, str) or not isinstance(substring, str):
         raise TypeError("The input must be a string.")
     return s.find(substring)
+
+__all__ = ['find_substring']

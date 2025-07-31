@@ -32,3 +32,5 @@ async def run_in_parallel(tasks: list[Callable[..., Awaitable[T]]]) -> list[T]:
     """
     task_list = [task() for task in tasks]  # Start all tasks concurrently
     return await asyncio.gather(*task_list)
+
+__all__ = ['run_in_parallel']

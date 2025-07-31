@@ -7,6 +7,12 @@ from collections.abc import Callable
 T = TypeVar("T")
 
 
+def _partial_accumulate(chunk_func: tuple[list[T], Callable[[T, T], T]]) -> list[T]:
+    """Apply ``accumulate`` to a chunk using ``func``."""
+    chunk, func = chunk_func
+    return list(accumulate(chunk, func))
+
+
 def parallel_accumulate(
     func: Callable[[T, T], T],
     data: list[T],
@@ -41,21 +47,6 @@ def parallel_accumulate(
     [1, 3, 6, 10, 15]
     """
 
-    def partial_accumulate(chunk):
-        """
-        Apply the accumulate function to a chunk of data.
-
-        Parameters
-        ----------
-        chunk : List[T]
-            A chunk of the data list.
-
-        Returns
-        -------
-        List[T]
-            The cumulative results for the chunk.
-        """
-        return list(accumulate(chunk, func))
 
     # If num_processes is not specified, default to the number of available CPUs minus one
     if num_processes is None:
@@ -71,7 +62,9 @@ def parallel_accumulate(
             data[i : i + chunk_size] for i in range(0, len(data), chunk_size)
         ]
         # Apply the partial_accumulate function to each chunk in parallel
-        partial_results = pool.map(partial_accumulate, data_chunks)
+        partial_results = pool.map(
+            _partial_accumulate, [(chunk, func) for chunk in data_chunks]
+        )
 
     # Initialize the results list and cumulative offset
     results = []
@@ -88,3 +81,5 @@ def parallel_accumulate(
 
     # Return the final cumulative results
     return results
+
+__all__ = ['parallel_accumulate']

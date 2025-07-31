@@ -17,3 +17,5 @@ def copy_file(source_file: str, destination_file: str) -> None:
     None
     """
     shutil.copy(source_file, destination_file)
+
+__all__ = ['copy_file']

@@ -31,3 +31,5 @@ def tsv_to_dict(
             data_dict[key] = rest_values
 
     return data_dict
+
+__all__ = ['tsv_to_dict']

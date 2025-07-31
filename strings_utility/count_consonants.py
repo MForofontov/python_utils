@@ -32,3 +32,5 @@ def count_consonants(s: str) -> int:
         raise TypeError("The input must be a string.")
     consonants = "bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ"
     return sum(1 for char in s if char in consonants)
+
+__all__ = ['count_consonants']

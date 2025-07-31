@@ -1,6 +1,7 @@
 from typing import Any, TypeVar
 from collections.abc import Callable
 from functools import wraps
+from inspect import Parameter, signature
 
 T = TypeVar("T")
 
@@ -44,8 +45,22 @@ def chain(func: Callable[..., T]) -> Callable[..., T | Any]:
         """
         result = func(*args, **kwargs)
         if hasattr(result, "chain") and callable(getattr(result, "chain")):
+            chain_method = getattr(result, "chain")
             try:
-                return result.chain(*args, **kwargs)
+                if not args and not kwargs:
+                    sig = signature(chain_method)
+                    required = [
+                        p
+                        for name, p in sig.parameters.items()
+                        if name != "self"
+                        and p.default is Parameter.empty
+                        and p.kind
+                        in (Parameter.POSITIONAL_ONLY, Parameter.POSITIONAL_OR_KEYWORD)
+                    ]
+                    if not required:
+                        return chain_method()
+                else:
+                    return chain_method(*args, **kwargs)
             except Exception as e:
                 raise RuntimeError(
                     f"Error calling 'chain' method on result of {func.__name__}: {e}"
@@ -53,3 +68,5 @@ def chain(func: Callable[..., T]) -> Callable[..., T | Any]:
         return result
 
     return wrapper
+
+__all__ = ['chain']

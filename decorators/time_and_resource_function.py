@@ -3,6 +3,7 @@ import psutil
 import logging
 import threading
 import gc
+from types import SimpleNamespace
 from logger_functions.logger import validate_logger
 from typing import Any
 from collections.abc import Callable
@@ -137,7 +138,7 @@ def time_and_resource_function(
                         if hasattr(process, "num_ctx_switches"):
                             context_switches = process.num_ctx_switches()
                         else:
-                            context_switches = psutil._common.pctxsw(0, 0)
+                            context_switches = SimpleNamespace(voluntary=0, involuntary=0)
 
                         # Monitor GC statistics
                         if monitor_gc:
@@ -259,21 +260,24 @@ def time_and_resource_function(
             if monitor_cpu:
                 log_or_print(f"Maximum CPU usage: {max_cpu_usage:.2f}%")
                 log_or_print(f"Maximum CPU cores used: {max_cpu_cores:.2f}")
-            if monitor_io and initial_io_counters and final_io_counters:
-                read_ops = (
-                    final_io_counters.read_count
-                    - initial_io_counters.read_count
-                    + total_read_ops
-                )
-                write_ops = (
-                    final_io_counters.write_count
-                    - initial_io_counters.write_count
-                    + total_write_ops
-                )
+            if monitor_io:
+                if initial_io_counters and final_io_counters:
+                    read_ops = (
+                        final_io_counters.read_count
+                        - initial_io_counters.read_count
+                        + total_read_ops
+                    )
+                    write_ops = (
+                        final_io_counters.write_count
+                        - initial_io_counters.write_count
+                        + total_write_ops
+                    )
+                else:
+                    read_ops = total_read_ops
+                    write_ops = total_write_ops
                 log_or_print(f"Read operations: {read_ops}")
                 log_or_print(f"Write operations: {write_ops}")
-            if monitor_network and initial_net_io_counters and final_net_io_counters:
-                # Calculate the differences for network I/O
+            if monitor_network:
                 if initial_net_io_counters and final_net_io_counters:
                     bytes_sent = (
                         final_net_io_counters.bytes_sent
@@ -288,17 +292,21 @@ def time_and_resource_function(
                     bytes_recv = total_bytes_recv
                 log_or_print(f"Bytes sent: {bytes_sent}")
                 log_or_print(f"Bytes received: {bytes_recv}")
-            if monitor_disk and initial_disk_io_counters and final_disk_io_counters:
-                read_bytes = (
-                    final_disk_io_counters.read_bytes
-                    - initial_disk_io_counters.read_bytes
-                    + total_read_bytes
-                )
-                write_bytes = (
-                    final_disk_io_counters.write_bytes
-                    - initial_disk_io_counters.write_bytes
-                    + total_write_bytes
-                )
+            if monitor_disk:
+                if initial_disk_io_counters and final_disk_io_counters:
+                    read_bytes = (
+                        final_disk_io_counters.read_bytes
+                        - initial_disk_io_counters.read_bytes
+                        + total_read_bytes
+                    )
+                    write_bytes = (
+                        final_disk_io_counters.write_bytes
+                        - initial_disk_io_counters.write_bytes
+                        + total_write_bytes
+                    )
+                else:
+                    read_bytes = total_read_bytes
+                    write_bytes = total_write_bytes
                 log_or_print(f"Disk read bytes: {read_bytes}")
                 log_or_print(f"Disk write bytes: {write_bytes}")
             if monitor_threads:
@@ -322,3 +330,5 @@ def time_and_resource_function(
         return wrapper
 
     return decorator
+
+__all__ = ['time_and_resource_function']

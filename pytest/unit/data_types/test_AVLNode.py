@@ -111,8 +111,9 @@ def test_balance_after_insertions() -> None:
     tree.insert(30)
     tree.insert(40)
     tree.insert(50)
-    assert tree.root.key == 30
-    assert tree.root.left.key == 20
+    # Root should be 20 after balancing
+    assert tree.root.key == 20
+    assert tree.root.left.key == 10
     assert tree.root.right.key == 40
 
 
@@ -127,7 +128,8 @@ def test_height_update_after_operations() -> None:
     tree.insert(30)
     assert tree.root.height == 2
     tree.delete(30)
-    assert tree.root.height == 1
+    # Height remains 2 after rebalancing
+    assert tree.root.height == 2
 
 
 def test_delete_non_existing_key() -> None:

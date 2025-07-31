@@ -36,3 +36,5 @@ async def async_timeout(func: Callable[..., Awaitable[T]], timeout: float) -> T:
     asyncio.TimeoutError: Task did not finish in 5 seconds
     """
     return await asyncio.wait_for(func(), timeout)
+
+__all__ = ['async_timeout']

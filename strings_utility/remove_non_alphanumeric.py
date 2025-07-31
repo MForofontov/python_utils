@@ -31,3 +31,5 @@ def remove_non_alphanumeric(s: str) -> str:
     if not isinstance(s, str):
         raise TypeError("Input must be a string.")
     return "".join(char for char in s if char.isalnum())
+
+__all__ = ['remove_non_alphanumeric']

@@ -49,3 +49,5 @@ async def fetch_all(urls: list[str]) -> list[str]:
             fetch(session, url) for url in urls
         ]  # Create a list of tasks to fetch data from each URL
         return await asyncio.gather(*tasks)
+
+__all__ = ['fetch', 'fetch_all']

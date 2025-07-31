@@ -119,3 +119,5 @@ def rate_limit(
         return wrapper
 
     return decorator
+
+__all__ = ['RateLimitExceededException', 'rate_limit']

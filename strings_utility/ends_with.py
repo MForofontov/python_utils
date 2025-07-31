@@ -35,3 +35,5 @@ def ends_with(s: str, suffix: str) -> bool:
     if not isinstance(suffix, str):
         raise TypeError("The suffix must be a string.")
     return s.endswith(suffix)
+
+__all__ = ['ends_with']

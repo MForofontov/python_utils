@@ -103,3 +103,5 @@ async def use_connection(
     finally:
         # Release the connection back to the pool
         await pool.release(conn)
+
+__all__ = ['AsyncConnectionPool', 'use_connection']

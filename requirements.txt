@@ -1,5 +1,7 @@
-cramjam==2.10.0
+cramjam==2.11.0
 python-snappy==0.7.3
 zstandard==0.23.0
 psutil==7.0.0
 tqdm==4.67.1
+aiohttp==3.12.15
+pandas==2.3.1

@@ -63,3 +63,5 @@ async def async_rate_limited(
         results.append(await func(item))
 
     return results
+
+__all__ = ['async_rate_limited']

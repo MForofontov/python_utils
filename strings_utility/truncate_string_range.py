@@ -44,3 +44,5 @@ def truncate_string_range(s: str, start: int, end: int) -> str:
         raise ValueError("The start index must be less than or equal to the end index.")
 
     return s[start:end]
+
+__all__ = ['truncate_string_range']

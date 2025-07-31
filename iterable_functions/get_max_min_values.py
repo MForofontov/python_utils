@@ -29,3 +29,5 @@ def get_max_min_values(
         raise ValueError("input_collection must not be empty")
 
     return max(input_collection), min(input_collection)
+
+__all__ = ['get_max_min_values']

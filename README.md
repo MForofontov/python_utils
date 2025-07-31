@@ -38,14 +38,17 @@ pip install -r requirements_dev.txt
 # alternatively install the optional "dev" extras defined in `pyproject.toml`
 pip install -e .[dev]
 ```
-`tqdm` is used for progress bars and is installed with the runtime requirements file.
+`tqdm` is used for progress bars. The runtime requirements file also installs
+`aiohttp` for asynchronous HTTP helpers and `pandas` for the dataframe utilities.
 
 ## Running Tests
 
-Tests rely on the packages listed in `requirements_dev.txt`, which installs
-`pytest` and `pytest-asyncio` in addition to the runtime dependencies. After
-installing these dependencies you can run all tests and generate an Allure
-report using the helper script:
+You **must** install the development dependencies before running tests. Use
+`pip install -r requirements_dev.txt` or install the optional `dev` extras via
+`pip install -e .[dev]`. These packages include `pytest` and
+`pytest-asyncio` in addition to the runtime requirements. If they are missing,
+tests will raise import errors. After installing the dependencies, you can run
+all tests and generate an Allure report using the helper script:
 
 ```bash
 bash pytest.sh
@@ -85,6 +88,10 @@ from decorators.throttle import throttle
 def my_function():
     ...
 ```
+
+The `timeout` decorator is also thread-based so it works on all platforms,
+including Windows. When the specified limit is reached a `TimeoutException` is
+raised while the underlying thread may still finish in the background.
 
 ## Contributing
 

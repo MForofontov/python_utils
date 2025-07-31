@@ -40,3 +40,5 @@ def search_string_by_regex(pattern: str, string: str) -> str | None:
 
     match = re.search(pattern, string)
     return match.group(0) if match else None
+
+__all__ = ['search_string_by_regex']

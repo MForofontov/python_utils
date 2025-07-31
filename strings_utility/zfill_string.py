@@ -40,3 +40,5 @@ def zfill_string(s: str, width: int) -> str:
         raise ValueError("The width must be non-negative.")
 
     return s.zfill(width)
+
+__all__ = ['zfill_string']

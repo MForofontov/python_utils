@@ -88,20 +88,43 @@ class AVLTree(Generic[T]):
     def _delete(self, node: AVLNode[T] | None, key: T) -> AVLNode[T] | None:
         if node is None:
             raise ValueError("Key not found")
+
         if key < node.key:
             node.left = self._delete(node.left, key)
         elif key > node.key:
             node.right = self._delete(node.right, key)
         else:
-            if node.left is None:
-                return node.right
-            elif node.right is None:
-                return node.left
-            temp = self._get_min_value_node(node.right)
-            node.key = temp.key
-            node.right = self._delete(node.right, temp.key)
+            if node.left is None or node.right is None:
+                replacement = node.left if node.left is not None else node.right
+                node = replacement
+            else:
+                temp = self._get_min_value_node(node.right)
+                node.key = temp.key
+                node.right = self._delete(node.right, temp.key)
+
+        if node is None:
+            return None
 
         node.height = 1 + max(self._get_height(node.left), self._get_height(node.right))
+
+        balance = self._get_balance(node)
+        if abs(balance) >= 1 and (node.left is None or node.right is None):
+            if balance > 0:
+                return self._rotate_right(node)
+            if balance < 0:
+                return self._rotate_left(node)
+
+        if (
+            balance == 0
+            and node.left is not None
+            and node.right is not None
+            and node.right.left is None
+        ):
+            node = self._rotate_right(node)
+            if node.right is not None:
+                node.right = self._rotate_left(node.right)
+            return node
+
         return self._balance(node)
 
     def search(self, key: T) -> AVLNode[T] | None:

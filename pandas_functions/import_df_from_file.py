@@ -19,3 +19,5 @@ def import_df_from_file(file_path: str, sep: str) -> pd.DataFrame:
     """
     df: pd.DataFrame = pd.read_csv(file_path, sep=sep)
     return df
+
+__all__ = ['import_df_from_file']

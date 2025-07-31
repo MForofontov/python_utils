@@ -46,3 +46,5 @@ def replace_substring(s: str, old: str, new: str) -> str:
 
 
 print(replace_substring("hello", "", "hi"))
+
+__all__ = ['replace_substring']

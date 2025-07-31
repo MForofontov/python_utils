@@ -24,3 +24,5 @@ def modes_within_value(mode1: float, mode2: float, value: float) -> bool:
     False
     """
     return abs(mode1 - mode2) <= value * max(mode1, mode2)
+
+__all__ = ['modes_within_value']

@@ -35,3 +35,5 @@ def lstrip_chars(s: str, chars: str) -> str:
     if not isinstance(chars, str):
         raise TypeError("The characters to strip must be a string.")
     return s.lstrip(chars)
+
+__all__ = ['lstrip_chars']

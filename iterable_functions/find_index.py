@@ -30,3 +30,5 @@ def find_index(input_list: list[str], target_string: str) -> int | None:
         return input_list.index(target_string)
     except ValueError:
         return None
+
+__all__ = ['find_index']

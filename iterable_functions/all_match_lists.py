@@ -31,3 +31,5 @@ def all_match_lists(list1: list[Any], list2: list[Any]) -> bool:
         return all(elem in list2 for elem in list1)
     except TypeError as e:
         raise TypeError(f"An element in the list cannot be compared: {e}")
+
+__all__ = ['all_match_lists']

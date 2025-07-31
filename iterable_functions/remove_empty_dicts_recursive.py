@@ -32,3 +32,5 @@ def remove_empty_dicts_recursive(nested_dict: dict[Any, Any]) -> dict[Any, Any]:
         return d
 
     return _remove_empty(nested_dict)
+
+__all__ = ['remove_empty_dicts_recursive']

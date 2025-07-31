@@ -51,3 +51,5 @@ async def async_batch(
 
     # Return the list of results from processing all the batches
     return results
+
+__all__ = ['async_batch']

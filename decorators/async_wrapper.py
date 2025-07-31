@@ -93,3 +93,5 @@ def async_wrapper(
         return wrapper
 
     return decorator  # Return the decorator instead of the wrapper itself
+
+__all__ = ['async_wrapper']
