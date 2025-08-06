@@ -15,7 +15,7 @@ async def async_cancellable_task(
 
     Parameters
     ----------
-    task : Callable[[], T]
+    task : Callable[[], Awaitable[T]]
         The asynchronous function to run.
     cancel_event : asyncio.Event
         The event used to signal cancellation.
@@ -43,7 +43,7 @@ async def async_cancellable_task(
         # Attempt to run the task with a timeout of 5 seconds
         result = await asyncio.wait_for(task(), timeout=5)
         return result
-    except TimeoutError:
+    except asyncio.TimeoutError:
         # If a timeout occurs, set the cancel event and raise a CancelledError
         cancel_event.set()
         raise asyncio.CancelledError("Task was cancelled.")
