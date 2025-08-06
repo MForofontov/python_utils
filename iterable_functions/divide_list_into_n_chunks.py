@@ -15,7 +15,9 @@ def divide_list_into_n_chunks(list_to_divide: list[Any], n: int) -> list[list[An
     Returns
     -------
     list
-        A list of sublists created by dividing the input list.
+        A list of ``n`` sublists created by dividing the input list. Some
+        sublists may be empty when ``n`` is greater than the length of the
+        input list.
 
     Raises
     ------
@@ -23,6 +25,13 @@ def divide_list_into_n_chunks(list_to_divide: list[Any], n: int) -> list[list[An
         If list_to_divide is not a list or n is not an integer.
     ValueError
         If n is less than or equal to 0.
+
+    Examples
+    --------
+    >>> divide_list_into_n_chunks([1, 2, 3, 4, 5], 2)
+    [[1, 2, 3], [4, 5]]
+    >>> divide_list_into_n_chunks([1, 2], 5)
+    [[1], [2], [], [], []]
     """
     if not isinstance(list_to_divide, list):
         raise TypeError("list_to_divide must be a list")
@@ -42,6 +51,6 @@ def divide_list_into_n_chunks(list_to_divide: list[Any], n: int) -> list[list[An
         sublists.append(list_to_divide[start_idx:end_idx])
         start_idx = end_idx
 
-    return [sublist for sublist in sublists if sublist]
+    return sublists
 
 __all__ = ['divide_list_into_n_chunks']

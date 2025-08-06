@@ -31,7 +31,7 @@ def test_divide_list_into_n_chunks_more_chunks_than_elements() -> None:
     # Test case 3: More chunks than elements
     list_to_divide: list[int] = [1, 2]
     n: int = 3
-    expected_output: list[list[int]] = [[1], [2]]
+    expected_output: list[list[int]] = [[1], [2], []]
     assert divide_list_into_n_chunks(list_to_divide, n) == expected_output
 
 
@@ -42,7 +42,7 @@ def test_divide_list_into_n_chunks_empty_list() -> None:
     # Test case 4: Empty list
     list_to_divide: list[int] = []
     n: int = 3
-    expected_output: list[list[int]] = []
+    expected_output: list[list[int]] = [[], [], []]
     assert divide_list_into_n_chunks(list_to_divide, n) == expected_output
 
 
