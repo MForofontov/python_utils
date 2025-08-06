@@ -33,7 +33,8 @@ def test_repeat_string_negative_times() -> None:
     Test the repeat_string function with a string repeated negative times.
     """
     # Test case 4: Repeat a string negative times
-    assert repeat_string("hello", -1) == "", "Failed on repeating string negative times"
+    with pytest.raises(ValueError):
+        repeat_string("hello", -1)
 
 
 def test_repeat_string_empty_string() -> None:
