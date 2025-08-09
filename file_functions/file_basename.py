@@ -16,10 +16,22 @@ def file_basename(file_path: str, file_extension: bool = True) -> str:
     -------
     str
         The file name extracted from the file path.
-    """
-    if not file_extension:
-        return os.path.basename(file_path).split(".")[0]
-    else:
-        return os.path.basename(file_path)
 
-__all__ = ['file_basename']
+    Raises
+    ------
+    ValueError
+        If ``file_path`` is an empty string.
+    """
+    if not file_path:
+        raise ValueError("file_path must not be empty")
+
+    normalized_path: str = file_path.rstrip(os.sep)
+    base_name: str = os.path.basename(normalized_path)
+
+    if not file_extension:
+        base_name = os.path.splitext(base_name)[0]
+
+    return base_name
+
+
+__all__ = ["file_basename"]
