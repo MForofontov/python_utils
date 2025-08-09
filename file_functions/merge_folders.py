@@ -26,6 +26,11 @@ def merge_folders(folder1: str, folder2: str, output_folder: str) -> None:
     - The function ensures that all intermediate directories are created as needed.
     """
 
+    if not os.path.isdir(folder1):
+        raise FileNotFoundError(f"Source folder not found: {folder1}")
+    if not os.path.isdir(folder2):
+        raise FileNotFoundError(f"Source folder not found: {folder2}")
+
     def copy_files(src_folder: str) -> None:
         """
         Copy files from the source folder to the output folder.
