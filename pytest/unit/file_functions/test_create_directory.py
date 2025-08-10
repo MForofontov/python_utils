@@ -20,6 +20,15 @@ def test_existing_directory(tmp_path) -> None:
     assert result is False, "Should return False if directory already exists"
 
 
+def test_path_is_existing_file(tmp_path) -> None:
+    """Calling on a path that points to a file should return False and keep the file."""
+    file_path = tmp_path / "target"
+    file_path.write_text("data")
+    result: bool = create_directory(str(file_path))
+    assert result is False, "Should return False if path already exists as a file"
+    assert file_path.exists(), "Existing file should remain after call"
+
+
 def test_nested_path_creation(tmp_path) -> None:
     """Creating nested directories should succeed."""
     nested_dir = tmp_path / "level1" / "level2" / "level3"
