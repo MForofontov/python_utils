@@ -1,4 +1,4 @@
-from .write_to_file import write_to_file
+from file_functions.write_to_file import write_to_file
 
 
 def write_lines(
