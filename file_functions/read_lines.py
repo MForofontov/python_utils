@@ -24,6 +24,8 @@ def read_lines(
     with open(input_file) as infile:
         if num_lines is None:
             lines: list[str] = [line for line in infile.readlines()]
+        elif num_lines <= 0:
+            lines = []
         else:
             lines = list(islice(infile, num_lines))
 

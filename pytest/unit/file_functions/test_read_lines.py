@@ -34,3 +34,21 @@ def test_read_lines_missing_file(tmp_path) -> None:
     missing_file = tmp_path / "missing.txt"
     with pytest.raises(FileNotFoundError):
         read_lines(str(missing_file))
+
+
+def test_read_lines_zero_num_lines(tmp_path) -> None:
+    """Test that providing num_lines=0 returns an empty list."""
+    file_path = tmp_path / "input.txt"
+    file_path.write_text("line1\nline2\n")
+    returned: list[str] = read_lines(str(file_path), num_lines=0)
+    expected: list[str] = []
+    assert returned == expected, "Should return an empty list when num_lines is 0"
+
+
+def test_read_lines_negative_num_lines(tmp_path) -> None:
+    """Test that providing a negative num_lines returns an empty list."""
+    file_path = tmp_path / "input.txt"
+    file_path.write_text("line1\nline2\n")
+    returned: list[str] = read_lines(str(file_path), num_lines=-1)
+    expected: list[str] = []
+    assert returned == expected, "Should return an empty list when num_lines is negative"
