@@ -37,6 +37,20 @@ def test_copy_folder_replica_structure(tmp_path) -> None:
     assert (dest_folder / "nested" / "file2.txt").read_text() == "b", "Nested file should be copied"
 
 
+def test_copy_folder_overwrite_file(tmp_path) -> None:
+    """Existing files in destination should be overwritten by source."""
+    src_folder = tmp_path / "src"
+    src_folder.mkdir()
+    (src_folder / "file.txt").write_text("new")
+    dest_folder = tmp_path / "dest"
+    dest_folder.mkdir()
+    (dest_folder / "file.txt").write_text("old")
+    copy_folder(str(src_folder), str(dest_folder))
+    assert (
+        dest_folder / "file.txt"
+    ).read_text() == "new", "Destination file should be overwritten with source content"
+
+
 def test_copy_file_missing_source(tmp_path) -> None:
     """Missing source file should raise FileNotFoundError."""
     missing_source = tmp_path / "missing.txt"
