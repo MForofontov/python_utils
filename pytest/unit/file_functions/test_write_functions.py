@@ -12,6 +12,13 @@ def test_write_lines_default_joiner(tmp_path) -> None:
     assert out_file.read_text() == "one\ntwo\nthree\n"
 
 
+def test_write_lines_empty_list(tmp_path) -> None:
+    """Writing an empty list results in a file with only a newline."""
+    out_file = tmp_path / "out.txt"
+    write_lines([], str(out_file))
+    assert out_file.read_text() == "\n"
+
+
 def test_write_lines_custom_joiner_append(tmp_path) -> None:
     """Use custom joiner and append mode."""
     out_file = tmp_path / "out.txt"
