@@ -36,3 +36,18 @@ def test_tsv_to_dict_duplicate_keys(tmp_path) -> None:
     file.write_text(content)
     result = tsv_to_dict(str(file))
     assert result == {"a": ["3"], "b": ["2"]}
+
+
+def test_empty_tsv_file_returns_empty_dict(tmp_path) -> None:
+    """Empty TSV file should return an empty dictionary."""
+    file = tmp_path / "empty.tsv"
+    file.write_text("")
+    result = tsv_to_dict(str(file))
+    assert result == {}
+
+
+def test_missing_file_path_raises_FileNotFoundError(tmp_path) -> None:
+    """A nonexistent file path should raise FileNotFoundError."""
+    missing_file = tmp_path / "does_not_exist.tsv"
+    with pytest.raises(FileNotFoundError):
+        tsv_to_dict(str(missing_file))
