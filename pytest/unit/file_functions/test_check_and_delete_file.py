@@ -13,6 +13,17 @@ def test_check_and_delete_file_existing_file(tmp_path) -> None:
     assert not file_path.exists(), "Existing file should be removed"
 
 
+def test_check_and_delete_file_symlink(tmp_path) -> None:
+    """Test that deleting a symlink removes the link but not the target."""
+    target = tmp_path / "target.txt"
+    target.write_text("content")
+    link = tmp_path / "link.txt"
+    os.symlink(target, link)
+    check_and_delete_file(str(link))
+    assert not link.exists(), "Symlink should be removed"
+    assert target.exists(), "Target file should remain"
+
+
 def test_check_and_delete_file_nonexistent_file(tmp_path) -> None:
     """
     Test that calling the function with a missing file changes nothing.
