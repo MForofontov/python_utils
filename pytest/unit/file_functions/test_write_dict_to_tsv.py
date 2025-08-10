@@ -23,6 +23,14 @@ def test_write_dict_to_tsv_writes_padded_rows_and_preserves_order(tmp_path) -> N
     assert output_file.read_text().splitlines(keepends=True) == expected_lines
 
 
+def test_write_dict_to_tsv_writes_only_newline_with_empty_dict(tmp_path) -> None:
+    """Ensure an empty dictionary produces a file containing only a newline."""
+    output_file = tmp_path / "output.tsv"
+    wdt.write_dict_to_tsv(str(output_file), {})
+
+    assert output_file.read_text() == "\n"
+
+
 def test_write_dict_to_tsv_raises_permission_error(monkeypatch, tmp_path) -> None:
     """Ensure PermissionError is raised when the file cannot be written."""
     data = {"col1": [1]}
