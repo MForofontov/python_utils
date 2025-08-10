@@ -21,6 +21,15 @@ def test_get_paths_in_directory_with_suffix_case_sensitive(tmp_path) -> None:
     assert sorted(returned_paths) == sorted(expected_paths), "Should return only .txt files"
 
 
+def test_get_paths_in_directory_with_suffix_no_matching_files(tmp_path) -> None:
+    """Return an empty list when no files share the suffix."""
+    (tmp_path / "file1.log").write_text("a")
+    (tmp_path / "file2.data").write_text("b")
+    (tmp_path / "folder").mkdir()
+    returned_paths: list[str] = get_paths_in_directory_with_suffix(str(tmp_path), ".txt")
+    assert returned_paths == [], "Should return an empty list"
+
+
 def test_get_paths_in_directory_with_suffix_case_insensitive(tmp_path) -> None:
     """
     Verify files are matched when the suffix case matches the filename.
