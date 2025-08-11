@@ -75,14 +75,13 @@ def async_handle_error(
             Any
                 The result of the wrapped function. If an exception occurs and a
                 logger is provided, ``None`` is returned after logging. If no
-                logger is provided, the exception is re-raised.
+                logger is provided, the error is printed and the exception is
+                re-raised.
             """
             try:
                 # Attempt to call the original asynchronous function
                 return await func(*args, **kwargs)
             except Exception as e:
-                # Print the custom error message and the exception
-                print(f"An error occurred in {func.__name__}: {e}")
                 # Log the error message and the exception if logging is enabled
                 if logger:
                     logger.error(
@@ -90,7 +89,8 @@ def async_handle_error(
                     )
                     # Return None when logging the exception
                     return None
-                # Re-raise the exception when no logger is provided
+                # Print the custom error message and re-raise when no logger is provided
+                print(f"An error occurred in {func.__name__}: {e}")
                 raise
 
         return wrapper
