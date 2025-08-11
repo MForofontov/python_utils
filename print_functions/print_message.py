@@ -1,6 +1,5 @@
 import logging
 from datetime import datetime
-from typing import Optional
 from logger_functions.logger import get_logger
 
 # Module level logger used when no logger is provided by the caller
@@ -9,10 +8,10 @@ module_logger = get_logger(__name__)
 
 def print_message(
     message: str,
-    message_type: str = "info",
+    message_type: str | None = "info",
     end: str = "\n",
     flush: bool = False,
-    logger: Optional[logging.Logger] | None = None,
+    logger: logging.Logger | None = None,
 ) -> None:
     """
     Print a formatted message with the current time and message type.
@@ -21,8 +20,9 @@ def print_message(
     ----------
     message : str
         The message to print.
-    message_type : str
-        The type of message (e.g., "info", "warning", "error").
+    message_type : str | None, optional
+        The type of message (e.g., "info", "warning", "error"). ``None``
+        prints the message without a prefix.
     end : str
         The end character to use in the print function.
     flush : bool
@@ -41,7 +41,7 @@ def print_message(
     :data:`module_logger` from ``logger_functions.logger`` when no logger is
     given.
     """
-    logger_to_use: Optional[logging.Logger] = logger or module_logger
+    logger_to_use = logger if logger is not None else module_logger
 
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     if message_type == "info":
@@ -57,7 +57,7 @@ def print_message(
     else:
         formatted_message = f"{current_time} - {message}"
     # Log the message if logger_to_use is not None
-    if logger_to_use:
+    if logger_to_use is not None:
         if message_type == "info":
             logger_to_use.info(message)
         elif message_type == "warning":

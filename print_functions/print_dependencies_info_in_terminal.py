@@ -1,11 +1,12 @@
 import platform
 import shutil
 
-from importlib.metadata import version, PackageNotFoundError
+from collections.abc import Iterable
+from importlib.metadata import PackageNotFoundError, version
 from print_functions.print_message import print_message
 
 
-def print_dependencies_info_in_terminal(dependencies):
+def print_dependencies_info_in_terminal(dependencies: Iterable[str]) -> None:
     """
     Print the dependencies information in the terminal.
 
@@ -13,8 +14,8 @@ def print_dependencies_info_in_terminal(dependencies):
 
     Parameters
     ----------
-    dependencies : list
-        A list of dependencies.
+    dependencies : Iterable[str]
+        An iterable of dependencies.
 
     Returns
     -------
