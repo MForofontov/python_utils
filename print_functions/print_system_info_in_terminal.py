@@ -1,8 +1,9 @@
 import platform
-import psutil
 import shutil
 import subprocess
 import time
+
+import psutil
 
 from print_functions.print_message import print_message
 
