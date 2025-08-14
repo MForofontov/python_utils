@@ -11,8 +11,8 @@ def test_add_vertex() -> None:
     graph.add_vertex(2)
     assert 1 in graph.adjacency_list
     assert 2 in graph.adjacency_list
-    assert graph.adjacency_list[1] == []
-    assert graph.adjacency_list[2] == []
+    assert graph.adjacency_list[1] == set()
+    assert graph.adjacency_list[2] == set()
 
 
 def test_add_edge() -> None:
@@ -24,8 +24,8 @@ def test_add_edge() -> None:
     graph.add_edge(1, 2)
     assert 1 in graph.adjacency_list
     assert 2 in graph.adjacency_list
-    assert graph.adjacency_list[1] == [2]
-    assert graph.adjacency_list[2] == [1]
+    assert graph.adjacency_list[1] == {2}
+    assert graph.adjacency_list[2] == {1}
 
 
 def test_get_neighbors() -> None:
@@ -36,9 +36,9 @@ def test_get_neighbors() -> None:
     graph = Graph[int]()
     graph.add_edge(1, 2)
     graph.add_edge(1, 3)
-    assert graph.get_neighbors(1) == [2, 3]
-    assert graph.get_neighbors(2) == [1]
-    assert graph.get_neighbors(3) == [1]
+    assert set(graph.get_neighbors(1)) == {2, 3}
+    assert set(graph.get_neighbors(2)) == {1}
+    assert set(graph.get_neighbors(3)) == {1}
 
 
 def test_add_duplicate_vertex() -> None:
@@ -50,7 +50,7 @@ def test_add_duplicate_vertex() -> None:
     graph.add_vertex(1)
     graph.add_vertex(1)  # Adding the same vertex again
     assert len(graph.adjacency_list) == 1
-    assert graph.adjacency_list[1] == []
+    assert graph.adjacency_list[1] == set()
 
 
 def test_add_edge_between_existing_vertices() -> None:
@@ -62,8 +62,8 @@ def test_add_edge_between_existing_vertices() -> None:
     graph.add_vertex(1)
     graph.add_vertex(2)
     graph.add_edge(1, 2)
-    assert graph.adjacency_list[1] == [2]
-    assert graph.adjacency_list[2] == [1]
+    assert graph.adjacency_list[1] == {2}
+    assert graph.adjacency_list[2] == {1}
 
 
 def test_add_edge_creates_vertices() -> None:
@@ -75,8 +75,8 @@ def test_add_edge_creates_vertices() -> None:
     graph.add_edge(1, 2)
     assert 1 in graph.adjacency_list
     assert 2 in graph.adjacency_list
-    assert graph.adjacency_list[1] == [2]
-    assert graph.adjacency_list[2] == [1]
+    assert graph.adjacency_list[1] == {2}
+    assert graph.adjacency_list[2] == {1}
 
 
 def test_get_neighbors_of_nonexistent_vertex() -> None:
@@ -117,9 +117,9 @@ def test_graph_with_custom_objects() -> None:
     graph.add_edge(vertex1, vertex2)
     graph.add_edge(vertex1, vertex3)
 
-    assert graph.get_neighbors(vertex1) == [vertex2, vertex3]
-    assert graph.get_neighbors(vertex2) == [vertex1]
-    assert graph.get_neighbors(vertex3) == [vertex1]
+    assert set(graph.get_neighbors(vertex1)) == {vertex2, vertex3}
+    assert set(graph.get_neighbors(vertex2)) == {vertex1}
+    assert set(graph.get_neighbors(vertex3)) == {vertex1}
 
 
 def test_empty_graph() -> None:
@@ -143,17 +143,17 @@ def test_large_graph() -> None:
     for i in range(999):
         graph.add_edge(i, i + 1)
     assert len(graph.adjacency_list) == 1000
-    assert graph.get_neighbors(0) == [1]
-    assert graph.get_neighbors(999) == [998]
+    assert set(graph.get_neighbors(0)) == {1}
+    assert set(graph.get_neighbors(999)) == {998}
 
 
-def test_order_of_neighbors() -> None:
+def test_neighbors_contents() -> None:
     """
-    Test that the order of neighbors is preserved.
+    Test that the neighbors contain the expected vertices regardless of order.
     """
-    # Test case 11: Order of neighbors
+    # Test case 11: Neighbors contents
     graph = Graph[int]()
     graph.add_edge(1, 2)
     graph.add_edge(1, 3)
     graph.add_edge(1, 4)
-    assert graph.get_neighbors(1) == [2, 3, 4]
+    assert set(graph.get_neighbors(1)) == {2, 3, 4}
