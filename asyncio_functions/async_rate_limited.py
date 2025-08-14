@@ -1,5 +1,6 @@
 from typing import TypeVar
 from collections.abc import Callable, Awaitable
+from collections import deque
 import asyncio
 import time
 
@@ -36,6 +37,11 @@ async def async_rate_limited(
     ValueError
         If ``max_calls`` is not a positive integer or ``period`` is not a positive number.
 
+    Notes
+    -----
+    Timestamp trimming uses a :class:`~collections.deque` for O(1) removal of
+    expired entries.
+
     Examples
     --------
     >>> async def double(x: int) -> int:
@@ -50,15 +56,17 @@ async def async_rate_limited(
         raise ValueError("period must be a positive number")
 
     results: list[R] = []
-    timestamps: list[float] = []
+    timestamps: deque[float] = deque()
 
     for item in items:
         now = time.monotonic()
-        timestamps = [t for t in timestamps if now - t < period]
+        while timestamps and now - timestamps[0] >= period:
+            timestamps.popleft()
         if len(timestamps) >= max_calls:
             await asyncio.sleep(period - (now - timestamps[0]))
             now = time.monotonic()
-            timestamps = [t for t in timestamps if now - t < period]
+            while timestamps and now - timestamps[0] >= period:
+                timestamps.popleft()
         timestamps.append(now)
         results.append(await func(item))
 
