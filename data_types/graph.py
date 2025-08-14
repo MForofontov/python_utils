@@ -10,8 +10,8 @@ class Graph(Generic[T]):
 
     Attributes
     ----------
-    adjacency_list : Dict[T, List[T]]
-        The dictionary representing the graph, where keys are vertices and values are lists of adjacent vertices.
+    adjacency_list : Dict[T, Set[T]]
+        The dictionary representing the graph, where keys are vertices and values are sets of adjacent vertices.
 
     Methods
     -------
@@ -27,7 +27,7 @@ class Graph(Generic[T]):
         """
         Initializes an empty graph.
         """
-        self.adjacency_list: dict[T, list[T]] = {}
+        self.adjacency_list: dict[T, set[T]] = {}
 
     def add_vertex(self, vertex: T) -> None:
         """
@@ -39,7 +39,7 @@ class Graph(Generic[T]):
             The vertex to add.
         """
         if vertex not in self.adjacency_list:
-            self.adjacency_list[vertex] = []
+            self.adjacency_list[vertex] = set()
 
     def add_edge(self, vertex1: T, vertex2: T) -> None:
         """
@@ -56,8 +56,8 @@ class Graph(Generic[T]):
             self.add_vertex(vertex1)
         if vertex2 not in self.adjacency_list:
             self.add_vertex(vertex2)
-        self.adjacency_list[vertex1].append(vertex2)
-        self.adjacency_list[vertex2].append(vertex1)
+        self.adjacency_list[vertex1].add(vertex2)
+        self.adjacency_list[vertex2].add(vertex1)
 
     def get_neighbors(self, vertex: T) -> list[T]:
         """
@@ -73,4 +73,4 @@ class Graph(Generic[T]):
         List[T]
             A list of neighbors for the given vertex.
         """
-        return self.adjacency_list.get(vertex, [])
+        return list(self.adjacency_list.get(vertex, set()))
