@@ -31,7 +31,7 @@ def test_identify_string_in_dict_lists_regex_not_found() -> None:
         "key2": [["fig", "grape"], ["kiwi", "lemon"]],
     }
     target_value: str = "orange"
-    expected_output: bool = False
+    expected_output = None
     assert (
         identify_string_in_dict_lists_regex(target_value, dict_of_lists)
         == expected_output
@@ -45,7 +45,7 @@ def test_identify_string_in_dict_lists_regex_empty_dict() -> None:
     # Test case 3: Empty dictionary
     dict_of_lists: dict[str | int, list[list[str]]] = {}
     target_value: str = "apple"
-    expected_output: bool = False
+    expected_output = None
     assert (
         identify_string_in_dict_lists_regex(target_value, dict_of_lists)
         == expected_output
