@@ -1,4 +1,3 @@
-import pytest
 from multiprocessing_functions.parallel_sort import parallel_sort
 
 

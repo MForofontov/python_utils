@@ -1,4 +1,3 @@
-import pytest
 from multiprocessing_functions.parallel_broadcast import parallel_broadcast
 
 

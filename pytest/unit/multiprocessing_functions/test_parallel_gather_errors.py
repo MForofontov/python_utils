@@ -1,4 +1,3 @@
-import pytest
 from multiprocessing_functions.parallel_gather_errors import parallel_gather_errors
 
 

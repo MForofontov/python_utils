@@ -1,4 +1,3 @@
-import pytest
 from multiprocessing_functions.parallel_apply_with_args import parallel_apply_with_args
 
 
