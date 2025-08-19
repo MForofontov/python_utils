@@ -1,5 +1,5 @@
 from typing import TypeVar
-from collections.abc import Callable, Awaitable
+from collections.abc import Callable, Awaitable, Iterable
 from collections import deque
 import asyncio
 import time
@@ -10,7 +10,7 @@ R = TypeVar("R")
 
 async def async_rate_limited(
     func: Callable[[T], Awaitable[R]],
-    items: list[T],
+    items: Iterable[T],
     max_calls: int,
     period: float = 1.0,
 ) -> list[R]:
@@ -20,8 +20,8 @@ async def async_rate_limited(
     ----------
     func : Callable[[T], Awaitable[R]]
         The asynchronous function to apply to each item.
-    items : list[T]
-        The list of items to process.
+    items : Iterable[T]
+        The iterable of items to process.
     max_calls : int
         Maximum number of calls allowed within the given period.
     period : float, optional
