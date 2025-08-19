@@ -1,4 +1,3 @@
-import pytest
 from multiprocessing_functions.parallel_accumulate import parallel_accumulate
 
 
