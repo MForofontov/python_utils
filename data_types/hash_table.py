@@ -139,3 +139,10 @@ class HashTable(Generic[K, V]):
             if k == key:
                 return True
         return False
+
+    def __contains__(self, key: K) -> bool:
+        """Check if *key* exists in the table."""
+        return self.contains(key)
+
+
+__all__ = ["HashTable"]

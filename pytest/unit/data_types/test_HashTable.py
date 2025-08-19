@@ -163,3 +163,12 @@ def test_remove_nonexistent_key() -> None:
     hash_table = HashTable[int, str]()
     with pytest.raises(KeyError, match="Key 1 not found in the hash table"):
         hash_table.remove(1)
+
+
+def test_in_operator() -> None:
+    """Test using the ``in`` operator with :class:`HashTable`."""
+    # Test case 13: ``in`` operator usage
+    hash_table = HashTable[int, str]()
+    hash_table.insert(1, "one")
+    assert (1 in hash_table) is True
+    assert (2 in hash_table) is False
