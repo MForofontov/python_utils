@@ -12,9 +12,11 @@ from .concat_dataframes import concat_dataframes
 from .apply_function_to_column import apply_function_to_column
 from .drop_na_df_rows import drop_na_df_rows
 from .add_prefix_to_df_columns import add_prefix_to_df_columns
+from .add_suffix_to_df_columns import add_suffix_to_df_columns
 from .convert_df_column_dtype import convert_df_column_dtype
 from .drop_duplicate_df_rows import drop_duplicate_df_rows
 from .replace_df_column_values import replace_df_column_values
+from .filter_df_by_column_values import filter_df_by_column_values
 
 __all__ = [
     "dict_to_df",
@@ -31,7 +33,9 @@ __all__ = [
     "apply_function_to_column",
     "drop_na_df_rows",
     "add_prefix_to_df_columns",
+    "add_suffix_to_df_columns",
     "convert_df_column_dtype",
     "drop_duplicate_df_rows",
     "replace_df_column_values",
+    "filter_df_by_column_values",
 ]
