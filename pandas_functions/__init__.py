@@ -17,6 +17,9 @@ from .convert_df_column_dtype import convert_df_column_dtype
 from .drop_duplicate_df_rows import drop_duplicate_df_rows
 from .replace_df_column_values import replace_df_column_values
 from .filter_df_by_column_values import filter_df_by_column_values
+from .drop_na_df_columns import drop_na_df_columns
+from .reset_df_index import reset_df_index
+from .set_df_index import set_df_index
 
 __all__ = [
     "dict_to_df",
@@ -38,4 +41,7 @@ __all__ = [
     "drop_duplicate_df_rows",
     "replace_df_column_values",
     "filter_df_by_column_values",
+    "drop_na_df_columns",
+    "reset_df_index",
+    "set_df_index",
 ]
