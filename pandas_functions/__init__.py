@@ -6,6 +6,8 @@ from .df_to_dict import df_to_dict
 from .select_df_columns import select_df_columns
 from .sort_df_by_columns import sort_df_by_columns
 from .fill_na_in_column import fill_na_in_column
+from .drop_df_columns import drop_df_columns
+from .rename_df_columns import rename_df_columns
 
 __all__ = [
     "dict_to_df",
@@ -16,4 +18,6 @@ __all__ = [
     "select_df_columns",
     "sort_df_by_columns",
     "fill_na_in_column",
+    "drop_df_columns",
+    "rename_df_columns",
 ]
