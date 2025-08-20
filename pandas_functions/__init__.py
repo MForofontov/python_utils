@@ -8,6 +8,9 @@ from .sort_df_by_columns import sort_df_by_columns
 from .fill_na_in_column import fill_na_in_column
 from .drop_df_columns import drop_df_columns
 from .rename_df_columns import rename_df_columns
+from .concat_dataframes import concat_dataframes
+from .apply_function_to_column import apply_function_to_column
+from .drop_na_df_rows import drop_na_df_rows
 
 __all__ = [
     "dict_to_df",
@@ -20,4 +23,7 @@ __all__ = [
     "fill_na_in_column",
     "drop_df_columns",
     "rename_df_columns",
+    "concat_dataframes",
+    "apply_function_to_column",
+    "drop_na_df_rows",
 ]
