@@ -11,6 +11,8 @@ from .rename_df_columns import rename_df_columns
 from .concat_dataframes import concat_dataframes
 from .apply_function_to_column import apply_function_to_column
 from .drop_na_df_rows import drop_na_df_rows
+from .add_prefix_to_df_columns import add_prefix_to_df_columns
+from .convert_df_column_dtype import convert_df_column_dtype
 
 __all__ = [
     "dict_to_df",
@@ -26,4 +28,6 @@ __all__ = [
     "concat_dataframes",
     "apply_function_to_column",
     "drop_na_df_rows",
+    "add_prefix_to_df_columns",
+    "convert_df_column_dtype",
 ]
