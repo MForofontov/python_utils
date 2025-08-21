@@ -25,6 +25,8 @@ from .pivot_df import pivot_df
 from .melt_df import melt_df
 from .sort_df_by_index import sort_df_by_index
 from .shuffle_df_rows import shuffle_df_rows
+from .explode_df_column import explode_df_column
+from .split_df_column import split_df_column
 
 __all__ = [
     "dict_to_df",
@@ -54,4 +56,6 @@ __all__ = [
     "melt_df",
     "sort_df_by_index",
     "shuffle_df_rows",
+    "explode_df_column",
+    "split_df_column",
 ]
