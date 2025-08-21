@@ -23,6 +23,8 @@ from .set_df_index import set_df_index
 from .group_df_by_columns import group_df_by_columns
 from .pivot_df import pivot_df
 from .melt_df import melt_df
+from .sort_df_by_index import sort_df_by_index
+from .shuffle_df_rows import shuffle_df_rows
 
 __all__ = [
     "dict_to_df",
@@ -50,4 +52,6 @@ __all__ = [
     "group_df_by_columns",
     "pivot_df",
     "melt_df",
+    "sort_df_by_index",
+    "shuffle_df_rows",
 ]
