@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from pandas_functions import all_match_series
+from pandas_functions.all_match_series import all_match_series
 
 
 def test_all_match_series_success() -> None:

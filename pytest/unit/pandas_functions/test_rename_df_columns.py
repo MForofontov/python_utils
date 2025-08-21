@@ -1,5 +1,4 @@
 import pandas as pd
-import pandas as pd
 import pytest
 
 from pandas_functions.rename_df_columns import rename_df_columns
@@ -33,3 +32,4 @@ def test_rename_df_columns_invalid_df() -> None:
     # Test case 3: Invalid DataFrame input
     with pytest.raises(AttributeError):
         rename_df_columns("not a df", {"A": "X"})
+

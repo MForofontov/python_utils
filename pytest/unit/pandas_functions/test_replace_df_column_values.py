@@ -1,5 +1,4 @@
 import pandas as pd
-import pandas as pd
 import pytest
 
 from pandas_functions.replace_df_column_values import replace_df_column_values
@@ -33,3 +32,4 @@ def test_replace_df_column_values_invalid_df() -> None:
     # Test case 3: Invalid DataFrame input
     with pytest.raises(AttributeError):
         replace_df_column_values("not a df", "A", {1: "one"})
+

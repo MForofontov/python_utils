@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from pandas_functions import apply_function_to_column
+from pandas_functions.apply_function_to_column import apply_function_to_column
 
 
 def test_apply_function_to_column() -> None:

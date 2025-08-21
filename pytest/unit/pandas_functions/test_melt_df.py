@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from pandas_functions import melt_df
+from pandas_functions.melt_df import melt_df
 
 
 def test_melt_df() -> None:

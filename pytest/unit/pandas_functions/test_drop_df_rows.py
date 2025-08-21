@@ -31,4 +31,4 @@ def test_drop_df_rows_invalid_df() -> None:
     """
     # Test case 3: Invalid DataFrame input
     with pytest.raises(AttributeError):
-        drop_df_rows("not a df", ["x"])
+        drop_df_rows(123, ["x"])
