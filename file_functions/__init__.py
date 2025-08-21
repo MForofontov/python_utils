@@ -12,7 +12,9 @@ from .join_paths import join_paths
 from .merge_folders import merge_folders
 from .read_lines import read_lines
 from .read_tabular import read_tabular
+from .json_to_dict import json_to_dict
 from .tsv_to_dict import tsv_to_dict
+from .write_dict_to_json import write_dict_to_json
 from .write_dict_to_tsv import write_dict_to_tsv
 from .write_lines import write_lines
 from .write_to_file import write_to_file
@@ -32,7 +34,9 @@ __all__ = [
     "merge_folders",
     "read_lines",
     "read_tabular",
+    "json_to_dict",
     "tsv_to_dict",
+    "write_dict_to_json",
     "write_dict_to_tsv",
     "write_lines",
     "write_to_file",
