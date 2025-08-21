@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from pandas_functions import drop_na_df_rows
+from pandas_functions.drop_na_df_rows import drop_na_df_rows
 
 
 def test_drop_na_df_rows_subset() -> None:
@@ -42,4 +42,4 @@ def test_drop_na_df_rows_invalid_df() -> None:
     """
     # Test case 4: Invalid DataFrame input
     with pytest.raises(AttributeError):
-        drop_na_df_rows("not a df", ["A"])
+        drop_na_df_rows(123, ["A"])

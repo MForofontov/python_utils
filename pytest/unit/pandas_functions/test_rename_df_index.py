@@ -1,5 +1,4 @@
 import pandas as pd
-import pandas as pd
 import pytest
 
 from pandas_functions.rename_df_index import rename_df_index
@@ -32,4 +31,5 @@ def test_rename_df_index_invalid_df() -> None:
     """
     # Test case 3: Invalid DataFrame input
     with pytest.raises(AttributeError):
-        rename_df_index("not a df", {"old": "new"})
+        rename_df_index(123, {"old": "new"})
+

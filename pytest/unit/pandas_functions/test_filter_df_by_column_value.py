@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from pandas_functions import filter_df_by_column_value
+from pandas_functions.filter_df_by_column_value import filter_df_by_column_value
 
 
 def test_filter_df_by_column_value() -> None:

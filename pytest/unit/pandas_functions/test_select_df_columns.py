@@ -1,5 +1,4 @@
 import pandas as pd
-import pandas as pd
 import pytest
 
 from pandas_functions.select_df_columns import select_df_columns

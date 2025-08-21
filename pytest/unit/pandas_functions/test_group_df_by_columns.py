@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from pandas_functions import group_df_by_columns
+from pandas_functions.group_df_by_columns import group_df_by_columns
 
 
 def test_group_df_by_columns() -> None:

@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from pandas_functions import pivot_df
+from pandas_functions.pivot_df import pivot_df
 
 
 def test_pivot_df() -> None:
@@ -28,8 +28,8 @@ def test_pivot_df_missing_column() -> None:
 
 def test_pivot_df_invalid_df() -> None:
     """
-    Ensure passing a non-DataFrame raises ``AttributeError``.
+    Ensure passing a non-DataFrame raises ``TypeError``.
     """
     # Test case 3: Invalid DataFrame input
-    with pytest.raises(AttributeError):
-        pivot_df("not a df", index="A", columns="B", values="C")
+    with pytest.raises(TypeError):
+        pivot_df(123, index="A", columns="B", values="C")

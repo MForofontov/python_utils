@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from pandas_functions import concat_dataframes
+from pandas_functions.concat_dataframes import concat_dataframes
 
 
 def test_concat_dataframes() -> None:

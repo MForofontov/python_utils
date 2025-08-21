@@ -4,20 +4,26 @@ import pytest
 from pandas_functions.sort_df_by_index import sort_df_by_index
 
 
-def test_sort_df_by_index() -> None:
+def test_sort_df_by_index_ascending() -> None:
     """
-    Sorting by index should reorder rows accordingly.
+    Sorting by index in ascending order should reorder rows.
     """
     # Test case 1: Sort ascending
     df = pd.DataFrame({"A": [1, 2]}, index=[2, 1])
-    expected_asc = pd.DataFrame({"A": [2, 1]}, index=[1, 2])
-    result_asc = sort_df_by_index(df)
-    pd.testing.assert_frame_equal(result_asc, expected_asc)
+    expected = pd.DataFrame({"A": [2, 1]}, index=[1, 2])
+    result = sort_df_by_index(df)
+    pd.testing.assert_frame_equal(result, expected)
 
+
+def test_sort_df_by_index_descending() -> None:
+    """
+    Sorting by index in descending order should reverse row order.
+    """
     # Test case 2: Sort descending
-    expected_desc = pd.DataFrame({"A": [1, 2]}, index=[2, 1])
-    result_desc = sort_df_by_index(df, ascending=False)
-    pd.testing.assert_frame_equal(result_desc, expected_desc)
+    df = pd.DataFrame({"A": [1, 2]}, index=[2, 1])
+    expected = pd.DataFrame({"A": [1, 2]}, index=[2, 1])
+    result = sort_df_by_index(df, ascending=False)
+    pd.testing.assert_frame_equal(result, expected)
 
 
 def test_sort_df_by_index_invalid_df() -> None:
@@ -27,3 +33,4 @@ def test_sort_df_by_index_invalid_df() -> None:
     # Test case 3: Invalid DataFrame input
     with pytest.raises(AttributeError):
         sort_df_by_index("not a df")
+
