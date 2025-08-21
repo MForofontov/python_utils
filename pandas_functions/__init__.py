@@ -30,6 +30,7 @@ from .sort_df_by_index import sort_df_by_index
 from .shuffle_df_rows import shuffle_df_rows
 from .explode_df_column import explode_df_column
 from .split_df_column import split_df_column
+from .all_match_series import all_match_series
 
 __all__ = [
     "dict_to_df",
@@ -64,4 +65,5 @@ __all__ = [
     "shuffle_df_rows",
     "explode_df_column",
     "split_df_column",
+    "all_match_series",
 ]
