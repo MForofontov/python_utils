@@ -5,20 +5,29 @@ from pandas_functions.df_to_dict import df_to_dict
 
 
 def test_df_to_dict_default() -> None:
-    """DataFrame should convert to nested dict with default orientation."""
+    """
+    DataFrame should convert to nested dict with default orientation.
+    """
+    # Test case 1: Default orientation
     df: pd.DataFrame = pd.DataFrame({"col1": [1, 2], "col2": [3, 4]})
     expected: dict = {"col1": {0: 1, 1: 2}, "col2": {0: 3, 1: 4}}
     assert df_to_dict(df) == expected
 
 
 def test_df_to_dict_list_orient() -> None:
-    """DataFrame should convert to list-oriented dictionary."""
+    """
+    DataFrame should convert to list-oriented dictionary.
+    """
+    # Test case 2: List orientation
     df: pd.DataFrame = pd.DataFrame({"col1": [1, 2], "col2": [3, 4]})
     expected: dict = {"col1": [1, 2], "col2": [3, 4]}
     assert df_to_dict(df, orient="list") == expected
 
 
 def test_df_to_dict_invalid_input() -> None:
-    """Passing a non-DataFrame should raise a TypeError."""
+    """
+    Passing a non-DataFrame should raise a ``TypeError``.
+    """
+    # Test case 3: Invalid DataFrame input
     with pytest.raises(TypeError):
         df_to_dict({"col1": [1, 2]})
