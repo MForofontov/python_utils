@@ -20,6 +20,9 @@ from .filter_df_by_column_values import filter_df_by_column_values
 from .drop_na_df_columns import drop_na_df_columns
 from .reset_df_index import reset_df_index
 from .set_df_index import set_df_index
+from .group_df_by_columns import group_df_by_columns
+from .pivot_df import pivot_df
+from .melt_df import melt_df
 
 __all__ = [
     "dict_to_df",
@@ -44,4 +47,7 @@ __all__ = [
     "drop_na_df_columns",
     "reset_df_index",
     "set_df_index",
+    "group_df_by_columns",
+    "pivot_df",
+    "melt_df",
 ]
