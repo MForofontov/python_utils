@@ -5,9 +5,12 @@ from .merge_dataframes import merge_dataframes
 from .df_to_dict import df_to_dict
 from .select_df_columns import select_df_columns
 from .sort_df_by_columns import sort_df_by_columns
+from .sort_df_columns import sort_df_columns
 from .fill_na_in_column import fill_na_in_column
 from .drop_df_columns import drop_df_columns
+from .drop_df_rows import drop_df_rows
 from .rename_df_columns import rename_df_columns
+from .rename_df_index import rename_df_index
 from .concat_dataframes import concat_dataframes
 from .apply_function_to_column import apply_function_to_column
 from .drop_na_df_rows import drop_na_df_rows
@@ -36,9 +39,12 @@ __all__ = [
     "df_to_dict",
     "select_df_columns",
     "sort_df_by_columns",
+    "sort_df_columns",
     "fill_na_in_column",
     "drop_df_columns",
+    "drop_df_rows",
     "rename_df_columns",
+    "rename_df_index",
     "concat_dataframes",
     "apply_function_to_column",
     "drop_na_df_rows",
