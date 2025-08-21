@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import pytest
 from pandas.testing import assert_frame_equal
 
 from pandas_functions.merge_dataframes import merge_dataframes
@@ -29,4 +30,12 @@ def test_merge_dataframes_outer():
 
     result = merge_dataframes(df1, df2, on="id", how="outer")
     assert_frame_equal(result, expected)
+
+
+def test_merge_dataframes_missing_on() -> None:
+    """Missing join column should raise KeyError."""
+    df1 = pd.DataFrame({"id": [1]})
+    df2 = pd.DataFrame({"other": [1]})
+    with pytest.raises(KeyError):
+        merge_dataframes(df1, df2, on="id")
 
