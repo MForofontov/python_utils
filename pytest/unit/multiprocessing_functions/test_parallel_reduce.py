@@ -1,4 +1,3 @@
-import pytest
 from multiprocessing_functions.parallel_reduce import parallel_reduce
 
 

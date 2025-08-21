@@ -4,8 +4,8 @@ import re
 def identify_string_in_dict_lists_regex(
     target_value: str,
     dict_of_lists: dict[str | int, list[list[str]]],
-    regex: str = None,
-) -> str | int | bool:
+    regex: str | None = None,
+) -> str | int | None:
     """
     Identifies if a string is present in any list inside a dictionary.
 
@@ -15,13 +15,13 @@ def identify_string_in_dict_lists_regex(
         The value to find.
     dict_of_lists : dict
         A dictionary where the values are lists of lists.
-    regex : str, optional
+    regex : str | None, optional
         A regex pattern to search for in the lists.
 
     Returns
     -------
-    int or str or bool
-        The key of the entry where the string is present, or False if not found.
+    int or str or None
+        The key of the entry where the string is present, or None if not found.
 
     Raises
     ------
@@ -40,14 +40,16 @@ def identify_string_in_dict_lists_regex(
     if regex is not None and not isinstance(regex, str):
         raise TypeError("regex must be a string or None")
 
+    compiled_regex = re.compile(regex) if regex else None
+
     for key, lists in dict_of_lists.items():
         for list_ in lists:
-            if regex:
-                if any(re.search(regex, item) for item in list_):
+            if compiled_regex:
+                if any(compiled_regex.search(item) for item in list_):
                     return key
             else:
                 if target_value in list_:
                     return key
-    return False
+    return None
 
 __all__ = ['identify_string_in_dict_lists_regex']

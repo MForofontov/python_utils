@@ -1,4 +1,3 @@
-import pytest
 from multiprocessing_functions.parallel_dynamic_distribute import (
     parallel_dynamic_distribute,
 )
