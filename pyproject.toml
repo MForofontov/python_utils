@@ -12,6 +12,7 @@ dependencies = [
     "zstandard==0.23.0",
     "psutil==7.0.0",
     "tqdm==4.67.1",
+    "numpy==2.3.2",
     "aiohttp==3.12.15",
     "pandas==2.3.1",
 ]
