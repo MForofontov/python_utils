@@ -6,6 +6,8 @@ from .array_max import array_max
 from .array_min import array_min
 from .array_sum import array_sum
 from .array_prod import array_prod
+from .array_cumsum import array_cumsum
+from .array_diff import array_diff
 from .dot_product import dot_product
 from .elementwise_sum import elementwise_sum
 from .elementwise_product import elementwise_product
@@ -24,6 +26,8 @@ __all__ = [
     "array_min",
     "array_sum",
     "array_prod",
+    "array_cumsum",
+    "array_diff",
     "dot_product",
     "elementwise_sum",
     "elementwise_product",
