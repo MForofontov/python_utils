@@ -8,6 +8,8 @@ from .array_sum import array_sum
 from .array_prod import array_prod
 from .array_cumsum import array_cumsum
 from .array_diff import array_diff
+from .array_sort import array_sort
+from .array_unique import array_unique
 from .dot_product import dot_product
 from .elementwise_sum import elementwise_sum
 from .elementwise_product import elementwise_product
@@ -28,6 +30,8 @@ __all__ = [
     "array_prod",
     "array_cumsum",
     "array_diff",
+    "array_sort",
+    "array_unique",
     "dot_product",
     "elementwise_sum",
     "elementwise_product",
