@@ -2,6 +2,8 @@ from .array_mean import array_mean
 from .array_variance import array_variance
 from .array_std import array_std
 from .array_median import array_median
+from .array_max import array_max
+from .array_min import array_min
 from .dot_product import dot_product
 from .elementwise_sum import elementwise_sum
 from .elementwise_product import elementwise_product
@@ -15,6 +17,8 @@ __all__ = [
     "array_variance",
     "array_std",
     "array_median",
+    "array_max",
+    "array_min",
     "dot_product",
     "elementwise_sum",
     "elementwise_product",
