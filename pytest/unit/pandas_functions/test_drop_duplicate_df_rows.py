@@ -5,7 +5,10 @@ from pandas_functions.drop_duplicate_df_rows import drop_duplicate_df_rows
 
 
 def test_drop_duplicate_df_rows() -> None:
-    """Duplicate rows should be removed."""
+    """
+    Duplicate rows should be removed.
+    """
+    # Test case 1: Drop duplicate rows
     df = pd.DataFrame({"A": [1, 1, 2], "B": [3, 3, 4]})
     expected = pd.DataFrame({"A": [1, 2], "B": [3, 4]})
     result = drop_duplicate_df_rows(df)
@@ -13,7 +16,19 @@ def test_drop_duplicate_df_rows() -> None:
 
 
 def test_drop_duplicate_df_rows_invalid_keep() -> None:
-    """Invalid ``keep`` value should raise ``ValueError``."""
+    """
+    Invalid ``keep`` value should raise ``ValueError``.
+    """
+    # Test case 2: Invalid keep parameter
     df = pd.DataFrame({"A": [1, 1]})
     with pytest.raises(ValueError):
         drop_duplicate_df_rows(df, keep="invalid")
+
+
+def test_drop_duplicate_df_rows_invalid_df() -> None:
+    """
+    Ensure passing a non-DataFrame raises ``AttributeError``.
+    """
+    # Test case 3: Invalid DataFrame input
+    with pytest.raises(AttributeError):
+        drop_duplicate_df_rows("not a df")

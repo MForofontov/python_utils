@@ -1,3 +1,4 @@
+from .concat_dfs import concat_dfs
 from .dict_to_df import dict_to_df
 from .import_df_from_file import import_df_from_file
 from .filter_df_by_column_value import filter_df_by_column_value
@@ -30,8 +31,11 @@ from .sort_df_by_index import sort_df_by_index
 from .shuffle_df_rows import shuffle_df_rows
 from .explode_df_column import explode_df_column
 from .split_df_column import split_df_column
+from .all_match_series import all_match_series
+from .export_df_to_file import export_df_to_file
 
 __all__ = [
+    "concat_dfs",
     "dict_to_df",
     "import_df_from_file",
     "filter_df_by_column_value",
@@ -64,4 +68,6 @@ __all__ = [
     "shuffle_df_rows",
     "explode_df_column",
     "split_df_column",
+    "all_match_series",
+    "export_df_to_file",
 ]
