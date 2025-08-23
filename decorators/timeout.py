@@ -1,9 +1,12 @@
 import logging
 from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
-from typing import Any
+from typing import ParamSpec, TypeVar
 from collections.abc import Callable
 from functools import wraps
 from logger_functions.logger import validate_logger
+
+P = ParamSpec("P")
+R = TypeVar("R")
 
 
 class TimeoutException(Exception):
@@ -12,7 +15,7 @@ class TimeoutException(Exception):
 
 def timeout(
     seconds: int, logger: logging.Logger | None = None
-) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     A decorator that enforces a timeout on a function.
     The wrapped function runs in a separate thread so this implementation works
@@ -48,7 +51,7 @@ def timeout(
             )
         raise TypeError("seconds must be a positive integer")
 
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
         """
         The actual decorator function.
 
@@ -64,7 +67,7 @@ def timeout(
         """
 
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             """
             The wrapper function that enforces the timeout.
 
@@ -81,7 +84,7 @@ def timeout(
                 The result of the decorated function.
             """
 
-            def _run_func() -> Any:
+            def _run_func() -> R:
                 return func(*args, **kwargs)
 
             with ThreadPoolExecutor(max_workers=1) as executor:

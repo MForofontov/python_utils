@@ -1,14 +1,17 @@
-from typing import Any
+from typing import Any, ParamSpec, TypeVar
 from collections.abc import Callable
 from functools import wraps
 import inspect
 import logging
 from logger_functions.logger import validate_logger
 
+P = ParamSpec("P")
+R = TypeVar("R")
+
 
 def log_signature(
     logger: logging.Logger | None,
-) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     A decorator to log the function signature and the arguments passed to it.
 
@@ -31,7 +34,7 @@ def log_signature(
         logger = logging.getLogger(__name__)
     validate_logger(logger, allow_none=False)
 
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
         """
         The actual decorator function.
 
@@ -47,7 +50,7 @@ def log_signature(
         """
 
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             """
             The wrapper function that logs the function signature and arguments.
 

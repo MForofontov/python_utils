@@ -5,9 +5,12 @@ import threading
 import gc
 from types import SimpleNamespace
 from logger_functions.logger import validate_logger
-from typing import Any
+from typing import ParamSpec, TypeVar
 from collections.abc import Callable
 from functools import wraps
+
+P = ParamSpec("P")
+R = TypeVar("R")
 
 
 def time_and_resource_function(
@@ -23,7 +26,7 @@ def time_and_resource_function(
     monitor_page_faults: bool = True,
     interval: float = 0.1,
     logger: logging.Logger | None = None,
-) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     Decorator to measure the execution time and optionally the maximum memory, CPU usage, I/O operations, network usage, disk usage, number of threads, GC statistics, context switches, open files, and page faults of a function.
 
@@ -64,9 +67,9 @@ def time_and_resource_function(
     """
     validate_logger(logger)
 
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             process = psutil.Process()
             start_time = time.time()
 

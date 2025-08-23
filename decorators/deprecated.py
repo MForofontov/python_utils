@@ -1,14 +1,17 @@
-from typing import Any
+from typing import Any, ParamSpec, TypeVar
 from collections.abc import Callable
 from functools import wraps
 import warnings
 import logging
 from logger_functions.logger import validate_logger
 
+P = ParamSpec("P")
+R = TypeVar("R")
+
 
 def deprecated(
     logger: logging.Logger | None = None,
-) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     Decorator to mark functions as deprecated. It will result in a warning being emitted when the function is used.
 
@@ -29,7 +32,7 @@ def deprecated(
     """
     validate_logger(logger)
 
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
         """
         Decorator function to wrap the input function.
 
@@ -45,7 +48,7 @@ def deprecated(
         """
 
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             """
             Wrapper function to emit a deprecation warning and log a message.
 

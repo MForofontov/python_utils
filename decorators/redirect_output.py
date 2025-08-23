@@ -1,14 +1,17 @@
-from typing import Any
+from typing import ParamSpec, TypeVar
 from collections.abc import Callable
 from contextlib import redirect_stdout
 from functools import wraps
 import logging
 from logger_functions.logger import validate_logger
 
+P = ParamSpec("P")
+R = TypeVar("R")
+
 
 def redirect_output(
-    file_path: str, logger: logging.Logger = None
-) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+    file_path: str, logger: logging.Logger | None = None
+) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     A decorator to redirect the standard output of a function to a specified file.
 
@@ -35,7 +38,7 @@ def redirect_output(
             logger.error("file_path must be a string", exc_info=True)
         raise TypeError("file_path must be a string")
 
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
         """
         The actual decorator function.
 
@@ -51,7 +54,7 @@ def redirect_output(
         """
 
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             """
             The wrapper function that redirects the output.
 

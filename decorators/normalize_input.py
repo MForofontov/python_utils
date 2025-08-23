@@ -1,13 +1,16 @@
-from typing import Any
+from typing import Any, ParamSpec, TypeVar
 from collections.abc import Callable
 from functools import wraps
 import logging
 from logger_functions.logger import validate_logger
 
+P = ParamSpec("P")
+R = TypeVar("R")
+
 
 def normalize_input(
     normalization_func: Callable[[Any], Any], logger: logging.Logger | None = None
-) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     A decorator to normalize the input arguments of a function using a specified normalization function.
 
@@ -36,7 +39,7 @@ def normalize_input(
             )
         raise TypeError(f"Normalizer {normalization_func} is not callable")
 
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
         """
         The actual decorator function.
 
@@ -52,7 +55,7 @@ def normalize_input(
         """
 
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             """
             The wrapper function that normalizes the input arguments.
 

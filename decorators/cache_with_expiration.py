@@ -1,12 +1,15 @@
-from typing import Any
+from typing import Any, ParamSpec, TypeVar
 from collections.abc import Callable
 from functools import wraps
 import time
 
+P = ParamSpec("P")
+R = TypeVar("R")
+
 
 def cache_with_expiration(
     expiration_time: int,
-) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     A decorator to cache the results of a function call for a specified amount of time.
 
@@ -28,7 +31,7 @@ def cache_with_expiration(
     if not isinstance(expiration_time, int) or expiration_time < 0:
         raise ValueError("expiration_time must be a positive integer")
 
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
         """
         The actual decorator function.
 
@@ -43,11 +46,11 @@ def cache_with_expiration(
             The wrapped function.
         """
         cached_results: dict[
-            tuple[tuple[Any, ...], frozenset[tuple[str, Any]]], tuple[float, Any]
+            tuple[tuple[Any, ...], frozenset[tuple[str, Any]]], tuple[float, R]
         ] = {}
 
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             """
             The wrapper function that caches the result of the decorated function.
 

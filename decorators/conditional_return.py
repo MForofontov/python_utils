@@ -1,13 +1,14 @@
-from typing import Any, TypeVar
+from typing import ParamSpec, TypeVar
 from collections.abc import Callable
 from functools import wraps
 
+P = ParamSpec("P")
 T = TypeVar("T")
 
 
 def conditional_return(
-    condition: Callable[..., bool], return_value: T
-) -> Callable[[Callable[..., T]], Callable[..., T]]:
+    condition: Callable[P, bool], return_value: T
+) -> Callable[[Callable[P, T]], Callable[P, T]]:
     """
     Decorator to conditionally return a specified value based on a condition.
 
@@ -31,7 +32,7 @@ def conditional_return(
     if not callable(condition):
         raise TypeError("Condition must be callable")
 
-    def decorator(func: Callable[..., T]) -> Callable[..., T]:
+    def decorator(func: Callable[P, T]) -> Callable[P, T]:
         """
         Decorator function.
 
@@ -47,7 +48,7 @@ def conditional_return(
         """
 
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> T:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> T:
             """
             Wrapper function to conditionally return a specified value.
 

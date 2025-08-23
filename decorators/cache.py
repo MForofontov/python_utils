@@ -1,9 +1,12 @@
-from typing import Any
+from typing import Any, ParamSpec, TypeVar
 from collections.abc import Callable
 from functools import wraps
 
+P = ParamSpec("P")
+R = TypeVar("R")
 
-def cache(func: Callable[..., Any]) -> Callable[..., Any]:
+
+def cache(func: Callable[P, R]) -> Callable[P, R]:
     """
     Decorator to cache the results of a function call.
 
@@ -21,7 +24,7 @@ def cache(func: Callable[..., Any]) -> Callable[..., Any]:
     cached_results: dict[tuple[tuple[Any, ...], frozenset[tuple[str, Any]]], Any] = {}
 
     @wraps(func)
-    def wrapper(*args: Any, **kwargs: Any) -> Any:
+    def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
         """
         Wrapper function to cache the results of the input function.
 

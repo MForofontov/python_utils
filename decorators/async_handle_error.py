@@ -1,14 +1,17 @@
-from typing import Any
+from typing import ParamSpec, TypeVar
 from collections.abc import Callable
 from functools import wraps
 import inspect
 import logging
 from logger_functions.logger import validate_logger
 
+P = ParamSpec("P")
+R = TypeVar("R")
+
 
 def async_handle_error(
     logger: logging.Logger | None = None,
-) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+) -> Callable[[Callable[P, R]], Callable[P, R | None]]:
     """Decorator for handling errors in asynchronous functions.
 
     Parameters
@@ -29,7 +32,7 @@ def async_handle_error(
     """
     validate_logger(logger)
 
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+    def decorator(func: Callable[P, R]) -> Callable[P, R | None]:
         """
         Decorator function.
 
@@ -59,7 +62,7 @@ def async_handle_error(
                 raise TypeError(error_message)
 
         @wraps(func)
-        async def wrapper(*args: Any, **kwargs: Any) -> Any:
+        async def wrapper(*args: P.args, **kwargs: P.kwargs) -> R | None:
             """
             Wrapper function to handle errors in the asynchronous function.
 

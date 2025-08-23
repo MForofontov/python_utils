@@ -1,12 +1,13 @@
-from typing import Any, TypeVar
+from typing import Any, ParamSpec, TypeVar
 from collections.abc import Callable
 from functools import wraps
 from inspect import Parameter, signature
 
+P = ParamSpec("P")
 T = TypeVar("T")
 
 
-def chain(func: Callable[..., T]) -> Callable[..., T | Any]:
+def chain(func: Callable[P, T]) -> Callable[P, T | Any]:
     """
     Decorator to call the 'chain' method on the result of a function if it exists.
 
@@ -22,7 +23,7 @@ def chain(func: Callable[..., T]) -> Callable[..., T | Any]:
     """
 
     @wraps(func)
-    def wrapper(*args: Any, **kwargs: Any) -> T | Any:
+    def wrapper(*args: P.args, **kwargs: P.kwargs) -> T | Any:
         """
         Wrapper function to call the 'chain' method on the result of the input function if it exists.
 

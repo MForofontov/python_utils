@@ -3,13 +3,16 @@ import inspect
 import logging
 from functools import wraps, partial
 from logger_functions.logger import validate_logger
-from typing import Any
+from typing import ParamSpec, TypeVar
 from collections.abc import Callable
+
+P = ParamSpec("P")
+R = TypeVar("R")
 
 
 def async_wrapper(
     logger: logging.Logger | None = None,
-) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     Wraps a synchronous function to be executed asynchronously.
 
@@ -33,7 +36,7 @@ def async_wrapper(
         message="The logger must be an instance of logging.Logger",
     )
 
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
         """
         Decorator function.
 
@@ -62,7 +65,7 @@ def async_wrapper(
             raise TypeError(error_message)
 
         @wraps(func)
-        async def wrapper(*args: Any, **kwargs: Any) -> Any:
+        async def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             """
             Asynchronous wrapper function.
 

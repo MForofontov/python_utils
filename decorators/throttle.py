@@ -1,14 +1,17 @@
-from typing import Any
+from typing import ParamSpec, TypeVar
 from collections.abc import Callable
 from functools import wraps
 import time
 import logging
 from logger_functions.logger import validate_logger
 
+P = ParamSpec("P")
+R = TypeVar("R")
+
 
 def throttle(
-    rate_limit: int | float, logger: logging.Logger = None
-) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+    rate_limit: int | float, logger: logging.Logger | None = None
+) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     A decorator to enforce a rate limit on a function, ensuring it is not called more often than the specified rate.
 
@@ -39,7 +42,7 @@ def throttle(
             )
         raise TypeError("rate_limit must be a positive float or an integer")
 
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
         """
         The actual decorator function.
 
@@ -56,7 +59,7 @@ def throttle(
         last_called = 0.0
 
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             """
             The wrapper function that enforces the rate limit.
 

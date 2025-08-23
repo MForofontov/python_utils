@@ -1,14 +1,17 @@
 import logging
 from functools import wraps
-from typing import Any, get_type_hints, get_origin, get_args
+from typing import Any, ParamSpec, TypeVar, get_type_hints, get_origin, get_args
 import inspect
 from collections.abc import Callable
 from logger_functions.logger import validate_logger
 
+P = ParamSpec("P")
+R = TypeVar("R")
+
 
 def enforce_types(
     logger: logging.Logger | None = None,
-) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     A decorator to enforce type checking on the arguments and return value of a function.
 
@@ -29,7 +32,7 @@ def enforce_types(
     """
     validate_logger(logger)
 
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
         """
         The actual decorator function.
 
@@ -45,7 +48,7 @@ def enforce_types(
         """
 
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             """
             The wrapper function that checks the types of the arguments and return value.
 

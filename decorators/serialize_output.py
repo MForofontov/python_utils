@@ -1,14 +1,17 @@
-from typing import Any
+from typing import ParamSpec, TypeVar
 from collections.abc import Callable
 from functools import wraps
 import json
 import logging
 from logger_functions.logger import validate_logger
 
+P = ParamSpec("P")
+R = TypeVar("R", bound=str)
+
 
 def serialize_output(
-    format: str, logger: logging.Logger = None
-) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+    format: str, logger: logging.Logger | None = None
+) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     A decorator to serialize the output of a function into a specified format.
 
@@ -52,7 +55,7 @@ def serialize_output(
             )
         raise ValueError("Unsupported format. Currently, only 'json' is supported.")
 
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
         """
         The actual decorator function.
 
@@ -68,7 +71,7 @@ def serialize_output(
         """
 
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> str:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             """
             The wrapper function that serializes the output.
 

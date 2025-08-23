@@ -1,13 +1,16 @@
 import logging
-from typing import Any
+from typing import ParamSpec, TypeVar
 from collections.abc import Callable
 from functools import wraps
 from logger_functions.logger import validate_logger
 
+P = ParamSpec("P")
+R = TypeVar("R")
+
 
 def validate_args(
-    validation_func: Callable[..., bool], logger: logging.Logger | None = None
-) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+    validation_func: Callable[P, bool], logger: logging.Logger | None = None
+) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     A decorator that validates the arguments of a function using a provided validation function.
 
@@ -36,7 +39,7 @@ def validate_args(
             )
         raise TypeError("validation_func must be callable")
 
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
         """
         The actual decorator function.
 
@@ -52,7 +55,7 @@ def validate_args(
         """
 
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             """
             The wrapper function that validates the arguments.
 

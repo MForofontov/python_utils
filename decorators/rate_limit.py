@@ -4,7 +4,11 @@ from collections import deque
 from functools import wraps
 import time
 import logging
+from typing import ParamSpec, TypeVar
 from logger_functions.logger import validate_logger
+
+P = ParamSpec("P")
+R = TypeVar("R")
 
 
 class RateLimitExceededException(Exception):
@@ -16,7 +20,7 @@ def rate_limit(
     period: int,
     logger: logging.Logger | None = None,
     exception_message: str | None = None,
-) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     A decorator to limit the number of times a function can be called within a specific period.
 
@@ -57,7 +61,7 @@ def rate_limit(
             logger.error("exception_message must be a string or None", exc_info=True)
         raise TypeError("exception_message must be a string or None")
 
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
         """
         The actual decorator function.
 
@@ -75,7 +79,7 @@ def rate_limit(
         calls: deque[float] = deque(maxlen=max_calls)
 
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             """
             The wrapper function that enforces the rate limit.
 

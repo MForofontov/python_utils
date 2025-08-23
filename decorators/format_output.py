@@ -1,11 +1,14 @@
-from typing import Any
+from typing import ParamSpec, TypeVar
 from collections.abc import Callable
 from functools import wraps
+
+P = ParamSpec("P")
+R = TypeVar("R", bound=str)
 
 
 def format_output(
     format_string: str,
-) -> Callable[[Callable[..., Any]], Callable[..., str]]:
+) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     A decorator to format the output of a function using a specified format string.
 
@@ -27,7 +30,7 @@ def format_output(
     if not isinstance(format_string, str):
         raise TypeError("format_string must be a string")
 
-    def decorator(func: Callable[..., Any]) -> Callable[..., str]:
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
         """
         The actual decorator function.
 
@@ -43,7 +46,7 @@ def format_output(
         """
 
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> str:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             """
             The wrapper function that formats the output of the decorated function.
 
