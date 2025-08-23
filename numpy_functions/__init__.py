@@ -4,6 +4,8 @@ from .array_std import array_std
 from .array_median import array_median
 from .array_max import array_max
 from .array_min import array_min
+from .array_argmax import array_argmax
+from .array_argmin import array_argmin
 from .array_sum import array_sum
 from .array_prod import array_prod
 from .array_cumsum import array_cumsum
@@ -32,6 +34,8 @@ __all__ = [
     "array_median",
     "array_max",
     "array_min",
+    "array_argmax",
+    "array_argmin",
     "array_sum",
     "array_prod",
     "array_cumsum",
