@@ -18,10 +18,12 @@ from .array_sqrt import array_sqrt
 from .array_exp import array_exp
 from .array_log import array_log
 from .array_floor import array_floor
+from .array_percentile import array_percentile
 from .dot_product import dot_product
 from .elementwise_sum import elementwise_sum
 from .elementwise_product import elementwise_product
 from .elementwise_divide import elementwise_divide
+from .elementwise_mod import elementwise_mod
 from .elementwise_subtract import elementwise_subtract
 from .elementwise_power import elementwise_power
 from .elementwise_min import elementwise_min
@@ -50,10 +52,12 @@ __all__ = [
     "array_exp",
     "array_log",
     "array_floor",
+    "array_percentile",
     "dot_product",
     "elementwise_sum",
     "elementwise_product",
     "elementwise_divide",
+    "elementwise_mod",
     "elementwise_subtract",
     "elementwise_power",
     "elementwise_min",
