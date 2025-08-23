@@ -14,6 +14,7 @@ def array_clip(arr: np.ndarray, a_min: float, a_max: float) -> np.ndarray:
     a_max : float
         Maximum allowed value.
 
+
     Returns
     -------
     np.ndarray
@@ -39,4 +40,3 @@ def array_clip(arr: np.ndarray, a_min: float, a_max: float) -> np.ndarray:
 
 
 __all__ = ["array_clip"]
-

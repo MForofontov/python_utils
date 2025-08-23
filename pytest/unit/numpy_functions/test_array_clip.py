@@ -26,4 +26,3 @@ def test_array_clip_invalid_range() -> None:
     """
     with pytest.raises(ValueError):
         array_clip(np.array([1, 2, 3]), 5, 1)
-
