@@ -9,9 +9,9 @@ def test_rename_df_index() -> None:
     Mapping should rename index labels.
     """
     # Test case 1: Rename existing index label
-    df = pd.DataFrame({"A": [1]}, index=["old"])
-    expected = pd.DataFrame({"A": [1]}, index=["new"])
-    result = rename_df_index(df, {"old": "new"})
+    df: pd.DataFrame = pd.DataFrame({"A": [1]}, index=["old"])
+    expected: pd.DataFrame = pd.DataFrame({"A": [1]}, index=["new"])
+    result: pd.DataFrame = rename_df_index(df, {"old": "new"})
     pd.testing.assert_frame_equal(result, expected)
 
 
@@ -20,7 +20,7 @@ def test_rename_df_index_missing_label() -> None:
     Missing labels should raise ``KeyError``.
     """
     # Test case 2: Missing index label
-    df = pd.DataFrame({"A": [1]}, index=["old"])
+    df: pd.DataFrame = pd.DataFrame({"A": [1]}, index=["old"])
     with pytest.raises(KeyError):
         rename_df_index(df, {"missing": "new"})
 
