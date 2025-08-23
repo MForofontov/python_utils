@@ -17,12 +17,14 @@ from .array_abs import array_abs
 from .array_sqrt import array_sqrt
 from .array_exp import array_exp
 from .array_log import array_log
+from .array_floor import array_floor
 from .dot_product import dot_product
 from .elementwise_sum import elementwise_sum
 from .elementwise_product import elementwise_product
 from .elementwise_divide import elementwise_divide
 from .elementwise_subtract import elementwise_subtract
 from .elementwise_power import elementwise_power
+from .elementwise_min import elementwise_min
 from .elementwise_max import elementwise_max
 from .matrix_multiply import matrix_multiply
 from .normalize_array import normalize_array
@@ -47,12 +49,14 @@ __all__ = [
     "array_sqrt",
     "array_exp",
     "array_log",
+    "array_floor",
     "dot_product",
     "elementwise_sum",
     "elementwise_product",
     "elementwise_divide",
     "elementwise_subtract",
     "elementwise_power",
+    "elementwise_min",
     "elementwise_max",
     "matrix_multiply",
     "normalize_array",
