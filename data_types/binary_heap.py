@@ -53,7 +53,8 @@ class BinaryHeap(Generic[T]):
         """
         if priority is None:
             if not isinstance(value, (int, float)):
-                raise TypeError("Priority must be provided for non-numeric values")
+                raise TypeError(
+                    "Priority must be provided for non-numeric values")
             priority = value
         item = (priority, value)
         if self.is_min_heap:

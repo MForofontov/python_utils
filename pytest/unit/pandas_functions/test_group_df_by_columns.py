@@ -9,9 +9,12 @@ def test_group_df_by_columns() -> None:
     Grouping by a column and aggregating should compute expected values.
     """
     # Test case 1: Group and aggregate
-    df: pd.DataFrame = pd.DataFrame({"A": ["x", "x", "y"], "B": [1, 2, 3], "C": [4, 5, 6]})
-    expected: pd.DataFrame = pd.DataFrame({"A": ["x", "y"], "B": [1.5, 3.0], "C": [9, 6]})
-    result: pd.DataFrame = group_df_by_columns(df, "A", {"B": "mean", "C": "sum"})
+    df: pd.DataFrame = pd.DataFrame(
+        {"A": ["x", "x", "y"], "B": [1, 2, 3], "C": [4, 5, 6]})
+    expected: pd.DataFrame = pd.DataFrame(
+        {"A": ["x", "y"], "B": [1.5, 3.0], "C": [9, 6]})
+    result: pd.DataFrame = group_df_by_columns(
+        df, "A", {"B": "mean", "C": "sum"})
     pd.testing.assert_frame_equal(result, expected)
 
 

@@ -159,4 +159,5 @@ def event_trigger(
 
     return decorator
 
+
 __all__ = ['EventManager', 'event_trigger']

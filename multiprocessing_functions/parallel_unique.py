@@ -44,7 +44,8 @@ def parallel_unique(
         )  # Pool will default to the number of available CPUs (minus 1)
 
     # Split the data into chunks of specified chunk_size
-    data_chunks = [data[i : i + chunk_size] for i in range(0, len(data), chunk_size)]
+    data_chunks = [data[i: i + chunk_size]
+                   for i in range(0, len(data), chunk_size)]
 
     # Create a pool of worker processes
     with Pool(processes=num_processes) as pool:
@@ -57,5 +58,6 @@ def parallel_unique(
 
     # Convert the set of unique elements back to a list and return
     return list(unique_combined)
+
 
 __all__ = ['parallel_unique']

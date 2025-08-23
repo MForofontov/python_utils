@@ -36,4 +36,3 @@ def test_elementwise_divide_invalid_type() -> None:
     """
     with pytest.raises(TypeError):
         elementwise_divide([1, 2], np.array([1, 2]))
-

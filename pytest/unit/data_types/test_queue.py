@@ -122,7 +122,8 @@ def test_iterative_access() -> None:
     queue.enqueue(1)
     queue.enqueue(2)
     queue.enqueue(3)
-    elements = [item for item in queue.items]  # Access the queue's items directly
+    # Access the queue's items directly
+    elements = [item for item in queue.items]
     assert elements == [1, 2, 3]
 
 

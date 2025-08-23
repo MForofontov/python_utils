@@ -7,7 +7,8 @@ from decorators.requires_permission import requires_permission
 test_logger = logging.getLogger("test_logger")
 test_logger.setLevel(logging.DEBUG)
 handler = logging.StreamHandler()
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+formatter = logging.Formatter(
+    "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 handler.setFormatter(formatter)
 test_logger.addHandler(handler)
 
@@ -61,7 +62,8 @@ def test_requires_permission_with_var_args():
         return f"{a} - {args} - {kwargs}"
 
     assert (
-        function_with_var_args(["admin"], 1, "arg1", "arg2", kwarg1=1.0, kwarg2=2.0)
+        function_with_var_args(["admin"], 1, "arg1",
+                               "arg2", kwarg1=1.0, kwarg2=2.0)
         == "1 - ('arg1', 'arg2') - {'kwarg1': 1.0, 'kwarg2': 2.0}"
     )
 

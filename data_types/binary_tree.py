@@ -91,7 +91,8 @@ class BinaryTree(Generic[T]):
             else:
                 self._insert_recursive(node.right, data)
         elif data == node.data:
-            raise ValueError("Duplicate values are not allowed in the BinaryTree")
+            raise ValueError(
+                "Duplicate values are not allowed in the BinaryTree")
 
     def search(self, data: T) -> bool:
         """

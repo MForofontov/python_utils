@@ -43,7 +43,8 @@ def test_flatten_list_strings() -> None:
         ["cherry", "date"],
         ["fig", "grape"],
     ]
-    expected_output: list[str] = ["apple", "banana", "cherry", "date", "fig", "grape"]
+    expected_output: list[str] = [
+        "apple", "banana", "cherry", "date", "fig", "grape"]
     assert flatten_list(list_to_flatten) == expected_output
 
 
@@ -52,7 +53,8 @@ def test_flatten_list_mixed_types() -> None:
     Test the flatten_list function with lists of mixed types.
     """
     # Test case 5: Lists of mixed types
-    list_to_flatten: list[list[Any]] = [[1, "banana"], [3.14, "apple"], [True, None]]
+    list_to_flatten: list[list[Any]] = [
+        [1, "banana"], [3.14, "apple"], [True, None]]
     expected_output: list[Any] = [1, "banana", 3.14, "apple", True, None]
     assert flatten_list(list_to_flatten) == expected_output
 

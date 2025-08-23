@@ -15,7 +15,8 @@ def test_to_lowercase_mixed_case() -> None:
     Test the to_lowercase function with a mixed case string.
     """
     # Test case 2: Mixed case string
-    assert to_lowercase("HeLLo WoRLd") == "hello world", "Failed on mixed case string"
+    assert to_lowercase(
+        "HeLLo WoRLd") == "hello world", "Failed on mixed case string"
 
 
 def test_to_lowercase_all_lowercase() -> None:
@@ -31,7 +32,8 @@ def test_to_lowercase_numbers() -> None:
     Test the to_lowercase function with a string that contains numbers.
     """
     # Test case 4: String with numbers
-    assert to_lowercase("Hello123") == "hello123", "Failed on string with numbers"
+    assert to_lowercase(
+        "Hello123") == "hello123", "Failed on string with numbers"
 
 
 def test_to_lowercase_special_characters() -> None:

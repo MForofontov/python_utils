@@ -36,4 +36,5 @@ def starts_with(s: str, prefix: str) -> bool:
         raise TypeError("The prefix must be a string.")
     return s.startswith(prefix)
 
+
 __all__ = ['starts_with']

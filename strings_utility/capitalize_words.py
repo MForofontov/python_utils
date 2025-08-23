@@ -30,4 +30,5 @@ def capitalize_words(s: str) -> str:
         raise TypeError("The input must be a string.")
     return s.title()
 
+
 __all__ = ['capitalize_words']

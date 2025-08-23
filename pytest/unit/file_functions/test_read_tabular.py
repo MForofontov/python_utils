@@ -32,7 +32,8 @@ def test_read_tabular_empty_file(tmp_path: Path) -> None:
     # Test case 3: Empty file
     file_path: Path = tmp_path / "empty.tsv"
     file_path.write_text("")
-    assert read_tabular(str(file_path)) == [], "Empty file should return empty list"
+    assert read_tabular(str(file_path)) == [
+    ], "Empty file should return empty list"
 
 
 def test_read_tabular_missing_file(tmp_path: Path) -> None:

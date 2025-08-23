@@ -18,4 +18,5 @@ def dict_to_df(dictionary: dict[str, Any]) -> pd.DataFrame:
     """
     return pd.DataFrame.from_dict(dictionary)
 
+
 __all__ = ['dict_to_df']

@@ -3,7 +3,6 @@ import pytest
 from numpy_functions.array_percentile import array_percentile
 
 
-
 def test_array_percentile_basic() -> None:
     """
     Test array_percentile with a simple array.
@@ -13,14 +12,12 @@ def test_array_percentile_basic() -> None:
     ), "Failed on basic percentile"
 
 
-
 def test_array_percentile_invalid_q_value() -> None:
     """
     Test array_percentile with an invalid percentile value.
     """
     with pytest.raises(ValueError):
         array_percentile(np.array([1, 2, 3]), 150)
-
 
 
 def test_array_percentile_invalid_type() -> None:

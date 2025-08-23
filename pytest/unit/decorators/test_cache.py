@@ -74,7 +74,8 @@ def test_cache_concat_different_args():
     # Test case 5: Caching with different variable arguments
     call_counts["concat"] = 0
     assert concat("a", "b", "c") == "abc"
-    assert concat("x", "y", "z") == "xyz"  # Different arguments, should not use cache
+    # Different arguments, should not use cache
+    assert concat("x", "y", "z") == "xyz"
     assert call_counts["concat"] == 1  # Function should be called twice
     call_counts["concat"] = 0
 
@@ -112,7 +113,8 @@ def test_cache_concat_mixed_args():
     # Test case 8: Caching with mixed positional and keyword arguments in concat function
     call_counts["concat"] = 0
     assert concat("a", "b", c="c", d="d") == "abcd"
-    assert concat("a", "b", c="c", d="d") == "abcd"  # Should return cached result
+    # Should return cached result
+    assert concat("a", "b", c="c", d="d") == "abcd"
     assert call_counts["concat"] == 1  # Function should be called only once
     call_counts["concat"] = 0
 

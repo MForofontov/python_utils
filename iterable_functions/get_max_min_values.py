@@ -24,10 +24,12 @@ def get_max_min_values(
     if not isinstance(input_collection, (list, set, tuple)):
         raise TypeError("input_collection must be a list, set, or tuple")
     if not all(isinstance(item, (int, float)) for item in input_collection):
-        raise TypeError("input_collection must contain only integers or floats")
+        raise TypeError(
+            "input_collection must contain only integers or floats")
     if not input_collection:
         raise ValueError("input_collection must not be empty")
 
     return max(input_collection), min(input_collection)
+
 
 __all__ = ['get_max_min_values']

@@ -6,7 +6,8 @@ from decorators.enforce_types import enforce_types
 test_logger = logging.getLogger("test_logger")
 test_logger.setLevel(logging.DEBUG)
 handler = logging.StreamHandler()
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+formatter = logging.Formatter(
+    "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 handler.setFormatter(formatter)
 test_logger.addHandler(handler)
 
@@ -105,7 +106,8 @@ def test_variable_length_arguments():
     def sample_function_var_args(a: int, *args: str, **kwargs: dict[str, float]) -> str:
         return f"{a} - {args} - {kwargs}"
 
-    result = sample_function_var_args(1, "arg1", "arg2", kwarg1=1.0, kwarg2=2.0)
+    result = sample_function_var_args(
+        1, "arg1", "arg2", kwarg1=1.0, kwarg2=2.0)
     assert result == "1 - ('arg1', 'arg2') - {'kwarg1': 1.0, 'kwarg2': 2.0}"
 
 
@@ -201,7 +203,8 @@ def test_invalid_argument_type_with_kwargs_and_logger(caplog):
         TypeError, match="Expected <class 'int'> for argument 'a', got <class 'str'>."
     ):
         with caplog.at_level(logging.ERROR):
-            sample_function_invalid_arg_kwargs_with_logger(a="invalid", b="test")
+            sample_function_invalid_arg_kwargs_with_logger(
+                a="invalid", b="test")
         assert "Argument 'a' must be of type int" in caplog.text
 
 

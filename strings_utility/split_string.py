@@ -36,4 +36,5 @@ def split_string(s: str, delimiter: str = " ") -> list[str]:
         raise TypeError("The delimiter must be a string.")
     return s.split(delimiter)
 
+
 __all__ = ['split_string']

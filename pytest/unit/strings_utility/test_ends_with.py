@@ -55,7 +55,8 @@ def test_both_string_and_suffix_are_empty() -> None:
     Test if both the string and the suffix are empty.
     """
     # Test case 6: Both string and suffix are empty
-    assert ends_with("", "") == True, "Failed on both string and suffix being empty"
+    assert ends_with(
+        "", "") == True, "Failed on both string and suffix being empty"
 
 
 def test_suffix_longer_than_string() -> None:

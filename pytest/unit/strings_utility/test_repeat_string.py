@@ -17,7 +17,8 @@ def test_repeat_string_once() -> None:
     Test the repeat_string function with a string repeated once.
     """
     # Test case 2: Repeat a string once
-    assert repeat_string("hello", 1) == "hello", "Failed on repeating string once"
+    assert repeat_string(
+        "hello", 1) == "hello", "Failed on repeating string once"
 
 
 def test_repeat_string_zero_times() -> None:
@@ -25,7 +26,8 @@ def test_repeat_string_zero_times() -> None:
     Test the repeat_string function with a string repeated zero times.
     """
     # Test case 3: Repeat a string zero times
-    assert repeat_string("hello", 0) == "", "Failed on repeating string zero times"
+    assert repeat_string(
+        "hello", 0) == "", "Failed on repeating string zero times"
 
 
 def test_repeat_string_negative_times() -> None:

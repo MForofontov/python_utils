@@ -39,4 +39,3 @@ def elementwise_divide(arr1: np.ndarray, arr2: np.ndarray) -> np.ndarray:
 
 
 __all__ = ["elementwise_divide"]
-

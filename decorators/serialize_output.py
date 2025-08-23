@@ -52,7 +52,8 @@ def serialize_output(
                 "Value error in serialize_output decorator: Unsupported format.",
                 exc_info=True,
             )
-        raise ValueError("Unsupported format. Currently, only 'json' is supported.")
+        raise ValueError(
+            "Unsupported format. Currently, only 'json' is supported.")
 
     def decorator(func: Callable[P, R]) -> Callable[P, str]:
         """
@@ -100,5 +101,6 @@ def serialize_output(
         return wrapper
 
     return decorator
+
 
 __all__ = ['serialize_output']

@@ -7,7 +7,8 @@ def test_ljust_string_default_fill() -> None:
     Test the ljust_string function with the default fill character (space).
     """
     # Test case 1: Left-justify a string with default fill character (space)
-    assert ljust_string("hello", 10) == "hello     ", "Failed on default fill character"
+    assert ljust_string(
+        "hello", 10) == "hello     ", "Failed on default fill character"
 
 
 def test_ljust_string_custom_fill() -> None:
@@ -35,7 +36,8 @@ def test_ljust_string_width_equal_to_length() -> None:
     Test the ljust_string function with width equal to string length.
     """
     # Test case 4: Left-justify a string with width equal to string length
-    assert ljust_string("hello", 5) == "hello", "Failed on width equal to string length"
+    assert ljust_string(
+        "hello", 5) == "hello", "Failed on width equal to string length"
 
 
 def test_ljust_string_empty_string() -> None:
@@ -69,7 +71,8 @@ def test_ljust_string_numbers() -> None:
     Test the ljust_string function with a string that contains numbers.
     """
     # Test case 8: Left-justify a string with numbers
-    assert ljust_string("123", 5, "0") == "12300", "Failed on string with numbers"
+    assert ljust_string(
+        "123", 5, "0") == "12300", "Failed on string with numbers"
 
 
 def test_ljust_string_mixed_case() -> None:

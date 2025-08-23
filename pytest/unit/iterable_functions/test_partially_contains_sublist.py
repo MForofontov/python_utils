@@ -11,7 +11,8 @@ def test_partially_contains_sublist_success() -> None:
     main_list: list[str] = ["a", "b"]
     list_of_lists: list[list[str]] = [["a", "b", "c"], ["d", "e"]]
     expected_output: bool = True
-    assert partially_contains_sublist(main_list, list_of_lists) == expected_output
+    assert partially_contains_sublist(
+        main_list, list_of_lists) == expected_output
 
 
 def test_partially_contains_sublist_not_found() -> None:
@@ -22,7 +23,8 @@ def test_partially_contains_sublist_not_found() -> None:
     main_list: list[str] = ["a", "b"]
     list_of_lists: list[list[str]] = [["d", "e"], ["f", "g"]]
     expected_output: bool = False
-    assert partially_contains_sublist(main_list, list_of_lists) == expected_output
+    assert partially_contains_sublist(
+        main_list, list_of_lists) == expected_output
 
 
 def test_partially_contains_sublist_empty_main_list() -> None:
@@ -33,7 +35,8 @@ def test_partially_contains_sublist_empty_main_list() -> None:
     main_list: list[str] = []
     list_of_lists: list[list[str]] = [["a", "b", "c"], ["d", "e"]]
     expected_output: bool = False
-    assert partially_contains_sublist(main_list, list_of_lists) == expected_output
+    assert partially_contains_sublist(
+        main_list, list_of_lists) == expected_output
 
 
 def test_partially_contains_sublist_empty_list_of_lists() -> None:
@@ -44,7 +47,8 @@ def test_partially_contains_sublist_empty_list_of_lists() -> None:
     main_list: list[str] = ["a", "b"]
     list_of_lists: list[list[str]] = []
     expected_output: bool = False
-    assert partially_contains_sublist(main_list, list_of_lists) == expected_output
+    assert partially_contains_sublist(
+        main_list, list_of_lists) == expected_output
 
 
 def test_partially_contains_sublist_integers() -> None:
@@ -55,7 +59,8 @@ def test_partially_contains_sublist_integers() -> None:
     main_list: list[int] = [1, 2]
     list_of_lists: list[list[int]] = [[1, 2, 3], [4, 5, 6]]
     expected_output: bool = True
-    assert partially_contains_sublist(main_list, list_of_lists) == expected_output
+    assert partially_contains_sublist(
+        main_list, list_of_lists) == expected_output
 
 
 def test_partially_contains_sublist_mixed_types() -> None:
@@ -66,7 +71,8 @@ def test_partially_contains_sublist_mixed_types() -> None:
     main_list: list[Any] = [1, "b"]
     list_of_lists: list[list[Any]] = [[1, "b", 3], ["d", "e"]]
     expected_output: bool = True
-    assert partially_contains_sublist(main_list, list_of_lists) == expected_output
+    assert partially_contains_sublist(
+        main_list, list_of_lists) == expected_output
 
 
 def test_partially_contains_sublist_type_error_main_list() -> None:

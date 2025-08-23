@@ -7,7 +7,8 @@ from decorators.log_function_calls import log_function_calls
 test_logger = logging.getLogger("test_logger")
 test_logger.setLevel(logging.DEBUG)
 handler = logging.StreamHandler()
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+formatter = logging.Formatter(
+    "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 handler.setFormatter(formatter)
 test_logger.addHandler(handler)
 
@@ -91,7 +92,8 @@ def test_log_function_calls_with_variable_length_arguments(
         return f"{a} - {args} - {kwargs}"
 
     with caplog.at_level(logging.INFO):
-        result = sample_function_var_args(1, "arg1", "arg2", kwarg1=1.0, kwarg2=2.0)
+        result = sample_function_var_args(
+            1, "arg1", "arg2", kwarg1=1.0, kwarg2=2.0)
     assert result == "1 - ('arg1', 'arg2') - {'kwarg1': 1.0, 'kwarg2': 2.0}"
     assert (
         "Calling sample_function_var_args with args: (1, 'arg1', 'arg2') and kwargs: {'kwarg1': 1.0, 'kwarg2': 2.0}"

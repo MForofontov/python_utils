@@ -55,4 +55,5 @@ def compress_file_bz2(input_file: str, output_file: str) -> None:
         # Wrap all other I/O related errors in a generic OSError message.
         raise OSError(f"An I/O error occurred during compression: {e}")
 
+
 __all__ = ['compress_file_bz2']

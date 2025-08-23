@@ -44,7 +44,6 @@ def parallel_sort(
     [1, 2, 3, 4, 5]
     """
 
-
     if num_processes is None:
         num_processes = max(
             cpu_count() - 1,
@@ -55,7 +54,7 @@ def parallel_sort(
     with Pool(processes=num_processes) as pool:
         # Split the data into chunks
         data_chunks = [
-            data[i : i + chunk_size] for i in range(0, len(data), chunk_size)
+            data[i: i + chunk_size] for i in range(0, len(data), chunk_size)
         ]
         # Sort each chunk in parallel
         sorted_chunks = pool.map(sorted, data_chunks)
@@ -74,5 +73,6 @@ def parallel_sort(
 
     # Return the final sorted list
     return sorted_chunks[0] if sorted_chunks else []
+
 
 __all__ = ['parallel_sort']

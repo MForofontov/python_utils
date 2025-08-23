@@ -35,4 +35,5 @@ def remove_punctuation(s: str) -> str:
         raise TypeError("The input must be a string.")
     return s.translate(str.maketrans("", "", string.punctuation))
 
+
 __all__ = ['remove_punctuation']

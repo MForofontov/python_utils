@@ -28,4 +28,5 @@ def flatten_list(list_to_flatten: list[list[Any]]) -> list[Any]:
 
     return list(itertools.chain(*list_to_flatten))
 
+
 __all__ = ['flatten_list']

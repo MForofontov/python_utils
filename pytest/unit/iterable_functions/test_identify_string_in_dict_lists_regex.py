@@ -88,7 +88,8 @@ def test_identify_string_in_dict_lists_regex_type_error_dict_of_lists() -> None:
     """
     # Test case 6: Invalid type for dict_of_lists
     with pytest.raises(TypeError):
-        identify_string_in_dict_lists_regex("apple", "not a dictionary", regex=None)
+        identify_string_in_dict_lists_regex(
+            "apple", "not a dictionary", regex=None)
 
 
 def test_identify_string_in_dict_lists_regex_type_error_elements() -> None:

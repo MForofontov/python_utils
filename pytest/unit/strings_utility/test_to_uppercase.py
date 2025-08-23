@@ -15,7 +15,8 @@ def test_to_uppercase_mixed_case() -> None:
     Test the to_uppercase function with a mixed case string.
     """
     # Test case 2: Mixed case string
-    assert to_uppercase("HeLLo WoRLd") == "HELLO WORLD", "Failed on mixed case string"
+    assert to_uppercase(
+        "HeLLo WoRLd") == "HELLO WORLD", "Failed on mixed case string"
 
 
 def test_to_uppercase_all_uppercase() -> None:
@@ -31,7 +32,8 @@ def test_to_uppercase_numbers() -> None:
     Test the to_uppercase function with a string that contains numbers.
     """
     # Test case 4: String with numbers
-    assert to_uppercase("Hello123") == "HELLO123", "Failed on string with numbers"
+    assert to_uppercase(
+        "Hello123") == "HELLO123", "Failed on string with numbers"
 
 
 def test_to_uppercase_special_characters() -> None:

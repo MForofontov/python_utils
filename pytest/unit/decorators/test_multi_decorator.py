@@ -8,7 +8,8 @@ from decorators.multi_decorator import multi_decorator
 test_logger = logging.getLogger("test_logger")
 test_logger.setLevel(logging.DEBUG)
 handler = logging.StreamHandler()
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+formatter = logging.Formatter(
+    "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 handler.setFormatter(formatter)
 test_logger.addHandler(handler)
 
@@ -88,7 +89,8 @@ def test_multi_decorator_with_variable_length_arguments(
     Test case 4: Multi decorator with variable length arguments (*args and **kwargs)
     """
     with caplog.at_level(logging.ERROR):
-        result = sample_function_args_kwargs(1, 2, 3, kwarg1="test", kwarg2="example")
+        result = sample_function_args_kwargs(
+            1, 2, 3, kwarg1="test", kwarg2="example")
     assert (
         result
         == "decorator1(decorator2(args: (1, 2, 3), kwargs: {'kwarg1': 'test', 'kwarg2': 'example'}))"

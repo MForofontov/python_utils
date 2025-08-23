@@ -51,4 +51,5 @@ def async_event_loop(func: Callable[[], Awaitable[T]]) -> T:
         task = loop.create_task(wrapper())
         return loop.run_until_complete(task)
 
+
 __all__ = ['async_event_loop']

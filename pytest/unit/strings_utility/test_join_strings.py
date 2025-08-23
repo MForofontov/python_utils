@@ -63,7 +63,8 @@ def test_join_strings_numbers() -> None:
     Test the join_strings function with a list of strings that includes numbers.
     """
     # Test case 7: Join a list of strings with numbers
-    assert join_strings(["123", "456"], delimiter="-") == "123-456", "Failed on numbers"
+    assert join_strings(
+        ["123", "456"], delimiter="-") == "123-456", "Failed on numbers"
 
 
 def test_join_strings_mixed_case() -> None:
@@ -82,7 +83,8 @@ def test_join_strings_leading_trailing_spaces() -> None:
     """
     # Test case 9: Join a list of strings with leading and trailing spaces
     assert (
-        join_strings(["  hello", "world  "], delimiter=" ") == "  hello world  "
+        join_strings(["  hello", "world  "],
+                     delimiter=" ") == "  hello world  "
     ), "Failed on leading and trailing spaces"
 
 
@@ -112,7 +114,8 @@ def test_join_strings_mixed_whitespace_characters() -> None:
     """
     # Test case 12: Join a list of strings with mixed whitespace characters
     assert (
-        join_strings(["hello", "world"], delimiter=" \t\n") == "hello \t\nworld"
+        join_strings(["hello", "world"],
+                     delimiter=" \t\n") == "hello \t\nworld"
     ), "Failed on mixed whitespace characters"
 
 

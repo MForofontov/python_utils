@@ -9,8 +9,8 @@ def test_elementwise_mod_basic() -> None:
     """
     result = elementwise_mod(np.array([5, 7]), np.array([2, 3]))
     expected = np.array([1, 1])
-    assert np.array_equal(result, expected), "Failed on basic element-wise modulus"
-
+    assert np.array_equal(
+        result, expected), "Failed on basic element-wise modulus"
 
 
 def test_elementwise_mod_mismatched_shapes() -> None:
@@ -19,6 +19,7 @@ def test_elementwise_mod_mismatched_shapes() -> None:
     """
     with pytest.raises(ValueError):
         elementwise_mod(np.array([1, 2]), np.array([1, 2, 3]))
+
 
 def test_elementwise_mod_invalid_type() -> None:
     """

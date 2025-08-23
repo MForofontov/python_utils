@@ -8,7 +8,8 @@ def test_replace_single_substring() -> None:
     """
     # Test case 1: Single substring replacement
     assert (
-        replace_multiple_substrings("hello world", {"world": "there"}) == "hello there"
+        replace_multiple_substrings(
+            "hello world", {"world": "there"}) == "hello there"
     ), "Failed on single substring replacement"
 
 
@@ -18,7 +19,8 @@ def test_replace_multiple_substrings() -> None:
     """
     # Test case 2: Multiple substring replacements
     assert (
-        replace_multiple_substrings("hello world", {"hello": "hi", "world": "there"})
+        replace_multiple_substrings(
+            "hello world", {"hello": "hi", "world": "there"})
         == "hi there"
     ), "Failed on multiple substring replacements"
 
@@ -39,7 +41,8 @@ def test_replace_non_existing_substring() -> None:
     """
     # Test case 4: Non-existing substring
     assert (
-        replace_multiple_substrings("hello world", {"there": "world"}) == "hello world"
+        replace_multiple_substrings(
+            "hello world", {"there": "world"}) == "hello world"
     ), "Failed on non-existing substring"
 
 
@@ -59,7 +62,8 @@ def test_replace_special_characters() -> None:
     """
     # Test case 6: Special characters
     assert (
-        replace_multiple_substrings("hello!@#", {"!@#": " world"}) == "hello world"
+        replace_multiple_substrings(
+            "hello!@#", {"!@#": " world"}) == "hello world"
     ), "Failed on special characters"
 
 
@@ -79,7 +83,8 @@ def test_replace_mixed_case() -> None:
     """
     # Test case 8: Mixed case substrings
     assert (
-        replace_multiple_substrings("Hello World", {"Hello": "Hi", "World": "There"})
+        replace_multiple_substrings(
+            "Hello World", {"Hello": "Hi", "World": "There"})
         == "Hi There"
     ), "Failed on mixed case substrings"
 
@@ -100,7 +105,8 @@ def test_replace_newline_characters() -> None:
     """
     # Test case 10: Newline characters
     assert (
-        replace_multiple_substrings("hello\nworld", {"\n": " "}) == "hello world"
+        replace_multiple_substrings(
+            "hello\nworld", {"\n": " "}) == "hello world"
     ), "Failed on newline characters"
 
 
@@ -110,7 +116,8 @@ def test_replace_tab_characters() -> None:
     """
     # Test case 11: Tab characters
     assert (
-        replace_multiple_substrings("hello\tworld", {"\t": " "}) == "hello world"
+        replace_multiple_substrings(
+            "hello\tworld", {"\t": " "}) == "hello world"
     ), "Failed on tab characters"
 
 
@@ -131,7 +138,8 @@ def test_replace_non_english_characters() -> None:
     """
     # Test case 13: Non-English characters
     assert (
-        replace_multiple_substrings("héllo wörld", {"héllo": "hi", "wörld": "there"})
+        replace_multiple_substrings(
+            "héllo wörld", {"héllo": "hi", "wörld": "there"})
         == "hi there"
     ), "Failed on non-English characters"
 

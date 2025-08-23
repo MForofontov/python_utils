@@ -13,7 +13,8 @@ def test_insert_min_heap() -> None:
     heap.insert(5)
     heap.insert(20)
     heap.insert(1)
-    assert heap.heap == [(1, 1), (5, 5), (20, 20), (10, 10)]  # Min-heap property should be maintained
+    # Min-heap property should be maintained
+    assert heap.heap == [(1, 1), (5, 5), (20, 20), (10, 10)]
 
 
 def test_insert_max_heap() -> None:
@@ -26,7 +27,8 @@ def test_insert_max_heap() -> None:
     heap.insert(5)
     heap.insert(20)
     heap.insert(1)
-    assert heap.heap == [(20, 20), (5, 5), (10, 10), (1, 1)]  # Internal representation uses max-heap
+    # Internal representation uses max-heap
+    assert heap.heap == [(20, 20), (5, 5), (10, 10), (1, 1)]
 
 
 def test_extract_min_heap() -> None:
@@ -41,7 +43,8 @@ def test_extract_min_heap() -> None:
     heap.insert(1)
     root = heap.extract()
     assert root == 1  # Root should be the smallest element
-    assert heap.heap == [(5, 5), (10, 10), (20, 20)]  # Heap property should be maintained
+    # Heap property should be maintained
+    assert heap.heap == [(5, 5), (10, 10), (20, 20)]
 
 
 def test_extract_max_heap() -> None:
@@ -56,7 +59,8 @@ def test_extract_max_heap() -> None:
     heap.insert(1)
     root = heap.extract()
     assert root == 20  # Root should be the largest element
-    assert heap.heap == [(10, 10), (5, 5), (1, 1)]  # Internal representation after extraction
+    # Internal representation after extraction
+    assert heap.heap == [(10, 10), (5, 5), (1, 1)]
 
 
 def test_insert_and_extract_min_heap() -> None:
@@ -129,7 +133,8 @@ def test_insert_duplicate_elements_min_heap() -> None:
     heap.insert(10)
     heap.insert(5)
     heap.insert(5)
-    assert heap.heap == [(5, 5), (5, 5), (10, 10), (10, 10)]  # Min-heap property should be maintained
+    # Min-heap property should be maintained
+    assert heap.heap == [(5, 5), (5, 5), (10, 10), (10, 10)]
 
 
 def test_insert_duplicate_elements_max_heap() -> None:
@@ -142,7 +147,8 @@ def test_insert_duplicate_elements_max_heap() -> None:
     heap.insert(10)
     heap.insert(20)
     heap.insert(20)
-    assert heap.heap == [(20, 20), (20, 20), (10, 10), (10, 10)]  # Internal representation uses max-heap
+    # Internal representation uses max-heap
+    assert heap.heap == [(20, 20), (20, 20), (10, 10), (10, 10)]
 
 
 def test_insert_boundary_values() -> None:
@@ -176,7 +182,8 @@ def test_heapify_min_heap() -> None:
     heap = BinaryHeap[int](is_min_heap=True)
     heap.heap = [(10, 10), (5, 5), (20, 20), (1, 1)]
     heap.heapify()
-    assert heap.heap == [(1, 1), (5, 5), (20, 20), (10, 10)]  # Min-heap property should be maintained
+    # Min-heap property should be maintained
+    assert heap.heap == [(1, 1), (5, 5), (20, 20), (10, 10)]
 
 
 def test_heapify_max_heap() -> None:
@@ -187,7 +194,8 @@ def test_heapify_max_heap() -> None:
     heap = BinaryHeap[int](is_min_heap=False)
     heap.heap = [(10, 10), (5, 5), (20, 20), (1, 1)]
     heap.heapify()
-    assert heap.heap == [(20, 20), (5, 5), (10, 10), (1, 1)]  # Internal representation uses max-heap
+    # Internal representation uses max-heap
+    assert heap.heap == [(20, 20), (5, 5), (10, 10), (1, 1)]
 
 
 def test_extract_from_empty_heap() -> None:

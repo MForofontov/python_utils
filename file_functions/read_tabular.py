@@ -23,4 +23,5 @@ def read_tabular(input_file: str, delimiter: str = "\t") -> list[list[str]]:
 
     return lines
 
+
 __all__ = ['read_tabular']

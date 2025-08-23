@@ -121,7 +121,8 @@ def test_center_string_mixed_characters() -> None:
     Test the center_string function with mixed characters.
     """
     # Test case 14: Center a string with mixed characters
-    assert center_string("a1!b2@", 12) == "   a1!b2@   ", "Failed on mixed characters"
+    assert center_string(
+        "a1!b2@", 12) == "   a1!b2@   ", "Failed on mixed characters"
 
 
 def test_center_string_leading_trailing_spaces() -> None:

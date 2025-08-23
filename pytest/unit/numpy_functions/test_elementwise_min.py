@@ -9,7 +9,8 @@ def test_elementwise_min_basic() -> None:
     """
     result = elementwise_min(np.array([1, 3]), np.array([2, 2]))
     expected = np.array([1, 2])
-    assert np.array_equal(result, expected), "Failed on basic element-wise minimum"
+    assert np.array_equal(
+        result, expected), "Failed on basic element-wise minimum"
 
 
 def test_elementwise_min_mismatched_shapes() -> None:

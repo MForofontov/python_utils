@@ -47,7 +47,6 @@ def parallel_reduce(
     15
     """
 
-
     # If num_processes is not specified, use the number of available CPUs
     if num_processes is None:
         num_processes = max(
@@ -59,7 +58,7 @@ def parallel_reduce(
     with Pool(processes=num_processes) as pool:
         # Split the data into chunks
         data_chunks = [
-            data[i : i + chunk_size] for i in range(0, len(data), chunk_size)
+            data[i: i + chunk_size] for i in range(0, len(data), chunk_size)
         ]
         # Apply the pair_reduce function to each chunk in parallel
         reduced_chunks = pool.map(
@@ -68,5 +67,6 @@ def parallel_reduce(
 
     # Reduce the results from each chunk to a single value
     return reduce(func, reduced_chunks)
+
 
 __all__ = ['parallel_reduce']

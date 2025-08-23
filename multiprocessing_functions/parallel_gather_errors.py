@@ -71,4 +71,5 @@ def parallel_gather_errors(
     # Return the list of results and the list of errors
     return results, errors
 
+
 __all__ = ['parallel_gather_errors']

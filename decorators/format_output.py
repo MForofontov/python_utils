@@ -68,4 +68,5 @@ def format_output(
 
     return decorator
 
+
 __all__ = ['format_output']

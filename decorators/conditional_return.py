@@ -81,4 +81,5 @@ def conditional_return(
 
     return decorator
 
+
 __all__ = ['conditional_return']

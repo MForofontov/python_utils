@@ -28,4 +28,5 @@ def copy_folder(src_folder: str, dest_folder: str) -> None:
 
     shutil.copytree(src_folder, dest_folder, dirs_exist_ok=True)
 
+
 __all__ = ['copy_folder']

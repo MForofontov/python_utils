@@ -32,4 +32,5 @@ def swapcase_string(s: str) -> str:
         raise TypeError("The input must be a string.")
     return s.swapcase()
 
+
 __all__ = ['swapcase_string']

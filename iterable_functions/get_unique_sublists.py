@@ -36,7 +36,9 @@ def get_unique_sublists(list_of_lists: list[list[Any]]) -> list[list[Any]]:
                 seen.add(sublist_tuple)
                 unique_sublists.append(sublist)
         except TypeError as e:
-            raise ValueError(f"Sublist contains unhashable elements: {e}") from e
+            raise ValueError(
+                f"Sublist contains unhashable elements: {e}") from e
     return unique_sublists
+
 
 __all__ = ['get_unique_sublists']

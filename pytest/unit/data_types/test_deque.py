@@ -148,10 +148,6 @@ def test_add_and_remove_all_elements() -> None:
     assert deque.is_empty() is True
 
 
-import pytest
-from data_types.deque import Deque
-
-
 def test_single_element_operations() -> None:
     """
     Test adding and removing a single element.

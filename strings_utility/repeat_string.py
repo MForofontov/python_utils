@@ -42,4 +42,5 @@ def repeat_string(s: str, n: int) -> str:
         raise ValueError("The number of times must be non-negative.")
     return s * n
 
+
 __all__ = ['repeat_string']

@@ -32,4 +32,3 @@ def test_rename_df_index_invalid_df() -> None:
     # Test case 3: Invalid DataFrame input
     with pytest.raises(AttributeError):
         rename_df_index(123, {"old": "new"})
-

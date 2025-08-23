@@ -46,7 +46,6 @@ def parallel_pipeline(
     [2, 5, 10, 17]
     """
 
-
     # If num_processes is not specified, use the number of available CPUs
     if num_processes is None:
         num_processes = max(
@@ -61,5 +60,6 @@ def parallel_pipeline(
 
     # Return the list of results
     return results
+
 
 __all__ = ['parallel_pipeline']

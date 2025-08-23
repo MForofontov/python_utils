@@ -36,4 +36,5 @@ def contains_substring(s: str, substring: str) -> bool:
         raise TypeError("The substring must be a string.")
     return substring in s
 
+
 __all__ = ['contains_substring']

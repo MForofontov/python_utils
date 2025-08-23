@@ -128,4 +128,5 @@ def env_config(
 
     return decorator
 
+
 __all__ = ['env_config']

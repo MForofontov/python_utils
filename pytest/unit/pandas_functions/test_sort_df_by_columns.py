@@ -44,4 +44,3 @@ def test_sort_df_by_columns_invalid_df() -> None:
     # Test case 4: Invalid DataFrame input
     with pytest.raises(AttributeError):
         sort_df_by_columns("not a df", "A")
-

@@ -62,7 +62,8 @@ def test_get_common_elements_in_lists_mixed_types() -> None:
     Test the get_common_elements_in_lists function with lists of mixed types.
     """
     # Test case 6: Lists of mixed types
-    list_of_lists: list[list[Any]] = [[1, "banana"], [3.14, "banana"], [True, "banana"]]
+    list_of_lists: list[list[Any]] = [
+        [1, "banana"], [3.14, "banana"], [True, "banana"]]
     expected_output: list[Any] = ["banana"]
     assert get_common_elements_in_lists(list_of_lists) == expected_output
 

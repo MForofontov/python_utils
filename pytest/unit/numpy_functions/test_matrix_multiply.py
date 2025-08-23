@@ -9,7 +9,8 @@ def test_matrix_multiply_basic() -> None:
     """
     result = matrix_multiply(np.array([[1, 2], [3, 4]]), np.array([[5], [6]]))
     expected = np.array([[17], [39]])
-    assert np.array_equal(result, expected), "Failed on basic matrix multiplication"
+    assert np.array_equal(
+        result, expected), "Failed on basic matrix multiplication"
 
 
 def test_matrix_multiply_mismatched_shapes() -> None:

@@ -45,7 +45,8 @@ def test_rstrip_chars_no_chars_argument() -> None:
     Test the rstrip_chars function with an empty chars argument.
     """
     # Test case 5: Empty chars argument
-    assert rstrip_chars("hello", "") == "hello", "Failed on empty chars argument"
+    assert rstrip_chars(
+        "hello", "") == "hello", "Failed on empty chars argument"
 
 
 def test_rstrip_chars_all_match() -> None:
@@ -113,7 +114,8 @@ def test_rstrip_chars_only_spaces() -> None:
     Test the rstrip_chars function when the input string is only spaces.
     """
     # Test case 12: Input string with only spaces
-    assert rstrip_chars("     ", " ") == "", "Failed on input string with only spaces"
+    assert rstrip_chars(
+        "     ", " ") == "", "Failed on input string with only spaces"
 
 
 def test_rstrip_chars_only_numbers() -> None:
@@ -139,7 +141,8 @@ def test_rstrip_chars_partial_non_match() -> None:
     Test the rstrip_chars function when chars partially overlap but don't match fully.
     """
     # Test case 15: Partial non-match
-    assert rstrip_chars("abccba", "a") == "abccb", "Failed on partial non-match"
+    assert rstrip_chars(
+        "abccba", "a") == "abccb", "Failed on partial non-match"
 
 
 def test_rstrip_chars_strip_same_as_string() -> None:
@@ -157,7 +160,8 @@ def test_rstrip_chars_alphanumeric() -> None:
     Test the rstrip_chars function with a mix of alphanumeric characters to strip.
     """
     # Test case 17: Alphanumeric mix
-    assert rstrip_chars("123abc456", "456") == "123abc", "Failed on alphanumeric mix"
+    assert rstrip_chars(
+        "123abc456", "456") == "123abc", "Failed on alphanumeric mix"
 
 
 def test_rstrip_chars_substring_in_middle() -> None:
@@ -175,7 +179,8 @@ def test_rstrip_chars_case_sensitivity() -> None:
     Test the rstrip_chars function for case sensitivity in chars to strip.
     """
     # Test case 19: Case sensitivity
-    assert rstrip_chars("aAaHello", "a") == "aAaHello", "Failed on case sensitivity"
+    assert rstrip_chars(
+        "aAaHello", "a") == "aAaHello", "Failed on case sensitivity"
 
 
 def test_rstrip_chars_with_escapes() -> None:

@@ -35,4 +35,5 @@ def cleanup(directory: str, exclude: list[str]) -> None:
             elif os.path.isdir(item_path):
                 shutil.rmtree(item_path)
 
+
 __all__ = ['cleanup']

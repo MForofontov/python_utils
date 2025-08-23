@@ -9,9 +9,11 @@ def test_split_df_column_basic() -> None:
     Splitting a column into multiple columns should distribute values.
     """
     # Test case 1: Basic split by space
-    df: pd.DataFrame = pd.DataFrame({"name": ["John Doe", "Jane Smith"], "age": [30, 25]})
+    df: pd.DataFrame = pd.DataFrame(
+        {"name": ["John Doe", "Jane Smith"], "age": [30, 25]})
     result: pd.DataFrame = split_df_column(df, "name", ["first", "last"], " ")
-    expected: pd.DataFrame = pd.DataFrame({"age": [30, 25], "first": ["John", "Jane"], "last": ["Doe", "Smith"]})
+    expected: pd.DataFrame = pd.DataFrame(
+        {"age": [30, 25], "first": ["John", "Jane"], "last": ["Doe", "Smith"]})
     pd.testing.assert_frame_equal(result, expected)
 
 

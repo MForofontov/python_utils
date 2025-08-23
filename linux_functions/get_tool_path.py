@@ -17,4 +17,5 @@ def get_tool_path(name: str) -> str | None:
     """
     return shutil.which(name)
 
+
 __all__ = ['get_tool_path']

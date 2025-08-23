@@ -36,4 +36,5 @@ def print_dependencies_info_in_terminal(dependencies: Iterable[str]) -> None:
 
     print_message(separator, None)
 
+
 __all__ = ['print_dependencies_info_in_terminal']

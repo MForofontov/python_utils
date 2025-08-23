@@ -32,4 +32,5 @@ def remove_whitespace(s: str) -> str:
         raise TypeError("The input must be a string.")
     return "".join(s.split())
 
+
 __all__ = ['remove_whitespace']

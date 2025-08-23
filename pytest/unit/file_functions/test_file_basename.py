@@ -25,7 +25,8 @@ def test_file_basename_multiple_dots() -> None:
     """Test handling filenames that contain multiple dots."""
     # Test case 3: Filename with multiple dots
     path: str = "/path/to/archive.tar.gz"
-    assert file_basename(path) == "archive.tar.gz", "Should retain full filename"
+    assert file_basename(
+        path) == "archive.tar.gz", "Should retain full filename"
     assert (
         file_basename(path, file_extension=False) == "archive.tar"
     ), "Should remove only the last extension"
@@ -48,4 +49,3 @@ def test_file_basename_empty_path_raises_value_error() -> None:
     # Test case 5: Empty path raises error
     with pytest.raises(ValueError):
         file_basename("")
-

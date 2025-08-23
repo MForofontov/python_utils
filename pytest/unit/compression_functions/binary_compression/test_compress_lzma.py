@@ -124,7 +124,8 @@ def test_compress_lzma_compression_error() -> None:
     with pytest.raises(ValueError):
         # Mock lzma.compress to raise an exception
         original_compress = lzma.compress
-        lzma.compress = lambda x: (_ for _ in ()).throw(Exception("Mock error"))  # type: ignore
+        lzma.compress = lambda x: (_ for _ in ()).throw(
+            Exception("Mock error"))  # type: ignore
         try:
             compress_lzma(b"data")
         finally:

@@ -40,4 +40,5 @@ def regex_present(regex_list: list[str], string: str) -> bool:
 
     return any(re.search(regex, string) for regex in regex_list)
 
+
 __all__ = ['regex_present']

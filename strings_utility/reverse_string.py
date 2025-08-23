@@ -32,4 +32,5 @@ def reverse_string(s: str) -> str:
         raise TypeError("The input must be a string.")
     return s[::-1]
 
+
 __all__ = ['reverse_string']

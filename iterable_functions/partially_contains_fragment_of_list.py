@@ -35,10 +35,11 @@ def partially_contains_fragment_of_list(
 
     for sub in list_of_lists:
         if any(
-            sub[i : i + len(target_list)] == target_list
+            sub[i: i + len(target_list)] == target_list
             for i in range(len(sub) - len(target_list) + 1)
         ):
             return True
     return False
+
 
 __all__ = ['partially_contains_fragment_of_list']

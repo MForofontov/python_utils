@@ -33,8 +33,10 @@ def import_df_from_file(
     try:
         return pd.read_csv(file_path, sep=sep, **kwargs)
     except FileNotFoundError as exc:
-        raise FileNotFoundError(f"File not found: {fspath(file_path)}") from exc
+        raise FileNotFoundError(
+            f"File not found: {fspath(file_path)}") from exc
     except (pd.errors.ParserError, pd.errors.EmptyDataError, ValueError) as exc:
         raise ValueError(f"Could not parse file: {fspath(file_path)}") from exc
+
 
 __all__ = ['import_df_from_file']

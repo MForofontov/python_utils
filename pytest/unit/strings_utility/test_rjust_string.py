@@ -7,7 +7,8 @@ def test_rjust_string_default_fill() -> None:
     Test the rjust_string function with the default fill character (space).
     """
     # Test case 1: Right-justify a string with default fill character (space)
-    assert rjust_string("hello", 10) == "     hello", "Failed on default fill character"
+    assert rjust_string(
+        "hello", 10) == "     hello", "Failed on default fill character"
 
 
 def test_rjust_string_custom_fill() -> None:
@@ -35,7 +36,8 @@ def test_rjust_string_width_equal_to_length() -> None:
     Test the rjust_string function with width equal to string length.
     """
     # Test case 4: Right-justify a string with width equal to string length
-    assert rjust_string("hello", 5) == "hello", "Failed on width equal to string length"
+    assert rjust_string(
+        "hello", 5) == "hello", "Failed on width equal to string length"
 
 
 def test_rjust_string_empty_string() -> None:
@@ -69,7 +71,8 @@ def test_rjust_string_numbers() -> None:
     Test the rjust_string function with a string that contains numbers.
     """
     # Test case 8: Right-justify a string with numbers
-    assert rjust_string("123", 5, "0") == "00123", "Failed on string with numbers"
+    assert rjust_string(
+        "123", 5, "0") == "00123", "Failed on string with numbers"
 
 
 def test_rjust_string_mixed_case() -> None:

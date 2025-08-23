@@ -68,4 +68,3 @@ def test_non_numeric_inputs_raise_type_error() -> None:
     # Test case 7: Non-numeric inputs
     with pytest.raises(TypeError):
         modes_within_value("a", 12, 0.2)
-

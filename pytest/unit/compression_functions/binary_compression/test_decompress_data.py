@@ -14,7 +14,8 @@ def test_decompress_data_gzip() -> None:
     # Test case 1: Gzip compression
     data: bytes = b"hello world"
     compressed_data: bytes = compress_gzip(data)
-    decompressed_data: bytes = decompress_data(compressed_data, algorithm="gzip")
+    decompressed_data: bytes = decompress_data(
+        compressed_data, algorithm="gzip")
     assert decompressed_data == data, "Decompressed data should match the original data"
 
 
@@ -25,7 +26,8 @@ def test_decompress_data_bz2() -> None:
     # Test case 2: Bz2 compression
     data: bytes = b"hello world"
     compressed_data: bytes = compress_bz2(data)
-    decompressed_data: bytes = decompress_data(compressed_data, algorithm="bz2")
+    decompressed_data: bytes = decompress_data(
+        compressed_data, algorithm="bz2")
     assert decompressed_data == data, "Decompressed data should match the original data"
 
 
@@ -36,7 +38,8 @@ def test_decompress_data_lzma() -> None:
     # Test case 3: Lzma compression
     data: bytes = b"hello world"
     compressed_data: bytes = compress_lzma(data)
-    decompressed_data: bytes = decompress_data(compressed_data, algorithm="lzma")
+    decompressed_data: bytes = decompress_data(
+        compressed_data, algorithm="lzma")
     assert decompressed_data == data, "Decompressed data should match the original data"
 
 
@@ -47,7 +50,8 @@ def test_decompress_data_snappy() -> None:
     # Test case 4: Snappy compression
     data: bytes = b"hello world"
     compressed_data: bytes = compress_snappy(data)
-    decompressed_data: bytes = decompress_data(compressed_data, algorithm="snappy")
+    decompressed_data: bytes = decompress_data(
+        compressed_data, algorithm="snappy")
     assert decompressed_data == data, "Decompressed data should match the original data"
 
 
@@ -58,7 +62,8 @@ def test_decompress_data_zstd() -> None:
     # Test case 5: Zstd compression
     data: bytes = b"hello world"
     compressed_data: bytes = compress_zstd(data)
-    decompressed_data: bytes = decompress_data(compressed_data, algorithm="zstd")
+    decompressed_data: bytes = decompress_data(
+        compressed_data, algorithm="zstd")
     assert decompressed_data == data, "Decompressed data should match the original data"
 
 

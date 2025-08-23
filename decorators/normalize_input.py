@@ -71,7 +71,8 @@ def normalize_input(
                 The result of the decorated function.
             """
             try:
-                normalized_args = tuple(normalization_func(arg) for arg in args)
+                normalized_args = tuple(normalization_func(arg)
+                                        for arg in args)
                 normalized_kwargs = {
                     k: normalization_func(v) for k, v in kwargs.items()
                 }
@@ -91,5 +92,6 @@ def normalize_input(
         return wrapper
 
     return decorator
+
 
 __all__ = ['normalize_input']

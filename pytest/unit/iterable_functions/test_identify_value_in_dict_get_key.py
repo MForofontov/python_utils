@@ -13,7 +13,8 @@ def test_identify_value_in_dict_get_key_success() -> None:
     dictionary: dict[str, int] = {"a": 1, "b": 2, "c": 3}
     target_value: int = 2
     expected_output: str = "b"
-    assert identify_value_in_dict_get_key(target_value, dictionary) == expected_output
+    assert identify_value_in_dict_get_key(
+        target_value, dictionary) == expected_output
 
 
 def test_identify_value_in_dict_get_key_not_found() -> None:
@@ -24,7 +25,8 @@ def test_identify_value_in_dict_get_key_not_found() -> None:
     dictionary: dict[str, int] = {"a": 1, "b": 2, "c": 3}
     target_value: int = 4
     expected_output: None = None
-    assert identify_value_in_dict_get_key(target_value, dictionary) == expected_output
+    assert identify_value_in_dict_get_key(
+        target_value, dictionary) == expected_output
 
 
 def test_identify_value_in_dict_get_key_empty_dict() -> None:
@@ -35,7 +37,8 @@ def test_identify_value_in_dict_get_key_empty_dict() -> None:
     dictionary: dict[str, int] = {}
     target_value: int = 1
     expected_output: None = None
-    assert identify_value_in_dict_get_key(target_value, dictionary) == expected_output
+    assert identify_value_in_dict_get_key(
+        target_value, dictionary) == expected_output
 
 
 def test_identify_value_in_dict_get_key_strings() -> None:
@@ -46,7 +49,8 @@ def test_identify_value_in_dict_get_key_strings() -> None:
     dictionary: dict[str, str] = {"a": "apple", "b": "banana", "c": "cherry"}
     target_value: str = "banana"
     expected_output: str = "b"
-    assert identify_value_in_dict_get_key(target_value, dictionary) == expected_output
+    assert identify_value_in_dict_get_key(
+        target_value, dictionary) == expected_output
 
 
 def test_identify_value_in_dict_get_key_mixed_types() -> None:
@@ -57,7 +61,8 @@ def test_identify_value_in_dict_get_key_mixed_types() -> None:
     dictionary: dict[str | int, Any] = {"a": 1, 2: "banana", "c": 3.14}
     target_value: Any = "banana"
     expected_output: str | int = 2
-    assert identify_value_in_dict_get_key(target_value, dictionary) == expected_output
+    assert identify_value_in_dict_get_key(
+        target_value, dictionary) == expected_output
 
 
 def test_identify_value_in_dict_get_key_type_error_dict() -> None:

@@ -40,4 +40,3 @@ def test_array_concatenate_empty() -> None:
     """
     with pytest.raises(ValueError):
         array_concatenate([])
-

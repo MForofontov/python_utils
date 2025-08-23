@@ -33,4 +33,3 @@ def test_fill_na_in_column_invalid_df() -> None:
     # Test case 3: Invalid DataFrame input
     with pytest.raises(AttributeError):
         fill_na_in_column("not a df", "A", 0)
-

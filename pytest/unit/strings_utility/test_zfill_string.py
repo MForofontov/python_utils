@@ -15,7 +15,8 @@ def test_zfill_string_negative_number() -> None:
     Test the zfill_string function with a negative numeric string.
     """
     # Test case 2: Negative numeric string
-    assert zfill_string("-42", 5) == "-0042", "Failed on negative numeric string"
+    assert zfill_string(
+        "-42", 5) == "-0042", "Failed on negative numeric string"
 
 
 def test_zfill_string_length_equal_to_width() -> None:
@@ -51,7 +52,8 @@ def test_zfill_string_special_characters() -> None:
     Test the zfill_string function with a string that contains special characters.
     """
     # Test case 6: String with special characters
-    assert zfill_string("!@#", 5) == "00!@#", "Failed on string with special characters"
+    assert zfill_string(
+        "!@#", 5) == "00!@#", "Failed on string with special characters"
 
 
 def test_zfill_string_numbers_and_letters() -> None:

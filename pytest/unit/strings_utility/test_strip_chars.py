@@ -45,7 +45,8 @@ def test_strip_chars_no_chars_argument() -> None:
     Test the strip_chars function with an empty chars argument.
     """
     # Test case 5: Empty chars argument
-    assert strip_chars("hello", "") == "hello", "Failed on empty chars argument"
+    assert strip_chars(
+        "hello", "") == "hello", "Failed on empty chars argument"
 
 
 def test_strip_chars_all_match() -> None:
@@ -83,7 +84,8 @@ def test_strip_chars_numbers_and_letters() -> None:
     Test the strip_chars function with a mix of numbers and letters to strip.
     """
     # Test case 9: Numbers and letters mix
-    assert strip_chars("123abc123", "123") == "abc", "Failed on numbers and letters mix"
+    assert strip_chars(
+        "123abc123", "123") == "abc", "Failed on numbers and letters mix"
 
 
 def test_strip_chars_unicode_characters() -> None:
@@ -91,7 +93,8 @@ def test_strip_chars_unicode_characters() -> None:
     Test the strip_chars function with unicode characters to strip.
     """
     # Test case 10: Unicode characters
-    assert strip_chars("😊😊hello😊😊", "😊") == "hello", "Failed on unicode characters"
+    assert strip_chars(
+        "😊😊hello😊😊", "😊") == "hello", "Failed on unicode characters"
 
 
 def test_strip_chars_mixed_whitespace() -> None:
@@ -99,7 +102,8 @@ def test_strip_chars_mixed_whitespace() -> None:
     Test the strip_chars function with mixed whitespace to strip.
     """
     # Test case 11: Mixed whitespace
-    assert strip_chars("   \thello   ", " \t") == "hello", "Failed on mixed whitespace"
+    assert strip_chars(
+        "   \thello   ", " \t") == "hello", "Failed on mixed whitespace"
 
 
 def test_strip_chars_only_spaces() -> None:
@@ -107,7 +111,8 @@ def test_strip_chars_only_spaces() -> None:
     Test the strip_chars function when the input string is only spaces.
     """
     # Test case 12: Input string with only spaces
-    assert strip_chars("     ", " ") == "", "Failed on input string with only spaces"
+    assert strip_chars(
+        "     ", " ") == "", "Failed on input string with only spaces"
 
 
 def test_strip_chars_only_numbers() -> None:
@@ -151,7 +156,8 @@ def test_strip_chars_alphanumeric() -> None:
     Test the strip_chars function with a mix of alphanumeric characters to strip.
     """
     # Test case 17: Alphanumeric mix
-    assert strip_chars("123abc456", "123456") == "abc", "Failed on alphanumeric mix"
+    assert strip_chars(
+        "123abc456", "123456") == "abc", "Failed on alphanumeric mix"
 
 
 def test_strip_chars_substring_in_middle() -> None:
@@ -169,7 +175,8 @@ def test_strip_chars_case_sensitivity() -> None:
     Test the strip_chars function for case sensitivity in chars to strip.
     """
     # Test case 19: Case sensitivity
-    assert strip_chars("aAaHello", "a") == "AaHello", "Failed on case sensitivity"
+    assert strip_chars(
+        "aAaHello", "a") == "AaHello", "Failed on case sensitivity"
 
 
 def test_strip_chars_with_escapes() -> None:
@@ -177,7 +184,8 @@ def test_strip_chars_with_escapes() -> None:
     Test the strip_chars function when chars include escape characters.
     """
     # Test case 20: Escape characters
-    assert strip_chars("\n\tHello", "\n\t") == "Hello", "Failed on escape characters"
+    assert strip_chars(
+        "\n\tHello", "\n\t") == "Hello", "Failed on escape characters"
 
 
 def test_strip_chars_invalid_string_type() -> None:

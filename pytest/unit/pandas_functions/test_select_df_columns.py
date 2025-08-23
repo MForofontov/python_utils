@@ -32,4 +32,3 @@ def test_select_df_columns_invalid_df() -> None:
     # Test case 3: Invalid DataFrame input
     with pytest.raises(AttributeError):
         select_df_columns("not a df", ["A"])
-

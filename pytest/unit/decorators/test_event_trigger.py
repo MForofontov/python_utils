@@ -7,7 +7,8 @@ from decorators.event_trigger import event_trigger, EventManager
 test_logger = logging.getLogger("test_logger")
 test_logger.setLevel(logging.DEBUG)
 handler = logging.StreamHandler()
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+formatter = logging.Formatter(
+    "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 handler.setFormatter(formatter)
 test_logger.addHandler(handler)
 
@@ -102,7 +103,8 @@ def test_event_trigger_with_variable_length_arguments() -> None:
         triggered.append((args, kwargs))
 
     event_manager.subscribe("test_event", handler)
-    result = sample_function_args_kwargs(1, 2, 3, kwarg1="test", kwarg2="example")
+    result = sample_function_args_kwargs(
+        1, 2, 3, kwarg1="test", kwarg2="example")
     assert result == "args: (1, 2, 3), kwargs: {'kwarg1': 'test', 'kwarg2': 'example'}"
     assert triggered == [((1, 2, 3), {"kwarg1": "test", "kwarg2": "example"})]
 
