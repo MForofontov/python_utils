@@ -13,6 +13,8 @@ from .array_unique import array_unique
 from .array_clip import array_clip
 from .array_abs import array_abs
 from .array_sqrt import array_sqrt
+from .array_exp import array_exp
+from .array_log import array_log
 from .dot_product import dot_product
 from .elementwise_sum import elementwise_sum
 from .elementwise_product import elementwise_product
@@ -39,6 +41,8 @@ __all__ = [
     "array_clip",
     "array_abs",
     "array_sqrt",
+    "array_exp",
+    "array_log",
     "dot_product",
     "elementwise_sum",
     "elementwise_product",
