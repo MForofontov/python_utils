@@ -16,7 +16,7 @@ def _partial_accumulate(chunk_func: tuple[list[T], Callable[[T, T], T]]) -> list
 def parallel_accumulate(
     func: Callable[[T, T], T],
     data: list[T],
-    num_processes: int = None,
+    num_processes: int | None = None,
     chunk_size: int = 1,
 ) -> list[T]:
     """
@@ -28,7 +28,7 @@ def parallel_accumulate(
         The function to combine two elements into one cumulative value.
     data : List[T]
         The list of data items to process.
-    num_processes : int, optional
+    num_processes : int | None, optional
         The number of processes to use for parallel execution. If None, it defaults
         to the number of available CPUs (by default None).
     chunk_size : int, optional

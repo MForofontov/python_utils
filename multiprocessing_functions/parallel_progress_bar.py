@@ -9,7 +9,7 @@ R = TypeVar("R")
 
 
 def parallel_progress_bar(
-    func: Callable[[T], R], data: list[T], num_processes: int = None
+    func: Callable[[T], R], data: list[T], num_processes: int | None = None
 ) -> list[R]:
     """
     Apply a function to a list of items in parallel and display a progress bar.
@@ -20,7 +20,7 @@ def parallel_progress_bar(
         The function to apply to each item in the list.
     data : List[T]
         The list of data items to process.
-    num_processes : int, optional
+    num_processes : int | None, optional
         The number of processes to use for parallel execution. If ``None``,
         it defaults to the number of available CPUs minus one with a minimum
         of one process.

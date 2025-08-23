@@ -10,7 +10,7 @@ R = TypeVar("R")
 def parallel_dynamic_distribute(
     func: Callable[[T], R],
     data: list[T],
-    num_processes: int = None,
+    num_processes: int | None = None,
     chunk_size: int = 1,
 ) -> list[R]:
     """
@@ -22,7 +22,7 @@ def parallel_dynamic_distribute(
         The function to apply to each item in the list.
     data : List[T]
         The list of data items to process.
-    num_processes : int, optional
+    num_processes : int | None, optional
         The number of processes to use for parallel execution. If None, it defaults
         to the number of available CPUs (by default None).
     chunk_size : int, optional
