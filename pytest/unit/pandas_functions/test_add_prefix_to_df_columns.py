@@ -9,9 +9,9 @@ def test_add_prefix_to_df_columns() -> None:
     Test adding a prefix to DataFrame columns.
     """
     # Test case 1: Adds prefix to each column
-    df = pd.DataFrame({"A": [1], "B": [2]})
-    expected = pd.DataFrame({"pre_A": [1], "pre_B": [2]})
-    result = add_prefix_to_df_columns(df, "pre_")
+    df: pd.DataFrame = pd.DataFrame({"A": [1], "B": [2]})
+    expected: pd.DataFrame = pd.DataFrame({"pre_A": [1], "pre_B": [2]})
+    result: pd.DataFrame = add_prefix_to_df_columns(df, "pre_")
     pd.testing.assert_frame_equal(result, expected)
 
 

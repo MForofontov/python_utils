@@ -9,9 +9,9 @@ def test_sort_df_columns_ascending() -> None:
     Columns should be sorted alphabetically.
     """
     # Test case 1: Sort columns ascending
-    df = pd.DataFrame({"B": [1], "A": [2]})
-    result = sort_df_columns(df)
-    expected = pd.DataFrame({"A": [2], "B": [1]})
+    df: pd.DataFrame = pd.DataFrame({"B": [1], "A": [2]})
+    result: pd.DataFrame = sort_df_columns(df)
+    expected: pd.DataFrame = pd.DataFrame({"A": [2], "B": [1]})
     pd.testing.assert_frame_equal(result, expected)
 
 
@@ -20,9 +20,9 @@ def test_sort_df_columns_descending() -> None:
     Descending order should reverse column order.
     """
     # Test case 2: Sort columns descending
-    df = pd.DataFrame({"B": [1], "A": [2]})
-    result = sort_df_columns(df, ascending=False)
-    expected = pd.DataFrame({"B": [1], "A": [2]})
+    df: pd.DataFrame = pd.DataFrame({"B": [1], "A": [2]})
+    result: pd.DataFrame = sort_df_columns(df, ascending=False)
+    expected: pd.DataFrame = pd.DataFrame({"B": [1], "A": [2]})
     pd.testing.assert_frame_equal(result, expected)
 
 

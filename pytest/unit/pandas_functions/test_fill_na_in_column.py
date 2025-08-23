@@ -10,9 +10,9 @@ def test_fill_na_in_column() -> None:
     NaN values in the specified column should be replaced.
     """
     # Test case 1: Fill NaNs in column
-    df = pd.DataFrame({"A": [1, np.nan, 3]})
-    expected = pd.DataFrame({"A": [1.0, 0.0, 3.0]})
-    result = fill_na_in_column(df, "A", 0)
+    df: pd.DataFrame = pd.DataFrame({"A": [1, np.nan, 3]})
+    expected: pd.DataFrame = pd.DataFrame({"A": [1.0, 0.0, 3.0]})
+    result: pd.DataFrame = fill_na_in_column(df, "A", 0)
     pd.testing.assert_frame_equal(result, expected)
 
 
@@ -21,7 +21,7 @@ def test_fill_na_in_column_missing_column() -> None:
     Passing an invalid column name should raise ``KeyError``.
     """
     # Test case 2: Missing column
-    df = pd.DataFrame({"A": [1, 2]})
+    df: pd.DataFrame = pd.DataFrame({"A": [1, 2]})
     with pytest.raises(KeyError):
         fill_na_in_column(df, "B", 0)
 

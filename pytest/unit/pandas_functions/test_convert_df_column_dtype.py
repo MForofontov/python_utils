@@ -9,9 +9,9 @@ def test_convert_df_column_dtype() -> None:
     Converting a column should change its dtype.
     """
     # Test case 1: Convert str to int
-    df = pd.DataFrame({"A": ["1", "2"]})
-    result = convert_df_column_dtype(df, "A", int)
-    expected = pd.DataFrame({"A": [1, 2]})
+    df: pd.DataFrame = pd.DataFrame({"A": ["1", "2"]})
+    result: pd.DataFrame = convert_df_column_dtype(df, "A", int)
+    expected: pd.DataFrame = pd.DataFrame({"A": [1, 2]})
     pd.testing.assert_frame_equal(result, expected)
 
 
@@ -20,7 +20,7 @@ def test_convert_df_column_dtype_missing() -> None:
     Requesting a missing column should raise ``KeyError``.
     """
     # Test case 2: Missing column
-    df = pd.DataFrame({"A": [1]})
+    df: pd.DataFrame = pd.DataFrame({"A": [1]})
     with pytest.raises(KeyError):
         convert_df_column_dtype(df, "B", int)
 

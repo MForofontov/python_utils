@@ -9,9 +9,9 @@ def test_drop_duplicate_df_rows() -> None:
     Duplicate rows should be removed.
     """
     # Test case 1: Drop duplicate rows
-    df = pd.DataFrame({"A": [1, 1, 2], "B": [3, 3, 4]})
-    expected = pd.DataFrame({"A": [1, 2], "B": [3, 4]})
-    result = drop_duplicate_df_rows(df)
+    df: pd.DataFrame = pd.DataFrame({"A": [1, 1, 2], "B": [3, 3, 4]})
+    expected: pd.DataFrame = pd.DataFrame({"A": [1, 2], "B": [3, 4]})
+    result: pd.DataFrame = drop_duplicate_df_rows(df)
     pd.testing.assert_frame_equal(result.reset_index(drop=True), expected)
 
 
@@ -20,7 +20,7 @@ def test_drop_duplicate_df_rows_invalid_keep() -> None:
     Invalid ``keep`` value should raise ``ValueError``.
     """
     # Test case 2: Invalid keep parameter
-    df = pd.DataFrame({"A": [1, 1]})
+    df: pd.DataFrame = pd.DataFrame({"A": [1, 1]})
     with pytest.raises(ValueError):
         drop_duplicate_df_rows(df, keep="invalid")
 

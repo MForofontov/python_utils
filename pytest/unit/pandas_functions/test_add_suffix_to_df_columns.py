@@ -9,9 +9,9 @@ def test_add_suffix_to_df_columns() -> None:
     Test adding a suffix to DataFrame columns.
     """
     # Test case 1: Adds suffix to each column
-    df = pd.DataFrame({"A": [1], "B": [2]})
-    expected = pd.DataFrame({"A_suf": [1], "B_suf": [2]})
-    result = add_suffix_to_df_columns(df, "_suf")
+    df: pd.DataFrame = pd.DataFrame({"A": [1], "B": [2]})
+    expected: pd.DataFrame = pd.DataFrame({"A_suf": [1], "B_suf": [2]})
+    result: pd.DataFrame = add_suffix_to_df_columns(df, "_suf")
     pd.testing.assert_frame_equal(result, expected)
 
 
