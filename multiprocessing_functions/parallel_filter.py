@@ -7,7 +7,7 @@ T = TypeVar("T")
 
 
 def parallel_filter(
-    condition: Callable[[T], bool], data: list[T], num_processes: int = None
+    condition: Callable[[T], bool], data: list[T], num_processes: int | None = None
 ) -> list[T]:
     """
     Filter a list of items in parallel, keeping only those that satisfy the condition.
@@ -18,7 +18,7 @@ def parallel_filter(
         A function that takes an item as input and returns `True` if the item should be kept, `False` otherwise.
     data : List[T]
         The list of data items to filter.
-    num_processes : int, optional
+    num_processes : int | None, optional
         The number of processes to use for parallel execution. If None, it defaults
         to the number of available CPUs (by default None).
 

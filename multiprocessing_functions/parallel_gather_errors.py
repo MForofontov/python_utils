@@ -8,7 +8,7 @@ R = TypeVar("R")
 
 
 def parallel_gather_errors(
-    func: Callable[[T], R], data: list[T], num_processes: int = None
+    func: Callable[[T], R], data: list[T], num_processes: int | None = None
 ) -> tuple[list[R], list[Exception]]:
     """
     Apply a function to a list of items in parallel and gather any exceptions raised by the processes.
@@ -19,7 +19,7 @@ def parallel_gather_errors(
         The function to apply to each item in the list.
     data : List[T]
         The list of data items to process.
-    num_processes : int, optional
+    num_processes : int | None, optional
         The number of processes to use for parallel execution. If None, it defaults
         to the number of available CPUs (by default None).
 

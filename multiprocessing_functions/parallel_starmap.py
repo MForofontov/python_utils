@@ -6,7 +6,7 @@ R = TypeVar("R")
 
 
 def parallel_starmap(
-    func: Callable[..., R], data: list[tuple], num_processes: int = None
+    func: Callable[..., R], data: list[tuple], num_processes: int | None = None
 ) -> list[R]:
     """
     Apply a function to multiple arguments in parallel using `starmap`.
@@ -17,7 +17,7 @@ def parallel_starmap(
         The function to apply to each set of arguments.
     data : List[Tuple]
         A list of tuples, where each tuple contains the arguments for the function.
-    num_processes : int, optional
+    num_processes : int | None, optional
         The number of processes to use for parallel execution. If None, it defaults
         to the number of available CPUs (by default None).
 

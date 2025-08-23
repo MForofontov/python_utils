@@ -1,36 +1,39 @@
 import logging
 from functools import wraps
-from typing import Any
+from typing import Any, ParamSpec, TypeVar
 from collections.abc import Callable
 from logger_functions.logger import validate_logger
+P = ParamSpec("P")
+R = TypeVar("R")
 
 
 def log_function_calls(
-    logger: logging.Logger,
-) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+    logger: logging.Logger | None,
+) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     A decorator to log function calls, including arguments passed and the result returned.
 
     Parameters
     ----------
-    logger : logging.Logger
-        The logger instance to use for logging.
+    logger : logging.Logger | None
+        The logger instance to use for logging. Must not be None.
 
     Returns
     -------
-    Callable[[Callable[..., Any]], Callable[..., Any]]
+    Callable[[Callable[P, R]], Callable[P, R]]
         A decorator that logs the function calls.
 
     Raises
     ------
     TypeError
-        If the logger is not an instance of logging.Logger.
+        If the logger is not an instance of logging.Logger or is None.
     """
     validate_logger(logger, allow_none=False)
+    assert logger is not None
 
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             """
             The wrapper function that logs function calls.
 

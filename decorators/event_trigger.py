@@ -1,37 +1,39 @@
-from typing import Any
+from typing import ParamSpec, TypeVar, Generic
 from collections.abc import Callable
 from functools import wraps
 import logging
 from logger_functions.logger import validate_logger
+P = ParamSpec("P")
+R = TypeVar("R")
 
 
-class EventManager:
+class EventManager(Generic[P, R]):
     """
     A class to manage events and their associated callbacks.
 
     Attributes
     ----------
-    events : Dict[str, List[Callable[..., Any]]]
+    events : Dict[str, List[Callable[P, R]]]
         A dictionary where the keys are event names and the values are lists of callback functions.
 
     Methods
     -------
     __init__():
         Initializes the EventManager with an empty events dictionary.
-    subscribe(event_name: str, callback: Callable[..., Any]):
+    subscribe(event_name: str, callback: Callable[P, R]):
         Adds a callback function to the list of callbacks for a given event name.
     trigger(event_name: str, *args: Any, **kwargs: Any):
         Executes all callback functions associated with the given event name
         using the provided arguments.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initializes the EventManager with an empty events dictionary.
         """
-        self.events: dict[str, list[Callable[..., Any]]] = {}
+        self.events: dict[str, list[Callable[P, R]]] = {}
 
-    def subscribe(self, event_name: str, callback: Callable[..., Any]) -> None:
+    def subscribe(self, event_name: str, callback: Callable[P, R]) -> None:
         """
         Adds a callback function to the list of callbacks for a given event name.
 
@@ -39,14 +41,14 @@ class EventManager:
         ----------
         event_name : str
             The name of the event.
-        callback : Callable[..., Any]
+        callback : Callable[P, R]
             The callback function to be added.
         """
         if event_name not in self.events:
             self.events[event_name] = []
         self.events[event_name].append(callback)
 
-    def trigger(self, event_name: str, *args: Any, **kwargs: Any) -> None:
+    def trigger(self, event_name: str, *args: P.args, **kwargs: P.kwargs) -> None:
         """
         Executes all callback functions associated with the given event name.
 
@@ -65,8 +67,10 @@ class EventManager:
 
 
 def event_trigger(
-    event_manager: EventManager, event_name: str, logger: logging.Logger | None = None
-) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+    event_manager: EventManager[P, R],
+    event_name: str,
+    logger: logging.Logger | None = None,
+) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     A decorator to trigger an event before executing the decorated function.
 
@@ -81,7 +85,7 @@ def event_trigger(
 
     Returns
     -------
-    Callable[[Callable[..., Any]], Callable[..., Any]]
+    Callable[[Callable[P, R]], Callable[P, R]]
         The decorator function.
 
     Raises
@@ -111,23 +115,23 @@ def event_trigger(
     if not isinstance(event_name, str) or not event_name:
         log_or_raise_error("event_name must be a non-empty string")
 
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
         """
         The actual decorator function.
 
         Parameters
         ----------
-        func : Callable[..., Any]
+        func : Callable[P, R]
             The function to be decorated.
 
         Returns
         -------
-        Callable[..., Any]
+        Callable[P, R]
             The wrapped function.
         """
 
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             """
             The wrapper function that triggers the event and then calls the original function.
 

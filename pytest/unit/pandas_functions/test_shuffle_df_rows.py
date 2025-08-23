@@ -9,9 +9,9 @@ def test_shuffle_df_rows() -> None:
     Shuffling rows should change their order deterministically with a seed.
     """
     # Test case 1: Shuffle rows with random_state
-    df = pd.DataFrame({"A": [1, 2, 3]})
-    expected = pd.DataFrame({"A": [1, 3, 2]})
-    result = shuffle_df_rows(df, random_state=1)
+    df: pd.DataFrame = pd.DataFrame({"A": [1, 2, 3]})
+    expected: pd.DataFrame = pd.DataFrame({"A": [1, 3, 2]})
+    result: pd.DataFrame = shuffle_df_rows(df, random_state=1)
     pd.testing.assert_frame_equal(result, expected)
 
 

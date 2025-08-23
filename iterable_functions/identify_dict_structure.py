@@ -25,7 +25,7 @@ def identify_dict_structure(list_of_dicts: list[dict[str, Any]]) -> dict[str, No
     if not all(isinstance(d, dict) for d in list_of_dicts):
         raise TypeError("all elements in list_of_dicts must be dictionaries")
 
-    keys = {}
+    keys: dict[str, None] = {}
 
     def extract_keys(d: dict[str, Any], parent_key: str = "") -> None:
         for key, value in d.items():

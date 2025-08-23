@@ -2,7 +2,7 @@ from multiprocessing import Pool, cpu_count
 
 
 def parallel_sum(
-    data: list[int], num_processes: int = None, chunk_size: int = 1
+    data: list[int], num_processes: int | None = None, chunk_size: int = 1
 ) -> int:
     """
     Sum a list of integers in parallel.
@@ -11,7 +11,7 @@ def parallel_sum(
     ----------
     data : List[int]
         The list of integers to sum.
-    num_processes : int, optional
+    num_processes : int | None, optional
         The number of processes to use for parallel execution. If None, it defaults
         to the number of available CPUs (by default None).
     chunk_size : int, optional

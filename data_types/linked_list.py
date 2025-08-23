@@ -1,4 +1,5 @@
 from typing import Generic, TypeVar
+from collections.abc import Iterator
 
 # Define a generic type variable
 T = TypeVar("T")
@@ -152,7 +153,7 @@ class LinkedList(Generic[T]):
             current = current.next
         return count
 
-    def __iter__(self):
+    def __iter__(self) -> Iterator[Node[T]]:
         current = self.head
         while current:
             yield current

@@ -11,7 +11,7 @@ def _unique(chunk: list[T]) -> list[T]:
 
 
 def parallel_unique(
-    data: list[T], num_processes: int = None, chunk_size: int = 1
+    data: list[T], num_processes: int | None = None, chunk_size: int = 1
 ) -> list[T]:
     """
     Get the unique elements from a list in parallel.
@@ -20,7 +20,7 @@ def parallel_unique(
     ----------
     data : List[T]
         The list of data items to process.
-    num_processes : int, optional
+    num_processes : int | None, optional
         The number of processes to use for parallel execution. If None, it defaults
         to the number of available CPUs (by default None).
     chunk_size : int, optional

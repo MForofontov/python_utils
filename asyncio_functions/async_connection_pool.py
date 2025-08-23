@@ -19,7 +19,7 @@ class AsyncConnectionPool:
         The internal queue to manage connections.
     """
 
-    def __init__(self, max_connections: int):
+    def __init__(self, max_connections: int) -> None:
         """
         Initialize the connection pool with a maximum number of connections.
 

@@ -32,7 +32,7 @@ def print_system_info_in_terminal() -> None:
     None
     """
 
-    def get_processor_name():
+    def get_processor_name() -> str:
         """
         Get the processor name.
 
@@ -57,6 +57,7 @@ def print_system_info_in_terminal() -> None:
             for line in result.stdout.splitlines():
                 if "Model name" in line:
                     return line.split(":")[1].strip()
+            return platform.processor()
         except (subprocess.CalledProcessError, FileNotFoundError):
             return platform.processor()
 

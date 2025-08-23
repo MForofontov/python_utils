@@ -1,13 +1,15 @@
-from typing import Any
+from typing import Any, ParamSpec, TypeVar
 from collections.abc import Callable
 from functools import wraps
 import logging
 from logger_functions.logger import validate_logger
+P = ParamSpec("P")
+R = TypeVar("R")
 
 
 def manipulate_output(
     manipulation_func: Callable[[Any], Any], logger: logging.Logger | None = None
-) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     A decorator to manipulate the output of a function using a specified manipulation function.
 
@@ -20,7 +22,7 @@ def manipulate_output(
 
     Returns
     -------
-    Callable[[Callable[..., Any]], Callable[..., Any]]
+    Callable[[Callable[P, R]], Callable[P, R]]
         The decorator function.
 
     Raises
@@ -35,23 +37,23 @@ def manipulate_output(
             logger.error("manipulation_func must be a callable function.")
         raise TypeError("manipulation_func must be a callable function.")
 
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
         """
         The actual decorator function.
 
         Parameters
         ----------
-        func : Callable[..., Any]
+        func : Callable[P, R]
             The function to be decorated.
 
         Returns
         -------
-        Callable[..., Any]
+        Callable[P, R]
             The wrapped function.
         """
 
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             """
             The wrapper function that manipulates the output.
 

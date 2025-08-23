@@ -9,9 +9,9 @@ def test_apply_function_to_column() -> None:
     Test applying a function to a DataFrame column.
     """
     # Test case 1: Apply lambda to column
-    df = pd.DataFrame({"A": [1, 2, 3]})
-    result = apply_function_to_column(df, "A", lambda x: x * 2)
-    expected = pd.DataFrame({"A": [2, 4, 6]})
+    df: pd.DataFrame = pd.DataFrame({"A": [1, 2, 3]})
+    result: pd.DataFrame = apply_function_to_column(df, "A", lambda x: x * 2)
+    expected: pd.DataFrame = pd.DataFrame({"A": [2, 4, 6]})
     pd.testing.assert_frame_equal(result, expected)
 
 
@@ -20,7 +20,7 @@ def test_apply_function_to_column_missing() -> None:
     Ensure missing column raises ``KeyError``.
     """
     # Test case 2: Missing column
-    df = pd.DataFrame({"A": [1]})
+    df: pd.DataFrame = pd.DataFrame({"A": [1]})
     with pytest.raises(KeyError):
         apply_function_to_column(df, "B", lambda x: x)
 
