@@ -16,7 +16,7 @@ def _apply_pipeline(args: tuple[T, list[Callable[[T], T]]]) -> R:
 
 
 def parallel_pipeline(
-    funcs: list[Callable[[T], T]], data: list[T], num_processes: int = None
+    funcs: list[Callable[[T], T]], data: list[T], num_processes: int | None = None
 ) -> list[R]:
     """
     Apply multiple functions in a pipeline to a list of items in parallel.
@@ -27,7 +27,7 @@ def parallel_pipeline(
         A list of functions to apply sequentially to each item.
     data : List[T]
         The list of data items to process.
-    num_processes : int, optional
+    num_processes : int | None, optional
         The number of processes to use for parallel execution. If None, it defaults
         to the number of available CPUs (by default None).
 

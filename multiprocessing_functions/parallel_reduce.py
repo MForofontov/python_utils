@@ -16,7 +16,7 @@ def _pair_reduce(args: tuple[list[T], Callable[[T, T], T]]) -> T:
 def parallel_reduce(
     func: Callable[[T, T], T],
     data: list[T],
-    num_processes: int = None,
+    num_processes: int | None = None,
     chunk_size: int = 1,
 ) -> T:
     """
@@ -28,7 +28,7 @@ def parallel_reduce(
         A function that takes two elements and returns a single value.
     data : List[T]
         The list of data items to reduce.
-    num_processes : int, optional
+    num_processes : int | None, optional
         The number of processes to use for parallel execution. If None, it defaults
         to the number of available CPUs (by default None).
     chunk_size : int, optional

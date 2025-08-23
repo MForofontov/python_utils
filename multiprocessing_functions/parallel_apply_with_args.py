@@ -11,7 +11,7 @@ def parallel_apply_with_args(
     func: Callable[[T, Any], R],
     data: list[T],
     args: tuple = (),
-    num_processes: int = None,
+    num_processes: int | None = None,
 ) -> list[R]:
     """
     Apply a function to a list of items in parallel, passing additional arguments to the function.
@@ -24,7 +24,7 @@ def parallel_apply_with_args(
         The list of data items to process.
     args : Tuple, optional
         Additional arguments to pass to the function (by default an empty tuple).
-    num_processes : int, optional
+    num_processes : int | None, optional
         The number of processes to use for parallel execution. If None, it defaults
         to the number of available CPUs (by default None).
 
