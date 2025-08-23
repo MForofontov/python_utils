@@ -1,12 +1,12 @@
 from multiprocessing import Pool, cpu_count
-from typing import TypeVar
-from collections.abc import Callable
+from typing import Any, TypeVar
+from collections.abc import Callable, Iterable
 
 R = TypeVar("R")
 
 
 def parallel_starmap(
-    func: Callable[..., R], data: list[tuple], num_processes: int = None
+    func: Callable[..., R], data: Iterable[tuple[Any, ...]], num_processes: int | None = None
 ) -> list[R]:
     """
     Apply a function to multiple arguments in parallel using `starmap`.
@@ -15,8 +15,8 @@ def parallel_starmap(
     ----------
     func : Callable[..., R]
         The function to apply to each set of arguments.
-    data : List[Tuple]
-        A list of tuples, where each tuple contains the arguments for the function.
+    data : Iterable[tuple[Any, ...]]
+        An iterable of tuples where each tuple contains the arguments for the function.
     num_processes : int, optional
         The number of processes to use for parallel execution. If None, it defaults
         to the number of available CPUs (by default None).
