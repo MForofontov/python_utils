@@ -11,6 +11,7 @@ from .array_diff import array_diff
 from .array_sort import array_sort
 from .array_unique import array_unique
 from .array_clip import array_clip
+from .array_abs import array_abs
 from .array_sqrt import array_sqrt
 from .dot_product import dot_product
 from .elementwise_sum import elementwise_sum
@@ -18,6 +19,7 @@ from .elementwise_product import elementwise_product
 from .elementwise_divide import elementwise_divide
 from .elementwise_subtract import elementwise_subtract
 from .elementwise_power import elementwise_power
+from .elementwise_max import elementwise_max
 from .matrix_multiply import matrix_multiply
 from .normalize_array import normalize_array
 
@@ -35,6 +37,7 @@ __all__ = [
     "array_sort",
     "array_unique",
     "array_clip",
+    "array_abs",
     "array_sqrt",
     "dot_product",
     "elementwise_sum",
@@ -42,6 +45,7 @@ __all__ = [
     "elementwise_divide",
     "elementwise_subtract",
     "elementwise_power",
+    "elementwise_max",
     "matrix_multiply",
     "normalize_array",
 ]
