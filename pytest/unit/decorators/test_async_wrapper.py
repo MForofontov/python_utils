@@ -6,7 +6,8 @@ from decorators.async_wrapper import async_wrapper
 test_logger = logging.getLogger("test_logger")
 test_logger.setLevel(logging.ERROR)
 handler = logging.StreamHandler()
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+formatter = logging.Formatter(
+    "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 handler.setFormatter(formatter)
 test_logger.addHandler(handler)
 

@@ -34,4 +34,5 @@ def compress_snappy(data: bytes) -> bytes:
         # Raise a ValueError if an error occurs during compression
         raise ValueError(f"An error occurred during compression: {e}")
 
+
 __all__ = ['compress_snappy']

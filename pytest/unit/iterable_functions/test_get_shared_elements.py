@@ -22,7 +22,8 @@ def test_get_shared_elements_no_shared_elements() -> None:
     Test the get_shared_elements function with no shared elements.
     """
     # Test case 2: No shared elements
-    dict_: dict[str, list[int]] = {"list1": [1, 2], "list2": [3, 4], "list3": [5, 6]}
+    dict_: dict[str, list[int]] = {
+        "list1": [1, 2], "list2": [3, 4], "list3": [5, 6]}
     expected_output: list[int] = []
     assert get_shared_elements(dict_) == expected_output
 

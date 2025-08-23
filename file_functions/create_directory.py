@@ -21,4 +21,5 @@ def create_directory(directory: str) -> bool:
     else:
         return False
 
+
 __all__ = ['create_directory']

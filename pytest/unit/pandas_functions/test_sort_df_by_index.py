@@ -33,4 +33,3 @@ def test_sort_df_by_index_invalid_df() -> None:
     # Test case 3: Invalid DataFrame input
     with pytest.raises(AttributeError):
         sort_df_by_index("not a df")
-

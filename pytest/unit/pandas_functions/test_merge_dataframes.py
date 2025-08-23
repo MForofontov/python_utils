@@ -13,7 +13,8 @@ def test_merge_dataframes_inner() -> None:
     # Test case 1: Inner merge on common key
     df1: pd.DataFrame = pd.DataFrame({"id": [1, 2], "value1": ["a", "b"]})
     df2: pd.DataFrame = pd.DataFrame({"id": [2, 3], "value2": ["x", "y"]})
-    expected: pd.DataFrame = pd.DataFrame({"id": [2], "value1": ["b"], "value2": ["x"]})
+    expected: pd.DataFrame = pd.DataFrame(
+        {"id": [2], "value1": ["b"], "value2": ["x"]})
 
     result = merge_dataframes(df1, df2, on="id", how="inner")
     assert_frame_equal(result, expected)
@@ -56,4 +57,3 @@ def test_merge_dataframes_invalid_df() -> None:
     # Test case 4: Invalid DataFrame input
     with pytest.raises(AttributeError):
         merge_dataframes("not a df", pd.DataFrame({"id": [1]}), on="id")
-

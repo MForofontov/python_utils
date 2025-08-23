@@ -47,7 +47,6 @@ def parallel_accumulate(
     [1, 3, 6, 10, 15]
     """
 
-
     # If num_processes is not specified, default to the number of available CPUs minus one
     if num_processes is None:
         num_processes = max(
@@ -59,7 +58,7 @@ def parallel_accumulate(
     with Pool(processes=num_processes) as pool:
         # Split the data into chunks
         data_chunks = [
-            data[i : i + chunk_size] for i in range(0, len(data), chunk_size)
+            data[i: i + chunk_size] for i in range(0, len(data), chunk_size)
         ]
         # Apply the partial_accumulate function to each chunk in parallel
         partial_results = pool.map(
@@ -81,5 +80,6 @@ def parallel_accumulate(
 
     # Return the final cumulative results
     return results
+
 
 __all__ = ['parallel_accumulate']

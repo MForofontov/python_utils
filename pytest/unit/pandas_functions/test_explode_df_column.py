@@ -9,9 +9,11 @@ def test_explode_df_column_basic() -> None:
     Exploding a column with lists should create multiple rows.
     """
     # Test case 1: Basic explosion
-    df: pd.DataFrame = pd.DataFrame({"id": [1, 2], "tags": [["a", "b"], ["c"]]})
+    df: pd.DataFrame = pd.DataFrame(
+        {"id": [1, 2], "tags": [["a", "b"], ["c"]]})
     result: pd.DataFrame = explode_df_column(df, "tags")
-    expected: pd.DataFrame = pd.DataFrame({"id": [1, 1, 2], "tags": ["a", "b", "c"]})
+    expected: pd.DataFrame = pd.DataFrame(
+        {"id": [1, 1, 2], "tags": ["a", "b", "c"]})
     pd.testing.assert_frame_equal(result, expected)
 
 

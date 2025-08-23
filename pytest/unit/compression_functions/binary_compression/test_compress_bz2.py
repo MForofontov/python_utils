@@ -124,7 +124,8 @@ def test_compress_bz2_compression_error() -> None:
     with pytest.raises(ValueError):
         # Mock bz2.compress to raise an exception
         original_compress = bz2.compress
-        bz2.compress = lambda x: (_ for _ in ()).throw(Exception("Mock error"))  # type: ignore
+        bz2.compress = lambda x: (_ for _ in ()).throw(
+            Exception("Mock error"))  # type: ignore
         try:
             compress_bz2(b"data")
         finally:

@@ -30,4 +30,5 @@ def repeat_strings_in_a_list(string: str, times: int) -> list[str]:
 
     return [string for _ in range(times)]
 
+
 __all__ = ['repeat_strings_in_a_list']

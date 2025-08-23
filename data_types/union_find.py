@@ -41,7 +41,8 @@ class UnionFind:
             The representative (root) of the set containing the element.
         """
         if self.parent.get(element) != element:
-            self.parent[element] = self.find(self.parent[element])  # Path compression
+            self.parent[element] = self.find(
+                self.parent[element])  # Path compression
         return self.parent.get(element, element)
 
     def union(self, element1: Any, element2: Any) -> None:

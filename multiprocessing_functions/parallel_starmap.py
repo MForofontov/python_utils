@@ -48,4 +48,5 @@ def parallel_starmap(
     # Return the list of results
     return results
 
+
 __all__ = ['parallel_starmap']

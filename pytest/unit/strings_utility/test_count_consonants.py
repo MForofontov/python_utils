@@ -7,9 +7,11 @@ def test_mixed_case_consonants_and_vowels() -> None:
     Test the count_consonants function with mixed case consonants and vowels.
     """
     # Test case 1: String with mixed case consonants and vowels
-    assert count_consonants("hello") == 3, "Failed on mixed case consonants and vowels"
+    assert count_consonants(
+        "hello") == 3, "Failed on mixed case consonants and vowels"
     # Test case 2: String with mixed case consonants
-    assert count_consonants("HeLLo WoRLd") == 7, "Failed on mixed case consonants"
+    assert count_consonants(
+        "HeLLo WoRLd") == 7, "Failed on mixed case consonants"
 
 
 def test_all_consonants() -> None:
@@ -63,13 +65,15 @@ def test_numbers_and_special_characters() -> None:
         count_consonants("h3ll0 w0rld!") == 7
     ), "Failed on mixed consonants, vowels, numbers, and special characters"
     # Test case 11: String with punctuation
-    assert count_consonants("hello, world!") == 7, "Failed on string with punctuation"
+    assert count_consonants(
+        "hello, world!") == 7, "Failed on string with punctuation"
     # Test case 12: String with special characters
     assert (
         count_consonants("!@#hello!@#") == 3
     ), "Failed on string with special characters"
     # Test case 13: String with numbers
-    assert count_consonants("123hello123") == 3, "Failed on string with numbers"
+    assert count_consonants(
+        "123hello123") == 3, "Failed on string with numbers"
 
 
 def test_whitespace_characters() -> None:
@@ -83,7 +87,8 @@ def test_whitespace_characters() -> None:
         count_consonants("hello\nworld") == 7
     ), "Failed on string with newline characters"
     # Test case 16: String with tab characters
-    assert count_consonants("hello\tworld") == 7, "Failed on string with tab characters"
+    assert count_consonants(
+        "hello\tworld") == 7, "Failed on string with tab characters"
     # Test case 17: String with mixed whitespace characters
     assert (
         count_consonants("hello \t\nworld") == 7

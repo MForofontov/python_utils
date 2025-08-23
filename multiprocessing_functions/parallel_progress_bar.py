@@ -48,4 +48,5 @@ def parallel_progress_bar(
     # Return the list of results
     return results
 
+
 __all__ = ['parallel_progress_bar']

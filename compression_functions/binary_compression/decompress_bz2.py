@@ -34,4 +34,5 @@ def decompress_bz2(compressed_data: bytes) -> bytes:
         # Raise a ValueError if an error occurs during decompression
         raise ValueError(f"An error occurred during decompression: {e}")
 
+
 __all__ = ['decompress_bz2']

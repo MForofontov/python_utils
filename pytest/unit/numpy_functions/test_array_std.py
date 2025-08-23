@@ -27,4 +27,3 @@ def test_array_std_invalid_type() -> None:
     """
     with pytest.raises(TypeError):
         array_std([1, 2, 3])
-

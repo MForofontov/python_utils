@@ -53,7 +53,8 @@ def test_get_unique_sublists_strings() -> None:
         ["cherry", "date"],
         ["apple", "banana"],
     ]
-    expected_output: list[list[str]] = [["apple", "banana"], ["cherry", "date"]]
+    expected_output: list[list[str]] = [
+        ["apple", "banana"], ["cherry", "date"]]
     assert get_unique_sublists(list_of_lists) == expected_output
 
 
@@ -62,7 +63,8 @@ def test_get_unique_sublists_mixed_types() -> None:
     Test the get_unique_sublists function with lists of mixed types.
     """
     # Test case 6: Lists of mixed types
-    list_of_lists: list[list[Any]] = [[1, "banana"], [3.14, "apple"], [1, "banana"]]
+    list_of_lists: list[list[Any]] = [
+        [1, "banana"], [3.14, "apple"], [1, "banana"]]
     expected_output: list[list[Any]] = [[1, "banana"], [3.14, "apple"]]
     assert get_unique_sublists(list_of_lists) == expected_output
 

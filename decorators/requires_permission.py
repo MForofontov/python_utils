@@ -112,4 +112,5 @@ def requires_permission(
 
     return decorator
 
+
 __all__ = ['requires_permission']

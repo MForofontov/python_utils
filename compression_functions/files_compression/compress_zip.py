@@ -65,4 +65,5 @@ def compress_zip(input_path: str, output_zip: str) -> None:
     except (PermissionError, OSError) as e:
         raise OSError(f"An I/O error occurred during compression: {e}")
 
+
 __all__ = ['compress_zip']

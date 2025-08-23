@@ -124,7 +124,9 @@ def test_compress_gzip_compression_error() -> None:
     with pytest.raises(ValueError):
         # Mock gzip.GzipFile to raise an exception
         original_gzipfile = gzip.GzipFile
-        gzip.GzipFile = lambda *args, **kwargs: (_ for _ in ()).throw(Exception("Mock error"))  # type: ignore
+        # type: ignore
+        gzip.GzipFile = lambda *args, **kwargs: (
+            _ for _ in ()).throw(Exception("Mock error"))
         try:
             compress_gzip(b"data")
         finally:

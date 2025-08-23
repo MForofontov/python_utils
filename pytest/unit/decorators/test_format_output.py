@@ -70,7 +70,8 @@ def test_format_output_with_variable_length_arguments() -> None:
     """
     Test case 5: Format output with variable length arguments (*args and **kwargs)
     """
-    result = sample_function_args_kwargs(1, 2, 3, kwarg1="test", kwarg2="example")
+    result = sample_function_args_kwargs(
+        1, 2, 3, kwarg1="test", kwarg2="example")
     assert (
         result
         == "Result: args: (1, 2, 3), kwargs: {'kwarg1': 'test', 'kwarg2': 'example'}"

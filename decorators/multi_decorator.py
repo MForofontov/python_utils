@@ -59,4 +59,5 @@ def multi_decorator(
 
     return combine
 
+
 __all__ = ['multi_decorator']

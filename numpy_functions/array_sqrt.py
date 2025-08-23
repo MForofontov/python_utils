@@ -35,4 +35,3 @@ def array_sqrt(arr: np.ndarray) -> np.ndarray:
 
 
 __all__ = ["array_sqrt"]
-

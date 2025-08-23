@@ -26,4 +26,3 @@ def test_array_sqrt_invalid_type() -> None:
     """
     with pytest.raises(TypeError):
         array_sqrt([0, 1, 4])  # type: ignore[arg-type]
-

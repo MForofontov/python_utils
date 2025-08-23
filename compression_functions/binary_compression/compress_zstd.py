@@ -41,4 +41,5 @@ def compress_zstd(data: bytes, level: int = 3) -> bytes:
         # Raise a ValueError if an error occurs during compression
         raise ValueError(f"An error occurred during compression: {e}")
 
+
 __all__ = ['compress_zstd']

@@ -31,7 +31,8 @@ def decompress_file_zip(input_zip: str, output_dir: str) -> None:
 
     try:
         if not os.path.exists(input_zip):
-            raise FileNotFoundError(f"The input zip file {input_zip} does not exist.")
+            raise FileNotFoundError(
+                f"The input zip file {input_zip} does not exist.")
         mode = os.stat(input_zip).st_mode
         if mode & (stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH) == 0:
             raise OSError("Input file is not readable")
@@ -48,9 +49,11 @@ def decompress_file_zip(input_zip: str, output_dir: str) -> None:
             zipf.extractall(output_dir)
     except FileNotFoundError:
         # Raise a FileNotFoundError if the input zip file does not exist
-        raise FileNotFoundError(f"The input zip file {input_zip} does not exist.")
+        raise FileNotFoundError(
+            f"The input zip file {input_zip} does not exist.")
     except OSError as e:
         # Raise an IOError if an I/O error occurs during decompression
         raise OSError(f"An I/O error occurred during decompression: {e}")
+
 
 __all__ = ['decompress_file_zip']

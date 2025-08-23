@@ -49,4 +49,5 @@ def replace_by_regex(string: str, pattern: str, replacement: str) -> str:
     result = re.sub(adjusted_pattern, " " + replacement + " ", string).strip()
     return re.sub(r"\s+", " ", result)
 
+
 __all__ = ['replace_by_regex']

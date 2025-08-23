@@ -34,4 +34,5 @@ def find_substring(s: str, substring: str) -> int:
         raise TypeError("The input must be a string.")
     return s.find(substring)
 
+
 __all__ = ['find_substring']

@@ -31,4 +31,5 @@ def create_whitespace_string(input_string: str) -> str:
 
     return " " * len(input_string)
 
+
 __all__ = ['create_whitespace_string']

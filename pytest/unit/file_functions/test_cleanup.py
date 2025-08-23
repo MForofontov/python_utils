@@ -59,7 +59,8 @@ def test_cleanup_empty_exclude_wipes_directory(tmp_path: Path) -> None:
 
     cleanup(str(tmp_path), [])
 
-    assert os.listdir(tmp_path) == [], "Directory should be empty after cleanup"
+    assert os.listdir(
+        tmp_path) == [], "Directory should be empty after cleanup"
 
 
 def test_cleanup_nonexistent_directory(tmp_path: Path) -> None:

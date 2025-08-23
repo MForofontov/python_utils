@@ -50,4 +50,3 @@ def modes_within_value(mode1: int | float, mode2: int | float, value: int | floa
 
 
 __all__ = ['modes_within_value']
-

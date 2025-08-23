@@ -36,4 +36,5 @@ def polyline_encoding_list_of_ints(list_of_ints: list[int]) -> str:
 
     return encoded_text
 
+
 __all__ = ['polyline_encoding_list_of_ints']

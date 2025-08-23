@@ -77,4 +77,5 @@ def manipulate_output(
 
     return decorator
 
+
 __all__ = ['manipulate_output']

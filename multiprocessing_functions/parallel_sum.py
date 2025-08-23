@@ -37,12 +37,13 @@ def parallel_sum(
     with Pool(processes=num_processes) as pool:
         # Split the data into chunks
         data_chunks = [
-            data[i : i + chunk_size] for i in range(0, len(data), chunk_size)
+            data[i: i + chunk_size] for i in range(0, len(data), chunk_size)
         ]
         # Apply the sum function to each chunk in parallel
         chunk_sums = pool.map(sum, data_chunks)
 
     # Sum the results from each chunk to get the final result
     return sum(chunk_sums)
+
 
 __all__ = ['parallel_sum']

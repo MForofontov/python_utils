@@ -82,4 +82,5 @@ def redirect_output(
 
     return decorator
 
+
 __all__ = ['redirect_output']

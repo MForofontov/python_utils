@@ -7,7 +7,8 @@ def test_swapcase_string_basic() -> None:
     Test the swapcase_string function with a basic string.
     """
     # Test case 1: Basic string
-    assert swapcase_string("Hello World") == "hELLO wORLD", "Failed on basic string"
+    assert swapcase_string(
+        "Hello World") == "hELLO wORLD", "Failed on basic string"
 
 
 def test_swapcase_string_all_lowercase() -> None:
@@ -15,7 +16,8 @@ def test_swapcase_string_all_lowercase() -> None:
     Test the swapcase_string function with an all lowercase string.
     """
     # Test case 2: All lowercase string
-    assert swapcase_string("python") == "PYTHON", "Failed on all lowercase string"
+    assert swapcase_string(
+        "python") == "PYTHON", "Failed on all lowercase string"
 
 
 def test_swapcase_string_all_uppercase() -> None:
@@ -23,7 +25,8 @@ def test_swapcase_string_all_uppercase() -> None:
     Test the swapcase_string function with an all uppercase string.
     """
     # Test case 3: All uppercase string
-    assert swapcase_string("PYTHON") == "python", "Failed on all uppercase string"
+    assert swapcase_string(
+        "PYTHON") == "python", "Failed on all uppercase string"
 
 
 def test_swapcase_string_mixed_case() -> None:
@@ -39,7 +42,8 @@ def test_swapcase_string_numbers() -> None:
     Test the swapcase_string function with a string that contains numbers.
     """
     # Test case 5: String with numbers
-    assert swapcase_string("Python123") == "pYTHON123", "Failed on string with numbers"
+    assert swapcase_string(
+        "Python123") == "pYTHON123", "Failed on string with numbers"
 
 
 def test_swapcase_string_special_characters() -> None:

@@ -31,4 +31,3 @@ def array_std(arr: np.ndarray) -> float:
 
 
 __all__ = ["array_std"]
-

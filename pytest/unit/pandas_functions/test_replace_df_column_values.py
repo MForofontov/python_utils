@@ -11,7 +11,8 @@ def test_replace_df_column_values() -> None:
     # Test case 1: Replace values using mapping
     df: pd.DataFrame = pd.DataFrame({"A": [1, 2, 1]})
     expected: pd.DataFrame = pd.DataFrame({"A": ["one", "two", "one"]})
-    result: pd.DataFrame = replace_df_column_values(df, "A", {1: "one", 2: "two"})
+    result: pd.DataFrame = replace_df_column_values(
+        df, "A", {1: "one", 2: "two"})
     pd.testing.assert_frame_equal(result, expected)
 
 
@@ -32,4 +33,3 @@ def test_replace_df_column_values_invalid_df() -> None:
     # Test case 3: Invalid DataFrame input
     with pytest.raises(AttributeError):
         replace_df_column_values("not a df", "A", {1: "one"})
-

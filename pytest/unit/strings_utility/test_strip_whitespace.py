@@ -27,7 +27,8 @@ def test_strip_whitespace_only_whitespace() -> None:
     Test the strip_whitespace function with a string that contains only whitespace.
     """
     # Test case 3: String with only whitespace
-    assert strip_whitespace("     ") == "", "Failed on string with only whitespace"
+    assert strip_whitespace(
+        "     ") == "", "Failed on string with only whitespace"
 
 
 def test_strip_whitespace_empty_string() -> None:
@@ -83,7 +84,8 @@ def test_strip_whitespace_numbers() -> None:
     Test the strip_whitespace function with a string that contains numbers.
     """
     # Test case 9: String with numbers
-    assert strip_whitespace("  12345  ") == "12345", "Failed on string with numbers"
+    assert strip_whitespace(
+        "  12345  ") == "12345", "Failed on string with numbers"
 
 
 def test_strip_whitespace_mixed_case() -> None:

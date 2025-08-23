@@ -155,7 +155,8 @@ def test_compress_zstd_compression_error() -> None:
     with pytest.raises(ValueError):
         # Mock zstd.ZstdCompressor to raise an exception
         original_compressor = zstd.ZstdCompressor
-        zstd.ZstdCompressor = lambda *args, **kwargs: (_ for _ in ()).throw(Exception("Mock error"))  # type: ignore
+        zstd.ZstdCompressor = lambda *args, **kwargs: (
+            _ for _ in ()).throw(Exception("Mock error"))  # type: ignore
         try:
             compress_zstd(b"data")
         finally:

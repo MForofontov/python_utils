@@ -28,4 +28,5 @@ def join_list(lst: list[str], delimiter: str) -> str:
 
     return delimiter.join(lst)
 
+
 __all__ = ['join_list']

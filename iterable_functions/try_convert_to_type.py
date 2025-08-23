@@ -32,4 +32,5 @@ def try_convert_to_type(value: Any, target_type: type) -> Any:
     except (ValueError, TypeError) as e:
         raise ValueError(f"Failed to convert {value} to {target_type}") from e
 
+
 __all__ = ['try_convert_to_type']

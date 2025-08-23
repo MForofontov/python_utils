@@ -32,4 +32,5 @@ def to_uppercase(s: str) -> str:
         raise TypeError("The input must be a string.")
     return s.upper()
 
+
 __all__ = ['to_uppercase']

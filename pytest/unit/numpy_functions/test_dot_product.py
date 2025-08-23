@@ -8,7 +8,8 @@ def test_dot_product_basic() -> None:
     Test the dot_product function with basic one-dimensional arrays.
     """
     # Test case 1: Basic arrays
-    assert dot_product(np.array([1, 2, 3]), np.array([4, 5, 6])) == 32.0, "Failed on basic arrays"
+    assert dot_product(np.array([1, 2, 3]), np.array(
+        [4, 5, 6])) == 32.0, "Failed on basic arrays"
 
 
 def test_dot_product_zero() -> None:
@@ -16,7 +17,8 @@ def test_dot_product_zero() -> None:
     Test the dot_product function with arrays containing zeros.
     """
     # Test case 2: Arrays with zeros
-    assert dot_product(np.array([0, 0]), np.array([0, 0])) == 0.0, "Failed on zero arrays"
+    assert dot_product(np.array([0, 0]), np.array(
+        [0, 0])) == 0.0, "Failed on zero arrays"
 
 
 def test_dot_product_mismatched_shapes() -> None:

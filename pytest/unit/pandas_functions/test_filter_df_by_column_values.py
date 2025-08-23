@@ -10,7 +10,8 @@ def test_filter_df_by_column_values() -> None:
     """
     # Test case 1: Filter rows by multiple values
     df: pd.DataFrame = pd.DataFrame({"A": [1, 2, 3], "B": ["x", "y", "z"]})
-    expected: pd.DataFrame = pd.DataFrame({"A": [1, 3], "B": ["x", "z"]}, index=[0, 2])
+    expected: pd.DataFrame = pd.DataFrame(
+        {"A": [1, 3], "B": ["x", "z"]}, index=[0, 2])
     result: pd.DataFrame = filter_df_by_column_values(df, "A", [1, 3])
     pd.testing.assert_frame_equal(result, expected)
 

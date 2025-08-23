@@ -93,4 +93,5 @@ def throttle(
 
     return decorator
 
+
 __all__ = ['throttle']

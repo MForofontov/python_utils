@@ -32,4 +32,5 @@ def strip_whitespace(s: str) -> str:
         raise TypeError("The input must be a string.")
     return s.strip()
 
+
 __all__ = ['strip_whitespace']

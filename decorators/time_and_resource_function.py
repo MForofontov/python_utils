@@ -140,7 +140,8 @@ def time_and_resource_function(
                         if hasattr(process, "num_ctx_switches"):
                             context_switches: Any = process.num_ctx_switches()
                         else:
-                            context_switches = SimpleNamespace(voluntary=0, involuntary=0)
+                            context_switches = SimpleNamespace(
+                                voluntary=0, involuntary=0)
 
                         # Monitor GC statistics
                         if monitor_gc:
@@ -190,7 +191,8 @@ def time_and_resource_function(
 
                         # Update maximums
                         if monitor_memory:
-                            max_memory_usage = max(max_memory_usage, total_memory_usage)
+                            max_memory_usage = max(
+                                max_memory_usage, total_memory_usage)
                         if monitor_cpu:
                             max_cpu_usage = max(max_cpu_usage, total_cpu_usage)
                             max_cpu_cores = max(
@@ -215,7 +217,8 @@ def time_and_resource_function(
                         continue
 
             # Start resource monitoring in a separate thread
-            resource_thread = threading.Thread(target=monitor_resources, daemon=True)
+            resource_thread = threading.Thread(
+                target=monitor_resources, daemon=True)
             resource_thread.start()
 
             try:
@@ -332,5 +335,6 @@ def time_and_resource_function(
         return wrapper
 
     return decorator
+
 
 __all__ = ['time_and_resource_function']

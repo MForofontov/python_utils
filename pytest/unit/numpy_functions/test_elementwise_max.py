@@ -9,7 +9,8 @@ def test_elementwise_max_basic() -> None:
     """
     result = elementwise_max(np.array([1, 3]), np.array([2, 2]))
     expected = np.array([2, 3])
-    assert np.array_equal(result, expected), "Failed on basic element-wise maximum"
+    assert np.array_equal(
+        result, expected), "Failed on basic element-wise maximum"
 
 
 def test_elementwise_max_mismatched_shapes() -> None:

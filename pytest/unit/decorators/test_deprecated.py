@@ -6,7 +6,8 @@ from decorators.deprecated import deprecated
 test_logger = logging.getLogger("test_logger")
 test_logger.setLevel(logging.INFO)
 handler = logging.StreamHandler()
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levellevel)s - %(message)s")
+formatter = logging.Formatter(
+    "%(asctime)s - %(name)s - %(levellevel)s - %(message)s")
 handler.setFormatter(formatter)
 test_logger.addHandler(handler)
 

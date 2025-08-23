@@ -49,4 +49,5 @@ def compress_file_lzma(input_file: str, output_file: str) -> None:
     except (PermissionError, OSError) as e:
         raise OSError(f"An I/O error occurred during compression: {e}")
 
+
 __all__ = ['compress_file_lzma']

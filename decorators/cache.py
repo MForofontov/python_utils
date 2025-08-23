@@ -20,7 +20,8 @@ def cache(func: Callable[P, R]) -> Callable[P, R]:
         A wrapper function that caches the results of the input function.
     """
 
-    cached_results: dict[tuple[tuple[Any, ...], frozenset[tuple[str, Any]]], Any] = {}
+    cached_results: dict[tuple[tuple[Any, ...],
+                               frozenset[tuple[str, Any]]], Any] = {}
 
     @wraps(func)
     def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
@@ -68,5 +69,6 @@ def cache(func: Callable[P, R]) -> Callable[P, R]:
     setattr(wrapper, "cache_clear", cache_clear)
 
     return cast(Callable[P, R], wrapper)
+
 
 __all__ = ['cache']

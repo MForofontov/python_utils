@@ -80,4 +80,5 @@ def deprecated(
 
     return decorator
 
+
 __all__ = ['deprecated']

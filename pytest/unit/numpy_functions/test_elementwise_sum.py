@@ -3,7 +3,6 @@ import pytest
 from numpy_functions.elementwise_sum import elementwise_sum
 
 
-
 def test_elementwise_sum_basic() -> None:
     """
     Test elementwise_sum with arrays of the same shape.
@@ -13,14 +12,12 @@ def test_elementwise_sum_basic() -> None:
     assert np.array_equal(result, expected), "Failed on basic element-wise sum"
 
 
-
 def test_elementwise_sum_mismatched_shapes() -> None:
     """
     Test elementwise_sum with arrays of different shapes.
     """
     with pytest.raises(ValueError):
         elementwise_sum(np.array([1, 2]), np.array([1, 2, 3]))
-
 
 
 def test_elementwise_sum_invalid_type() -> None:

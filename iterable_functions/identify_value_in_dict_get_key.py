@@ -32,4 +32,5 @@ def identify_value_in_dict_get_key(
             return key
     return None
 
+
 __all__ = ['identify_value_in_dict_get_key']

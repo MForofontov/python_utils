@@ -11,9 +11,11 @@ def test_melt_df() -> None:
     # Test case 1: Melt DataFrame with id and value vars
     df: pd.DataFrame = pd.DataFrame({"A": [1, 2], "B": [3, 4], "C": [5, 6]})
     expected: pd.DataFrame = pd.DataFrame(
-        {"A": [1, 2, 1, 2], "variable": ["B", "B", "C", "C"], "value": [3, 4, 5, 6]}
+        {"A": [1, 2, 1, 2], "variable": [
+            "B", "B", "C", "C"], "value": [3, 4, 5, 6]}
     )
-    result: pd.DataFrame = melt_df(df, id_vars="A", value_vars=["B", "C"], var_name="variable", value_name="value")
+    result: pd.DataFrame = melt_df(df, id_vars="A", value_vars=[
+                                   "B", "C"], var_name="variable", value_name="value")
     pd.testing.assert_frame_equal(result, expected)
 
 

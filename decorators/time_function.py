@@ -67,4 +67,5 @@ def time_function(
 
     return decorator
 
+
 __all__ = ['time_function']

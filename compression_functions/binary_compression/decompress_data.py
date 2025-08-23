@@ -42,4 +42,5 @@ def decompress_data(compressed_data: bytes, algorithm: str = "gzip") -> bytes:
     else:
         raise ValueError(f"Unsupported algorithm: {algorithm}")
 
+
 __all__ = ['decompress_data']

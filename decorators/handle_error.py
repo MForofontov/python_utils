@@ -78,4 +78,5 @@ def handle_error(
 
     return decorator
 
+
 __all__ = ['handle_error']

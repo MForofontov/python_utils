@@ -36,4 +36,5 @@ def rstrip_chars(s: str, chars: str) -> str:
         raise TypeError("The characters to strip must be a string.")
     return s.rstrip(chars)
 
+
 __all__ = ['rstrip_chars']
