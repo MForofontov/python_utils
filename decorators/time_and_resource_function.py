@@ -244,7 +244,7 @@ def time_and_resource_function(
             )
 
             # Print or log results
-            def log_or_print(message: str):
+            def log_or_print(message: str) -> None:
                 if logger:
                     logger.debug(message)
                 else:

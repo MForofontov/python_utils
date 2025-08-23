@@ -25,7 +25,7 @@ class EventManager:
         using the provided arguments.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initializes the EventManager with an empty events dictionary.
         """
