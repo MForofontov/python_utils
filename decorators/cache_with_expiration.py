@@ -1,12 +1,14 @@
-from typing import Any
+from typing import Any, ParamSpec, TypeVar, cast
 from collections.abc import Callable
 from functools import wraps
 import time
+P = ParamSpec("P")
+R = TypeVar("R")
 
 
 def cache_with_expiration(
     expiration_time: int,
-) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     A decorator to cache the results of a function call for a specified amount of time.
 
@@ -17,7 +19,7 @@ def cache_with_expiration(
 
     Returns
     -------
-    Callable[[Callable[..., Any]], Callable[..., Any]]
+    Callable[[Callable[P, R]], Callable[P, R]]
         The decorator function.
 
     Raises
@@ -28,18 +30,18 @@ def cache_with_expiration(
     if not isinstance(expiration_time, int) or expiration_time < 0:
         raise ValueError("expiration_time must be a positive integer")
 
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
         """
         The actual decorator function.
 
         Parameters
         ----------
-        func : Callable[..., Any]
+        func : Callable[P, R]
             The function to be decorated.
 
         Returns
         -------
-        Callable[..., Any]]
+        Callable[P, R]]
             The wrapped function.
         """
         cached_results: dict[
@@ -47,7 +49,7 @@ def cache_with_expiration(
         ] = {}
 
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             """
             The wrapper function that caches the result of the decorated function.
 
@@ -93,7 +95,7 @@ def cache_with_expiration(
 
         setattr(wrapper, "cache_clear", cache_clear)
 
-        return wrapper
+        return cast(Callable[P, R], wrapper)
 
     return decorator
 

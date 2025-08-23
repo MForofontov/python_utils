@@ -5,9 +5,11 @@ import threading
 import gc
 from types import SimpleNamespace
 from logger_functions.logger import validate_logger
-from typing import Any
+from typing import Any, ParamSpec, TypeVar
 from collections.abc import Callable
 from functools import wraps
+P = ParamSpec("P")
+R = TypeVar("R")
 
 
 def time_and_resource_function(
@@ -23,7 +25,7 @@ def time_and_resource_function(
     monitor_page_faults: bool = True,
     interval: float = 0.1,
     logger: logging.Logger | None = None,
-) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     Decorator to measure the execution time and optionally the maximum memory, CPU usage, I/O operations, network usage, disk usage, number of threads, GC statistics, context switches, open files, and page faults of a function.
 
@@ -64,15 +66,15 @@ def time_and_resource_function(
     """
     validate_logger(logger)
 
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             process = psutil.Process()
             start_time = time.time()
 
             # Initialize monitoring variables
             max_memory_usage = 0
-            max_cpu_usage = 0
+            max_cpu_usage = 0.0
             max_cpu_cores = 0
             max_threads = 0
             max_open_files = 0
@@ -131,12 +133,12 @@ def time_and_resource_function(
                             else 0
                         )
                         if hasattr(process, "memory_full_info"):
-                            memory_info = process.memory_full_info()
+                            memory_info: Any = process.memory_full_info()
                         else:
                             memory_info = process.memory_info()
                         page_faults = getattr(memory_info, "pfaults", 0)
                         if hasattr(process, "num_ctx_switches"):
-                            context_switches = process.num_ctx_switches()
+                            context_switches: Any = process.num_ctx_switches()
                         else:
                             context_switches = SimpleNamespace(voluntary=0, involuntary=0)
 
@@ -192,7 +194,7 @@ def time_and_resource_function(
                         if monitor_cpu:
                             max_cpu_usage = max(max_cpu_usage, total_cpu_usage)
                             max_cpu_cores = max(
-                                max_cpu_cores, round(total_cpu_usage / 100)
+                                max_cpu_cores, int(total_cpu_usage / 100)
                             )
                         if monitor_threads:
                             max_threads = max(max_threads, total_threads)
