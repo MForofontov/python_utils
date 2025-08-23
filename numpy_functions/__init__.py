@@ -18,6 +18,7 @@ from .array_sqrt import array_sqrt
 from .array_exp import array_exp
 from .array_log import array_log
 from .array_floor import array_floor
+from .array_round import array_round
 from .array_percentile import array_percentile
 from .dot_product import dot_product
 from .elementwise_sum import elementwise_sum
@@ -28,6 +29,7 @@ from .elementwise_subtract import elementwise_subtract
 from .elementwise_power import elementwise_power
 from .elementwise_min import elementwise_min
 from .elementwise_max import elementwise_max
+from .elementwise_equal import elementwise_equal
 from .matrix_multiply import matrix_multiply
 from .normalize_array import normalize_array
 
@@ -52,6 +54,7 @@ __all__ = [
     "array_exp",
     "array_log",
     "array_floor",
+    "array_round",
     "array_percentile",
     "dot_product",
     "elementwise_sum",
@@ -62,6 +65,7 @@ __all__ = [
     "elementwise_power",
     "elementwise_min",
     "elementwise_max",
+    "elementwise_equal",
     "matrix_multiply",
     "normalize_array",
 ]
