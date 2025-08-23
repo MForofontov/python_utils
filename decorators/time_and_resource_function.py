@@ -11,17 +11,17 @@ from functools import wraps
 
 
 def time_and_resource_function(
-    monitor_memory=True,
-    monitor_cpu=True,
-    monitor_io=True,
-    monitor_network=True,
-    monitor_disk=True,
-    monitor_threads=True,
-    monitor_gc=True,
-    monitor_context_switches=True,
-    monitor_open_files=True,
-    monitor_page_faults=True,
-    interval=0.1,
+    monitor_memory: bool = True,
+    monitor_cpu: bool = True,
+    monitor_io: bool = True,
+    monitor_network: bool = True,
+    monitor_disk: bool = True,
+    monitor_threads: bool = True,
+    monitor_gc: bool = True,
+    monitor_context_switches: bool = True,
+    monitor_open_files: bool = True,
+    monitor_page_faults: bool = True,
+    interval: float = 0.1,
     logger: logging.Logger | None = None,
 ) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
@@ -64,9 +64,9 @@ def time_and_resource_function(
     """
     validate_logger(logger)
 
-    def decorator(func) -> Callable[..., Any]:
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)
-        def wrapper(*args, **kwargs) -> Any:
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             process = psutil.Process()
             start_time = time.time()
 
