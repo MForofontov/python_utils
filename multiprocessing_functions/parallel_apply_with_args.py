@@ -10,11 +10,11 @@ R = TypeVar("R")
 def parallel_apply_with_args(
     func: Callable[[T, Any], R],
     data: list[T],
-    args: tuple = (),
+    args: tuple[Any, ...] = (),
     num_processes: int = None,
 ) -> list[R]:
     """
-    Apply a function to a list of items in parallel, passing additional arguments to the function.
+    Apply a function to a list of items in parallel, passing additional positional arguments to the function.
 
     Parameters
     ----------
@@ -22,8 +22,8 @@ def parallel_apply_with_args(
         The function to apply to each item in the list.
     data : List[T]
         The list of data items to process.
-    args : Tuple, optional
-        Additional arguments to pass to the function (by default an empty tuple).
+    args : tuple[Any, ...], optional
+        Additional positional arguments to pass to the function (by default an empty tuple).
     num_processes : int, optional
         The number of processes to use for parallel execution. If None, it defaults
         to the number of available CPUs (by default None).
