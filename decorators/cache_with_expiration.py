@@ -88,12 +88,10 @@ def cache_with_expiration(
             return result
 
         def cache_clear() -> None:
-            """
-            Clear the cache.
-            """
+            """Clear the cache."""
             cached_results.clear()
 
-        wrapper.cache_clear = cache_clear
+        setattr(wrapper, "cache_clear", cache_clear)
 
         return wrapper
 

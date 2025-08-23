@@ -1,4 +1,5 @@
 import os
+from collections.abc import Callable
 
 
 def get_paths_dict(directory: str, type_: str) -> dict[str, str]:
@@ -27,6 +28,7 @@ def get_paths_dict(directory: str, type_: str) -> dict[str, str]:
     ValueError
         If the `type_` parameter is not one of the valid options ('files', 'directories', 'all').
     """
+    if_type: Callable[[str], bool]
     if type_ == "files":
         if_type = os.path.isfile
     elif type_ == "directories":

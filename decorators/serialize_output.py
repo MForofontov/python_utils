@@ -7,7 +7,7 @@ from logger_functions.logger import validate_logger
 
 
 def serialize_output(
-    format: str, logger: logging.Logger = None
+    format: str, logger: logging.Logger | None = None
 ) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to serialize the output of a function into a specified format.
@@ -86,8 +86,7 @@ def serialize_output(
             """
             try:
                 result = func(*args, **kwargs)
-                if format == "json":
-                    return json.dumps(result)
+                return json.dumps(result)
             except Exception as e:
                 if logger:
                     logger.error(

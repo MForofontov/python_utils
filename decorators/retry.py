@@ -7,7 +7,7 @@ from logger_functions.logger import validate_logger
 
 
 def retry(
-    max_retries: int, delay: int | float = 1.0, logger: logging.Logger = None
+    max_retries: int, delay: int | float = 1.0, logger: logging.Logger | None = None
 ) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to retry a function call a specified number of times with a delay between attempts.
