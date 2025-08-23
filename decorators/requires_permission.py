@@ -1,14 +1,15 @@
-from typing import Any
+from typing import Any, ParamSpec, TypeVar, Concatenate
 from collections.abc import Callable
 from functools import wraps
 import logging
-import inspect
 from logger_functions.logger import validate_logger
+P = ParamSpec("P")
+R = TypeVar("R")
 
 
 def requires_permission(
     permission: str, logger: logging.Logger | None = None
-) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+) -> Callable[[Callable[Concatenate[list[str], P], R]], Callable[Concatenate[list[str], P], R]]:
     """
     A decorator to enforce that a user has a specific permission before executing a function.
 
@@ -21,7 +22,7 @@ def requires_permission(
 
     Returns
     -------
-    Callable[[Callable[..., Any]], Callable[..., Any]]
+    Callable[[Callable[P, R]], Callable[P, R]]
         The decorator function.
 
     Raises
@@ -38,23 +39,27 @@ def requires_permission(
             )
         raise TypeError("permission must be a string")
 
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+    def decorator(
+        func: Callable[Concatenate[list[str], P], R]
+    ) -> Callable[Concatenate[list[str], P], R]:
         """
         The actual decorator function.
 
         Parameters
         ----------
-        func : Callable[..., Any]
+        func : Callable[P, R]
             The function to be decorated.
 
         Returns
         -------
-        Callable[..., Any]
+        Callable[P, R]
             The wrapped function.
         """
 
         @wraps(func)
-        def wrapper(user_permissions: list[str], *args: Any, **kwargs: Any) -> Any:
+        def wrapper(
+            user_permissions: list[str], *args: P.args, **kwargs: P.kwargs
+        ) -> R:
             """
             The wrapper function that checks for the required permission.
 
@@ -101,9 +106,7 @@ def requires_permission(
                     )
                 raise PermissionError(error_message)
             # Call the original function with the provided arguments and keyword arguments
-            if inspect.signature(func).parameters:
-                return func(user_permissions, *args, **kwargs)
-            return func(*args, **kwargs)
+            return func(user_permissions, *args, **kwargs)
 
         return wrapper
 

@@ -1,26 +1,28 @@
-from typing import Any
+from typing import Any, ParamSpec, TypeVar
 from collections.abc import Callable
 import logging
 from logger_functions.logger import validate_logger
+P = ParamSpec("P")
+R = TypeVar("R")
 
 
 def multi_decorator(
-    decorators: list[Callable[[Callable[..., Any]], Callable[..., Any]]],
+    decorators: list[Callable[[Callable[P, R]], Callable[P, R]]],
     logger: logging.Logger | None = None,
-) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     A function to apply multiple decorators to a target function.
 
     Parameters
     ----------
-    decorators : List[Callable[[Callable[..., Any]], Callable[..., Any]]]
+    decorators : List[Callable[[Callable[P, R]], Callable[P, R]]]
         A list of decorators to apply.
     logger : Optional[logging.Logger], optional
         The logger to use for logging errors (default is None).
 
     Returns
     -------
-    Callable[[Callable[..., Any]], Callable[..., Any]]
+    Callable[[Callable[P, R]], Callable[P, R]]
         The function that applies all the decorators to the target function.
 
     Raises
@@ -37,18 +39,18 @@ def multi_decorator(
 
     validate_logger(logger)
 
-    def combine(func: Callable[..., Any]) -> Callable[..., Any]:
+    def combine(func: Callable[P, R]) -> Callable[P, R]:
         """
         The function that applies all the decorators to the target function.
 
         Parameters
         ----------
-        func : Callable[..., Any]
+        func : Callable[P, R]
             The function to be decorated.
 
         Returns
         -------
-        Callable[..., Any]
+        Callable[P, R]
             The decorated function.
         """
         for decorator in reversed(decorators):

@@ -1,14 +1,16 @@
-from typing import Any
-from collections.abc import Callable
+from typing import Any, ParamSpec, TypeVar
+from collections.abc import Callable, Awaitable
 from functools import wraps
 import inspect
 import logging
 from logger_functions.logger import validate_logger
+P = ParamSpec("P")
+R = TypeVar("R")
 
 
 def async_handle_error(
     logger: logging.Logger | None = None,
-) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+) -> Callable[[Callable[P, Awaitable[R]]], Callable[P, Awaitable[R | None]]]:
     """Decorator for handling errors in asynchronous functions.
 
     Parameters
@@ -19,7 +21,7 @@ def async_handle_error(
 
     Returns
     -------
-    Callable[[Callable[..., Any]], Callable[..., Any]]
+    Callable[[Callable[P, Awaitable[R]]], Callable[P, Awaitable[R | None]]]
         A decorator that wraps an asynchronous function with error handling.
 
     Raises
@@ -29,18 +31,20 @@ def async_handle_error(
     """
     validate_logger(logger)
 
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+    def decorator(
+        func: Callable[P, Awaitable[R]]
+    ) -> Callable[P, Awaitable[R | None]]:
         """
         Decorator function.
 
         Parameters
         ----------
-        func : Callable[..., Any]
+        func : Callable[P, R]
             The asynchronous function to be wrapped.
 
         Returns
         -------
-        Callable[..., Any]
+        Callable[P, Awaitable[R | None]]
             The wrapped function with error handling.
 
         Raises
@@ -59,7 +63,7 @@ def async_handle_error(
                 raise TypeError(error_message)
 
         @wraps(func)
-        async def wrapper(*args: Any, **kwargs: Any) -> Any:
+        async def wrapper(*args: P.args, **kwargs: P.kwargs) -> R | None:
             """
             Wrapper function to handle errors in the asynchronous function.
 

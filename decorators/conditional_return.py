@@ -1,26 +1,28 @@
-from typing import Any, TypeVar
+from typing import Any, TypeVar, ParamSpec
 from collections.abc import Callable
 from functools import wraps
+P = ParamSpec("P")
+R = TypeVar("R")
 
 T = TypeVar("T")
 
 
 def conditional_return(
-    condition: Callable[..., bool], return_value: T
-) -> Callable[[Callable[..., T]], Callable[..., T]]:
+    condition: Callable[P, bool], return_value: T
+) -> Callable[[Callable[P, T]], Callable[P, T]]:
     """
     Decorator to conditionally return a specified value based on a condition.
 
     Parameters
     ----------
-    condition : Callable[..., bool]
+    condition : Callable[P, bool]
         A function that returns a boolean value. The decorated function will return the specified value if this condition returns True.
     return_value : T
         The value to return if the condition is met.
 
     Returns
     -------
-    Callable[[Callable[..., T]], Callable[..., T]]
+    Callable[[Callable[P, T]], Callable[P, T]]
         A decorator that wraps the input function with conditional return logic.
 
     Raises
@@ -31,23 +33,23 @@ def conditional_return(
     if not callable(condition):
         raise TypeError("Condition must be callable")
 
-    def decorator(func: Callable[..., T]) -> Callable[..., T]:
+    def decorator(func: Callable[P, T]) -> Callable[P, T]:
         """
         Decorator function.
 
         Parameters
         ----------
-        func : Callable[..., T]
+        func : Callable[P, T]
             The function to be conditionally executed.
 
         Returns
         -------
-        Callable[..., T]
+        Callable[P, T]
             The wrapped function with conditional return logic.
         """
 
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> T:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> T:
             """
             Wrapper function to conditionally return a specified value.
 
