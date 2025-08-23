@@ -10,6 +10,8 @@ from .array_cumsum import array_cumsum
 from .array_diff import array_diff
 from .array_sort import array_sort
 from .array_unique import array_unique
+from .array_clip import array_clip
+from .array_sqrt import array_sqrt
 from .dot_product import dot_product
 from .elementwise_sum import elementwise_sum
 from .elementwise_product import elementwise_product
@@ -32,6 +34,8 @@ __all__ = [
     "array_diff",
     "array_sort",
     "array_unique",
+    "array_clip",
+    "array_sqrt",
     "dot_product",
     "elementwise_sum",
     "elementwise_product",
