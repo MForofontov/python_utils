@@ -32,7 +32,7 @@ def print_system_info_in_terminal() -> None:
     None
     """
 
-    def get_processor_name():
+    def get_processor_name() -> str:
         """
         Get the processor name.
 

@@ -87,7 +87,7 @@ def cache_with_expiration(
 
             return result
 
-        def cache_clear():
+        def cache_clear() -> None:
             """
             Clear the cache.
             """
