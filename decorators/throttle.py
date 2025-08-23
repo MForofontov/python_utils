@@ -7,7 +7,7 @@ from logger_functions.logger import validate_logger
 
 
 def throttle(
-    rate_limit: int | float, logger: logging.Logger = None
+    rate_limit: int | float, logger: logging.Logger | None = None
 ) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to enforce a rate limit on a function, ensuring it is not called more often than the specified rate.
@@ -16,7 +16,7 @@ def throttle(
     ----------
     rate_limit : float
         The minimum time interval (in seconds) between consecutive calls to the function.
-    logger : logging.Logger, optional
+    logger : Optional[logging.Logger], optional
         The logger to use for logging errors (default is None).
 
     Returns

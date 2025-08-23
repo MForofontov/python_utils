@@ -6,15 +6,15 @@ from logger_functions.logger import validate_logger
 
 
 def log_function_calls(
-    logger: logging.Logger,
+    logger: logging.Logger | None,
 ) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to log function calls, including arguments passed and the result returned.
 
     Parameters
     ----------
-    logger : logging.Logger
-        The logger instance to use for logging.
+    logger : logging.Logger | None
+        The logger instance to use for logging. Must not be None.
 
     Returns
     -------
@@ -24,9 +24,10 @@ def log_function_calls(
     Raises
     ------
     TypeError
-        If the logger is not an instance of logging.Logger.
+        If the logger is not an instance of logging.Logger or is None.
     """
     validate_logger(logger, allow_none=False)
+    assert logger is not None
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)

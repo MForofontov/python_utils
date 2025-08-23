@@ -7,7 +7,7 @@ from logger_functions.logger import validate_logger
 
 
 def requires_permission(
-    permission: str, logger: logging.Logger = None
+    permission: str, logger: logging.Logger | None = None
 ) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to enforce that a user has a specific permission before executing a function.
@@ -16,7 +16,7 @@ def requires_permission(
     ----------
     permission : str
         The required permission that the user must have.
-    logger : logging.Logger, optional
+    logger : Optional[logging.Logger], optional
         The logger to use for logging errors (default is None).
 
     Returns

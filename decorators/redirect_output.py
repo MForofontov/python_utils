@@ -7,7 +7,7 @@ from logger_functions.logger import validate_logger
 
 
 def redirect_output(
-    file_path: str, logger: logging.Logger = None
+    file_path: str, logger: logging.Logger | None = None
 ) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     A decorator to redirect the standard output of a function to a specified file.
@@ -16,7 +16,7 @@ def redirect_output(
     ----------
     file_path : str
         The path to the file where the output should be redirected.
-    logger : logging.Logger, optional
+    logger : Optional[logging.Logger], optional
         The logger to use for logging errors (default is None).
 
     Returns
