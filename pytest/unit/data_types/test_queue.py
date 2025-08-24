@@ -4,9 +4,8 @@ from data_types.queue import Queue
 
 def test_enqueue_and_dequeue() -> None:
     """
-    Test adding and removing elements from the queue.
+    Test case 1: Test adding and removing elements from the queue.
     """
-    # Test case 1: Enqueue and dequeue elements
     queue = Queue[int]()
     queue.enqueue(1)
     queue.enqueue(2)
@@ -18,9 +17,8 @@ def test_enqueue_and_dequeue() -> None:
 
 def test_is_empty() -> None:
     """
-    Test checking if the queue is empty.
+    Test case 2: Test checking if the queue is empty.
     """
-    # Test case 2: Empty queue
     queue = Queue[int]()
     assert queue.is_empty() is True
     queue.enqueue(1)
@@ -31,9 +29,8 @@ def test_is_empty() -> None:
 
 def test_size() -> None:
     """
-    Test getting the size of the queue.
+    Test case 3: Test getting the size of the queue.
     """
-    # Test case 3: Size of the queue
     queue = Queue[int]()
     assert queue.size() == 0
     queue.enqueue(1)
@@ -47,9 +44,8 @@ def test_size() -> None:
 
 def test_order_of_elements() -> None:
     """
-    Test the order of elements in the queue after multiple operations.
+    Test case 4: Test the order of elements in the queue after multiple operations.
     """
-    # Test case 4: Order verification
     queue = Queue[int]()
     queue.enqueue(1)
     queue.enqueue(2)
@@ -63,11 +59,10 @@ def test_order_of_elements() -> None:
 
 
 def test_custom_object_queue() -> None:
-    """
-    Test the queue with custom objects.
-    """
 
-    # Test case 5: Custom objects
+    """
+    Test case 5: Test the queue with custom objects.
+    """
     class Task:
         def __init__(self, name: str) -> None:
             self.name = name
@@ -89,9 +84,8 @@ def test_custom_object_queue() -> None:
 
 def test_large_queue() -> None:
     """
-    Test operations on a very large queue.
+    Test case 6: Test operations on a very large queue.
     """
-    # Test case 6: Large queue
     queue = Queue[int]()
     for i in range(10000):
         queue.enqueue(i)
@@ -103,9 +97,8 @@ def test_large_queue() -> None:
 
 def test_single_element_queue() -> None:
     """
-    Test enqueuing and dequeuing a single element.
+    Test case 7: Test enqueuing and dequeuing a single element.
     """
-    # Test case 7: Single element queue
     queue = Queue[int]()
     queue.enqueue(42)
     assert queue.size() == 1
@@ -115,9 +108,8 @@ def test_single_element_queue() -> None:
 
 def test_iterative_access() -> None:
     """
-    Test iteration over the queue.
+    Test case 8: Test iteration over the queue.
     """
-    # Test case 8: Iterative access
     queue = Queue[int]()
     queue.enqueue(1)
     queue.enqueue(2)
@@ -129,9 +121,8 @@ def test_iterative_access() -> None:
 
 def test_dequeue_empty_queue() -> None:
     """
-    Test removing an element from an empty queue.
+    Test case 9: Test removing an element from an empty queue.
     """
-    # Test case 9: Dequeue from empty queue
     queue = Queue[int]()
     with pytest.raises(IndexError, match="Dequeue from an empty queue"):
         queue.dequeue()

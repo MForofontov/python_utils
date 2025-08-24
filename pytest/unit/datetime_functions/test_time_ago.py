@@ -5,9 +5,8 @@ from datetime_functions.time_ago import time_ago
 
 def test_time_ago_seconds() -> None:
     """
-    Test time_ago function with seconds difference.
+    Test case 1: Test time_ago function with seconds difference.
     """
-    # Test case 1: Seconds ago
     reference: datetime = datetime(2023, 1, 15, 12, 0, 30)
     past: datetime = datetime(2023, 1, 15, 12, 0, 0)
     result: str = time_ago(past, reference)
@@ -17,9 +16,8 @@ def test_time_ago_seconds() -> None:
 
 def test_time_ago_minutes() -> None:
     """
-    Test time_ago function with minutes difference.
+    Test case 2: Test time_ago function with minutes difference.
     """
-    # Test case 2: Minutes ago
     reference: datetime = datetime(2023, 1, 15, 12, 30, 0)
     past: datetime = datetime(2023, 1, 15, 12, 0, 0)
     result: str = time_ago(past, reference)
@@ -29,9 +27,8 @@ def test_time_ago_minutes() -> None:
 
 def test_time_ago_hours() -> None:
     """
-    Test time_ago function with hours difference.
+    Test case 3: Test time_ago function with hours difference.
     """
-    # Test case 3: Hours ago
     reference: datetime = datetime(2023, 1, 15, 15, 0, 0)
     past: datetime = datetime(2023, 1, 15, 12, 0, 0)
     result: str = time_ago(past, reference)
@@ -41,9 +38,8 @@ def test_time_ago_hours() -> None:
 
 def test_time_ago_days() -> None:
     """
-    Test time_ago function with days difference.
+    Test case 4: Test time_ago function with days difference.
     """
-    # Test case 4: Days ago
     reference: date = date(2023, 1, 18)
     past: date = date(2023, 1, 15)
     result: str = time_ago(past, reference)
@@ -53,9 +49,8 @@ def test_time_ago_days() -> None:
 
 def test_time_ago_weeks() -> None:
     """
-    Test time_ago function with weeks difference.
+    Test case 5: Test time_ago function with weeks difference.
     """
-    # Test case 5: Weeks ago
     reference: date = date(2023, 2, 5)
     past: date = date(2023, 1, 15)
     result: str = time_ago(past, reference)
@@ -65,9 +60,8 @@ def test_time_ago_weeks() -> None:
 
 def test_time_ago_just_now() -> None:
     """
-    Test time_ago function with very recent time.
+    Test case 6: Test time_ago function with very recent time.
     """
-    # Test case 6: Just now
     reference: datetime = datetime(2023, 1, 15, 12, 0, 5)
     past: datetime = datetime(2023, 1, 15, 12, 0, 0)
     result: str = time_ago(past, reference)
@@ -77,9 +71,8 @@ def test_time_ago_just_now() -> None:
 
 def test_time_ago_future_date_error() -> None:
     """
-    Test time_ago function with future date raises ValueError.
+    Test case 7: Test time_ago function with future date raises ValueError.
     """
-    # Test case 7: Future date error
     reference: datetime = datetime(2023, 1, 15, 12, 0, 0)
     future: datetime = datetime(2023, 1, 15, 13, 0, 0)
     
@@ -89,9 +82,8 @@ def test_time_ago_future_date_error() -> None:
 
 def test_time_ago_invalid_input_type() -> None:
     """
-    Test time_ago function with invalid input type raises TypeError.
+    Test case 8: Test time_ago function with invalid input type raises TypeError.
     """
-    # Test case 8: Invalid input types
     with pytest.raises(TypeError):
         time_ago('2023-01-15')
     

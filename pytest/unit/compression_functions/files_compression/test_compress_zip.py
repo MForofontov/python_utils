@@ -6,9 +6,8 @@ from compression_functions.files_compression.compress_zip import compress_zip
 
 def test_compress_zip_basic_file_compression(tmp_path) -> None:
     """
-    Test the compress_zip function with a single file.
+    Test case 1: Test the compress_zip function with a single file.
     """
-    # Test case 1: Basic file compression
     input_file = tmp_path / "input.txt"
     output_zip = tmp_path / "output.zip"
     data = b"hello world"
@@ -34,9 +33,8 @@ def test_compress_zip_basic_file_compression(tmp_path) -> None:
 
 def test_compress_zip_empty_directory_compression(tmp_path) -> None:
     """
-    Test the compress_zip function with an empty directory.
+    Test case 2: Test the compress_zip function with an empty directory.
     """
-    # Test case 2: Empty directory compression
     input_dir = tmp_path / "empty_dir"
     output_zip = tmp_path / "output.zip"
 
@@ -59,9 +57,8 @@ def test_compress_zip_empty_directory_compression(tmp_path) -> None:
 
 def test_compress_zip_directory_with_files_compression(tmp_path) -> None:
     """
-    Test the compress_zip function with a directory containing files.
+    Test case 3: Test the compress_zip function with a directory containing files.
     """
-    # Test case 3: Directory with files compression
     input_dir = tmp_path / "dir_with_files"
     output_zip = tmp_path / "output.zip"
     data = b"hello world"
@@ -102,9 +99,8 @@ def test_compress_zip_directory_with_files_compression(tmp_path) -> None:
 
 def test_compress_zip_invalid_input_path_type(tmp_path) -> None:
     """
-    Test the compress_zip function with invalid input path type.
+    Test case 4: Test the compress_zip function with invalid input path type.
     """
-    # Test case 4: Invalid input path type
     output_zip = tmp_path / "output.zip"
 
     with pytest.raises(TypeError):
@@ -113,9 +109,8 @@ def test_compress_zip_invalid_input_path_type(tmp_path) -> None:
 
 def test_compress_zip_invalid_output_path_type(tmp_path) -> None:
     """
-    Test the compress_zip function with invalid output path type.
+    Test case 5: Test the compress_zip function with invalid output path type.
     """
-    # Test case 5: Invalid output path type
     input_file = tmp_path / "input.txt"
     data = b"hello world"
 
@@ -128,9 +123,8 @@ def test_compress_zip_invalid_output_path_type(tmp_path) -> None:
 
 def test_compress_zip_non_existent_input_path(tmp_path) -> None:
     """
-    Test the compress_zip function with a non-existent input path.
+    Test case 6: Test the compress_zip function with a non-existent input path.
     """
-    # Test case 6: Non-existent input path
     input_path = tmp_path / "non_existent"
     output_zip = tmp_path / "output.zip"
 
@@ -140,9 +134,8 @@ def test_compress_zip_non_existent_input_path(tmp_path) -> None:
 
 def test_compress_zip_io_error_on_output_file(tmp_path) -> None:
     """
-    Test the compress_zip function handling of I/O errors on output file.
+    Test case 7: Test the compress_zip function handling of I/O errors on output file.
     """
-    # Test case 7: Handling of I/O errors on output file
     input_file = tmp_path / "input.txt"
     output_zip = tmp_path / "output.zip"
     data = b"hello world"
@@ -163,9 +156,8 @@ def test_compress_zip_io_error_on_output_file(tmp_path) -> None:
 
 def test_compress_zip_no_permission_on_input_file(tmp_path) -> None:
     """
-    Test the compress_zip function with no permission on input file.
+    Test case 8: Test the compress_zip function with no permission on input file.
     """
-    # Test case 8: No permission on input file
     input_file = tmp_path / "input.txt"
     output_zip = tmp_path / "output.zip"
     data = b"hello world"
@@ -186,9 +178,8 @@ def test_compress_zip_no_permission_on_input_file(tmp_path) -> None:
 
 def test_compress_zip_io_error_on_read_only_output_file(tmp_path) -> None:
     """
-    Test the compress_zip function with read-only output file.
+    Test case 9: Test the compress_zip function with read-only output file.
     """
-    # Test case 9: Read-only output file
     input_file = tmp_path / "input.txt"
     output_zip = tmp_path / "output.zip"
     data = b"hello world"

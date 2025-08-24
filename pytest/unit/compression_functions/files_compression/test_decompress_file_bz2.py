@@ -8,9 +8,8 @@ from compression_functions.files_compression.decompress_file_bz2 import (
 
 def test_decompress_file_bz2_basic(tmp_path) -> None:
     """
-    Test the decompress_file_bz2 function with basic input.
+    Test case 1: Test the decompress_file_bz2 function with basic input.
     """
-    # Test case 1: Basic decompression
     compressed_file = tmp_path / "input.txt.bz2"
     output_file = tmp_path / "output.txt"
     data = b"hello world"
@@ -33,9 +32,8 @@ def test_decompress_file_bz2_basic(tmp_path) -> None:
 
 def test_decompress_file_bz2_empty_file(tmp_path) -> None:
     """
-    Test the decompress_file_bz2 function with an empty file.
+    Test case 2: Test the decompress_file_bz2 function with an empty file.
     """
-    # Test case 2: Empty file
     compressed_file = tmp_path / "input.txt.bz2"
     output_file = tmp_path / "output.txt"
 
@@ -57,9 +55,8 @@ def test_decompress_file_bz2_empty_file(tmp_path) -> None:
 
 def test_decompress_file_bz2_large_file(tmp_path) -> None:
     """
-    Test the decompress_file_bz2 function with a large file.
+    Test case 3: Test the decompress_file_bz2 function with a large file.
     """
-    # Test case 3: Large file decompression
     compressed_file = tmp_path / "input.txt.bz2"
     output_file = tmp_path / "output.txt"
     data = b"a" * 1000000  # 1 MB of data
@@ -82,9 +79,8 @@ def test_decompress_file_bz2_large_file(tmp_path) -> None:
 
 def test_decompress_file_bz2_invalid_input_type(tmp_path) -> None:
     """
-    Test the decompress_file_bz2 function with invalid input file type.
+    Test case 4: Test the decompress_file_bz2 function with invalid input file type.
     """
-    # Test case 4: Invalid input file type
     output_file = tmp_path / "output.txt"
 
     with pytest.raises(TypeError):
@@ -93,9 +89,8 @@ def test_decompress_file_bz2_invalid_input_type(tmp_path) -> None:
 
 def test_decompress_file_bz2_invalid_output_type(tmp_path) -> None:
     """
-    Test the decompress_file_bz2 function with invalid output file type.
+    Test case 5: Test the decompress_file_bz2 function with invalid output file type.
     """
-    # Test case 5: Invalid output file type
     compressed_file = tmp_path / "input.txt.bz2"
     data = b"hello world"
 
@@ -109,9 +104,8 @@ def test_decompress_file_bz2_invalid_output_type(tmp_path) -> None:
 
 def test_decompress_file_bz2_non_existent_input_file(tmp_path) -> None:
     """
-    Test the decompress_file_bz2 function with a non-existent input file.
+    Test case 6: Test the decompress_file_bz2 function with a non-existent input file.
     """
-    # Test case 6: Non-existent input file
     compressed_file = tmp_path / "non_existent.txt.bz2"
     output_file = tmp_path / "output.txt"
 
@@ -121,9 +115,8 @@ def test_decompress_file_bz2_non_existent_input_file(tmp_path) -> None:
 
 def test_decompress_file_bz2_io_error_on_output_file(tmp_path) -> None:
     """
-    Test the decompress_file_bz2 function handling of I/O errors on output file.
+    Test case 7: Test the decompress_file_bz2 function handling of I/O errors on output file.
     """
-    # Test case 7: Handling of I/O errors on output file
     compressed_file = tmp_path / "input.txt.bz2"
     output_file = tmp_path / "output.txt"
     data = b"hello world"
@@ -145,9 +138,8 @@ def test_decompress_file_bz2_io_error_on_output_file(tmp_path) -> None:
 
 def test_decompress_file_bz2_no_permission_on_input_file(tmp_path) -> None:
     """
-    Test the decompress_file_bz2 function with no permission on input file.
+    Test case 8: Test the decompress_file_bz2 function with no permission on input file.
     """
-    # Test case 8: No permission on input file
     compressed_file = tmp_path / "input.txt.bz2"
     output_file = tmp_path / "output.txt"
     data = b"hello world"
@@ -169,9 +161,8 @@ def test_decompress_file_bz2_no_permission_on_input_file(tmp_path) -> None:
 
 def test_decompress_file_bz2_io_error_on_read_only_output_file(tmp_path) -> None:
     """
-    Test the decompress_file_bz2 function with read-only output file.
+    Test case 9: Test the decompress_file_bz2 function with read-only output file.
     """
-    # Test case 9: Read-only output file
     compressed_file = tmp_path / "input.txt.bz2"
     output_file = tmp_path / "output.txt"
     data = b"hello world"

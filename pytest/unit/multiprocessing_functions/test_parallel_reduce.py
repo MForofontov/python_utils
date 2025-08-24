@@ -6,16 +6,18 @@ def add(a: int, b: int) -> int:
 
 
 def test_parallel_reduce_basic() -> None:
-    """Test parallel_reduce summing numbers."""
-    # Test case 1: Basic sum reduction
+    """
+    Test case 1: Test parallel_reduce summing numbers.
+    """
     data: list[int] = [1, 2, 3, 4]
     result: int = parallel_reduce(add, data)
     assert result == 10
 
 
 def test_parallel_reduce_chunk_size() -> None:
-    """Test parallel_reduce with a custom chunk size."""
-    # Test case 2: Custom chunk size
+    """
+    Test case 2: Test parallel_reduce with a custom chunk size.
+    """
     data: list[int] = [1, 2, 3, 4]
     result: int = parallel_reduce(add, data, chunk_size=2)
     assert result == 10

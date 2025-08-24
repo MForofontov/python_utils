@@ -4,9 +4,8 @@ from data_types.circular_queue import CircularQueue
 
 def test_enqueue_to_empty_queue() -> None:
     """
-    Test enqueuing an item to an empty queue.
+    Test case 1: Test enqueuing an item to an empty queue.
     """
-    # Test case 1: Enqueue to an empty queue
     queue = CircularQueue[int](3)  # Specify the type as int
     assert queue.enqueue(10) is True
     assert queue.peek() == 10
@@ -15,9 +14,8 @@ def test_enqueue_to_empty_queue() -> None:
 
 def test_enqueue_to_full_queue() -> None:
     """
-    Test enqueuing an item to a full queue.
+    Test case 2: Test enqueuing an item to a full queue.
     """
-    # Test case 2: Enqueue to a full queue
     queue = CircularQueue[int](3)
     queue.enqueue(10)
     queue.enqueue(20)
@@ -28,18 +26,16 @@ def test_enqueue_to_full_queue() -> None:
 
 def test_dequeue_from_empty_queue() -> None:
     """
-    Test dequeuing an item from an empty queue.
+    Test case 3: Test dequeuing an item from an empty queue.
     """
-    # Test case 3: Dequeue from an empty queue
     queue = CircularQueue[int](3)
     assert queue.dequeue() is None  # Queue is empty
 
 
 def test_dequeue_from_non_empty_queue() -> None:
     """
-    Test dequeuing an item from a non-empty queue.
+    Test case 4: Test dequeuing an item from a non-empty queue.
     """
-    # Test case 4: Dequeue from a non-empty queue
     queue = CircularQueue[int](3)
     queue.enqueue(10)
     queue.enqueue(20)
@@ -50,18 +46,16 @@ def test_dequeue_from_non_empty_queue() -> None:
 
 def test_peek_empty_queue() -> None:
     """
-    Test peeking into an empty queue.
+    Test case 5: Test peeking into an empty queue.
     """
-    # Test case 5: Peek into an empty queue
     queue = CircularQueue[int](3)
     assert queue.peek() is None  # Queue is empty
 
 
 def test_peek_non_empty_queue() -> None:
     """
-    Test peeking into a non-empty queue.
+    Test case 6: Test peeking into a non-empty queue.
     """
-    # Test case 6: Peek into a non-empty queue
     queue = CircularQueue[int](3)
     queue.enqueue(10)
     queue.enqueue(20)
@@ -71,18 +65,16 @@ def test_peek_non_empty_queue() -> None:
 
 def test_is_empty_on_empty_queue() -> None:
     """
-    Test checking if an empty queue is empty.
+    Test case 7: Test checking if an empty queue is empty.
     """
-    # Test case 7: Check is_empty on an empty queue
     queue = CircularQueue[int](3)
     assert queue.is_empty() is True
 
 
 def test_is_empty_on_non_empty_queue() -> None:
     """
-    Test checking if a non-empty queue is empty.
+    Test case 8: Test checking if a non-empty queue is empty.
     """
-    # Test case 8: Check is_empty on a non-empty queue
     queue = CircularQueue[int](3)
     queue.enqueue(10)
     assert queue.is_empty() is False
@@ -90,9 +82,8 @@ def test_is_empty_on_non_empty_queue() -> None:
 
 def test_is_full_on_full_queue() -> None:
     """
-    Test checking if a full queue is full.
+    Test case 9: Test checking if a full queue is full.
     """
-    # Test case 9: Check is_full on a full queue
     queue = CircularQueue[int](3)
     queue.enqueue(10)
     queue.enqueue(20)
@@ -102,9 +93,8 @@ def test_is_full_on_full_queue() -> None:
 
 def test_is_full_on_non_full_queue() -> None:
     """
-    Test checking if a non-full queue is full.
+    Test case 10: Test checking if a non-full queue is full.
     """
-    # Test case 10: Check is_full on a non-full queue
     queue = CircularQueue[int](3)
     queue.enqueue(10)
     assert queue.is_full() is False
@@ -112,9 +102,8 @@ def test_is_full_on_non_full_queue() -> None:
 
 def test_circular_behavior() -> None:
     """
-    Test the circular behavior of the queue.
+    Test case 11: Test the circular behavior of the queue.
     """
-    # Test case 11: Circular behavior
     queue = CircularQueue[int](3)
     queue.enqueue(10)
     queue.enqueue(20)
@@ -128,9 +117,8 @@ def test_circular_behavior() -> None:
 
 def test_enqueue_and_dequeue_multiple_times() -> None:
     """
-    Test enqueuing and dequeuing multiple times to ensure circular behavior.
+    Test case 12: Test enqueuing and dequeuing multiple times to ensure circular behavior.
     """
-    # Test case 12: Enqueue and dequeue multiple times
     queue = CircularQueue[int](3)
     queue.enqueue(10)
     queue.enqueue(20)
@@ -147,9 +135,8 @@ def test_enqueue_and_dequeue_multiple_times() -> None:
 
 def test_enqueue_to_full_then_dequeue_all() -> None:
     """
-    Test filling the queue completely, then dequeuing all items.
+    Test case 13: Test filling the queue completely, then dequeuing all items.
     """
-    # Test case 13: Enqueue to full, then dequeue all
     queue = CircularQueue[int](3)
     queue.enqueue(10)
     queue.enqueue(20)
@@ -163,9 +150,8 @@ def test_enqueue_to_full_then_dequeue_all() -> None:
 
 def test_peek_after_enqueue_and_dequeue() -> None:
     """
-    Test peeking after enqueuing and dequeuing items.
+    Test case 14: Test peeking after enqueuing and dequeuing items.
     """
-    # Test case 14: Peek after enqueue and dequeue
     queue = CircularQueue[int](3)
     queue.enqueue(10)
     queue.enqueue(20)
@@ -177,9 +163,8 @@ def test_peek_after_enqueue_and_dequeue() -> None:
 
 def test_size_after_multiple_operations() -> None:
     """
-    Test the size of the queue after multiple enqueue and dequeue operations.
+    Test case 15: Test the size of the queue after multiple enqueue and dequeue operations.
     """
-    # Test case 15: Size after multiple operations
     queue = CircularQueue[int](3)
     assert queue.size() == 0  # Initially empty
     queue.enqueue(10)
@@ -197,9 +182,8 @@ def test_size_after_multiple_operations() -> None:
 
 def test_enqueue_after_dequeue_empty() -> None:
     """
-    Test enqueuing after dequeuing all items to empty the queue.
+    Test case 16: Test enqueuing after dequeuing all items to empty the queue.
     """
-    # Test case 16: Enqueue after dequeue empty
     queue = CircularQueue[int](3)
     queue.enqueue(10)
     queue.enqueue(20)
@@ -215,8 +199,7 @@ def test_enqueue_after_dequeue_empty() -> None:
 
 def test_queue_with_zero_size() -> None:
     """
-    Test initializing a CircularQueue with a size of 0.
+    Test case 17: Test initializing a CircularQueue with a size of 0.
     """
-    # Test case 17: Queue with zero size
     with pytest.raises(ValueError, match="Queue size must be greater than 0"):
         CircularQueue[int](0)  # Zero size is not allowed

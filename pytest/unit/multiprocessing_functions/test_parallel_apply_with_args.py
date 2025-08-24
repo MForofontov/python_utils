@@ -6,8 +6,9 @@ def add_offset(x: int, offset: int) -> int:
 
 
 def test_parallel_apply_with_args_basic() -> None:
-    """Test parallel_apply_with_args with an additional argument."""
-    # Test case 1: Basic usage with offset
+    """
+    Test case 1: Test parallel_apply_with_args with an additional argument.
+    """
     data: list[int] = [1, 2, 3]
     result: list[int] = parallel_apply_with_args(
         add_offset, data, args=(10,), num_processes=2
@@ -16,8 +17,9 @@ def test_parallel_apply_with_args_basic() -> None:
 
 
 def test_parallel_apply_with_args_empty_data() -> None:
-    """Test parallel_apply_with_args with an empty list."""
-    # Test case 2: Empty data list
+    """
+    Test case 2: Test parallel_apply_with_args with an empty list.
+    """
     data: list[int] = []
     result: list[int] = parallel_apply_with_args(add_offset, data, args=(5,))
     assert result == []

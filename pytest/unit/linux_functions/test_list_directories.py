@@ -7,9 +7,8 @@ from linux_functions.list_directories import list_directories
 
 def test_list_directories_valid_directory() -> None:
     """
-    Test list_directories function with a valid directory returns correct directory list.
+    Test case 1: Test list_directories function with a valid directory returns correct directory list.
     """
-    # Test case 1: Valid directory with subdirectories and hidden directories
     with tempfile.TemporaryDirectory() as temp_dir:
         # Create some test directories
         dir1: str = os.path.join(temp_dir, 'dir1')
@@ -35,9 +34,8 @@ def test_list_directories_valid_directory() -> None:
 
 def test_list_directories_empty_directory() -> None:
     """
-    Test list_directories function with an empty directory returns empty list.
+    Test case 2: Test list_directories function with an empty directory returns empty list.
     """
-    # Test case 2: Empty directory
     with tempfile.TemporaryDirectory() as temp_dir:
         directories: List[str] = list_directories(temp_dir)
         assert isinstance(directories, list)
@@ -46,9 +44,8 @@ def test_list_directories_empty_directory() -> None:
 
 def test_list_directories_with_files() -> None:
     """
-    Test list_directories function ignores files and only returns directories.
+    Test case 3: Test list_directories function ignores files and only returns directories.
     """
-    # Test case 3: Directory with files and subdirectories
     with tempfile.TemporaryDirectory() as temp_dir:
         # Create a directory and a file
         dir1: str = os.path.join(temp_dir, 'dir1')
@@ -66,18 +63,16 @@ def test_list_directories_with_files() -> None:
 
 def test_list_directories_nonexistent_directory() -> None:
     """
-    Test list_directories function with a nonexistent directory raises FileNotFoundError.
+    Test case 4: Test list_directories function with a nonexistent directory raises FileNotFoundError.
     """
-    # Test case 4: Nonexistent directory
     with pytest.raises(FileNotFoundError):
         list_directories('/nonexistent/directory')
 
 
 def test_list_directories_not_a_directory() -> None:
     """
-    Test list_directories function with a file instead of directory raises NotADirectoryError.
+    Test case 5: Test list_directories function with a file instead of directory raises NotADirectoryError.
     """
-    # Test case 5: File instead of directory
     with tempfile.NamedTemporaryFile(delete=False) as temp_file:
         try:
             with pytest.raises(NotADirectoryError):
@@ -88,9 +83,8 @@ def test_list_directories_not_a_directory() -> None:
 
 def test_list_directories_invalid_type() -> None:
     """
-    Test list_directories function with invalid input type raises TypeError.
+    Test case 6: Test list_directories function with invalid input type raises TypeError.
     """
-    # Test case 6: Invalid input types
     with pytest.raises(TypeError):
         list_directories(123)
     

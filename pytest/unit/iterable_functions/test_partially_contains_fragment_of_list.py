@@ -7,9 +7,8 @@ from iterable_functions.partially_contains_fragment_of_list import (
 
 def test_partially_contains_fragment_of_list_success() -> None:
     """
-    Test the partially_contains_fragment_of_list function with valid inputs.
+    Test case 1: Test the partially_contains_fragment_of_list function with valid inputs.
     """
-    # Test case 1: Valid inputs
     target_list: list[str] = ["a", "b"]
     list_of_lists: list[list[str]] = [["a", "b", "c"], ["d", "e"]]
     expected_output: bool = True
@@ -21,9 +20,8 @@ def test_partially_contains_fragment_of_list_success() -> None:
 
 def test_partially_contains_fragment_of_list_not_found() -> None:
     """
-    Test the partially_contains_fragment_of_list function with target_list not found.
+    Test case 2: Test the partially_contains_fragment_of_list function with target_list not found.
     """
-    # Test case 2: Target list not found
     target_list: list[str] = ["a", "b"]
     list_of_lists: list[list[str]] = [["d", "e"], ["f", "g"]]
     expected_output: bool = False
@@ -35,9 +33,8 @@ def test_partially_contains_fragment_of_list_not_found() -> None:
 
 def test_partially_contains_fragment_of_list_empty_target_list() -> None:
     """
-    Test the partially_contains_fragment_of_list function with an empty target_list.
+    Test case 3: Test the partially_contains_fragment_of_list function with an empty target_list.
     """
-    # Test case 3: Empty target list
     target_list: list[str] = []
     list_of_lists: list[list[str]] = [["a", "b", "c"], ["d", "e"]]
     expected_output: bool = True
@@ -49,9 +46,8 @@ def test_partially_contains_fragment_of_list_empty_target_list() -> None:
 
 def test_partially_contains_fragment_of_list_empty_list_of_lists() -> None:
     """
-    Test the partially_contains_fragment_of_list function with an empty list_of_lists.
+    Test case 4: Test the partially_contains_fragment_of_list function with an empty list_of_lists.
     """
-    # Test case 4: Empty list of lists
     target_list: list[str] = ["a", "b"]
     list_of_lists: list[list[str]] = []
     expected_output: bool = False
@@ -63,9 +59,8 @@ def test_partially_contains_fragment_of_list_empty_list_of_lists() -> None:
 
 def test_partially_contains_fragment_of_list_integers() -> None:
     """
-    Test the partially_contains_fragment_of_list function with lists of integers.
+    Test case 5: Test the partially_contains_fragment_of_list function with lists of integers.
     """
-    # Test case 5: Lists of integers
     target_list: list[int] = [1, 2]
     list_of_lists: list[list[int]] = [[1, 2, 3], [4, 5, 6]]
     expected_output: bool = True
@@ -77,9 +72,8 @@ def test_partially_contains_fragment_of_list_integers() -> None:
 
 def test_partially_contains_fragment_of_list_mixed_types() -> None:
     """
-    Test the partially_contains_fragment_of_list function with mixed types.
+    Test case 6: Test the partially_contains_fragment_of_list function with mixed types.
     """
-    # Test case 6: Mixed types
     target_list: list[Any] = [1, "b"]
     list_of_lists: list[list[Any]] = [[1, "b", 3], ["d", "e"]]
     expected_output: bool = True
@@ -91,9 +85,8 @@ def test_partially_contains_fragment_of_list_mixed_types() -> None:
 
 def test_partially_contains_fragment_of_list_type_error_target_list() -> None:
     """
-    Test the partially_contains_fragment_of_list function with invalid type for target_list.
+    Test case 7: Test the partially_contains_fragment_of_list function with invalid type for target_list.
     """
-    # Test case 7: Invalid type for target_list
     with pytest.raises(TypeError):
         partially_contains_fragment_of_list(
             "not a list", [["a", "b", "c"], ["d", "e"]])
@@ -101,18 +94,16 @@ def test_partially_contains_fragment_of_list_type_error_target_list() -> None:
 
 def test_partially_contains_fragment_of_list_type_error_list_of_lists() -> None:
     """
-    Test the partially_contains_fragment_of_list function with invalid type for list_of_lists.
+    Test case 8: Test the partially_contains_fragment_of_list function with invalid type for list_of_lists.
     """
-    # Test case 8: Invalid type for list_of_lists
     with pytest.raises(TypeError):
         partially_contains_fragment_of_list(["a", "b"], "not a list of lists")
 
 
 def test_partially_contains_fragment_of_list_type_error_elements() -> None:
     """
-    Test the partially_contains_fragment_of_list function with invalid elements in list_of_lists.
+    Test case 9: Test the partially_contains_fragment_of_list function with invalid elements in list_of_lists.
     """
-    # Test case 9: Invalid elements in list_of_lists
     with pytest.raises(TypeError):
         partially_contains_fragment_of_list(
             ["a", "b"], [["a", "b", "c"], "not a list"])

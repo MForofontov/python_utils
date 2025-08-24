@@ -6,9 +6,8 @@ from linux_functions.get_file_size import get_file_size
 
 def test_get_file_size_valid_file() -> None:
     """
-    Test get_file_size function with a valid file returns correct size.
+    Test case 1: Test get_file_size function with a valid file returns correct size.
     """
-    # Test case 1: Valid file with known content
     with tempfile.NamedTemporaryFile(delete=False) as temp_file:
         # Write some content to the file
         content: bytes = b"Hello, World!"
@@ -25,9 +24,8 @@ def test_get_file_size_valid_file() -> None:
 
 def test_get_file_size_empty_file() -> None:
     """
-    Test get_file_size function with an empty file returns zero.
+    Test case 2: Test get_file_size function with an empty file returns zero.
     """
-    # Test case 2: Empty file
     with tempfile.NamedTemporaryFile(delete=False) as temp_file:
         try:
             size: int = get_file_size(temp_file.name)
@@ -38,18 +36,16 @@ def test_get_file_size_empty_file() -> None:
 
 def test_get_file_size_nonexistent_file() -> None:
     """
-    Test get_file_size function with a nonexistent file raises FileNotFoundError.
+    Test case 3: Test get_file_size function with a nonexistent file raises FileNotFoundError.
     """
-    # Test case 3: Nonexistent file
     with pytest.raises(FileNotFoundError):
         get_file_size('/nonexistent/file.txt')
 
 
 def test_get_file_size_directory() -> None:
     """
-    Test get_file_size function with a directory raises IsADirectoryError.
+    Test case 4: Test get_file_size function with a directory raises IsADirectoryError.
     """
-    # Test case 4: Directory instead of file
     with tempfile.TemporaryDirectory() as temp_dir:
         with pytest.raises(IsADirectoryError):
             get_file_size(temp_dir)
@@ -57,9 +53,8 @@ def test_get_file_size_directory() -> None:
 
 def test_get_file_size_invalid_type() -> None:
     """
-    Test get_file_size function with invalid input type raises TypeError.
+    Test case 5: Test get_file_size function with invalid input type raises TypeError.
     """
-    # Test case 5: Invalid input types
     with pytest.raises(TypeError):
         get_file_size(123)
     

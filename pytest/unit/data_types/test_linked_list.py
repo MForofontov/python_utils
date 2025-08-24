@@ -4,9 +4,8 @@ from data_types.linked_list import LinkedList
 
 def test_append() -> None:
     """
-    Test appending elements to the linked list.
+    Test case 1: Test appending elements to the linked list.
     """
-    # Test case 1: Append elements
     linked_list = LinkedList[int]()
     linked_list.append(1)
     linked_list.append(2)
@@ -19,9 +18,8 @@ def test_append() -> None:
 
 def test_prepend() -> None:
     """
-    Test prepending elements to the linked list.
+    Test case 2: Test prepending elements to the linked list.
     """
-    # Test case 2: Prepend elements
     linked_list = LinkedList[int]()
     linked_list.prepend(1)
     linked_list.prepend(2)
@@ -34,9 +32,8 @@ def test_prepend() -> None:
 
 def test_delete() -> None:
     """
-    Test deleting elements from the linked list.
+    Test case 3: Test deleting elements from the linked list.
     """
-    # Test case 3: Delete elements
     linked_list = LinkedList[int]()
     linked_list.append(1)
     linked_list.append(2)
@@ -50,9 +47,8 @@ def test_delete() -> None:
 
 def test_delete_head() -> None:
     """
-    Test deleting the head element from the linked list.
+    Test case 4: Test deleting the head element from the linked list.
     """
-    # Test case 4: Delete head
     linked_list = LinkedList[int]()
     linked_list.append(1)
     linked_list.append(2)
@@ -64,9 +60,8 @@ def test_delete_head() -> None:
 
 def test_search() -> None:
     """
-    Test searching for elements in the linked list.
+    Test case 5: Test searching for elements in the linked list.
     """
-    # Test case 5: Search elements
     linked_list = LinkedList[int]()
     linked_list.append(1)
     linked_list.append(2)
@@ -79,9 +74,8 @@ def test_search() -> None:
 
 def test_size() -> None:
     """
-    Test getting the size of the linked list.
+    Test case 6: Test getting the size of the linked list.
     """
-    # Test case 6: Size of the list
     linked_list = LinkedList[int]()
     assert linked_list.size() == 0
     linked_list.append(1)
@@ -92,11 +86,10 @@ def test_size() -> None:
 
 
 def test_custom_object_nodes() -> None:
-    """
-    Test the linked list with custom object nodes.
-    """
 
-    # Test case 7: Custom object nodes
+    """
+    Test case 7: Test the linked list with custom object nodes.
+    """
     class CustomObject:
         def __init__(self, value: int) -> None:
             self.value = value
@@ -120,9 +113,8 @@ def test_custom_object_nodes() -> None:
 
 def test_single_node_operations() -> None:
     """
-    Test adding and deleting elements in a single-node list.
+    Test case 8: Test adding and deleting elements in a single-node list.
     """
-    # Test case 8: Single-node list
     linked_list = LinkedList[int]()
     linked_list.append(1)
     assert linked_list.size() == 1
@@ -134,9 +126,8 @@ def test_single_node_operations() -> None:
 
 def test_large_linked_list() -> None:
     """
-    Test operations on a very large linked list.
+    Test case 9: Test operations on a very large linked list.
     """
-    # Test case 9: Large linked list
     linked_list = LinkedList[int]()
     for i in range(10000):
         linked_list.append(i)
@@ -149,9 +140,8 @@ def test_large_linked_list() -> None:
 
 def test_order_of_elements() -> None:
     """
-    Test the order of elements in the linked list after multiple operations.
+    Test case 10: Test the order of elements in the linked list after multiple operations.
     """
-    # Test case 10: Order verification
     linked_list = LinkedList[int]()
     linked_list.append(1)
     linked_list.append(2)
@@ -168,9 +158,8 @@ def test_order_of_elements() -> None:
 
 def test_iterative_access() -> None:
     """
-    Test iteration over the linked list.
+    Test case 11: Test iteration over the linked list.
     """
-    # Test case 11: Iterative access
     linked_list = LinkedList[int]()
     linked_list.append(1)
     linked_list.append(2)
@@ -181,9 +170,8 @@ def test_iterative_access() -> None:
 
 def test_delete_nonexistent_element() -> None:
     """
-    Test deleting a nonexistent element from the linked list.
+    Test case 12: Test deleting a nonexistent element from the linked list.
     """
-    # Test case 12: Delete nonexistent element
     linked_list = LinkedList[int]()
     linked_list.append(1)
     linked_list.append(2)
@@ -193,9 +181,8 @@ def test_delete_nonexistent_element() -> None:
 
 def test_empty_list_operations() -> None:
     """
-    Test operations on an empty linked list.
+    Test case 13: Test operations on an empty linked list.
     """
-    # Test case 13: Empty list operations
     linked_list = LinkedList[int]()
     assert linked_list.size() == 0
     assert linked_list.search(1) is False

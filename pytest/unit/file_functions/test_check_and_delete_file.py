@@ -8,9 +8,8 @@ from file_functions.check_and_delete_file import check_and_delete_file
 
 def test_check_and_delete_file_existing_file(tmp_path: Path) -> None:
     """
-    Test that deleting an existing file removes it from the filesystem.
+    Test case 1: Test that deleting an existing file removes it from the filesystem.
     """
-    # Test case 1: Remove an existing file
     file_path: Path = tmp_path / "temp.txt"
     file_path.write_text("data")
     check_and_delete_file(str(file_path))
@@ -18,8 +17,9 @@ def test_check_and_delete_file_existing_file(tmp_path: Path) -> None:
 
 
 def test_check_and_delete_file_symlink(tmp_path: Path) -> None:
-    """Test that deleting a symlink removes the link but not the target."""
-    # Test case 2: Symlink removal preserves target
+    """
+    Test case 2: Test that deleting a symlink removes the link but not the target.
+    """
     target: Path = tmp_path / "target.txt"
     target.write_text("content")
     link: Path = tmp_path / "link.txt"
@@ -31,9 +31,8 @@ def test_check_and_delete_file_symlink(tmp_path: Path) -> None:
 
 def test_check_and_delete_file_nonexistent_file(tmp_path: Path) -> None:
     """
-    Test that calling the function with a missing file changes nothing.
+    Test case 3: Test that calling the function with a missing file changes nothing.
     """
-    # Test case 3: Non-existent file path
     sentinel: Path = tmp_path / "sentinel.txt"
     sentinel.write_text("a")
     before: set[str] = set(os.listdir(tmp_path))
@@ -44,9 +43,8 @@ def test_check_and_delete_file_nonexistent_file(tmp_path: Path) -> None:
 
 def test_check_and_delete_file_directory_path(tmp_path: Path) -> None:
     """
-    Test that supplying a directory path does not delete the directory.
+    Test case 4: Test that supplying a directory path does not delete the directory.
     """
-    # Test case 4: Directory path should remain
     dir_path: Path = tmp_path / "folder"
     dir_path.mkdir()
     check_and_delete_file(str(dir_path))
@@ -57,9 +55,8 @@ def test_check_and_delete_file_permission_error(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     """
-    Test that attempting to delete a read-only file raises PermissionError.
+    Test case 5: Test that attempting to delete a read-only file raises PermissionError.
     """
-    # Test case 5: Permission error when deleting file
     file_path: Path = tmp_path / "readonly.txt"
     file_path.write_text("data")
     file_path.chmod(0o400)

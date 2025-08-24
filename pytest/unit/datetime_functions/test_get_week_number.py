@@ -5,9 +5,8 @@ from datetime_functions.get_week_number import get_week_number
 
 def test_get_week_number_first_week() -> None:
     """
-    Test get_week_number function with first week of year.
+    Test case 1: Test get_week_number function with first week of year.
     """
-    # Test case 1: First week of 2023 (January 2nd is Monday)
     test_date: date = date(2023, 1, 2)
     result: int = get_week_number(test_date)
     assert isinstance(result, int)
@@ -16,9 +15,8 @@ def test_get_week_number_first_week() -> None:
 
 def test_get_week_number_january_1st() -> None:
     """
-    Test get_week_number function with January 1st.
+    Test case 2: Test get_week_number function with January 1st.
     """
-    # Test case 2: January 1st, 2023 (Sunday, week 52 of previous year)
     test_date: date = date(2023, 1, 1)
     result: int = get_week_number(test_date)
     assert isinstance(result, int)
@@ -27,9 +25,8 @@ def test_get_week_number_january_1st() -> None:
 
 def test_get_week_number_mid_year() -> None:
     """
-    Test get_week_number function with mid-year date.
+    Test case 3: Test get_week_number function with mid-year date.
     """
-    # Test case 3: June 15th, 2023
     test_date: date = date(2023, 6, 15)
     result: int = get_week_number(test_date)
     assert isinstance(result, int)
@@ -38,9 +35,8 @@ def test_get_week_number_mid_year() -> None:
 
 def test_get_week_number_last_week() -> None:
     """
-    Test get_week_number function with last week of year.
+    Test case 4: Test get_week_number function with last week of year.
     """
-    # Test case 4: December 31st, 2023 (Sunday)
     test_date: date = date(2023, 12, 31)
     result: int = get_week_number(test_date)
     assert isinstance(result, int)
@@ -49,9 +45,8 @@ def test_get_week_number_last_week() -> None:
 
 def test_get_week_number_leap_year() -> None:
     """
-    Test get_week_number function with leap year date.
+    Test case 5: Test get_week_number function with leap year date.
     """
-    # Test case 5: February 29th, 2020 (leap year)
     test_date: date = date(2020, 2, 29)
     result: int = get_week_number(test_date)
     assert isinstance(result, int)
@@ -60,9 +55,8 @@ def test_get_week_number_leap_year() -> None:
 
 def test_get_week_number_with_datetime() -> None:
     """
-    Test get_week_number function with datetime object.
+    Test case 6: Test get_week_number function with datetime object.
     """
-    # Test case 6: Datetime object
     test_datetime: datetime = datetime(2023, 6, 15, 14, 30, 45)
     result: int = get_week_number(test_datetime)
     assert isinstance(result, int)
@@ -71,9 +65,8 @@ def test_get_week_number_with_datetime() -> None:
 
 def test_get_week_number_week_53() -> None:
     """
-    Test get_week_number function with year having 53 weeks.
+    Test case 7: Test get_week_number function with year having 53 weeks.
     """
-    # Test case 7: Year with 53 weeks (2020 has 53 weeks)
     test_date: date = date(2020, 12, 31)  # Thursday
     result: int = get_week_number(test_date)
     assert isinstance(result, int)
@@ -82,9 +75,8 @@ def test_get_week_number_week_53() -> None:
 
 def test_get_week_number_different_years() -> None:
     """
-    Test get_week_number function with different years.
+    Test case 8: Test get_week_number function with different years.
     """
-    # Test case 8: Different years comparison
     test_date_2022: date = date(2022, 6, 15)
     test_date_2023: date = date(2023, 6, 15)
     
@@ -99,9 +91,8 @@ def test_get_week_number_different_years() -> None:
 
 def test_get_week_number_monday_start() -> None:
     """
-    Test get_week_number function with Monday (start of ISO week).
+    Test case 9: Test get_week_number function with Monday (start of ISO week).
     """
-    # Test case 9: Monday (start of ISO week)
     test_date: date = date(2023, 6, 5)  # Monday
     result: int = get_week_number(test_date)
     assert isinstance(result, int)
@@ -110,9 +101,8 @@ def test_get_week_number_monday_start() -> None:
 
 def test_get_week_number_invalid_input_type() -> None:
     """
-    Test get_week_number function with invalid input type raises TypeError.
+    Test case 10: Test get_week_number function with invalid input type raises TypeError.
     """
-    # Test case 10: Invalid input types
     with pytest.raises(TypeError):
         get_week_number('2023-06-15')
     

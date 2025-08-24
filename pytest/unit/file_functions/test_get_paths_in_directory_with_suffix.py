@@ -10,9 +10,8 @@ from file_functions.get_paths_in_directory_with_suffix import (
 
 def test_get_paths_in_directory_with_suffix_case_sensitive(tmp_path: Path) -> None:
     """
-    Ensure only files with the exact suffix are returned and directories are ignored.
+    Test case 1: Ensure only files with the exact suffix are returned and directories are ignored.
     """
-    # Test case 1: Mixed content directory
     (tmp_path / "file1.txt").write_text("a")
     (tmp_path / "file2.txt").write_text("b")
     (tmp_path / "file3.log").write_text("c")
@@ -30,8 +29,9 @@ def test_get_paths_in_directory_with_suffix_case_sensitive(tmp_path: Path) -> No
 
 
 def test_get_paths_in_directory_with_suffix_no_matching_files(tmp_path: Path) -> None:
-    """Return an empty list when no files share the suffix."""
-    # Test case 2: No files match suffix
+    """
+    Test case 2: Return an empty list when no files share the suffix.
+    """
     (tmp_path / "file1.log").write_text("a")
     (tmp_path / "file2.data").write_text("b")
     (tmp_path / "folder").mkdir()
@@ -42,9 +42,8 @@ def test_get_paths_in_directory_with_suffix_no_matching_files(tmp_path: Path) ->
 
 def test_get_paths_in_directory_with_suffix_case_insensitive(tmp_path: Path) -> None:
     """
-    Verify files are matched when the suffix case matches the filename.
+    Test case 3: Verify files are matched when the suffix case matches the filename.
     """
-    # Test case 3: Case-sensitive matching
     (tmp_path / "lower.txt").write_text("a")
     (tmp_path / "upper.TXT").write_text("b")
     expected_paths: list[str] = [os.path.join(tmp_path, "upper.TXT")]
@@ -55,9 +54,8 @@ def test_get_paths_in_directory_with_suffix_case_insensitive(tmp_path: Path) -> 
 
 def test_get_paths_in_directory_with_suffix_nonexistent_directory(tmp_path: Path) -> None:
     """
-    Ensure providing a non-existent directory raises an error.
+    Test case 4: Ensure providing a non-existent directory raises an error.
     """
-    # Test case 4: Non-existent directory
     missing_dir: str = os.path.join(str(tmp_path), "missing")
     with pytest.raises(FileNotFoundError):
         get_paths_in_directory_with_suffix(missing_dir, ".txt")

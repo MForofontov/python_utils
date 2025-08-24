@@ -5,9 +5,8 @@ from linux_functions.get_cpu_info import get_cpu_info
 
 def test_get_cpu_info_returns_valid_dict() -> None:
     """
-    Test the get_cpu_info function returns a valid dictionary with CPU information.
+    Test case 1: Test the get_cpu_info function returns a valid dictionary with CPU information.
     """
-    # Test case 1: Get CPU information
     cpu_info: Dict[str, Union[int, float, List[float]]] = get_cpu_info()
     
     # Check return type
