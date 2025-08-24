@@ -1,13 +1,14 @@
-from typing import TypeVar, Any
+from typing import TypeVar, Generic
 from collections.abc import Callable
 from collections.abc import Awaitable
 import asyncio
 
-# Define a type variable T to represent the return type of the task
+# Define type variables for the connection object and the return type of the task
+C = TypeVar("C")
 T = TypeVar("T")
 
 
-class AsyncConnectionPool:
+class AsyncConnectionPool(Generic[C]):
     """
     A simple asynchronous connection pool for managing connections.
 
@@ -15,7 +16,7 @@ class AsyncConnectionPool:
     ----------
     max_connections : int
         The maximum number of connections in the pool.
-    _pool : asyncio.Queue
+    _pool : asyncio.Queue[C]
         The internal queue to manage connections.
     """
 
@@ -29,40 +30,40 @@ class AsyncConnectionPool:
             The maximum number of connections in the pool.
         """
         self.max_connections = max_connections
-        self._pool: asyncio.Queue[Any] = asyncio.Queue(max_connections)
+        self._pool: asyncio.Queue[C] = asyncio.Queue(max_connections)
 
-    async def acquire(self) -> Any:
+    async def acquire(self) -> C:
         """
         Acquire a connection from the pool.
 
         Returns
         -------
-        Any
+        C
             A connection from the pool.
         """
         # Wait until a connection is available and return it
         conn = await self._pool.get()
         return conn
 
-    async def release(self, conn: Any) -> None:
+    async def release(self, conn: C) -> None:
         """
         Release a connection back to the pool.
 
         Parameters
         ----------
-        conn : Any
+        conn : C
             The connection to release back to the pool.
         """
         # Put the connection back into the pool
         await self._pool.put(conn)
 
-    async def add_connection(self, conn: Any) -> None:
+    async def add_connection(self, conn: C) -> None:
         """
         Add a new connection to the pool.
 
         Parameters
         ----------
-        conn : Any
+        conn : C
             The connection to add to the pool.
 
         Raises
@@ -78,16 +79,16 @@ class AsyncConnectionPool:
 
 
 async def use_connection(
-    pool: AsyncConnectionPool, task: Callable[[Any], Awaitable[T]]
+    pool: AsyncConnectionPool[C], task: Callable[[C], Awaitable[T]]
 ) -> T:
     """
     Use a connection from the pool to perform a task.
 
     Parameters
     ----------
-    pool : AsyncConnectionPool
+    pool : AsyncConnectionPool[C]
         The connection pool to use.
-    task : Callable[[Any], Awaitable[T]]
+    task : Callable[[C], Awaitable[T]]
         The task to perform using the connection.
 
     Returns
@@ -104,4 +105,4 @@ async def use_connection(
         # Release the connection back to the pool
         await pool.release(conn)
 
-__all__ = ['AsyncConnectionPool', 'use_connection']
+__all__ = ["AsyncConnectionPool", "use_connection"]
