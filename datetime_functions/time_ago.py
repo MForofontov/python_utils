@@ -11,16 +11,34 @@ def time_ago(
     """
     Get a human-readable description of how long ago a date was.
     
-    Args:
-        past_date: The past date to compare
-        reference_date: The reference date to compare against (default: now)
+    Parameters
+    ----------
+    past_date : datetime or date
+        The past date to compare.
+    reference_date : datetime or date, optional
+        The reference date to compare against (default: now).
         
-    Returns:
-        Human-readable time difference string (e.g., "2 hours ago", "3 days ago")
+    Returns
+    -------
+    str
+        Human-readable time difference string (e.g., "2 hours ago", "3 days ago").
         
-    Raises:
-        TypeError: If past_date is not a datetime or date object
-        ValueError: If past_date is in the future relative to reference_date
+    Raises
+    ------
+    TypeError
+        If past_date is not a datetime or date object.
+    ValueError
+        If past_date is in the future relative to reference_date.
+        
+    Examples
+    --------
+    >>> from datetime import datetime, timedelta
+    >>> past = datetime.now() - timedelta(hours=2)
+    >>> time_ago(past)
+    '2 hours ago'
+    >>> past = datetime.now() - timedelta(days=3)
+    >>> time_ago(past)
+    '3 days ago'
     """
     if not isinstance(past_date, (datetime, date)):
         raise TypeError("past_date must be a datetime or date object")

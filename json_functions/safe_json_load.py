@@ -7,13 +7,28 @@ def safe_json_load(json_string: str, object_hook: Optional[Any] = None, default:
     """
     Safely load a JSON string, returning a default value on error.
     
-    Args:
-        json_string: The JSON string to parse.
-        object_hook: Optional function for custom object decoding.
-        default: Value to return if parsing fails (default: None).
-        decoder: Optional custom JSONDecoder class.
-    Returns:
+    Parameters
+    ----------
+    json_string : str
+        The JSON string to parse.
+    object_hook : callable, optional
+        Function for custom object decoding.
+    default : Any, optional
+        Value to return if parsing fails (default: None).
+    decoder : type, optional
+        Custom JSONDecoder class.
+        
+    Returns
+    -------
+    Any
         The parsed object, or default if parsing fails.
+        
+    Examples
+    --------
+    >>> safe_json_load('{"a": 1}')
+    {'a': 1}
+    >>> safe_json_load('invalid', default={'error': True})
+    {'error': True}
     """
     try:
         return json.loads(json_string, object_hook=object_hook, cls=decoder) if decoder else json.loads(json_string, object_hook=object_hook)

@@ -13,18 +13,34 @@ def convert_timezone(
     """
     Convert a datetime object from one timezone to another.
     
-    Args:
-        dt: The datetime object to convert
-        to_timezone: Target timezone (string name or pytz timezone object)
-        from_timezone: Source timezone (string name or pytz timezone object).
-                      If None and dt is naive, assumes UTC.
+    Parameters
+    ----------
+    dt : datetime
+        The datetime object to convert.
+    to_timezone : str or pytz.BaseTzInfo
+        Target timezone (string name or pytz timezone object).
+    from_timezone : str or pytz.BaseTzInfo, optional
+        Source timezone (string name or pytz timezone object).
+        If None and dt is naive, assumes UTC.
         
-    Returns:
-        Datetime object converted to the target timezone
+    Returns
+    -------
+    datetime
+        Datetime object converted to the target timezone.
         
-    Raises:
-        TypeError: If dt is not a datetime object
-        ValueError: If timezone names are invalid
+    Raises
+    ------
+    TypeError
+        If dt is not a datetime object.
+    ValueError
+        If timezone names are invalid.
+        
+    Examples
+    --------
+    >>> from datetime import datetime
+    >>> dt = datetime(2023, 12, 25, 15, 30)
+    >>> convert_timezone(dt, 'US/Eastern', 'UTC')
+    datetime.datetime(2023, 12, 25, 10, 30, tzinfo=<DstTzInfo 'US/Eastern' EST-1 day, 19:00:00 STD>)
     """
     if not isinstance(dt, datetime):
         raise TypeError("dt must be a datetime object")

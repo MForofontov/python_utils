@@ -3,7 +3,27 @@ from typing import Any, Dict, List, Tuple
 def json_diff(a: Any, b: Any, path: str = "") -> List[Tuple[str, Any, Any]]:
     """
     Compute the difference between two JSON-serializable objects.
-    Returns a list of (path, a_value, b_value) for changed/added/removed fields.
+    
+    Parameters
+    ----------
+    a : Any
+        First object to compare.
+    b : Any
+        Second object to compare.
+    path : str, optional
+        Current path in the object hierarchy (default: "").
+        
+    Returns
+    -------
+    list of tuple
+        List of (path, a_value, b_value) for changed/added/removed fields.
+        
+    Examples
+    --------
+    >>> json_diff({'a': 1}, {'a': 2, 'b': 3})
+    [('a', 1, 2), ('b', None, 3)]
+    >>> json_diff([1, 2], [1, 3])
+    [('[1]', 2, 3)]
     """
     diffs = []
     if type(a) != type(b):

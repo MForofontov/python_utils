@@ -8,16 +8,31 @@ def parse_date(date_string: str, formats: Optional[List[str]] = None) -> Union[d
     """
     Parse a date string into a datetime or date object.
     
-    Args:
-        date_string: The date string to parse
-        formats: Optional list of date formats to try. If None, uses common formats.
+    Parameters
+    ----------
+    date_string : str
+        The date string to parse.
+    formats : list of str, optional
+        List of date formats to try. If None, uses common formats.
         
-    Returns:
-        Parsed datetime or date object
+    Returns
+    -------
+    datetime or date
+        Parsed datetime or date object.
         
-    Raises:
-        TypeError: If date_string is not a string
-        ValueError: If date_string cannot be parsed with any format
+    Raises
+    ------
+    TypeError
+        If date_string is not a string.
+    ValueError
+        If date_string cannot be parsed with any format.
+        
+    Examples
+    --------
+    >>> parse_date('2023-12-25')
+    datetime.date(2023, 12, 25)
+    >>> parse_date('2023-12-25 15:30:00')
+    datetime.datetime(2023, 12, 25, 15, 30)
     """
     if not isinstance(date_string, str):
         raise TypeError("date_string must be a string")

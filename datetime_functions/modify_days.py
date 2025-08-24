@@ -8,16 +8,32 @@ def modify_days(date_obj: Union[datetime, date], days: int) -> Union[datetime, d
     """
     Add or subtract a specified number of days from a datetime or date object.
     
-    Args:
-        date_obj: The datetime or date object to modify
-        days: Number of days to add (positive) or subtract (negative)
+    Parameters
+    ----------
+    date_obj : datetime or date
+        The datetime or date object to modify.
+    days : int
+        Number of days to add (positive) or subtract (negative).
         
-    Returns:
-        New datetime or date object with days modified
+    Returns
+    -------
+    datetime or date
+        New datetime or date object with days modified.
         
-    Raises:
-        TypeError: If date_obj is not a datetime or date object
-        TypeError: If days is not an integer
+    Raises
+    ------
+    TypeError
+        If date_obj is not a datetime or date object, or days is not an integer.
+    ValueError
+        If days value is invalid or causes overflow.
+        
+    Examples
+    --------
+    >>> from datetime import date
+    >>> modify_days(date(2023, 12, 25), 7)
+    datetime.date(2024, 1, 1)
+    >>> modify_days(date(2023, 12, 25), -5)
+    datetime.date(2023, 12, 20)
     """
     if not isinstance(date_obj, (datetime, date)):
         raise TypeError("date_obj must be a datetime or date object")

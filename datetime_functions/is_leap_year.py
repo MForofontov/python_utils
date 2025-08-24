@@ -8,14 +8,29 @@ def is_leap_year(year: int) -> bool:
     A leap year is divisible by 4, except for years divisible by 100,
     unless they are also divisible by 400.
     
-    Args:
-        year: The year to check
+    Parameters
+    ----------
+    year : int
+        The year to check.
         
-    Returns:
-        True if the year is a leap year, False otherwise
+    Returns
+    -------
+    bool
+        True if the year is a leap year, False otherwise.
         
-    Raises:
-        TypeError: If year is not an integer
+    Raises
+    ------
+    TypeError
+        If year is not an integer.
+        
+    Examples
+    --------
+    >>> is_leap_year(2020)
+    True
+    >>> is_leap_year(1900)
+    False
+    >>> is_leap_year(2000)
+    True
     """
     if not isinstance(year, int):
         raise TypeError("year must be an integer")
