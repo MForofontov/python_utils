@@ -7,8 +7,9 @@ from file_functions.cleanup import cleanup
 
 
 def test_cleanup_exclude_relative_and_absolute(tmp_path: Path) -> None:
-    """Relative and absolute paths in exclude preserve items."""
-    # Test case 1: Excluded paths are preserved
+    """
+    Test case 1: Relative and absolute paths in exclude preserve items.
+    """
     keep_file: Path = tmp_path / "keep_file.txt"
     keep_file.write_text("keep")
 
@@ -32,8 +33,9 @@ def test_cleanup_exclude_relative_and_absolute(tmp_path: Path) -> None:
 
 
 def test_cleanup_removes_non_excluded_items(tmp_path: Path) -> None:
-    """Non-excluded files, directories, and symlinks are removed."""
-    # Test case 2: Non-excluded items are deleted
+    """
+    Test case 2: Non-excluded files, directories, and symlinks are removed.
+    """
     file_path: Path = tmp_path / "file.txt"
     file_path.write_text("data")
 
@@ -52,8 +54,9 @@ def test_cleanup_removes_non_excluded_items(tmp_path: Path) -> None:
 
 
 def test_cleanup_empty_exclude_wipes_directory(tmp_path: Path) -> None:
-    """Empty exclude list removes all content."""
-    # Test case 3: Empty exclude removes everything
+    """
+    Test case 3: Empty exclude list removes all content.
+    """
     (tmp_path / "a.txt").write_text("a")
     (tmp_path / "b").mkdir()
 
@@ -64,8 +67,9 @@ def test_cleanup_empty_exclude_wipes_directory(tmp_path: Path) -> None:
 
 
 def test_cleanup_nonexistent_directory(tmp_path: Path) -> None:
-    """Raise FileNotFoundError when directory does not exist."""
-    # Test case 4: Non-existent directory raises error
+    """
+    Test case 4: Raise FileNotFoundError when directory does not exist.
+    """
     missing: Path = tmp_path / "missing"
     with pytest.raises(FileNotFoundError):
         cleanup(str(missing), [])

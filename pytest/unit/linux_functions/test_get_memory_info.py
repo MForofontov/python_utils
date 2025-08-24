@@ -5,9 +5,8 @@ from linux_functions.get_memory_info import get_memory_info
 
 def test_get_memory_info_returns_valid_dict() -> None:
     """
-    Test the get_memory_info function returns a valid dictionary with memory information.
+    Test case 1: Test the get_memory_info function returns a valid dictionary with memory information.
     """
-    # Test case 1: Get memory information
     mem_info: Dict[str, Union[int, float]] = get_memory_info()
     
     # Check return type

@@ -5,9 +5,8 @@ from datetime_functions.time_until import time_until
 
 def test_time_until_seconds() -> None:
     """
-    Test time_until function with seconds difference.
+    Test case 1: Test time_until function with seconds difference.
     """
-    # Test case 1: Seconds difference
     past_dt: datetime = datetime(2023, 1, 15, 12, 0, 0)
     future_dt: datetime = datetime(2023, 1, 15, 12, 0, 30)
     result: str = time_until(future_dt, past_dt)
@@ -17,9 +16,8 @@ def test_time_until_seconds() -> None:
 
 def test_time_until_minutes() -> None:
     """
-    Test time_until function with minutes difference.
+    Test case 2: Test time_until function with minutes difference.
     """
-    # Test case 2: Minutes difference
     past_dt: datetime = datetime(2023, 1, 15, 12, 0, 0)
     future_dt: datetime = datetime(2023, 1, 15, 12, 15, 0)
     result: str = time_until(future_dt, past_dt)
@@ -29,9 +27,8 @@ def test_time_until_minutes() -> None:
 
 def test_time_until_hours() -> None:
     """
-    Test time_until function with hours difference.
+    Test case 3: Test time_until function with hours difference.
     """
-    # Test case 3: Hours difference
     past_dt: datetime = datetime(2023, 1, 15, 12, 0, 0)
     future_dt: datetime = datetime(2023, 1, 15, 15, 0, 0)
     result: str = time_until(future_dt, past_dt)
@@ -41,9 +38,8 @@ def test_time_until_hours() -> None:
 
 def test_time_until_days() -> None:
     """
-    Test time_until function with days difference.
+    Test case 4: Test time_until function with days difference.
     """
-    # Test case 4: Days difference
     past_date: date = date(2023, 1, 15)
     future_date: date = date(2023, 1, 20)
     result: str = time_until(future_date, past_date)
@@ -53,9 +49,8 @@ def test_time_until_days() -> None:
 
 def test_time_until_weeks() -> None:
     """
-    Test time_until function with weeks difference.
+    Test case 5: Test time_until function with weeks difference.
     """
-    # Test case 5: Weeks difference
     past_date: date = date(2023, 1, 15)
     future_date: date = date(2023, 2, 5)
     result: str = time_until(future_date, past_date)
@@ -65,9 +60,8 @@ def test_time_until_weeks() -> None:
 
 def test_time_until_months() -> None:
     """
-    Test time_until function with months difference.
+    Test case 6: Test time_until function with months difference.
     """
-    # Test case 6: Months difference
     past_date: date = date(2023, 1, 15)
     future_date: date = date(2023, 6, 15)
     result: str = time_until(future_date, past_date)
@@ -77,9 +71,8 @@ def test_time_until_months() -> None:
 
 def test_time_until_years() -> None:
     """
-    Test time_until function with years difference.
+    Test case 7: Test time_until function with years difference.
     """
-    # Test case 7: Years difference
     past_date: date = date(2023, 1, 15)
     future_date: date = date(2025, 1, 15)
     result: str = time_until(future_date, past_date)
@@ -89,9 +82,8 @@ def test_time_until_years() -> None:
 
 def test_time_until_mixed_types() -> None:
     """
-    Test time_until function with mixed date and datetime objects.
+    Test case 8: Test time_until function with mixed date and datetime objects.
     """
-    # Test case 8: Mixed types
     past_date: date = date(2023, 1, 15)
     future_dt: datetime = datetime(2023, 1, 20, 12, 0, 0)
     result: str = time_until(future_dt, past_date)
@@ -101,9 +93,8 @@ def test_time_until_mixed_types() -> None:
 
 def test_time_until_invalid_input_type() -> None:
     """
-    Test time_until function with invalid input type raises TypeError.
+    Test case 9: Test time_until function with invalid input type raises TypeError.
     """
-    # Test case 9: Invalid input types
     test_date: date = date(2023, 1, 20)
     
     with pytest.raises(TypeError):
@@ -118,9 +109,8 @@ def test_time_until_invalid_input_type() -> None:
 
 def test_time_until_past_date_error() -> None:
     """
-    Test time_until function with past date raises ValueError.
+    Test case 10: Test time_until function with past date raises ValueError.
     """
-    # Test case 10: Past date error
     future_date: date = date(2023, 1, 15)
     past_date: date = date(2023, 1, 20)
     

@@ -9,8 +9,9 @@ wdt = importlib.import_module("file_functions.write_dict_to_tsv")
 def test_write_dict_to_tsv_writes_padded_rows_and_preserves_order(
     tmp_path: Path,
 ) -> None:
-    """Ensure unequal column lengths are padded and header order is preserved."""
-    # Test case 1: Padding and header order
+    """
+    Test case 1: Ensure unequal column lengths are padded and header order is preserved.
+    """
     data: dict[str, list[object]] = {
         "col1": [1, 2],
         "col2": ["a"],
@@ -33,8 +34,9 @@ def test_write_dict_to_tsv_writes_padded_rows_and_preserves_order(
 def test_write_dict_to_tsv_writes_only_newline_with_empty_dict(
     tmp_path: Path,
 ) -> None:
-    """Ensure an empty dictionary produces a file containing only a newline."""
-    # Test case 2: Empty dictionary
+    """
+    Test case 2: Ensure an empty dictionary produces a file containing only a newline.
+    """
     output_file: Path = tmp_path / "output.tsv"
     wdt.write_dict_to_tsv(str(output_file), {})
 
@@ -44,8 +46,9 @@ def test_write_dict_to_tsv_writes_only_newline_with_empty_dict(
 def test_write_dict_to_tsv_raises_permission_error(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 ) -> None:
-    """Ensure PermissionError is raised when the file cannot be written."""
-    # Test case 3: Permission error on write
+    """
+    Test case 3: Ensure PermissionError is raised when the file cannot be written.
+    """
     data: dict[str, list[int]] = {"col1": [1]}
     file_path: Path = tmp_path / "output.tsv"
 

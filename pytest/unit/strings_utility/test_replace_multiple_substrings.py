@@ -4,9 +4,8 @@ from strings_utility.replace_multiple_substrings import replace_multiple_substri
 
 def test_replace_single_substring() -> None:
     """
-    Test the replace_multiple_substrings function with a single substring replacement.
+    Test case 1: Test the replace_multiple_substrings function with a single substring replacement.
     """
-    # Test case 1: Single substring replacement
     assert (
         replace_multiple_substrings(
             "hello world", {"world": "there"}) == "hello there"
@@ -15,9 +14,8 @@ def test_replace_single_substring() -> None:
 
 def test_replace_multiple_substrings() -> None:
     """
-    Test the replace_multiple_substrings function with multiple substring replacements.
+    Test case 2: Test the replace_multiple_substrings function with multiple substring replacements.
     """
-    # Test case 2: Multiple substring replacements
     assert (
         replace_multiple_substrings(
             "hello world", {"hello": "hi", "world": "there"})
@@ -27,9 +25,8 @@ def test_replace_multiple_substrings() -> None:
 
 def test_replace_no_substrings() -> None:
     """
-    Test the replace_multiple_substrings function with no substrings to replace.
+    Test case 3: Test the replace_multiple_substrings function with no substrings to replace.
     """
-    # Test case 3: No substrings to replace
     assert (
         replace_multiple_substrings("hello world", {}) == "hello world"
     ), "Failed on no substrings to replace"
@@ -37,9 +34,8 @@ def test_replace_no_substrings() -> None:
 
 def test_replace_non_existing_substring() -> None:
     """
-    Test the replace_multiple_substrings function with a non-existing substring.
+    Test case 4: Test the replace_multiple_substrings function with a non-existing substring.
     """
-    # Test case 4: Non-existing substring
     assert (
         replace_multiple_substrings(
             "hello world", {"there": "world"}) == "hello world"
@@ -48,9 +44,8 @@ def test_replace_non_existing_substring() -> None:
 
 def test_replace_empty_string() -> None:
     """
-    Test the replace_multiple_substrings function with an empty string.
+    Test case 5: Test the replace_multiple_substrings function with an empty string.
     """
-    # Test case 5: Empty string
     assert (
         replace_multiple_substrings("", {"hello": "hi"}) == ""
     ), "Failed on empty string"
@@ -58,9 +53,8 @@ def test_replace_empty_string() -> None:
 
 def test_replace_special_characters() -> None:
     """
-    Test the replace_multiple_substrings function with special characters.
+    Test case 6: Test the replace_multiple_substrings function with special characters.
     """
-    # Test case 6: Special characters
     assert (
         replace_multiple_substrings(
             "hello!@#", {"!@#": " world"}) == "hello world"
@@ -69,9 +63,8 @@ def test_replace_special_characters() -> None:
 
 def test_replace_numbers() -> None:
     """
-    Test the replace_multiple_substrings function with numbers.
+    Test case 7: Test the replace_multiple_substrings function with numbers.
     """
-    # Test case 7: Numbers
     assert (
         replace_multiple_substrings("123 456", {"123": "789"}) == "789 456"
     ), "Failed on numbers"
@@ -79,9 +72,8 @@ def test_replace_numbers() -> None:
 
 def test_replace_mixed_case() -> None:
     """
-    Test the replace_multiple_substrings function with mixed case substrings.
+    Test case 8: Test the replace_multiple_substrings function with mixed case substrings.
     """
-    # Test case 8: Mixed case substrings
     assert (
         replace_multiple_substrings(
             "Hello World", {"Hello": "Hi", "World": "There"})
@@ -91,9 +83,8 @@ def test_replace_mixed_case() -> None:
 
 def test_replace_whitespace_characters() -> None:
     """
-    Test the replace_multiple_substrings function with whitespace characters.
+    Test case 9: Test the replace_multiple_substrings function with whitespace characters.
     """
-    # Test case 9: Whitespace characters
     assert (
         replace_multiple_substrings("hello world", {" ": "-"}) == "hello-world"
     ), "Failed on whitespace characters"
@@ -101,9 +92,8 @@ def test_replace_whitespace_characters() -> None:
 
 def test_replace_newline_characters() -> None:
     """
-    Test the replace_multiple_substrings function with newline characters.
+    Test case 10: Test the replace_multiple_substrings function with newline characters.
     """
-    # Test case 10: Newline characters
     assert (
         replace_multiple_substrings(
             "hello\nworld", {"\n": " "}) == "hello world"
@@ -112,9 +102,8 @@ def test_replace_newline_characters() -> None:
 
 def test_replace_tab_characters() -> None:
     """
-    Test the replace_multiple_substrings function with tab characters.
+    Test case 11: Test the replace_multiple_substrings function with tab characters.
     """
-    # Test case 11: Tab characters
     assert (
         replace_multiple_substrings(
             "hello\tworld", {"\t": " "}) == "hello world"
@@ -123,9 +112,8 @@ def test_replace_tab_characters() -> None:
 
 def test_replace_mixed_whitespace_characters() -> None:
     """
-    Test the replace_multiple_substrings function with mixed whitespace characters.
+    Test case 12: Test the replace_multiple_substrings function with mixed whitespace characters.
     """
-    # Test case 12: Mixed whitespace characters
     assert (
         replace_multiple_substrings("hello \t\nworld", {"\t": " ", "\n": " "})
         == "hello   world"
@@ -134,9 +122,8 @@ def test_replace_mixed_whitespace_characters() -> None:
 
 def test_replace_non_english_characters() -> None:
     """
-    Test the replace_multiple_substrings function with non-English characters.
+    Test case 13: Test the replace_multiple_substrings function with non-English characters.
     """
-    # Test case 13: Non-English characters
     assert (
         replace_multiple_substrings(
             "héllo wörld", {"héllo": "hi", "wörld": "there"})
@@ -146,17 +133,15 @@ def test_replace_non_english_characters() -> None:
 
 def test_replace_invalid_replacements_type() -> None:
     """
-    Test the replace_multiple_substrings function with an invalid replacements type.
+    Test case 14: Test the replace_multiple_substrings function with an invalid replacements type.
     """
-    # Test case 14: Invalid replacements type
     with pytest.raises(TypeError):
         replace_multiple_substrings("hello world", ["hello", "hi"])
 
 
 def test_replace_invalid_string_type() -> None:
     """
-    Test the replace_multiple_substrings function with an invalid string type.
+    Test case 15: Test the replace_multiple_substrings function with an invalid string type.
     """
-    # Test case 15: Invalid string type
     with pytest.raises(TypeError):
         replace_multiple_substrings(123, {"hello": "hi"})

@@ -9,9 +9,8 @@ from compression_functions.binary_compression.compress_zstd import compress_zstd
 
 def test_decompress_data_gzip() -> None:
     """
-    Test the decompress_data function with gzip compression.
+    Test case 1: Test the decompress_data function with gzip compression.
     """
-    # Test case 1: Gzip compression
     data: bytes = b"hello world"
     compressed_data: bytes = compress_gzip(data)
     decompressed_data: bytes = decompress_data(
@@ -21,9 +20,8 @@ def test_decompress_data_gzip() -> None:
 
 def test_decompress_data_bz2() -> None:
     """
-    Test the decompress_data function with bz2 compression.
+    Test case 2: Test the decompress_data function with bz2 compression.
     """
-    # Test case 2: Bz2 compression
     data: bytes = b"hello world"
     compressed_data: bytes = compress_bz2(data)
     decompressed_data: bytes = decompress_data(
@@ -33,9 +31,8 @@ def test_decompress_data_bz2() -> None:
 
 def test_decompress_data_lzma() -> None:
     """
-    Test the decompress_data function with lzma compression.
+    Test case 3: Test the decompress_data function with lzma compression.
     """
-    # Test case 3: Lzma compression
     data: bytes = b"hello world"
     compressed_data: bytes = compress_lzma(data)
     decompressed_data: bytes = decompress_data(
@@ -45,9 +42,8 @@ def test_decompress_data_lzma() -> None:
 
 def test_decompress_data_snappy() -> None:
     """
-    Test the decompress_data function with snappy compression.
+    Test case 4: Test the decompress_data function with snappy compression.
     """
-    # Test case 4: Snappy compression
     data: bytes = b"hello world"
     compressed_data: bytes = compress_snappy(data)
     decompressed_data: bytes = decompress_data(
@@ -57,9 +53,8 @@ def test_decompress_data_snappy() -> None:
 
 def test_decompress_data_zstd() -> None:
     """
-    Test the decompress_data function with zstd compression.
+    Test case 5: Test the decompress_data function with zstd compression.
     """
-    # Test case 5: Zstd compression
     data: bytes = b"hello world"
     compressed_data: bytes = compress_zstd(data)
     decompressed_data: bytes = decompress_data(
@@ -69,9 +64,8 @@ def test_decompress_data_zstd() -> None:
 
 def test_decompress_data_invalid_algorithm() -> None:
     """
-    Test the decompress_data function with an unsupported algorithm.
+    Test case 6: Test the decompress_data function with an unsupported algorithm.
     """
-    # Test case 6: Unsupported algorithm
     data: bytes = b"hello world"
     compressed_data: bytes = compress_gzip(data)
     with pytest.raises(ValueError):
@@ -80,18 +74,16 @@ def test_decompress_data_invalid_algorithm() -> None:
 
 def test_decompress_data_invalid_type() -> None:
     """
-    Test the decompress_data function with invalid data type.
+    Test case 7: Test the decompress_data function with invalid data type.
     """
-    # Test case 7: Invalid data type (non-bytes)
     with pytest.raises(TypeError):
         decompress_data("not bytes", algorithm="gzip")  # type: ignore
 
 
 def test_decompress_data_decompression_error() -> None:
     """
-    Test the decompress_data function handling of decompression errors.
+    Test case 8: Test the decompress_data function handling of decompression errors.
     """
-    # Test case 8: Handling of decompression errors
     with pytest.raises(ValueError):
         # Provide invalid compressed data
         invalid_compressed_data: bytes = b"invalid compressed data"

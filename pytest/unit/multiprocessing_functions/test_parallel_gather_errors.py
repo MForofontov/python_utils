@@ -12,8 +12,9 @@ def inc(x: int) -> int:
 
 
 def test_parallel_gather_errors_with_exception() -> None:
-    """Test gathering errors when some inputs raise exceptions."""
-    # Test case 1: Function raises error for certain values
+    """
+    Test case 1: Test gathering errors when some inputs raise exceptions.
+    """
     data: list[int] = [1, 2, 3]
     results, errors = parallel_gather_errors(risky, data)
     assert results == [1, 9]
@@ -21,8 +22,9 @@ def test_parallel_gather_errors_with_exception() -> None:
 
 
 def test_parallel_gather_errors_no_error() -> None:
-    """Test when function does not raise any exceptions."""
-    # Test case 2: No errors
+    """
+    Test case 2: Test when function does not raise any exceptions.
+    """
     data: list[int] = [1, 2, 3]
     results, errors = parallel_gather_errors(inc, data)
     assert results == [2, 3, 4]

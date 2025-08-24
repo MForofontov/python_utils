@@ -34,9 +34,8 @@ def return_value(value):
 
 def test_log_signature_add(caplog):
     """
-    Test case 1: Logging function signature for add function
+    Test case 1: Logging function signature for add function.
     """
-    # Test case 1: Logging function signature for add function
     with caplog.at_level(logging.DEBUG):
         result = add(1, 2)
         assert result == 3
@@ -45,9 +44,8 @@ def test_log_signature_add(caplog):
 
 def test_log_signature_greet(caplog):
     """
-    Test case 2: Logging function signature for greet function
+    Test case 2: Logging function signature for greet function.
     """
-    # Test case 2: Logging function signature for greet function
     with caplog.at_level(logging.DEBUG):
         result = greet("Alice")
         assert result == "Hello, Alice!"
@@ -58,9 +56,8 @@ def test_log_signature_greet(caplog):
 
 def test_log_signature_raise_value_error(caplog):
     """
-    Test case 3: Logging function signature for function that raises ValueError
+    Test case 3: Logging function signature for function that raises ValueError.
     """
-    # Test case 3: Logging function signature for function that raises ValueError
     with caplog.at_level(logging.DEBUG):
         with pytest.raises(ValueError, match="This is a ValueError"):
             raise_value_error()
@@ -71,9 +68,8 @@ def test_log_signature_raise_value_error(caplog):
 
 def test_log_signature_return_value(caplog):
     """
-    Test case 4: Logging function signature for return_value function
+    Test case 4: Logging function signature for return_value function.
     """
-    # Test case 4: Logging function signature for return_value function
     with caplog.at_level(logging.DEBUG):
         result = return_value(5)
         assert result == 5
@@ -84,11 +80,10 @@ def test_log_signature_return_value(caplog):
 
 
 def test_log_signature_with_kwargs(caplog):
-    """
-    Test case 5: Logging function signature with keyword arguments
-    """
 
-    # Test case 5: Logging function signature with keyword arguments
+    """
+    Test case 5: Logging function signature with keyword arguments.
+    """
     @log_signature(logger=test_logger)
     def with_kwargs(a, b=0):
         return a + b
@@ -103,11 +98,10 @@ def test_log_signature_with_kwargs(caplog):
 
 
 def test_log_signature_with_multiple_args(caplog):
-    """
-    Test case 6: Logging function signature with multiple arguments
-    """
 
-    # Test case 6: Logging function signature with multiple arguments
+    """
+    Test case 6: Logging function signature with multiple arguments.
+    """
     @log_signature(logger=test_logger)
     def multiple_args(a, b, c):
         return a + b + c
@@ -123,9 +117,8 @@ def test_log_signature_with_multiple_args(caplog):
 
 def test_log_signature_with_exception(caplog):
     """
-    Test case 7: Logging function signature for function that raises a custom exception
+    Test case 7: Logging function signature for function that raises a custom exception.
     """
-    # Test case 7: Logging function signature for function that raises a custom exception
 
     @log_signature(logger=test_logger)
     def raise_custom_exception():
@@ -143,9 +136,8 @@ def test_log_signature_with_exception(caplog):
 
 def test_log_signature_invalid_logger():
     """
-    Test case 8: Invalid logger
+    Test case 8: Invalid logger.
     """
-    # Test case 8: Invalid logger
     with pytest.raises(
         TypeError, match="logger must be an instance of logging.Logger."
     ):

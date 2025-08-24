@@ -3,9 +3,8 @@ from data_types.graph import Graph
 
 def test_add_vertex() -> None:
     """
-    Test adding vertices to the graph.
+    Test case 1: Test adding vertices to the graph.
     """
-    # Test case 1: Add vertices
     graph = Graph[int]()
     graph.add_vertex(1)
     graph.add_vertex(2)
@@ -17,9 +16,8 @@ def test_add_vertex() -> None:
 
 def test_add_edge() -> None:
     """
-    Test adding edges between vertices.
+    Test case 2: Test adding edges between vertices.
     """
-    # Test case 2: Add edges
     graph = Graph[int]()
     graph.add_edge(1, 2)
     assert 1 in graph.adjacency_list
@@ -30,9 +28,8 @@ def test_add_edge() -> None:
 
 def test_get_neighbors() -> None:
     """
-    Test retrieving neighbors of a vertex.
+    Test case 3: Test retrieving neighbors of a vertex.
     """
-    # Test case 3: Get neighbors
     graph = Graph[int]()
     graph.add_edge(1, 2)
     graph.add_edge(1, 3)
@@ -43,9 +40,8 @@ def test_get_neighbors() -> None:
 
 def test_add_duplicate_vertex() -> None:
     """
-    Test adding a duplicate vertex.
+    Test case 4: Test adding a duplicate vertex.
     """
-    # Test case 4: Add duplicate vertex
     graph = Graph[int]()
     graph.add_vertex(1)
     graph.add_vertex(1)  # Adding the same vertex again
@@ -55,9 +51,8 @@ def test_add_duplicate_vertex() -> None:
 
 def test_add_edge_between_existing_vertices() -> None:
     """
-    Test adding an edge between existing vertices.
+    Test case 5: Test adding an edge between existing vertices.
     """
-    # Test case 5: Add edge between existing vertices
     graph = Graph[int]()
     graph.add_vertex(1)
     graph.add_vertex(2)
@@ -68,9 +63,8 @@ def test_add_edge_between_existing_vertices() -> None:
 
 def test_add_edge_creates_vertices() -> None:
     """
-    Test that adding an edge creates vertices if they don't exist.
+    Test case 6: Test that adding an edge creates vertices if they don't exist.
     """
-    # Test case 6: Add edge creates vertices
     graph = Graph[int]()
     graph.add_edge(1, 2)
     assert 1 in graph.adjacency_list
@@ -81,19 +75,17 @@ def test_add_edge_creates_vertices() -> None:
 
 def test_get_neighbors_of_nonexistent_vertex() -> None:
     """
-    Test getting neighbors of a vertex that doesn't exist.
+    Test case 7: Test getting neighbors of a vertex that doesn't exist.
     """
-    # Test case 7: Get neighbors of nonexistent vertex
     graph = Graph[int]()
     assert graph.get_neighbors(1) == []
 
 
 def test_graph_with_custom_objects() -> None:
-    """
-    Test the graph with custom object vertices.
-    """
 
-    # Test case 8: Graph with custom objects
+    """
+    Test case 8: Test the graph with custom object vertices.
+    """
     class CustomVertex:
         def __init__(self, name: str) -> None:
             self.name = name
@@ -124,9 +116,8 @@ def test_graph_with_custom_objects() -> None:
 
 def test_empty_graph() -> None:
     """
-    Test operations on an empty graph.
+    Test case 9: Test operations on an empty graph.
     """
-    # Test case 9: Empty graph
     graph = Graph[int]()
     assert graph.adjacency_list == {}
     assert graph.get_neighbors(1) == []
@@ -134,9 +125,8 @@ def test_empty_graph() -> None:
 
 def test_large_graph() -> None:
     """
-    Test adding a large number of vertices and edges.
+    Test case 10: Test adding a large number of vertices and edges.
     """
-    # Test case 10: Large graph
     graph = Graph[int]()
     for i in range(1000):
         graph.add_vertex(i)
@@ -149,9 +139,8 @@ def test_large_graph() -> None:
 
 def test_neighbors_contents() -> None:
     """
-    Test that the neighbors contain the expected vertices regardless of order.
+    Test case 11: Test that the neighbors contain the expected vertices regardless of order.
     """
-    # Test case 11: Neighbors contents
     graph = Graph[int]()
     graph.add_edge(1, 2)
     graph.add_edge(1, 3)

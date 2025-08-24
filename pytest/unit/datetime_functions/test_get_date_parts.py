@@ -5,9 +5,8 @@ from datetime_functions.get_date_parts import get_date_parts
 
 def test_get_date_parts_basic() -> None:
     """
-    Test get_date_parts function with basic date.
+    Test case 1: Test get_date_parts function with basic date.
     """
-    # Test case 1: Basic date parts
     test_date: date = date(2023, 6, 15)
     result: dict = get_date_parts(test_date)
     assert isinstance(result, dict)
@@ -20,9 +19,8 @@ def test_get_date_parts_basic() -> None:
 
 def test_get_date_parts_with_datetime() -> None:
     """
-    Test get_date_parts function with datetime object.
+    Test case 2: Test get_date_parts function with datetime object.
     """
-    # Test case 2: Datetime object
     test_datetime: datetime = datetime(2023, 12, 25, 15, 30, 45)
     result: dict = get_date_parts(test_datetime)
     assert isinstance(result, dict)
@@ -35,9 +33,8 @@ def test_get_date_parts_with_datetime() -> None:
 
 def test_get_date_parts_january_first() -> None:
     """
-    Test get_date_parts function with January 1st.
+    Test case 3: Test get_date_parts function with January 1st.
     """
-    # Test case 3: January 1st
     test_date: date = date(2023, 1, 1)
     result: dict = get_date_parts(test_date)
     assert isinstance(result, dict)
@@ -49,9 +46,8 @@ def test_get_date_parts_january_first() -> None:
 
 def test_get_date_parts_december_last() -> None:
     """
-    Test get_date_parts function with December 31st.
+    Test case 4: Test get_date_parts function with December 31st.
     """
-    # Test case 4: December 31st
     test_date: date = date(2023, 12, 31)
     result: dict = get_date_parts(test_date)
     assert isinstance(result, dict)
@@ -63,9 +59,8 @@ def test_get_date_parts_december_last() -> None:
 
 def test_get_date_parts_leap_year() -> None:
     """
-    Test get_date_parts function with leap year date.
+    Test case 5: Test get_date_parts function with leap year date.
     """
-    # Test case 5: Leap year
     test_date: date = date(2020, 12, 31)  # 2020 is leap year
     result: dict = get_date_parts(test_date)
     assert isinstance(result, dict)
@@ -77,9 +72,8 @@ def test_get_date_parts_leap_year() -> None:
 
 def test_get_date_parts_weekday_values() -> None:
     """
-    Test get_date_parts function weekday values are correct.
+    Test case 6: Test get_date_parts function weekday values are correct.
     """
-    # Test case 6: Known weekdays
     # Monday 2023-06-12
     monday: date = date(2023, 6, 12)
     result_mon: dict = get_date_parts(monday)
@@ -93,9 +87,8 @@ def test_get_date_parts_weekday_values() -> None:
 
 def test_get_date_parts_all_keys_present() -> None:
     """
-    Test get_date_parts function returns all expected keys.
+    Test case 7: Test get_date_parts function returns all expected keys.
     """
-    # Test case 7: All keys present
     test_date: date = date(2023, 6, 15)
     result: dict = get_date_parts(test_date)
     expected_keys = {'year', 'month', 'day', 'weekday', 'day_of_year'}
@@ -104,9 +97,8 @@ def test_get_date_parts_all_keys_present() -> None:
 
 def test_get_date_parts_invalid_input_type() -> None:
     """
-    Test get_date_parts function with invalid input type raises TypeError.
+    Test case 8: Test get_date_parts function with invalid input type raises TypeError.
     """
-    # Test case 8: Invalid input types
     with pytest.raises(TypeError):
         get_date_parts('2023-06-15')
     

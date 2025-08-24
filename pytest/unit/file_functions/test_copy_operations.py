@@ -7,8 +7,9 @@ from file_functions.copy_folder import copy_folder
 
 
 def test_copy_file_preserves_contents(tmp_path: Path) -> None:
-    """Copying a file should keep the original contents."""
-    # Test case 1: Copy file contents
+    """
+    Test case 1: Copying a file should keep the original contents.
+    """
     source: Path = tmp_path / "source.txt"
     destination: Path = tmp_path / "destination.txt"
     content: str = "sample text"
@@ -20,8 +21,9 @@ def test_copy_file_preserves_contents(tmp_path: Path) -> None:
 
 
 def test_copy_file_overwrite_destination(tmp_path: Path) -> None:
-    """Existing destination file should be overwritten."""
-    # Test case 2: Overwrite existing destination file
+    """
+    Test case 2: Existing destination file should be overwritten.
+    """
     source: Path = tmp_path / "source.txt"
     destination: Path = tmp_path / "destination.txt"
     source.write_text("new data")
@@ -33,8 +35,9 @@ def test_copy_file_overwrite_destination(tmp_path: Path) -> None:
 
 
 def test_copy_folder_replica_structure(tmp_path: Path) -> None:
-    """Copying a folder should replicate nested files and folders."""
-    # Test case 3: Copy folder structure
+    """
+    Test case 3: Copying a folder should replicate nested files and folders.
+    """
     src_folder: Path = tmp_path / "src"
     src_folder.mkdir()
     (src_folder / "file1.txt").write_text("a")
@@ -52,8 +55,9 @@ def test_copy_folder_replica_structure(tmp_path: Path) -> None:
 
 
 def test_copy_folder_overwrite_file(tmp_path: Path) -> None:
-    """Existing files in destination should be overwritten by source."""
-    # Test case 4: Overwrite destination file
+    """
+    Test case 4: Existing files in destination should be overwritten by source.
+    """
     src_folder: Path = tmp_path / "src"
     src_folder.mkdir()
     (src_folder / "file.txt").write_text("new")
@@ -67,8 +71,9 @@ def test_copy_folder_overwrite_file(tmp_path: Path) -> None:
 
 
 def test_copy_file_missing_source(tmp_path: Path) -> None:
-    """Missing source file should raise FileNotFoundError."""
-    # Test case 5: Missing source file
+    """
+    Test case 5: Missing source file should raise FileNotFoundError.
+    """
     missing_source: Path = tmp_path / "missing.txt"
     destination: Path = tmp_path / "destination.txt"
     with pytest.raises(FileNotFoundError):
@@ -76,8 +81,9 @@ def test_copy_file_missing_source(tmp_path: Path) -> None:
 
 
 def test_copy_folder_missing_source(tmp_path: Path) -> None:
-    """Missing source folder should raise FileNotFoundError."""
-    # Test case 6: Missing source folder
+    """
+    Test case 6: Missing source folder should raise FileNotFoundError.
+    """
     missing_folder: Path = tmp_path / "missing"
     destination: Path = tmp_path / "destination"
     with pytest.raises(FileNotFoundError):

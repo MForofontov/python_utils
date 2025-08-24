@@ -7,8 +7,9 @@ from file_functions.get_paths_dict import get_paths_dict
 
 
 def test_get_paths_dict_files_only(tmp_path: Path) -> None:
-    """Test retrieving only files from a directory containing files and folders."""
-    # Test case 1: Directory with files and folders
+    """
+    Test case 1: Test retrieving only files from a directory containing files and folders.
+    """
     (tmp_path / "file1.txt").write_text("a")
     (tmp_path / "file2.log").write_text("b")
     (tmp_path / "folder").mkdir()
@@ -22,8 +23,9 @@ def test_get_paths_dict_files_only(tmp_path: Path) -> None:
 
 
 def test_get_paths_dict_directories_only(tmp_path: Path) -> None:
-    """Test retrieving only directories from a directory containing files and folders."""
-    # Test case 2: Directory with files and folders
+    """
+    Test case 2: Test retrieving only directories from a directory containing files and folders.
+    """
     (tmp_path / "file.txt").write_text("a")
     folder_path: Path = tmp_path / "folder"
     folder_path.mkdir()
@@ -36,8 +38,9 @@ def test_get_paths_dict_directories_only(tmp_path: Path) -> None:
 
 
 def test_get_paths_dict_all_items(tmp_path: Path) -> None:
-    """Test retrieving all items (files and directories) from a directory."""
-    # Test case 3: Directory with mixed content
+    """
+    Test case 3: Test retrieving all items (files and directories) from a directory.
+    """
     (tmp_path / "file.txt").write_text("a")
     (tmp_path / "folder").mkdir()
 
@@ -50,15 +53,17 @@ def test_get_paths_dict_all_items(tmp_path: Path) -> None:
 
 
 def test_get_paths_dict_invalid_type(tmp_path: Path) -> None:
-    """Test that an invalid type argument raises a ValueError."""
-    # Test case 4: Invalid type argument
+    """
+    Test case 4: Test that an invalid type argument raises a ValueError.
+    """
     with pytest.raises(ValueError):
         get_paths_dict(str(tmp_path), "invalid")
 
 
 def test_get_paths_dict_nonexistent_directory(tmp_path: Path) -> None:
-    """Test that a missing directory raises FileNotFoundError."""
-    # Test case 5: Missing directory path
+    """
+    Test case 5: Test that a missing directory raises FileNotFoundError.
+    """
     missing_dir: str = os.path.join(str(tmp_path), "missing")
     with pytest.raises(FileNotFoundError):
         get_paths_dict(missing_dir, "files")

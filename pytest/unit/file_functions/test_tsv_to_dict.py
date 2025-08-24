@@ -6,8 +6,9 @@ from file_functions.tsv_to_dict import tsv_to_dict
 
 
 def test_tsv_to_dict_basic(tmp_path: Path) -> None:
-    """Basic TSV conversion with default separator."""
-    # Test case 1: Basic TSV conversion
+    """
+    Test case 1: Basic TSV conversion with default separator.
+    """
     content: str = "a\t1\t2\nb\t3\t4\n"
     file: Path = tmp_path / "sample.tsv"
     file.write_text(content)
@@ -18,8 +19,9 @@ def test_tsv_to_dict_basic(tmp_path: Path) -> None:
 
 
 def test_tsv_to_dict_skip_header(tmp_path: Path) -> None:
-    """Ensure the header line is skipped when skip_header=True."""
-    # Test case 2: Skip header line
+    """
+    Test case 2: Ensure the header line is skipped when skip_header=True.
+    """
     content: str = "h1\th2\nk1\tv1\n"
     file: Path = tmp_path / "sample.tsv"
     file.write_text(content)
@@ -28,8 +30,9 @@ def test_tsv_to_dict_skip_header(tmp_path: Path) -> None:
 
 
 def test_tsv_to_dict_non_tab_separator(tmp_path: Path) -> None:
-    """Support arbitrary separators when converting."""
-    # Test case 3: Custom separator
+    """
+    Test case 3: Support arbitrary separators when converting.
+    """
     content: str = "a,1,2\nb,3,4\n"
     file: Path = tmp_path / "sample.csv"
     file.write_text(content)
@@ -40,8 +43,9 @@ def test_tsv_to_dict_non_tab_separator(tmp_path: Path) -> None:
 
 
 def test_tsv_to_dict_duplicate_keys(tmp_path: Path) -> None:
-    """Later entries should overwrite earlier ones for duplicate keys."""
-    # Test case 4: Duplicate keys overwrite previous
+    """
+    Test case 4: Later entries should overwrite earlier ones for duplicate keys.
+    """
     content: str = "a\t1\nb\t2\na\t3\n"
     file: Path = tmp_path / "dup.tsv"
     file.write_text(content)
@@ -50,8 +54,9 @@ def test_tsv_to_dict_duplicate_keys(tmp_path: Path) -> None:
 
 
 def test_empty_tsv_file_returns_empty_dict(tmp_path: Path) -> None:
-    """Empty TSV file should return an empty dictionary."""
-    # Test case 5: Empty file
+    """
+    Test case 5: Empty TSV file should return an empty dictionary.
+    """
     file: Path = tmp_path / "empty.tsv"
     file.write_text("")
     result: dict[str, list[str]] = tsv_to_dict(str(file))
@@ -59,8 +64,9 @@ def test_empty_tsv_file_returns_empty_dict(tmp_path: Path) -> None:
 
 
 def test_missing_file_path_raises_FileNotFoundError(tmp_path: Path) -> None:
-    """A nonexistent file path should raise FileNotFoundError."""
-    # Test case 6: Missing file path
+    """
+    Test case 6: A nonexistent file path should raise FileNotFoundError.
+    """
     missing_file: Path = tmp_path / "does_not_exist.tsv"
     with pytest.raises(FileNotFoundError):
         tsv_to_dict(str(missing_file))

@@ -4,9 +4,8 @@ from data_types.hash_table import HashTable
 
 def test_insert_and_get() -> None:
     """
-    Test inserting and retrieving key-value pairs.
+    Test case 1: Test inserting and retrieving key-value pairs.
     """
-    # Test case 1: Insert and get
     hash_table = HashTable[int, str]()
     hash_table.insert(1, "one")
     hash_table.insert(2, "two")
@@ -16,9 +15,8 @@ def test_insert_and_get() -> None:
 
 def test_update_value() -> None:
     """
-    Test updating the value of an existing key.
+    Test case 2: Test updating the value of an existing key.
     """
-    # Test case 2: Update value
     hash_table = HashTable[int, str]()
     hash_table.insert(1, "one")
     hash_table.insert(1, "updated_one")
@@ -27,9 +25,8 @@ def test_update_value() -> None:
 
 def test_remove_key() -> None:
     """
-    Test removing a key-value pair.
+    Test case 3: Test removing a key-value pair.
     """
-    # Test case 3: Remove key
     hash_table = HashTable[int, str]()
     hash_table.insert(1, "one")
     hash_table.remove(1)
@@ -38,9 +35,8 @@ def test_remove_key() -> None:
 
 def test_contains_key() -> None:
     """
-    Test checking if a key exists in the hash table.
+    Test case 4: Test checking if a key exists in the hash table.
     """
-    # Test case 4: Contains key
     hash_table = HashTable[int, str]()
     hash_table.insert(1, "one")
     assert hash_table.contains(1) is True
@@ -49,9 +45,8 @@ def test_contains_key() -> None:
 
 def test_collision_handling() -> None:
     """
-    Test handling of hash collisions.
+    Test case 5: Test handling of hash collisions.
     """
-    # Test case 5: Collision handling
     hash_table = HashTable[int, str](
         size=1
     )  # Force collisions by using a single bucket
@@ -63,9 +58,8 @@ def test_collision_handling() -> None:
 
 def test_large_number_of_keys() -> None:
     """
-    Test inserting and retrieving a large number of keys.
+    Test case 6: Test inserting and retrieving a large number of keys.
     """
-    # Test case 6: Large number of keys
     hash_table = HashTable[int, int]()
     for i in range(1000):
         hash_table.insert(i, i * 10)
@@ -75,9 +69,8 @@ def test_large_number_of_keys() -> None:
 
 def test_large_keys_and_values() -> None:
     """
-    Test inserting and retrieving very large keys and values.
+    Test case 7: Test inserting and retrieving very large keys and values.
     """
-    # Test case 7: Large keys and values
     large_key = "x" * 1000  # A very large string key
     large_value = "y" * 1000  # A very large string value
     hash_table = HashTable[str, str]()
@@ -86,11 +79,10 @@ def test_large_keys_and_values() -> None:
 
 
 def test_custom_key_type() -> None:
-    """
-    Test the hash table with custom key types.
-    """
 
-    # Test case 8: Custom key type
+    """
+    Test case 8: Test the hash table with custom key types.
+    """
     class CustomKey:
         def __init__(self, key: int) -> None:
             self.key = key
@@ -113,11 +105,10 @@ def test_custom_key_type() -> None:
 
 
 def test_custom_value_type() -> None:
-    """
-    Test the hash table with custom value types.
-    """
 
-    # Test case 9: Custom value type
+    """
+    Test case 9: Test the hash table with custom value types.
+    """
     class CustomValue:
         def __init__(self, value: int) -> None:
             self.value = value
@@ -136,9 +127,8 @@ def test_custom_value_type() -> None:
 
 def test_empty_hash_table() -> None:
     """
-    Test operations on an empty hash table.
+    Test case 10: Test operations on an empty hash table.
     """
-    # Test case 10: Empty hash table
     hash_table = HashTable[int, str]()
     assert not hash_table.contains(1)
     with pytest.raises(KeyError, match="Key 1 not found in the hash table"):
@@ -147,9 +137,8 @@ def test_empty_hash_table() -> None:
 
 def test_get_nonexistent_key() -> None:
     """
-    Test retrieving a value for a nonexistent key.
+    Test case 11: Test retrieving a value for a nonexistent key.
     """
-    # Test case 11: Get nonexistent key
     hash_table = HashTable[int, str]()
     with pytest.raises(KeyError, match="Key 1 not found in the hash table"):
         hash_table.get(1)
@@ -157,17 +146,17 @@ def test_get_nonexistent_key() -> None:
 
 def test_remove_nonexistent_key() -> None:
     """
-    Test removing a nonexistent key.
+    Test case 12: Test removing a nonexistent key.
     """
-    # Test case 12: Remove nonexistent key
     hash_table = HashTable[int, str]()
     with pytest.raises(KeyError, match="Key 1 not found in the hash table"):
         hash_table.remove(1)
 
 
 def test_in_operator() -> None:
-    """Test using the ``in`` operator with :class:`HashTable`."""
-    # Test case 13: ``in`` operator usage
+    """
+    Test case 13: Test using the ``in`` operator with :class:`HashTable`.
+    """
     hash_table = HashTable[int, str]()
     hash_table.insert(1, "one")
     assert (1 in hash_table) is True

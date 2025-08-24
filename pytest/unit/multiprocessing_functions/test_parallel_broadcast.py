@@ -10,16 +10,18 @@ def add_shared(x: int, shared: int) -> int:
 
 
 def test_parallel_broadcast_basic() -> None:
-    """Test parallel_broadcast with shared multiplication."""
-    # Test case 1: Basic broadcast
+    """
+    Test case 1: Test parallel_broadcast with shared multiplication.
+    """
     data: list[int] = [1, 2, 3]
     result: list[int] = parallel_broadcast(multiply_shared, 2, data)
     assert result == [2, 4, 6]
 
 
 def test_parallel_broadcast_custom_processes() -> None:
-    """Test parallel_broadcast with a custom process count."""
-    # Test case 2: Custom num_processes
+    """
+    Test case 2: Test parallel_broadcast with a custom process count.
+    """
     data: list[int] = [1, 2, 3]
     result: list[int] = parallel_broadcast(
         add_shared, 5, data, num_processes=2)
@@ -27,8 +29,9 @@ def test_parallel_broadcast_custom_processes() -> None:
 
 
 def test_parallel_broadcast_empty_data() -> None:
-    """Test parallel_broadcast with an empty list."""
-    # Test case 3: Empty data list
+    """
+    Test case 3: Test parallel_broadcast with an empty list.
+    """
     data: list[int] = []
     result: list[int] = parallel_broadcast(multiply_shared, 2, data)
     assert result == []

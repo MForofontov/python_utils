@@ -8,9 +8,8 @@ from compression_functions.files_compression.decompress_file_tar import (
 
 def test_decompress_file_tar_basic(tmp_path) -> None:
     """
-    Test the decompress_file_tar function with basic input.
+    Test case 1: Test the decompress_file_tar function with basic input.
     """
-    # Test case 1: Basic decompression
     compressed_file = tmp_path / "input.tar.gz"
     output_dir = tmp_path / "output"
     data = b"hello world"
@@ -39,9 +38,8 @@ def test_decompress_file_tar_basic(tmp_path) -> None:
 
 def test_decompress_file_tar_empty_file(tmp_path) -> None:
     """
-    Test the decompress_file_tar function with an empty file.
+    Test case 2: Test the decompress_file_tar function with an empty file.
     """
-    # Test case 2: Empty file
     compressed_file = tmp_path / "input.tar.gz"
     output_dir = tmp_path / "output"
 
@@ -58,9 +56,8 @@ def test_decompress_file_tar_empty_file(tmp_path) -> None:
 
 def test_decompress_file_tar_large_file(tmp_path) -> None:
     """
-    Test the decompress_file_tar function with a large file.
+    Test case 3: Test the decompress_file_tar function with a large file.
     """
-    # Test case 3: Large file decompression
     compressed_file = tmp_path / "input.tar.gz"
     output_dir = tmp_path / "output"
     data = b"a" * 1000000  # 1 MB of data
@@ -89,9 +86,8 @@ def test_decompress_file_tar_large_file(tmp_path) -> None:
 
 def test_decompress_file_tar_invalid_input_type(tmp_path) -> None:
     """
-    Test the decompress_file_tar function with invalid input file type.
+    Test case 4: Test the decompress_file_tar function with invalid input file type.
     """
-    # Test case 4: Invalid input file type
     output_dir = tmp_path / "output"
 
     with pytest.raises(TypeError):
@@ -100,9 +96,8 @@ def test_decompress_file_tar_invalid_input_type(tmp_path) -> None:
 
 def test_decompress_file_tar_invalid_output_type(tmp_path) -> None:
     """
-    Test the decompress_file_tar function with invalid output directory type.
+    Test case 5: Test the decompress_file_tar function with invalid output directory type.
     """
-    # Test case 5: Invalid output directory type
     compressed_file = tmp_path / "input.tar.gz"
     data = b"hello world"
 
@@ -120,9 +115,8 @@ def test_decompress_file_tar_invalid_output_type(tmp_path) -> None:
 
 def test_decompress_file_tar_non_existent_input_file(tmp_path) -> None:
     """
-    Test the decompress_file_tar function with a non-existent input file.
+    Test case 6: Test the decompress_file_tar function with a non-existent input file.
     """
-    # Test case 6: Non-existent input file
     compressed_file = tmp_path / "non_existent.tar.gz"
     output_dir = tmp_path / "output"
 
@@ -132,9 +126,8 @@ def test_decompress_file_tar_non_existent_input_file(tmp_path) -> None:
 
 def test_decompress_file_tar_io_error_on_output_dir(tmp_path) -> None:
     """
-    Test the decompress_file_tar function handling of I/O errors on output directory.
+    Test case 7: Test the decompress_file_tar function handling of I/O errors on output directory.
     """
-    # Test case 7: Handling of I/O errors on output directory
     compressed_file = tmp_path / "input.tar.gz"
     output_dir = tmp_path / "output"
     data = b"hello world"
@@ -161,9 +154,8 @@ def test_decompress_file_tar_io_error_on_output_dir(tmp_path) -> None:
 
 def test_decompress_file_tar_no_permission_on_input_file(tmp_path) -> None:
     """
-    Test the decompress_file_tar function with no permission on input file.
+    Test case 8: Test the decompress_file_tar function with no permission on input file.
     """
-    # Test case 8: No permission on input file
     compressed_file = tmp_path / "input.tar.gz"
     output_dir = tmp_path / "output"
     data = b"hello world"
@@ -189,9 +181,8 @@ def test_decompress_file_tar_no_permission_on_input_file(tmp_path) -> None:
 
 def test_decompress_file_tar_io_error_on_read_only_output_dir(tmp_path) -> None:
     """
-    Test the decompress_file_tar function with read-only output directory.
+    Test case 9: Test the decompress_file_tar function with read-only output directory.
     """
-    # Test case 9: Read-only output directory
     compressed_file = tmp_path / "input.tar.gz"
     output_dir = tmp_path / "output"
     data = b"hello world"

@@ -8,9 +8,8 @@ from compression_functions.files_compression.compress_file_gzip import (
 
 def test_compress_file_gzip_basic_compression(tmp_path) -> None:
     """
-    Test the compress_file_gzip function with basic input.
+    Test case 1: Test the compress_file_gzip function with basic input.
     """
-    # Test case 1: Basic compression
     input_file = tmp_path / "input.txt"
     output_file = tmp_path / "output.gz"
     data = b"hello world"
@@ -32,9 +31,8 @@ def test_compress_file_gzip_basic_compression(tmp_path) -> None:
 
 def test_compress_file_gzip_empty_file_compression_and_verification(tmp_path) -> None:
     """
-    Test the compress_file_gzip function with an empty file.
+    Test case 2: Test the compress_file_gzip function with an empty file.
     """
-    # Test case 2: Empty file
     input_file = tmp_path / "input.txt"
     output_file = tmp_path / "output.gz"
 
@@ -55,9 +53,8 @@ def test_compress_file_gzip_empty_file_compression_and_verification(tmp_path) ->
 
 def test_compress_file_gzip_large_file_compression_and_verification(tmp_path) -> None:
     """
-    Test the compress_file_gzip function with a large file.
+    Test case 3: Test the compress_file_gzip function with a large file.
     """
-    # Test case 3: Large file compression
     input_file = tmp_path / "input.txt"
     output_file = tmp_path / "output.gz"
     data = b"a" * 1000000  # 1 MB of data
@@ -84,9 +81,8 @@ def test_compress_file_gzip_large_file_compression_and_verification(tmp_path) ->
 
 def test_compress_file_gzip_invalid_input_file_type(tmp_path) -> None:
     """
-    Test the compress_file_gzip function with invalid input file type.
+    Test case 4: Test the compress_file_gzip function with invalid input file type.
     """
-    # Test case 4: Invalid input file type
     output_file = tmp_path / "output.gz"
 
     with pytest.raises(TypeError):
@@ -95,9 +91,8 @@ def test_compress_file_gzip_invalid_input_file_type(tmp_path) -> None:
 
 def test_compress_file_gzip_invalid_output_file_type(tmp_path) -> None:
     """
-    Test the compress_file_gzip function with invalid output file type.
+    Test case 5: Test the compress_file_gzip function with invalid output file type.
     """
-    # Test case 5: Invalid output file type
     input_file = tmp_path / "input.txt"
     data = b"hello world"
 
@@ -110,9 +105,8 @@ def test_compress_file_gzip_invalid_output_file_type(tmp_path) -> None:
 
 def test_compress_file_gzip_non_existent_input_file(tmp_path) -> None:
     """
-    Test the compress_file_gzip function with a non-existent input file.
+    Test case 6: Test the compress_file_gzip function with a non-existent input file.
     """
-    # Test case 6: Non-existent input file
     input_file = tmp_path / "non_existent.txt"
     output_file = tmp_path / "output.gz"
 
@@ -122,9 +116,8 @@ def test_compress_file_gzip_non_existent_input_file(tmp_path) -> None:
 
 def test_compress_file_gzip_io_error_on_output_file(tmp_path) -> None:
     """
-    Test the compress_file_gzip function handling of I/O errors on output file.
+    Test case 7: Test the compress_file_gzip function handling of I/O errors on output file.
     """
-    # Test case 7: Handling of I/O errors on output file
     input_file = tmp_path / "input.txt"
     output_file = tmp_path / "output.gz"
     data = b"hello world"
@@ -145,9 +138,8 @@ def test_compress_file_gzip_io_error_on_output_file(tmp_path) -> None:
 
 def test_compress_file_gzip_no_permission_on_input_file(tmp_path) -> None:
     """
-    Test the compress_file_gzip function with no permission on input file.
+    Test case 8: Test the compress_file_gzip function with no permission on input file.
     """
-    # Test case 8: No permission on input file
     input_file = tmp_path / "input.txt"
     output_file = tmp_path / "output.gz"
     data = b"hello world"
@@ -168,9 +160,8 @@ def test_compress_file_gzip_no_permission_on_input_file(tmp_path) -> None:
 
 def test_compress_file_gzip_io_error_on_read_only_output_file(tmp_path) -> None:
     """
-    Test the compress_file_gzip function with read-only output file.
+    Test case 9: Test the compress_file_gzip function with read-only output file.
     """
-    # Test case 9: Read-only output file
     input_file = tmp_path / "input.txt"
     output_file = tmp_path / "output.gz"
     data = b"hello world"

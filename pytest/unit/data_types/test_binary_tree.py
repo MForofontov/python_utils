@@ -4,9 +4,8 @@ from data_types.binary_tree import BinaryTree
 
 def test_insert_single_node() -> None:
     """
-    Test inserting a single node into the binary tree.
+    Test case 1: Test inserting a single node into the binary tree.
     """
-    # Test case 1: Insert a single node
     tree = BinaryTree[int]()  # Specify the type as int
     tree.insert(10)
     assert tree.root is not None
@@ -17,9 +16,8 @@ def test_insert_single_node() -> None:
 
 def test_insert_multiple_nodes() -> None:
     """
-    Test inserting multiple nodes into the binary tree.
+    Test case 2: Test inserting multiple nodes into the binary tree.
     """
-    # Test case 2: Insert multiple nodes
     tree = BinaryTree[int]()
     tree.insert(10)
     tree.insert(5)
@@ -32,9 +30,8 @@ def test_insert_multiple_nodes() -> None:
 
 def test_search_existing_node() -> None:
     """
-    Test searching for an existing node in the binary tree.
+    Test case 3: Test searching for an existing node in the binary tree.
     """
-    # Test case 3: Search for an existing node
     tree = BinaryTree[int]()
     tree.insert(10)
     tree.insert(5)
@@ -46,9 +43,8 @@ def test_search_existing_node() -> None:
 
 def test_search_non_existing_node() -> None:
     """
-    Test searching for a non-existing node in the binary tree.
+    Test case 4: Test searching for a non-existing node in the binary tree.
     """
-    # Test case 4: Search for a non-existing node
     tree = BinaryTree[int]()
     tree.insert(10)
     tree.insert(5)
@@ -59,9 +55,8 @@ def test_search_non_existing_node() -> None:
 
 def test_inorder_traversal() -> None:
     """
-    Test in-order traversal of the binary tree.
+    Test case 5: Test in-order traversal of the binary tree.
     """
-    # Test case 5: In-order traversal
     tree = BinaryTree[int]()
     tree.insert(10)
     tree.insert(5)
@@ -73,9 +68,8 @@ def test_inorder_traversal() -> None:
 
 def test_preorder_traversal() -> None:
     """
-    Test pre-order traversal of the binary tree.
+    Test case 6: Test pre-order traversal of the binary tree.
     """
-    # Test case 6: Pre-order traversal
     tree = BinaryTree[int]()
     tree.insert(10)
     tree.insert(5)
@@ -87,9 +81,8 @@ def test_preorder_traversal() -> None:
 
 def test_postorder_traversal() -> None:
     """
-    Test post-order traversal of the binary tree.
+    Test case 7: Test post-order traversal of the binary tree.
     """
-    # Test case 7: Post-order traversal
     tree = BinaryTree[int]()
     tree.insert(10)
     tree.insert(5)
@@ -101,9 +94,8 @@ def test_postorder_traversal() -> None:
 
 def test_empty_tree_traversals() -> None:
     """
-    Test traversals on an empty binary tree.
+    Test case 8: Test traversals on an empty binary tree.
     """
-    # Test case 8: Traversals on an empty tree
     tree = BinaryTree[int]()
     assert tree.inorder_traversal() == []
     assert tree.preorder_traversal() == []
@@ -112,9 +104,8 @@ def test_empty_tree_traversals() -> None:
 
 def test_insert_left_and_right_nodes() -> None:
     """
-    Test inserting nodes to the left and right of the root.
+    Test case 9: Test inserting nodes to the left and right of the root.
     """
-    # Test case 9: Insert left and right nodes
     tree = BinaryTree[int]()
     tree.insert(10)
     tree.insert(5)  # Left child
@@ -125,18 +116,16 @@ def test_insert_left_and_right_nodes() -> None:
 
 def test_search_in_empty_tree() -> None:
     """
-    Test searching for a value in an empty binary tree.
+    Test case 10: Test searching for a value in an empty binary tree.
     """
-    # Test case 10: Search in an empty tree
     tree = BinaryTree[int]()
     assert tree.search(10) is False  # Should return False as the tree is empty
 
 
 def test_traversals_with_single_node() -> None:
     """
-    Test traversals on a binary tree with a single node.
+    Test case 11: Test traversals on a binary tree with a single node.
     """
-    # Test case 11: Traversals with a single node
     tree = BinaryTree[int]()
     tree.insert(10)
     assert tree.inorder_traversal() == [10]
@@ -146,9 +135,8 @@ def test_traversals_with_single_node() -> None:
 
 def test_inorder_traversal_with_left_heavy_tree() -> None:
     """
-    Test in-order traversal on a left-heavy binary tree.
+    Test case 12: Test in-order traversal on a left-heavy binary tree.
     """
-    # Test case 12: In-order traversal with a left-heavy tree
     tree = BinaryTree[int]()
     tree.insert(10)
     tree.insert(5)
@@ -159,9 +147,8 @@ def test_inorder_traversal_with_left_heavy_tree() -> None:
 
 def test_preorder_traversal_with_left_heavy_tree() -> None:
     """
-    Test pre-order traversal on a left-heavy binary tree.
+    Test case 13: Test pre-order traversal on a left-heavy binary tree.
     """
-    # Test case 13: Pre-order traversal with a left-heavy tree
     tree = BinaryTree[int]()
     tree.insert(10)
     tree.insert(5)
@@ -172,9 +159,8 @@ def test_preorder_traversal_with_left_heavy_tree() -> None:
 
 def test_postorder_traversal_with_left_heavy_tree() -> None:
     """
-    Test post-order traversal on a left-heavy binary tree.
+    Test case 14: Test post-order traversal on a left-heavy binary tree.
     """
-    # Test case 14: Post-order traversal with a left-heavy tree
     tree = BinaryTree[int]()
     tree.insert(10)
     tree.insert(5)
@@ -185,9 +171,8 @@ def test_postorder_traversal_with_left_heavy_tree() -> None:
 
 def test_insert_and_search_large_tree() -> None:
     """
-    Test inserting and searching in a large binary tree.
+    Test case 15: Test inserting and searching in a large binary tree.
     """
-    # Test case 15: Insert and search in a large tree
     tree = BinaryTree[int]()
     for i in range(1, 101):  # Insert values 1 to 100
         tree.insert(i)
@@ -198,9 +183,8 @@ def test_insert_and_search_large_tree() -> None:
 
 def test_traversals_with_large_tree() -> None:
     """
-    Test traversals on a large binary tree.
+    Test case 16: Test traversals on a large binary tree.
     """
-    # Test case 16: Traversals with a large tree
     tree = BinaryTree[int]()
     for i in range(1, 11):  # Insert values 1 to 10
         tree.insert(i)
@@ -234,9 +218,8 @@ def test_traversals_with_large_tree() -> None:
 
 def test_inorder_traversal_with_right_heavy_tree() -> None:
     """
-    Test in-order traversal on a right-heavy binary tree.
+    Test case 17: Test in-order traversal on a right-heavy binary tree.
     """
-    # Test case 17: In-order traversal with a right-heavy tree
     tree = BinaryTree[int]()
     tree.insert(10)
     tree.insert(15)
@@ -247,9 +230,8 @@ def test_inorder_traversal_with_right_heavy_tree() -> None:
 
 def test_preorder_traversal_with_right_heavy_tree() -> None:
     """
-    Test pre-order traversal on a right-heavy binary tree.
+    Test case 18: Test pre-order traversal on a right-heavy binary tree.
     """
-    # Test case 18: Pre-order traversal with a right-heavy tree
     tree = BinaryTree[int]()
     tree.insert(10)
     tree.insert(15)
@@ -260,9 +242,8 @@ def test_preorder_traversal_with_right_heavy_tree() -> None:
 
 def test_postorder_traversal_with_right_heavy_tree() -> None:
     """
-    Test post-order traversal on a right-heavy binary tree.
+    Test case 19: Test post-order traversal on a right-heavy binary tree.
     """
-    # Test case 19: Post-order traversal with a right-heavy tree
     tree = BinaryTree[int]()
     tree.insert(10)
     tree.insert(15)
@@ -273,9 +254,8 @@ def test_postorder_traversal_with_right_heavy_tree() -> None:
 
 def test_insert_boundary_values() -> None:
     """
-    Test inserting the smallest and largest possible values into the binary tree.
+    Test case 20: Test inserting the smallest and largest possible values into the binary tree.
     """
-    # Test case 20: Insert boundary values
     tree = BinaryTree[int]()
     tree.insert(float("-inf"))
     tree.insert(float("inf"))
@@ -289,9 +269,8 @@ def test_insert_boundary_values() -> None:
 
 def test_insert_duplicate_node() -> None:
     """
-    Test inserting duplicate nodes into the binary tree.
+    Test case 21: Test inserting duplicate nodes into the binary tree.
     """
-    # Test case 21: Insert duplicate nodes
     tree = BinaryTree[int]()
     tree.insert(10)
     with pytest.raises(

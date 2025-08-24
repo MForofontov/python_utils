@@ -6,8 +6,9 @@ from file_functions.concat_files import concat_files
 
 
 def test_concat_files_appends_two_files(tmp_path: Path) -> None:
-    """Test that concatenating two source files appends both contents in order."""
-    # Test case 1: Append contents of two files
+    """
+    Test case 1: Test that concatenating two source files appends both contents in order.
+    """
     src1: Path = tmp_path / "src1.txt"
     src1.write_text("Hello\n")
     src2: Path = tmp_path / "src2.txt"
@@ -21,8 +22,9 @@ def test_concat_files_appends_two_files(tmp_path: Path) -> None:
 
 
 def test_concat_files_empty_source(tmp_path: Path) -> None:
-    """Test that concatenating an empty source file leaves destination unchanged."""
-    # Test case 2: Empty source file
+    """
+    Test case 2: Test that concatenating an empty source file leaves destination unchanged.
+    """
     dest: Path = tmp_path / "dest.txt"
     dest.write_text("Existing content")
     empty: Path = tmp_path / "empty.txt"
@@ -34,8 +36,9 @@ def test_concat_files_empty_source(tmp_path: Path) -> None:
 
 
 def test_concat_files_missing_source(tmp_path: Path) -> None:
-    """Test that providing a missing source file raises FileNotFoundError."""
-    # Test case 3: Missing source file
+    """
+    Test case 3: Test that providing a missing source file raises FileNotFoundError.
+    """
     dest: Path = tmp_path / "dest.txt"
     dest.write_text("data")
 

@@ -8,7 +8,8 @@ T = TypeVar("T")
 
 
 async def async_await_with_error_handling(
-    tasks: list[Callable[[], Awaitable[T]]], error_handler: Callable[[Exception], None]
+    tasks: list[Callable[[], Awaitable[T]]],
+    error_handler: Callable[[Exception], None],
 ) -> list[T]:
     """
     Execute multiple asynchronous tasks with custom error handling.
@@ -25,6 +26,14 @@ async def async_await_with_error_handling(
     List[T]
         A list of results from successful tasks.
 
+    Raises
+    ------
+    TypeError
+        If ``tasks`` is not a list of callables or ``error_handler`` is not
+        callable.
+    Exception
+        Propagates any exception raised by ``error_handler``.
+
     Examples
     --------
     >>> async def task_a() -> int:
@@ -33,8 +42,11 @@ async def async_await_with_error_handling(
     >>> async def task_b() -> int:
     >>>     raise ValueError("Error in task B")
     >>>
-    >>> results = await async_await_with_error_handling([task_a, task_b], lambda e: print(e))
-    >>> print(results)  # Output: [1]
+    >>> results = await async_await_with_error_handling(
+    ...     [task_a, task_b], lambda e: print(e)
+    ... )
+    >>> print(results)
+    [1]
     """
     # Initialize an empty list to store the results of successful tasks
     results = []
@@ -46,7 +58,7 @@ async def async_await_with_error_handling(
             result = await task()
             results.append(result)
         except Exception as e:
-            # If an exception occurs, handle it using the provided error handler
+            # Handle exception using the provided error handler
             error_handler(e)
 
     # Return the list of results from successful tasks

@@ -4,9 +4,8 @@ from data_types.priority_queue import PriorityQueue
 
 def test_push_and_pop() -> None:
     """
-    Test adding and removing elements from the priority queue.
+    Test case 1: Test adding and removing elements from the priority queue.
     """
-    # Test case 1: Push and pop elements
     pq = PriorityQueue[int]()
     pq.push(10, 2)
     pq.push(20, 1)
@@ -18,9 +17,8 @@ def test_push_and_pop() -> None:
 
 def test_is_empty() -> None:
     """
-    Test checking if the priority queue is empty.
+    Test case 2: Test checking if the priority queue is empty.
     """
-    # Test case 2: Empty queue
     pq = PriorityQueue[int]()
     assert pq.is_empty() is True
     pq.push(10, 1)
@@ -31,9 +29,8 @@ def test_is_empty() -> None:
 
 def test_size() -> None:
     """
-    Test getting the size of the priority queue.
+    Test case 3: Test getting the size of the priority queue.
     """
-    # Test case 3: Size of the queue
     pq = PriorityQueue[int]()
     assert pq.size() == 0
     pq.push(10, 1)
@@ -47,9 +44,8 @@ def test_size() -> None:
 
 def test_priority_order() -> None:
     """
-    Test that elements are returned in the correct priority order.
+    Test case 4: Test that elements are returned in the correct priority order.
     """
-    # Test case 4: Priority order
     pq = PriorityQueue[str]()
     pq.push("low", 3)
     pq.push("medium", 2)
@@ -61,9 +57,8 @@ def test_priority_order() -> None:
 
 def test_duplicate_priorities() -> None:
     """
-    Test handling of elements with duplicate priorities.
+    Test case 5: Test handling of elements with duplicate priorities.
     """
-    # Test case 5: Duplicate priorities
     pq = PriorityQueue[str]()
     pq.push("first", 1)
     pq.push("second", 1)
@@ -74,11 +69,10 @@ def test_duplicate_priorities() -> None:
 
 
 def test_custom_object_priority_queue() -> None:
-    """
-    Test the priority queue with custom objects.
-    """
 
-    # Test case 6: Custom objects
+    """
+    Test case 6: Test the priority queue with custom objects.
+    """
     class Task:
         def __init__(self, name: str) -> None:
             self.name = name
@@ -100,9 +94,8 @@ def test_custom_object_priority_queue() -> None:
 
 def test_large_priority_queue() -> None:
     """
-    Test operations on a very large priority queue.
+    Test case 7: Test operations on a very large priority queue.
     """
-    # Test case 7: Large priority queue
     pq = PriorityQueue[int]()
     for i in range(10000):
         pq.push(i, i)
@@ -114,9 +107,8 @@ def test_large_priority_queue() -> None:
 
 def test_order_of_elements() -> None:
     """
-    Test the order of elements in the priority queue after multiple operations.
+    Test case 8: Test the order of elements in the priority queue after multiple operations.
     """
-    # Test case 8: Order verification
     pq = PriorityQueue[int]()
     pq.push(10, 2)
     pq.push(20, 1)
@@ -131,9 +123,8 @@ def test_order_of_elements() -> None:
 
 def test_iterative_access() -> None:
     """
-    Test iteration over the priority queue.
+    Test case 9: Test iteration over the priority queue.
     """
-    # Test case 9: Iterative access
     pq = PriorityQueue[int]()
     pq.push(10, 2)
     pq.push(20, 1)
@@ -144,9 +135,8 @@ def test_iterative_access() -> None:
 
 def test_pop_empty_queue() -> None:
     """
-    Test popping from an empty priority queue.
+    Test case 10: Test popping from an empty priority queue.
     """
-    # Test case 10: Pop from empty queue
     pq = PriorityQueue[int]()
     with pytest.raises(IndexError, match="Pop from an empty priority queue"):
         pq.pop()
