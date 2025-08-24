@@ -19,6 +19,13 @@ async def run_in_parallel(tasks: list[Callable[..., Awaitable[T]]]) -> list[T]:
     List[T]
         A list of results from the asynchronous functions.
 
+    Raises
+    ------
+    TypeError
+        If any item in ``tasks`` is not a callable that returns an awaitable.
+    Exception
+        Propagates any exception raised by the executed tasks.
+
     Examples
     --------
     >>> async def task_a() -> str:

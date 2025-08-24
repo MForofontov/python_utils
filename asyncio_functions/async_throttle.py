@@ -1,4 +1,5 @@
 import asyncio
+import asyncio
 from typing import TypeVar
 from collections.abc import AsyncGenerator
 
@@ -19,10 +20,18 @@ async def async_throttle(
     delay : float
         The delay in seconds between each generated item.
 
-    Yields
+    Returns
+    -------
+    AsyncGenerator[T, None]
+        An asynchronous generator yielding items from ``generator`` delayed by
+        the specified amount.
+
+    Raises
     ------
-    T
-        Items from the original generator, delayed by the specified amount.
+    TypeError
+        If ``delay`` is not a float.
+    Exception
+        Propagates any exception raised by the underlying ``generator``.
 
     Examples
     --------
@@ -38,6 +47,9 @@ async def async_throttle(
     (1-second delay)
     2
     """
+    if not isinstance(delay, (int, float)):
+        raise TypeError("delay must be a float")
+
     # Iterate over the items in the generator
     async for item in generator:
         # Yield the current item

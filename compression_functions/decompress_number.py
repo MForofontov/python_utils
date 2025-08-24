@@ -19,6 +19,11 @@ def decompress_number(text: str, index: int) -> tuple[int, int]:
     ------
     TypeError
         If text is not a string or index is not an integer.
+
+    Examples
+    --------
+    >>> decompress_number('?', 0)
+    (1, 0)
     """
     if not isinstance(text, str):
         raise TypeError("text must be a string")

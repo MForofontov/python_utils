@@ -22,6 +22,13 @@ async def async_map(func: Callable[[T], Awaitable[R]], items: list[T]) -> list[R
     List[R]
         A list of results after applying the function to each item.
 
+    Raises
+    ------
+    TypeError
+        If ``func`` is not callable or does not return an awaitable.
+    Exception
+        Propagates any exception raised by ``func`` when applied to items.
+
     Examples
     --------
     >>> async def square(x: int) -> int:

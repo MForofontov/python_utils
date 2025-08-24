@@ -19,6 +19,11 @@ def polyline_decoding_list_of_ints(encoded_text: str) -> list[float]:
     ------
     ValueError
         If the encoded_text is empty or improperly formatted.
+
+    Examples
+    --------
+    >>> polyline_decoding_list_of_ints('AAA')
+    [0.01, 0.02]
     """
     if not encoded_text:
         raise ValueError("Encoded text cannot be empty.")
