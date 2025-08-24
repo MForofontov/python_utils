@@ -20,7 +20,7 @@ def polyline_encoding_list_of_ints(list_of_ints: list[int]) -> str:
     Examples
     --------
     >>> polyline_encoding_list_of_ints([1, 2])
-    'AA'
+    'AAA'
     """
     if not list_of_ints:
         raise ValueError("Input list cannot be empty.")

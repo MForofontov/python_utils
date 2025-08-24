@@ -22,6 +22,12 @@ def compress_gzip(data: bytes) -> bytes:
         If data is not bytes.
     ValueError
         If an error occurs during compression.
+
+    Examples
+    --------
+    >>> compressed = compress_gzip(b"data")
+    >>> len(compressed) > 0
+    True
     """
     # Check if data is bytes
     if not isinstance(data, bytes):

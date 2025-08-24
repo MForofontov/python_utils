@@ -7,9 +7,24 @@ import pytz
 def get_current_datetime_iso() -> str:
     """
     Get the current date and time in ISO 8601 format.
-    
-    Returns:
-        Current datetime in ISO format string
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    str
+        Current datetime in ISO 8601 format.
+
+    Raises
+    ------
+    None
+
+    Examples
+    --------
+    >>> get_current_datetime_iso()  # doctest: +SKIP
+    '2024-01-01T00:00:00.000000'
     """
     return datetime.now().isoformat()
 
@@ -17,8 +32,23 @@ def get_current_datetime_iso() -> str:
 def get_current_datetime_iso_utc() -> str:
     """
     Get the current date and time in UTC ISO 8601 format.
-    
-    Returns:
-        Current UTC datetime in ISO format string
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    str
+        Current UTC datetime in ISO 8601 format.
+
+    Raises
+    ------
+    None
+
+    Examples
+    --------
+    >>> get_current_datetime_iso_utc()  # doctest: +SKIP
+    '2024-01-01T00:00:00.000000+00:00'
     """
     return datetime.now(pytz.UTC).isoformat()

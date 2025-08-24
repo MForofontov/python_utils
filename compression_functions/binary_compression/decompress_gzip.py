@@ -22,6 +22,13 @@ def decompress_gzip(compressed_data: bytes) -> bytes:
         If compressed_data is not bytes.
     ValueError
         If an error occurs during decompression.
+
+    Examples
+    --------
+    >>> from .compress_gzip import compress_gzip
+    >>> compressed = compress_gzip(b"data")
+    >>> decompress_gzip(compressed)
+    b"data"
     """
     # Check if compressed_data is bytes
     if not isinstance(compressed_data, bytes):

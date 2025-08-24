@@ -1,6 +1,8 @@
-import os
+import tarfile
+import tarfile
 import tarfile
 import stat
+import os
 
 
 def decompress_file_tar(input_tar: str, output_dir: str) -> None:
@@ -14,6 +16,11 @@ def decompress_file_tar(input_tar: str, output_dir: str) -> None:
     output_dir : str
         The path to the output directory to extract the decompressed files.
 
+    Returns
+    -------
+    None
+        This function does not return a value.
+
     Raises
     ------
     TypeError
@@ -22,6 +29,10 @@ def decompress_file_tar(input_tar: str, output_dir: str) -> None:
         If the input tar file does not exist.
     IOError
         If an I/O error occurs during decompression.
+
+    Examples
+    --------
+    >>> decompress_file_tar('archive.tar.gz', 'output_folder')  # doctest: +SKIP
     """
     # Check if input_tar and output_dir are strings
     if not isinstance(input_tar, str):

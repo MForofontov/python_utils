@@ -21,8 +21,10 @@ async def run_in_parallel(tasks: list[Callable[..., Awaitable[T]]]) -> list[T]:
 
     Raises
     ------
+    TypeError
+        If any item in ``tasks`` is not a callable that returns an awaitable.
     Exception
-        Propagates any exception raised by the provided tasks.
+        Propagates any exception raised by the executed tasks.
 
     Examples
     --------

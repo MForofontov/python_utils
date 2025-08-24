@@ -1,5 +1,6 @@
 import tarfile
 import os
+import tarfile
 
 
 def compress_tar(input_path: str, output_tar: str) -> None:
@@ -13,6 +14,11 @@ def compress_tar(input_path: str, output_tar: str) -> None:
     output_tar : str
         The path to the output tar file to save the compressed data.
 
+    Returns
+    -------
+    None
+        This function does not return a value.
+
     Raises
     ------
     TypeError
@@ -21,6 +27,10 @@ def compress_tar(input_path: str, output_tar: str) -> None:
         If the input path does not exist.
     IOError
         If an I/O error occurs during compression.
+
+    Examples
+    --------
+    >>> compress_tar('my_folder', 'archive.tar.gz')  # doctest: +SKIP
     """
     # Check if input_path and output_tar are strings
     if not isinstance(input_path, str):

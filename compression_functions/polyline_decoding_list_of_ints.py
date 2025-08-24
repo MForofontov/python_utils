@@ -22,8 +22,8 @@ def polyline_decoding_list_of_ints(encoded_text: str) -> list[float]:
 
     Examples
     --------
-    >>> polyline_decoding_list_of_ints('AA')
-    [0.01]
+    >>> polyline_decoding_list_of_ints('AAA')
+    [0.01, 0.02]
     """
     if not encoded_text:
         raise ValueError("Encoded text cannot be empty.")
