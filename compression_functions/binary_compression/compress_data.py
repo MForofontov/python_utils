@@ -29,6 +29,13 @@ def compress_data(data: bytes, algorithm: str = "gzip", level: int = 3) -> bytes
         If the specified algorithm is not supported.
     TypeError
         If data is not bytes or level is not an integer.
+
+    Examples
+    --------
+    >>> from compression_functions.binary_compression.decompress_data import decompress_data
+    >>> compressed = compress_data(b'example', 'gzip')
+    >>> decompress_data(compressed, 'gzip')
+    b'example'
     """
     if not isinstance(data, bytes):
         raise TypeError("data must be bytes")
