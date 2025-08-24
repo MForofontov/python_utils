@@ -4,9 +4,8 @@ from linux_functions.get_uptime import get_uptime
 
 def test_get_uptime_returns_positive_float() -> None:
     """
-    Test the get_uptime function returns a positive float value.
+    Test case 1: Test the get_uptime function returns a positive float value.
     """
-    # Test case 1: Get system uptime
     uptime: float = get_uptime()
     
     # Uptime should be a positive number

@@ -6,9 +6,8 @@ from compression_functions.files_compression.compress_file_bz2 import compress_f
 
 def test_compress_file_bz2_basic(tmp_path) -> None:
     """
-    Test the compress_file_bz2 function with basic input.
+    Test case 1: Test the compress_file_bz2 function with basic input.
     """
-    # Test case 1: Basic compression
     input_file = tmp_path / "input.txt"
     output_file = tmp_path / "output.bz2"
     data = b"hello world"
@@ -30,9 +29,8 @@ def test_compress_file_bz2_basic(tmp_path) -> None:
 
 def test_compress_file_bz2_empty_file_compression_and_verification(tmp_path) -> None:
     """
-    Test the compress_file_bz2 function with an empty file.
+    Test case 2: Test the compress_file_bz2 function with an empty file.
     """
-    # Test case 2: Empty file
     input_file = tmp_path / "input.txt"
     output_file = tmp_path / "output.bz2"
 
@@ -53,9 +51,8 @@ def test_compress_file_bz2_empty_file_compression_and_verification(tmp_path) -> 
 
 def test_compress_file_bz2_large_file_compression_and_verification(tmp_path) -> None:
     """
-    Test the compress_file_bz2 function with a large file.
+    Test case 3: Test the compress_file_bz2 function with a large file.
     """
-    # Test case 3: Large file compression
     input_file = tmp_path / "input.txt"
     output_file = tmp_path / "output.bz2"
     data = b"a" * 1000000  # 1 MB of data
@@ -82,9 +79,8 @@ def test_compress_file_bz2_large_file_compression_and_verification(tmp_path) -> 
 
 def test_compress_file_bz2_invalid_input_type(tmp_path) -> None:
     """
-    Test the compress_file_bz2 function with invalid input file type.
+    Test case 4: Test the compress_file_bz2 function with invalid input file type.
     """
-    # Test case 4: Invalid input file type
     output_file = tmp_path / "output.bz2"
 
     with pytest.raises(TypeError):
@@ -93,9 +89,8 @@ def test_compress_file_bz2_invalid_input_type(tmp_path) -> None:
 
 def test_compress_file_bz2_invalid_output_type(tmp_path) -> None:
     """
-    Test the compress_file_bz2 function with invalid output file type.
+    Test case 5: Test the compress_file_bz2 function with invalid output file type.
     """
-    # Test case 5: Invalid output file type
     input_file = tmp_path / "input.txt"
     data = b"hello world"
 
@@ -108,9 +103,8 @@ def test_compress_file_bz2_invalid_output_type(tmp_path) -> None:
 
 def test_compress_file_bz2_file_not_found(tmp_path) -> None:
     """
-    Test the compress_file_bz2 function with a non-existent input file.
+    Test case 6: Test the compress_file_bz2 function with a non-existent input file.
     """
-    # Test case 6: Non-existent input file
     input_file = tmp_path / "non_existent.txt"
     output_file = tmp_path / "output.bz2"
 
@@ -120,9 +114,8 @@ def test_compress_file_bz2_file_not_found(tmp_path) -> None:
 
 def test_compress_file_bz2_io_error_on_read_only_output_directory(tmp_path) -> None:
     """
-    Test the compress_file_bz2 function handling of I/O errors on read-only output directory.
+    Test case 7: Test the compress_file_bz2 function handling of I/O errors on read-only output directory.
     """
-    # Test case 7: Handling of I/O errors on read-only output directory
     input_file = tmp_path / "input.txt"
     output_file = tmp_path / "output.bz2"
     data = b"hello world"
@@ -143,9 +136,8 @@ def test_compress_file_bz2_io_error_on_read_only_output_directory(tmp_path) -> N
 
 def test_compress_file_bz2_no_permission_on_input_file(tmp_path) -> None:
     """
-    Test the compress_file_bz2 function with no permission on input file.
+    Test case 8: Test the compress_file_bz2 function with no permission on input file.
     """
-    # Test case 8: No permission on input file
     input_file = tmp_path / "input.txt"
     output_file = tmp_path / "output.bz2"
     data = b"hello world"
@@ -166,9 +158,8 @@ def test_compress_file_bz2_no_permission_on_input_file(tmp_path) -> None:
 
 def test_compress_file_bz2_io_error_on_read_only_output_file(tmp_path) -> None:
     """
-    Test the compress_file_bz2 function with read-only output file.
+    Test case 9: Test the compress_file_bz2 function with read-only output file.
     """
-    # Test case 9: Read-only output file
     input_file = tmp_path / "input.txt"
     output_file = tmp_path / "output.bz2"
     data = b"hello world"

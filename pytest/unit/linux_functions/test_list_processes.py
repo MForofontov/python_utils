@@ -5,9 +5,8 @@ from linux_functions.list_processes import list_processes
 
 def test_list_processes_returns_valid_list() -> None:
     """
-    Test the list_processes function returns a valid list of process information.
+    Test case 1: Test the list_processes function returns a valid list of process information.
     """
-    # Test case 1: Get list of running processes
     processes: List[Dict[str, Any]] = list_processes()
     
     # Check return type

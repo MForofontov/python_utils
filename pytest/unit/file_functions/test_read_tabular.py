@@ -6,8 +6,9 @@ from file_functions.read_tabular import read_tabular
 
 
 def test_read_tabular_standard_tsv(tmp_path: Path) -> None:
-    """Test reading a standard TSV file."""
-    # Test case 1: Standard TSV
+    """
+    Test case 1: Test reading a standard TSV file.
+    """
     content: str = "col1\tcol2\n1\t2\n"
     file_path: Path = tmp_path / "test.tsv"
     file_path.write_text(content)
@@ -16,8 +17,9 @@ def test_read_tabular_standard_tsv(tmp_path: Path) -> None:
 
 
 def test_read_tabular_custom_delimiter(tmp_path: Path) -> None:
-    """Test reading a file with a custom delimiter."""
-    # Test case 2: Custom delimiter
+    """
+    Test case 2: Test reading a file with a custom delimiter.
+    """
     content: str = "a,b\n3,4\n"
     file_path: Path = tmp_path / "test.csv"
     file_path.write_text(content)
@@ -28,8 +30,9 @@ def test_read_tabular_custom_delimiter(tmp_path: Path) -> None:
 
 
 def test_read_tabular_empty_file(tmp_path: Path) -> None:
-    """Test reading an empty file returns an empty list."""
-    # Test case 3: Empty file
+    """
+    Test case 3: Test reading an empty file returns an empty list.
+    """
     file_path: Path = tmp_path / "empty.tsv"
     file_path.write_text("")
     assert read_tabular(str(file_path)) == [
@@ -37,8 +40,9 @@ def test_read_tabular_empty_file(tmp_path: Path) -> None:
 
 
 def test_read_tabular_missing_file(tmp_path: Path) -> None:
-    """Test missing file raises FileNotFoundError."""
-    # Test case 4: Missing file
+    """
+    Test case 4: Test missing file raises FileNotFoundError.
+    """
     missing_file: Path = tmp_path / "missing.tsv"
     with pytest.raises(FileNotFoundError):
         read_tabular(str(missing_file))

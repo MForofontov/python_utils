@@ -7,8 +7,9 @@ from file_functions.merge_folders import merge_folders
 
 
 def test_merge_folders_combines_structure(tmp_path: Path) -> None:
-    """Merging two folders should combine their contents."""
-    # Test case 1: Merge distinct contents
+    """
+    Test case 1: Merging two folders should combine their contents.
+    """
     folder1: Path = tmp_path / "folder1"
     folder2: Path = tmp_path / "folder2"
     output: Path = tmp_path / "merged"
@@ -22,8 +23,9 @@ def test_merge_folders_combines_structure(tmp_path: Path) -> None:
 
 
 def test_merge_folders_conflicting_filenames(tmp_path: Path) -> None:
-    """Conflicting filenames should produce files with a _copy suffix."""
-    # Test case 2: Handle conflicting filenames
+    """
+    Test case 2: Conflicting filenames should produce files with a _copy suffix.
+    """
     folder1: Path = tmp_path / "folder1"
     folder2: Path = tmp_path / "folder2"
     output: Path = tmp_path / "merged"
@@ -39,8 +41,9 @@ def test_merge_folders_conflicting_filenames(tmp_path: Path) -> None:
 
 
 def test_merge_folders_nested_directories(tmp_path: Path) -> None:
-    """Nested directory structures should be preserved in the merge."""
-    # Test case 3: Preserve nested directories
+    """
+    Test case 3: Nested directory structures should be preserved in the merge.
+    """
     folder1: Path = tmp_path / "folder1"
     folder2: Path = tmp_path / "folder2"
     output: Path = tmp_path / "merged"
@@ -58,8 +61,9 @@ def test_merge_folders_nested_directories(tmp_path: Path) -> None:
 
 
 def test_merge_folders_missing_input_folder(tmp_path: Path) -> None:
-    """Missing input folders should raise FileNotFoundError."""
-    # Test case 4: Missing input folder
+    """
+    Test case 4: Missing input folders should raise FileNotFoundError.
+    """
     folder1: Path = tmp_path / "folder1"
     missing_folder: Path = tmp_path / "missing"
     output: Path = tmp_path / "merged"
@@ -72,8 +76,9 @@ def test_merge_folders_missing_input_folder(tmp_path: Path) -> None:
 def test_merge_folders_read_only_output_dir(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    """A read-only output directory should raise PermissionError."""
-    # Test case 5: Read-only output directory
+    """
+    Test case 5: A read-only output directory should raise PermissionError.
+    """
     folder1: Path = tmp_path / "folder1"
     folder2: Path = tmp_path / "folder2"
     output: Path = tmp_path / "merged"

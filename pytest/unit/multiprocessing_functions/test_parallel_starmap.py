@@ -10,16 +10,18 @@ def add(a: int, b: int) -> int:
 
 
 def test_parallel_starmap_basic() -> None:
-    """Test parallel_starmap multiplying pairs of numbers."""
-    # Test case 1: Basic starmap
+    """
+    Test case 1: Test parallel_starmap multiplying pairs of numbers.
+    """
     data: list[tuple[int, int]] = [(1, 2), (3, 4), (5, 6)]
     result: list[int] = parallel_starmap(multiply, data)
     assert result == [2, 12, 30]
 
 
 def test_parallel_starmap_empty() -> None:
-    """Test parallel_starmap with an empty list."""
-    # Test case 2: Empty data
+    """
+    Test case 2: Test parallel_starmap with an empty list.
+    """
     data: list[tuple[int, int]] = []
     result: list[int] = parallel_starmap(add, data)
     assert result == []

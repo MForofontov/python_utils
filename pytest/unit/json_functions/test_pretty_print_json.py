@@ -6,9 +6,8 @@ import json
 
 def test_pretty_print_json_default():
     """
-    Test case 1: Pretty print with default indent and sorted keys
+    Test case 1: Pretty print with default indent and sorted keys.
     """
-    # Test case 1: Default pretty print
     obj = {"b": 2, "a": 1}
     result = pretty_print_json(obj)
     assert isinstance(result, str)
@@ -19,18 +18,16 @@ def test_pretty_print_json_default():
 
 def test_pretty_print_json_indent():
     """
-    Test case 2: Pretty print with custom indent
+    Test case 2: Pretty print with custom indent.
     """
-    # Test case 2: Custom indent
     obj = {"a": 1}
     result = pretty_print_json(obj, indent=2)
     assert '\n  ' in result  # 2 spaces
 
 def test_pretty_print_json_no_sort():
     """
-    Test case 3: Pretty print with sort_keys=False
+    Test case 3: Pretty print with sort_keys=False.
     """
-    # Test case 3: No sort_keys
     obj = {"b": 2, "a": 1}
     result = pretty_print_json(obj, sort_keys=False)
     assert isinstance(result, str)

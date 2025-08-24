@@ -6,9 +6,8 @@ from datetime_functions.is_today import is_today
 
 def test_is_today_with_today_date() -> None:
     """
-    Test is_today function with today's date.
+    Test case 1: Test is_today function with today's date.
     """
-    # Test case 1: Today's date
     with patch('datetime_functions.is_today.date') as mock_date:
         mock_date.today.return_value = date(2023, 6, 15)
         mock_date.side_effect = lambda *args, **kw: date(*args, **kw)
@@ -21,9 +20,8 @@ def test_is_today_with_today_date() -> None:
 
 def test_is_today_with_yesterday() -> None:
     """
-    Test is_today function with yesterday's date.
+    Test case 2: Test is_today function with yesterday's date.
     """
-    # Test case 2: Yesterday
     with patch('datetime_functions.is_today.date') as mock_date:
         mock_date.today.return_value = date(2023, 6, 15)
         mock_date.side_effect = lambda *args, **kw: date(*args, **kw)
@@ -36,9 +34,8 @@ def test_is_today_with_yesterday() -> None:
 
 def test_is_today_with_tomorrow() -> None:
     """
-    Test is_today function with tomorrow's date.
+    Test case 3: Test is_today function with tomorrow's date.
     """
-    # Test case 3: Tomorrow
     with patch('datetime_functions.is_today.date') as mock_date:
         mock_date.today.return_value = date(2023, 6, 15)
         mock_date.side_effect = lambda *args, **kw: date(*args, **kw)
@@ -51,9 +48,8 @@ def test_is_today_with_tomorrow() -> None:
 
 def test_is_today_with_datetime() -> None:
     """
-    Test is_today function with datetime object.
+    Test case 4: Test is_today function with datetime object.
     """
-    # Test case 4: Datetime object for today
     with patch('datetime_functions.is_today.date') as mock_date:
         mock_date.today.return_value = date(2023, 6, 15)
         mock_date.side_effect = lambda *args, **kw: date(*args, **kw)
@@ -66,9 +62,8 @@ def test_is_today_with_datetime() -> None:
 
 def test_is_today_with_datetime_different_day() -> None:
     """
-    Test is_today function with datetime object for different day.
+    Test case 5: Test is_today function with datetime object for different day.
     """
-    # Test case 5: Datetime object for different day
     with patch('datetime_functions.is_today.date') as mock_date:
         mock_date.today.return_value = date(2023, 6, 15)
         mock_date.side_effect = lambda *args, **kw: date(*args, **kw)
@@ -81,9 +76,8 @@ def test_is_today_with_datetime_different_day() -> None:
 
 def test_is_today_with_different_year() -> None:
     """
-    Test is_today function with different year.
+    Test case 6: Test is_today function with different year.
     """
-    # Test case 6: Different year
     with patch('datetime_functions.is_today.date') as mock_date:
         mock_date.today.return_value = date(2023, 6, 15)
         mock_date.side_effect = lambda *args, **kw: date(*args, **kw)
@@ -96,9 +90,8 @@ def test_is_today_with_different_year() -> None:
 
 def test_is_today_with_different_month() -> None:
     """
-    Test is_today function with different month.
+    Test case 7: Test is_today function with different month.
     """
-    # Test case 7: Different month
     with patch('datetime_functions.is_today.date') as mock_date:
         mock_date.today.return_value = date(2023, 6, 15)
         mock_date.side_effect = lambda *args, **kw: date(*args, **kw)
@@ -111,9 +104,8 @@ def test_is_today_with_different_month() -> None:
 
 def test_is_today_invalid_input_type() -> None:
     """
-    Test is_today function with invalid input type raises TypeError.
+    Test case 8: Test is_today function with invalid input type raises TypeError.
     """
-    # Test case 8: Invalid input types
     with pytest.raises(TypeError):
         is_today('2023-06-15')
     

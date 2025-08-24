@@ -19,9 +19,8 @@ def concat(*args: str, **kwargs: str) -> str:
 
 def test_cache_basic():
     """
-    Test case 1: Basic caching functionality
+    Test case 1: Basic caching functionality.
     """
-    # Test case 1: Basic caching functionality
     call_counts["add"] = 0
     assert add(1, 2) == 3
     assert add(1, 2) == 3  # Should return cached result
@@ -31,9 +30,8 @@ def test_cache_basic():
 
 def test_cache_expiration():
     """
-    Test case 2: Cache expiration
+    Test case 2: Cache expiration.
     """
-    # Test case 2: Cache expiration
     call_counts["add"] = 0
     assert add(1, 2) == 3
     time.sleep(3)
@@ -44,9 +42,8 @@ def test_cache_expiration():
 
 def test_cache_different_args():
     """
-    Test case 3: Caching with different arguments
+    Test case 3: Caching with different arguments.
     """
-    # Test case 3: Caching with different arguments
     call_counts["add"] = 0
     assert add(1, 2) == 3
     assert add(2, 3) == 5  # Different arguments, should not use cache
@@ -56,9 +53,8 @@ def test_cache_different_args():
 
 def test_cache_with_kwargs():
     """
-    Test case 4: Caching with keyword arguments
+    Test case 4: Caching with keyword arguments.
     """
-    # Test case 4: Caching with keyword arguments
     call_counts["add"] = 0
     assert add(a=1, b=2) == 3
     assert add(a=1, b=2) == 3  # Should return cached result
@@ -68,9 +64,8 @@ def test_cache_with_kwargs():
 
 def test_cache_concat():
     """
-    Test case 5: Caching with variable arguments
+    Test case 5: Caching with variable arguments.
     """
-    # Test case 5: Caching with variable arguments
     call_counts["concat"] = 0
     assert concat("a", "b", "c") == "abc"
     assert concat("a", "b", "c") == "abc"  # Should return cached result
@@ -80,9 +75,8 @@ def test_cache_concat():
 
 def test_cache_concat_different_args():
     """
-    Test case 6: Caching with different variable arguments
+    Test case 6: Caching with different variable arguments.
     """
-    # Test case 6: Caching with different variable arguments
     call_counts["concat"] = 0
     assert concat("a", "b", "c") == "abc"
     # Different arguments, should not use cache
@@ -93,9 +87,8 @@ def test_cache_concat_different_args():
 
 def test_cache_concat_kwargs():
     """
-    Test case 7: Caching with keyword arguments in concat function
+    Test case 7: Caching with keyword arguments in concat function.
     """
-    # Test case 7: Caching with keyword arguments in concat function
     call_counts["concat"] = 0
     assert concat(a="a", b="b", c="c") == "abc"
     assert concat(a="a", b="b", c="c") == "abc"  # Should return cached result
@@ -105,9 +98,8 @@ def test_cache_concat_kwargs():
 
 def test_cache_clear():
     """
-    Test case 8: Clearing the cache
+    Test case 8: Clearing the cache.
     """
-    # Test case 8: Clearing the cache
     call_counts["add"] = 0
     add.cache_clear()
     assert add(1, 2) == 3
@@ -119,9 +111,8 @@ def test_cache_clear():
 
 def test_cache_with_expiration_zero():
     """
-    Test case 9: Cache with zero expiration time
+    Test case 9: Cache with zero expiration time.
     """
-    # Test case 9: Cache with zero expiration time
     call_counts["add_no_cache"] = 0
 
     @cache_with_expiration(0)
@@ -136,9 +127,8 @@ def test_cache_with_expiration_zero():
 
 def test_cache_with_negative_expiration():
     """
-    Test case 10: Cache with negative expiration time
+    Test case 10: Cache with negative expiration time.
     """
-    # Test case 10: Cache with negative expiration time
     with pytest.raises(ValueError, match="expiration_time must be a positive integer"):
 
         @cache_with_expiration(-1)
@@ -148,9 +138,8 @@ def test_cache_with_negative_expiration():
 
 def test_cache_with_non_integer_expiration():
     """
-    Test case 11: Cache with non-integer expiration time
+    Test case 11: Cache with non-integer expiration time.
     """
-    # Test case 11: Cache with non-integer expiration time
     with pytest.raises(ValueError, match="expiration_time must be a positive integer"):
 
         @cache_with_expiration(2.5)
@@ -159,11 +148,10 @@ def test_cache_with_non_integer_expiration():
 
 
 def test_cache_with_unhashable_args():
-    """
-    Test case 12: Function with unhashable arguments
-    """
 
-    # Test case 12: Function with unhashable arguments
+    """
+    Test case 12: Function with unhashable arguments.
+    """
     @cache_with_expiration(2)
     def example_function_unhashable(a):
         return sum(a)
@@ -175,11 +163,10 @@ def test_cache_with_unhashable_args():
 
 
 def test_cache_with_exception():
-    """
-    Test case 13: Function that raises an exception
-    """
 
-    # Test case 13: Function that raises an exception
+    """
+    Test case 13: Function that raises an exception.
+    """
     @cache_with_expiration(2)
     def example_function_exception(a, b):
         raise ValueError("An error occurred")
