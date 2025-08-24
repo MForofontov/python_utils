@@ -34,9 +34,9 @@ dev = [
 ]
 
 [tool.setuptools.packages.find]
-where = ["."]
+where = ["python_utils"]
 exclude = ["pytest*"]
 
 [tool.pytest.ini_options]
-pythonpath = ["."]
+pythonpath = ["python_utils"]
 testpaths = ["pytest/unit"]

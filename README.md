@@ -62,7 +62,7 @@ The Allure command-line tool is required to generate the reports. If you don't h
 Import modules directly from the package. For example, to capitalize each word in a string:
 
 ```python
-from strings_utility.capitalize_words import capitalize_words
+from python_utils.strings_utility.capitalize_words import capitalize_words
 
 print(capitalize_words("hello world"))  # -> 'Hello World'
 ```
@@ -82,7 +82,7 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 logger.setLevel(logging.INFO)
 
-from decorators.throttle import throttle
+from python_utils.decorators.throttle import throttle
 
 @throttle(0.5, logger=logger)
 def my_function():
