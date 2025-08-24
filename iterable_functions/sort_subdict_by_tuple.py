@@ -4,7 +4,7 @@ from collections import OrderedDict
 
 def sort_subdict_by_tuple(
     dict_: dict[str, dict[str, Any]], order: tuple[str, ...]
-) -> dict[str, OrderedDict]:
+) -> dict[str, OrderedDict[str, Any]]:
     """
     Sorts the sub-dictionaries of a given dictionary based on a specified order tuple.
 
@@ -33,7 +33,7 @@ def sort_subdict_by_tuple(
     if not isinstance(order, tuple) or not all(isinstance(item, str) for item in order):
         raise TypeError("order must be a tuple of strings")
 
-    sorted_data: dict[str, OrderedDict] = {}
+    sorted_data: dict[str, OrderedDict[str, Any]] = {}
     for key, subdict in dict_.items():
         sorted_subdict = OrderedDict(
             sorted(

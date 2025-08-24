@@ -45,23 +45,18 @@ async def async_retry_with_backoff(
     >>> asyncio.run(async_retry_with_backoff(sometimes_fails, retries=5, initial_delay=1, backoff_factor=2))
     42
     """
-    # Initialize the delay with the initial delay value
-    delay = initial_delay
+    if retries <= 0:
+        return await func()
 
-    # Loop through the number of retries
+    delay = initial_delay
     for attempt in range(retries):
         try:
-            # Try to execute the asynchronous function
             return await func()
-        except Exception as e:
-            # If an exception occurs and retries are left
-            if attempt < retries - 1:
-                # Wait for the current delay duration
-                await asyncio.sleep(delay)
-                # Increase the delay by the backoff factor
-                delay *= backoff_factor
-            else:
-                # If no retries are left, raise the exception
-                raise e
+        except Exception:
+            if attempt == retries - 1:
+                raise
+            await asyncio.sleep(delay)
+            delay *= backoff_factor
+    raise RuntimeError("Retry loop exhausted without executing function")
 
 __all__ = ['async_retry_with_backoff']
