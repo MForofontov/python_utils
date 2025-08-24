@@ -18,6 +18,22 @@ def cache(func: Callable[P, R]) -> Callable[P, R]:
     -------
     Callable[P, R]
         A wrapper function that caches the results of the input function.
+
+    Raises
+    ------
+    TypeError
+        If the decorated function is later called with unhashable arguments.
+
+    Examples
+    --------
+    >>> @cache
+    ... def add(a: int, b: int) -> int:
+    ...     return a + b
+    >>> add(1, 2)
+    3
+    >>> add(1, 2)  # Cached result
+    3
+    >>> add.cache_clear()
     """
 
     cached_results: dict[tuple[tuple[Any, ...],
