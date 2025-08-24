@@ -1,26 +1,29 @@
-from typing import Any
+from typing import Any, TypeVar
 
 
-def try_convert_to_type(value: Any, target_type: type) -> Any:
+T = TypeVar("T")
+
+
+def try_convert_to_type(value: Any, target_type: type[T]) -> T:
     """
-    Attempts to convert a given value to a specified type.
+    Attempt to convert ``value`` to ``target_type``.
 
     Parameters
     ----------
     value : Any
         The value to be converted.
-    target_type : Type
-        The type to which `value` should be converted.
+    target_type : type[T]
+        The type to which ``value`` should be converted.
 
     Returns
     -------
-    Any
+    T
         The converted value if the conversion is successful.
 
     Raises
     ------
     TypeError
-        If target_type is not a type.
+        If ``target_type`` is not a ``type``.
     ValueError
         If the conversion fails.
     """
