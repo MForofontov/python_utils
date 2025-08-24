@@ -16,6 +16,11 @@ def polyline_encoding_list_of_ints(list_of_ints: list[int]) -> str:
     ------
     ValueError
         If the input list is empty.
+
+    Examples
+    --------
+    >>> polyline_encoding_list_of_ints([1, 2])
+    'AA'
     """
     if not list_of_ints:
         raise ValueError("Input list cannot be empty.")
