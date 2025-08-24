@@ -14,10 +14,12 @@ from .array_sort import array_sort
 from .array_unique import array_unique
 from .array_clip import array_clip
 from .array_abs import array_abs
+from .array_sign import array_sign
 from .array_sqrt import array_sqrt
 from .array_exp import array_exp
 from .array_log import array_log
 from .array_floor import array_floor
+from .array_ceil import array_ceil
 from .array_round import array_round
 from .array_reshape import array_reshape
 from .array_percentile import array_percentile
@@ -54,10 +56,12 @@ __all__ = [
     "array_unique",
     "array_clip",
     "array_abs",
+    "array_sign",
     "array_sqrt",
     "array_exp",
     "array_log",
     "array_floor",
+    "array_ceil",
     "array_round",
     "array_reshape",
     "array_percentile",
