@@ -1,14 +1,15 @@
-from typing import Any
+from typing import TypeVar
 from collections import Counter
 
+T = TypeVar("T")
 
-def check_if_all_elements_are_duplicates(input_list: list[Any]) -> bool:
+def check_if_all_elements_are_duplicates(input_list: list[T]) -> bool:
     """
     Check if all elements in the list are duplicates.
 
     Parameters
     ----------
-    input_list : list
+    input_list : list[T]
         The list to check for duplicate elements.
 
     Returns

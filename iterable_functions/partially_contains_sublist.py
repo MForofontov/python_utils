@@ -1,18 +1,19 @@
-from typing import Any
+from typing import TypeVar
 from iterable_functions.any_match_lists import any_match_lists
 
+T = TypeVar("T")
 
 def partially_contains_sublist(
-    main_list: list[Any], list_of_lists: list[list[Any]]
+    main_list: list[T], list_of_lists: list[list[T]]
 ) -> bool:
     """
     Check if elements of the main list are partially contained in any sublist of the list of lists.
 
     Parameters
     ----------
-    main_list : list
+    main_list : list[T]
         The query list to check for partial containment.
-    list_of_lists : list
+    list_of_lists : list[list[T]]
         The subject list containing sublists to compare against the query list.
 
     Returns

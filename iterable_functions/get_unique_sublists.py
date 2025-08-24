@@ -1,18 +1,19 @@
-from typing import Any
+from typing import TypeVar
 
+T = TypeVar("T")
 
-def get_unique_sublists(list_of_lists: list[list[Any]]) -> list[list[Any]]:
+def get_unique_sublists(list_of_lists: list[list[T]]) -> list[list[T]]:
     """
     Identify unique sublists within a list of lists.
 
     Parameters
     ----------
-    list_of_lists : list
+    list_of_lists : list[list[T]]
         The list containing various sublists.
 
     Returns
     -------
-    list
+    list[list[T]]
         List containing unique sublists.
 
     Raises

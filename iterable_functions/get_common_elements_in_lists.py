@@ -1,18 +1,19 @@
-from typing import Any
+from typing import TypeVar
 
+T = TypeVar("T")
 
-def get_common_elements_in_lists(list_of_lists: list[list[Any]]) -> list[Any]:
+def get_common_elements_in_lists(list_of_lists: list[list[T]]) -> list[T]:
     """
     Finds common elements between various lists.
 
     Parameters
     ----------
-    list_of_lists : list
+    list_of_lists : list[list[T]]
         Contains a list of lists.
 
     Returns
     -------
-    list
+    list[T]
         Returns a list that contains the intersection of all elements inside the list of lists.
 
     Raises

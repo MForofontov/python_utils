@@ -1,19 +1,20 @@
-from typing import Any
+from typing import TypeVar
 from collections import Counter
 
+T = TypeVar("T")
 
-def get_shared_elements(dict_: dict[str, list[Any]]) -> list[Any]:
+def get_shared_elements(dict_: dict[str, list[T]]) -> list[T]:
     """
     Identify elements that appear in at least two lists within a dictionary.
 
     Parameters
     ----------
-    dict_ : dict
+    dict_ : dict[str, list[T]]
         A dictionary where the values are lists of elements.
 
     Returns
     -------
-    list
+    list[T]
         A list containing elements that appear in at least two lists within the dictionary.
 
     Raises
