@@ -1,59 +1,61 @@
-from typing import Any
+from collections.abc import Hashable
+from typing import Generic, TypeVar
+
+T = TypeVar("T", bound=Hashable)
 
 
-class UnionFind:
+class UnionFind(Generic[T]):
     """
     A Union-Find (Disjoint Set) data structure.
 
     Attributes
     ----------
-    parent : Dict[Any, Any]
+    parent : Dict[T, T]
         A dictionary that maps each element to its parent.
-    rank : Dict[Any, int]
+    rank : Dict[T, int]
         A dictionary that stores the rank (or depth) of each element's tree.
 
     Methods
     -------
-    find(element: Any) -> Any
+    find(element: T) -> T
         Finds the representative of the set containing the element.
-    union(element1: Any, element2: Any) -> None
+    union(element1: T, element2: T) -> None
         Merges the sets containing the two elements.
-    connected(element1: Any, element2: Any) -> bool
+    connected(element1: T, element2: T) -> bool
         Checks if the two elements are in the same set.
     """
 
     def __init__(self) -> None:
-        self.parent: dict[Any, Any] = {}
-        self.rank: dict[Any, int] = {}
+        self.parent: dict[T, T] = {}
+        self.rank: dict[T, int] = {}
 
-    def find(self, element: Any) -> Any:
+    def find(self, element: T) -> T:
         """
         Finds the representative of the set containing the element.
 
         Parameters
         ----------
-        element : Any
+        element : T
             The element to find.
 
         Returns
         -------
-        Any
+        T
             The representative (root) of the set containing the element.
         """
         if self.parent.get(element) != element:
-            self.parent[element] = self.find(
-                self.parent[element])  # Path compression
+            self.parent[element] = self.find(self.parent[element])
         return self.parent.get(element, element)
 
-    def union(self, element1: Any, element2: Any) -> None:
+    def union(self, element1: T, element2: T) -> None:
         """
         Merges the sets containing the two elements.
 
         Parameters
         ----------
-        element1 : Any
+        element1 : T
             The first element.
-        element2 : Any
+        element2 : T
             The second element.
         """
         root1 = self.find(element1)
@@ -69,15 +71,15 @@ class UnionFind:
                 self.parent[root2] = root1
                 self.rank[root1] = self.rank.get(root1, 0) + 1
 
-    def connected(self, element1: Any, element2: Any) -> bool:
+    def connected(self, element1: T, element2: T) -> bool:
         """
         Checks if the two elements are in the same set.
 
         Parameters
         ----------
-        element1 : Any
+        element1 : T
             The first element.
-        element2 : Any
+        element2 : T
             The second element.
 
         Returns

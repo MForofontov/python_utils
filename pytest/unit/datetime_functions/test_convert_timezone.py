@@ -1,0 +1,82 @@
+import pytest
+from datetime import datetime
+import pytz
+from datetime_functions.convert_timezone import convert_timezone
+
+
+def test_convert_timezone_naive_to_timezone() -> None:
+    """
+    Test convert_timezone function converting naive datetime to timezone.
+    """
+    # Test case 1: Naive datetime to UTC
+    naive_dt: datetime = datetime(2023, 1, 15, 12, 0, 0)
+    result: datetime = convert_timezone(naive_dt, 'UTC')
+    assert isinstance(result, datetime)
+    assert result.tzinfo is not None
+    assert result.hour == 12
+
+
+def test_convert_timezone_aware_to_different_timezone() -> None:
+    """
+    Test convert_timezone function converting timezone-aware datetime to different timezone.
+    """
+    # Test case 2: UTC to EST
+    utc_tz = pytz.UTC
+    utc_dt: datetime = utc_tz.localize(datetime(2023, 1, 15, 17, 0, 0))
+    result: datetime = convert_timezone(utc_dt, 'US/Eastern')
+    assert isinstance(result, datetime)
+    assert result.tzinfo is not None
+    assert result.hour == 12  # UTC 17:00 = EST 12:00
+
+
+def test_convert_timezone_with_pytz_objects() -> None:
+    """
+    Test convert_timezone function with pytz timezone objects.
+    """
+    # Test case 3: Using pytz objects
+    utc_tz = pytz.UTC
+    est_tz = pytz.timezone('US/Eastern')
+    utc_dt: datetime = utc_tz.localize(datetime(2023, 1, 15, 17, 0, 0))
+    result: datetime = convert_timezone(utc_dt, est_tz)
+    assert isinstance(result, datetime)
+    assert result.tzinfo is not None
+
+
+def test_convert_timezone_with_from_timezone() -> None:
+    """
+    Test convert_timezone function with explicit from_timezone.
+    """
+    # Test case 4: Explicit from timezone
+    naive_dt: datetime = datetime(2023, 1, 15, 12, 0, 0)
+    result: datetime = convert_timezone(naive_dt, 'UTC', 'US/Eastern')
+    assert isinstance(result, datetime)
+    assert result.tzinfo is not None
+
+
+def test_convert_timezone_invalid_input_type() -> None:
+    """
+    Test convert_timezone function with invalid input type raises TypeError.
+    """
+    # Test case 5: Invalid input types
+    with pytest.raises(TypeError):
+        convert_timezone('2023-01-15', 'UTC')
+    
+    with pytest.raises(TypeError):
+        convert_timezone(123, 'UTC')
+    
+    with pytest.raises(TypeError):
+        convert_timezone(None, 'UTC')
+
+
+def test_convert_timezone_invalid_timezone_name() -> None:
+    """
+    Test convert_timezone function with invalid timezone name raises ValueError.
+    """
+    # Test case 6: Invalid timezone names
+    dt: datetime = datetime(2023, 1, 15, 12, 0, 0)
+    
+    with pytest.raises(ValueError):
+        convert_timezone(dt, 'Invalid/Timezone')
+    
+    with pytest.raises(ValueError):
+        convert_timezone(dt, 'UTC', 'Invalid/Timezone')
