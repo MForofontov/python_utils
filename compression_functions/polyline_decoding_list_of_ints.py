@@ -19,6 +19,11 @@ def polyline_decoding_list_of_ints(encoded_text: str) -> list[float]:
     ------
     ValueError
         If the encoded_text is empty or improperly formatted.
+
+    Examples
+    --------
+    >>> polyline_decoding_list_of_ints('AA')
+    [0.01]
     """
     if not encoded_text:
         raise ValueError("Encoded text cannot be empty.")
@@ -43,7 +48,10 @@ def polyline_decoding_list_of_ints(encoded_text: str) -> list[float]:
 
     # Adjust numbers for precision
     scale_factor: float = 10 ** (-precision)
-    return [round(number * scale_factor, precision) for number in decoded_numbers]
+    return [
+        round(number * scale_factor, precision)
+        for number in decoded_numbers
+    ]
 
 
 __all__ = ['polyline_decoding_list_of_ints']

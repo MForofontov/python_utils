@@ -8,7 +8,9 @@ R = TypeVar("R")
 
 
 async def async_batch(
-    func: Callable[[list[T]], Awaitable[list[R]]], items: list[T], batch_size: int
+    func: Callable[[list[T]], Awaitable[list[R]]],
+    items: list[T],
+    batch_size: int,
 ) -> list[R]:
     """
     Process items in batches using an asynchronous function.
@@ -27,6 +29,11 @@ async def async_batch(
     List[R]
         A list of results from processing all the batches.
 
+    Raises
+    ------
+    Exception
+        Propagates any exception raised by ``func`` during batch processing.
+
     Examples
     --------
     >>> async def process_batch(batch: List[int]) -> List[int]:
@@ -43,7 +50,7 @@ async def async_batch(
         # Get the current batch of items
         batch = items[i: i + batch_size]
 
-        # Apply the asynchronous function to the current batch and await the result
+        # Apply ``func`` to the batch and await the result
         result = await func(batch)
 
         # Extend the results list with the result of the current batch
