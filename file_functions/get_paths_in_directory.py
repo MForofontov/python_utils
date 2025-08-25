@@ -29,6 +29,10 @@ def get_paths_in_directory(directory: str, type_: str) -> list[str]:
     ------
     ValueError
         If the `type_` parameter is not one of the valid options ('files', 'directories', 'all').
+    FileNotFoundError
+        If the specified directory does not exist.
+    PermissionError
+        If the directory cannot be accessed due to insufficient permissions.
     """
     if_type: Callable[[str], bool]
     if type_ == "files":
@@ -40,7 +44,12 @@ def get_paths_in_directory(directory: str, type_: str) -> list[str]:
     else:
         raise ValueError(f"Invalid type: {type_}")
 
-    all_items: list[str] = os.listdir(directory)
+    try:
+        all_items: list[str] = os.listdir(directory)
+    except OSError as exc:
+        raise type(exc)(
+            f"Unable to access directory '{directory}': {exc}"
+        ) from exc
     file_paths: list[str] = [
         os.path.join(directory, item)
         for item in all_items
