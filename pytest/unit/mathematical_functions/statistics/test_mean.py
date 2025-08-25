@@ -1,5 +1,5 @@
 import pytest
-from statistics_functions.mean import mean
+from mathematical_functions.statistics.mean import mean
 
 
 def test_mean_success() -> None:
