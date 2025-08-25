@@ -1,5 +1,5 @@
 import pytest
-from statistics_functions.median import median
+from mathematical_functions.statistics.median import median
 
 
 def test_median_odd_length() -> None:

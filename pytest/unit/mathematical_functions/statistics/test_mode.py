@@ -1,5 +1,5 @@
 import pytest
-from statistics_functions.mode import mode
+from mathematical_functions.statistics.mode import mode
 
 
 def test_mode_single_mode() -> None:

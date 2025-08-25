@@ -1,5 +1,5 @@
 import pytest
-from statistics_functions.random_floats import random_floats
+from mathematical_functions.random.random_floats import random_floats
 
 
 def test_random_floats_default_range() -> None:
