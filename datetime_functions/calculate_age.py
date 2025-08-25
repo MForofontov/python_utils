@@ -4,20 +4,37 @@ from datetime import datetime, date
 from typing import Union
 
 
-def calculate_age(birth_date: Union[datetime, date], reference_date: Union[datetime, date] = None) -> int:
+def calculate_age(
+    birth_date: Union[datetime, date],
+    reference_date: Union[datetime, date] = None,
+) -> int:
     """
-    Calculate age in years from a birth date.
-    
-    Args:
-        birth_date: The birth date
-        reference_date: The reference date to calculate age against (default: today)
-        
-    Returns:
-        Age in years
-        
-    Raises:
-        TypeError: If birth_date is not a datetime or date object
-        ValueError: If birth_date is in the future
+    Calculate the age in years from a birth date.
+
+    Parameters
+    ----------
+    birth_date : datetime | date
+        The birth date.
+    reference_date : datetime | date, optional
+        Date against which to calculate the age. Defaults to today's date.
+
+    Returns
+    -------
+    int
+        Age in completed years.
+
+    Raises
+    ------
+    TypeError
+        If ``birth_date`` or ``reference_date`` is not a ``datetime`` or ``date`` object.
+    ValueError
+        If ``birth_date`` occurs after ``reference_date``.
+
+    Examples
+    --------
+    >>> from datetime import date
+    >>> calculate_age(date(2000, 1, 1), date(2020, 1, 1))
+    20
     """
     if not isinstance(birth_date, (datetime, date)):
         raise TypeError("birth_date must be a datetime or date object")

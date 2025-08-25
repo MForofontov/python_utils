@@ -1,45 +1,511 @@
 # Python Utilities
 
-A collection of reusable Python functions covering a wide range of tasks. The project is organized into folders by topic and includes unit tests for each module.
+A comprehensive collection of reusable Python utilities and functions covering a wide range of programming tasks. This library provides modular, well-tested, and documented functions organized by domain to help accelerate development across various Python projects.
 
-## Contents
+## 🚀 Overview
 
-- **asyncio_functions/** – helpers for asynchronous programming such as task throttling, retries and timeouts.
-- **compression_functions/** – utilities for compressing and decompressing data with algorithms like BZ2, GZIP, LZMA, Snappy, Zlib and Zstandard.
-- **decorators/** – decorator functions for caching, conditional execution and error handling.
-- **file_functions/** – file system helpers for copying files, creating directories and parsing tabular data.
-- **iterable_functions/** – operations for lists, sets and other iterables.
-- **linux_functions/** – utilities for monitoring Linux processes and resources.
-- **multiprocessing_functions/** – patterns for parallel processing using the `multiprocessing` module.
-- **pandas_functions/** – simple wrappers around common `pandas` DataFrame tasks.
-- **print_functions/** – print formatted messages and system information to the terminal.
-- **statistics_functions/** – basic statistical calculations.
-- **strings_utility/** – handy string manipulation helpers.
-- **data_types/** – implementations of data structures such as graphs, heaps and queues.
+This repository contains over 200+ utility functions, classes, and decorators organized into 14 specialized modules. Each module focuses on a specific domain and provides production-ready implementations with comprehensive documentation, type hints, and unit tests.
 
-## Installation
+## 📦 Installation
 
-This project requires Python 3.10 or later.
+### From Source
+```bash
+git clone https://github.com/MForofontov/python-utils.git
+cd python-utils
+pip install .
+```
+
+### Development Installation
+```bash
+git clone https://github.com/MForofontov/python-utils.git
+cd python-utils
+pip install -e ".[dev]"
+```
+
+## 🗂️ Module Structure
+
+### 🔄 Asyncio Functions (`asyncio_functions/`)
+Advanced asynchronous programming utilities for building robust async applications:
+
+- **Task Management**: `async_batch`, `async_chain`, `async_throttle`, `async_timeout`
+- **Error Handling**: `async_await_with_error_handling`, `async_retry_with_backoff`
+- **Resource Management**: `AsyncConnectionPool`, `use_connection`, `async_cleanup`
+- **Rate Limiting**: `async_rate_limited`, `async_periodic`
+- **Concurrency**: `gather_with_timeout`, `run_in_parallel`, `async_map`
+- **HTTP Utilities**: `fetch`, `fetch_all`
+- **Stream Processing**: `async_stream_processor`
+- **Task Control**: `async_cancellable_task`
+
+**Key Features:**
+- Connection pooling for database/HTTP connections
+- Configurable retry mechanisms with exponential backoff
+- Rate limiting and throttling for API calls
+- Stream processing for large datasets
+- Graceful cleanup and cancellation handling
+
+### 🗜️ Compression Functions (`compression_functions/`)
+Comprehensive data compression utilities supporting multiple algorithms:
+
+#### Binary Compression
+- **Algorithms**: GZIP, BZ2, LZMA, Zlib, Snappy, Zstandard
+- **Functions**: `compress_data`, `decompress_data` with auto-detection
+- **Performance**: Optimized for speed and compression ratio
+
+#### File Compression
+- **Archive Formats**: ZIP, TAR (with GZIP/BZ2/LZMA)
+- **File Operations**: `compress_zip`, `decompress_file_zip`, `compress_tar`
+- **Batch Processing**: Handle multiple files and directories
+
+#### Specialized Compression
+- **Polyline Encoding**: `polyline_encoding_list_of_ints`, `polyline_decoding_list_of_ints`
+- **Number Compression**: `decompress_number` for numerical data
+
+### 🎨 Decorators (`decorators/`)
+Powerful decorators for function enhancement and cross-cutting concerns:
+
+#### Performance & Monitoring
+- `@time_function`: Execution time measurement
+- `@time_and_resource_function`: CPU, memory, and time profiling
+- `@cache`: Function result caching with TTL
+- `@cache_with_expiration`: Time-based cache invalidation
+
+#### Error Handling & Resilience
+- `@handle_error`: Comprehensive error handling with logging
+- `@async_handle_error`: Async-specific error management
+- `@retry`: Configurable retry logic with backoff
+- `@timeout`: Function execution timeouts
+
+#### Input/Output Processing
+- `@enforce_types`: Runtime type checking
+- `@validate_args`: Argument validation
+- `@normalize_input`: Input data normalization
+- `@format_output`: Output formatting and serialization
+- `@serialize_output`: JSON/pickle serialization
+
+#### Control Flow
+- `@conditional_execute`: Conditional function execution
+- `@conditional_return`: Smart return value handling
+- `@rate_limit`: Function call rate limiting
+- `@throttle`: Request throttling
+- `@deprecated`: Deprecation warnings
+
+#### Development & Debugging
+- `@log_function_calls`: Comprehensive call logging
+- `@log_signature`: Function signature logging
+- `@redirect_output`: Output redirection
+- `@multi_decorator`: Decorator composition
+- `@chain`: Function chaining
+
+#### Advanced Features
+- `@async_wrapper`: Sync-to-async conversion
+- `@event_trigger`: Event-driven programming
+- `@env_config`: Environment-based configuration
+- `@requires_permission`: Permission-based access control
+
+### 🏗️ Data Types (`data_types/`)
+Complete implementations of fundamental data structures:
+
+#### Trees
+- **AVL Tree**: `AVLNode`, `AVLTree` - Self-balancing binary search tree
+- **Red-Black Tree**: `RedBlackNode`, `RedBlackTree` - Balanced binary tree
+- **Splay Tree**: `SplayNode`, `SplayTree` - Self-adjusting binary tree
+- **Binary Tree**: `BinaryTreeNode`, `BinaryTree` - Basic binary tree
+- **Segment Tree**: `SegmentTree` - Range query optimization
+- **Trie**: `TrieNode`, `Trie` - Prefix tree for string operations
+
+#### Linear Data Structures
+- **Linked List**: `Node`, `LinkedList` - Dynamic linear structure
+- **Stack**: `Stack` - LIFO data structure
+- **Queue**: `Queue` - FIFO data structure
+- **Deque**: `Deque` - Double-ended queue
+- **Circular Queue**: `CircularQueue` - Fixed-size circular buffer
+
+#### Advanced Structures
+- **Graph**: `Graph` - Adjacency list representation with algorithms
+- **Hash Table**: `HashTable` - Custom hash table implementation
+- **Binary Heap**: `BinaryHeap` - Min/max heap operations
+- **Priority Queue**: `PriorityQueue` - Priority-based queue
+- **Skip List**: `SkipNode`, `SkipList` - Probabilistic data structure
+- **Union Find**: `UnionFind` - Disjoint set data structure
+
+### 📅 Datetime Functions (`datetime_functions/`)
+Comprehensive date and time manipulation utilities:
+
+#### Date Operations
+- **Calculations**: `calculate_age`, `days_between`, `time_ago`, `time_until`
+- **Comparisons**: `compare_dates`, `is_today`, `is_weekend`, `is_leap_year`
+- **Parsing**: `parse_date`, `format_date`, `get_current_datetime_iso`
+
+#### Date Components
+- **Extraction**: `get_date_parts`, `get_week_number`, `get_days_in_month`
+- **Calendar**: `get_days_of_week`, `get_start_of_week`, `get_end_of_week`
+
+#### Date Manipulation
+- **Modification**: `modify_days`, `modify_weeks`, `modify_months`, `modify_years`
+- **Boundaries**: `get_start_of_month`, `get_end_of_month`, `get_start_of_year`, `get_end_of_year`
+- **Timezone**: `convert_timezone`
+
+### 📁 File Functions (`file_functions/`)
+Robust file system operations and data processing:
+
+#### File Operations
+- **Basic**: `copy_file`, `check_and_delete_file`, `write_to_file`
+- **Directory**: `create_directory`, `copy_folder`, `merge_folders`, `cleanup`
+- **Path Utilities**: `join_paths`, `file_basename`, `get_paths_dict`
+
+#### File Discovery
+- **Search**: `get_paths_in_directory`, `get_paths_in_directory_with_suffix`
+- **Filtering**: Support for pattern matching and recursive search
+
+#### Data Processing
+- **Text Files**: `read_lines`, `write_lines`, `concat_files`
+- **Tabular Data**: `read_tabular` - CSV/TSV parsing with custom delimiters
+- **JSON**: `json_to_dict`, `write_dict_to_json` - JSON file operations
+- **TSV**: `tsv_to_dict`, `write_dict_to_tsv` - Tab-separated value handling
+
+### 🌐 HTTP Functions (`http_functions/`)
+HTTP client utilities for web API interactions:
+
+- **Request Methods**: Support for GET, POST, PUT, DELETE, PATCH
+- **Authentication**: Basic, Bearer token, API key support
+- **Session Management**: Persistent connections and cookie handling
+- **Error Handling**: Retry logic and timeout management
+- **Response Processing**: JSON parsing and error detection
+
+### 🔧 Iterable Functions (`iterable_functions/`)
+Advanced operations for Python iterables and data structures:
+
+#### List Operations
+- **Manipulation**: `flatten_list`, `divide_list_into_n_chunks`
+- **Search**: `find_sublist_index`, `get_max_min_values`
+- **Analysis**: `identify_dict_structure`
+
+#### Data Processing
+- **Transformation**: Element-wise operations and filtering
+- **Aggregation**: Statistical operations on iterables
+- **Validation**: Structure and type checking
+
+### 📊 JSON Functions (`json_functions/`)
+JSON data manipulation and validation utilities:
+
+- **Parsing**: Safe JSON parsing with error handling
+- **Validation**: Schema validation and structure checking
+- **Transformation**: JSON-to-object and object-to-JSON conversion
+- **Merging**: Deep merge operations for complex JSON structures
+
+### 🐧 Linux Functions (`linux_functions/`)
+System monitoring and process management for Linux environments:
+
+#### Process Monitoring
+- **CPU Usage**: Real-time CPU utilization tracking
+- **Memory Usage**: RAM and swap memory monitoring
+- **Process Information**: PID, command line, and status retrieval
+
+#### System Information
+- **Hardware**: CPU count, architecture, and specifications
+- **Network**: Interface statistics and connection monitoring
+- **Disk**: Storage usage and I/O statistics
+
+### 🔧 Logger Functions (`logger_functions/`)
+Advanced logging configuration and management:
+
+- **Logger Creation**: `get_logger` - Configured logger instances
+- **Validation**: `validate_logger` - Logger configuration verification
+- **Formatting**: Custom formatters for different output formats
+- **Handlers**: File, console, and rotating log handlers
+
+### ⚡ Multiprocessing Functions (`multiprocessing_functions/`)
+Parallel processing utilities for CPU-intensive tasks:
+
+- **Process Pools**: Managed worker processes
+- **Task Distribution**: Automatic workload balancing
+- **Result Aggregation**: Efficient result collection
+- **Error Handling**: Process failure recovery
+
+### 🖨️ Print Functions (`print_functions/`)
+Enhanced console output and system information display:
+
+- **Formatted Output**: `print_message` - Styled console messages
+- **System Info**: `print_system_info_in_terminal` - Hardware and OS details
+- **Dependencies**: `print_dependencies_info_in_terminal` - Package information
+- **Styling**: Color support and formatting options
+
+### 📈 Statistics Functions (`statistics_functions/`)
+Mathematical and statistical computation utilities:
+
+- **Descriptive Statistics**: Mean, median, mode, standard deviation
+- **Distributions**: Normal, binomial, and custom distributions
+- **Correlation**: Pearson and Spearman correlation coefficients
+- **Regression**: Linear and polynomial regression analysis
+
+### 🔤 String Utilities (`strings_utility/`)
+Comprehensive string manipulation and processing:
+
+- **Formatting**: Case conversion, padding, and alignment
+- **Validation**: Pattern matching and format verification
+- **Transformation**: Encoding, escaping, and normalization
+- **Parsing**: String tokenization and extraction
+
+## 🛠️ Dependencies
+
+### Core Dependencies
+- **cramjam** (2.11.0) - Fast compression/decompression
+- **python-snappy** (0.7.3) - Snappy compression bindings
+- **zstandard** (0.23.0) - Zstandard compression
+- **psutil** (7.0.0) - System and process utilities
+- **tqdm** (4.67.1) - Progress bars
+- **numpy** (2.3.2) - Numerical computing
+- **aiohttp** (3.12.15) - Async HTTP client/server
+- **pandas** (2.3.1) - Data manipulation and analysis
+
+### Development Dependencies
+- **pytest** (8.4.1) - Testing framework
+- **pytest-asyncio** (1.1.0) - Async testing support
+- **allure-pytest** (2.15.0) - Test reporting
+- **pylint** (3.3.7) - Code analysis
+- **mypy** (1.17.1) - Static type checking
+
+## 🧪 Testing
+
+The project includes comprehensive unit tests for all modules:
 
 ```bash
-# clone the repository
-git clone https://github.com/MForofontov/python-utils
+# Run all tests
+pytest
+
+# Run tests for specific module
+pytest pytest/unit/asyncio_functions/
+
+# Run with coverage
+pytest --cov=. --cov-report=html
+
+# Run with allure reporting
+pytest --alluredir=allure-results
+allure serve allure-results
+```
+
+### Test Structure
+```
+pytest/
+├── conftest.py              # Test configuration
+└── unit/                    # Unit tests
+    ├── asyncio_functions/   # Async function tests
+    ├── compression_functions/ # Compression tests
+    ├── data_types/          # Data structure tests
+    ├── decorators/          # Decorator tests
+    └── ...                  # Other module tests
+```
+
+## 📚 Usage Examples
+
+### Asyncio Functions
+```python
+from asyncio_functions import async_retry_with_backoff, fetch_all, AsyncConnectionPool
+
+# Retry with exponential backoff
+@async_retry_with_backoff(max_retries=3, base_delay=1.0)
+async def unreliable_api_call():
+    # Your async function here
+    pass
+
+# Fetch multiple URLs concurrently
+urls = ['http://api1.com', 'http://api2.com']
+results = await fetch_all(urls, max_concurrent=10)
+
+# Connection pooling
+async with AsyncConnectionPool(max_connections=5) as pool:
+    async with use_connection(pool) as conn:
+        # Use connection
+        pass
+```
+
+### Decorators
+```python
+from decorators import cache, time_function, handle_error, validate_args
+
+# Function caching
+@cache(maxsize=100, ttl=300)
+def expensive_computation(x, y):
+    return x ** y
+
+# Performance monitoring
+@time_function
+def slow_function():
+    # Function implementation
+    pass
+
+# Error handling
+@handle_error(default_return=None, log_errors=True)
+def risky_function():
+    # Function that might fail
+    pass
+
+# Argument validation
+@validate_args(types={'x': int, 'y': str})
+def typed_function(x: int, y: str):
+    return f"{y}: {x}"
+```
+
+### Data Types
+```python
+from data_types import AVLTree, Graph, HashTable, Trie
+
+# Self-balancing tree
+tree = AVLTree()
+tree.insert(10)
+tree.insert(5)
+tree.insert(15)
+
+# Graph operations
+graph = Graph()
+graph.add_edge('A', 'B', weight=5)
+path = graph.shortest_path('A', 'B')
+
+# Hash table
+ht = HashTable(capacity=100)
+ht.put('key', 'value')
+
+# Trie for string operations
+trie = Trie()
+trie.insert('hello')
+trie.insert('world')
+suggestions = trie.get_words_with_prefix('hel')
+```
+
+### File Operations
+```python
+from file_functions import read_tabular, write_dict_to_json, copy_folder
+
+# Read CSV/TSV files
+data = read_tabular('data.csv', delimiter=',', headers=True)
+
+# JSON operations
+data = {'name': 'John', 'age': 30}
+write_dict_to_json(data, 'output.json')
+
+# Directory operations
+copy_folder('source/', 'destination/', overwrite=True)
+```
+
+### Compression
+```python
+from compression_functions import compress_data, decompress_data, compress_zip
+
+# Automatic compression
+data = b"Hello, World!" * 1000
+compressed = compress_data(data, algorithm='gzip')
+decompressed = decompress_data(compressed)
+
+# File compression
+compress_zip(['file1.txt', 'file2.txt'], 'archive.zip')
+```
+
+## 🔧 Configuration
+
+### Environment Variables
+Many functions support configuration through environment variables:
+
+```bash
+# Logging configuration
+export LOG_LEVEL=DEBUG
+export LOG_FORMAT='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+
+# HTTP client settings
+export HTTP_TIMEOUT=30
+export HTTP_MAX_RETRIES=3
+
+# Compression settings
+export DEFAULT_COMPRESSION='gzip'
+export COMPRESSION_LEVEL=6
+```
+
+### Configuration Files
+Some modules support configuration files (JSON/YAML):
+
+```json
+{
+  "async_settings": {
+    "max_concurrent_requests": 10,
+    "timeout": 30,
+    "retry_attempts": 3
+  },
+  "compression": {
+    "default_algorithm": "gzip",
+    "compression_level": 6
+  }
+}
+```
+
+## 🏗️ Architecture
+
+### Design Principles
+1. **Modularity**: Each module is self-contained and independently usable
+2. **Type Safety**: Comprehensive type hints throughout the codebase
+3. **Error Handling**: Robust error handling with informative messages
+4. **Performance**: Optimized implementations for common use cases
+5. **Documentation**: Extensive docstrings with examples
+6. **Testing**: High test coverage with unit and integration tests
+
+### Code Quality
+- **Static Analysis**: pylint and mypy for code quality
+- **Formatting**: Consistent code style
+- **Documentation**: NumPy-style docstrings
+- **Version Control**: Semantic versioning
+
+## 🤝 Contributing
+
+### Development Setup
+```bash
+# Clone and setup
+git clone https://github.com/MForofontov/python-utils.git
 cd python-utils
 
-# create and activate a virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+# Install in development mode
+pip install -e ".[dev]"
 
-# install runtime dependencies
-pip install -r requirements.txt
-
-# install additional packages for development and testing
-pip install -r requirements_dev.txt
-# alternatively install the optional "dev" extras defined in `pyproject.toml`
-pip install -e .[dev]
+# Run quality checks
+pylint python_utils/
+mypy python_utils/
+pytest
 ```
-`tqdm` is used for progress bars. The runtime requirements file also installs
-`aiohttp` for asynchronous HTTP helpers and `pandas` for the dataframe utilities.
+
+### Contribution Guidelines
+1. **Code Style**: Follow PEP 8 and existing patterns
+2. **Documentation**: Add docstrings for all public functions
+3. **Testing**: Include unit tests for new functionality
+4. **Type Hints**: Add type annotations for all parameters and returns
+5. **Error Handling**: Include appropriate error handling and validation
+
+### Adding New Modules
+1. Create module directory with `__init__.py`
+2. Implement functions with proper documentation
+3. Add comprehensive unit tests
+4. Update main `__init__.py` and documentation
+5. Run full test suite
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🔗 Links
+
+- **Repository**: https://github.com/MForofontov/python-utils
+- **Documentation**: [Coming Soon]
+- **Issues**: https://github.com/MForofontov/python-utils/issues
+- **Discussions**: https://github.com/MForofontov/python-utils/discussions
+
+## 📝 Changelog
+
+### Version 0.1.0
+- Initial release with 14 core modules
+- Over 200+ utility functions and classes
+- Comprehensive test suite
+- Full type annotation support
+- Documentation and examples
+
+---
+
+**Made with ❤️ by the Python Utils Team**
 
 ## Running Tests
 
