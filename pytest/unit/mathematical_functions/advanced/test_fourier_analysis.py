@@ -157,9 +157,27 @@ def test_fourier_transform_complex_input() -> None:
     assert all(isinstance(x, complex) for x in result['transform'])
 
 
+def test_fourier_transform_return_structure() -> None:
+    """
+    Test case 11: Test return structure completeness.
+    """
+    signal = [1, 2, 3, 4]
+
+    result = fourier_transform(signal, method='dft', sampling_rate=4)
+
+    required_keys = ['transform', 'magnitude', 'phase', 'frequencies',
+                     'method_used', 'n_samples', 'windowed_signal']
+    for key in required_keys:
+        assert key in result
+
+    assert len(result['magnitude']) == len(signal)
+    assert len(result['phase']) == len(signal)
+    assert len(result['frequencies']) == len(signal)
+
+
 def test_fourier_transform_empty_signal() -> None:
     """
-    Test case 11: Test error with empty signal.
+    Test case 12: Test error with empty signal.
     """
     with pytest.raises(ValueError, match="signal cannot be empty"):
         fourier_transform([], method='dft')
@@ -167,7 +185,7 @@ def test_fourier_transform_empty_signal() -> None:
 
 def test_fourier_transform_invalid_method() -> None:
     """
-    Test case 12: Test error with invalid method.
+    Test case 13: Test error with invalid method.
     """
     signal = [1, 2, 3, 4]
     
@@ -177,7 +195,7 @@ def test_fourier_transform_invalid_method() -> None:
 
 def test_fourier_transform_invalid_window() -> None:
     """
-    Test case 13: Test error with invalid window.
+    Test case 14: Test error with invalid window.
     """
     signal = [1, 2, 3, 4]
     
@@ -187,7 +205,7 @@ def test_fourier_transform_invalid_window() -> None:
 
 def test_fourier_transform_invalid_zero_padding() -> None:
     """
-    Test case 14: Test error with invalid zero padding.
+    Test case 15: Test error with invalid zero padding.
     """
     signal = [1, 2, 3, 4]
     
@@ -197,7 +215,7 @@ def test_fourier_transform_invalid_zero_padding() -> None:
 
 def test_fourier_transform_type_errors() -> None:
     """
-    Test case 15: Test type error handling.
+    Test case 16: Test type error handling.
     """
     with pytest.raises(TypeError, match="signal must be a list"):
         fourier_transform("not_a_list", method='dft')
@@ -208,30 +226,12 @@ def test_fourier_transform_type_errors() -> None:
 
 def test_fourier_transform_invalid_sampling_rate() -> None:
     """
-    Test case 16: Test error with invalid sampling rate.
+    Test case 17: Test error with invalid sampling rate.
     """
     signal = [1, 2, 3, 4]
     
     with pytest.raises(ValueError, match="sampling_rate must be positive"):
         fourier_transform(signal, method='dft', sampling_rate=0)
-
-
-def test_fourier_transform_return_structure() -> None:
-    """
-    Test case 17: Test return structure completeness.
-    """
-    signal = [1, 2, 3, 4]
-    
-    result = fourier_transform(signal, method='dft', sampling_rate=4)
-    
-    required_keys = ['transform', 'magnitude', 'phase', 'frequencies', 
-                    'method_used', 'n_samples', 'windowed_signal']
-    for key in required_keys:
-        assert key in result
-    
-    assert len(result['magnitude']) == len(signal)
-    assert len(result['phase']) == len(signal)
-    assert len(result['frequencies']) == len(signal)
 
 
 def test_spectral_analysis_basic() -> None:
@@ -262,32 +262,15 @@ def test_spectral_analysis_custom_parameters() -> None:
     
     result = spectral_analysis(signal, sampling_rate=50, window='hamming',
                              nperseg=100, overlap=0.75)
-    
+
     assert isinstance(result['peak_frequency'], (int, float))
     assert isinstance(result['total_power'], (int, float))
     assert len(result['frequencies']) > 0
 
 
-def test_spectral_analysis_invalid_input() -> None:
-    """
-    Test case 20: Test spectral analysis error handling.
-    """
-    with pytest.raises(TypeError, match="signal must be a list"):
-        spectral_analysis("not_a_list", 100)
-    
-    with pytest.raises(ValueError, match="signal cannot be empty"):
-        spectral_analysis([], 100)
-    
-    with pytest.raises(ValueError, match="sampling_rate must be positive"):
-        spectral_analysis([1, 2, 3], 0)
-    
-    with pytest.raises(ValueError, match="overlap must be between 0 and 1"):
-        spectral_analysis([1, 2, 3], 100, overlap=1.5)
-
-
 def test_spectral_analysis_noisy_signal() -> None:
     """
-    Test case 21: Test spectral analysis with noisy signal.
+    Test case 20: Test spectral analysis with noisy signal.
     """
     import random
     
@@ -306,7 +289,7 @@ def test_spectral_analysis_noisy_signal() -> None:
 
 def test_spectral_analysis_multiple_frequencies() -> None:
     """
-    Test case 22: Test spectral analysis with multiple frequency components.
+    Test case 21: Test spectral analysis with multiple frequency components.
     """
     N = 2000
     sampling_rate = 200
@@ -318,3 +301,20 @@ def test_spectral_analysis_multiple_frequencies() -> None:
     # Should detect dominant frequency (10 Hz has higher amplitude)
     peak_freq = result['peak_frequency']
     assert abs(peak_freq - 10.0) < 2.0 or abs(peak_freq - 25.0) < 2.0
+
+
+def test_spectral_analysis_invalid_input() -> None:
+    """
+    Test case 22: Test spectral analysis error handling.
+    """
+    with pytest.raises(TypeError, match="signal must be a list"):
+        spectral_analysis("not_a_list", 100)
+
+    with pytest.raises(ValueError, match="signal cannot be empty"):
+        spectral_analysis([], 100)
+
+    with pytest.raises(ValueError, match="sampling_rate must be positive"):
+        spectral_analysis([1, 2, 3], 0)
+
+    with pytest.raises(ValueError, match="overlap must be between 0 and 1"):
+        spectral_analysis([1, 2, 3], 100, overlap=1.5)
