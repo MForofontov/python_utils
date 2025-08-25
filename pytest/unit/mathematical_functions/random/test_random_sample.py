@@ -1,5 +1,5 @@
 import pytest
-from statistics_functions.random_sample import random_sample
+from mathematical_functions.random.random_sample import random_sample
 
 
 def test_random_sample_without_replacement() -> None:

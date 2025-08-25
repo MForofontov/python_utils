@@ -1,6 +1,6 @@
 import pytest
 import math
-from statistics_functions.stddev import stddev
+from mathematical_functions.statistics.stddev import stddev
 
 
 def test_stddev_sample() -> None:

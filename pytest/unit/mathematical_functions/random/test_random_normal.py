@@ -1,6 +1,6 @@
 import pytest
 import math
-from statistics_functions.random_normal import random_normal
+from mathematical_functions.random.random_normal import random_normal
 
 
 def test_random_normal_default_parameters() -> None:
