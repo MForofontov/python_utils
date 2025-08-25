@@ -35,6 +35,17 @@ def print_message(
     -------
     None
 
+    Raises
+    ------
+    None
+
+    Examples
+    --------
+    >>> print_message('Hello World')  # doctest: +ELLIPSIS
+    [INFO] ... - Hello World
+    >>> print_message('Warning!', 'warning')  # doctest: +ELLIPSIS
+    [WARNING] ... - Warning!
+
     Notes
     -----
     Messages are logged through the provided ``logger`` or the module level

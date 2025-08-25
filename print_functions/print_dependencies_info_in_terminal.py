@@ -20,6 +20,15 @@ def print_dependencies_info_in_terminal(dependencies: Iterable[str]) -> None:
     Returns
     -------
     None
+
+    Raises
+    ------
+    None
+
+    Examples
+    --------
+    >>> print_dependencies_info_in_terminal(['pip'])  # doctest: +ELLIPSIS
+    ...Dependencies Information...
     """
     terminal_width = shutil.get_terminal_size().columns
     separator = "=" * terminal_width

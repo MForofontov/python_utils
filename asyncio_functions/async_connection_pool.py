@@ -28,6 +28,18 @@ class AsyncConnectionPool(Generic[C]):
         ----------
         max_connections : int
             The maximum number of connections in the pool.
+
+        Returns
+        -------
+        None
+
+        Raises
+        ------
+        None
+
+        Examples
+        --------
+        >>> pool = AsyncConnectionPool[str](max_connections=2)
         """
         self.max_connections = max_connections
         self._pool: asyncio.Queue[C] = asyncio.Queue(max_connections)
@@ -36,10 +48,25 @@ class AsyncConnectionPool(Generic[C]):
         """
         Acquire a connection from the pool.
 
+        Parameters
+        ----------
+        None
+
         Returns
         -------
         C
             A connection from the pool.
+
+        Raises
+        ------
+        None
+
+        Examples
+        --------
+        >>> pool = AsyncConnectionPool[str](1)
+        >>> await pool.add_connection('conn')  # doctest: +SKIP
+        >>> await pool.acquire()  # doctest: +SKIP
+        'conn'
         """
         # Wait until a connection is available and return it
         conn = await self._pool.get()
@@ -53,6 +80,21 @@ class AsyncConnectionPool(Generic[C]):
         ----------
         conn : C
             The connection to release back to the pool.
+
+        Returns
+        -------
+        None
+
+        Raises
+        ------
+        None
+
+        Examples
+        --------
+        >>> pool = AsyncConnectionPool[str](1)
+        >>> await pool.add_connection('conn')  # doctest: +SKIP
+        >>> conn = await pool.acquire()  # doctest: +SKIP
+        >>> await pool.release(conn)  # doctest: +SKIP
         """
         # Put the connection back into the pool
         await self._pool.put(conn)
@@ -70,6 +112,15 @@ class AsyncConnectionPool(Generic[C]):
         ------
         RuntimeError
             If the connection pool is full.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        >>> pool = AsyncConnectionPool[str](1)
+        >>> await pool.add_connection('conn')  # doctest: +SKIP
         """
         # Check if the pool is not full before adding the connection
         if self._pool.qsize() < self.max_connections:
@@ -95,6 +146,19 @@ async def use_connection(
     -------
     T
         The result of the task.
+
+    Raises
+    ------
+    None
+
+    Examples
+    --------
+    >>> async def task(conn: str) -> str:
+    ...     return conn.upper()
+    >>> pool = AsyncConnectionPool[str](1)
+    >>> await pool.add_connection('db')  # doctest: +SKIP
+    >>> await use_connection(pool, task)  # doctest: +SKIP
+    'DB'
     """
     # Acquire a connection from the pool
     conn = await pool.acquire()
