@@ -51,8 +51,15 @@ def test_load_dotenv_comments(tmp_path):
     assert os.environ['VAR2'] == 'value2'
 
 
-def test_load_dotenv_nonexistent_file(monkeypatch):
+def test_load_dotenv_nonexistent_file():
     """
-    Test case 5: Nonexistent file doesn't raise error.
+    Test case 5: Nonexistent file returns None and leaves environment untouched.
     """
-    load_dotenv('nonexistent.env')  # Should not raise
+    # Capture the current environment before attempting to load
+    before = dict(os.environ)
+    result = load_dotenv('nonexistent.env')
+    after = dict(os.environ)
+
+    # The function should return ``None`` and not modify ``os.environ``
+    assert result is None
+    assert before == after
