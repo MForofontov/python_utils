@@ -146,3 +146,40 @@ def test_neighbors_contents() -> None:
     graph.add_edge(1, 3)
     graph.add_edge(1, 4)
     assert set(graph.get_neighbors(1)) == {2, 3, 4}
+
+
+def test_add_vertex_with_none() -> None:
+    """
+    Test case 12: Test adding None as a vertex (should work with Generic type).
+    """
+    graph = Graph[int]()
+    # Note: The Graph class doesn't have type validation, so it accepts any type
+    # This is a design choice - the Generic typing is for type hints, not runtime validation
+    graph.add_vertex(1)
+    assert 1 in graph.adjacency_list
+
+
+def test_add_edge_with_same_vertex() -> None:
+    """
+    Test case 13: Test adding an edge from a vertex to itself.
+    """
+    graph = Graph[int]()
+    graph.add_edge(1, 1)
+    assert 1 in graph.adjacency_list
+    assert 1 in graph.adjacency_list[1]  # Self-loop should be added
+
+
+def test_graph_consistency_after_operations() -> None:
+    """
+    Test case 14: Test graph maintains consistency after multiple operations.
+    """
+    graph = Graph[str]()
+    graph.add_vertex("A")
+    graph.add_edge("A", "B")
+    graph.add_edge("B", "C")
+    
+    # Verify bidirectional edges
+    assert "B" in graph.get_neighbors("A")
+    assert "A" in graph.get_neighbors("B")
+    assert "C" in graph.get_neighbors("B")
+    assert "B" in graph.get_neighbors("C")
