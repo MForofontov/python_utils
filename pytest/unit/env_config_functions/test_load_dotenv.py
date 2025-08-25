@@ -51,7 +51,7 @@ def test_load_dotenv_comments(tmp_path):
     assert os.environ['VAR2'] == 'value2'
 
 
-def test_load_dotenv_nonexistent_file():
+def test_load_dotenv_nonexistent_file(monkeypatch):
     """
     Test case 5: Nonexistent file doesn't raise error.
     """
