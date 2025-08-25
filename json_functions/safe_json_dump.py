@@ -1,7 +1,15 @@
 import json
-from typing import Any, Optional, Type
+from typing import Any, Optional, Type, TypeVar
 
-def safe_json_dump(obj: Any, default: Optional[Any] = None, encoder: Optional[Type[json.JSONEncoder]] = None, **kwargs) -> str:
+T = TypeVar("T")
+
+
+def safe_json_dump(
+    obj: Any,
+    default: Optional[T] = None,
+    encoder: Optional[Type[json.JSONEncoder]] = None,
+    **kwargs,
+) -> str | T:
     """
     Safely dump an object to a JSON string, returning a default value on error.
     
@@ -18,8 +26,9 @@ def safe_json_dump(obj: Any, default: Optional[Any] = None, encoder: Optional[Ty
         
     Returns
     -------
-    str
-        The JSON string, or default if serialization fails.
+    str or T
+        The JSON string, or the provided default value (which may be any type) if
+        serialization fails.
         
     Examples
     --------

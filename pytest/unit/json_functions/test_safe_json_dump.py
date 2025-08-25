@@ -22,9 +22,22 @@ def test_safe_json_dump_invalid():
     result = safe_json_dump(obj, default=None)
     assert result is None
 
+
+def test_safe_json_dump_non_string_default():
+    """
+    Test case 3: Unserializable object returns a non-string default value.
+    """
+    class NotSerializable:
+        pass
+
+    obj = NotSerializable()
+    default = {"error": "failed"}
+    result = safe_json_dump(obj, default=default)
+    assert result is default
+
 def test_safe_json_dump_custom_encoder():
     """
-    Test case 3: Custom encoder is used for special types.
+    Test case 4: Custom encoder is used for special types.
     """
     class MyEncoder(json.JSONEncoder):
         def default(self, obj):
