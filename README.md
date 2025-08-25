@@ -284,6 +284,8 @@ pytest --alluredir=allure-results
 allure serve allure-results
 ```
 
+All tests that involve randomness use a fixed seed (`random.seed(0)`) to ensure reproducible results.
+
 ### Test Structure
 ```
 pytest/

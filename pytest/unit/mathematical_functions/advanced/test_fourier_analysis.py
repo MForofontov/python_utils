@@ -273,11 +273,13 @@ def test_spectral_analysis_noisy_signal() -> None:
     Test case 20: Test spectral analysis with noisy signal.
     """
     import random
-    
+
+    random.seed(0)  # Fixed seed for reproducibility
+
     # Create noisy sine wave
     N = 1000
     sampling_rate = 100
-    signal = [math.sin(2*math.pi*15*i/sampling_rate) + 0.1*random.gauss(0, 1) 
+    signal = [math.sin(2*math.pi*15*i/sampling_rate) + 0.1*random.gauss(0, 1)
               for i in range(N)]
     
     result = spectral_analysis(signal, sampling_rate)

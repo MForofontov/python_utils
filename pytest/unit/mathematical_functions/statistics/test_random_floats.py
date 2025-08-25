@@ -1,5 +1,12 @@
+import random
 import pytest
 from mathematical_functions.random.random_floats import random_floats
+
+
+@pytest.fixture(autouse=True)
+def fixed_seed() -> None:
+    """Seed RNG for reproducibility."""
+    random.seed(0)
 
 
 def test_random_floats_default_range() -> None:
