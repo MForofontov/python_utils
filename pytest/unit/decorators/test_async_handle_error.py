@@ -109,12 +109,20 @@ def test_non_async_function():
 
 
 @pytest.mark.asyncio
-async def test_async_function_exception():
+async def test_async_function_exception(caplog, capsys):
     """
-    Test case 7: Asynchronous function that raises an exception.
+    Test case 7: Asynchronous function that raises an exception. The error
+    should be logged via the default logger and no output should be printed.
     """
-    with pytest.raises(ValueError, match="Test exception"):
-        await sample_function_exception(1, 2)
+    with caplog.at_level(logging.ERROR):
+        with pytest.raises(ValueError, match="Test exception"):
+            await sample_function_exception(1, 2)
+    assert (
+        "An error occurred in sample_function_exception: Test exception"
+        in caplog.text
+    )
+    captured = capsys.readouterr()
+    assert captured.out == ""
 
 
 def test_non_async_function_with_logger(caplog):

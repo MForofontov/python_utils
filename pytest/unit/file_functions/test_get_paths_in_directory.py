@@ -122,5 +122,21 @@ def test_get_paths_in_directory_nonexistent_directory(tmp_path: Path) -> None:
     Test case 10: Test that providing a non-existent directory raises an error.
     """
     missing_dir: str = os.path.join(str(tmp_path), "missing")
-    with pytest.raises(FileNotFoundError):
+    with pytest.raises(FileNotFoundError, match="Unable to access directory"):
         get_paths_in_directory(missing_dir, "files")
+
+
+def test_get_paths_in_directory_permission_denied(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """
+    Test case 11: Test that permission errors are surfaced with a clear message.
+    """
+
+    def mock_listdir(_path: str) -> list[str]:
+        raise PermissionError("mocked error")
+
+    monkeypatch.setattr(os, "listdir", mock_listdir)
+
+    with pytest.raises(PermissionError, match="Unable to access directory"):
+        get_paths_in_directory(str(tmp_path), "files")
