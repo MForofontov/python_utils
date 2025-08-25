@@ -16,8 +16,8 @@ def async_handle_error(
     Parameters
     ----------
     logger : logging.Logger | None, optional
-        Logger used to record errors. If ``None``, the exception is printed and
-        re-raised.
+        Logger used to record errors. If ``None``, the exception is routed
+        through the default logger and re-raised.
 
     Returns
     -------
@@ -79,8 +79,8 @@ def async_handle_error(
             Any
                 The result of the wrapped function. If an exception occurs and a
                 logger is provided, ``None`` is returned after logging. If no
-                logger is provided, the error is printed and the exception is
-                re-raised.
+                logger is provided, the error is logged using the default
+                logger and the exception is re-raised.
             """
             try:
                 # Attempt to call the original asynchronous function
@@ -93,8 +93,10 @@ def async_handle_error(
                     )
                     # Return None when logging the exception
                     return None
-                # Print the custom error message and re-raise when no logger is provided
-                print(f"An error occurred in {func.__name__}: {e}")
+                # Route error through the default logger and re-raise when no logger is provided
+                logging.getLogger().error(
+                    f"An error occurred in {func.__name__}: {e}", exc_info=True
+                )
                 raise
 
         return wrapper
