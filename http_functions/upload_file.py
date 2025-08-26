@@ -2,6 +2,7 @@
 
 import urllib.request
 import urllib.parse
+from urllib.error import HTTPError, URLError
 from pathlib import Path
 from typing import Optional, Dict, Any
 import mimetypes
@@ -40,8 +41,6 @@ def upload_file(url: str, file_path: str, field_name: str = "file",
         If URL or file_path is invalid.
     FileNotFoundError
         If the file doesn't exist.
-    urllib.error.URLError
-        If the upload fails.
         
     Examples
     --------
@@ -119,10 +118,17 @@ def upload_file(url: str, file_path: str, field_name: str = "file",
                 'headers': dict(response.headers),
                 'success': True
             }
-    except urllib.error.HTTPError as e:
+    except HTTPError as e:
         return {
             'status_code': e.code,
             'content': e.read().decode('utf-8') if e.fp else '',
             'headers': dict(e.headers) if e.headers else {},
+            'success': False
+        }
+    except URLError as e:
+        return {
+            'status_code': None,
+            'content': str(e.reason),
+            'headers': {},
             'success': False
         }
