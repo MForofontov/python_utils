@@ -5,51 +5,37 @@ from http_functions.validate_url import is_valid_url
 
 
 def test_is_valid_url_with_empty_string():
-    """
-    Test is_valid_url function with empty string returns False.
-    """
+    """Test case 1: Test is_valid_url function with empty string returns False."""
     assert is_valid_url("") is False
 
 
 def test_is_valid_url_with_whitespace_string():
-    """
-    Test is_valid_url function with whitespace-only string returns False.
-    """
+    """Test case 2: Test is_valid_url function with whitespace-only string returns False."""
     assert is_valid_url("   ") is False
 
 
 def test_is_valid_url_with_none():
-    """
-    Test is_valid_url function with None returns False.
-    """
+    """Test case 3: Test is_valid_url function with None returns False."""
     assert is_valid_url(None) is False
 
 
 def test_is_valid_url_with_integer():
-    """
-    Test is_valid_url function with integer returns False.
-    """
+    """Test case 4: Test is_valid_url function with integer returns False."""
     assert is_valid_url(123) is False
 
 
 def test_is_valid_url_with_list():
-    """
-    Test is_valid_url function with list returns False.
-    """
+    """Test case 5: Test is_valid_url function with list returns False."""
     assert is_valid_url([]) is False
 
 
 def test_is_valid_url_simple_https():
-    """
-    Test is_valid_url function with simple HTTPS URL returns True.
-    """
+    """Test case 6: Test is_valid_url function with simple HTTPS URL returns True."""
     assert is_valid_url("https://example.com") is True
 
 
 def test_is_valid_url_simple_http():
-    """
-    Test is_valid_url function with simple HTTP URL returns True.
-    """
+    """Test case 7: Test is_valid_url function with simple HTTP URL returns True."""
     assert is_valid_url("http://example.com") is True
 
 

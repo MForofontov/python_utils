@@ -4,9 +4,7 @@ from iterable_functions.sort_subdict_by_tuple import sort_subdict_by_tuple
 
 
 def test_sort_subdict_by_tuple_success() -> None:
-    """
-    Test the sort_subdict_by_tuple function with valid inputs.
-    """
+    """Test case 1: Test the sort_subdict_by_tuple function with valid inputs."""
     dict_ = {"a": {"x": 1, "y": 2, "z": 3}, "b": {"y": 4, "x": 5, "z": 6}}
     order = ("x", "y", "z")
     expected_output = {
@@ -17,9 +15,7 @@ def test_sort_subdict_by_tuple_success() -> None:
 
 
 def test_sort_subdict_by_tuple_partial_order() -> None:
-    """
-    Test the sort_subdict_by_tuple function with a partial order.
-    """
+    """Test case 2: Test the sort_subdict_by_tuple function with a partial order."""
     dict_ = {"a": {"x": 1, "y": 2, "z": 3}, "b": {"y": 4, "x": 5, "z": 6}}
     order = ("y", "x")
     expected_output = {
@@ -30,9 +26,7 @@ def test_sort_subdict_by_tuple_partial_order() -> None:
 
 
 def test_sort_subdict_by_tuple_empty_order() -> None:
-    """
-    Test the sort_subdict_by_tuple function with an empty order.
-    """
+    """Test case 3: Test the sort_subdict_by_tuple function with an empty order."""
     dict_ = {"a": {"x": 1, "y": 2, "z": 3}, "b": {"y": 4, "x": 5, "z": 6}}
     order = ()
     expected_output = {
@@ -43,24 +37,18 @@ def test_sort_subdict_by_tuple_empty_order() -> None:
 
 
 def test_sort_subdict_by_tuple_type_error_dict() -> None:
-    """
-    Test the sort_subdict_by_tuple function with invalid type for dict_.
-    """
+    """Test case 4: Test the sort_subdict_by_tuple function with invalid type for dict_."""
     with pytest.raises(TypeError):
         sort_subdict_by_tuple("not a dict", ("x", "y", "z"))
 
 
 def test_sort_subdict_by_tuple_type_error_order() -> None:
-    """
-    Test the sort_subdict_by_tuple function with invalid type for order.
-    """
+    """Test case 5: Test the sort_subdict_by_tuple function with invalid type for order."""
     with pytest.raises(TypeError):
         sort_subdict_by_tuple({"a": {"x": 1, "y": 2}}, "not a tuple")
 
 
 def test_sort_subdict_by_tuple_type_error_order_elements() -> None:
-    """
-    Test the sort_subdict_by_tuple function with invalid elements in order.
-    """
+    """Test case 6: Test the sort_subdict_by_tuple function with invalid elements in order."""
     with pytest.raises(TypeError):
         sort_subdict_by_tuple({"a": {"x": 1, "y": 2}}, (1, 2, 3))
