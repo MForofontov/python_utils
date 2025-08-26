@@ -52,9 +52,9 @@ def test_load_dotenv_comments(tmp_path):
     assert os.environ['VAR2'] == 'value2'
 
 
-def test_load_dotenv_nonexistent_file(monkeypatch):
+def test_load_dotenv_nonexistent_file():
     """
-    Test case 5: Nonexistent file doesn't raise error.
+    Test case 5: Nonexistent file returns None and leaves environment untouched.
     """
     load_dotenv('nonexistent.env')  # Should not raise
 

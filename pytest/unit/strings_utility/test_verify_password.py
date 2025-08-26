@@ -6,53 +6,53 @@ def test_verify_password_valid() -> None:
     """
     Test case 1: Test the verify_password function with a valid password.
     """
-    assert verify_password("Password123!") == True, "Failed on valid password"
+    assert verify_password("Password123!"), "Failed on valid password"
 
 
 def test_verify_password_too_short() -> None:
     """
     Test case 2: Test the verify_password function with a password that is too short.
     """
-    assert verify_password("Pass1!") == False, "Failed on password too short"
+    assert not verify_password("Pass1!"), "Failed on password too short"
 
 
 def test_verify_password_no_uppercase() -> None:
     """
     Test case 3: Test the verify_password function with a password that has no uppercase characters.
     """
-    assert verify_password(
-        "password123!") == False, "Failed on no uppercase characters"
+    assert not verify_password(
+        "password123!"), "Failed on no uppercase characters"
 
 
 def test_verify_password_no_lowercase() -> None:
     """
     Test case 4: Test the verify_password function with a password that has no lowercase characters.
     """
-    assert verify_password(
-        "PASSWORD123!") == False, "Failed on no lowercase characters"
+    assert not verify_password(
+        "PASSWORD123!"), "Failed on no lowercase characters"
 
 
 def test_verify_password_no_digits() -> None:
     """
     Test case 5: Test the verify_password function with a password that has no numerical digits.
     """
-    assert verify_password(
-        "Password!!!") == False, "Failed on no numerical digits"
+    assert not verify_password(
+        "Password!!!"), "Failed on no numerical digits"
 
 
 def test_verify_password_no_special_characters() -> None:
     """
     Test case 6: Test the verify_password function with a password that has no special characters.
     """
-    assert verify_password(
-        "Password123") == False, "Failed on no special characters"
+    assert not verify_password(
+        "Password123"), "Failed on no special characters"
 
 
 def test_verify_password_empty_string() -> None:
     """
     Test case 7: Test the verify_password function with an empty string.
     """
-    assert verify_password("") == False, "Failed on empty string"
+    assert not verify_password(""), "Failed on empty string"
 
 
 def test_verify_password_custom_check_pass() -> None:
@@ -62,7 +62,7 @@ def test_verify_password_custom_check_pass() -> None:
     def custom_check(p): return "example" in p
     assert (
         verify_password("Password123!example",
-                        custom_checks=[custom_check]) == True
+                        custom_checks=[custom_check])
     ), "Failed on custom check that passes"
 
 
@@ -72,7 +72,7 @@ def test_verify_password_custom_check_fail() -> None:
     """
     def custom_check(p): return "example" in p
     assert (
-        verify_password("Password123!", custom_checks=[custom_check]) == False
+        not verify_password("Password123!", custom_checks=[custom_check])
     ), "Failed on custom check that fails"
 
 
