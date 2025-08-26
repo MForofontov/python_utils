@@ -1,4 +1,5 @@
 import os
+import pytest
 from env_config_functions.load_dotenv import load_dotenv
 
 
@@ -56,3 +57,54 @@ def test_load_dotenv_nonexistent_file(monkeypatch):
     Test case 5: Nonexistent file doesn't raise error.
     """
     load_dotenv('nonexistent.env')  # Should not raise
+
+
+def test_load_dotenv_empty_file(tmp_path):
+    """
+    Test case 6: Empty .env file.
+    """
+    config_file = tmp_path / "empty.env"
+    config_file.write_text('')
+    load_dotenv(str(config_file))  # Should not raise
+
+
+def test_load_dotenv_malformed_lines(tmp_path):
+    """
+    Test case 7: File with malformed lines (no equals sign).
+    """
+    config_file = tmp_path / "malformed.env"
+    config_file.write_text('VAR1=value1\nMALFORMED_LINE\nVAR2=value2\n')
+    os.environ.pop('VAR1', None)
+    os.environ.pop('VAR2', None)
+    load_dotenv(str(config_file))
+    assert os.environ['VAR1'] == 'value1'
+    assert os.environ['VAR2'] == 'value2'
+
+
+def test_load_dotenv_quoted_values(tmp_path):
+    """
+    Test case 8: Values with quotes.
+    """
+    config_file = tmp_path / "quoted.env"
+    config_file.write_text('VAR1="quoted value"\nVAR2=\'single quoted\'\n')
+    os.environ.pop('VAR1', None)
+    os.environ.pop('VAR2', None)
+    load_dotenv(str(config_file))
+    assert os.environ['VAR1'] == 'quoted value'
+    assert os.environ['VAR2'] == 'single quoted'
+
+
+def test_load_dotenv_invalid_dotenv_path_type():
+    """
+    Test case 9: Test load_dotenv with invalid dotenv_path type.
+    """
+    with pytest.raises(TypeError):
+        load_dotenv(123)
+
+
+def test_load_dotenv_invalid_override_type():
+    """
+    Test case 10: Test load_dotenv with invalid override type.
+    """
+    with pytest.raises(TypeError):
+        load_dotenv('.env', override="invalid")
