@@ -251,3 +251,21 @@ def test_upload_file_http_error(mock_guess_type, mock_urlopen, mock_file_open, m
     assert result['content'] == '{"error": "invalid file"}'
     assert result['success'] is False
     assert result['headers'] == {'Content-Type': 'application/json'}
+
+
+@patch('pathlib.Path.exists', return_value=True)
+@patch('pathlib.Path.is_file', return_value=True)
+@patch('builtins.open', new_callable=mock_open, read_data=b'test content')
+@patch('urllib.request.urlopen')
+@patch('mimetypes.guess_type', return_value=('text/plain', None))
+def test_upload_file_url_error(mock_guess_type, mock_urlopen, mock_file_open, mock_is_file, mock_exists):
+    """Test case 17: Test file upload when request fails returns error details."""
+    mock_urlopen.side_effect = urllib.error.URLError('Connection failed')
+
+    with patch('pathlib.Path.name', 'test.txt'):
+        result = upload_file('https://example.com/upload', '/tmp/test.txt')
+
+    assert result['status_code'] is None
+    assert result['success'] is False
+    assert result['headers'] == {}
+    assert result['content'] == 'Connection failed'
