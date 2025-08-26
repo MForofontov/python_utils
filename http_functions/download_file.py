@@ -2,6 +2,7 @@
 
 import urllib.request
 import urllib.parse
+from urllib.error import URLError
 from pathlib import Path
 from typing import Optional, Callable, Dict, Any
 import os
@@ -28,14 +29,13 @@ def download_file(url: str, destination: str, headers: Optional[Dict[str, str]] 
     Returns
     -------
     dict
-        Dictionary containing 'success', 'file_path', 'file_size', and 'message'.
-        
+        Dictionary containing 'success', 'file_path', 'file_size', 'message', and optionally
+        'error' describing the failure reason.
+
     Raises
     ------
     ValueError
         If URL or destination is invalid.
-    urllib.error.URLError
-        If the download fails.
         
     Examples
     --------
@@ -68,38 +68,51 @@ def download_file(url: str, destination: str, headers: Optional[Dict[str, str]] 
             # Get content length if available
             content_length = response.headers.get('Content-Length')
             total_size = int(content_length) if content_length else 0
-            
+
             downloaded = 0
             chunk_size = 8192
-            
+
             with open(dest_path, 'wb') as f:
                 while True:
                     chunk = response.read(chunk_size)
                     if not chunk:
                         break
-                    
+
                     f.write(chunk)
                     downloaded += len(chunk)
-                    
+
                     # Call progress callback if provided
                     if progress_callback:
                         progress_callback(downloaded, total_size)
-            
+
             return {
                 'success': True,
                 'file_path': str(dest_path.absolute()),
                 'file_size': downloaded,
                 'message': f"Successfully downloaded {downloaded} bytes"
             }
-            
-    except Exception as e:
+
+    except URLError as e:
         # Clean up partial file if it exists
         if dest_path.exists():
             dest_path.unlink()
-        
+
         return {
             'success': False,
             'file_path': str(dest_path.absolute()),
             'file_size': 0,
-            'message': f"Download failed: {str(e)}"
+            'message': f"Download failed: {e.reason if hasattr(e, 'reason') else str(e)}",
+            'error': 'url_error'
+        }
+    except Exception as e:
+        # Clean up partial file if it exists
+        if dest_path.exists():
+            dest_path.unlink()
+
+        return {
+            'success': False,
+            'file_path': str(dest_path.absolute()),
+            'file_size': 0,
+            'message': f"Unexpected error: {str(e)}",
+            'error': 'unknown_error'
         }
