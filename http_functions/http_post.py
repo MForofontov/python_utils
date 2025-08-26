@@ -1,7 +1,7 @@
 """Simple HTTP POST request functionality."""
 
 import urllib.request
-import urllib.parse
+from urllib.error import HTTPError, URLError
 from typing import Dict, Optional, Any, Union
 import json
 
@@ -29,9 +29,11 @@ def http_post(url: str, data: Optional[Union[Dict[str, Any], str]] = None,
         
     Raises
     ------
+    TypeError
+        If URL is not a string.
     ValueError
-        If URL is invalid.
-    urllib.error.URLError
+        If URL is an empty string.
+    URLError
         If the request fails.
         
     Examples
@@ -42,7 +44,9 @@ def http_post(url: str, data: Optional[Union[Dict[str, Any], str]] = None,
     >>> 'content' in response
     True
     """
-    if not isinstance(url, str) or not url.strip():
+    if not isinstance(url, str):
+        raise TypeError("URL must be a string")
+    if not url.strip():
         raise ValueError("URL must be a non-empty string")
     
     # Prepare data
@@ -78,10 +82,12 @@ def http_post(url: str, data: Optional[Union[Dict[str, Any], str]] = None,
                 'headers': dict(response.headers),
                 'url': response.geturl()
             }
-    except urllib.error.HTTPError as e:
+    except HTTPError as e:
         return {
             'status_code': e.code,
             'content': e.read().decode('utf-8') if e.fp else '',
             'headers': dict(e.headers) if e.headers else {},
             'url': url
         }
+    except URLError as e:
+        raise URLError(f"Failed to reach {url}: {e.reason}") from e
