@@ -8,7 +8,7 @@ wdj = importlib.import_module("file_functions.write_dict_to_json")
 
 
 def test_write_dict_to_json_writes_expected(tmp_path: Path) -> None:
-    """Ensure dictionary is correctly serialized to a JSON file."""
+    """Test case 1: Ensure dictionary is correctly serialized to a JSON file."""
     data: dict[str, object] = {"a": 1, "b": [1, 2]}
     output_file: Path = tmp_path / "output.json"
     wdj.write_dict_to_json(str(output_file), data, indent=2)
@@ -16,14 +16,14 @@ def test_write_dict_to_json_writes_expected(tmp_path: Path) -> None:
 
 
 def test_write_dict_to_json_writes_empty_dict(tmp_path: Path) -> None:
-    """Ensure an empty dictionary produces an empty JSON object."""
+    """Test case 2: Ensure an empty dictionary produces an empty JSON object."""
     output_file: Path = tmp_path / "output.json"
     wdj.write_dict_to_json(str(output_file), {})
     assert output_file.read_text() == "{}"
 
 
 def test_write_dict_to_json_raises_permission_error(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
-    """Ensure PermissionError is raised when the file cannot be written."""
+    """Test case 3: Ensure PermissionError is raised when the file cannot be written."""
     data: dict[str, int] = {"a": 1}
     file_path: Path = tmp_path / "output.json"
 

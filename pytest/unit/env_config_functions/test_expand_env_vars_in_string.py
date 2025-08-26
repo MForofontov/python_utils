@@ -37,3 +37,44 @@ def test_expand_env_vars_multiple(monkeypatch):
     s = '$A-$B-$C'
     result = expand_env_vars_in_string(s, default='x')
     assert result == '1-2-x'
+
+
+def test_expand_env_vars_empty_string():
+    """
+    Test case 5: Empty string input
+    """
+    result = expand_env_vars_in_string('')
+    assert result == ''
+
+
+def test_expand_env_vars_no_variables():
+    """
+    Test case 6: String with no variables
+    """
+    s = 'No variables here'
+    result = expand_env_vars_in_string(s)
+    assert result == 'No variables here'
+
+
+def test_expand_env_vars_invalid_string_type():
+    """
+    Test case 7: Test with invalid string type
+    """
+    with pytest.raises(TypeError):
+        expand_env_vars_in_string(123)
+
+
+def test_expand_env_vars_invalid_string_none():
+    """
+    Test case 8: Test with None input
+    """
+    with pytest.raises(TypeError):
+        expand_env_vars_in_string(None)
+
+
+def test_expand_env_vars_invalid_default_type():
+    """
+    Test case 9: Test with invalid default type
+    """
+    with pytest.raises(TypeError):
+        expand_env_vars_in_string('$VAR', default=123)

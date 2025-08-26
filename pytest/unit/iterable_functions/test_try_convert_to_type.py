@@ -4,9 +4,7 @@ from iterable_functions.try_convert_to_type import try_convert_to_type
 
 
 def test_try_convert_to_type_success_int() -> None:
-    """
-    Test the try_convert_to_type function with valid integer conversion.
-    """
+    """Test case 1: Test the try_convert_to_type function with valid integer conversion."""
     value = "123"
     target_type = int
     expected_output = 123
@@ -14,9 +12,7 @@ def test_try_convert_to_type_success_int() -> None:
 
 
 def test_try_convert_to_type_success_float() -> None:
-    """
-    Test the try_convert_to_type function with valid float conversion.
-    """
+    """Test case 2: Test the try_convert_to_type function with valid float conversion."""
     value = "123.45"
     target_type = float
     expected_output = 123.45
@@ -24,9 +20,7 @@ def test_try_convert_to_type_success_float() -> None:
 
 
 def test_try_convert_to_type_success_str() -> None:
-    """
-    Test the try_convert_to_type function with valid string conversion.
-    """
+    """Test case 3: Test the try_convert_to_type function with valid string conversion."""
     value = 123
     target_type = str
     expected_output = "123"
@@ -34,9 +28,7 @@ def test_try_convert_to_type_success_str() -> None:
 
 
 def test_try_convert_to_type_invalid_conversion() -> None:
-    """
-    Test the try_convert_to_type function with an invalid conversion.
-    """
+    """Test case 4: Test the try_convert_to_type function with an invalid conversion."""
     value = "abc"
     target_type = int
     with pytest.raises(ValueError):
@@ -44,17 +36,13 @@ def test_try_convert_to_type_invalid_conversion() -> None:
 
 
 def test_try_convert_to_type_type_error() -> None:
-    """
-    Test the try_convert_to_type function with invalid type for target_type.
-    """
+    """Test case 5: Test the try_convert_to_type function with invalid type for target_type."""
     with pytest.raises(TypeError):
         try_convert_to_type("123", "not a type")
 
 
 def test_try_convert_to_type_success_list() -> None:
-    """
-    Test the try_convert_to_type function with list conversion.
-    """
+    """Test case 6: Test the try_convert_to_type function with list conversion."""
     value = (1, 2, 3)
     target_type = list
     expected_output = [1, 2, 3]
@@ -62,9 +50,7 @@ def test_try_convert_to_type_success_list() -> None:
 
 
 def test_try_convert_to_type_success_bool() -> None:
-    """
-    Test the try_convert_to_type function with bool conversion.
-    """
+    """Test case 7: Test the try_convert_to_type function with bool conversion."""
     value = 0
     target_type = bool
     expected_output = False
@@ -72,9 +58,7 @@ def test_try_convert_to_type_success_bool() -> None:
 
 
 def test_try_convert_to_type_custom_class() -> None:
-    """
-    Test the try_convert_to_type function with a custom class.
-    """
+    """Test case 8: Test the try_convert_to_type function with a custom class."""
 
     class Custom:
         def __init__(self, val: Any) -> None:
@@ -90,9 +74,7 @@ def test_try_convert_to_type_custom_class() -> None:
 
 
 def test_try_convert_to_type_invalid_list_conversion() -> None:
-    """
-    Test the try_convert_to_type function when conversion to list fails.
-    """
+    """Test case 9: Test the try_convert_to_type function when conversion to list fails."""
     value = 1
     target_type = list
     with pytest.raises(ValueError):

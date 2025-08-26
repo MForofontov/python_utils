@@ -11,7 +11,7 @@ async def echo(value: int) -> int:
 
 @pytest.mark.asyncio
 async def test_async_rate_limited_success() -> None:
-    """Test processing items with a rate limit."""
+    """Test case 1: Test processing items with a rate limit."""
     start = time.monotonic()
     result = await async_rate_limited(echo, [1, 2, 3], max_calls=2, period=0.1)
     elapsed = time.monotonic() - start
@@ -21,7 +21,7 @@ async def test_async_rate_limited_success() -> None:
 
 @pytest.mark.asyncio
 async def test_async_rate_limited_tuple() -> None:
-    """Test processing a tuple of items."""
+    """Test case 2: Test processing a tuple of items."""
     start = time.monotonic()
     result = await async_rate_limited(echo, (1, 2, 3), max_calls=2, period=0.1)
     elapsed = time.monotonic() - start
@@ -36,7 +36,7 @@ def generate_numbers():
 
 @pytest.mark.asyncio
 async def test_async_rate_limited_generator() -> None:
-    """Test processing items from a generator."""
+    """Test case 3: Test processing items from a generator."""
     start = time.monotonic()
     result = await async_rate_limited(echo, generate_numbers(), max_calls=2, period=0.1)
     elapsed = time.monotonic() - start
@@ -46,7 +46,7 @@ async def test_async_rate_limited_generator() -> None:
 
 @pytest.mark.asyncio
 async def test_async_rate_limited_invalid_params() -> None:
-    """Test invalid parameters raise ValueError."""
+    """Test case 4: Test invalid parameters raise ValueError."""
     with pytest.raises(ValueError):
         await async_rate_limited(echo, [1], max_calls=0, period=0.1)
     with pytest.raises(ValueError):
