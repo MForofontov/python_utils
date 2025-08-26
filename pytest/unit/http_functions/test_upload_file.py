@@ -8,58 +8,44 @@ from http_functions.upload_file import upload_file
 
 
 def test_upload_file_with_empty_url():
-    """
-    Test upload_file function with empty URL raises ValueError.
-    """
+    """Test case 1: Test upload_file function with empty URL raises ValueError."""
     with pytest.raises(ValueError, match="URL must be a non-empty string"):
         upload_file("", "test.txt")
 
 
 def test_upload_file_with_whitespace_url():
-    """
-    Test upload_file function with whitespace-only URL raises ValueError.
-    """
+    """Test case 2: Test upload_file function with whitespace-only URL raises ValueError."""
     with pytest.raises(ValueError, match="URL must be a non-empty string"):
         upload_file("   ", "test.txt")
 
 
 def test_upload_file_with_none_url():
-    """
-    Test upload_file function with None URL raises TypeError.
-    """
+    """Test case 3: Test upload_file function with None URL raises TypeError."""
     with pytest.raises(TypeError):
         upload_file(None, "test.txt")
 
 
 def test_upload_file_with_empty_file_path():
-    """
-    Test upload_file function with empty file path raises ValueError.
-    """
+    """Test case 4: Test upload_file function with empty file path raises ValueError."""
     with pytest.raises(ValueError, match="file_path must be a non-empty string"):
         upload_file("https://example.com/upload", "")
 
 
 def test_upload_file_with_whitespace_file_path():
-    """
-    Test upload_file function with whitespace-only file path raises ValueError.
-    """
+    """Test case 5: Test upload_file function with whitespace-only file path raises ValueError."""
     with pytest.raises(ValueError, match="file_path must be a non-empty string"):
         upload_file("https://example.com/upload", "   ")
 
 
 def test_upload_file_with_none_file_path():
-    """
-    Test upload_file function with None file path raises TypeError.
-    """
+    """Test case 6: Test upload_file function with None file path raises TypeError."""
     with pytest.raises(TypeError):
         upload_file("https://example.com/upload", None)
 
 
 @patch('pathlib.Path.exists', return_value=False)
 def test_upload_file_not_found(mock_exists):
-    """
-    Test upload_file function when file doesn't exist raises FileNotFoundError.
-    """
+    """Test case 7: Test upload_file function when file doesn't exist raises FileNotFoundError."""
     with pytest.raises(FileNotFoundError, match="File not found"):
         upload_file("https://example.com/upload", "/tmp/nonexistent.txt")
 
@@ -67,9 +53,7 @@ def test_upload_file_not_found(mock_exists):
 @patch('pathlib.Path.exists', return_value=True)
 @patch('pathlib.Path.is_file', return_value=False)
 def test_upload_file_not_a_file(mock_is_file, mock_exists):
-    """
-    Test upload_file function when path is not a file raises ValueError.
-    """
+    """Test case 8: Test upload_file function when path is not a file raises ValueError."""
     with pytest.raises(ValueError, match="Path is not a file"):
         upload_file("https://example.com/upload", "/tmp/directory")
 
@@ -80,9 +64,7 @@ def test_upload_file_not_a_file(mock_is_file, mock_exists):
 @patch('urllib.request.urlopen')
 @patch('mimetypes.guess_type', return_value=('text/plain', None))
 def test_upload_file_successful(mock_guess_type, mock_urlopen, mock_file_open, mock_is_file, mock_exists):
-    """
-    Test successful file upload returns correct response structure.
-    """
+    """Test case 9: Test successful file upload returns correct response structure."""
     # Mock response
     mock_response = Mock()
     mock_response.getcode.return_value = 200
@@ -111,9 +93,7 @@ def test_upload_file_successful(mock_guess_type, mock_urlopen, mock_file_open, m
 @patch('urllib.request.urlopen')
 @patch('mimetypes.guess_type', return_value=(None, None))
 def test_upload_file_unknown_content_type(mock_guess_type, mock_urlopen, mock_file_open, mock_is_file, mock_exists):
-    """
-    Test file upload when content type cannot be determined uses default.
-    """
+    """Test case 10: Test file upload when content type cannot be determined uses default."""
     mock_response = Mock()
     mock_response.getcode.return_value = 200
     mock_response.read.return_value = b'OK'
@@ -136,9 +116,7 @@ def test_upload_file_unknown_content_type(mock_guess_type, mock_urlopen, mock_fi
 @patch('urllib.request.urlopen')
 @patch('mimetypes.guess_type', return_value=('text/plain', None))
 def test_upload_file_with_custom_field_name(mock_guess_type, mock_urlopen, mock_file_open, mock_is_file, mock_exists):
-    """
-    Test file upload with custom field name parameter.
-    """
+    """Test case 11: Test file upload with custom field name parameter."""
     mock_response = Mock()
     mock_response.getcode.return_value = 200
     mock_response.read.return_value = b'OK'
@@ -161,9 +139,7 @@ def test_upload_file_with_custom_field_name(mock_guess_type, mock_urlopen, mock_
 @patch('urllib.request.urlopen')
 @patch('mimetypes.guess_type', return_value=('text/plain', None))
 def test_upload_file_with_custom_headers(mock_guess_type, mock_urlopen, mock_file_open, mock_is_file, mock_exists):
-    """
-    Test file upload with additional custom headers.
-    """
+    """Test case 12: Test file upload with additional custom headers."""
     mock_response = Mock()
     mock_response.getcode.return_value = 200
     mock_response.read.return_value = b'OK'
@@ -188,9 +164,7 @@ def test_upload_file_with_custom_headers(mock_guess_type, mock_urlopen, mock_fil
 @patch('urllib.request.urlopen')
 @patch('mimetypes.guess_type', return_value=('text/plain', None))
 def test_upload_file_with_additional_data(mock_guess_type, mock_urlopen, mock_file_open, mock_is_file, mock_exists):
-    """
-    Test file upload with additional form data fields.
-    """
+    """Test case 13: Test file upload with additional form data fields."""
     mock_response = Mock()
     mock_response.getcode.return_value = 200
     mock_response.read.return_value = b'OK'
@@ -218,9 +192,7 @@ def test_upload_file_with_additional_data(mock_guess_type, mock_urlopen, mock_fi
 @patch('urllib.request.urlopen')
 @patch('mimetypes.guess_type', return_value=('text/plain', None))
 def test_upload_file_with_custom_timeout(mock_guess_type, mock_urlopen, mock_file_open, mock_is_file, mock_exists):
-    """
-    Test file upload with custom timeout value.
-    """
+    """Test case 14: Test file upload with custom timeout value."""
     mock_response = Mock()
     mock_response.getcode.return_value = 200
     mock_response.read.return_value = b'OK'
@@ -241,9 +213,7 @@ def test_upload_file_with_custom_timeout(mock_guess_type, mock_urlopen, mock_fil
 @patch('urllib.request.urlopen')
 @patch('mimetypes.guess_type', return_value=('text/plain', None))
 def test_upload_file_default_timeout(mock_guess_type, mock_urlopen, mock_file_open, mock_is_file, mock_exists):
-    """
-    Test that default timeout is 30 seconds when not specified.
-    """
+    """Test case 15: Test that default timeout is 30 seconds when not specified."""
     mock_response = Mock()
     mock_response.getcode.return_value = 200
     mock_response.read.return_value = b'OK'
@@ -263,9 +233,7 @@ def test_upload_file_default_timeout(mock_guess_type, mock_urlopen, mock_file_op
 @patch('urllib.request.urlopen')
 @patch('mimetypes.guess_type', return_value=('text/plain', None))
 def test_upload_file_http_error(mock_guess_type, mock_urlopen, mock_file_open, mock_is_file, mock_exists):
-    """
-    Test file upload with HTTP error response returns error details.
-    """
+    """Test case 16: Test file upload with HTTP error response returns error details."""
     error = urllib.error.HTTPError(
         url='https://example.com/upload',
         code=400,
