@@ -90,7 +90,8 @@ def test_truncate_string_negative_length() -> None:
     """
     Test case 11: Test the truncate_string function with a negative length.
     """
-    assert truncate_string("hello", -3) == "he", "Failed on negative length"
+    with pytest.raises(ValueError, match="length must be non-negative"):
+        truncate_string("hello", -3)
 
 
 def test_truncate_string_invalid_string_type() -> None:

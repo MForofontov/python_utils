@@ -12,11 +12,11 @@ def async_event_loop(func: Callable[[], Awaitable[T]]) -> T:
     Create and run an asynchronous event loop for testing.
 
     By default, the provided asynchronous function is executed using
-    :func:`asyncio.run`.  If this function is invoked while an event loop is
+    :func:`asyncio.run`. If this function is invoked while an event loop is
     already running (for example, inside a Jupyter notebook), ``asyncio.run``
-    raises a ``RuntimeError``.  In that case the coroutine is scheduled on the
-    current running loop via :func:`asyncio.get_running_loop().create_task` and
-    waited on with ``run_until_complete``.
+    raises a ``RuntimeError``. In that case a new event loop is created and the
+    coroutine is executed with ``loop.run_until_complete`` before the loop is
+    closed.
 
     Parameters
     ----------
@@ -47,9 +47,11 @@ def async_event_loop(func: Callable[[], Awaitable[T]]) -> T:
     except RuntimeError as exc:
         if "asyncio.run() cannot be called from a running event loop" not in str(exc):
             raise
-        loop = asyncio.get_running_loop()
-        task = loop.create_task(wrapper())
-        return loop.run_until_complete(task)
+        loop = asyncio.new_event_loop()
+        try:
+            return loop.run_until_complete(wrapper())
+        finally:
+            loop.close()
 
 
 __all__ = ['async_event_loop']
