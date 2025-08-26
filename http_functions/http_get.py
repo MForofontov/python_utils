@@ -1,9 +1,8 @@
 """Simple HTTP GET request functionality."""
 
 import urllib.request
-import urllib.parse
-from typing import Dict, Optional, Any
-import json
+from urllib.error import HTTPError, URLError
+from typing import Any, Dict, Optional
 
 
 def http_get(url: str, headers: Optional[Dict[str, str]] = None, timeout: int = 30) -> Dict[str, Any]:
@@ -28,8 +27,6 @@ def http_get(url: str, headers: Optional[Dict[str, str]] = None, timeout: int = 
     ------
     ValueError
         If URL is invalid.
-    urllib.error.URLError
-        If the request fails.
         
     Examples
     --------
@@ -59,10 +56,17 @@ def http_get(url: str, headers: Optional[Dict[str, str]] = None, timeout: int = 
                 'headers': dict(response.headers),
                 'url': response.geturl()
             }
-    except urllib.error.HTTPError as e:
+    except HTTPError as e:
         return {
             'status_code': e.code,
             'content': e.read().decode('utf-8') if e.fp else '',
             'headers': dict(e.headers) if e.headers else {},
+            'url': url
+        }
+    except URLError as e:
+        return {
+            'status_code': None,
+            'content': str(e.reason),
+            'headers': {},
             'url': url
         }
