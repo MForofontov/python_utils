@@ -3,11 +3,14 @@ from typing import Dict, Union, List
 from linux_functions.get_cpu_info import get_cpu_info
 
 
-def test_get_cpu_info_returns_valid_dict() -> None:
-    """
-    Test case 1: Test the get_cpu_info function returns a valid dictionary with CPU information.
-    """
-    cpu_info: Dict[str, Union[int, float, List[float]]] = get_cpu_info()
+@pytest.mark.parametrize("interval", [None, 0.05])
+def test_get_cpu_info_returns_valid_dict(interval: float | None) -> None:
+    """Test the get_cpu_info function returns a valid dictionary with CPU information."""
+    cpu_info: Dict[str, Union[int, float, List[float]]]
+    if interval is None:
+        cpu_info = get_cpu_info()
+    else:
+        cpu_info = get_cpu_info(interval=interval)
     
     # Check return type
     assert isinstance(cpu_info, dict)

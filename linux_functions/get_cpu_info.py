@@ -2,14 +2,20 @@
 Module for getting CPU information.
 """
 
-import psutil
 import os
 from typing import Dict, Union, List
 
+import psutil
 
-def get_cpu_info() -> Dict[str, Union[int, float, List[float]]]:
+
+def get_cpu_info(interval: float = 0.1) -> Dict[str, Union[int, float, List[float]]]:
     """
     Get CPU information and usage statistics.
+
+    Parameters
+    ----------
+    interval : float, optional
+        Interval in seconds to wait in between each call to ``psutil.cpu_percent``.
 
     Returns
     -------
@@ -24,12 +30,14 @@ def get_cpu_info() -> Dict[str, Union[int, float, List[float]]]:
     >>> cpu_info['cpu_count'] > 0
     True
     """
+    freq = psutil.cpu_freq()
+
     return {
         'cpu_count': os.cpu_count(),
-        'cpu_percent': psutil.cpu_percent(interval=1),
-        'cpu_percent_per_core': psutil.cpu_percent(interval=1, percpu=True),
-        'cpu_freq_current': psutil.cpu_freq().current if psutil.cpu_freq() else None,
-        'cpu_freq_min': psutil.cpu_freq().min if psutil.cpu_freq() else None,
-        'cpu_freq_max': psutil.cpu_freq().max if psutil.cpu_freq() else None,
+        'cpu_percent': psutil.cpu_percent(interval=interval),
+        'cpu_percent_per_core': psutil.cpu_percent(interval=interval, percpu=True),
+        'cpu_freq_current': freq.current if freq else None,
+        'cpu_freq_min': freq.min if freq else None,
+        'cpu_freq_max': freq.max if freq else None,
         'load_average': os.getloadavg() if hasattr(os, 'getloadavg') else None
     }
