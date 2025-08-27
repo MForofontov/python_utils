@@ -5,6 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "python_utils"
 version = "0.1.0"
+license = {file = "LICENSE"}
 requires-python = ">=3.10"
 dependencies = [
     "cramjam==2.11.0",
