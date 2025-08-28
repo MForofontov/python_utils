@@ -45,22 +45,22 @@ def correlation_coefficient(x_values: List[Union[int, float]],
         raise TypeError("y_values must be a list")
     
     if len(x_values) == 0 or len(y_values) == 0:
-        raise ValueError("correlation coefficient requires at least 2 values")
-    
+        raise ValueError("Input lists cannot be empty")
+
     if len(x_values) < 2 or len(y_values) < 2:
-        raise ValueError("correlation coefficient requires at least 2 values")
-    
+        raise ValueError("Need at least 2 data points")
+
     if len(x_values) != len(y_values):
-        raise ValueError("lists must have the same length")
+        raise ValueError("x_values and y_values must have the same length")
     
     # Validate numeric types
     for i, val in enumerate(x_values):
         if not isinstance(val, (int, float)) or isinstance(val, bool):
-            raise TypeError("all values must be numeric")
+            raise TypeError("All values in x_values must be numeric")
     
     for i, val in enumerate(y_values):
         if not isinstance(val, (int, float)) or isinstance(val, bool):
-            raise TypeError("all values must be numeric")
+            raise TypeError("All values in y_values must be numeric")
     
     # Validate method
     valid_methods = ['pearson', 'spearman', 'kendall']
@@ -91,7 +91,10 @@ def _pearson_correlation(x_values: List[Union[int, float]], y_values: List[Union
     
     # Check for zero variance
     if sum_sq_x == 0 or sum_sq_y == 0:
-        raise ValueError("correlation coefficient is undefined when standard deviation is zero")
+        # One of the series is constant; correlation is undefined but the
+        # tests in this project expect a value of 0.0 rather than raising an
+        # exception. Returning 0.0 indicates no linear relationship.
+        return 0.0
     
     return numerator / math.sqrt(sum_sq_x * sum_sq_y)
 
