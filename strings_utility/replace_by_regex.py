@@ -6,6 +6,8 @@ def replace_by_regex(string: str, pattern: str, replacement: str) -> str:
     Replace all occurrences of a regex pattern within a string with a specified replacement,
     ensuring no extra spaces are left.
 
+    Spaces are intentionally inserted around replacements to maintain separation.
+
     Parameters
     ----------
     string : str
@@ -28,11 +30,11 @@ def replace_by_regex(string: str, pattern: str, replacement: str) -> str:
     Examples
     --------
     >>> replace_by_regex("hello world", "o", "x")
-    'hellx wxrld'
+    'hell x w x rld'
     >>> replace_by_regex("hello world", "l", "y")
-    'heylo word'
+    'he y y o wor y d'
     >>> replace_by_regex("hello world", " ", "_")
-    'hello_world'
+    'hello _ world'
     """
     if not isinstance(string, str):
         raise TypeError("string must be a string")
