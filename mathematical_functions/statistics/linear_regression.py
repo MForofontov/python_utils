@@ -1,6 +1,6 @@
 """Perform linear regression analysis."""
 
-from typing import Union, Tuple, Dict
+from typing import Union, Dict
 import math
 
 
@@ -54,13 +54,11 @@ def linear_regression(x: list[Union[int, float]], y: list[Union[int, float]]) ->
         raise ValueError("x and y must have the same length")
     
     if len(x) < 2:
-        raise ValueError("datasets must have at least 2 elements")
-    
-    if not all(isinstance(val, (int, float)) for val in x):
-        raise TypeError("all values in x must be numeric")
-    
-    if not all(isinstance(val, (int, float)) for val in y):
-        raise TypeError("all values in y must be numeric")
+        raise ValueError("linear regression requires at least 2 values")
+
+    # Ensure all values are numeric
+    if not all(isinstance(val, (int, float)) for val in x + y):
+        raise TypeError("all values must be numeric")
     
     n = len(x)
     
@@ -83,10 +81,11 @@ def linear_regression(x: list[Union[int, float]], y: list[Union[int, float]]) ->
                 'r_squared': 1.0,
                 'correlation': 1.0,
                 'std_error_slope': 0.0,
-                'std_error_intercept': 0.0
+                'std_error_intercept': 0.0,
+                'p_value': 0.0
             }
         else:
-            raise ValueError("x values are constant but y values vary - cannot fit line")
+            raise ValueError("x values must have variation for regression analysis")
     
     # Calculate regression coefficients
     slope = ss_xy / ss_xx
@@ -108,21 +107,31 @@ def linear_regression(x: list[Union[int, float]], y: list[Union[int, float]]) ->
     # Mean squared error of residuals
     if n > 2:
         mse_residual = sum(r ** 2 for r in residuals) / (n - 2)
-        
+
         # Standard errors
         std_error_slope = math.sqrt(mse_residual / ss_xx) if ss_xx > 0 else 0.0
-        std_error_intercept = math.sqrt(mse_residual * (1/n + mean_x**2/ss_xx))
+        std_error_intercept = math.sqrt(mse_residual * (1 / n + mean_x**2 / ss_xx))
+
+        # Compute p-value using normal approximation for two-tailed test
+        if std_error_slope > 0:
+            t_stat = slope / std_error_slope
+            # CDF of standard normal distribution
+            p_value = 2 * (1 - 0.5 * (1 + math.erf(abs(t_stat) / math.sqrt(2))))
+        else:
+            p_value = 0.0
     else:
         std_error_slope = 0.0
         std_error_intercept = 0.0
-    
+        p_value = 0.0
+
     return {
         'slope': slope,
         'intercept': intercept,
         'r_squared': r_squared,
         'correlation': correlation,
         'std_error_slope': std_error_slope,
-        'std_error_intercept': std_error_intercept
+        'std_error_intercept': std_error_intercept,
+        'p_value': p_value
     }
 
 
