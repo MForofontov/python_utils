@@ -40,7 +40,8 @@ def range_value(values: list[Union[int, float]]) -> Union[int, float]:
         raise TypeError("values must be a list")
     
     if len(values) == 0:
-        raise ValueError("values cannot be empty")
+        # Consistent error message for empty input as expected by tests
+        raise ValueError("range calculation requires at least 1 value")
     
     if not all(isinstance(value, (int, float)) for value in values):
         raise TypeError("all values must be numeric (int or float)")
