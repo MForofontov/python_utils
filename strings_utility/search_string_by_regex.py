@@ -15,7 +15,7 @@ def search_string_by_regex(pattern: str, string: str) -> str | None:
     Returns
     -------
     str or None
-        The match object if the pattern is found, original string otherwise.
+        Matched substring if found, otherwise `None`.
 
     Raises
     ------
@@ -27,8 +27,6 @@ def search_string_by_regex(pattern: str, string: str) -> str | None:
     >>> search_string_by_regex(r"\d+", "abc123xyz")
     '123'
     >>> search_string_by_regex(r"\d+", "hello world")
-    None
-    >>> search_string_by_regex(r'[a-z]+', "123")
     None
     """
     if not isinstance(pattern, str):
