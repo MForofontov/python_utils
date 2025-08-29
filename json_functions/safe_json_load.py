@@ -1,7 +1,5 @@
 import json
-from typing import Any, Optional, Type, TypeVar
-
-T = TypeVar('T')
+from typing import Any, Optional, Type
 
 def safe_json_load(json_string: str, object_hook: Optional[Any] = None, default: Optional[Any] = None, decoder: Optional[Type[json.JSONDecoder]] = None) -> Any:
     """
@@ -31,6 +29,14 @@ def safe_json_load(json_string: str, object_hook: Optional[Any] = None, default:
     {'error': True}
     """
     try:
-        return json.loads(json_string, object_hook=object_hook, cls=decoder) if decoder else json.loads(json_string, object_hook=object_hook)
+        kwargs = {}
+        if object_hook is not None:
+            kwargs['object_hook'] = object_hook
+        if decoder is not None:
+            kwargs['cls'] = decoder
+        return json.loads(json_string, **kwargs)
     except (json.JSONDecodeError, TypeError, ValueError):
         return default
+
+
+__all__ = ['safe_json_load']
