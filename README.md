@@ -567,6 +567,10 @@ raised while the underlying thread may still finish in the background.
 2. Make your changes and add tests when appropriate.
 3. Commit your work and open a pull request.
 
+## Authors
+
+- [Mykyta Forofontov](https://github.com/MForofontov)
+
 ## License
 
 This project is licensed under the [GNU GPLv3](LICENSE).
