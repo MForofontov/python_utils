@@ -569,7 +569,7 @@ raised while the underlying thread may still finish in the background.
 
 ## Authors
 
-- [Mykyta Forofontov] (MForofontov)
+- [Mykyta Forofontov](https://github.com/MForofontov)
 
 ## License
 
