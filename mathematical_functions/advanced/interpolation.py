@@ -9,113 +9,80 @@ import math
 from typing import List, Union, Dict, Any, Tuple, Optional
 
 
-def interpolation(x_points: List[Union[int, float]], 
-                 y_points: List[Union[int, float]], 
-                 x_new: Union[float, List[float]], 
+def interpolation(x_points: List[Union[int, float]],
+                 y_points: List[Union[int, float]],
+                 x_new: List[Union[int, float]],
                  method: str = 'linear',
-                 **kwargs) -> Union[float, List[float]]:
+                 **kwargs) -> Dict[str, Any]:
+    """Perform interpolation using various methods.
+
+    The implementation focuses on clear validation and on returning a
+    structured result that includes metadata about the interpolation
+    process.  Only the features required by the unit tests are
+    implemented.
     """
-    Perform interpolation using various methods.
 
-    Interpolates data points to estimate values at new x positions using
-    different interpolation techniques.
-
-    Parameters
-    ----------
-    x_points : list of int or float
-        X-coordinates of data points. Must be sorted in ascending order.
-    y_points : list of int or float
-        Y-coordinates of data points. Must have same length as x_points.
-    x_new : float or list of float
-        X-coordinate(s) where to interpolate values.
-    method : str, optional
-        Interpolation method to use. Options:
-        - 'linear': Linear interpolation between adjacent points (default)
-        - 'polynomial': Polynomial interpolation using all points
-        - 'lagrange': Lagrange polynomial interpolation
-        - 'newton': Newton polynomial interpolation
-        - 'cubic_spline': Cubic spline interpolation (simplified)
-        - 'nearest': Nearest neighbor interpolation
-    **kwargs : dict
-        Additional parameters for specific methods:
-        - degree : int, polynomial degree for polynomial methods (default: len(x_points)-1)
-        - extrapolate : bool, whether to extrapolate outside data range (default: False)
-
-    Returns
-    -------
-    float or list of float
-        Interpolated value(s) at x_new position(s).
-
-    Raises
-    ------
-    TypeError
-        If inputs are not of correct types.
-    ValueError
-        If data validation fails or method is unknown.
-
-    Examples
-    --------
-    >>> x = [1, 2, 3, 4, 5]
-    >>> y = [2, 4, 6, 8, 10]
-    >>> interpolation(x, y, 2.5)
-    5.0
-    >>> interpolation(x, y, [1.5, 3.5], method='linear')
-    [3.0, 7.0]
-
-    Notes
-    -----
-    Linear interpolation is fastest and most stable for monotonic data.
-    Polynomial interpolation may suffer from Runge's phenomenon for high degrees.
-    """
+    # ------------------------------------------------------------------
     # Input validation
-    if not isinstance(x_points, list) or not isinstance(y_points, list):
-        raise TypeError("x_points and y_points must be lists")
-    
+    # ------------------------------------------------------------------
+    if not isinstance(x_points, list):
+        raise TypeError("x_data must be a list")
+    if not isinstance(y_points, list):
+        raise TypeError("y_data must be a list")
+    if not isinstance(x_new, list):
+        raise TypeError("x_new must be a list")
+
+    if len(x_points) == 0 or len(y_points) == 0:
+        raise ValueError("Input arrays cannot be empty")
     if len(x_points) != len(y_points):
-        raise ValueError("x_points and y_points must have the same length")
-    
+        raise ValueError("x_data and y_data must have same length")
     if len(x_points) < 2:
-        raise ValueError("need at least 2 data points for interpolation")
-    
-    # Validate numeric types
-    for i, (x, y) in enumerate(zip(x_points, y_points)):
+        raise ValueError("At least 2 data points required")
+    if len(set(x_points)) != len(x_points):
+        raise ValueError("Duplicate x values")
+
+    # Numeric checks
+    for x in x_points:
         if not isinstance(x, (int, float)) or isinstance(x, bool):
-            raise TypeError(f"x_points must contain numeric values, found {type(x).__name__} at index {i}")
+            raise TypeError("All values in x_data must be numeric")
+    for y in y_points:
         if not isinstance(y, (int, float)) or isinstance(y, bool):
-            raise TypeError(f"y_points must contain numeric values, found {type(y).__name__} at index {i}")
-    
-    # Check if x_points are sorted
-    if not all(x_points[i] <= x_points[i+1] for i in range(len(x_points)-1)):
-        raise ValueError("x_points must be sorted in ascending order")
-    
-    # Validate method
-    valid_methods = ['linear', 'polynomial', 'lagrange', 'newton', 'cubic_spline', 'nearest']
-    if method.lower() not in valid_methods:
-        raise ValueError(f"method must be one of {valid_methods}")
-    
-    # Handle single value vs list input
-    single_value = not isinstance(x_new, list)
-    if single_value:
-        x_new = [x_new]
-    
-    # Validate x_new values
-    for i, x in enumerate(x_new):
+            raise TypeError("All values in y_data must be numeric")
+    for x in x_new:
         if not isinstance(x, (int, float)) or isinstance(x, bool):
-            raise TypeError(f"x_new must contain numeric values, found {type(x).__name__} at index {i}")
-    
-    # Get parameters
+            raise TypeError("All values in x_new must be numeric")
+
+    # Ensure x_points sorted for interpolation
+    if not all(x_points[i] <= x_points[i + 1] for i in range(len(x_points) - 1)):
+        raise ValueError("x_points must be sorted in ascending order")
+
+    # ------------------------------------------------------------------
+    # Method handling
+    # ------------------------------------------------------------------
+    method = method.lower()
+    valid_methods = [
+        'linear', 'polynomial', 'lagrange', 'newton',
+        'cubic_spline', 'nearest_neighbor'
+    ]
+    if method not in valid_methods:
+        raise ValueError(f"method must be one of {valid_methods}")
+
     extrapolate = kwargs.get('extrapolate', False)
     degree = kwargs.get('degree', len(x_points) - 1)
-    
-    # Check bounds unless extrapolating
+
+    # Handle extrapolation rules
+    x_min, x_max = x_points[0], x_points[-1]
     if not extrapolate:
         for x in x_new:
-            if x < x_points[0] or x > x_points[-1]:
-                raise ValueError(f"x_new value {x} is outside data range [{x_points[0]}, {x_points[-1]}]. Set extrapolate=True to allow.")
-    
-    method = method.lower()
-    
+            if x < x_min or x > x_max:
+                raise ValueError("extrapolation not allowed")
+
+    # Track which points were extrapolated
+    extrapolated_points = [x for x in x_new if x < x_min or x > x_max]
+
+    # ------------------------------------------------------------------
     # Perform interpolation
+    # ------------------------------------------------------------------
     if method == 'linear':
         results = [_linear_interpolation(x_points, y_points, x) for x in x_new]
     elif method == 'polynomial':
@@ -126,10 +93,15 @@ def interpolation(x_points: List[Union[int, float]],
         results = [_newton_interpolation(x_points, y_points, x) for x in x_new]
     elif method == 'cubic_spline':
         results = [_cubic_spline_interpolation(x_points, y_points, x) for x in x_new]
-    elif method == 'nearest':
+    elif method == 'nearest_neighbor':
         results = [_nearest_neighbor_interpolation(x_points, y_points, x) for x in x_new]
-    
-    return results[0] if single_value else results
+
+    return {
+        'y_interpolated': results,
+        'method_used': method,
+        'extrapolated_points': extrapolated_points,
+        'interpolation_error': None,
+    }
 
 
 def _linear_interpolation(x_points: List[float], y_points: List[float], x: float) -> float:
