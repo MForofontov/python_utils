@@ -5,7 +5,6 @@ from .root_finding import root_finding
 from .optimization import optimization
 from .differential_equations import differential_equation_solver
 from .fourier_analysis import fourier_transform, spectral_analysis
-from .special_functions import special_functions
 
 __all__ = [
     "polynomial_regression",
@@ -16,5 +15,4 @@ __all__ = [
     "differential_equation_solver",
     "fourier_transform",
     "spectral_analysis",
-    "special_functions",
 ]

@@ -1,8 +1,9 @@
 from pathlib import Path
 
+import importlib
 import pytest
 
-from file_functions import write_dict_to_tsv
+wdt = importlib.import_module("file_functions.write_dict_to_tsv")
 
 
 def test_write_dict_to_tsv_writes_padded_rows_and_preserves_order(
