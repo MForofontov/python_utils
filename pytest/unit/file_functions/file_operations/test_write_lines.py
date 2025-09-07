@@ -5,7 +5,7 @@ Unit tests for write_lines function.
 import pytest
 import os
 import tempfile
-from file_functions.file_operations.write_lines import write_lines
+from file_functions import write_lines
 
 
 def test_write_lines_case_1_default_joiner() -> None:

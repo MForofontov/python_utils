@@ -6,7 +6,7 @@ including type checking, length validation, element type validation, and various
 """
 
 import pytest
-from data_validation.basic_validation.validate_collection import validate_collection
+from data_validation import validate_collection
 
 
 def test_validate_collection_case_1_basic_collections() -> None:

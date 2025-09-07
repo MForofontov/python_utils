@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from file_functions.create_directory import create_directory
+from file_functions import create_directory
 
 
 def test_create_new_directory(tmp_path: Path) -> None:

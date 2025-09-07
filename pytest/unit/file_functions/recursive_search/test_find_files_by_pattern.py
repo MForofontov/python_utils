@@ -8,7 +8,7 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
-from file_functions.recursive_search.find_files_by_pattern import find_files_by_pattern
+from file_functions import find_files_by_pattern
 
 
 def test_find_files_by_pattern_case_1_wildcard_pattern() -> None:

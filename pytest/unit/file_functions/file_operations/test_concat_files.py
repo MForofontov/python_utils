@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from file_functions.concat_files import concat_files
+from file_functions import concat_files
 
 
 def test_concat_files_appends_two_files(tmp_path: Path) -> None:

@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from file_functions.check_and_delete_file import check_and_delete_file
+from file_functions import check_and_delete_file
 
 
 def test_check_and_delete_file_existing_file(tmp_path: Path) -> None:

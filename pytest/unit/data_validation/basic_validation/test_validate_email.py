@@ -7,7 +7,7 @@ including format validation, Unicode support, and domain checking.
 
 import pytest
 from unittest.mock import patch, MagicMock
-from data_validation.basic_validation.validate_email import validate_email
+from data_validation import validate_email
 
 
 def test_validate_email_case_1_valid_emails() -> None:

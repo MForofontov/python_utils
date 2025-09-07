@@ -10,7 +10,7 @@ from dataclasses import dataclass
 import sys
 
 try:
-    from pydantic import BaseModel, ValidationError, Field
+    from pydantic import BaseModel, ValidationError, Field, ConfigDict
     from pydantic.dataclasses import dataclass as pydantic_dataclass
     PYDANTIC_AVAILABLE = True
 except ImportError:
@@ -18,10 +18,11 @@ except ImportError:
     BaseModel = object
     ValidationError = Exception
     Field = lambda **kwargs: None
+    ConfigDict = dict  # type: ignore
     pydantic_dataclass = dataclass
     PYDANTIC_AVAILABLE = False
 
-T = TypeVar("T", bound=BaseModel)
+T = TypeVar("T")
 
 
 def validate_pydantic_schema(
@@ -133,27 +134,31 @@ def validate_pydantic_schema(
         raise TypeError(f"schema_model must be a Pydantic BaseModel class, got {type(schema_model).__name__}")
 
     try:
-        # Configure validation settings
-        if hasattr(schema_model, 'model_config'):
-            # Pydantic v2 style
-            original_config = getattr(schema_model, 'model_config', {})
-            if not allow_extra:
-                schema_model.model_config = {**original_config, 'extra': 'forbid'}
-            if strict:
-                schema_model.model_config = {**original_config, 'strict': True}
+        # Configure validation settings for Pydantic v2
+        from pydantic import ConfigDict
+        
+        # Create a new model class with the desired configuration
+        config_dict = {}
+        if not allow_extra:
+            config_dict['extra'] = 'forbid'
+        if strict:
+            config_dict['strict'] = True
+        
+        if config_dict:
+            # Create a new model class with the configuration
+            configured_model = type(
+                f'{schema_model.__name__}Configured',
+                (schema_model,),
+                {'model_config': ConfigDict(**config_dict)}
+            )
         else:
-            # Pydantic v1 style fallback
-            class Config:
-                extra = 'forbid' if not allow_extra else 'allow'
-                validate_assignment = strict
-
-            schema_model.__config__ = Config
+            configured_model = schema_model
 
         # Validate the data
         if isinstance(data, dict):
-            validated_instance = schema_model(**data)
+            validated_instance = configured_model(**data)
         else:
-            validated_instance = schema_model(data)
+            validated_instance = configured_model(data)
 
         return validated_instance
 

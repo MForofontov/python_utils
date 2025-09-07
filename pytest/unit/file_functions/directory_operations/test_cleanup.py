@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from file_functions.cleanup import cleanup
+from file_functions import cleanup
 
 
 def test_cleanup_exclude_relative_and_absolute(tmp_path: Path) -> None:

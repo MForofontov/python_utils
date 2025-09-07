@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from unittest.mock import patch
 
-from file_functions.recursive_search.find_files_by_mtime import find_files_by_mtime
+from file_functions import find_files_by_mtime
 
 
 def test_find_files_by_mtime_case_1_newer_than_filter() -> None:

@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from file_functions.read_tabular import read_tabular
+from file_functions import read_tabular
 
 
 def test_read_tabular_standard_tsv(tmp_path: Path) -> None:

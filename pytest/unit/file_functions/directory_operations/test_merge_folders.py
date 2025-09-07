@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from file_functions.merge_folders import merge_folders
+from file_functions import merge_folders
 
 
 def test_merge_folders_combines_structure(tmp_path: Path) -> None:

@@ -1,9 +1,8 @@
 from pathlib import Path
 
-import importlib
 import pytest
 
-wdt = importlib.import_module("file_functions.write_dict_to_tsv")
+from file_functions import write_dict_to_tsv
 
 
 def test_write_dict_to_tsv_writes_padded_rows_and_preserves_order(
@@ -18,7 +17,7 @@ def test_write_dict_to_tsv_writes_padded_rows_and_preserves_order(
         "col3": ["x", "y", "z"],
     }
     output_file: Path = tmp_path / "output.tsv"
-    wdt.write_dict_to_tsv(str(output_file), data)
+    write_dict_to_tsv(str(output_file), data)
 
     expected_lines: list[str] = [
         "col1\tcol2\tcol3\n",
@@ -38,7 +37,7 @@ def test_write_dict_to_tsv_writes_only_newline_with_empty_dict(
     Test case 2: Ensure an empty dictionary produces a file containing only a newline.
     """
     output_file: Path = tmp_path / "output.tsv"
-    wdt.write_dict_to_tsv(str(output_file), {})
+    write_dict_to_tsv(str(output_file), {})
 
     assert output_file.read_text() == "\n", "File should contain only a newline"
 
@@ -57,4 +56,4 @@ def test_write_dict_to_tsv_raises_permission_error(
 
     monkeypatch.setattr("builtins.open", mock_open)
     with pytest.raises(PermissionError):
-        wdt.write_dict_to_tsv(str(file_path), data)
+        write_dict_to_tsv(str(file_path), data)

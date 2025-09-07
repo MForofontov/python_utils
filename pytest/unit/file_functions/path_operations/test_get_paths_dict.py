@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from file_functions.get_paths_dict import get_paths_dict
+from file_functions import get_paths_dict
 
 
 def test_get_paths_dict_files_only(tmp_path: Path) -> None:

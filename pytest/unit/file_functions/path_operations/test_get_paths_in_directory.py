@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from file_functions.get_paths_in_directory import get_paths_in_directory
+from file_functions import get_paths_in_directory
 
 
 def test_get_paths_in_directory_files_only(tmp_path: Path) -> None:

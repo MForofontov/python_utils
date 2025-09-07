@@ -4,7 +4,7 @@ Unit tests for copy_file function.
 
 import pytest
 from pathlib import Path
-from file_functions.file_operations.copy_file import copy_file
+from file_functions import copy_file
 
 
 def test_copy_file_case_1_basic_copy() -> None:

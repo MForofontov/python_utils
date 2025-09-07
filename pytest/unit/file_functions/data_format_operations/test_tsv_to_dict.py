@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from file_functions.tsv_to_dict import tsv_to_dict
+from file_functions import tsv_to_dict
 
 
 def test_tsv_to_dict_basic(tmp_path: Path) -> None:

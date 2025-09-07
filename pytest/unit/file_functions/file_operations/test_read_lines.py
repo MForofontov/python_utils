@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from file_functions.read_lines import read_lines
+from file_functions import read_lines
 
 
 def test_read_lines_entire_file_with_stripping(tmp_path: Path) -> None:

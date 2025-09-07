@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from file_functions.join_paths import join_paths
+from file_functions import join_paths
 
 
 def test_join_paths_multiple_relative_segments(tmp_path: Path) -> None:

@@ -5,7 +5,7 @@ Unit tests for write_to_file function.
 import pytest
 import os
 import tempfile
-from file_functions.file_operations.write_to_file import write_to_file
+from file_functions import write_to_file
 
 
 def test_write_to_file_case_1_basic_write() -> None:

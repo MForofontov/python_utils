@@ -7,7 +7,7 @@ including length validation, pattern matching, character restrictions, and edge 
 
 import pytest
 import re
-from data_validation.basic_validation.validate_string import validate_string
+from data_validation import validate_string
 
 
 def test_validate_string_case_1_basic_validation() -> None:

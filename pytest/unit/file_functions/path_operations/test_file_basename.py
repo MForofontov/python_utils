@@ -1,6 +1,6 @@
 import pytest
 
-from file_functions.file_basename import file_basename
+from file_functions import file_basename
 
 
 def test_file_basename_default_mode() -> None:

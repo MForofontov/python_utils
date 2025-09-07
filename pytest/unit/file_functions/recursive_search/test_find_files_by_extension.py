@@ -8,7 +8,7 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
-from file_functions.recursive_search.find_files_by_extension import find_files_by_extension
+from file_functions import find_files_by_extension
 
 
 def test_find_files_by_extension_case_1_normal_operation() -> None:

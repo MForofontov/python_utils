@@ -9,7 +9,7 @@ import time
 from pathlib import Path
 from unittest.mock import patch
 
-from file_functions.temp_management.cleanup_temp_files import cleanup_temp_files
+from file_functions import cleanup_temp_files
 
 
 def test_cleanup_temp_files_case_1_normal_operation() -> None:

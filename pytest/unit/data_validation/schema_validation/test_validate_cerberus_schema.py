@@ -12,7 +12,7 @@ from unittest.mock import Mock, patch
 # Try to import cerberus - tests will be skipped if not available
 try:
     from cerberus import Validator
-    from data_validation.schema_validation.validate_cerberus_schema import validate_cerberus_schema
+    from data_validation import validate_cerberus_schema
     CERBERUS_AVAILABLE = True
 except ImportError:
     CERBERUS_AVAILABLE = False

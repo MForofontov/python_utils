@@ -8,7 +8,7 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
-from file_functions.temp_management.create_temp_directory import create_temp_directory
+from file_functions import create_temp_directory
 
 
 def test_create_temp_directory_case_1_normal_operation() -> None:

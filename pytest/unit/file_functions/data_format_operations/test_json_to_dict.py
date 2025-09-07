@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from file_functions.json_to_dict import json_to_dict
+from file_functions import json_to_dict
 
 
 def test_json_to_dict_reads_valid_json(tmp_path: Path) -> None:

@@ -8,7 +8,7 @@ including numeric ranges, string ranges, date ranges, and boundary conditions.
 import pytest
 from datetime import date, datetime
 from decimal import Decimal
-from data_validation.basic_validation.validate_range import validate_range
+from data_validation import validate_range
 
 
 def test_validate_range_case_1_numeric_ranges() -> None:

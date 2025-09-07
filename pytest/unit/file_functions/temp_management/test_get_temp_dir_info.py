@@ -8,7 +8,7 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
-from file_functions.temp_management.get_temp_dir_info import get_temp_dir_info
+from file_functions import get_temp_dir_info
 
 
 def test_get_temp_dir_info_case_1_normal_operation() -> None:

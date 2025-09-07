@@ -2,8 +2,8 @@ from pathlib import Path
 
 import pytest
 
-from file_functions.write_lines import write_lines
-from file_functions.write_to_file import write_to_file
+from file_functions import write_lines
+from file_functions import write_to_file
 
 
 def test_write_lines_default_joiner(tmp_path: Path) -> None:

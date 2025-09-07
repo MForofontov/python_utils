@@ -8,7 +8,7 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
-from file_functions.file_hashing.calculate_sha1_hash import calculate_sha1_hash
+from file_functions import calculate_sha1_hash
 
 
 def test_calculate_sha1_hash_case_1_normal_operation() -> None:

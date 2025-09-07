@@ -7,7 +7,7 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
-from file_functions.file_hashing.compare_file_hashes import compare_file_hashes
+from file_functions import compare_file_hashes
 
 
 def test_compare_file_hashes_case_1_identical_files() -> None:

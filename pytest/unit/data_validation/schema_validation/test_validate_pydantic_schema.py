@@ -13,14 +13,14 @@ import sys
 # Try to import pydantic - tests will be skipped if not available
 try:
     from pydantic import BaseModel, Field, ValidationError
-    from data_validation.schema_validation.validate_pydantic_schema import validate_pydantic_schema
     PYDANTIC_AVAILABLE = True
 except ImportError:
     PYDANTIC_AVAILABLE = False
-    BaseModel = None
-    Field = None
-    ValidationError = None
-    validate_pydantic_schema = None
+    BaseModel = object  # type: ignore
+    Field = lambda **kwargs: None  # type: ignore
+    ValidationError = Exception  # type: ignore
+
+from data_validation import validate_pydantic_schema
 
 pytestmark = pytest.mark.skipif(not PYDANTIC_AVAILABLE, reason="Pydantic not installed")
 

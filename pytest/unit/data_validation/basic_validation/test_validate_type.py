@@ -6,7 +6,7 @@ including type checking, union types, None handling, and error cases.
 """
 
 import pytest
-from data_validation.basic_validation.validate_type import validate_type
+from data_validation import validate_type
 
 
 def test_validate_type_case_1_basic_types() -> None:

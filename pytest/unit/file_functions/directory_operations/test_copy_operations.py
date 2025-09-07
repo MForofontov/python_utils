@@ -2,8 +2,8 @@ from pathlib import Path
 
 import pytest
 
-from file_functions.copy_file import copy_file
-from file_functions.copy_folder import copy_folder
+from file_functions import copy_file
+from file_functions import copy_folder
 
 
 def test_copy_file_preserves_contents(tmp_path: Path) -> None:
