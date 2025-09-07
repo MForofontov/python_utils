@@ -20,6 +20,7 @@ try:
     from json_functions import *
     from linux_functions import *
     from logger_functions import *
+    from logging_debugging import *
     from mathematical_functions import *
     from multiprocessing_functions import *
     from print_functions import *
@@ -40,6 +41,7 @@ except ImportError:
     from .json_functions import *
     from .linux_functions import *
     from .logger_functions import *
+    from .logging_debugging import *
     from .mathematical_functions import *
     from .multiprocessing_functions import *
     from .print_functions import *
