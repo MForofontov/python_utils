@@ -17,6 +17,7 @@ from .invert_dict import invert_dict
 from .deep_get import deep_get
 from .deep_set import deep_set
 from .dict_diff import dict_diff
+from .dict_difference import dict_difference
 
 __all__ = [
     'identify_dict_structure',
@@ -31,4 +32,5 @@ __all__ = [
     'deep_get',
     'deep_set',
     'dict_diff',
+    'dict_difference',
 ]

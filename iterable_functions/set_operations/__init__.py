@@ -19,6 +19,7 @@ from .get_subsets_of_size import get_subsets_of_size
 from .set_partition import partition_set_by_predicate
 from .partition_set_into_n_parts import partition_set_into_n_parts
 from .get_set_partitions import get_set_partitions
+from .partition_set_by_sizes import partition_set_by_sizes
 from .get_combinations import get_combinations
 from .get_combinations_with_replacement import get_combinations_with_replacement
 from .get_permutations import get_permutations
@@ -38,6 +39,7 @@ __all__ = [
     'partition_set_by_predicate',
     'partition_set_into_n_parts',
     'get_set_partitions',
+    'partition_set_by_sizes',
     'get_combinations',
     'get_combinations_with_replacement',
     'get_permutations',
