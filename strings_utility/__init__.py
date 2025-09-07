@@ -9,7 +9,6 @@ from .ends_with import ends_with
 from .find_substring import find_substring
 from .is_anagram import is_anagram
 from .is_palindrome import is_palindrome
-from .join_strings import join_strings
 from .ljust_string import ljust_string
 from .lstrip_chars import lstrip_chars
 from .regex_present import regex_present
@@ -23,17 +22,13 @@ from .replace_by_regex import replace_by_regex
 from .replace_multiple_substrings import replace_multiple_substrings
 from .replace_substring import replace_substring
 from .replace_tabs import replace_tabs
-from .reverse_string import reverse_string
 from .rjust_string import rjust_string
 from .rstrip_chars import rstrip_chars
-from .search_string_by_regex import search_string_by_regex
 from .split_string import split_string
 from .starts_with import starts_with
 from .strip_chars import strip_chars
 from .strip_whitespace import strip_whitespace
 from .swapcase_string import swapcase_string
-from .to_lowercase import to_lowercase
-from .to_uppercase import to_uppercase
 from .truncate_string import truncate_string
 from .truncate_string_range import truncate_string_range
 from .verify_password import verify_password
@@ -51,7 +46,6 @@ __all__ = [
     "find_substring",
     "is_anagram",
     "is_palindrome",
-    "join_strings",
     "ljust_string",
     "lstrip_chars",
     "regex_present",
@@ -65,17 +59,13 @@ __all__ = [
     "replace_multiple_substrings",
     "replace_substring",
     "replace_tabs",
-    "reverse_string",
     "rjust_string",
     "rstrip_chars",
-    "search_string_by_regex",
     "split_string",
     "starts_with",
     "strip_chars",
     "strip_whitespace",
     "swapcase_string",
-    "to_lowercase",
-    "to_uppercase",
     "truncate_string",
     "truncate_string_range",
     "verify_password",

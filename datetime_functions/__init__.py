@@ -17,7 +17,7 @@ from .is_leap_year import is_leap_year
 from .days_between import days_between
 from .calculate_age import calculate_age
 from .compare_dates import compare_dates
-from .get_current_datetime_iso import get_current_datetime_iso, get_current_datetime_iso_utc
+from .get_current_datetime_iso_utc import get_current_datetime_iso_utc
 from .get_date_parts import get_date_parts, DateParts
 from .get_days_in_month import get_days_in_month
 from .get_days_of_week import get_days_of_week
@@ -46,6 +46,7 @@ __all__ = [
     'calculate_age',
     'compare_dates',
     'get_current_datetime_iso',
+    'get_current_datetime_iso_utc',
     'get_current_datetime_iso_utc',
     'get_date_parts',
     'DateParts',
