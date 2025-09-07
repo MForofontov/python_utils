@@ -14,7 +14,6 @@ Submodules:
 
 # Import from all submodules
 from .basic import *
-from .advanced import *
 from .statistics import *
 from .random import *
 
@@ -33,16 +32,10 @@ from .statistics.time_series_analysis import time_series_analysis
 from .statistics.linear_regression import linear_regression
 from .statistics.chi_square_test import chi_square_test
 from .statistics.outlier_detection import outlier_detection
-from .advanced.numerical_integration import numerical_integration
-from .advanced.polynomial_regression import polynomial_regression
 
 __all__ = [
     # Basic math operations
     "power",
-    
-    # Advanced math functions
-    "polynomial_regression",
-    "numerical_integration",
     
     # Statistics
     "mean", "median", "weighted_median", "mode", "stddev", "variance", 
