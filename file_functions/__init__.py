@@ -19,6 +19,11 @@ from .write_dict_to_tsv import write_dict_to_tsv
 from .write_lines import write_lines
 from .write_to_file import write_to_file
 
+# New organized modules
+from .recursive_search import *
+from .file_hashing import *
+from .temp_management import *
+
 __all__ = [
     "check_and_delete_file",
     "cleanup",
@@ -40,4 +45,19 @@ __all__ = [
     "write_dict_to_tsv",
     "write_lines",
     "write_to_file",
+    # Recursive search functions
+    "find_files_by_extension",
+    "find_files_by_pattern",
+    "find_files_by_size",
+    "find_files_by_mtime",
+    # File hashing functions
+    "calculate_md5_hash",
+    "calculate_sha1_hash", 
+    "calculate_sha256_hash",
+    "compare_file_hashes",
+    # Temporary management functions
+    "create_temp_file",
+    "create_temp_directory",
+    "cleanup_temp_files",
+    "get_temp_dir_info",
 ]
