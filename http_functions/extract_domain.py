@@ -2,7 +2,7 @@
 
 import urllib.parse
 from typing import Optional
-from .validate_url import is_valid_url
+from .is_valid_url import is_valid_url
 
 
 def extract_domain(url: str) -> Optional[str]:

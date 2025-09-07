@@ -1,7 +1,7 @@
 """Unit tests for URL validation functionality."""
 
 import pytest
-from http_functions.validate_url import is_valid_url
+from http_functions.is_valid_url import is_valid_url
 
 
 def test_is_valid_url_with_empty_string():
