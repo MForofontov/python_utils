@@ -1,5 +1,5 @@
 from typing import Any
-from iterable_functions.all_match_lists import all_match_lists
+from .all_match_lists import all_match_lists
 
 
 def contains_sublist(main_list: list[Any], list_of_lists: list[list[Any]]) -> bool:

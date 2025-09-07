@@ -10,6 +10,7 @@ from .check_if_all_elements_are_duplicates import check_if_all_elements_are_dupl
 from .divide_list_into_n_chunks import divide_list_into_n_chunks
 from .get_duplicates import get_duplicates
 from .get_unique_sublists import get_unique_sublists
+from .group_by import group_by
 from .is_nested_list_empty import is_nested_list_empty
 from .repeat_strings_in_a_list import repeat_strings_in_a_list
 
@@ -19,6 +20,7 @@ __all__ = [
     'divide_list_into_n_chunks',
     'get_duplicates',
     'get_unique_sublists',
+    'group_by',
     'is_nested_list_empty',
     'repeat_strings_in_a_list',
 ]

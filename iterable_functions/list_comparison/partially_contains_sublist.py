@@ -1,5 +1,5 @@
 from typing import TypeVar
-from iterable_functions.any_match_lists import any_match_lists
+from .any_match_lists import any_match_lists
 
 T = TypeVar("T")
 
