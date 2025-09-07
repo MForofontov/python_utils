@@ -10,7 +10,6 @@ from .parallel_progress_bar import parallel_progress_bar
 from .parallel_reduce import parallel_reduce
 from .parallel_sort import parallel_sort
 from .parallel_starmap import parallel_starmap
-from .parallel_sum import parallel_sum
 from .parallel_unique import parallel_unique
 
 __all__ = [
@@ -26,6 +25,5 @@ __all__ = [
     "parallel_reduce",
     "parallel_sort",
     "parallel_starmap",
-    "parallel_sum",
     "parallel_unique",
 ]

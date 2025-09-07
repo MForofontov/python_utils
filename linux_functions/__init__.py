@@ -4,10 +4,8 @@ file operations, and network utilities.
 """
 
 from .get_uptime import get_uptime
-from .get_memory_info import get_memory_info
 from .get_disk_usage import get_disk_usage
 from .get_cpu_info import get_cpu_info
-from .list_processes import list_processes
 from .is_process_running import is_process_running
 from .kill_process import kill_process
 from .get_file_size import get_file_size
@@ -18,10 +16,8 @@ from .ping_host import ping_host
 
 __all__ = [
     'get_uptime',
-    'get_memory_info', 
     'get_disk_usage',
     'get_cpu_info',
-    'list_processes',
     'is_process_running',
     'kill_process',
     'get_file_size',
