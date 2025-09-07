@@ -1,7 +1,6 @@
 import pytest
 from datetime import datetime
-import pytz
-from datetime_functions.get_current_datetime_iso import get_current_datetime_iso, get_current_datetime_iso_utc
+from datetime_functions.get_current_datetime_iso import get_current_datetime_iso
 
 
 def test_get_current_datetime_iso_format() -> None:
@@ -14,19 +13,9 @@ def test_get_current_datetime_iso_format() -> None:
     assert len(result) >= 19  # At least YYYY-MM-DDTHH:MM:SS
 
 
-def test_get_current_datetime_iso_utc_format() -> None:
-    """
-    Test case 2: Test get_current_datetime_iso_utc function returns proper UTC ISO format.
-    """
-    result: str = get_current_datetime_iso_utc()
-    assert isinstance(result, str)
-    assert 'T' in result  # ISO format contains T separator
-    assert result.endswith('+00:00') or result.endswith('Z')  # UTC timezone indicator
-
-
 def test_get_current_datetime_iso_parseable() -> None:
     """
-    Test case 3: Test get_current_datetime_iso function returns parseable datetime string.
+    Test case 2: Test get_current_datetime_iso function returns parseable datetime string.
     """
     result: str = get_current_datetime_iso()
     # Should be able to parse the result back to datetime
@@ -34,20 +23,9 @@ def test_get_current_datetime_iso_parseable() -> None:
     assert isinstance(parsed, datetime)
 
 
-def test_get_current_datetime_iso_utc_parseable() -> None:
-    """
-    Test case 4: Test get_current_datetime_iso_utc function returns parseable datetime string.
-    """
-    result: str = get_current_datetime_iso_utc()
-    # Should be able to parse the result back to datetime
-    parsed: datetime = datetime.fromisoformat(result)
-    assert isinstance(parsed, datetime)
-    assert parsed.tzinfo is not None  # Should have timezone info
-
-
 def test_get_current_datetime_iso_different_calls() -> None:
     """
-    Test case 5: Test get_current_datetime_iso function returns different values on consecutive calls.
+    Test case 3: Test get_current_datetime_iso function returns different values on consecutive calls.
     """
     import time
     result1: str = get_current_datetime_iso()
@@ -58,11 +36,13 @@ def test_get_current_datetime_iso_different_calls() -> None:
     assert isinstance(result2, str)
 
 
-def test_get_current_datetime_iso_utc_timezone() -> None:
+def test_get_current_datetime_iso_consistency() -> None:
     """
-    Test case 6: Test get_current_datetime_iso_utc function returns UTC timezone.
+    Test case 4: Test get_current_datetime_iso function returns consistent format.
     """
-    result: str = get_current_datetime_iso_utc()
+    result: str = get_current_datetime_iso()
+    # Should be parseable and represent current time (approximately)
     parsed: datetime = datetime.fromisoformat(result)
-    # Should be UTC timezone
-    assert parsed.tzinfo == pytz.UTC or parsed.utcoffset().total_seconds() == 0
+    now = datetime.now()
+    time_diff = abs((parsed - now).total_seconds())
+    assert time_diff < 1  # Should be within 1 second of current time
