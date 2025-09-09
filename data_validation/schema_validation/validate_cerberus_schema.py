@@ -5,8 +5,7 @@ This module provides comprehensive schema validation using Cerberus validator
 for validating dictionary structures with flexible schema definitions.
 """
 
-from typing import Any, Dict, List, Union
-import sys
+from typing import Any
 
 try:
     from cerberus import Validator
@@ -18,13 +17,13 @@ except ImportError:
 
 
 def validate_cerberus_schema(
-    data: Dict[str, Any],
-    schema: Dict[str, Any],
+    data: dict[str, Any],
+    schema: dict[str, Any],
     allow_unknown: bool = False,
     normalize: bool = True,
     param_name: str = "data",
-) -> Dict[str, Any]:
-    """
+) -> dict[str, Any]:
+    r"""
     Validate data against a Cerberus schema definition.
 
     Uses Cerberus validator to validate dictionary data against flexible

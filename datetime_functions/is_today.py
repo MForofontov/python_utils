@@ -1,10 +1,9 @@
 """Check if a date is today."""
 
 from datetime import datetime, date
-from typing import Union
 
 
-def is_today(date_obj: Union[datetime, date]) -> bool:
+def is_today(date_obj: datetime | date) -> bool:
     """
     Check if a given date is today.
     

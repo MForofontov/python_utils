@@ -2,10 +2,10 @@
 
 import urllib.request
 from urllib.error import HTTPError, URLError
-from typing import Any, Dict, Optional
+from typing import Any
 
 
-def http_get(url: str, headers: Optional[Dict[str, str]] = None, timeout: int = 30) -> Dict[str, Any]:
+def http_get(url: str, headers: dict[str, str] | None = None, timeout: int = 30) -> dict[str, Any]:
     """
     Perform a simple HTTP GET request.
     

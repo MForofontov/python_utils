@@ -28,10 +28,10 @@ Examples
 {'user': {'name': 'John', 'profile': {'age': 30}}}
 """
 
-from typing import Any, Dict, Union, List
+from typing import Any
 
 
-def deep_set(d: Dict[str, Any], keys: Union[str, List[str]], value: Any) -> None:
+def deep_set(d: dict[str, Any], keys: str | list[str], value: Any) -> None:
     """
     Safely set a value in a nested dictionary, creating intermediate dictionaries as needed.
 

@@ -1,10 +1,9 @@
 """Modify days on a date or datetime object."""
 
 from datetime import datetime, date, timedelta
-from typing import Union
 
 
-def modify_days(date_obj: Union[datetime, date], days: int) -> Union[datetime, date]:
+def modify_days(date_obj: datetime | date, days: int) -> datetime | date:
     """
     Add or subtract a specified number of days from a datetime or date object.
     

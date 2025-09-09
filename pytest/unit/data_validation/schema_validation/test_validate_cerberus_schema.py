@@ -7,7 +7,6 @@ Note: These tests will be skipped if Cerberus is not installed.
 """
 
 import pytest
-from unittest.mock import Mock, patch
 
 # Try to import cerberus - tests will be skipped if not available
 try:

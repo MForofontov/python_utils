@@ -4,12 +4,12 @@ Partition set into n parts utilities.
 This module provides utilities for partitioning sets into n approximately equal-sized subsets.
 """
 
-from typing import TypeVar, Set, List
+from typing import TypeVar
 
 T = TypeVar("T")
 
 
-def partition_set_into_n_parts(input_set: Set[T], n: int) -> List[Set[T]]:
+def partition_set_into_n_parts(input_set: set[T], n: int) -> list[set[T]]:
     """
     Partition a set into n approximately equal-sized subsets.
 

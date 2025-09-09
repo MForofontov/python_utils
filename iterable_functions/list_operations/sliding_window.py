@@ -4,12 +4,13 @@ Create sliding windows from a list.
 This module provides utilities for creating sliding windows of specified size.
 """
 
-from typing import TypeVar, Any, List, Iterator
+from typing import TypeVar
+from collections.abc import Iterator
 
 T = TypeVar("T")
 
 
-def sliding_window(items: List[T], window_size: int) -> Iterator[List[T]]:
+def sliding_window(items: list[T], window_size: int) -> Iterator[list[T]]:
     """
     Create sliding windows of specified size from a list.
 

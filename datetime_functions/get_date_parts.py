@@ -1,7 +1,7 @@
 """Get date parts from a date object."""
 
 from datetime import datetime, date
-from typing import Union, NamedTuple
+from typing import NamedTuple
 
 
 class DateParts(NamedTuple):
@@ -13,7 +13,7 @@ class DateParts(NamedTuple):
     day_of_year: int
 
 
-def get_date_parts(date_obj: Union[datetime, date]) -> DateParts:
+def get_date_parts(date_obj: datetime | date) -> DateParts:
     """
     Get various parts of a date as a named tuple.
     

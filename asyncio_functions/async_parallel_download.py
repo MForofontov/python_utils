@@ -1,7 +1,5 @@
 import aiohttp
 import asyncio
-import os
-from typing import Optional
 
 async def async_parallel_download(url: str, dest_path: str, num_chunks: int = 8, timeout: float = 30.0) -> None:
     """

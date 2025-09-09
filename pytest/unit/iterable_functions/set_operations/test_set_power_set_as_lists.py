@@ -1,5 +1,4 @@
 import pytest
-from typing import Any
 from iterable_functions.set_operations.set_power_set_as_lists import set_power_set_as_lists
 
 

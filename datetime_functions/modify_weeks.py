@@ -1,10 +1,9 @@
 """Modify weeks on a date or datetime object."""
 
 from datetime import datetime, date, timedelta
-from typing import Union
 
 
-def modify_weeks(date_obj: Union[datetime, date], weeks: int) -> Union[datetime, date]:
+def modify_weeks(date_obj: datetime | date, weeks: int) -> datetime | date:
     """
     Add or subtract a specified number of weeks from a datetime or date object.
     

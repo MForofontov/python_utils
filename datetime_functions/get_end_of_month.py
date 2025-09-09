@@ -1,11 +1,10 @@
 """Get the end of month for a given date."""
 
 from datetime import datetime, date
-from typing import Union
 from calendar import monthrange
 
 
-def get_end_of_month(date_obj: Union[datetime, date]) -> Union[datetime, date]:
+def get_end_of_month(date_obj: datetime | date) -> datetime | date:
     """
     Get the last day of the month for a given date.
     

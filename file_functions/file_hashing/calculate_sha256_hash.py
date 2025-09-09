@@ -4,7 +4,6 @@ Calculate SHA256 hash of a file.
 
 import hashlib
 from pathlib import Path
-from typing import Any
 
 
 def calculate_sha256_hash(

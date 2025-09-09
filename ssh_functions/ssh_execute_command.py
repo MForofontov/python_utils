@@ -1,5 +1,5 @@
 import subprocess
-from typing import Sequence, Any
+from typing import Any
 
 
 def ssh_execute_command(

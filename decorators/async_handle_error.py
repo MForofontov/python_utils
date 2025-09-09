@@ -1,4 +1,4 @@
-from typing import Any, ParamSpec, TypeVar
+from typing import ParamSpec, TypeVar
 from collections.abc import Callable, Awaitable
 from functools import wraps
 import inspect

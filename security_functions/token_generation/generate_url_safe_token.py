@@ -8,7 +8,6 @@ might cause issues.
 
 import secrets
 import base64
-from typing import Any
 
 
 def generate_url_safe_token(

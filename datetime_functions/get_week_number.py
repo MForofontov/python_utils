@@ -1,10 +1,9 @@
 """Get the week number of the year."""
 
 from datetime import datetime, date
-from typing import Union
 
 
-def get_week_number(date_obj: Union[datetime, date]) -> int:
+def get_week_number(date_obj: datetime | date) -> int:
     """
     Get the ISO week number of the year for a given date.
     

@@ -1,9 +1,8 @@
 """Calculate the power of a number."""
 
-from typing import Union
 
 
-def power(base: Union[int, float], exponent: Union[int, float]) -> Union[int, float]:
+def power(base: int | float, exponent: int | float) -> int | float:
     """
     Calculate base raised to the power of exponent.
 

@@ -1,5 +1,4 @@
 import pytest
-import os
 from env_config_functions.expand_env_vars_in_string import expand_env_vars_in_string
 
 def test_expand_env_vars_basic(monkeypatch):

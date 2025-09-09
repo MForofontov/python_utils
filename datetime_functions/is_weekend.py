@@ -1,10 +1,9 @@
 """Check if a date is a weekend."""
 
 from datetime import datetime, date
-from typing import Union
 
 
-def is_weekend(date_obj: Union[datetime, date]) -> bool:
+def is_weekend(date_obj: datetime | date) -> bool:
     """
     Check if a given date is a weekend (Saturday or Sunday).
     

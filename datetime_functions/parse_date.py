@@ -1,10 +1,9 @@
 """Date parsing functionality."""
 
 from datetime import datetime, date
-from typing import Union, Optional, List
 
 
-def parse_date(date_string: str, formats: Optional[List[str]] = None) -> Union[datetime, date]:
+def parse_date(date_string: str, formats: list[str] | None = None) -> datetime | date:
     """
     Parse a date string into a datetime or date object.
     

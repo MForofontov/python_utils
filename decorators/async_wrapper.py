@@ -3,7 +3,7 @@ import inspect
 import logging
 from functools import wraps, partial
 from logger_functions.logger import validate_logger
-from typing import Any, ParamSpec, TypeVar
+from typing import ParamSpec, TypeVar
 from collections.abc import Callable, Awaitable
 P = ParamSpec("P")
 R = TypeVar("R")

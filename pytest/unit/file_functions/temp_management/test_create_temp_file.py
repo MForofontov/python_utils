@@ -2,7 +2,6 @@
 Unit tests for create_temp_file function.
 """
 
-import os
 import pytest
 import tempfile
 from pathlib import Path
@@ -26,7 +25,7 @@ def test_create_temp_file_case_1_normal_operation() -> None:
         with open(temp_path, 'w') as f:
             f.write("test content")
         
-        with open(temp_path, 'r') as f:
+        with open(temp_path) as f:
             content = f.read()
         
         assert content == "test content"

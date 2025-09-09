@@ -1,5 +1,4 @@
 import pytest
-from typing import Any
 from iterable_functions.set_operations.partition_set_by_sizes import partition_set_by_sizes
 
 

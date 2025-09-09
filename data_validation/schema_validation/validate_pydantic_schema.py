@@ -5,9 +5,8 @@ This module provides comprehensive schema validation using Pydantic models
 for validating complex nested data structures, API payloads, and configuration objects.
 """
 
-from typing import Any, Dict, Type, TypeVar, Union, List, get_type_hints
+from typing import Any, TypeVar
 from dataclasses import dataclass
-import sys
 
 try:
     from pydantic import BaseModel, ValidationError, Field, ConfigDict
@@ -26,8 +25,8 @@ T = TypeVar("T")
 
 
 def validate_pydantic_schema(
-    data: Dict[str, Any] | Any,
-    schema_model: Type[T],
+    data: dict[str, Any] | Any,
+    schema_model: type[T],
     strict: bool = True,
     allow_extra: bool = False,
     param_name: str = "data",

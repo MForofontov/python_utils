@@ -7,7 +7,6 @@ which is widely supported and recommended by security standards.
 
 import hashlib
 import secrets
-from typing import Any
 
 
 def hash_password_pbkdf2(

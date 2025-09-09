@@ -1,12 +1,11 @@
 """Calculate age from a birth date."""
 
 from datetime import datetime, date
-from typing import Union
 
 
 def calculate_age(
-    birth_date: Union[datetime, date],
-    reference_date: Union[datetime, date] = None,
+    birth_date: datetime | date,
+    reference_date: datetime | date = None,
 ) -> int:
     """
     Calculate the age in years from a birth date.

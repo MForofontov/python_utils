@@ -4,7 +4,6 @@ Find files by extension recursively in a directory.
 
 import os
 from pathlib import Path
-from typing import Any
 
 
 def find_files_by_extension(

@@ -3,10 +3,9 @@ Module for listing files in a directory.
 """
 
 import os
-from typing import List
 
 
-def list_files(directory_path: str, include_hidden: bool = False) -> List[str]:
+def list_files(directory_path: str, include_hidden: bool = False) -> list[str]:
     """
     List all files in a directory.
 

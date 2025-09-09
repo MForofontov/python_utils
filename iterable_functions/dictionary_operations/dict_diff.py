@@ -35,10 +35,10 @@ Examples
 ['e']
 """
 
-from typing import Any, Dict, List
+from typing import Any
 
 
-def dict_diff(dict1: Dict[str, Any], dict2: Dict[str, Any], recursive: bool = True) -> Dict[str, List[str]]:
+def dict_diff(dict1: dict[str, Any], dict2: dict[str, Any], recursive: bool = True) -> dict[str, list[str]]:
     """
     Find differences between two dictionaries.
 

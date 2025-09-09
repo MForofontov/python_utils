@@ -7,7 +7,6 @@ secure and should not be used for protecting sensitive data.
 """
 
 import secrets
-from typing import Any
 
 
 def encrypt_xor(

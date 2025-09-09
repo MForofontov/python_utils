@@ -2,7 +2,6 @@
 
 import pytest
 from unittest.mock import patch, Mock, mock_open
-from pathlib import Path
 import urllib.error
 from http_functions.upload_file import upload_file
 

@@ -1,11 +1,12 @@
-from typing import Any, Dict, Optional, Callable
+from typing import Any
+from collections.abc import Callable
 import yaml
 
 def parse_yaml_config(
     path: str,
-    schema_validator: Optional[Callable[[Dict[str, Any]], None]] = None,
-    required_keys: Optional[list[str]] = None
-) -> Dict[str, Any]:
+    schema_validator: Callable[[dict[str, Any]], None] | None = None,
+    required_keys: list[str] | None = None
+) -> dict[str, Any]:
     """
     Parse a YAML configuration file and return a dictionary, with optional schema validation.
 
@@ -42,7 +43,7 @@ def parse_yaml_config(
     ...         raise ValueError('Missing database section')
     >>> parse_yaml_config('config.yaml', schema_validator=schema)
     """
-    with open(path, 'r') as f:
+    with open(path) as f:
         config = yaml.safe_load(f)
     if not isinstance(config, dict):
         raise ValueError("YAML config must be a dictionary at the top level")

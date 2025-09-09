@@ -7,8 +7,6 @@ Note: These tests will be skipped if Pydantic is not installed.
 """
 
 import pytest
-from unittest.mock import Mock, patch
-import sys
 
 # Try to import pydantic - tests will be skipped if not available
 try:
