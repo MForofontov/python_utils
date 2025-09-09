@@ -11,7 +11,7 @@ from decimal import Decimal
 from data_validation import validate_range
 
 
-def test_validate_range_case_1_numeric_ranges() -> None:
+def test_validate_range_numeric_ranges() -> None:
     """
     Test case 1: Numeric range validation with integers and floats.
     """
@@ -29,7 +29,7 @@ def test_validate_range_case_1_numeric_ranges() -> None:
     validate_range(-2.5, min_value=-10.0, max_value=10.0)
 
 
-def test_validate_range_case_2_exclusive_bounds() -> None:
+def test_validate_range_exclusive_bounds() -> None:
     """
     Test case 2: Exclusive boundary validation.
     """
@@ -45,7 +45,7 @@ def test_validate_range_case_2_exclusive_bounds() -> None:
     validate_range(5, min_value=0, max_value=10, min_inclusive=False, max_inclusive=False)
 
 
-def test_validate_range_case_3_single_bounds() -> None:
+def test_validate_range_single_bounds() -> None:
     """
     Test case 3: Single boundary validation (only min or max).
     """
@@ -62,7 +62,7 @@ def test_validate_range_case_3_single_bounds() -> None:
     validate_range(-999999)
 
 
-def test_validate_range_case_4_string_ranges() -> None:
+def test_validate_range_string_ranges() -> None:
     """
     Test case 4: String lexicographic range validation.
     """
@@ -77,7 +77,7 @@ def test_validate_range_case_4_string_ranges() -> None:
     validate_range("elephant", min_value="cat", max_value="elephant")
 
 
-def test_validate_range_case_5_date_ranges() -> None:
+def test_validate_range_date_ranges() -> None:
     """
     Test case 5: Date and datetime range validation.
     """
@@ -98,7 +98,7 @@ def test_validate_range_case_5_date_ranges() -> None:
     validate_range(test_datetime, min_value=start_datetime, max_value=end_datetime)
 
 
-def test_validate_range_case_6_decimal_ranges() -> None:
+def test_validate_range_decimal_ranges() -> None:
     """
     Test case 6: Decimal number range validation.
     """
@@ -115,7 +115,7 @@ def test_validate_range_case_6_decimal_ranges() -> None:
     )
 
 
-def test_validate_range_case_7_value_error_below_minimum() -> None:
+def test_validate_range_value_error_below_minimum() -> None:
     """
     Test case 7: ValueError for values below minimum.
     """
@@ -135,7 +135,7 @@ def test_validate_range_case_7_value_error_below_minimum() -> None:
         validate_range(-5, min_value=0, param_name="age")
 
 
-def test_validate_range_case_8_value_error_above_maximum() -> None:
+def test_validate_range_value_error_above_maximum() -> None:
     """
     Test case 8: ValueError for values above maximum.
     """
@@ -155,7 +155,7 @@ def test_validate_range_case_8_value_error_above_maximum() -> None:
         validate_range(105, max_value=100, param_name="score")
 
 
-def test_validate_range_case_9_invalid_range_bounds() -> None:
+def test_validate_range_invalid_range_bounds() -> None:
     """
     Test case 9: ValueError for invalid range bounds.
     """

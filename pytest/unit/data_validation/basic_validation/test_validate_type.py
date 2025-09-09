@@ -9,7 +9,7 @@ import pytest
 from data_validation import validate_type
 
 
-def test_validate_type_case_1_basic_types() -> None:
+def test_validate_type_basic_types() -> None:
     """
     Test case 1: Basic type validation with common Python types.
     """
@@ -38,7 +38,7 @@ def test_validate_type_case_1_basic_types() -> None:
     validate_type((1, 2, 3), tuple)
 
 
-def test_validate_type_case_2_union_types() -> None:
+def test_validate_type_union_types() -> None:
     """
     Test case 2: Union type validation with multiple acceptable types.
     """
@@ -56,7 +56,7 @@ def test_validate_type_case_2_union_types() -> None:
     validate_type(None, (int, type(None)))
 
 
-def test_validate_type_case_3_none_handling() -> None:
+def test_validate_type_none_handling() -> None:
     """
     Test case 3: None value handling with allow_none parameter.
     """
@@ -70,7 +70,7 @@ def test_validate_type_case_3_none_handling() -> None:
     validate_type(42, int, allow_none=True)
 
 
-def test_validate_type_case_4_custom_param_name() -> None:
+def test_validate_type_custom_param_name() -> None:
     """
     Test case 4: Custom parameter name in error messages.
     """
@@ -79,7 +79,7 @@ def test_validate_type_case_4_custom_param_name() -> None:
     validate_type("test", str, param_name="username")
 
 
-def test_validate_type_case_5_type_error_single_type() -> None:
+def test_validate_type_type_error_single_type() -> None:
     """
     Test case 5: TypeError for wrong type with single expected type.
     """
@@ -97,7 +97,7 @@ def test_validate_type_case_5_type_error_single_type() -> None:
         validate_type("123", int, param_name="user_id")
 
 
-def test_validate_type_case_6_type_error_union_types() -> None:
+def test_validate_type_type_error_union_types() -> None:
     """
     Test case 6: TypeError for wrong type with union types.
     """
@@ -112,7 +112,7 @@ def test_validate_type_case_6_type_error_union_types() -> None:
         validate_type("invalid", (dict, list), param_name="data")
 
 
-def test_validate_type_case_7_none_not_allowed() -> None:
+def test_validate_type_none_not_allowed() -> None:
     """
     Test case 7: TypeError when None is not allowed.
     """
@@ -130,7 +130,7 @@ def test_validate_type_case_7_none_not_allowed() -> None:
         validate_type(None, int, param_name="user_id")
 
 
-def test_validate_type_case_8_complex_collections() -> None:
+def test_validate_type_complex_collections() -> None:
     """
     Test case 8: Validation with complex collection types.
     """
@@ -146,7 +146,7 @@ def test_validate_type_case_8_complex_collections() -> None:
     validate_type((), tuple)
 
 
-def test_validate_type_case_9_edge_cases() -> None:
+def test_validate_type_edge_cases() -> None:
     """
     Test case 9: Edge cases and boundary conditions.
     """
@@ -165,7 +165,7 @@ def test_validate_type_case_9_edge_cases() -> None:
     validate_type(False, int)  # Should pass since bool inherits from int
 
 
-def test_validate_type_case_10_performance_large_unions() -> None:
+def test_validate_type_performance_large_unions() -> None:
     """
     Test case 10: Performance with large union types.
     """
