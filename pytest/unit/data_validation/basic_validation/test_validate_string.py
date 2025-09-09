@@ -10,7 +10,7 @@ import re
 from data_validation import validate_string
 
 
-def test_validate_string_case_1_basic_validation() -> None:
+def test_validate_string_basic_validation() -> None:
     """
     Test case 1: Basic string validation without constraints.
     """
@@ -26,7 +26,7 @@ def test_validate_string_case_1_basic_validation() -> None:
     validate_string("path/to/file")
 
 
-def test_validate_string_case_2_length_validation() -> None:
+def test_validate_string_length_validation() -> None:
     """
     Test case 2: String length validation with min/max bounds.
     """
@@ -43,7 +43,7 @@ def test_validate_string_case_2_length_validation() -> None:
     validate_string("test", min_length=4, max_length=4)  # Exact length
 
 
-def test_validate_string_case_3_empty_string_handling() -> None:
+def test_validate_string_empty_string_handling() -> None:
     """
     Test case 3: Empty string handling with allow_empty parameter.
     """
@@ -56,7 +56,7 @@ def test_validate_string_case_3_empty_string_handling() -> None:
     validate_string("a", allow_empty=False)
 
 
-def test_validate_string_case_4_whitespace_stripping() -> None:
+def test_validate_string_whitespace_stripping() -> None:
     """
     Test case 4: Whitespace stripping functionality.
     """
@@ -69,7 +69,7 @@ def test_validate_string_case_4_whitespace_stripping() -> None:
     validate_string("   abc   ", min_length=3, max_length=3, strip_whitespace=True)
 
 
-def test_validate_string_case_5_pattern_matching() -> None:
+def test_validate_string_pattern_matching() -> None:
     """
     Test case 5: Regular expression pattern matching.
     """
@@ -87,7 +87,7 @@ def test_validate_string_case_5_pattern_matching() -> None:
     validate_string("123-456-7890", pattern=phone_pattern)
 
 
-def test_validate_string_case_6_case_sensitivity() -> None:
+def test_validate_string_case_sensitivity() -> None:
     """
     Test case 6: Case sensitivity in pattern matching.
     """
@@ -100,7 +100,7 @@ def test_validate_string_case_6_case_sensitivity() -> None:
     validate_string("HeLLo", pattern=r"^[a-z]+$", case_sensitive=False)
 
 
-def test_validate_string_case_7_character_restrictions() -> None:
+def test_validate_string_character_restrictions() -> None:
     """
     Test case 7: Character allowlist and blocklist validation.
     """
@@ -115,7 +115,7 @@ def test_validate_string_case_7_character_restrictions() -> None:
     validate_string("test", forbidden_chars="!@#")
 
 
-def test_validate_string_case_8_combined_validations() -> None:
+def test_validate_string_combined_validations() -> None:
     """
     Test case 8: Complex combinations of validation parameters.
     """
@@ -143,7 +143,7 @@ def test_validate_string_case_8_combined_validations() -> None:
     )
 
 
-def test_validate_string_case_9_type_error_invalid_input() -> None:
+def test_validate_string_type_error_invalid_input() -> None:
     """
     Test case 9: TypeError for non-string input.
     """
@@ -161,7 +161,7 @@ def test_validate_string_case_9_type_error_invalid_input() -> None:
         validate_string(123, param_name="username")
 
 
-def test_validate_string_case_10_type_error_invalid_parameters() -> None:
+def test_validate_string_type_error_invalid_parameters() -> None:
     """
     Test case 10: TypeError for invalid parameter types.
     """
@@ -191,7 +191,7 @@ def test_validate_string_case_10_type_error_invalid_parameters() -> None:
         validate_string("hello", forbidden_chars=123)
 
 
-def test_validate_string_case_11_value_error_empty_not_allowed() -> None:
+def test_validate_string_value_error_empty_not_allowed() -> None:
     """
     Test case 11: ValueError when empty strings are not allowed.
     """
@@ -207,7 +207,7 @@ def test_validate_string_case_11_value_error_empty_not_allowed() -> None:
         validate_string("", allow_empty=False, param_name="username")
 
 
-def test_validate_string_case_12_value_error_length_violations() -> None:
+def test_validate_string_value_error_length_violations() -> None:
     """
     Test case 12: ValueError for length constraint violations.
     """
@@ -224,7 +224,7 @@ def test_validate_string_case_12_value_error_length_violations() -> None:
         validate_string("abc", min_length=8, param_name="password")
 
 
-def test_validate_string_case_13_value_error_pattern_mismatch() -> None:
+def test_validate_string_value_error_pattern_mismatch() -> None:
     """
     Test case 13: ValueError for pattern matching failures.
     """
@@ -241,7 +241,7 @@ def test_validate_string_case_13_value_error_pattern_mismatch() -> None:
         validate_string("hello", pattern=compiled_pattern)
 
 
-def test_validate_string_case_14_value_error_character_violations() -> None:
+def test_validate_string_value_error_character_violations() -> None:
     """
     Test case 14: ValueError for character restriction violations.
     """
@@ -257,7 +257,7 @@ def test_validate_string_case_14_value_error_character_violations() -> None:
         validate_string("user@domain", forbidden_chars="@")
 
 
-def test_validate_string_case_15_edge_cases() -> None:
+def test_validate_string_edge_cases() -> None:
     """
     Test case 15: Edge cases and boundary conditions.
     """
@@ -280,7 +280,7 @@ def test_validate_string_case_15_edge_cases() -> None:
         validate_string("hello", min_length=10, max_length=5)
 
 
-def test_validate_string_case_16_performance_large_strings() -> None:
+def test_validate_string_performance_large_strings() -> None:
     """
     Test case 16: Performance with large strings and complex patterns.
     """

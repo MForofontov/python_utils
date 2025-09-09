@@ -47,7 +47,7 @@ class NestedSchema(BaseModel):
     metadata: dict = {}
 
 
-def test_validate_pydantic_schema_case_1_simple_valid_data() -> None:
+def test_validate_pydantic_schema_simple_valid_data() -> None:
     """
     Test case 1: Simple valid data validation.
     """
@@ -61,7 +61,7 @@ def test_validate_pydantic_schema_case_1_simple_valid_data() -> None:
     assert result.email == "john@example.com"
 
 
-def test_validate_pydantic_schema_case_2_optional_fields() -> None:
+def test_validate_pydantic_schema_optional_fields() -> None:
     """
     Test case 2: Schema with optional fields and defaults.
     """
@@ -84,7 +84,7 @@ def test_validate_pydantic_schema_case_2_optional_fields() -> None:
     assert result.active is True
 
 
-def test_validate_pydantic_schema_case_3_nested_objects() -> None:
+def test_validate_pydantic_schema_nested_objects() -> None:
     """
     Test case 3: Nested object validation.
     """
@@ -103,7 +103,7 @@ def test_validate_pydantic_schema_case_3_nested_objects() -> None:
     assert result.metadata == {"source": "api", "version": "1.0"}
 
 
-def test_validate_pydantic_schema_case_4_type_coercion() -> None:
+def test_validate_pydantic_schema_type_coercion() -> None:
     """
     Test case 4: Type coercion during validation.
     """
@@ -116,7 +116,7 @@ def test_validate_pydantic_schema_case_4_type_coercion() -> None:
     assert result.email == "charlie@example.com"
 
 
-def test_validate_pydantic_schema_case_5_strict_mode() -> None:
+def test_validate_pydantic_schema_strict_mode() -> None:
     """
     Test case 5: Strict validation mode.
     """
@@ -129,7 +129,7 @@ def test_validate_pydantic_schema_case_5_strict_mode() -> None:
     assert result.email == "david@example.com"
 
 
-def test_validate_pydantic_schema_case_6_allow_extra_fields() -> None:
+def test_validate_pydantic_schema_allow_extra_fields() -> None:
     """
     Test case 6: Allow extra fields validation.
     """
@@ -148,7 +148,7 @@ def test_validate_pydantic_schema_case_6_allow_extra_fields() -> None:
     assert result.email == "eve@example.com"
 
 
-def test_validate_pydantic_schema_case_7_type_error_invalid_schema() -> None:
+def test_validate_pydantic_schema_type_error_invalid_schema() -> None:
     """
     Test case 7: TypeError for invalid schema model.
     """
@@ -166,7 +166,7 @@ def test_validate_pydantic_schema_case_7_type_error_invalid_schema() -> None:
         validate_pydantic_schema(data, "not a class")
 
 
-def test_validate_pydantic_schema_case_8_type_error_invalid_parameters() -> None:
+def test_validate_pydantic_schema_type_error_invalid_parameters() -> None:
     """
     Test case 8: TypeError for invalid parameter types.
     """
@@ -182,7 +182,7 @@ def test_validate_pydantic_schema_case_8_type_error_invalid_parameters() -> None
         validate_pydantic_schema(data, SimpleUserSchema, param_name=123)
 
 
-def test_validate_pydantic_schema_case_9_value_error_validation_failure() -> None:
+def test_validate_pydantic_schema_value_error_validation_failure() -> None:
     """
     Test case 9: ValueError for validation failures.
     """
@@ -199,7 +199,7 @@ def test_validate_pydantic_schema_case_9_value_error_validation_failure() -> Non
         validate_pydantic_schema(data, SimpleUserSchema)
 
 
-def test_validate_pydantic_schema_case_10_value_error_extra_fields_forbidden() -> None:
+def test_validate_pydantic_schema_value_error_extra_fields_forbidden() -> None:
     """
     Test case 10: ValueError when extra fields are forbidden.
     """
@@ -214,7 +214,7 @@ def test_validate_pydantic_schema_case_10_value_error_extra_fields_forbidden() -
         validate_pydantic_schema(data, SimpleUserSchema, allow_extra=False)
 
 
-def test_validate_pydantic_schema_case_11_value_error_strict_mode() -> None:
+def test_validate_pydantic_schema_value_error_strict_mode() -> None:
     """
     Test case 11: ValueError in strict mode with type coercion.
     """
@@ -225,7 +225,7 @@ def test_validate_pydantic_schema_case_11_value_error_strict_mode() -> None:
         validate_pydantic_schema(data, SimpleUserSchema, strict=True)
 
 
-def test_validate_pydantic_schema_case_12_value_error_nested_validation() -> None:
+def test_validate_pydantic_schema_value_error_nested_validation() -> None:
     """
     Test case 12: ValueError for nested object validation failures.
     """
@@ -239,7 +239,7 @@ def test_validate_pydantic_schema_case_12_value_error_nested_validation() -> Non
         validate_pydantic_schema(data, NestedSchema)
 
 
-def test_validate_pydantic_schema_case_13_edge_cases() -> None:
+def test_validate_pydantic_schema_edge_cases() -> None:
     """
     Test case 13: Edge cases and boundary conditions.
     """
@@ -260,7 +260,7 @@ def test_validate_pydantic_schema_case_13_edge_cases() -> None:
     assert result.email is None
 
 
-def test_validate_pydantic_schema_case_14_custom_param_name() -> None:
+def test_validate_pydantic_schema_custom_param_name() -> None:
     """
     Test case 14: Custom parameter name in error messages.
     """
@@ -270,7 +270,7 @@ def test_validate_pydantic_schema_case_14_custom_param_name() -> None:
         validate_pydantic_schema(data, SimpleUserSchema, param_name="user_data")
 
 
-def test_validate_pydantic_schema_case_15_complex_schemas() -> None:
+def test_validate_pydantic_schema_complex_schemas() -> None:
     """
     Test case 15: Complex schemas with various field types.
     """
@@ -298,7 +298,7 @@ def test_validate_pydantic_schema_case_15_complex_schemas() -> None:
     assert result.enabled is False
 
 
-def test_validate_pydantic_schema_case_16_performance_large_data() -> None:
+def test_validate_pydantic_schema_performance_large_data() -> None:
     """
     Test case 16: Performance with large data structures.
     """

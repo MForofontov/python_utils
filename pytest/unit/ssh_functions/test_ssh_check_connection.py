@@ -2,7 +2,7 @@ import pytest
 from unittest.mock import patch
 from ssh_functions.ssh_check_connection import ssh_check_connection
 
-def test_ssh_check_connection_case_1_normal_operation() -> None:
+def test_ssh_check_connection_normal_operation() -> None:
     """
     Test case 1: Normal operation with valid inputs.
     """
@@ -13,7 +13,7 @@ def test_ssh_check_connection_case_1_normal_operation() -> None:
         result = ssh_check_connection('host', user='user', port=22, timeout=5)
         assert result == {'success': True, 'stdout': '', 'stderr': '', 'exit_code': 0}
 
-def test_ssh_check_connection_case_2_edge_case_empty_user() -> None:
+def test_ssh_check_connection_empty_user() -> None:
     """
     Test case 2: Edge case with empty user.
     """
@@ -24,21 +24,21 @@ def test_ssh_check_connection_case_2_edge_case_empty_user() -> None:
         result = ssh_check_connection('host', user='', port=22)
         assert result['success'] is True
 
-def test_ssh_check_connection_case_3_type_error_host() -> None:
+def test_ssh_check_connection_type_error_host() -> None:
     """
     Test case 3: TypeError for invalid host type.
     """
     with pytest.raises(TypeError, match="host must be a string"):
         ssh_check_connection(123)
 
-def test_ssh_check_connection_case_4_value_error_port() -> None:
+def test_ssh_check_connection_value_error_port() -> None:
     """
     Test case 4: ValueError for invalid port value.
     """
     with pytest.raises(ValueError, match="port must be in 1-65535"):
         ssh_check_connection('host', port=70000)
 
-def test_ssh_check_connection_case_5_boundary_conditions() -> None:
+def test_ssh_check_connection_boundary_conditions_port() -> None:
     """
     Test case 5: Boundary conditions for port.
     """
@@ -51,7 +51,7 @@ def test_ssh_check_connection_case_5_boundary_conditions() -> None:
         assert result_min['success'] is True
         assert result_max['success'] is True
 
-def test_ssh_check_connection_case_6_timeout_error() -> None:
+def test_ssh_check_connection_timeout_error() -> None:
     """
     Test case 6: RuntimeError for timeout.
     """
