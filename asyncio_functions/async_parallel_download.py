@@ -3,8 +3,6 @@ import asyncio
 import os
 from typing import Optional
 
-__all__ = ["async_parallel_download"]
-
 async def async_parallel_download(url: str, dest_path: str, num_chunks: int = 8, timeout: float = 30.0) -> None:
     """
     Download a file asynchronously from a URL in parallel chunks and save to dest_path.
@@ -88,3 +86,5 @@ async def async_parallel_download(url: str, dest_path: str, num_chunks: int = 8,
                     f.write(data)
     except Exception as e:
         raise RuntimeError(f"Parallel download failed: {e}")
+
+__all__ = ["async_parallel_download"]
