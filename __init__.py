@@ -26,6 +26,7 @@ try:
     from print_functions import *
     from security_functions import *
     from strings_utility import *
+    from ssh_functions import *
 except ImportError:
     # Fallback for when importing as a package
     from .asyncio_functions import *
@@ -47,6 +48,7 @@ except ImportError:
     from .print_functions import *
     from .security_functions import *
     from .strings_utility import *
+    from .ssh_functions import *
 
 # Version information
 __version__ = '1.0.0'
