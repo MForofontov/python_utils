@@ -5,7 +5,6 @@ Find files by name pattern recursively in a directory.
 import fnmatch
 import os
 from pathlib import Path
-from typing import Any
 
 
 def find_files_by_pattern(

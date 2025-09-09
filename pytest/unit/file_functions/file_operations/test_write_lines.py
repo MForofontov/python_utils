@@ -21,7 +21,7 @@ def test_write_lines_case_1_default_joiner() -> None:
         write_lines(lines, output_file)
         
         # Assert
-        with open(output_file, 'r') as f:
+        with open(output_file) as f:
             content = f.read()
         assert content == "line1\nline2\nline3\n"
 
@@ -39,7 +39,7 @@ def test_write_lines_case_2_custom_joiner() -> None:
         write_lines(lines, output_file, joiner=", ")
         
         # Assert
-        with open(output_file, 'r') as f:
+        with open(output_file) as f:
             content = f.read()
         assert content == "apple, banana, cherry\n"
 
@@ -62,7 +62,7 @@ def test_write_lines_case_3_append_mode() -> None:
         write_lines(lines, output_file, write_mode="a")
         
         # Assert
-        with open(output_file, 'r') as f:
+        with open(output_file) as f:
             content = f.read()
         assert content == "initial\nappended1\nappended2\n"
 
@@ -114,7 +114,7 @@ def test_write_lines_case_6_empty_list() -> None:
         write_lines(lines, output_file)
         
         # Assert
-        with open(output_file, 'r') as f:
+        with open(output_file) as f:
             content = f.read()
         assert content == "\n"  # Just the final newline
 
@@ -132,7 +132,7 @@ def test_write_lines_case_7_lines_with_non_strings() -> None:
         write_lines(lines, output_file)
         
         # Assert
-        with open(output_file, 'r') as f:
+        with open(output_file) as f:
             content = f.read()
         assert content == "string\n123\nTrue\nNone\n"
 
@@ -150,7 +150,7 @@ def test_write_lines_case_8_unicode_content() -> None:
         write_lines(lines, output_file)
         
         # Assert
-        with open(output_file, 'r', encoding='utf-8') as f:
+        with open(output_file, encoding='utf-8') as f:
             content = f.read()
         assert content == "Hello 世界\nümläuts\némojis 🎉\n"
 
@@ -173,7 +173,7 @@ def test_write_lines_case_9_overwrite_mode() -> None:
         write_lines(lines, output_file)
         
         # Assert
-        with open(output_file, 'r') as f:
+        with open(output_file) as f:
             content = f.read()
         assert content == "new\ncontent\n"
 
@@ -191,6 +191,6 @@ def test_write_lines_case_10_custom_joiner_no_spaces() -> None:
         write_lines(lines, output_file, joiner="|")
         
         # Assert
-        with open(output_file, 'r') as f:
+        with open(output_file) as f:
             content = f.read()
         assert content == "a|b|c|d\n"

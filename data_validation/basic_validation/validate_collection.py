@@ -5,7 +5,7 @@ This module provides comprehensive validation for collection types including
 length validation, emptiness checks, and element type validation.
 """
 
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from collections.abc import Iterable, Sized
 
 T = TypeVar("T")

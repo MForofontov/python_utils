@@ -1,4 +1,3 @@
-import pytest
 from json_functions.json_diff import json_diff
 
 def test_json_diff_dicts() -> None:

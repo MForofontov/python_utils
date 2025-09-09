@@ -1,10 +1,9 @@
 """Get the start of year for a given date."""
 
 from datetime import datetime, date
-from typing import Union
 
 
-def get_start_of_year(date_obj: Union[datetime, date]) -> Union[datetime, date]:
+def get_start_of_year(date_obj: datetime | date) -> datetime | date:
     """
     Get the first day of the year for a given date.
     

@@ -7,7 +7,7 @@ Automatically includes contextual information in all log messages.
 import logging
 import threading
 from contextlib import contextmanager
-from typing import Dict, Any, Optional
+from typing import Any
 from dataclasses import dataclass, field
 
 
@@ -24,9 +24,9 @@ class LogContext:
     request_id: str = ""
     component: str = ""
     operation: str = ""
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert context to dictionary."""
         return {
             k: v for k, v in self.__dict__.items()
@@ -42,7 +42,7 @@ class LogContext:
                 self.metadata[key] = value
 
 
-def contextual_logger(name: str, context: Optional[LogContext] = None) -> 'ContextualLogger':
+def contextual_logger(name: str, context: LogContext | None = None) -> 'ContextualLogger':
     """
     Create a logger with built-in context support.
 
@@ -73,7 +73,7 @@ class ContextualLogger:
     Automatically includes contextual information in all log messages.
     """
 
-    def __init__(self, name: str, context: Optional[LogContext] = None):
+    def __init__(self, name: str, context: LogContext | None = None):
         self.logger = logging.getLogger(name)
         self.context = context or LogContext()
         self._local = threading.local()
@@ -108,7 +108,7 @@ class ContextualLogger:
         finally:
             self._set_context(old_context)
 
-    def _log_with_context(self, level: int, message: str, extra: Optional[Dict[str, Any]] = None, **kwargs) -> None:
+    def _log_with_context(self, level: int, message: str, extra: dict[str, Any] | None = None, **kwargs) -> None:
         """Log message with current context."""
         context = self._get_context()
 
@@ -121,27 +121,27 @@ class ContextualLogger:
 
         self.logger.log(level, message, extra=log_extra)
 
-    def debug(self, message: str, extra: Optional[Dict[str, Any]] = None, **kwargs) -> None:
+    def debug(self, message: str, extra: dict[str, Any] | None = None, **kwargs) -> None:
         """Log debug message with context."""
         self._log_with_context(logging.DEBUG, message, extra, **kwargs)
 
-    def info(self, message: str, extra: Optional[Dict[str, Any]] = None, **kwargs) -> None:
+    def info(self, message: str, extra: dict[str, Any] | None = None, **kwargs) -> None:
         """Log info message with context."""
         self._log_with_context(logging.INFO, message, extra, **kwargs)
 
-    def warning(self, message: str, extra: Optional[Dict[str, Any]] = None, **kwargs) -> None:
+    def warning(self, message: str, extra: dict[str, Any] | None = None, **kwargs) -> None:
         """Log warning message with context."""
         self._log_with_context(logging.WARNING, message, extra, **kwargs)
 
-    def error(self, message: str, extra: Optional[Dict[str, Any]] = None, **kwargs) -> None:
+    def error(self, message: str, extra: dict[str, Any] | None = None, **kwargs) -> None:
         """Log error message with context."""
         self._log_with_context(logging.ERROR, message, extra, **kwargs)
 
-    def critical(self, message: str, extra: Optional[Dict[str, Any]] = None, **kwargs) -> None:
+    def critical(self, message: str, extra: dict[str, Any] | None = None, **kwargs) -> None:
         """Log critical message with context."""
         self._log_with_context(logging.CRITICAL, message, extra, **kwargs)
 
-    def exception(self, message: str, extra: Optional[Dict[str, Any]] = None, **kwargs) -> None:
+    def exception(self, message: str, extra: dict[str, Any] | None = None, **kwargs) -> None:
         """Log exception with context."""
         self._log_with_context(logging.ERROR, message, extra, **kwargs)
 

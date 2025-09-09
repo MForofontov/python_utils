@@ -1,11 +1,10 @@
 """Modify months on a date or datetime object."""
 
 from datetime import datetime, date
-from typing import Union
 from calendar import monthrange
 
 
-def modify_months(date_obj: Union[datetime, date], months: int) -> Union[datetime, date]:
+def modify_months(date_obj: datetime | date, months: int) -> datetime | date:
     """
     Add or subtract a specified number of months from a datetime or date object.
     

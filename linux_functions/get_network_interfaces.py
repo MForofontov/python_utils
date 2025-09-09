@@ -3,10 +3,10 @@ Module for getting network interface information.
 """
 
 import psutil
-from typing import List, Dict, Any
+from typing import Any
 
 
-def get_network_interfaces() -> Dict[str, List[Dict[str, Any]]]:
+def get_network_interfaces() -> dict[str, list[dict[str, Any]]]:
     """
     Get information about network interfaces.
 

@@ -5,7 +5,6 @@ Unit tests for compare_file_hashes function.
 import pytest
 import tempfile
 from pathlib import Path
-from unittest.mock import patch
 
 from file_functions import compare_file_hashes
 

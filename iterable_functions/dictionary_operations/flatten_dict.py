@@ -27,10 +27,10 @@ Examples
 {'a': 1, 'b_c': 2, 'b_d_e': 3}
 """
 
-from typing import Any, Dict
+from typing import Any
 
 
-def flatten_dict(d: Dict[str, Any], separator: str = '_', prefix: str = '') -> Dict[str, Any]:
+def flatten_dict(d: dict[str, Any], separator: str = '_', prefix: str = '') -> dict[str, Any]:
     """
     Flatten a nested dictionary into a single-level dictionary.
 

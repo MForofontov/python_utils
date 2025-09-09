@@ -1,7 +1,6 @@
 import pytest
 import tempfile
 import os
-from typing import List
 from linux_functions.list_files import list_files
 
 
@@ -20,7 +19,7 @@ def test_list_files_valid_directory() -> None:
                 f.write('test content')
         
         # Test without hidden files
-        files: List[str] = list_files(temp_dir, include_hidden=False)
+        files: list[str] = list_files(temp_dir, include_hidden=False)
         assert isinstance(files, list)
         assert 'file1.txt' in files
         assert 'file2.py' in files
@@ -28,7 +27,7 @@ def test_list_files_valid_directory() -> None:
         assert len(files) == 2
         
         # Test with hidden files
-        files_with_hidden: List[str] = list_files(temp_dir, include_hidden=True)
+        files_with_hidden: list[str] = list_files(temp_dir, include_hidden=True)
         assert '.hidden_file' in files_with_hidden
         assert len(files_with_hidden) == 3
 
@@ -38,7 +37,7 @@ def test_list_files_empty_directory() -> None:
     Test case 2: Test list_files function with an empty directory returns empty list.
     """
     with tempfile.TemporaryDirectory() as temp_dir:
-        files: List[str] = list_files(temp_dir)
+        files: list[str] = list_files(temp_dir)
         assert isinstance(files, list)
         assert len(files) == 0
 
@@ -56,7 +55,7 @@ def test_list_files_with_subdirectories() -> None:
             f.write('test content')
         os.mkdir(subdir)
         
-        files: List[str] = list_files(temp_dir)
+        files: list[str] = list_files(temp_dir)
         assert 'file1.txt' in files
         assert 'subdir' not in files
         assert len(files) == 1

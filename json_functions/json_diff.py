@@ -1,6 +1,6 @@
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
-def json_diff(a: Any, b: Any, path: str = "") -> List[Tuple[str, Any, Any]]:
+def json_diff(a: Any, b: Any, path: str = "") -> list[tuple[str, Any, Any]]:
     """
     Compute the difference between two JSON-serializable objects.
     

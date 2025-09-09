@@ -4,12 +4,12 @@ Set power set as lists utilities.
 This module provides utilities for generating power sets of sets as lists.
 """
 
-from typing import TypeVar, Set, List
+from typing import TypeVar
 
 T = TypeVar("T")
 
 
-def set_power_set_as_lists(input_set: Set[T]) -> List[List[T]]:
+def set_power_set_as_lists(input_set: set[T]) -> list[list[T]]:
     """
     Generate the power set of a given set, returning lists instead of frozensets.
 

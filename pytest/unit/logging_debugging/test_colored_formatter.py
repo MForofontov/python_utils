@@ -1,5 +1,4 @@
 import logging
-import pytest
 from unittest.mock import patch
 from logging_debugging.colored_formatter import colored_formatter
 

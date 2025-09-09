@@ -2,12 +2,12 @@
 
 import urllib.request
 from urllib.error import HTTPError, URLError
-from typing import Dict, Optional, Any, Union
+from typing import Any
 import json
 
 
-def http_post(url: str, data: Optional[Union[Dict[str, Any], str]] = None, 
-              headers: Optional[Dict[str, str]] = None, timeout: int = 30) -> Dict[str, Any]:
+def http_post(url: str, data: dict[str, Any] | str | None = None, 
+              headers: dict[str, str] | None = None, timeout: int = 30) -> dict[str, Any]:
     """
     Perform a simple HTTP POST request.
     

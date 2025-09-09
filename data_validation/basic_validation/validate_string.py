@@ -6,7 +6,7 @@ pattern matching with regex, content validation, and common string formats.
 """
 
 import re
-from typing import Pattern
+from re import Pattern
 
 
 def validate_string(

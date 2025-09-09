@@ -5,7 +5,6 @@ This module provides XOR decryption functions that work with data encrypted
 using the encrypt_xor function.
 """
 
-from typing import Any
 
 
 def decrypt_xor(

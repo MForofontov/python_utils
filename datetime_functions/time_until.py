@@ -1,12 +1,11 @@
 """Human-readable time differences functionality - future dates."""
 
 from datetime import datetime, date
-from typing import Union, Optional
 
 
 def time_until(
-    future_date: Union[datetime, date],
-    reference_date: Optional[Union[datetime, date]] = None
+    future_date: datetime | date,
+    reference_date: datetime | date | None = None
 ) -> str:
     """
     Get a human-readable description of how long until a future date.

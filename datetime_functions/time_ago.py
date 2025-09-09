@@ -1,12 +1,11 @@
 """Human-readable time differences functionality - past dates."""
 
 from datetime import datetime, date
-from typing import Union, Optional
 
 
 def time_ago(
-    past_date: Union[datetime, date],
-    reference_date: Optional[Union[datetime, date]] = None
+    past_date: datetime | date,
+    reference_date: datetime | date | None = None
 ) -> str:
     """
     Get a human-readable description of how long ago a date was.

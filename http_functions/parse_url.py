@@ -1,10 +1,10 @@
 """URL parsing functionality."""
 
 import urllib.parse
-from typing import Dict, Any
+from typing import Any
 
 
-def parse_url(url: str) -> Dict[str, Any]:
+def parse_url(url: str) -> dict[str, Any]:
     """
     Parse a URL into its components.
     

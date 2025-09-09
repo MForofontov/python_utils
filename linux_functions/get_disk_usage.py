@@ -4,10 +4,9 @@ Module for getting disk usage information.
 
 import os
 import psutil
-from typing import Dict, Union
 
 
-def get_disk_usage(path: str = '/') -> Dict[str, Union[int, float]]:
+def get_disk_usage(path: str = '/') -> dict[str, int | float]:
     """
     Get disk usage information for a given path.
 

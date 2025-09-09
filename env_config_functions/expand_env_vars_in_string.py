@@ -1,9 +1,8 @@
 import os
 import re
-from typing import Optional
 
 
-def expand_env_vars_in_string(s: str, default: Optional[str] = None) -> str:
+def expand_env_vars_in_string(s: str, default: str | None = None) -> str:
     """
     Expand environment variables in a string (e.g., "$HOME/path" or "${USER}").
 

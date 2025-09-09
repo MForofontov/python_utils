@@ -6,7 +6,7 @@ including format validation, Unicode support, and domain checking.
 """
 
 import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from data_validation import validate_email
 
 

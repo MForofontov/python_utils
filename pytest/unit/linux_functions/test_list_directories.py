@@ -1,7 +1,6 @@
 import pytest
 import tempfile
 import os
-from typing import List
 from linux_functions.list_directories import list_directories
 
 
@@ -19,7 +18,7 @@ def test_list_directories_valid_directory() -> None:
             os.mkdir(dir_path)
         
         # Test without hidden directories
-        directories: List[str] = list_directories(temp_dir, include_hidden=False)
+        directories: list[str] = list_directories(temp_dir, include_hidden=False)
         assert isinstance(directories, list)
         assert 'dir1' in directories
         assert 'dir2' in directories
@@ -27,7 +26,7 @@ def test_list_directories_valid_directory() -> None:
         assert len(directories) == 2
         
         # Test with hidden directories
-        dirs_with_hidden: List[str] = list_directories(temp_dir, include_hidden=True)
+        dirs_with_hidden: list[str] = list_directories(temp_dir, include_hidden=True)
         assert '.hidden_dir' in dirs_with_hidden
         assert len(dirs_with_hidden) == 3
 
@@ -37,7 +36,7 @@ def test_list_directories_empty_directory() -> None:
     Test case 2: Test list_directories function with an empty directory returns empty list.
     """
     with tempfile.TemporaryDirectory() as temp_dir:
-        directories: List[str] = list_directories(temp_dir)
+        directories: list[str] = list_directories(temp_dir)
         assert isinstance(directories, list)
         assert len(directories) == 0
 
@@ -55,7 +54,7 @@ def test_list_directories_with_files() -> None:
         with open(file1, 'w') as f:
             f.write('test content')
         
-        directories: List[str] = list_directories(temp_dir)
+        directories: list[str] = list_directories(temp_dir)
         assert 'dir1' in directories
         assert 'file1.txt' not in directories
         assert len(directories) == 1

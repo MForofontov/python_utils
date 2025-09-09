@@ -1,5 +1,4 @@
 import pytest
-from typing import Any
 from iterable_functions.list_operations.find_duplicates import find_duplicates
 
 

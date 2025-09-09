@@ -1,6 +1,4 @@
 import logging
-import pytest
-from unittest.mock import patch
 from logging_debugging.contextual_logger import contextual_logger, LogContext
 
 

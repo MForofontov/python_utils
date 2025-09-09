@@ -1,7 +1,6 @@
 """Generate random integers within a specified range."""
 
 import random
-from typing import Union
 
 
 def random_integers(count: int, min_value: int = 0, max_value: int = 100) -> list[int]:

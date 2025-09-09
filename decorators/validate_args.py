@@ -1,5 +1,5 @@
 import logging
-from typing import Any, ParamSpec, TypeVar
+from typing import ParamSpec, TypeVar
 from collections.abc import Callable
 from functools import wraps
 from logger_functions.logger import validate_logger

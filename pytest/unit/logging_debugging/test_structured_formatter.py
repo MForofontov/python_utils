@@ -1,5 +1,4 @@
 import logging
-import pytest
 from datetime import datetime
 from logging_debugging.structured_formatter import structured_formatter
 

@@ -3,10 +3,8 @@ Find files by modification time criteria recursively in a directory.
 """
 
 import os
-import time
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any
 
 
 def find_files_by_mtime(

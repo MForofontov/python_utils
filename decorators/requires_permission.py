@@ -1,4 +1,4 @@
-from typing import Any, ParamSpec, TypeVar, Concatenate
+from typing import ParamSpec, TypeVar, Concatenate
 from collections.abc import Callable
 from functools import wraps
 import logging

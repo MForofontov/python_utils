@@ -4,12 +4,12 @@ Partition a set into subsets of given sizes.
 This module provides utilities for partitioning sets into smaller subsets.
 """
 
-from typing import TypeVar, Any, Set, List
+from typing import TypeVar
 
 T = TypeVar("T")
 
 
-def partition_set_by_sizes(input_set: Set[T], sizes: List[int]) -> List[Set[T]]:
+def partition_set_by_sizes(input_set: set[T], sizes: list[int]) -> list[set[T]]:
     """
     Partition a set into subsets of specified sizes.
 

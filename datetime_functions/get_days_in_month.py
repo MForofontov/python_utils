@@ -1,11 +1,10 @@
 """Get the number of days in a month."""
 
 from datetime import datetime, date
-from typing import Union
 from calendar import monthrange
 
 
-def get_days_in_month(date_obj: Union[datetime, date, None] = None, year: int = None, month: int = None) -> int:
+def get_days_in_month(date_obj: datetime | date | None = None, year: int = None, month: int = None) -> int:
     """
     Get the number of days in a month.
     

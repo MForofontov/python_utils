@@ -1,10 +1,9 @@
 """Get the end of week for a given date."""
 
 from datetime import datetime, date, timedelta
-from typing import Union
 
 
-def get_end_of_week(date_obj: Union[datetime, date], start_of_week: int = 0) -> Union[datetime, date]:
+def get_end_of_week(date_obj: datetime | date, start_of_week: int = 0) -> datetime | date:
     """
     Get the last day of the week for a given date.
     

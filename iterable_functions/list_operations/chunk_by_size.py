@@ -4,12 +4,12 @@ Split list into chunks of specified size.
 This module provides functionality to split a list into smaller chunks of a specified size.
 """
 
-from typing import TypeVar, List
+from typing import TypeVar
 
 T = TypeVar("T")
 
 
-def chunk_by_size(items: List[T], chunk_size: int) -> List[List[T]]:
+def chunk_by_size(items: list[T], chunk_size: int) -> list[list[T]]:
     """
     Split a list into chunks of specified size.
 

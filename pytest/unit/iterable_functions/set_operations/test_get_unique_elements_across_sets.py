@@ -1,5 +1,4 @@
 import pytest
-from typing import Any
 from iterable_functions.set_operations.get_unique_elements_across_sets import get_unique_elements_across_sets
 from iterable_functions.set_operations.set_symmetric_difference import set_symmetric_difference
 

@@ -31,10 +31,10 @@ Examples
 'not found'
 """
 
-from typing import Any, Dict, Union, List
+from typing import Any
 
 
-def deep_get(d: Dict[str, Any], keys: Union[str, List[str]], default: Any = None) -> Any:
+def deep_get(d: dict[str, Any], keys: str | list[str], default: Any = None) -> Any:
     """
     Safely get a value from a nested dictionary using dot notation or list of keys.
 

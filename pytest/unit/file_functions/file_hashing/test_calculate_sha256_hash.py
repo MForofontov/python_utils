@@ -64,7 +64,7 @@ def test_calculate_sha256_hash_case_3_custom_chunk_size() -> None:
         result = calculate_sha256_hash(temp_file_path, chunk_size=4)
         
         # Assert - Should produce same hash regardless of chunk size
-        expected = hashlib.sha256("test content".encode()).hexdigest()
+        expected = hashlib.sha256(b"test content").hexdigest()
         assert result == expected
     finally:
         Path(temp_file_path).unlink()
@@ -105,7 +105,7 @@ def test_calculate_sha256_hash_case_5_path_object_input() -> None:
         result = calculate_sha256_hash(temp_file_path)
         
         # Assert
-        expected = hashlib.sha256("test".encode()).hexdigest()
+        expected = hashlib.sha256(b"test").hexdigest()
         assert result == expected
     finally:
         temp_file_path.unlink()

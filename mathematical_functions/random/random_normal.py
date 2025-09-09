@@ -1,7 +1,6 @@
 """Generate normally distributed random numbers."""
 
 import random
-from typing import Union
 
 
 def random_normal(count: int, mean: float = 0.0, stddev: float = 1.0) -> list[float]:
