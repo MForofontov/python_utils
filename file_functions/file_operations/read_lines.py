@@ -13,12 +13,12 @@ def read_lines(
         Path to the input file.
     strip : bool, optional
         Specify if lines should be stripped of leading and trailing white spaces and new line characters (default is True).
-    num_lines : Union[int, None], optional
+    num_lines : int | None, optional
         Number of lines to read from the file (default is None, which reads all lines).
 
     Returns
     -------
-    List[str]
+    list[str]
         List with the lines read from the input file.
     """
     with open(input_file) as infile:

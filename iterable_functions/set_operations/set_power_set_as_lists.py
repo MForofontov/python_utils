@@ -17,12 +17,12 @@ def set_power_set_as_lists(input_set: set[T]) -> list[list[T]]:
 
     Parameters
     ----------
-    input_set : Set[T]
+    input_set : set[T]
         The input set to generate power set for.
 
     Returns
     -------
-    List[List[T]]
+    list[List[T]]
         Power set as a list of lists, sorted by subset size and lexicographically.
 
     Raises

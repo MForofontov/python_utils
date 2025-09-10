@@ -12,7 +12,7 @@ class CircularQueue(Generic[T]):
     ----------
     capacity : int
         The maximum number of items the queue can hold.
-    queue : list[Optional[T]]
+    queue : list[T | None]
         The list of items in the queue.
     front : int
         The index of the front of the queue.
@@ -23,9 +23,9 @@ class CircularQueue(Generic[T]):
     -------
     enqueue(item: T) -> bool
         Adds an item to the queue.
-    dequeue() -> Optional[T]
+    dequeue() -> T | None
         Removes and returns the front item of the queue.
-    peek() -> Optional[T]
+    peek() -> T | None
         Returns the front item without removing it.
     is_empty() -> bool
         Checks if the queue is empty.
@@ -78,7 +78,7 @@ class CircularQueue(Generic[T]):
 
         Returns
         -------
-        Optional[T]
+        T | None
             The front item of the queue, or None if the queue is empty.
         """
         if self.is_empty():
@@ -96,7 +96,7 @@ class CircularQueue(Generic[T]):
 
         Returns
         -------
-        Optional[T]
+        T | None
             The front item of the queue, or None if the queue is empty.
         """
         if self.is_empty():

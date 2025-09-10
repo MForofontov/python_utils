@@ -17,7 +17,7 @@ def async_wrapper(
 
     Parameters
     ----------
-    logger : Optional[logging.Logger]
+    logger : logging.Logger | None
         The logger to use for logging errors. If None, the default logger will be used.
 
     Returns

@@ -19,7 +19,7 @@ def get_paths_dict(directory: str, type_: str) -> dict[str, str]:
 
     Returns
     -------
-    Dict[str, str]
+    dict[str, str]
         A dictionary with filenames as keys and their full paths as values. The contents
         are filtered based on the `type_` parameter.
 

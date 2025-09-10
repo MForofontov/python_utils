@@ -19,12 +19,12 @@ def set_cartesian_product(*sets: set[T]) -> set[tuple[T, ...]]:
 
     Parameters
     ----------
-    *sets : Set[T]
+    *sets : set[T]
         Variable number of sets to compute cartesian product.
 
     Returns
     -------
-    Set[Tuple[T, ...]]
+    set[tuple[T, ...]]
         Set of tuples representing the cartesian product.
 
     Raises

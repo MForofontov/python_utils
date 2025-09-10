@@ -23,7 +23,7 @@ def generate_jwt_token(
 
     Parameters
     ----------
-    payload : Dict[str, Any]
+    payload : dict[str, Any]
         The payload data to include in the JWT token.
     secret_key : str
         The secret key used for signing the token.

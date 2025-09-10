@@ -4,14 +4,14 @@ class SegmentTree:
 
     Attributes
     ----------
-    tree : List[int]
+    tree : list[int]
         A list representing the segment tree.
     n : int
         The size of the input array.
 
     Methods
     -------
-    build(arr: List[int]) -> None
+    build(arr: list[int]) -> None
         Builds the segment tree from the input array.
     update(index: int, value: int) -> None
         Updates the value at the specified index.
@@ -29,7 +29,7 @@ class SegmentTree:
 
         Parameters
         ----------
-        arr : List[int]
+        arr : list[int]
             The array to build the segment tree from.
         """
         self.n = len(arr)

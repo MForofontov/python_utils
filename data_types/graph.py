@@ -10,7 +10,7 @@ class Graph(Generic[T]):
 
     Attributes
     ----------
-    adjacency_list : Dict[T, Set[T]]
+    adjacency_list : dict[T, set[T]]
         The dictionary representing the graph, where keys are vertices and values are sets of adjacent vertices.
 
     Methods
@@ -19,7 +19,7 @@ class Graph(Generic[T]):
         Adds a vertex to the graph.
     add_edge(vertex1: T, vertex2: T) -> None
         Adds an edge between two vertices.
-    get_neighbors(vertex: T) -> List[T]
+    get_neighbors(vertex: T) -> list[T]
         Returns a list of neighbors for a given vertex.
     """
 
@@ -70,7 +70,7 @@ class Graph(Generic[T]):
 
         Returns
         -------
-        List[T]
+        list[T]
             A list of neighbors for the given vertex.
         """
         return list(self.adjacency_list.get(vertex, set()))

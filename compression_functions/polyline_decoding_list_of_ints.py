@@ -12,7 +12,7 @@ def polyline_decoding_list_of_ints(encoded_text: str) -> list[float]:
 
     Returns
     -------
-    List[float]
+    list[float]
         List with the decoded numbers.
 
     Raises

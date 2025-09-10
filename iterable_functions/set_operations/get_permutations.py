@@ -18,14 +18,14 @@ def get_permutations(input_set: set[T], r: int | None = None) -> list[list[T]]:
 
     Parameters
     ----------
-    input_set : Set[T]
+    input_set : set[T]
         The input set to generate permutations from.
     r : int | None, optional
         The number of elements in each permutation. If None, uses all elements.
 
     Returns
     -------
-    List[List[T]]
+    list[List[T]]
         List of all permutations, sorted lexicographically.
 
     Raises

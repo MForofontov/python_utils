@@ -10,14 +10,14 @@ def sort_subdict_by_tuple(
 
     Parameters
     ----------
-    dict_ : Dict[str, Dict[str, Any]]
+    dict_ : dict[str, dict[str, Any]]
         The input dictionary containing sub-dictionaries as values.
-    order : Tuple[str, ...]
+    order : tuple[str, ...]
         A tuple specifying the desired order of keys in the sorted sub-dictionaries.
 
     Returns
     -------
-    Dict[str, OrderedDict]
+    dict[str, OrderedDict[str, Any]]
         A new dictionary with each sub-dictionary sorted according to the specified order.
 
     Raises

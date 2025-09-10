@@ -17,16 +17,16 @@ async def async_batch(
 
     Parameters
     ----------
-    func : Callable[[List[T]], List[R]]
+    func : Callable[[list[T]], list[R]]
         The asynchronous function to apply to each batch of items.
-    items : List[T]
+    items : list[T]
         The list of items to process.
     batch_size : int
         The size of each batch.
 
     Returns
     -------
-    List[R]
+    list[R]
         A list of results from processing all the batches.
 
     Raises
@@ -36,7 +36,7 @@ async def async_batch(
 
     Examples
     --------
-    >>> async def process_batch(batch: List[int]) -> List[int]:
+    >>> async def process_batch(batch: list[int]) -> list[int]:
     >>>     await asyncio.sleep(1)
     >>>     return [x * 2 for x in batch]
     >>> asyncio.run(async_batch(process_batch, [1, 2, 3, 4, 5], batch_size=2))

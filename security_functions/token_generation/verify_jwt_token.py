@@ -29,7 +29,7 @@ def verify_jwt_token(
 
     Returns
     -------
-    Dict[str, Any]
+    dict[str, Any]
         The decoded payload if the token is valid.
 
     Raises

@@ -26,7 +26,7 @@ def parallel_reduce(
     ----------
     func : Callable[[T, T], T]
         A function that takes two elements and returns a single value.
-    data : List[T]
+    data : list[T]
         The list of data items to reduce.
     num_processes : int | None, optional
         The number of processes to use for parallel execution. If None, it defaults

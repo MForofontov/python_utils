@@ -26,7 +26,7 @@ def timeout(
     ----------
     seconds : int
         The maximum number of seconds the function is allowed to run.
-    logger : Optional[logging.Logger]
+    logger : logging.Logger | None
         The logger to use for logging timeout messages. If None, messages are printed to the console.
 
     Returns

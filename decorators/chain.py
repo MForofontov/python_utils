@@ -19,7 +19,7 @@ def chain(func: Callable[P, T]) -> Callable[P, T | Any]:
 
     Returns
     -------
-    Callable[P, Union[T, Any]]
+    Callable[P, T | Any]
         A wrapper function that calls the 'chain' method on the result of the input function if it exists.
     """
 
@@ -37,7 +37,7 @@ def chain(func: Callable[P, T]) -> Callable[P, T | Any]:
 
         Returns
         -------
-        Union[T, Any]
+        T | Any
             The result of the wrapped function, or the result of calling its 'chain' method if it exists.
 
         Raises

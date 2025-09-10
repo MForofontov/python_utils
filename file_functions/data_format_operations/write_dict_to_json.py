@@ -12,9 +12,9 @@ def write_dict_to_json(
     ----------
     file_path : str
         Path to the JSON file to write.
-    data : Dict[str, Any]
+    data : dict[str, Any]
         Dictionary to serialize and write to the file.
-    indent : Optional[int]
+    indent : int | None
         Number of spaces to use for indentation in the output file (default is None).
 
     Returns

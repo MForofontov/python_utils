@@ -9,7 +9,7 @@ def write_lines(
 
     Parameters
     ----------
-    lines : List[str]
+    lines : list[str]
         List with the lines/strings to write to the output file.
     output_file : str
         Path to the output file.

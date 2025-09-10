@@ -16,7 +16,7 @@ def time_function(
 
     Parameters
     ----------
-    logger : Optional[logging.Logger]
+    logger : logging.Logger | None
         The logger to use for logging the execution time. If None, the execution time is printed to the console.
 
     Returns

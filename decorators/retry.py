@@ -18,9 +18,9 @@ def retry(
     ----------
     max_retries : int
         The maximum number of retry attempts.
-    delay : Union[int, float], optional
+    delay : int | float, optional
         The delay between retry attempts in seconds (default is 1.0).
-    logger : Optional[logging.Logger], optional
+    logger : logging.Logger | None, optional
         The logger to use for logging errors (default is None).
 
     Returns

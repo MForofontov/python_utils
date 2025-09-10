@@ -15,14 +15,14 @@ def get_subsets_of_size(input_set: set[T], size: int) -> list[list[T]]:
 
     Parameters
     ----------
-    input_set : Set[T]
+    input_set : set[T]
         The input set to generate subsets from.
     size : int
         The desired size of subsets.
 
     Returns
     -------
-    List[List[T]]
+    list[List[T]]
         List of subsets of the specified size, sorted lexicographically.
 
     Raises

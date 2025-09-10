@@ -15,7 +15,7 @@ async def async_chain(
 
     Parameters
     ----------
-    functions : List[Callable[[Union[T, R]], Awaitable[R]]]
+    functions : list[Callable[[T | R], Awaitable[R]]]
         A list of asynchronous functions to chain.
     input_value : T
         The initial input value for the first function.

@@ -14,7 +14,7 @@ def get_paths_in_directory_with_suffix(directory: str, suffix: str) -> list[str]
 
     Returns
     -------
-    List[str]
+    list[str]
         List that contains all of the file paths with the specified suffix.
     """
     all_items: list[str] = os.listdir(directory)

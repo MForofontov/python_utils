@@ -13,7 +13,7 @@ class EventManager(Generic[P, R]):
 
     Attributes
     ----------
-    events : Dict[str, List[Callable[P, R]]]
+    events : dict[str, list[Callable[P, R]]]
         A dictionary where the keys are event names and the values are lists of callback functions.
 
     Methods
@@ -80,7 +80,7 @@ def event_trigger(
         The event manager to use for triggering events.
     event_name : str
         The name of the event to trigger.
-    logger : Optional[logging.Logger]
+    logger : logging.Logger | None
         The logger to use for logging errors.
 
     Returns

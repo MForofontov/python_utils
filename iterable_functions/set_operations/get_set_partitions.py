@@ -18,14 +18,14 @@ def get_set_partitions(input_set: set[T], k: int) -> list[list[set[T]]]:
 
     Parameters
     ----------
-    input_set : Set[T]
+    input_set : set[T]
         The input set to partition.
     k : int
         Number of subsets to partition into.
 
     Returns
     -------
-    List[List[Set[T]]]
+    list[List[set[T]]]
         List of all possible partitions, where each partition is a list of k subsets.
 
     Raises

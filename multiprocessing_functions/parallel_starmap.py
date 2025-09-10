@@ -15,7 +15,7 @@ def parallel_starmap(
     ----------
     func : Callable[..., R]
         The function to apply to each set of arguments.
-    data : List[Tuple]
+    data : list[Tuple]
         A list of tuples, where each tuple contains the arguments for the function.
     num_processes : int | None, optional
         The number of processes to use for parallel execution. If None, it defaults
@@ -23,7 +23,7 @@ def parallel_starmap(
 
     Returns
     -------
-    List[R]
+    list[R]
         The list of results after applying the function to each set of arguments in parallel.
 
     Examples

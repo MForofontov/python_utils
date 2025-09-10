@@ -15,14 +15,14 @@ def partition_set_by_sizes(input_set: set[T], sizes: list[int]) -> list[set[T]]:
 
     Parameters
     ----------
-    input_set : Set[T]
+    input_set : set[T]
         The set to partition.
-    sizes : List[int]
+    sizes : list[int]
         List of subset sizes. Sum must equal len(input_set).
 
     Returns
     -------
-    List[Set[T]]
+    list[set[T]]
         List of subsets with the specified sizes.
 
     Raises
