@@ -22,7 +22,7 @@ def get_subsets_of_size(input_set: set[T], size: int) -> list[list[T]]:
 
     Returns
     -------
-    list[List[T]]
+    list[list[T]]
         List of subsets of the specified size, sorted lexicographically.
 
     Raises

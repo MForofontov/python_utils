@@ -25,7 +25,7 @@ def get_combinations(input_set: set[T], r: int) -> list[list[T]]:
 
     Returns
     -------
-    list[List[T]]
+    list[list[T]]
         List of all combinations, where each combination is a sorted list.
 
     Raises

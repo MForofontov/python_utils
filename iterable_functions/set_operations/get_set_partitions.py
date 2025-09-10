@@ -25,8 +25,9 @@ def get_set_partitions(input_set: set[T], k: int) -> list[list[set[T]]]:
 
     Returns
     -------
-    list[List[set[T]]]
-        List of all possible partitions, where each partition is a list of k subsets.
+    list[list[set[T]]]
+        List of all possible partitions, where each partition is a list of
+        ``k`` subsets.
 
     Raises
     ------

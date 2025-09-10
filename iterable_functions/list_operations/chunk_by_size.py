@@ -22,7 +22,7 @@ def chunk_by_size(items: list[T], chunk_size: int) -> list[list[T]]:
 
     Returns
     -------
-    list[List[T]]
+    list[list[T]]
         List of chunks, where each chunk is a list of items.
 
     Raises

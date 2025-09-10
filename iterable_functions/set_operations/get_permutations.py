@@ -25,7 +25,7 @@ def get_permutations(input_set: set[T], r: int | None = None) -> list[list[T]]:
 
     Returns
     -------
-    list[List[T]]
+    list[list[T]]
         List of all permutations, sorted lexicographically.
 
     Raises
