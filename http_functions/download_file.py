@@ -4,12 +4,12 @@ import urllib.request
 import urllib.parse
 from urllib.error import URLError
 from pathlib import Path
-from typing import Optional, Callable, Dict, Any
-import os
+from typing import Any
+from collections.abc import Callable
 
 
-def download_file(url: str, destination: str, headers: Optional[Dict[str, str]] = None, 
-                  timeout: int = 30, progress_callback: Optional[Callable[[int, int], None]] = None) -> Dict[str, Any]:
+def download_file(url: str, destination: str, headers: dict[str, str] | None = None, 
+                  timeout: int = 30, progress_callback: Callable[[int, int], None] | None = None) -> dict[str, Any]:
     """
     Download a file from a URL to a local destination.
     

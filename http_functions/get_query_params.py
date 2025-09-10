@@ -1,10 +1,9 @@
 """Query parameters extraction functionality."""
 
 import urllib.parse
-from typing import Dict, List
 
 
-def get_query_params(url: str) -> Dict[str, List[str]]:
+def get_query_params(url: str) -> dict[str, list[str]]:
     """
     Extract query parameters from a URL.
     

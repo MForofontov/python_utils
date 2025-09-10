@@ -1,7 +1,5 @@
 import pytest
 import tempfile
-import os
-from typing import Dict, Union
 from linux_functions.get_disk_usage import get_disk_usage
 
 
@@ -9,7 +7,7 @@ def test_get_disk_usage_valid_path() -> None:
     """
     Test case 1: Test get_disk_usage function with valid path returns correct disk information.
     """
-    disk_info: Dict[str, Union[int, float]] = get_disk_usage('/')
+    disk_info: dict[str, int | float] = get_disk_usage('/')
     
     # Check return type
     assert isinstance(disk_info, dict)
@@ -35,7 +33,7 @@ def test_get_disk_usage_with_temp_dir() -> None:
     Test case 2: Test get_disk_usage function with temporary directory.
     """
     with tempfile.TemporaryDirectory() as temp_dir:
-        disk_info: Dict[str, Union[int, float]] = get_disk_usage(temp_dir)
+        disk_info: dict[str, int | float] = get_disk_usage(temp_dir)
         assert isinstance(disk_info, dict)
         assert disk_info['total'] > 0
 

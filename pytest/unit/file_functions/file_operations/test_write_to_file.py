@@ -21,7 +21,7 @@ def test_write_to_file_case_1_basic_write() -> None:
         write_to_file(content, output_file)
         
         # Assert
-        with open(output_file, 'r') as f:
+        with open(output_file) as f:
             assert f.read() == content
 
 
@@ -38,7 +38,7 @@ def test_write_to_file_case_2_write_mode() -> None:
         write_to_file(content, output_file, mode="w")
         
         # Assert
-        with open(output_file, 'r') as f:
+        with open(output_file) as f:
             assert f.read() == content
 
 
@@ -61,7 +61,7 @@ def test_write_to_file_case_3_append_mode() -> None:
         write_to_file(additional_content, output_file, mode="a")
         
         # Assert
-        with open(output_file, 'r') as f:
+        with open(output_file) as f:
             assert f.read() == initial_content + additional_content
 
 
@@ -79,7 +79,7 @@ def test_write_to_file_case_4_custom_end_char() -> None:
         write_to_file(content, output_file, end_char=end_char)
         
         # Assert
-        with open(output_file, 'r') as f:
+        with open(output_file) as f:
             assert f.read() == content + end_char
 
 
@@ -130,7 +130,7 @@ def test_write_to_file_case_7_unicode_content() -> None:
         write_to_file(content, output_file)
         
         # Assert
-        with open(output_file, 'r', encoding='utf-8') as f:
+        with open(output_file, encoding='utf-8') as f:
             assert f.read() == content
 
 
@@ -147,7 +147,7 @@ def test_write_to_file_case_8_empty_content() -> None:
         write_to_file(content, output_file)
         
         # Assert
-        with open(output_file, 'r') as f:
+        with open(output_file) as f:
             assert f.read() == content
 
 
@@ -164,7 +164,7 @@ def test_write_to_file_case_9_exclusive_mode() -> None:
         write_to_file(content, new_file, mode="x")
         
         # Assert
-        with open(new_file, 'r') as f:
+        with open(new_file) as f:
             assert f.read() == content
 
 
@@ -198,7 +198,7 @@ def test_write_to_file_case_11_multiline_content() -> None:
         write_to_file(content, output_file)
         
         # Assert
-        with open(output_file, 'r') as f:
+        with open(output_file) as f:
             assert f.read() == content
 
 
@@ -215,5 +215,5 @@ def test_write_to_file_case_12_special_characters() -> None:
         write_to_file(content, output_file)
         
         # Assert
-        with open(output_file, 'r') as f:
+        with open(output_file) as f:
             assert f.read() == content

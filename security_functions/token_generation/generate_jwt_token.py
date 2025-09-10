@@ -9,13 +9,12 @@ import json
 import base64
 import hashlib
 import hmac
-import secrets
 from datetime import datetime, timedelta, timezone
-from typing import Any, Dict
+from typing import Any
 
 
 def generate_jwt_token(
-    payload: Dict[str, Any],
+    payload: dict[str, Any],
     secret_key: str,
     expires_in_hours: int = 24,
 ) -> str:
@@ -94,7 +93,7 @@ def generate_jwt_token(
     }
     
     # Encode header and payload
-    def encode_base64url(data: Dict[str, Any]) -> str:
+    def encode_base64url(data: dict[str, Any]) -> str:
         json_str = json.dumps(data, separators=(',', ':'))
         encoded = base64.urlsafe_b64encode(json_str.encode('utf-8'))
         return encoded.decode('utf-8').rstrip('=')

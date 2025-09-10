@@ -5,13 +5,13 @@ This module provides utilities for identifying and counting duplicate elements
 in various iterable types.
 """
 
-from typing import TypeVar, Any, Dict, List
+from typing import TypeVar
 from collections import Counter
 
 T = TypeVar("T")
 
 
-def find_duplicates(items: List[T]) -> Dict[T, int]:
+def find_duplicates(items: list[T]) -> dict[T, int]:
     """
     Find duplicate elements in a list and return their counts.
 

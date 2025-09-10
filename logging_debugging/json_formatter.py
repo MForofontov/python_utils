@@ -8,7 +8,6 @@ by log aggregation systems and monitoring tools.
 import json
 import logging
 from datetime import datetime
-from typing import Dict, Any, Optional
 
 
 def json_formatter(include_extra: bool = True, pretty_print: bool = False) -> logging.Formatter:

@@ -1,12 +1,12 @@
 """Compare two dates."""
 
 from datetime import datetime, date
-from typing import Union, Literal
+from typing import Literal
 
 
 def compare_dates(
-    date1: Union[datetime, date],
-    date2: Union[datetime, date],
+    date1: datetime | date,
+    date2: datetime | date,
 ) -> Literal[-1, 0, 1]:
     """
     Compare two dates.

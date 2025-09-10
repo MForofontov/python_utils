@@ -4,14 +4,14 @@ import urllib.request
 import urllib.parse
 from urllib.error import HTTPError, URLError
 from pathlib import Path
-from typing import Optional, Dict, Any
+from typing import Any
 import mimetypes
 import uuid
 
 
 def upload_file(url: str, file_path: str, field_name: str = "file", 
-                headers: Optional[Dict[str, str]] = None, timeout: int = 30,
-                additional_data: Optional[Dict[str, str]] = None) -> Dict[str, Any]:
+                headers: dict[str, str] | None = None, timeout: int = 30,
+                additional_data: dict[str, str] | None = None) -> dict[str, Any]:
     """
     Upload a file using multipart/form-data encoding.
     

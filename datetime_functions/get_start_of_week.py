@@ -1,10 +1,9 @@
 """Get the start of week for a given date."""
 
 from datetime import datetime, date, timedelta
-from typing import Union
 
 
-def get_start_of_week(date_obj: Union[datetime, date], start_of_week: int = 0) -> Union[datetime, date]:
+def get_start_of_week(date_obj: datetime | date, start_of_week: int = 0) -> datetime | date:
     """
     Get the first day of the week for a given date.
     

@@ -4,13 +4,13 @@ Get permutations from a set.
 This module provides a utility for generating permutations from sets.
 """
 
-from typing import TypeVar, Set, List
+from typing import TypeVar
 import itertools
 
 T = TypeVar("T")
 
 
-def get_permutations(input_set: Set[T], r: int | None = None) -> List[List[T]]:
+def get_permutations(input_set: set[T], r: int | None = None) -> list[list[T]]:
     """
     Generate all permutations of r elements from the input set.
 

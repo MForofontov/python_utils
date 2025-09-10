@@ -1,10 +1,9 @@
 """Date formatting functionality."""
 
 from datetime import datetime, date
-from typing import Union
 
 
-def format_date(date_obj: Union[datetime, date], format_string: str = '%Y-%m-%d') -> str:
+def format_date(date_obj: datetime | date, format_string: str = '%Y-%m-%d') -> str:
     """
     Format a datetime or date object into a string.
     

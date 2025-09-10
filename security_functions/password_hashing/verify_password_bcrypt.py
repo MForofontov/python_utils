@@ -5,7 +5,6 @@ This module provides secure password verification against bcrypt hashes.
 """
 
 import bcrypt
-from typing import Any
 
 
 def verify_password_bcrypt(

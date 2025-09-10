@@ -1,7 +1,7 @@
 import json
-from typing import Any, Optional, Type
+from typing import Any
 
-def safe_json_load(json_string: str, object_hook: Optional[Any] = None, default: Optional[Any] = None, decoder: Optional[Type[json.JSONDecoder]] = None) -> Any:
+def safe_json_load(json_string: str, object_hook: Any | None = None, default: Any | None = None, decoder: type[json.JSONDecoder] | None = None) -> Any:
     """
     Safely load a JSON string, returning a default value on error.
     

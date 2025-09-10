@@ -1,5 +1,4 @@
 from multiprocessing_functions.parallel_unique import parallel_unique
-import pytest
 
 def test_parallel_unique_basic() -> None:
     """

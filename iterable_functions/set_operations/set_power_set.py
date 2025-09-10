@@ -4,12 +4,12 @@ Set power set utilities.
 This module provides utilities for generating power sets of sets.
 """
 
-from typing import TypeVar, Set, List, FrozenSet
+from typing import TypeVar
 
 T = TypeVar("T")
 
 
-def set_power_set(input_set: Set[T]) -> Set[FrozenSet[T]]:
+def set_power_set(input_set: set[T]) -> set[frozenset[T]]:
     """
     Generate the power set of a given set.
 

@@ -1,14 +1,13 @@
 """Timezone conversion functionality."""
 
 from datetime import datetime
-from typing import Union, Optional
 import pytz
 
 
 def convert_timezone(
     dt: datetime, 
-    to_timezone: Union[str, pytz.BaseTzInfo], 
-    from_timezone: Optional[Union[str, pytz.BaseTzInfo]] = None
+    to_timezone: str | pytz.BaseTzInfo, 
+    from_timezone: str | pytz.BaseTzInfo | None = None
 ) -> datetime:
     """
     Convert a datetime object from one timezone to another.

@@ -6,7 +6,6 @@ format checking, and optional domain validation.
 """
 
 import re
-from typing import Pattern
 
 
 def validate_email(

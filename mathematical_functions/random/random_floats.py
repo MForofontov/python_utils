@@ -1,7 +1,6 @@
 """Generate random floating-point numbers within a specified range."""
 
 import random
-from typing import Union
 
 
 def random_floats(count: int, min_value: float = 0.0, max_value: float = 1.0) -> list[float]:

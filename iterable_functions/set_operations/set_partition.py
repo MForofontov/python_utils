@@ -4,12 +4,12 @@ Set partition utilities.
 This module provides utilities for partitioning sets into subsets.
 """
 
-from typing import TypeVar, Set, List, Tuple
+from typing import TypeVar
 
 T = TypeVar("T")
 
 
-def partition_set_by_predicate(input_set: Set[T], predicate) -> Tuple[Set[T], Set[T]]:
+def partition_set_by_predicate(input_set: set[T], predicate) -> tuple[set[T], set[T]]:
     """
     Partition a set into two subsets based on a predicate function.
 

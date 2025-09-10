@@ -1,6 +1,5 @@
 """Unit tests for URL validation functionality."""
 
-import pytest
 from http_functions.is_valid_url import is_valid_url
 
 

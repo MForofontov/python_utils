@@ -24,11 +24,10 @@ Examples
 {'a': 1, 'b': {'c': 2, 'd': 3}, 'e': 4}
 """
 
-from typing import Any, Dict
-from collections.abc import Mapping
+from typing import Any
 
 
-def merge_dicts_recursive(*dicts: Dict[str, Any]) -> Dict[str, Any]:
+def merge_dicts_recursive(*dicts: dict[str, Any]) -> dict[str, Any]:
     """
     Recursively merge multiple dictionaries.
 

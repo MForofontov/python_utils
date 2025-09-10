@@ -1,5 +1,4 @@
 import pytest
-import os
 from env_config_functions.get_env_var import get_env_var
 
 def test_get_env_var_basic(monkeypatch):

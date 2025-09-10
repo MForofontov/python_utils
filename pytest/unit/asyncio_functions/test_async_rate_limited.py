@@ -30,8 +30,7 @@ async def test_async_rate_limited_tuple() -> None:
 
 
 def generate_numbers():
-    for i in range(3):
-        yield i
+    yield from range(3)
 
 
 @pytest.mark.asyncio

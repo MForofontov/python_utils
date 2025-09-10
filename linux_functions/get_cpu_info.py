@@ -3,12 +3,11 @@ Module for getting CPU information.
 """
 
 import os
-from typing import Dict, Union, List
 
 import psutil
 
 
-def get_cpu_info(interval: float = 0.1) -> Dict[str, Union[int, float, List[float]]]:
+def get_cpu_info(interval: float = 0.1) -> dict[str, int | float | list[float]]:
     """
     Get CPU information and usage statistics.
 

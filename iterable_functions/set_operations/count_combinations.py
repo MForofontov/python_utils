@@ -4,12 +4,12 @@ Count combinations from a set.
 This module provides a utility for counting combinations from sets.
 """
 
-from typing import TypeVar, Set
+from typing import TypeVar
 
 T = TypeVar("T")
 
 
-def count_combinations(input_set: Set[T], r: int) -> int:
+def count_combinations(input_set: set[T], r: int) -> int:
     """
     Count the number of combinations of r elements from the input set.
 

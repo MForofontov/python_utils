@@ -1,7 +1,4 @@
 import pytest
-import os
-import aiohttp
-import asyncio
 from unittest.mock import patch, MagicMock
 from asyncio_functions.async_download import async_download
 

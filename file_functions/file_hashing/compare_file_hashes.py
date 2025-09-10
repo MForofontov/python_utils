@@ -3,7 +3,6 @@ Compare file hashes to detect duplicates.
 """
 
 from pathlib import Path
-from typing import Any
 
 from .calculate_md5_hash import calculate_md5_hash
 

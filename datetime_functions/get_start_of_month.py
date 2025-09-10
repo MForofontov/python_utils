@@ -1,8 +1,7 @@
 from datetime import date, datetime
-from typing import Union
 
 
-def get_start_of_month(input_date: Union[date, datetime]) -> date:
+def get_start_of_month(input_date: date | datetime) -> date:
     """
     Get the first day of the month for the given date.
     

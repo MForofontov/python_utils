@@ -30,10 +30,10 @@ Traceback (most recent call last):
 ValueError: Duplicate values found: [1]
 """
 
-from typing import Any, Dict, List
+from typing import Any
 
 
-def invert_dict(d: Dict[str, Any], allow_duplicates: bool = False) -> Dict[Any, Any]:
+def invert_dict(d: dict[str, Any], allow_duplicates: bool = False) -> dict[Any, Any]:
     """
     Invert a dictionary, swapping keys and values.
 

@@ -2,7 +2,6 @@
 Unit tests for find_files_by_extension function.
 """
 
-import os
 import pytest
 import tempfile
 from pathlib import Path

@@ -1,4 +1,3 @@
-import pytest
 from linux_functions.get_uptime import get_uptime
 
 

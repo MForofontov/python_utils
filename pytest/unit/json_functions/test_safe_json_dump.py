@@ -1,4 +1,3 @@
-import pytest
 from json_functions.safe_json_dump import safe_json_dump
 import json
 

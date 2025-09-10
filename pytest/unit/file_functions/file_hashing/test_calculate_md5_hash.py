@@ -6,7 +6,7 @@ import hashlib
 import pytest
 import tempfile
 from pathlib import Path
-from unittest.mock import mock_open, patch
+from unittest.mock import patch
 
 from file_functions import calculate_md5_hash
 
@@ -64,7 +64,7 @@ def test_calculate_md5_hash_case_3_custom_chunk_size() -> None:
         result = calculate_md5_hash(temp_file_path, chunk_size=4)
         
         # Assert - Should produce same hash regardless of chunk size
-        expected = hashlib.md5("test content".encode()).hexdigest()
+        expected = hashlib.md5(b"test content").hexdigest()
         assert result == expected
     finally:
         Path(temp_file_path).unlink()
@@ -105,7 +105,7 @@ def test_calculate_md5_hash_case_5_path_object_input() -> None:
         result = calculate_md5_hash(temp_file_path)
         
         # Assert
-        expected = hashlib.md5("test".encode()).hexdigest()
+        expected = hashlib.md5(b"test").hexdigest()
         assert result == expected
     finally:
         temp_file_path.unlink()

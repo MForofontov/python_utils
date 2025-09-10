@@ -1,4 +1,4 @@
-from typing import Any, ParamSpec, TypeVar
+from typing import ParamSpec, TypeVar
 from collections.abc import Callable
 from contextlib import redirect_stdout
 from functools import wraps

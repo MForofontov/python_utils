@@ -1,5 +1,5 @@
 import pytest
-from typing import Any, List
+from typing import Any
 from iterable_functions.list_operations.group_by import group_by
 
 
@@ -8,7 +8,7 @@ def test_group_by_group_by_length() -> None:
     Test case 1: Group strings by length.
     """
     # Arrange
-    input_items: List[str] = ['cat', 'dog', 'bird', 'elephant']
+    input_items: list[str] = ['cat', 'dog', 'bird', 'elephant']
     key_function = lambda x: len(x)
     expected_output = {3: ['cat', 'dog'], 4: ['bird'], 8: ['elephant']}
 
@@ -24,7 +24,7 @@ def test_group_by_group_by_first_character() -> None:
     Test case 2: Group strings by first character.
     """
     # Arrange
-    input_items: List[str] = ['cat', 'dog', 'bird', 'elephant']
+    input_items: list[str] = ['cat', 'dog', 'bird', 'elephant']
     key_function = lambda x: x[0]
     expected_output = {'c': ['cat'], 'd': ['dog'], 'b': ['bird'], 'e': ['elephant']}
 
@@ -40,7 +40,7 @@ def test_group_by_group_numbers_by_parity() -> None:
     Test case 3: Group numbers by even/odd parity.
     """
     # Arrange
-    input_items: List[int] = [1, 2, 3, 4, 5, 6]
+    input_items: list[int] = [1, 2, 3, 4, 5, 6]
     key_function = lambda x: 'even' if x % 2 == 0 else 'odd'
     expected_output = {'odd': [1, 3, 5], 'even': [2, 4, 6]}
 
@@ -56,7 +56,7 @@ def test_group_by_group_duplicates_without_key_function() -> None:
     Test case 4: Group duplicates without key function.
     """
     # Arrange
-    input_items: List[str] = ['a', 'b', 'a', 'c', 'b']
+    input_items: list[str] = ['a', 'b', 'a', 'c', 'b']
     expected_output = {'a': ['a', 'a'], 'b': ['b', 'b'], 'c': ['c']}
 
     # Act
@@ -71,7 +71,7 @@ def test_group_by_empty_list() -> None:
     Test case 5: Edge case with empty list.
     """
     # Arrange
-    input_items: List[str] = []
+    input_items: list[str] = []
     key_function = lambda x: len(x)
     expected_output = {}
 
@@ -87,7 +87,7 @@ def test_group_by_single_item_list() -> None:
     Test case 6: Edge case with single item list.
     """
     # Arrange
-    input_items: List[str] = ['hello']
+    input_items: list[str] = ['hello']
     key_function = lambda x: len(x)
     expected_output = {5: ['hello']}
 
@@ -103,7 +103,7 @@ def test_group_by_mixed_data_types() -> None:
     Test case 7: Group mixed data types.
     """
     # Arrange
-    input_items: List[Any] = [1, 'hello', 2, 'world', 1]
+    input_items: list[Any] = [1, 'hello', 2, 'world', 1]
     key_function = lambda x: type(x).__name__
     expected_output = {'int': [1, 2, 1], 'str': ['hello', 'world']}
 
@@ -165,7 +165,7 @@ def test_group_by_invalid_key_func_type_error() -> None:
     Test case 10: TypeError for invalid key_func type.
     """
     # Arrange
-    input_items: List[str] = ['a', 'b', 'c']
+    input_items: list[str] = ['a', 'b', 'c']
     invalid_key_func: str = "not callable"
     expected_message: str = "key_func must be callable or None, got str"
 
@@ -179,7 +179,7 @@ def test_group_by_preserves_order() -> None:
     Test case 11: Preserve original order within groups.
     """
     # Arrange
-    input_items: List[str] = ['first', 'second', 'third', 'fourth', 'fifth']
+    input_items: list[str] = ['first', 'second', 'third', 'fourth', 'fifth']
     key_function = lambda x: len(x)
     expected_output = {5: ['first', 'third', 'fifth'], 6: ['second', 'fourth']}
 
@@ -198,7 +198,7 @@ def test_group_by_none_values() -> None:
     Test case 12: Group None values.
     """
     # Arrange
-    input_items: List[Any] = [None, 'a', None, 'b']
+    input_items: list[Any] = [None, 'a', None, 'b']
     key_function = lambda x: x
     expected_output = {None: [None, None], 'a': ['a'], 'b': ['b']}
 

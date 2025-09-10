@@ -1,8 +1,7 @@
 import os
-from typing import Optional
 
 
-def load_dotenv(dotenv_path: Optional[str] = None, override: bool = False) -> None:
+def load_dotenv(dotenv_path: str | None = None, override: bool = False) -> None:
     """
     Load environment variables from a .env file into os.environ.
 
@@ -26,7 +25,7 @@ def load_dotenv(dotenv_path: Optional[str] = None, override: bool = False) -> No
     path = dotenv_path or '.env'
     if not os.path.exists(path):
         return
-    with open(path, 'r') as f:
+    with open(path) as f:
         for line in f:
             line = line.strip()
             if not line or line.startswith('#'):

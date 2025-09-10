@@ -1,4 +1,5 @@
-from typing import TypeVar, Awaitable
+from typing import TypeVar
+from collections.abc import Awaitable
 from collections.abc import Callable
 import asyncio
 

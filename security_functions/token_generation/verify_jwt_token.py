@@ -10,13 +10,13 @@ import base64
 import hashlib
 import hmac
 from datetime import datetime, timezone
-from typing import Any, Dict
+from typing import Any
 
 
 def verify_jwt_token(
     token: str,
     secret_key: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Verify and decode a JWT token.
 

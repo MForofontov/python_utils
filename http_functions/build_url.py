@@ -1,13 +1,12 @@
 """URL building functionality."""
 
 import urllib.parse
-from typing import Optional, Dict
 
 
-def build_url(scheme: str, hostname: str, port: Optional[int] = None, 
-              path: str = "", query_params: Optional[Dict[str, str]] = None,
-              fragment: Optional[str] = None, username: Optional[str] = None,
-              password: Optional[str] = None) -> str:
+def build_url(scheme: str, hostname: str, port: int | None = None, 
+              path: str = "", query_params: dict[str, str] | None = None,
+              fragment: str | None = None, username: str | None = None,
+              password: str | None = None) -> str:
     """
     Build a URL from components.
     

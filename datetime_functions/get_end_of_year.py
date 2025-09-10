@@ -1,10 +1,9 @@
 """Get the end of year for a given date."""
 
 from datetime import datetime, date
-from typing import Union
 
 
-def get_end_of_year(date_obj: Union[datetime, date]) -> Union[datetime, date]:
+def get_end_of_year(date_obj: datetime | date) -> datetime | date:
     """
     Get the last day of the year for a given date.
     

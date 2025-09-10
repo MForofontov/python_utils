@@ -3,10 +3,9 @@ Module for listing directories.
 """
 
 import os
-from typing import List
 
 
-def list_directories(directory_path: str, include_hidden: bool = False) -> List[str]:
+def list_directories(directory_path: str, include_hidden: bool = False) -> list[str]:
     """
     List all directories in a given path.
 

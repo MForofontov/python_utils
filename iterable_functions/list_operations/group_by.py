@@ -4,17 +4,17 @@ Group list elements by a key function.
 This module provides functionality to group elements of a list based on a key function.
 """
 
-from typing import TypeVar, Any, Callable, Dict, List
-from collections.abc import Iterable
+from typing import TypeVar
+from collections.abc import Callable
 
 T = TypeVar("T")
 K = TypeVar("K")
 
 
 def group_by(
-    items: List[T],
+    items: list[T],
     key_func: Callable[[T], K] | None = None,
-) -> Dict[K, List[T]]:
+) -> dict[K, list[T]]:
     """
     Group list elements by a key function.
 
@@ -74,7 +74,7 @@ def group_by(
         raise TypeError(f"key_func must be callable or None, got {type(key_func).__name__}")
 
     # Group items
-    result: Dict[K, List[T]] = {}
+    result: dict[K, list[T]] = {}
 
     for item in items:
         if key_func is None:
