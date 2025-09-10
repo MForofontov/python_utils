@@ -14,7 +14,7 @@ def read_tabular(input_file: str, delimiter: str = "\t") -> list[list[str]]:
 
     Returns
     -------
-    List[List[str]]
+    list[List[str]]
         A list with a sublist per line in the input file. Each sublist has the fields that were separated by the defined delimiter.
     """
     with open(input_file) as infile:

@@ -15,9 +15,9 @@ def multi_decorator(
 
     Parameters
     ----------
-    decorators : List[Callable[[Callable[P, R]], Callable[P, R]]]
+    decorators : list[Callable[[Callable[P, R]], Callable[P, R]]]
         A list of decorators to apply.
-    logger : Optional[logging.Logger], optional
+    logger : logging.Logger | None, optional
         The logger to use for logging errors (default is None).
 
     Returns

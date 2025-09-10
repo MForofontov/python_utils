@@ -12,9 +12,9 @@ class AVLNode(Generic[T]):
     ----------
     key : T
         The key of the node.
-    left : Optional[AVLNode[T]]
+    left : AVLNode[T | None]
         The left child of the node.
-    right : Optional[AVLNode[T]]
+    right : AVLNode[T | None]
         The right child of the node.
     height : int
         The height of the node.
@@ -33,7 +33,7 @@ class AVLTree(Generic[T]):
 
     Attributes
     ----------
-    root : Optional[AVLNode[T]]
+    root : AVLNode[T | None]
         The root node of the AVL tree.
 
     Methods
@@ -42,7 +42,7 @@ class AVLTree(Generic[T]):
         Inserts a key into the AVL tree.
     delete(key: T) -> None
         Deletes a key from the AVL tree.
-    search(key: T) -> Optional[AVLNode[T]]
+    search(key: T) -> AVLNode[T | None]
         Searches for a key in the AVL tree.
     """
 
@@ -140,7 +140,7 @@ class AVLTree(Generic[T]):
 
         Returns
         -------
-        Optional[AVLNode[T]]
+        AVLNode[T | None]
             The node containing the key, or None if not found.
         """
         return self._search(self.root, key)

@@ -11,7 +11,7 @@ def split_string(s: str, delimiter: str = " ") -> list[str]:
 
     Returns
     -------
-    List[str]
+    list[str]
         A list of substrings.
 
     Raises

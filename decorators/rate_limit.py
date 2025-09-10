@@ -28,9 +28,9 @@ def rate_limit(
         The maximum number of allowed calls within the period.
     period : int
         The time period in seconds.
-    logger : Optional[logging.Logger]
+    logger : logging.Logger | None
         The logger to use for logging rate limit warnings.
-    exception_message : Optional[str]
+    exception_message : str | None
         Custom exception message when the rate limit is exceeded.
 
     Returns

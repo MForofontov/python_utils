@@ -6,7 +6,7 @@ def replace_multiple_substrings(s: str, replacements: dict[str, str]) -> str:
     ----------
     s : str
         The input string.
-    replacements : Dict[str, str]
+    replacements : dict[str, str]
         A dictionary where keys are substrings to be replaced and values are the replacements.
 
     Returns

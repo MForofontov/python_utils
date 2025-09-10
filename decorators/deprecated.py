@@ -16,7 +16,7 @@ def deprecated(
 
     Parameters
     ----------
-    logger : Optional[logging.Logger]
+    logger : logging.Logger | None
         The logger to use for logging the deprecation warning. If None, the default logger will be used.
 
     Returns

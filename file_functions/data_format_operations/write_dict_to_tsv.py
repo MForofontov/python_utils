@@ -10,7 +10,7 @@ def write_dict_to_tsv(file_path: str, data: dict[str, list[Any]]) -> None:
     ----------
     file_path : str
         The file path to save the TSV file.
-    data : Dict[str, List[Any]]
+    data : dict[str, list[Any]]
         The dictionary where keys are column names and values are lists of values for each column.
 
     Returns

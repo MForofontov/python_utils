@@ -20,7 +20,7 @@ def conditional_execute(
 
     Returns
     -------
-    Callable[[Callable[P, T]], Callable[P, Optional[T]]]
+    Callable[[Callable[P, T]], Callable[P, T | None]]
         A decorator that wraps the input function with conditional execution logic.
 
     Raises
@@ -42,7 +42,7 @@ def conditional_execute(
 
         Returns
         -------
-        Callable[P, Optional[T]]
+        Callable[P, T | None]
             The wrapped function with conditional execution logic.
         """
 
@@ -60,7 +60,7 @@ def conditional_execute(
 
             Returns
             -------
-            Optional[T]
+            T | None
                 The result of the wrapped function if the predicate returns True, otherwise None.
 
             Raises

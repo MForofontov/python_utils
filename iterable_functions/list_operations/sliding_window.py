@@ -16,14 +16,14 @@ def sliding_window(items: list[T], window_size: int) -> Iterator[list[T]]:
 
     Parameters
     ----------
-    items : List[T]
+    items : list[T]
         The list to create windows from.
     window_size : int
         The size of each window.
 
     Yields
     ------
-    List[T]
+    list[T]
         Sliding windows of the specified size.
 
     Raises

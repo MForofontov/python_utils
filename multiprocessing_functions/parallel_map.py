@@ -16,7 +16,7 @@ def parallel_map(
     ----------
     func : Callable[[T], R]
         The function to apply to each item in the list.
-    data : List[T]
+    data : list[T]
         The list of data items to process.
     num_processes : int | None, optional
         The number of processes to use for parallel execution. If ``None``,
@@ -25,7 +25,7 @@ def parallel_map(
 
     Returns
     -------
-    List[R]
+    list[R]
         The list of results after applying the function to each item in parallel.
 
     Examples

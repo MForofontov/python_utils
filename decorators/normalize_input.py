@@ -17,7 +17,7 @@ def normalize_input(
     ----------
     normalization_func : Callable[[Any], Any]
         The function to normalize each input argument.
-    logger : Optional[logging.Logger], optional
+    logger : logging.Logger | None, optional
         The logger to use for logging normalization errors (default is None).
 
     Returns

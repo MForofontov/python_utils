@@ -6,13 +6,13 @@ class RedBlackNode:
     ----------
     key : int
         The key of the node.
-    left : Optional[RedBlackNode]
+    left : RedBlackNode | None
         The left child of the node.
-    right : Optional[RedBlackNode]
+    right : RedBlackNode | None
         The right child of the node.
     color : str
         The color of the node ('RED' or 'BLACK').
-    parent : Optional[RedBlackNode]
+    parent : RedBlackNode | None
         The parent of the node.
     """
 
@@ -30,7 +30,7 @@ class RedBlackTree:
 
     Attributes
     ----------
-    root : Optional[RedBlackNode]
+    root : RedBlackNode | None
         The root node of the Red-Black Tree.
 
     Methods

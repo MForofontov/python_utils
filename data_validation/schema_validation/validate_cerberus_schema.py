@@ -31,9 +31,9 @@ def validate_cerberus_schema(
 
     Parameters
     ----------
-    data : Dict[str, Any]
+    data : dict[str, Any]
         The dictionary data to validate against the schema.
-    schema : Dict[str, Any]
+    schema : dict[str, Any]
         Cerberus schema definition dictionary.
     allow_unknown : bool, optional
         Whether to allow fields not defined in schema (by default False).
@@ -44,7 +44,7 @@ def validate_cerberus_schema(
 
     Returns
     -------
-    Dict[str, Any]
+    dict[str, Any]
         Validated and optionally normalized data dictionary.
 
     Raises

@@ -20,7 +20,7 @@ def parallel_apply_with_args(
     ----------
     func : Callable[[T, Any], R]
         The function to apply to each item in the list.
-    data : List[T]
+    data : list[T]
         The list of data items to process.
     args : Tuple, optional
         Additional arguments to pass to the function (by default an empty tuple).
@@ -30,7 +30,7 @@ def parallel_apply_with_args(
 
     Returns
     -------
-    List[R]
+    list[R]
         The list of results after applying the function to each item with the additional arguments in parallel.
 
     Examples

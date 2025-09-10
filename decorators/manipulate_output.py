@@ -17,7 +17,7 @@ def manipulate_output(
     ----------
     manipulation_func : Callable[[Any], Any]
         The function to manipulate the output of the decorated function.
-    logger : Optional[logging.Logger]
+    logger : logging.Logger | None
         The logger to use for logging manipulation warnings.
 
     Returns

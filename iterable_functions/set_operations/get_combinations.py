@@ -18,14 +18,14 @@ def get_combinations(input_set: set[T], r: int) -> list[list[T]]:
 
     Parameters
     ----------
-    input_set : Set[T]
+    input_set : set[T]
         The input set to generate combinations from.
     r : int
         The number of elements in each combination.
 
     Returns
     -------
-    List[List[T]]
+    list[List[T]]
         List of all combinations, where each combination is a sorted list.
 
     Raises

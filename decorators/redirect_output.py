@@ -18,7 +18,7 @@ def redirect_output(
     ----------
     file_path : str
         The path to the file where the output should be redirected.
-    logger : Optional[logging.Logger], optional
+    logger : logging.Logger | None, optional
         The logger to use for logging errors (default is None).
 
     Returns

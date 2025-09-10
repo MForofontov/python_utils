@@ -18,14 +18,14 @@ def partition_set_by_predicate(input_set: set[T], predicate) -> tuple[set[T], se
 
     Parameters
     ----------
-    input_set : Set[T]
+    input_set : set[T]
         The input set to partition.
     predicate : callable
         Function that takes an element and returns True or False.
 
     Returns
     -------
-    Tuple[Set[T], Set[T]]
+    tuple[set[T], set[T]]
         Tuple of (true_set, false_set) where true_set contains elements
         where predicate(element) is True, and false_set contains elements
         where predicate(element) is False.

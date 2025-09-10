@@ -6,11 +6,11 @@ class SplayNode:
     ----------
     key : int
         The key of the node.
-    left : Optional[SplayNode]
+    left : SplayNode | None
         The left child of the node.
-    right : Optional[SplayNode]
+    right : SplayNode | None
         The right child of the node.
-    parent : Optional[SplayNode]
+    parent : SplayNode | None
         The parent of the node.
     """
 
@@ -27,14 +27,14 @@ class SplayTree:
 
     Attributes
     ----------
-    root : Optional[SplayNode]
+    root : SplayNode | None
         The root node of the Splay Tree.
 
     Methods
     -------
     insert(key: int) -> None
         Inserts a key into the Splay Tree.
-    search(key: int) -> Optional[SplayNode]
+    search(key: int) -> SplayNode | None
         Searches for a key in the Splay Tree.
     _rotate_left(node: SplayNode) -> None
         Performs a left rotation on a node.
@@ -85,7 +85,7 @@ class SplayTree:
 
         Returns
         -------
-        Optional[SplayNode]
+        SplayNode | None
             The node containing the key, or None if not found.
         """
         node = self.root

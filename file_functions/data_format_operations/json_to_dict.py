@@ -13,7 +13,7 @@ def json_to_dict(file_path: str) -> dict[str, Any]:
 
     Returns
     -------
-    Dict[str, Any]
+    dict[str, Any]
         Dictionary representation of the JSON contents.
 
     Raises
