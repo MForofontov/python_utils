@@ -13,7 +13,7 @@ class Node(Generic[T]):
     ----------
     data : T
         The data stored in the node.
-    next : Optional[Node[T]]
+    next : Node[T | None]
         The next node in the linked list, or None if it is the last node.
     """
 
@@ -36,7 +36,7 @@ class LinkedList(Generic[T]):
 
     Attributes
     ----------
-    head : Optional[Node[T]]
+    head : Node[T | None]
         The first node in the linked list.
 
     Methods

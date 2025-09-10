@@ -18,12 +18,12 @@ def get_unique_elements_across_sets(*sets: set[T]) -> list[T]:
 
     Parameters
     ----------
-    *sets : Set[T]
+    *sets : set[T]
         Variable number of sets to analyze.
 
     Returns
     -------
-    List[T]
+    list[T]
         List of elements that appear in exactly one set.
 
     Raises
@@ -71,12 +71,12 @@ def set_symmetric_difference(*sets: set[T]) -> set[T]:
 
     Parameters
     ----------
-    *sets : Set[T]
+    *sets : set[T]
         Variable number of sets to compute symmetric difference.
 
     Returns
     -------
-    Set[T]
+    set[T]
         Symmetric difference of all input sets.
 
     Raises

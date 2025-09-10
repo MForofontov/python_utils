@@ -17,7 +17,7 @@ def parallel_gather_errors(
     ----------
     func : Callable[[T], R]
         The function to apply to each item in the list.
-    data : List[T]
+    data : list[T]
         The list of data items to process.
     num_processes : int | None, optional
         The number of processes to use for parallel execution. If None, it defaults
@@ -25,7 +25,7 @@ def parallel_gather_errors(
 
     Returns
     -------
-    Tuple[List[R], List[Exception]]
+    tuple[list[R], list[Exception]]
         A tuple containing the list of results and the list of exceptions. If an exception occurs
         for an item, its corresponding result is not included in the result list.
 

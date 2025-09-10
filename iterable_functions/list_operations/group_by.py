@@ -20,7 +20,7 @@ def group_by(
 
     Parameters
     ----------
-    items : List[T]
+    items : list[T]
         The list of items to group.
     key_func : Callable[[T], K] | None, optional
         Function to extract the grouping key from each item.
@@ -28,7 +28,7 @@ def group_by(
 
     Returns
     -------
-    Dict[K, List[T]]
+    dict[K, list[T]]
         Dictionary where keys are the grouping values and values are lists of items.
 
     Raises

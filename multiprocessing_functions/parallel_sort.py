@@ -25,7 +25,7 @@ def parallel_sort(
 
     Parameters
     ----------
-    data : List[int]
+    data : list[int]
         The list of integers to sort.
     num_processes : int | None, optional
         The number of processes to use for parallel execution. If None, it defaults
@@ -35,7 +35,7 @@ def parallel_sort(
 
     Returns
     -------
-    List[int]
+    list[int]
         The sorted list of integers.
 
     Examples

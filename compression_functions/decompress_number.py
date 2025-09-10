@@ -11,7 +11,7 @@ def decompress_number(text: str, index: int) -> tuple[int, int]:
 
     Returns
     -------
-    Tuple[int, int]
+    tuple[int, int]
         Index to start decoding the next number and the number decoded
         in the current function call.
 

@@ -17,7 +17,7 @@ def get_disk_usage(path: str = '/') -> dict[str, int | float]:
 
     Returns
     -------
-    Dict[str, Union[int, float]]
+    dict[str, int | float]
         Dictionary containing disk usage information in bytes and percentage.
 
     Raises

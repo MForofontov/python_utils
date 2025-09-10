@@ -11,7 +11,7 @@ def cleanup(directory: str, exclude: list[str]) -> None:
     ----------
     directory : str
         The path to the directory to clean up.
-    exclude : List[str]
+    exclude : list[str]
         A list of filenames or subdirectory names to exclude from removal.
         Entries may be provided either as absolute paths or names relative to
         ``directory``. Absolute paths are normalized to their base names before

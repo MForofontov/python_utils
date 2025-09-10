@@ -15,14 +15,14 @@ def chunk_by_size(items: list[T], chunk_size: int) -> list[list[T]]:
 
     Parameters
     ----------
-    items : List[T]
+    items : list[T]
         The list to be chunked.
     chunk_size : int
         The size of each chunk.
 
     Returns
     -------
-    List[List[T]]
+    list[List[T]]
         List of chunks, where each chunk is a list of items.
 
     Raises

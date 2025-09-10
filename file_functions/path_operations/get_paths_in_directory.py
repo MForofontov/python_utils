@@ -22,7 +22,7 @@ def get_paths_in_directory(directory: str, type_: str) -> list[str]:
 
     Returns
     -------
-    List[str]
+    list[str]
         A list containing the full paths of the items in the directory, filtered by the specified type.
 
     Raises

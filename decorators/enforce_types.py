@@ -16,7 +16,7 @@ def enforce_types(
 
     Parameters
     ----------
-    logger : Optional[logging.Logger]
+    logger : logging.Logger | None
         The logger to use for logging type errors.
 
     Returns

@@ -10,9 +10,9 @@ class UnionFind(Generic[T]):
 
     Attributes
     ----------
-    parent : Dict[T, T]
+    parent : dict[T, T]
         A dictionary that maps each element to its parent.
-    rank : Dict[T, int]
+    rank : dict[T, int]
         A dictionary that stores the rank (or depth) of each element's tree.
 
     Methods

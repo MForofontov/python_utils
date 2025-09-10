@@ -17,12 +17,12 @@ def find_duplicates(items: list[T]) -> dict[T, int]:
 
     Parameters
     ----------
-    items : List[T]
+    items : list[T]
         The list to analyze for duplicates.
 
     Returns
     -------
-    Dict[T, int]
+    dict[T, int]
         Dictionary mapping duplicate elements to their occurrence counts.
         Only elements that appear more than once are included.
 

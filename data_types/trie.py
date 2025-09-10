@@ -4,7 +4,7 @@ class TrieNode:
 
     Attributes
     ----------
-    children : Dict[str, TrieNode]
+    children : dict[str, TrieNode]
         A dictionary storing child nodes indexed by characters.
     is_end_of_word : bool
         Indicates if the node marks the end of a word.

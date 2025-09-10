@@ -9,7 +9,7 @@ class SkipNode:
     ----------
     key : int
         The key of the node.
-    forward : List[Optional[SkipNode]]
+    forward : list[SkipNode | None]
         A list of forward pointers to other nodes in the Skip List at different levels.
     """
 
@@ -35,7 +35,7 @@ class SkipList:
     -------
     insert(key: int) -> None
         Inserts a key into the Skip List.
-    search(key: int) -> Optional[SkipNode]
+    search(key: int) -> SkipNode | None
         Searches for a key in the Skip List.
     delete(key: int) -> None
         Deletes a key from the Skip List.
@@ -84,7 +84,7 @@ class SkipList:
 
         Returns
         -------
-        Optional[SkipNode]
+        SkipNode | None
             The node containing the key, or None if not found.
         """
         current = self.header

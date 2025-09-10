@@ -18,7 +18,7 @@ def throttle(
     ----------
     rate_limit : float
         The minimum time interval (in seconds) between consecutive calls to the function.
-    logger : Optional[logging.Logger], optional
+    logger : logging.Logger | None, optional
         The logger to use for logging errors (default is None).
 
     Returns

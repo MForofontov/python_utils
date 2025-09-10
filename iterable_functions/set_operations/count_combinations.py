@@ -18,7 +18,7 @@ def count_combinations(input_set: set[T], r: int) -> int:
 
     Parameters
     ----------
-    input_set : Set[T]
+    input_set : set[T]
         The input set.
     r : int
         The number of elements in each combination.

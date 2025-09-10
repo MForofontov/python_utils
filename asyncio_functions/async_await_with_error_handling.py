@@ -16,14 +16,14 @@ async def async_await_with_error_handling(
 
     Parameters
     ----------
-    tasks : List[Callable[[], Awaitable[T]]]
+    tasks : list[Callable[[], Awaitable[T]]]
         A list of asynchronous functions to execute.
     error_handler : Callable[[Exception], None]
         A function to handle any exceptions that occur during task execution.
 
     Returns
     -------
-    List[T]
+    list[T]
         A list of results from successful tasks.
 
     Raises

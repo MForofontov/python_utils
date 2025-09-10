@@ -12,9 +12,9 @@ class BinaryTreeNode(Generic[T]):
     ----------
     data : T
         The data stored in the node.
-    left : Optional[BinaryTreeNode[T]]
+    left : BinaryTreeNode[T | None]
         The left child of the node.
-    right : Optional[BinaryTreeNode[T]]
+    right : BinaryTreeNode[T | None]
         The right child of the node.
     """
 
@@ -30,7 +30,7 @@ class BinaryTree(Generic[T]):
 
     Attributes
     ----------
-    root : Optional[BinaryTreeNode[T]]
+    root : BinaryTreeNode[T | None]
         The root node of the binary tree.
 
     Methods
@@ -39,11 +39,11 @@ class BinaryTree(Generic[T]):
         Inserts data into the binary tree.
     search(data: T) -> bool
         Searches for data in the binary tree.
-    inorder_traversal() -> List[T]
+    inorder_traversal() -> list[T]
         Performs an in-order traversal of the tree.
-    preorder_traversal() -> List[T]
+    preorder_traversal() -> list[T]
         Performs a pre-order traversal of the tree.
-    postorder_traversal() -> List[T]
+    postorder_traversal() -> list[T]
         Performs a post-order traversal of the tree.
 
     Raises
@@ -116,7 +116,7 @@ class BinaryTree(Generic[T]):
 
         Parameters
         ----------
-        node : Optional[BinaryTreeNode[T]]
+        node : BinaryTreeNode[T | None]
             The current node to check for data.
         data : T
             The data to search for.
@@ -141,7 +141,7 @@ class BinaryTree(Generic[T]):
 
         Returns
         -------
-        List[T]
+        list[T]
             A list of data in in-order.
         """
         return self._inorder_traversal_recursive(self.root)
@@ -152,12 +152,12 @@ class BinaryTree(Generic[T]):
 
         Parameters
         ----------
-        node : Optional[BinaryTreeNode[T]]
+        node : BinaryTreeNode[T | None]
             The current node to traverse.
 
         Returns
         -------
-        List[T]
+        list[T]
             A list of data in in-order.
         """
         if node is None:
@@ -174,7 +174,7 @@ class BinaryTree(Generic[T]):
 
         Returns
         -------
-        List[T]
+        list[T]
             A list of data in pre-order.
         """
         return self._preorder_traversal_recursive(self.root)
@@ -185,12 +185,12 @@ class BinaryTree(Generic[T]):
 
         Parameters
         ----------
-        node : Optional[BinaryTreeNode[T]]
+        node : BinaryTreeNode[T | None]
             The current node to traverse.
 
         Returns
         -------
-        List[T]
+        list[T]
             A list of data in pre-order.
         """
         if node is None:
@@ -207,7 +207,7 @@ class BinaryTree(Generic[T]):
 
         Returns
         -------
-        List[T]
+        list[T]
             A list of data in post-order.
         """
         return self._postorder_traversal_recursive(self.root)
@@ -218,12 +218,12 @@ class BinaryTree(Generic[T]):
 
         Parameters
         ----------
-        node : Optional[BinaryTreeNode[T]]
+        node : BinaryTreeNode[T | None]
             The current node to traverse.
 
         Returns
         -------
-        List[T]
+        list[T]
             A list of data in post-order.
         """
         if node is None:

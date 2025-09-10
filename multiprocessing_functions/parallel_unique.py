@@ -18,7 +18,7 @@ def parallel_unique(
 
     Parameters
     ----------
-    data : List[T]
+    data : list[T]
         The list of data items to process.
     num_processes : int | None, optional
         The number of processes to use for parallel execution. If None, it defaults
@@ -28,7 +28,7 @@ def parallel_unique(
 
     Returns
     -------
-    List[T]
+    list[T]
         A list containing the unique elements from the input list.
 
     Examples

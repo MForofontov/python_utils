@@ -26,9 +26,9 @@ def env_config(
         Whether the environment variable is required (default is True).
     var_type : Type, optional
         The expected type of the environment variable (default is str).
-    custom_message : Optional[str], optional
+    custom_message : str | None, optional
         Custom error message if the environment variable is missing or invalid (default is None).
-    logger : Optional[logging.Logger], optional
+    logger : logging.Logger | None, optional
         The logger to use for logging errors (default is None).
 
     Returns

@@ -19,7 +19,7 @@ def parallel_broadcast(
         The function to apply to each item in the list. It takes two arguments: the item and the shared input.
     shared_input : T
         The shared input to broadcast to all processes.
-    data : List[T]
+    data : list[T]
         The list of data items to process.
     num_processes : int | None, optional
         The number of processes to use for parallel execution. If None, it defaults
@@ -27,7 +27,7 @@ def parallel_broadcast(
 
     Returns
     -------
-    List[R]
+    list[R]
         The list of results after applying the function to each item with the shared input.
 
     Examples

@@ -18,7 +18,7 @@ def serialize_output(
     ----------
     format : str
         The format to serialize the output into. Currently supports 'json'.
-    logger : Optional[logging.Logger], optional
+    logger : logging.Logger | None, optional
         The logger to use for logging errors (default is None).
 
     Returns

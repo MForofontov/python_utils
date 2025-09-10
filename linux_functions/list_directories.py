@@ -18,7 +18,7 @@ def list_directories(directory_path: str, include_hidden: bool = False) -> list[
 
     Returns
     -------
-    List[str]
+    list[str]
         List of directory names.
 
     Raises

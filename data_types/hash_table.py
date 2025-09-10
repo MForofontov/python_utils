@@ -13,7 +13,7 @@ class HashTable(Generic[K, V]):
     ----------
     size : int
         The number of buckets in the hash table.
-    table : List[List[Tuple[K, V]]]
+    table : list[List[tuple[K, V]]]
         The list of buckets where each bucket stores key-value pairs as tuples.
 
     Methods

@@ -4,7 +4,7 @@ def polyline_encoding_list_of_ints(list_of_ints: list[int]) -> str:
 
     Parameters
     ----------
-    list_of_ints : List[int]
+    list_of_ints : list[int]
         List of integers to be encoded.
 
     Returns

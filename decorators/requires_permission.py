@@ -17,7 +17,7 @@ def requires_permission(
     ----------
     permission : str
         The required permission that the user must have.
-    logger : Optional[logging.Logger], optional
+    logger : logging.Logger | None, optional
         The logger to use for logging errors (default is None).
 
     Returns
@@ -65,7 +65,7 @@ def requires_permission(
 
             Parameters
             ----------
-            user_permissions : List[str]
+            user_permissions : list[str]
                 The list of permissions that the user has.
             *args : Any
                 Positional arguments for the decorated function.

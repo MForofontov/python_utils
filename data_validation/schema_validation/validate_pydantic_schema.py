@@ -39,7 +39,7 @@ def validate_pydantic_schema(
 
     Parameters
     ----------
-    data : Dict[str, Any] | Any
+    data : dict[str, Any] | Any
         The data to validate against the schema.
     schema_model : Type[T]
         Pydantic model class to validate against.

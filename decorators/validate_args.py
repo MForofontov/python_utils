@@ -17,7 +17,7 @@ def validate_args(
     ----------
     validation_func : Callable[P, bool]
         The validation function that takes the same arguments as the decorated function and returns a boolean.
-    logger : Optional[logging.Logger]
+    logger : logging.Logger | None
         The logger to use for logging validation failure messages. If None, messages are printed to the console.
 
     Returns

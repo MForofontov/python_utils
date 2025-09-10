@@ -17,14 +17,14 @@ def partition_set_into_n_parts(input_set: set[T], n: int) -> list[set[T]]:
 
     Parameters
     ----------
-    input_set : Set[T]
+    input_set : set[T]
         The input set to partition.
     n : int
         Number of partitions to create.
 
     Returns
     -------
-    List[Set[T]]
+    list[set[T]]
         List of n subsets. The union of all subsets equals the input set,
         and all subsets are pairwise disjoint.
 

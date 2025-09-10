@@ -16,7 +16,7 @@ def log_signature(
 
     Parameters
     ----------
-    logger : Optional[logging.Logger]
+    logger : logging.Logger | None
         The logger to use for logging. If None, a default logger is used.
 
     Returns

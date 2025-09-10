@@ -16,7 +16,7 @@ def parallel_filter(
     ----------
     condition : Callable[[T], bool]
         A function that takes an item as input and returns `True` if the item should be kept, `False` otherwise.
-    data : List[T]
+    data : list[T]
         The list of data items to filter.
     num_processes : int | None, optional
         The number of processes to use for parallel execution. If None, it defaults
@@ -24,7 +24,7 @@ def parallel_filter(
 
     Returns
     -------
-    List[T]
+    list[T]
         A list containing only the items that satisfy the condition.
 
     Examples

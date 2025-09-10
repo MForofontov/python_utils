@@ -23,9 +23,9 @@ def parallel_pipeline(
 
     Parameters
     ----------
-    funcs : List[Callable[[T], T]]
+    funcs : list[Callable[[T], T]]
         A list of functions to apply sequentially to each item.
-    data : List[T]
+    data : list[T]
         The list of data items to process.
     num_processes : int | None, optional
         The number of processes to use for parallel execution. If None, it defaults
@@ -33,7 +33,7 @@ def parallel_pipeline(
 
     Returns
     -------
-    List[R]
+    list[R]
         The list of results after applying the pipeline of functions to each item.
 
     Examples

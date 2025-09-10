@@ -18,12 +18,12 @@ def set_power_set(input_set: set[T]) -> set[frozenset[T]]:
 
     Parameters
     ----------
-    input_set : Set[T]
+    input_set : set[T]
         The input set to generate power set for.
 
     Returns
     -------
-    Set[FrozenSet[T]]
+    set[FrozenSet[T]]
         Power set of the input set, where each subset is a frozenset.
 
     Raises

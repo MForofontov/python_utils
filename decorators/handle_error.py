@@ -18,7 +18,7 @@ def handle_error(
     ----------
     error_message : str
         The error message to log if an exception occurs.
-    logger : Optional[logging.Logger]
+    logger : logging.Logger | None
         The logger to use for logging. If None, logging is disabled.
 
     Returns

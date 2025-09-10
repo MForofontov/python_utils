@@ -22,7 +22,7 @@ async def gather_with_timeout(
 
     Returns
     -------
-    List[T]
+    list[T]
         The results of the awaitables that completed before the timeout.
 
     Raises

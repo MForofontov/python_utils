@@ -26,7 +26,7 @@ def parallel_accumulate(
     ----------
     func : Callable[[T, T], T]
         The function to combine two elements into one cumulative value.
-    data : List[T]
+    data : list[T]
         The list of data items to process.
     num_processes : int | None, optional
         The number of processes to use for parallel execution. If None, it defaults
@@ -36,7 +36,7 @@ def parallel_accumulate(
 
     Returns
     -------
-    List[T]
+    list[T]
         The list of cumulative results.
 
     Examples
