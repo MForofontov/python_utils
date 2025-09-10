@@ -12,7 +12,7 @@ def get_network_interfaces() -> dict[str, list[dict[str, Any]]]:
 
     Returns
     -------
-    Dict[str, List[Dict[str, Any]]]
+    dict[str, list[dict[str, Any]]]
         Dictionary mapping interface names to their address information.
 
     Examples
