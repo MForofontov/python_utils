@@ -4,12 +4,12 @@ Get set partitions utilities.
 This module provides utilities for generating all possible ways to partition a set into k non-empty subsets.
 """
 
-from typing import TypeVar, Set, List
+from typing import TypeVar
 
 T = TypeVar("T")
 
 
-def get_set_partitions(input_set: Set[T], k: int) -> List[List[Set[T]]]:
+def get_set_partitions(input_set: set[T], k: int) -> list[list[set[T]]]:
     """
     Generate all possible ways to partition a set into k non-empty subsets.
 
@@ -71,7 +71,7 @@ def get_set_partitions(input_set: Set[T], k: int) -> List[List[Set[T]]]:
     # Convert to sorted list for consistent ordering
     elements = sorted(list(input_set))
 
-    def generate_partitions(remaining: List[T], num_parts: int) -> List[List[List[T]]]:
+    def generate_partitions(remaining: list[T], num_parts: int) -> list[list[list[T]]]:
         """Recursive helper to generate partitions."""
         if num_parts == 1:
             return [[remaining]]

@@ -1,7 +1,5 @@
 import pytest
-import asyncio
-from unittest.mock import patch, MagicMock
-from pathlib import Path
+from unittest.mock import patch
 from asyncio_functions.async_parallel_download import async_parallel_download
 
 @pytest.mark.asyncio

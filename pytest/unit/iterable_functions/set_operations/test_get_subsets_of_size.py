@@ -1,5 +1,4 @@
 import pytest
-from typing import Any
 from iterable_functions.set_operations.get_subsets_of_size import get_subsets_of_size
 
 

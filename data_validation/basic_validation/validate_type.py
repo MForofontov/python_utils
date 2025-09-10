@@ -5,8 +5,7 @@ This module provides a comprehensive type validation function that supports
 single types, union types, and nested type checking for complex data structures.
 """
 
-from typing import Any, Union, get_origin, get_args
-from collections.abc import Mapping, Sequence, Set as AbstractSet
+from typing import Any
 
 
 def validate_type(

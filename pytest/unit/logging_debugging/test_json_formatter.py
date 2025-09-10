@@ -1,7 +1,6 @@
 import json
 import logging
 import sys
-import pytest
 from datetime import datetime
 from logging_debugging.json_formatter import json_formatter
 

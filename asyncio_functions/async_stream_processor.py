@@ -1,6 +1,6 @@
 from collections.abc import Callable
 from collections.abc import AsyncIterator
-from typing import Awaitable
+from collections.abc import Awaitable
 
 
 # Define an asynchronous function to process a stream of data

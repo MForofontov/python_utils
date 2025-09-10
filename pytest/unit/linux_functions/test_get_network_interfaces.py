@@ -1,8 +1,6 @@
-import pytest
 from linux_functions.get_network_interfaces import get_network_interfaces
 
 
-import pytest
 from linux_functions.get_network_interfaces import get_network_interfaces
 
 

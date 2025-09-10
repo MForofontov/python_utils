@@ -2,7 +2,6 @@
 Unit tests for get_temp_dir_info function.
 """
 
-import os
 import pytest
 import tempfile
 from pathlib import Path

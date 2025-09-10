@@ -5,7 +5,6 @@ This module provides secure password verification against PBKDF2 hashes.
 """
 
 import hashlib
-from typing import Any
 
 
 def verify_password_pbkdf2(

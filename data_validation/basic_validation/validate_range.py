@@ -5,8 +5,7 @@ This module provides comprehensive value range validation with support for
 minimum/maximum bounds, exclusive bounds, and custom comparison logic.
 """
 
-from typing import Any, TypeVar, Union
-from numbers import Number
+from typing import TypeVar
 
 T = TypeVar("T")
 

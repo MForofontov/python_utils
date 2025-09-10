@@ -7,7 +7,6 @@ encryption from the cryptography library.
 
 from cryptography.fernet import Fernet
 import base64
-from typing import Any
 
 
 def decrypt_data_aes(

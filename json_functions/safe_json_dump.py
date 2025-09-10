@@ -1,13 +1,13 @@
 import json
-from typing import Any, Optional, Type, TypeVar
+from typing import Any, TypeVar
 
 T = TypeVar("T")
 
 
 def safe_json_dump(
     obj: Any,
-    default: Optional[T] = None,
-    encoder: Optional[Type[json.JSONEncoder]] = None,
+    default: T | None = None,
+    encoder: type[json.JSONEncoder] | None = None,
     **kwargs,
 ) -> str | T:
     """

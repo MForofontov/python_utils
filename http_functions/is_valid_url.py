@@ -1,10 +1,9 @@
 """URL validation functionality."""
 
 import urllib.parse
-from typing import Optional, List
 
 
-def is_valid_url(url: str, allowed_schemes: Optional[List[str]] = None) -> bool:
+def is_valid_url(url: str, allowed_schemes: list[str] | None = None) -> bool:
     """
     Validate if a string is a valid URL.
     

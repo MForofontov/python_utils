@@ -7,10 +7,9 @@ making it easier to visually distinguish different types of messages.
 
 import logging
 import sys
-from typing import Optional
 
 
-def colored_formatter(fmt: Optional[str] = None, use_color: bool = True) -> logging.Formatter:
+def colored_formatter(fmt: str | None = None, use_color: bool = True) -> logging.Formatter:
     """
     Create a colored log formatter for console output.
 
@@ -49,7 +48,7 @@ def colored_formatter(fmt: Optional[str] = None, use_color: bool = True) -> logg
 
         RESET = '\033[0m'  # Reset to default color
 
-        def __init__(self, fmt: Optional[str] = None, use_color: bool = True):
+        def __init__(self, fmt: str | None = None, use_color: bool = True):
             if fmt is None:
                 fmt = '%(levelname)s - %(message)s'
 

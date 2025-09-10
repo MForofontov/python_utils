@@ -4,13 +4,13 @@ Set cartesian product as list utilities.
 This module provides utilities for computing cartesian products of sets as lists.
 """
 
-from typing import TypeVar, Set, List, Tuple
+from typing import TypeVar
 import itertools
 
 T = TypeVar("T")
 
 
-def set_cartesian_product_as_list(*sets: Set[T]) -> List[Tuple[T, ...]]:
+def set_cartesian_product_as_list(*sets: set[T]) -> list[tuple[T, ...]]:
     """
     Calculate the cartesian product of multiple sets, returning a list.
 

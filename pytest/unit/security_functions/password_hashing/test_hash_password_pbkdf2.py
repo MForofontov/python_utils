@@ -3,7 +3,6 @@ Unit tests for hash_password_pbkdf2 function.
 """
 
 import pytest
-import hashlib
 from security_functions.password_hashing.hash_password_pbkdf2 import hash_password_pbkdf2
 
 

@@ -4,13 +4,13 @@ Get combinations from a set.
 This module provides a utility for generating combinations from sets.
 """
 
-from typing import TypeVar, Set, List
+from typing import TypeVar
 import itertools
 
 T = TypeVar("T")
 
 
-def get_combinations(input_set: Set[T], r: int) -> List[List[T]]:
+def get_combinations(input_set: set[T], r: int) -> list[list[T]]:
     """
     Generate all combinations of r elements from the input set.
 

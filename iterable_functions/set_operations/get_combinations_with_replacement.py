@@ -4,13 +4,13 @@ Get combinations with replacement from a set.
 This module provides a utility for generating combinations with replacement from sets.
 """
 
-from typing import TypeVar, Set, List
+from typing import TypeVar
 import itertools
 
 T = TypeVar("T")
 
 
-def get_combinations_with_replacement(input_set: Set[T], r: int) -> List[List[T]]:
+def get_combinations_with_replacement(input_set: set[T], r: int) -> list[list[T]]:
     """
     Generate all combinations with replacement of r elements from the input set.
 

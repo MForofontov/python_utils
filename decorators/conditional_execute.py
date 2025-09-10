@@ -1,4 +1,4 @@
-from typing import Any, TypeVar, ParamSpec
+from typing import TypeVar, ParamSpec
 from collections.abc import Callable
 from functools import wraps
 P = ParamSpec("P")

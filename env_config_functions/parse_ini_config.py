@@ -1,11 +1,12 @@
-from typing import Any, Dict, Optional, Callable
+from typing import Any
+from collections.abc import Callable
 import configparser
 
 def parse_ini_config(
     path: str,
-    schema_validator: Optional[Callable[[Dict[str, Any]], None]] = None,
-    required_sections: Optional[list[str]] = None
-) -> Dict[str, Any]:
+    schema_validator: Callable[[dict[str, Any]], None] | None = None,
+    required_sections: list[str] | None = None
+) -> dict[str, Any]:
     """
     Parse an INI configuration file and return a dictionary, with optional schema validation.
 

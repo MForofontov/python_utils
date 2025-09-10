@@ -4,12 +4,12 @@ Set symmetric difference utilities.
 This module provides utilities for working with symmetric differences of sets.
 """
 
-from typing import TypeVar, Set, List
+from typing import TypeVar
 
 T = TypeVar("T")
 
 
-def set_symmetric_difference(*sets: Set[T]) -> Set[T]:
+def set_symmetric_difference(*sets: set[T]) -> set[T]:
     """
     Calculate the symmetric difference of multiple sets.
 
@@ -80,7 +80,7 @@ def set_symmetric_difference(*sets: Set[T]) -> Set[T]:
     return result
 
 
-def get_unique_elements_across_sets(*sets: Set[T]) -> List[T]:
+def get_unique_elements_across_sets(*sets: set[T]) -> list[T]:
     """
     Get elements that appear in exactly one set across multiple sets.
 

@@ -4,7 +4,6 @@ Calculate MD5 hash of a file.
 
 import hashlib
 from pathlib import Path
-from typing import Any
 
 
 def calculate_md5_hash(

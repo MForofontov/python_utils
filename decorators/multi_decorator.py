@@ -1,4 +1,4 @@
-from typing import Any, ParamSpec, TypeVar
+from typing import ParamSpec, TypeVar
 from collections.abc import Callable
 import logging
 from logger_functions.logger import validate_logger

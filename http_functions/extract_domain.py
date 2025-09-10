@@ -1,11 +1,10 @@
 """Domain extraction functionality."""
 
 import urllib.parse
-from typing import Optional
 from .is_valid_url import is_valid_url
 
 
-def extract_domain(url: str) -> Optional[str]:
+def extract_domain(url: str) -> str | None:
     """
     Extract the domain from a URL.
     

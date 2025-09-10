@@ -1,7 +1,5 @@
 import logging
-import pytest
 import time
-from datetime import datetime
 from logging_debugging.performance_formatter import performance_formatter
 
 

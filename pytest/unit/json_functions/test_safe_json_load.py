@@ -1,4 +1,3 @@
-import pytest
 from json_functions.safe_json_load import safe_json_load
 import json
 

@@ -4,12 +4,12 @@ Get subsets of specific size utilities.
 This module provides utilities for getting subsets of a specific size from sets.
 """
 
-from typing import TypeVar, Set, List
+from typing import TypeVar
 
 T = TypeVar("T")
 
 
-def get_subsets_of_size(input_set: Set[T], size: int) -> List[List[T]]:
+def get_subsets_of_size(input_set: set[T], size: int) -> list[list[T]]:
     """
     Get all subsets of a specific size from the input set.
 

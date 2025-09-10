@@ -1,5 +1,4 @@
 import pytest
-from typing import Any
 from iterable_functions.set_operations.set_cartesian_product import set_cartesian_product
 
 

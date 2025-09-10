@@ -1,5 +1,4 @@
 import aiohttp
-import asyncio
 
 async def fetch_url(session: aiohttp.ClientSession, url: str) -> str:
     """

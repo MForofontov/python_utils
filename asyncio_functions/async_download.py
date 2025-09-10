@@ -1,6 +1,4 @@
 import aiohttp
-import asyncio
-from typing import Optional
 
 async def async_download(url: str, dest_path: str, timeout: float = 30.0) -> None:
     """

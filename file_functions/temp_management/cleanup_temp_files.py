@@ -2,10 +2,8 @@
 Cleanup temporary files and directories by age or pattern.
 """
 
-import os
 import time
 from pathlib import Path
-from typing import Any
 
 
 def cleanup_temp_files(
