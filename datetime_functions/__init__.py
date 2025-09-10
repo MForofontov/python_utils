@@ -18,7 +18,7 @@ from .days_between import days_between
 from .calculate_age import calculate_age
 from .compare_dates import compare_dates
 from .get_current_datetime_iso_utc import get_current_datetime_iso_utc
-from .get_date_parts import get_date_parts, DateParts
+from .get_date_parts import get_date_parts
 from .get_days_in_month import get_days_in_month
 from .get_days_of_week import get_days_of_week
 from .get_end_of_month import get_end_of_month
@@ -49,7 +49,6 @@ __all__ = [
     'get_current_datetime_iso_utc',
     'get_current_datetime_iso_utc',
     'get_date_parts',
-    'DateParts',
     'get_days_in_month',
     'get_days_of_week',
     'get_end_of_month',
