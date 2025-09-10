@@ -18,7 +18,7 @@ def list_files(directory_path: str, include_hidden: bool = False) -> list[str]:
 
     Returns
     -------
-    List[str]
+    list[str]
         List of file names in the directory.
 
     Raises

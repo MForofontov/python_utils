@@ -18,7 +18,7 @@ def get_cpu_info(interval: float = 0.1) -> dict[str, int | float | list[float]]:
 
     Returns
     -------
-    Dict[str, Union[int, float, List[float]]]
+    dict[str, int | float | list[float]]
         Dictionary containing CPU information including count, usage, and frequencies.
 
     Examples
