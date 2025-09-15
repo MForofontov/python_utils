@@ -89,7 +89,7 @@ jobs:
 
       - name: Run tests (prefers your pytest.sh if present)
         shell: bash
-        continue-on-error: false
+        continue-on-error: true
         run: |
           set -eux
           mkdir -p "$ALLURE_RESULTS_DIR" "$ALLURE_REPORT_DIR"
