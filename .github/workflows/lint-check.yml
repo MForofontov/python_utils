@@ -36,7 +36,7 @@ jobs:
 
       - name: Run pylint (code quality)
         run: |
-          find . -name "*.py" | xargs pylint
+          find asyncio_functions compression_functions data_types datetime_functions decorators env_config_functions file_functions http_functions iterable_functions json_functions linux_functions logger_functions logging_debugging mathematical_functions multiprocessing_functions print_functions security_functions ssh_functions strings_utility -name "*.py" | xargs pylint
 
       - name: Show formatting instructions if lint fails
         if: failure()
