@@ -5,7 +5,7 @@ on:
     inputs:
       python_versions:
         description: 'JSON list of Python versions'
-        default: '["3.11"]'
+        default: '["3.13"]'
         type: string
         required: false
       tests_path:
