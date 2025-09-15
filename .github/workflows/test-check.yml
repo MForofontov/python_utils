@@ -87,8 +87,6 @@ jobs:
           pip install -r requirements.txt
           # Then install development/testing dependencies
           pip install -r requirements_dev.txt
-          # Ensure these are present for best UX
-          pip install pytest pytest-xdist allure-pytest
 
       - name: Run tests (prefers your pytest.sh if present)
         shell: bash
@@ -97,17 +95,15 @@ jobs:
           set -eux
           mkdir -p "$ALLURE_RESULTS_DIR" "$ALLURE_REPORT_DIR"
 
-          # Decide parallelization flag
-          PARALLEL=""
-          if [ "${{ inputs.run_parallel }}" = "true" ]; then
-            PARALLEL="-n auto"
-          fi
-
           # If repo provides pytest.sh, use it for consistency with your local runs
           if [ -x ./pytest.sh ]; then
-            ./pytest.sh "${TESTS_PATH}" "$ALLURE_RESULTS_DIR" "$ALLURE_REPORT_DIR" true
+            ./pytest.sh "${TESTS_PATH}" "$ALLURE_RESULTS_DIR" "$ALLURE_REPORT_DIR" true "${{ inputs.run_parallel }}" "${{ inputs.extra_pytest_args }}"
           else
             # Fallback: direct pytest invocation
+            PARALLEL=""
+            if [ "${{ inputs.run_parallel }}" = "true" ]; then
+              PARALLEL="-n auto"
+            fi
             pytest "${TESTS_PATH}" \
               --alluredir="$ALLURE_RESULTS_DIR" \
               $PARALLEL ${{ inputs.extra_pytest_args }}
