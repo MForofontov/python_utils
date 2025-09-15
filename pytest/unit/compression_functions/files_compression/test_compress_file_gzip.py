@@ -68,9 +68,9 @@ def test_compress_file_gzip_large_file_compression_and_verification(tmp_path) ->
     assert output_file.exists(), "Output file should exist"
 
     # Check if the compressed file is smaller than the original file
-    assert (
-        output_file.stat().st_size < input_file.stat().st_size
-    ), "Compressed file should be smaller than the original file"
+    assert output_file.stat().st_size < input_file.stat().st_size, (
+        "Compressed file should be smaller than the original file"
+    )
 
     # Decompress the data to verify
     with gzip.open(output_file, "rb") as f:

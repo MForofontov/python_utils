@@ -11,9 +11,9 @@ def test_compress_zstd_basic() -> None:
     compressed_data: bytes = compress_zstd(data)
     compressor = zstd.ZstdCompressor(level=3)
     expected_compressed_data: bytes = compressor.compress(data)
-    assert (
-        compressed_data == expected_compressed_data
-    ), "Compressed data should match expected zstd compression"
+    assert compressed_data == expected_compressed_data, (
+        "Compressed data should match expected zstd compression"
+    )
 
 
 def test_compress_zstd_empty() -> None:
@@ -24,9 +24,9 @@ def test_compress_zstd_empty() -> None:
     compressed_data: bytes = compress_zstd(data)
     compressor = zstd.ZstdCompressor(level=3)
     expected_compressed_data: bytes = compressor.compress(data)
-    assert (
-        compressed_data == expected_compressed_data
-    ), "Compressed data should match expected zstd compression"
+    assert compressed_data == expected_compressed_data, (
+        "Compressed data should match expected zstd compression"
+    )
 
 
 def test_compress_zstd_large_data() -> None:
@@ -37,9 +37,9 @@ def test_compress_zstd_large_data() -> None:
     compressed_data: bytes = compress_zstd(data)
     compressor = zstd.ZstdCompressor(level=3)
     expected_compressed_data: bytes = compressor.compress(data)
-    assert (
-        compressed_data == expected_compressed_data
-    ), "Compressed data should match expected zstd compression"
+    assert compressed_data == expected_compressed_data, (
+        "Compressed data should match expected zstd compression"
+    )
 
 
 def test_compress_zstd_special_characters() -> None:
@@ -50,9 +50,9 @@ def test_compress_zstd_special_characters() -> None:
     compressed_data: bytes = compress_zstd(data)
     compressor = zstd.ZstdCompressor(level=3)
     expected_compressed_data: bytes = compressor.compress(data)
-    assert (
-        compressed_data == expected_compressed_data
-    ), "Compressed data should match expected zstd compression"
+    assert compressed_data == expected_compressed_data, (
+        "Compressed data should match expected zstd compression"
+    )
 
 
 def test_compress_zstd_binary_data() -> None:
@@ -63,9 +63,9 @@ def test_compress_zstd_binary_data() -> None:
     compressed_data: bytes = compress_zstd(data)
     compressor = zstd.ZstdCompressor(level=3)
     expected_compressed_data: bytes = compressor.compress(data)
-    assert (
-        compressed_data == expected_compressed_data
-    ), "Compressed data should match expected zstd compression"
+    assert compressed_data == expected_compressed_data, (
+        "Compressed data should match expected zstd compression"
+    )
 
 
 def test_compress_zstd_small_data() -> None:
@@ -76,9 +76,9 @@ def test_compress_zstd_small_data() -> None:
     compressed_data: bytes = compress_zstd(data)
     compressor = zstd.ZstdCompressor(level=3)
     expected_compressed_data: bytes = compressor.compress(data)
-    assert (
-        compressed_data == expected_compressed_data
-    ), "Compressed data should match expected zstd compression"
+    assert compressed_data == expected_compressed_data, (
+        "Compressed data should match expected zstd compression"
+    )
 
 
 def test_compress_zstd_already_compressed_data() -> None:
@@ -89,9 +89,9 @@ def test_compress_zstd_already_compressed_data() -> None:
     data: bytes = compressor.compress(b"hello world")
     compressed_data: bytes = compress_zstd(data)
     expected_compressed_data: bytes = compressor.compress(data)
-    assert (
-        compressed_data == expected_compressed_data
-    ), "Compressed data should match expected zstd compression"
+    assert compressed_data == expected_compressed_data, (
+        "Compressed data should match expected zstd compression"
+    )
 
 
 def test_compress_zstd_unicode_data() -> None:
@@ -102,9 +102,9 @@ def test_compress_zstd_unicode_data() -> None:
     compressed_data: bytes = compress_zstd(data)
     compressor = zstd.ZstdCompressor(level=3)
     expected_compressed_data: bytes = compressor.compress(data)
-    assert (
-        compressed_data == expected_compressed_data
-    ), "Compressed data should match expected zstd compression"
+    assert compressed_data == expected_compressed_data, (
+        "Compressed data should match expected zstd compression"
+    )
 
 
 def test_compress_zstd_different_level() -> None:
@@ -115,9 +115,9 @@ def test_compress_zstd_different_level() -> None:
     compressed_data: bytes = compress_zstd(data, level=5)
     compressor = zstd.ZstdCompressor(level=5)
     expected_compressed_data: bytes = compressor.compress(data)
-    assert (
-        compressed_data == expected_compressed_data
-    ), "Compressed data should match expected zstd compression with level 5"
+    assert compressed_data == expected_compressed_data, (
+        "Compressed data should match expected zstd compression with level 5"
+    )
 
 
 def test_compress_zstd_invalid_type() -> None:

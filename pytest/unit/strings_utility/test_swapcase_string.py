@@ -41,18 +41,18 @@ def test_swapcase_string_special_characters() -> None:
     """
     Test case 6: Test the swapcase_string function with a string that contains special characters.
     """
-    assert (
-        swapcase_string("Hello!@#") == "hELLO!@#"
-    ), "Failed on string with special characters"
+    assert swapcase_string("Hello!@#") == "hELLO!@#", (
+        "Failed on string with special characters"
+    )
 
 
 def test_swapcase_string_whitespace() -> None:
     """
     Test case 7: Test the swapcase_string function with a string that contains whitespace.
     """
-    assert (
-        swapcase_string(" Hello World ") == " hELLO wORLD "
-    ), "Failed on string with whitespace"
+    assert swapcase_string(" Hello World ") == " hELLO wORLD ", (
+        "Failed on string with whitespace"
+    )
 
 
 def test_swapcase_string_empty_string() -> None:
@@ -66,18 +66,18 @@ def test_swapcase_string_non_english_characters() -> None:
     """
     Test case 9: Test the swapcase_string function with a string that contains non-English characters.
     """
-    assert (
-        swapcase_string("héllo wörld") == "HÉLLO WÖRLD"
-    ), "Failed on string with non-English characters"
+    assert swapcase_string("héllo wörld") == "HÉLLO WÖRLD", (
+        "Failed on string with non-English characters"
+    )
 
 
 def test_swapcase_string_mixed_whitespace() -> None:
     """
     Test case 10: Test the swapcase_string function with a string that contains mixed whitespace characters.
     """
-    assert (
-        swapcase_string(" \t\nHello World\t\n ") == " \t\nhELLO wORLD\t\n "
-    ), "Failed on string with mixed whitespace characters"
+    assert swapcase_string(" \t\nHello World\t\n ") == " \t\nhELLO wORLD\t\n ", (
+        "Failed on string with mixed whitespace characters"
+    )
 
 
 def test_swapcase_string_invalid_type() -> None:

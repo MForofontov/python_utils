@@ -17,8 +17,10 @@ except ImportError:
     # Fallback classes when pydantic is not available
     BaseModel = object
     ValidationError = Exception
+
     def Field(**kwargs):
         return None
+
     ConfigDict = dict  # type: ignore
     pydantic_dataclass = dataclass
     PYDANTIC_AVAILABLE = False

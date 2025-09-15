@@ -69,9 +69,7 @@ def test_starts_with_non_english_characters() -> None:
     """
     Test case 10: Test the starts_with function with non-English characters.
     """
-    assert (
-        starts_with("héllo wörld", "héllo")
-    ), "Failed on non-English characters"
+    assert starts_with("héllo wörld", "héllo"), "Failed on non-English characters"
 
 
 def test_starts_with_whitespace_characters() -> None:
@@ -99,9 +97,7 @@ def test_starts_with_mixed_whitespace_characters() -> None:
     """
     Test case 14: Test the starts_with function with mixed whitespace characters.
     """
-    assert (
-        starts_with(" \t\nhello", " \t\n")
-    ), "Failed on mixed whitespace characters"
+    assert starts_with(" \t\nhello", " \t\n"), "Failed on mixed whitespace characters"
 
 
 def test_starts_with_invalid_string_type() -> None:

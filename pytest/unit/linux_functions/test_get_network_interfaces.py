@@ -1,8 +1,6 @@
 from linux_functions.get_network_interfaces import get_network_interfaces
 
 
-
-
 def test_get_network_interfaces_returns_dict() -> None:
     """
     Test case 1: Test get_network_interfaces function returns a dictionary.

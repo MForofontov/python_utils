@@ -9,8 +9,10 @@ def test_group_by_group_by_length() -> None:
     """
     # Arrange
     input_items: list[str] = ["cat", "dog", "bird", "elephant"]
+
     def key_function(x):
         return len(x)
+
     expected_output = {3: ["cat", "dog"], 4: ["bird"], 8: ["elephant"]}
 
     # Act
@@ -26,8 +28,10 @@ def test_group_by_group_by_first_character() -> None:
     """
     # Arrange
     input_items: list[str] = ["cat", "dog", "bird", "elephant"]
+
     def key_function(x):
         return x[0]
+
     expected_output = {"c": ["cat"], "d": ["dog"], "b": ["bird"], "e": ["elephant"]}
 
     # Act
@@ -43,8 +47,10 @@ def test_group_by_group_numbers_by_parity() -> None:
     """
     # Arrange
     input_items: list[int] = [1, 2, 3, 4, 5, 6]
+
     def key_function(x):
         return "even" if x % 2 == 0 else "odd"
+
     expected_output = {"odd": [1, 3, 5], "even": [2, 4, 6]}
 
     # Act
@@ -75,8 +81,10 @@ def test_group_by_empty_list() -> None:
     """
     # Arrange
     input_items: list[str] = []
+
     def key_function(x):
         return len(x)
+
     expected_output = {}
 
     # Act
@@ -92,8 +100,10 @@ def test_group_by_single_item_list() -> None:
     """
     # Arrange
     input_items: list[str] = ["hello"]
+
     def key_function(x):
         return len(x)
+
     expected_output = {5: ["hello"]}
 
     # Act
@@ -109,8 +119,10 @@ def test_group_by_mixed_data_types() -> None:
     """
     # Arrange
     input_items: list[Any] = [1, "hello", 2, "world", 1]
+
     def key_function(x):
         return type(x).__name__
+
     expected_output = {"int": [1, 2, 1], "str": ["hello", "world"]}
 
     # Act
@@ -137,8 +149,10 @@ def test_group_by_complex_objects() -> None:
         Person("Charlie", 25),
         Person("David", 30),
     ]
+
     def key_function(p):
         return p.age
+
     {25: [people[0], people[2]], 30: [people[1], people[3]]}
 
     # Act
@@ -157,8 +171,10 @@ def test_group_by_invalid_items_type_error() -> None:
     """
     # Arrange
     invalid_items: str = "not a list"
+
     def key_function(x):
         return x
+
     expected_message: str = "items must be a list, got str"
 
     # Act & Assert
@@ -186,8 +202,10 @@ def test_group_by_preserves_order() -> None:
     """
     # Arrange
     input_items: list[str] = ["first", "second", "third", "fourth", "fifth"]
+
     def key_function(x):
         return len(x)
+
     expected_output = {5: ["first", "third", "fifth"], 6: ["second", "fourth"]}
 
     # Act
@@ -206,8 +224,10 @@ def test_group_by_none_values() -> None:
     """
     # Arrange
     input_items: list[Any] = [None, "a", None, "b"]
+
     def key_function(x):
         return x
+
     expected_output = {None: [None, None], "a": ["a"], "b": ["b"]}
 
     # Act
