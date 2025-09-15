@@ -20,14 +20,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements_dev.txt
           pip install black ruff pylint
+          pip install mypy
 
       - name: Run black (auto-format check)
         run: |
           black --check .
       
-      - name: Run ruff (lint and auto-fix)
+      - name: Run ruff (lint)
         run: |
-          ruff check . --fix
+          ruff check .
+
+      - name: Run mypy (type checking)
+        run: |
+          mypy .
 
       - name: Run pylint (code quality)
         run: |
