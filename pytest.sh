@@ -21,7 +21,7 @@ log_with_time() {
 log_with_time "[Info] Running tests in: $TEST_DIR"
 
 # Build pytest command with optional parallel execution and extra args
-PYTEST_CMD="pytest \"$TEST_DIR\""
+PYTEST_CMD="python -m pytest \"$TEST_DIR\""
 
 # Add parallel execution if enabled
 if [ "$RUN_PARALLEL" = "true" ]; then
