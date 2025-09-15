@@ -1,7 +1,6 @@
 """Calculate the power of a number."""
 
 
-
 def power(base: int | float, exponent: int | float) -> int | float:
     """
     Calculate base raised to the power of exponent.
@@ -16,7 +15,7 @@ def power(base: int | float, exponent: int | float) -> int | float:
     Returns
     -------
     int | float
-        The result of base^exponent. Returns int if both inputs are int and 
+        The result of base^exponent. Returns int if both inputs are int and
         result is a whole number, otherwise returns float.
 
     Raises
@@ -37,18 +36,22 @@ def power(base: int | float, exponent: int | float) -> int | float:
     """
     if not isinstance(base, (int, float)):
         raise TypeError("base must be numeric (int or float)")
-    
+
     if not isinstance(exponent, (int, float)):
         raise TypeError("exponent must be numeric (int or float)")
-    
-    result = base ** exponent
-    
+
+    result = base**exponent
+
     # Return int if both inputs are int and result is a whole number
-    if isinstance(base, int) and isinstance(exponent, int) and isinstance(result, (int, float)):
+    if (
+        isinstance(base, int)
+        and isinstance(exponent, int)
+        and isinstance(result, (int, float))
+    ):
         if result == int(result):
             return int(result)
-    
+
     return result
 
 
-__all__ = ['power']
+__all__ = ["power"]

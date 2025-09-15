@@ -71,7 +71,7 @@ def deep_get(d: dict[str, Any], keys: str | list[str], default: Any = None) -> A
         raise TypeError("d must be a dictionary")
 
     if isinstance(keys, str):
-        keys = keys.split('.')
+        keys = keys.split(".")
 
     current = d
     for key in keys:
@@ -83,4 +83,4 @@ def deep_get(d: dict[str, Any], keys: str | list[str], default: Any = None) -> A
     return current
 
 
-__all__ = ['deep_get']
+__all__ = ["deep_get"]

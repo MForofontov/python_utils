@@ -46,7 +46,7 @@ def test_random_sample_strings() -> None:
     """
     Test case 5: Test random_sample with string population.
     """
-    population = ['apple', 'banana', 'cherry', 'date']
+    population = ["apple", "banana", "cherry", "date"]
     result = random_sample(population, 2, replace=False)
     assert len(result) == 2
     assert all(x in population for x in result)
@@ -57,7 +57,7 @@ def test_random_sample_mixed_types() -> None:
     """
     Test case 6: Test random_sample with mixed type population.
     """
-    population = [1, 'two', 3.0, True, None]
+    population = [1, "two", 3.0, True, None]
     result = random_sample(population, 3, replace=False)
     assert len(result) == 3
     assert all(x in population for x in result)
@@ -137,5 +137,7 @@ def test_random_sample_value_error_count_exceeds_population() -> None:
     """
     Test case 15: Test random_sample when count exceeds population size without replacement.
     """
-    with pytest.raises(ValueError, match="count cannot exceed population size when replace=False"):
+    with pytest.raises(
+        ValueError, match="count cannot exceed population size when replace=False"
+    ):
         random_sample([1, 2, 3], 5, replace=False)

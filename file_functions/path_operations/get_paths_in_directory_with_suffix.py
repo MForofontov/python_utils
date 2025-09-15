@@ -27,4 +27,4 @@ def get_paths_in_directory_with_suffix(directory: str, suffix: str) -> list[str]
     return file_paths
 
 
-__all__ = ['get_paths_in_directory_with_suffix']
+__all__ = ["get_paths_in_directory_with_suffix"]

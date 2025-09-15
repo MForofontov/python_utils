@@ -68,50 +68,47 @@ def generate_jwt_token(
     if not isinstance(secret_key, str):
         raise TypeError(f"secret_key must be a string, got {type(secret_key).__name__}")
     if not isinstance(expires_in_hours, int):
-        raise TypeError(f"expires_in_hours must be an integer, got {type(expires_in_hours).__name__}")
-    
+        raise TypeError(
+            f"expires_in_hours must be an integer, got {type(expires_in_hours).__name__}"
+        )
+
     # Value validation
     if len(secret_key) == 0:
         raise ValueError("secret_key cannot be empty")
     if expires_in_hours <= 0:
         raise ValueError(f"expires_in_hours must be positive, got {expires_in_hours}")
-    
+
     # Create header
-    header = {
-        "alg": "HS256",
-        "typ": "JWT"
-    }
-    
+    header = {"alg": "HS256", "typ": "JWT"}
+
     # Create payload with timestamps
     now = datetime.now(timezone.utc)
     exp_time = now + timedelta(hours=expires_in_hours)
-    
+
     full_payload = {
         **payload,
         "iat": int(now.timestamp()),
-        "exp": int(exp_time.timestamp())
+        "exp": int(exp_time.timestamp()),
     }
-    
+
     # Encode header and payload
     def encode_base64url(data: dict[str, Any]) -> str:
-        json_str = json.dumps(data, separators=(',', ':'))
-        encoded = base64.urlsafe_b64encode(json_str.encode('utf-8'))
-        return encoded.decode('utf-8').rstrip('=')
-    
+        json_str = json.dumps(data, separators=(",", ":"))
+        encoded = base64.urlsafe_b64encode(json_str.encode("utf-8"))
+        return encoded.decode("utf-8").rstrip("=")
+
     encoded_header = encode_base64url(header)
     encoded_payload = encode_base64url(full_payload)
-    
+
     # Create signature
     message = f"{encoded_header}.{encoded_payload}"
     signature = hmac.new(
-        secret_key.encode('utf-8'),
-        message.encode('utf-8'),
-        hashlib.sha256
+        secret_key.encode("utf-8"), message.encode("utf-8"), hashlib.sha256
     ).digest()
-    
-    encoded_signature = base64.urlsafe_b64encode(signature).decode('utf-8').rstrip('=')
-    
+
+    encoded_signature = base64.urlsafe_b64encode(signature).decode("utf-8").rstrip("=")
+
     return f"{encoded_header}.{encoded_payload}.{encoded_signature}"
 
 
-__all__ = ['generate_jwt_token']
+__all__ = ["generate_jwt_token"]

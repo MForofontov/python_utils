@@ -59,60 +59,65 @@ def cleanup_temp_files(
     """
     # Input validation
     if temp_dir is not None and not isinstance(temp_dir, (str, Path)):
-        raise TypeError(f"temp_dir must be a string, Path, or None, got {type(temp_dir).__name__}")
+        raise TypeError(
+            f"temp_dir must be a string, Path, or None, got {type(temp_dir).__name__}"
+        )
     if not isinstance(max_age_hours, (int, float)):
-        raise TypeError(f"max_age_hours must be a number, got {type(max_age_hours).__name__}")
+        raise TypeError(
+            f"max_age_hours must be a number, got {type(max_age_hours).__name__}"
+        )
     if not isinstance(pattern, str):
         raise TypeError(f"pattern must be a string, got {type(pattern).__name__}")
     if not isinstance(dry_run, bool):
         raise TypeError(f"dry_run must be a boolean, got {type(dry_run).__name__}")
-    
+
     # Use system temp directory if none specified
     if temp_dir is None:
         import tempfile
+
         temp_dir = tempfile.gettempdir()
-    
+
     # Convert to Path object
     dir_path = Path(temp_dir)
-    
+
     # Validate directory exists
     if not dir_path.exists():
         raise ValueError(f"Directory does not exist: {temp_dir}")
     if not dir_path.is_dir():
         raise ValueError(f"Path is not a directory: {temp_dir}")
-    
+
     # Validate max_age_hours
     if max_age_hours <= 0:
         raise ValueError(f"max_age_hours must be positive, got {max_age_hours}")
-    
+
     # Calculate cutoff time
     current_time = time.time()
     cutoff_time = current_time - (max_age_hours * 3600)  # Convert hours to seconds
-    
+
     deleted_files: list[str] = []
-    
+
     try:
         # Find matching files
         for file_path in dir_path.glob(pattern):
             if file_path.is_file():  # Only process files, not directories
                 try:
                     file_mtime = file_path.stat().st_mtime
-                    
+
                     if file_mtime < cutoff_time:
                         if dry_run:
                             deleted_files.append(str(file_path))
                         else:
                             file_path.unlink()
                             deleted_files.append(str(file_path))
-                            
+
                 except OSError:
                     # Skip files that cannot be accessed or deleted
                     continue
-                    
+
     except OSError as e:
         raise OSError(f"Error accessing directory {temp_dir}: {e}") from e
-    
+
     return deleted_files
 
 
-__all__ = ['cleanup_temp_files']
+__all__ = ["cleanup_temp_files"]

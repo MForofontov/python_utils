@@ -11,8 +11,8 @@ from .generate_jwt_token import generate_jwt_token
 from .verify_jwt_token import verify_jwt_token
 
 __all__ = [
-    'generate_secure_token',
-    'generate_url_safe_token',
-    'generate_jwt_token',
-    'verify_jwt_token',
+    "generate_secure_token",
+    "generate_url_safe_token",
+    "generate_jwt_token",
+    "verify_jwt_token",
 ]

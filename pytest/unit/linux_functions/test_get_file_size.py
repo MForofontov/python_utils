@@ -13,7 +13,7 @@ def test_get_file_size_valid_file() -> None:
         content: bytes = b"Hello, World!"
         temp_file.write(content)
         temp_file.flush()
-        
+
         try:
             size: int = get_file_size(temp_file.name)
             assert size == len(content)
@@ -39,7 +39,7 @@ def test_get_file_size_nonexistent_file() -> None:
     Test case 3: Test get_file_size function with a nonexistent file raises FileNotFoundError.
     """
     with pytest.raises(FileNotFoundError):
-        get_file_size('/nonexistent/file.txt')
+        get_file_size("/nonexistent/file.txt")
 
 
 def test_get_file_size_directory() -> None:
@@ -57,6 +57,6 @@ def test_get_file_size_invalid_type() -> None:
     """
     with pytest.raises(TypeError):
         get_file_size(123)
-    
+
     with pytest.raises(TypeError):
         get_file_size(None)

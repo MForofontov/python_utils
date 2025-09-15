@@ -30,7 +30,9 @@ Examples
 from typing import Any
 
 
-def flatten_dict(d: dict[str, Any], separator: str = '_', prefix: str = '') -> dict[str, Any]:
+def flatten_dict(
+    d: dict[str, Any], separator: str = "_", prefix: str = ""
+) -> dict[str, Any]:
     """
     Flatten a nested dictionary into a single-level dictionary.
 
@@ -75,4 +77,4 @@ def flatten_dict(d: dict[str, Any], separator: str = '_', prefix: str = '') -> d
     return flattened
 
 
-__all__ = ['flatten_dict']
+__all__ = ["flatten_dict"]

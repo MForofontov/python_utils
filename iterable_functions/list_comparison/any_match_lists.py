@@ -33,4 +33,4 @@ def any_match_lists(list1: list[Any], list2: list[Any]) -> bool:
         raise TypeError(f"An element in the list cannot be compared: {e}")
 
 
-__all__ = ['any_match_lists']
+__all__ = ["any_match_lists"]

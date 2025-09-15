@@ -1,5 +1,7 @@
 import pytest
-from iterable_functions.set_operations.set_cartesian_product import set_cartesian_product
+from iterable_functions.set_operations.set_cartesian_product import (
+    set_cartesian_product,
+)
 
 
 def test_set_cartesian_product_two_sets() -> None:
@@ -7,8 +9,8 @@ def test_set_cartesian_product_two_sets() -> None:
     Test case 1: Cartesian product of two sets.
     """
     set1 = {1, 2}
-    set2 = {'a', 'b'}
-    expected = {(1, 'a'), (1, 'b'), (2, 'a'), (2, 'b')}
+    set2 = {"a", "b"}
+    expected = {(1, "a"), (1, "b"), (2, "a"), (2, "b")}
     result = set_cartesian_product(set1, set2)
     assert result == expected
 
@@ -18,13 +20,13 @@ def test_set_cartesian_product_three_sets() -> None:
     Test case 2: Cartesian product of three sets.
     """
     set1 = {1, 2}
-    set2 = {'a', 'b'}
-    set3 = {'x', 'y'}
+    set2 = {"a", "b"}
+    set3 = {"x", "y"}
     result = set_cartesian_product(set1, set2, set3)
     assert len(result) == 8  # 2 * 2 * 2 = 8
     # Check that all combinations are present
-    assert (1, 'a', 'x') in result
-    assert (2, 'b', 'y') in result
+    assert (1, "a", "x") in result
+    assert (2, "b", "y") in result
 
 
 def test_set_cartesian_product_single_set() -> None:
@@ -103,7 +105,7 @@ def test_set_cartesian_product_large_sets() -> None:
     Test case 10: Test with larger sets.
     """
     set1 = {1, 2, 3}
-    set2 = {'a', 'b', 'c'}
-    set3 = {'x', 'y'}
+    set2 = {"a", "b", "c"}
+    set3 = {"x", "y"}
     result = set_cartesian_product(set1, set2, set3)
     assert len(result) == 18  # 3 * 3 * 2 = 18

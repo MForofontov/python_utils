@@ -72,4 +72,4 @@ def parallel_gather_errors(
     return results, errors
 
 
-__all__ = ['parallel_gather_errors']
+__all__ = ["parallel_gather_errors"]

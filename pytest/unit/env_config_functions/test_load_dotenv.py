@@ -8,35 +8,35 @@ def test_load_dotenv_basic(tmp_path):
     Test case 1: Basic .env file loading.
     """
     config_file = tmp_path / "config.env"
-    config_file.write_text('FOO=bar\nBAZ=qux\n')
+    config_file.write_text("FOO=bar\nBAZ=qux\n")
     # Clear env vars first
-    os.environ.pop('FOO', None)
-    os.environ.pop('BAZ', None)
+    os.environ.pop("FOO", None)
+    os.environ.pop("BAZ", None)
     load_dotenv(str(config_file))
-    assert os.environ['FOO'] == 'bar'
-    assert os.environ['BAZ'] == 'qux'
+    assert os.environ["FOO"] == "bar"
+    assert os.environ["BAZ"] == "qux"
 
 
 def test_load_dotenv_override(tmp_path):
     """
     Test case 2: Override existing environment variables.
     """
-    os.environ['EXISTING'] = 'old'
+    os.environ["EXISTING"] = "old"
     config_file = tmp_path / "config.env"
-    config_file.write_text('EXISTING=new\n')
+    config_file.write_text("EXISTING=new\n")
     load_dotenv(str(config_file), override=True)
-    assert os.environ['EXISTING'] == 'new'
+    assert os.environ["EXISTING"] == "new"
 
 
 def test_load_dotenv_no_override(tmp_path):
     """
     Test case 3: Don't override existing environment variables.
     """
-    os.environ['EXISTING'] = 'old'
+    os.environ["EXISTING"] = "old"
     config_file = tmp_path / "config.env"
-    config_file.write_text('EXISTING=new\n')
+    config_file.write_text("EXISTING=new\n")
     load_dotenv(str(config_file), override=False)
-    assert os.environ['EXISTING'] == 'old'
+    assert os.environ["EXISTING"] == "old"
 
 
 def test_load_dotenv_comments(tmp_path):
@@ -44,19 +44,21 @@ def test_load_dotenv_comments(tmp_path):
     Test case 4: Skip comments and empty lines.
     """
     config_file = tmp_path / "config.env"
-    config_file.write_text('# This is a comment\nVAR1=value1\n\n# Another comment\nVAR2=value2\n')
-    os.environ.pop('VAR1', None)
-    os.environ.pop('VAR2', None)
+    config_file.write_text(
+        "# This is a comment\nVAR1=value1\n\n# Another comment\nVAR2=value2\n"
+    )
+    os.environ.pop("VAR1", None)
+    os.environ.pop("VAR2", None)
     load_dotenv(str(config_file))
-    assert os.environ['VAR1'] == 'value1'
-    assert os.environ['VAR2'] == 'value2'
+    assert os.environ["VAR1"] == "value1"
+    assert os.environ["VAR2"] == "value2"
 
 
 def test_load_dotenv_nonexistent_file():
     """
     Test case 5: Nonexistent file returns None and leaves environment untouched.
     """
-    load_dotenv('nonexistent.env')  # Should not raise
+    load_dotenv("nonexistent.env")  # Should not raise
 
 
 def test_load_dotenv_empty_file(tmp_path):
@@ -64,7 +66,7 @@ def test_load_dotenv_empty_file(tmp_path):
     Test case 6: Empty .env file.
     """
     config_file = tmp_path / "empty.env"
-    config_file.write_text('')
+    config_file.write_text("")
     load_dotenv(str(config_file))  # Should not raise
 
 
@@ -73,12 +75,12 @@ def test_load_dotenv_malformed_lines(tmp_path):
     Test case 7: File with malformed lines (no equals sign).
     """
     config_file = tmp_path / "malformed.env"
-    config_file.write_text('VAR1=value1\nMALFORMED_LINE\nVAR2=value2\n')
-    os.environ.pop('VAR1', None)
-    os.environ.pop('VAR2', None)
+    config_file.write_text("VAR1=value1\nMALFORMED_LINE\nVAR2=value2\n")
+    os.environ.pop("VAR1", None)
+    os.environ.pop("VAR2", None)
     load_dotenv(str(config_file))
-    assert os.environ['VAR1'] == 'value1'
-    assert os.environ['VAR2'] == 'value2'
+    assert os.environ["VAR1"] == "value1"
+    assert os.environ["VAR2"] == "value2"
 
 
 def test_load_dotenv_quoted_values(tmp_path):
@@ -86,12 +88,12 @@ def test_load_dotenv_quoted_values(tmp_path):
     Test case 8: Values with quotes.
     """
     config_file = tmp_path / "quoted.env"
-    config_file.write_text('VAR1="quoted value"\nVAR2=\'single quoted\'\n')
-    os.environ.pop('VAR1', None)
-    os.environ.pop('VAR2', None)
+    config_file.write_text("VAR1=\"quoted value\"\nVAR2='single quoted'\n")
+    os.environ.pop("VAR1", None)
+    os.environ.pop("VAR2", None)
     load_dotenv(str(config_file))
-    assert os.environ['VAR1'] == 'quoted value'
-    assert os.environ['VAR2'] == 'single quoted'
+    assert os.environ["VAR1"] == "quoted value"
+    assert os.environ["VAR2"] == "single quoted"
 
 
 def test_load_dotenv_invalid_dotenv_path_type():
@@ -107,4 +109,4 @@ def test_load_dotenv_invalid_override_type():
     Test case 10: Test load_dotenv with invalid override type.
     """
     with pytest.raises(TypeError):
-        load_dotenv('.env', override="invalid")
+        load_dotenv(".env", override="invalid")

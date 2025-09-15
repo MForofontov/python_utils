@@ -37,4 +37,4 @@ def rstrip_chars(s: str, chars: str) -> str:
     return s.rstrip(chars)
 
 
-__all__ = ['rstrip_chars']
+__all__ = ["rstrip_chars"]

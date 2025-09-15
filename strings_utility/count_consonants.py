@@ -34,4 +34,4 @@ def count_consonants(s: str) -> int:
     return sum(1 for char in s if char in consonants)
 
 
-__all__ = ['count_consonants']
+__all__ = ["count_consonants"]

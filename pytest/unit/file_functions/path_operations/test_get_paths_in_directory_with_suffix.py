@@ -22,9 +22,10 @@ def test_get_paths_in_directory_with_suffix_case_sensitive(tmp_path: Path) -> No
         os.path.join(tmp_path, "file2.txt"),
     ]
     returned_paths: list[str] = get_paths_in_directory_with_suffix(
-        str(tmp_path), ".txt")
-    assert (
-        sorted(returned_paths) == sorted(expected_paths)
+        str(tmp_path), ".txt"
+    )
+    assert sorted(returned_paths) == sorted(
+        expected_paths
     ), "Should return only .txt files"
 
 
@@ -36,7 +37,8 @@ def test_get_paths_in_directory_with_suffix_no_matching_files(tmp_path: Path) ->
     (tmp_path / "file2.data").write_text("b")
     (tmp_path / "folder").mkdir()
     returned_paths: list[str] = get_paths_in_directory_with_suffix(
-        str(tmp_path), ".txt")
+        str(tmp_path), ".txt"
+    )
     assert returned_paths == [], "Should return an empty list"
 
 
@@ -48,11 +50,14 @@ def test_get_paths_in_directory_with_suffix_case_insensitive(tmp_path: Path) -> 
     (tmp_path / "upper.TXT").write_text("b")
     expected_paths: list[str] = [os.path.join(tmp_path, "upper.TXT")]
     returned_paths: list[str] = get_paths_in_directory_with_suffix(
-        str(tmp_path), ".TXT")
+        str(tmp_path), ".TXT"
+    )
     assert returned_paths == expected_paths, "Should match files with uppercase suffix"
 
 
-def test_get_paths_in_directory_with_suffix_nonexistent_directory(tmp_path: Path) -> None:
+def test_get_paths_in_directory_with_suffix_nonexistent_directory(
+    tmp_path: Path,
+) -> None:
     """
     Test case 4: Ensure providing a non-existent directory raises an error.
     """

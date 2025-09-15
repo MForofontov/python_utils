@@ -35,4 +35,4 @@ def find_substring(s: str, substring: str) -> int:
     return s.find(substring)
 
 
-__all__ = ['find_substring']
+__all__ = ["find_substring"]

@@ -73,4 +73,5 @@ async def async_periodic(
         else:
             await asyncio.sleep(timeout)
 
-__all__ = ['async_periodic']
+
+__all__ = ["async_periodic"]

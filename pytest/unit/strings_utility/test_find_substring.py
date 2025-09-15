@@ -6,8 +6,7 @@ def test_substring_present() -> None:
     """
     Test case 1: Test the find_substring function when the substring is present in the string.
     """
-    assert find_substring(
-        "hello world", "world") == 6, "Failed on substring present"
+    assert find_substring("hello world", "world") == 6, "Failed on substring present"
 
 
 def test_substring_not_present() -> None:
@@ -46,8 +45,7 @@ def test_both_empty() -> None:
     """
     Test case 6: Test the find_substring function when both the string and the substring are empty.
     """
-    assert find_substring(
-        "", "") == 0, "Failed on both string and substring empty"
+    assert find_substring("", "") == 0, "Failed on both string and substring empty"
 
 
 def test_substring_beginning() -> None:
@@ -63,8 +61,7 @@ def test_substring_end() -> None:
     """
     Test case 8: Test the find_substring function when the substring is at the end of the string.
     """
-    assert find_substring(
-        "hello world", "world") == 6, "Failed on substring at the end"
+    assert find_substring("hello world", "world") == 6, "Failed on substring at the end"
 
 
 def test_substring_middle() -> None:
@@ -80,8 +77,7 @@ def test_single_character_present() -> None:
     """
     Test case 10: Test the find_substring function when the substring is a single character present in the string.
     """
-    assert find_substring(
-        "hello world", "o") == 4, "Failed on single character present"
+    assert find_substring("hello world", "o") == 4, "Failed on single character present"
 
 
 def test_single_character_not_present() -> None:
@@ -133,8 +129,7 @@ def test_spaces() -> None:
     """
     Test case 16: Test the find_substring function when the substring contains spaces.
     """
-    assert find_substring(
-        "hello world", " ") == 5, "Failed on substring with spaces"
+    assert find_substring("hello world", " ") == 5, "Failed on substring with spaces"
 
 
 def test_newline_characters() -> None:

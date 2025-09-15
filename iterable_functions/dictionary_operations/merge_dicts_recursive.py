@@ -60,7 +60,11 @@ def merge_dicts_recursive(*dicts: dict[str, Any]) -> dict[str, Any]:
 
     for d in dicts:
         for key, value in d.items():
-            if key in result and isinstance(result[key], dict) and isinstance(value, dict):
+            if (
+                key in result
+                and isinstance(result[key], dict)
+                and isinstance(value, dict)
+            ):
                 result[key] = merge_dicts_recursive(result[key], value)
             else:
                 result[key] = value
@@ -68,4 +72,4 @@ def merge_dicts_recursive(*dicts: dict[str, Any]) -> dict[str, Any]:
     return result
 
 
-__all__ = ['merge_dicts_recursive']
+__all__ = ["merge_dicts_recursive"]

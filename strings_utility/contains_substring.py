@@ -37,4 +37,4 @@ def contains_substring(s: str, substring: str) -> bool:
     return substring in s
 
 
-__all__ = ['contains_substring']
+__all__ = ["contains_substring"]

@@ -49,4 +49,4 @@ def parallel_starmap(
     return results
 
 
-__all__ = ['parallel_starmap']
+__all__ = ["parallel_starmap"]

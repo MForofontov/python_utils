@@ -67,69 +67,67 @@ def verify_jwt_token(
         raise TypeError(f"token must be a string, got {type(token).__name__}")
     if not isinstance(secret_key, str):
         raise TypeError(f"secret_key must be a string, got {type(secret_key).__name__}")
-    
+
     # Value validation
     if len(token) == 0:
         raise ValueError("token cannot be empty")
     if len(secret_key) == 0:
         raise ValueError("secret_key cannot be empty")
-    
+
     # Split token into parts
-    parts = token.split('.')
+    parts = token.split(".")
     if len(parts) != 3:
         raise ValueError("invalid JWT format: token must have exactly 3 parts")
-    
+
     encoded_header, encoded_payload, encoded_signature = parts
-    
+
     def decode_base64url(data: str) -> bytes:
         """Decode base64url encoded data."""
         # Add padding if necessary
         padding = 4 - (len(data) % 4)
         if padding != 4:
-            data += '=' * padding
+            data += "=" * padding
         try:
             return base64.urlsafe_b64decode(data)
         except Exception as e:
             raise ValueError(f"invalid base64url encoding: {e}") from e
-    
+
     try:
         # Decode header and payload
         header_bytes = decode_base64url(encoded_header)
         payload_bytes = decode_base64url(encoded_payload)
         signature_bytes = decode_base64url(encoded_signature)
-        
-        header = json.loads(header_bytes.decode('utf-8'))
-        payload = json.loads(payload_bytes.decode('utf-8'))
-        
+
+        header = json.loads(header_bytes.decode("utf-8"))
+        payload = json.loads(payload_bytes.decode("utf-8"))
+
     except (json.JSONDecodeError, UnicodeDecodeError) as e:
         raise ValueError(f"invalid JSON in token: {e}") from e
-    
+
     # Verify algorithm
-    if header.get('alg') != 'HS256':
+    if header.get("alg") != "HS256":
         raise ValueError(f"unsupported algorithm: {header.get('alg')}")
-    
+
     # Verify signature
     message = f"{encoded_header}.{encoded_payload}"
     expected_signature = hmac.new(
-        secret_key.encode('utf-8'),
-        message.encode('utf-8'),
-        hashlib.sha256
+        secret_key.encode("utf-8"), message.encode("utf-8"), hashlib.sha256
     ).digest()
-    
+
     if not hmac.compare_digest(signature_bytes, expected_signature):
         raise ValueError("invalid token signature")
-    
+
     # Check expiration
-    if 'exp' in payload:
-        exp_timestamp = payload['exp']
+    if "exp" in payload:
+        exp_timestamp = payload["exp"]
         if not isinstance(exp_timestamp, (int, float)):
             raise ValueError("invalid expiration time format")
-        
+
         current_timestamp = datetime.now(timezone.utc).timestamp()
         if current_timestamp >= exp_timestamp:
             raise ValueError("token has expired")
-    
+
     return payload
 
 
-__all__ = ['verify_jwt_token']
+__all__ = ["verify_jwt_token"]

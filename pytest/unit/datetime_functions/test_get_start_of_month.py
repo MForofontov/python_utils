@@ -88,10 +88,10 @@ def test_get_start_of_month_invalid_input_type() -> None:
     Test case 9: Test get_start_of_month function with invalid input type raises TypeError.
     """
     with pytest.raises(TypeError):
-        get_start_of_month('2023-01-15')
-    
+        get_start_of_month("2023-01-15")
+
     with pytest.raises(TypeError):
         get_start_of_month(123)
-    
+
     with pytest.raises(TypeError):
         get_start_of_month(None)

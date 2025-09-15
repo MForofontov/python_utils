@@ -92,10 +92,10 @@ def test_conditional_execute_condition_met():
 
 
 def test_conditional_execute_condition_not_met():
-
     """
     Test case 4: Predicate condition not met based on arguments.
     """
+
     @conditional_execute(lambda: predicate_based_on_args(1, 2))
     def example_function_conditional_not_met(a, b):
         return f"Result: {a + b}"
@@ -113,10 +113,10 @@ def test_conditional_execute_condition_met_kwargs():
 
 
 def test_conditional_execute_condition_not_met_kwargs():
-
     """
     Test case 6: Predicate condition not met based on keyword arguments.
     """
+
     @conditional_execute(lambda: predicate_based_on_kwargs(flag=False))
     def example_function_kwargs_not_met(a, b, **kwargs):
         return f"Result: {a + b}"
@@ -134,10 +134,10 @@ def test_conditional_execute_condition_met_mixed_args():
 
 
 def test_conditional_execute_condition_not_met_mixed_args():
-
     """
     Test case 8: Predicate condition not met based on mixed arguments and keyword arguments.
     """
+
     @conditional_execute(lambda: predicate_based_on_mixed_args(1, 2, flag=True))
     def example_function_mixed_args_not_met(a, b, **kwargs):
         return f"Result: {a + b}"
@@ -155,10 +155,10 @@ def test_conditional_execute_no_args():
 
 
 def test_conditional_execute_with_default_args():
-
     """
     Test case 10: Function with default arguments.
     """
+
     @conditional_execute(always_true)
     def example_function_default_args(a, b=0):
         return f"Result: {a + b}"

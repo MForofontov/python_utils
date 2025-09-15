@@ -56,32 +56,34 @@ def decrypt_data_aes(
     """
     # Input validation
     if not isinstance(encrypted_data, str):
-        raise TypeError(f"encrypted_data must be a string, got {type(encrypted_data).__name__}")
+        raise TypeError(
+            f"encrypted_data must be a string, got {type(encrypted_data).__name__}"
+        )
     if not isinstance(key, str):
         raise TypeError(f"key must be a string, got {type(key).__name__}")
-    
+
     # Value validation
     if len(encrypted_data) == 0:
         raise ValueError("encrypted_data cannot be empty")
     if len(key) == 0:
         raise ValueError("key cannot be empty")
-    
+
     try:
         # Decode the base64 encoded key
-        fernet_key = key.encode('utf-8')
+        fernet_key = key.encode("utf-8")
         fernet = Fernet(fernet_key)
-        
+
         # Decode the base64 encoded encrypted data
-        encrypted_bytes = base64.b64decode(encrypted_data.encode('utf-8'))
-        
+        encrypted_bytes = base64.b64decode(encrypted_data.encode("utf-8"))
+
         # Decrypt the data
         decrypted_bytes = fernet.decrypt(encrypted_bytes)
-        
+
         # Convert back to string
-        return decrypted_bytes.decode('utf-8')
-        
+        return decrypted_bytes.decode("utf-8")
+
     except Exception as e:
         raise ValueError(f"decryption failed: {e}") from e
 
 
-__all__ = ['decrypt_data_aes']
+__all__ = ["decrypt_data_aes"]

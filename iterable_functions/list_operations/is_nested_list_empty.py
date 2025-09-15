@@ -33,4 +33,4 @@ def is_nested_list_empty(input_list: list[Any]) -> bool:
     )
 
 
-__all__ = ['is_nested_list_empty']
+__all__ = ["is_nested_list_empty"]

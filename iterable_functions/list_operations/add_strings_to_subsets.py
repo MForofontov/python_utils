@@ -42,4 +42,4 @@ def add_strings_to_subsets(my_list: list[set[str]], my_strings: list[str]) -> bo
     return found
 
 
-__all__ = ['add_strings_to_subsets']
+__all__ = ["add_strings_to_subsets"]

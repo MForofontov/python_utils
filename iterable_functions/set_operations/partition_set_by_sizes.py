@@ -58,18 +58,20 @@ def partition_set_by_sizes(input_set: set[T], sizes: list[int]) -> list[set[T]]:
     if not all(size > 0 for size in sizes):
         raise ValueError("All sizes must be positive")
     if sum(sizes) != len(input_set):
-        raise ValueError(f"Sum of sizes ({sum(sizes)}) must equal set size ({len(input_set)})")
+        raise ValueError(
+            f"Sum of sizes ({sum(sizes)}) must equal set size ({len(input_set)})"
+        )
 
     result = []
     items_list = list(input_set)
     start_idx = 0
 
     for size in sizes:
-        subset = set(items_list[start_idx:start_idx + size])
+        subset = set(items_list[start_idx : start_idx + size])
         result.append(subset)
         start_idx += size
 
     return result
 
 
-__all__ = ['partition_set_by_sizes']
+__all__ = ["partition_set_by_sizes"]

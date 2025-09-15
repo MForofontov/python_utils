@@ -18,4 +18,4 @@ def check_and_delete_file(file: str) -> None:
         os.remove(file)
 
 
-__all__ = ['check_and_delete_file']
+__all__ = ["check_and_delete_file"]

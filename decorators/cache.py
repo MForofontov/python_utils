@@ -1,6 +1,7 @@
 from typing import Any, ParamSpec, TypeVar, cast
 from collections.abc import Callable
 from functools import wraps
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -36,8 +37,7 @@ def cache(func: Callable[P, R]) -> Callable[P, R]:
     >>> add.cache_clear()
     """
 
-    cached_results: dict[tuple[tuple[Any, ...],
-                               frozenset[tuple[str, Any]]], Any] = {}
+    cached_results: dict[tuple[tuple[Any, ...], frozenset[tuple[str, Any]]], Any] = {}
 
     @wraps(func)
     def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
@@ -87,4 +87,4 @@ def cache(func: Callable[P, R]) -> Callable[P, R]:
     return cast(Callable[P, R], wrapper)
 
 
-__all__ = ['cache']
+__all__ = ["cache"]

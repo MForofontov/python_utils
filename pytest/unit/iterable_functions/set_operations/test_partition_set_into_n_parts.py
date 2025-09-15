@@ -1,5 +1,7 @@
 import pytest
-from iterable_functions.set_operations.partition_set_into_n_parts import partition_set_into_n_parts
+from iterable_functions.set_operations.partition_set_into_n_parts import (
+    partition_set_into_n_parts,
+)
 
 
 def test_partition_set_into_n_parts_normal_case() -> None:
@@ -20,7 +22,7 @@ def test_partition_set_into_n_parts_normal_case() -> None:
     assert union == input_set
     # All partitions should be pairwise disjoint
     for i, p1 in enumerate(result):
-        for p2 in result[i+1:]:
+        for p2 in result[i + 1 :]:
             assert len(p1 & p2) == 0
 
 

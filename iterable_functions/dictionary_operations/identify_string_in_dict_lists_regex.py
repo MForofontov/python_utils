@@ -33,8 +33,7 @@ def identify_string_in_dict_lists_regex(
     if not isinstance(dict_of_lists, dict):
         raise TypeError("dict_of_lists must be a dictionary")
     if not all(
-        isinstance(value, list) and all(isinstance(sublist, list)
-                                        for sublist in value)
+        isinstance(value, list) and all(isinstance(sublist, list) for sublist in value)
         for value in dict_of_lists.values()
     ):
         raise TypeError("All values in dict_of_lists must be lists of lists")
@@ -54,4 +53,4 @@ def identify_string_in_dict_lists_regex(
     return None
 
 
-__all__ = ['identify_string_in_dict_lists_regex']
+__all__ = ["identify_string_in_dict_lists_regex"]

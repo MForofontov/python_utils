@@ -9,7 +9,9 @@ import logging
 import sys
 
 
-def colored_formatter(fmt: str | None = None, use_color: bool = True) -> logging.Formatter:
+def colored_formatter(
+    fmt: str | None = None, use_color: bool = True
+) -> logging.Formatter:
     """
     Create a colored log formatter for console output.
 
@@ -39,18 +41,18 @@ def colored_formatter(fmt: str | None = None, use_color: bool = True) -> logging
     class ColoredFormatter(logging.Formatter):
         # ANSI color codes
         COLORS = {
-            'DEBUG': '\033[36m',      # Cyan
-            'INFO': '\033[32m',       # Green
-            'WARNING': '\033[33m',    # Yellow
-            'ERROR': '\033[31m',      # Red
-            'CRITICAL': '\033[35m',   # Magenta
+            "DEBUG": "\033[36m",  # Cyan
+            "INFO": "\033[32m",  # Green
+            "WARNING": "\033[33m",  # Yellow
+            "ERROR": "\033[31m",  # Red
+            "CRITICAL": "\033[35m",  # Magenta
         }
 
-        RESET = '\033[0m'  # Reset to default color
+        RESET = "\033[0m"  # Reset to default color
 
         def __init__(self, fmt: str | None = None, use_color: bool = True):
             if fmt is None:
-                fmt = '%(levelname)s - %(message)s'
+                fmt = "%(levelname)s - %(message)s"
 
             super().__init__(fmt)
             self.use_color = use_color and self._supports_color()
@@ -58,7 +60,7 @@ def colored_formatter(fmt: str | None = None, use_color: bool = True) -> logging
         def _supports_color(self) -> bool:
             """Check if terminal supports color output."""
             # Check if output is a TTY and not Windows without color support
-            if hasattr(sys.stdout, 'isatty'):
+            if hasattr(sys.stdout, "isatty"):
                 return sys.stdout.isatty()
             return False
 
@@ -67,7 +69,7 @@ def colored_formatter(fmt: str | None = None, use_color: bool = True) -> logging
             message = super().format(record)
 
             if self.use_color:
-                color = self.COLORS.get(record.levelname, '')
+                color = self.COLORS.get(record.levelname, "")
                 if color:
                     message = f"{color}{message}{self.RESET}"
 
@@ -76,4 +78,4 @@ def colored_formatter(fmt: str | None = None, use_color: bool = True) -> logging
     return ColoredFormatter(fmt, use_color)
 
 
-__all__ = ['colored_formatter']
+__all__ = ["colored_formatter"]

@@ -13,9 +13,10 @@ def test_tsv_to_dict_basic(tmp_path: Path) -> None:
     file: Path = tmp_path / "sample.tsv"
     file.write_text(content)
     result: dict[str, list[str]] = tsv_to_dict(str(file))
-    assert (
-        result == {"a": ["1", "2"], "b": ["3", "4"]}
-    ), "Should parse TSV into dictionary"
+    assert result == {
+        "a": ["1", "2"],
+        "b": ["3", "4"],
+    }, "Should parse TSV into dictionary"
 
 
 def test_tsv_to_dict_skip_header(tmp_path: Path) -> None:
@@ -37,9 +38,10 @@ def test_tsv_to_dict_non_tab_separator(tmp_path: Path) -> None:
     file: Path = tmp_path / "sample.csv"
     file.write_text(content)
     result: dict[str, list[str]] = tsv_to_dict(str(file), sep=",")
-    assert (
-        result == {"a": ["1", "2"], "b": ["3", "4"]}
-    ), "Should handle custom separators"
+    assert result == {
+        "a": ["1", "2"],
+        "b": ["3", "4"],
+    }, "Should handle custom separators"
 
 
 def test_tsv_to_dict_duplicate_keys(tmp_path: Path) -> None:

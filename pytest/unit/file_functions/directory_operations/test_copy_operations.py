@@ -47,11 +47,11 @@ def test_copy_folder_replica_structure(tmp_path: Path) -> None:
     dest_folder: Path = tmp_path / "dest"
     copy_folder(str(src_folder), str(dest_folder))
     assert (
-        (dest_folder / "file1.txt").read_text() == "a"
-    ), "Top level file should be copied"
+        dest_folder / "file1.txt"
+    ).read_text() == "a", "Top level file should be copied"
     assert (
-        (dest_folder / "nested" / "file2.txt").read_text() == "b"
-    ), "Nested file should be copied"
+        dest_folder / "nested" / "file2.txt"
+    ).read_text() == "b", "Nested file should be copied"
 
 
 def test_copy_folder_overwrite_file(tmp_path: Path) -> None:
@@ -66,8 +66,8 @@ def test_copy_folder_overwrite_file(tmp_path: Path) -> None:
     (dest_folder / "file.txt").write_text("old")
     copy_folder(str(src_folder), str(dest_folder))
     assert (
-        (dest_folder / "file.txt").read_text() == "new"
-    ), "Destination file should be overwritten with source content"
+        dest_folder / "file.txt"
+    ).read_text() == "new", "Destination file should be overwritten with source content"
 
 
 def test_copy_file_missing_source(tmp_path: Path) -> None:

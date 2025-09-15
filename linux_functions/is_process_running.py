@@ -33,12 +33,12 @@ def is_process_running(process_name: str) -> bool:
     """
     if not isinstance(process_name, str):
         raise TypeError("process_name must be a string")
-    
-    for proc in psutil.process_iter(['name']):
+
+    for proc in psutil.process_iter(["name"]):
         try:
-            if proc.info['name'] == process_name:
+            if proc.info["name"] == process_name:
                 return True
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
             continue
-    
+
     return False

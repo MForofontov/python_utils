@@ -37,7 +37,7 @@ def filter_dict_by_keys(
     d: dict[str, Any],
     keys: list[str] | set[str] = None,
     pattern: str = None,
-    invert: bool = False
+    invert: bool = False,
 ) -> dict[str, Any]:
     """
     Filter dictionary by keys using patterns or exact matches.
@@ -96,4 +96,4 @@ def filter_dict_by_keys(
     return filtered
 
 
-__all__ = ['filter_dict_by_keys']
+__all__ = ["filter_dict_by_keys"]

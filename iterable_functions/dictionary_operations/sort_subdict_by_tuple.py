@@ -28,8 +28,7 @@ def sort_subdict_by_tuple(
     if not isinstance(dict_, dict) or not all(
         isinstance(subdict, dict) for subdict in dict_.values()
     ):
-        raise TypeError(
-            "dict_ must be a dictionary with sub-dictionaries as values")
+        raise TypeError("dict_ must be a dictionary with sub-dictionaries as values")
     if not isinstance(order, tuple) or not all(isinstance(item, str) for item in order):
         raise TypeError("order must be a tuple of strings")
 
@@ -47,4 +46,4 @@ def sort_subdict_by_tuple(
     return sorted_data
 
 
-__all__ = ['sort_subdict_by_tuple']
+__all__ = ["sort_subdict_by_tuple"]

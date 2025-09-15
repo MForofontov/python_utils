@@ -84,10 +84,10 @@ def test_get_days_in_month_invalid_month() -> None:
     """
     with pytest.raises(ValueError):
         get_days_in_month(2023, 0)
-    
+
     with pytest.raises(ValueError):
         get_days_in_month(2023, 13)
-    
+
     with pytest.raises(ValueError):
         get_days_in_month(2023, -1)
 
@@ -97,13 +97,13 @@ def test_get_days_in_month_invalid_input_type() -> None:
     Test case 10: Test get_days_in_month function with invalid input type raises TypeError.
     """
     with pytest.raises(TypeError):
-        get_days_in_month('2023', 1)
-    
+        get_days_in_month("2023", 1)
+
     with pytest.raises(TypeError):
-        get_days_in_month(2023, '1')
-    
+        get_days_in_month(2023, "1")
+
     with pytest.raises(TypeError):
         get_days_in_month(None, 1)
-    
+
     with pytest.raises(TypeError):
         get_days_in_month(2023, None)

@@ -37,11 +37,10 @@ def replace_multiple_substrings(s: str, replacements: dict[str, str]) -> str:
 
     for old, new in replacements.items():
         if not isinstance(old, str) or not isinstance(new, str):
-            raise TypeError(
-                "Both keys and values in replacements must be strings.")
+            raise TypeError("Both keys and values in replacements must be strings.")
         s = s.replace(old, new)
 
     return s
 
 
-__all__ = ['replace_multiple_substrings']
+__all__ = ["replace_multiple_substrings"]

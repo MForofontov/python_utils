@@ -5,7 +5,7 @@ from .random_sample import random_sample
 
 __all__ = [
     "random_integers",
-    "random_floats", 
+    "random_floats",
     "random_normal",
     "random_sample",
 ]

@@ -1,5 +1,6 @@
 import aiohttp
 
+
 async def async_download(url: str, dest_path: str, timeout: float = 30.0) -> None:
     """
     Download a file asynchronously from a URL and save to dest_path.
@@ -42,13 +43,16 @@ async def async_download(url: str, dest_path: str, timeout: float = 30.0) -> Non
         raise ValueError("timeout must be positive")
 
     try:
-        async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=timeout)) as session:
+        async with aiohttp.ClientSession(
+            timeout=aiohttp.ClientTimeout(total=timeout)
+        ) as session:
             async with session.get(url) as resp:
                 resp.raise_for_status()
-                with open(dest_path, 'wb') as f:
+                with open(dest_path, "wb") as f:
                     async for chunk in resp.content.iter_chunked(8192):
                         f.write(chunk)
     except Exception as e:
         raise RuntimeError(f"Download failed: {e}")
+
 
 __all__ = ["async_download"]

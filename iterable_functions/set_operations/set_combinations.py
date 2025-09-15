@@ -10,8 +10,8 @@ from .get_permutations import get_permutations
 from .count_combinations import count_combinations
 
 __all__ = [
-    'get_combinations',
-    'get_combinations_with_replacement',
-    'get_permutations',
-    'count_combinations'
+    "get_combinations",
+    "get_combinations_with_replacement",
+    "get_permutations",
+    "count_combinations",
 ]

@@ -6,17 +6,16 @@ from decorators.deprecated import deprecated
 test_logger = logging.getLogger("test_logger")
 test_logger.setLevel(logging.INFO)
 handler = logging.StreamHandler()
-formatter = logging.Formatter(
-    "%(asctime)s - %(name)s - %(levellevel)s - %(message)s")
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levellevel)s - %(message)s")
 handler.setFormatter(formatter)
 test_logger.addHandler(handler)
 
 
 def test_deprecated_with_logger(caplog):
-
     """
     Test case 1: Deprecated function with logger.
     """
+
     @deprecated(logger=test_logger)
     def old_function():
         return "This is an old function."
@@ -28,10 +27,10 @@ def test_deprecated_with_logger(caplog):
 
 
 def test_deprecated_without_logger(capsys):
-
     """
     Test case 2: Deprecated function without logger.
     """
+
     @deprecated()
     def old_function_no_logger():
         return "This is an old function."
@@ -44,10 +43,10 @@ def test_deprecated_without_logger(capsys):
 
 
 def test_deprecated_with_args(caplog):
-
     """
     Test case 3: Deprecated function with arguments.
     """
+
     @deprecated(logger=test_logger)
     def old_function_with_args(a, b):
         return a + b
@@ -59,10 +58,10 @@ def test_deprecated_with_args(caplog):
 
 
 def test_deprecated_with_kwargs(caplog):
-
     """
     Test case 4: Deprecated function with keyword arguments.
     """
+
     @deprecated(logger=test_logger)
     def old_function_with_kwargs(a, b=0):
         return a + b
@@ -74,10 +73,10 @@ def test_deprecated_with_kwargs(caplog):
 
 
 def test_deprecated_with_return_value(caplog):
-
     """
     Test case 5: Deprecated function with return value.
     """
+
     @deprecated(logger=test_logger)
     def old_function_with_return():
         return "Return value"
@@ -89,10 +88,10 @@ def test_deprecated_with_return_value(caplog):
 
 
 def test_deprecated_with_exception(caplog):
-
     """
     Test case 6: Deprecated function that raises an exception.
     """
+
     @deprecated(logger=test_logger)
     def old_function_with_exception():
         raise ValueError("An error occurred")

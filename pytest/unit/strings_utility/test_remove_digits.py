@@ -72,8 +72,7 @@ def test_remove_digits_only_digits() -> None:
     """
     Test case 9: Test the remove_digits function with a string that contains only digits.
     """
-    assert remove_digits(
-        "1234567890") == "", "Failed on string with only digits"
+    assert remove_digits("1234567890") == "", "Failed on string with only digits"
 
 
 def test_remove_digits_digits_at_start() -> None:

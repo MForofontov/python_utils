@@ -20,32 +20,28 @@ def test_verify_password_no_uppercase() -> None:
     """
     Test case 3: Test the verify_password function with a password that has no uppercase characters.
     """
-    assert not verify_password(
-        "password123!"), "Failed on no uppercase characters"
+    assert not verify_password("password123!"), "Failed on no uppercase characters"
 
 
 def test_verify_password_no_lowercase() -> None:
     """
     Test case 4: Test the verify_password function with a password that has no lowercase characters.
     """
-    assert not verify_password(
-        "PASSWORD123!"), "Failed on no lowercase characters"
+    assert not verify_password("PASSWORD123!"), "Failed on no lowercase characters"
 
 
 def test_verify_password_no_digits() -> None:
     """
     Test case 5: Test the verify_password function with a password that has no numerical digits.
     """
-    assert not verify_password(
-        "Password!!!"), "Failed on no numerical digits"
+    assert not verify_password("Password!!!"), "Failed on no numerical digits"
 
 
 def test_verify_password_no_special_characters() -> None:
     """
     Test case 6: Test the verify_password function with a password that has no special characters.
     """
-    assert not verify_password(
-        "Password123"), "Failed on no special characters"
+    assert not verify_password("Password123"), "Failed on no special characters"
 
 
 def test_verify_password_empty_string() -> None:
@@ -59,10 +55,12 @@ def test_verify_password_custom_check_pass() -> None:
     """
     Test case 8: Test the verify_password function with a custom check that passes.
     """
-    def custom_check(p): return "example" in p
-    assert (
-        verify_password("Password123!example",
-                        custom_checks=[custom_check])
+
+    def custom_check(p):
+        return "example" in p
+
+    assert verify_password(
+        "Password123!example", custom_checks=[custom_check]
     ), "Failed on custom check that passes"
 
 
@@ -70,9 +68,12 @@ def test_verify_password_custom_check_fail() -> None:
     """
     Test case 9: Test the verify_password function with a custom check that fails.
     """
-    def custom_check(p): return "example" in p
-    assert (
-        not verify_password("Password123!", custom_checks=[custom_check])
+
+    def custom_check(p):
+        return "example" in p
+
+    assert not verify_password(
+        "Password123!", custom_checks=[custom_check]
     ), "Failed on custom check that fails"
 
 

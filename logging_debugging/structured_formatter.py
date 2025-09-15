@@ -8,7 +8,9 @@ import logging
 from datetime import datetime
 
 
-def structured_formatter(max_level_width: int = 8, max_module_width: int = 15) -> logging.Formatter:
+def structured_formatter(
+    max_level_width: int = 8, max_module_width: int = 15
+) -> logging.Formatter:
     """
     Create a structured log formatter with consistent field alignment.
 
@@ -44,7 +46,9 @@ def structured_formatter(max_level_width: int = 8, max_module_width: int = 15) -
 
         def format(self, record: logging.LogRecord) -> str:
             # Format timestamp
-            timestamp = datetime.fromtimestamp(record.created).strftime('%Y-%m-%d %H:%M:%S')
+            timestamp = datetime.fromtimestamp(record.created).strftime(
+                "%Y-%m-%d %H:%M:%S"
+            )
 
             # Format level with padding
             level = f"{record.levelname:<{self.max_level_width}}"
@@ -56,11 +60,13 @@ def structured_formatter(max_level_width: int = 8, max_module_width: int = 15) -
             location = f"{record.funcName}:{record.lineno}"
 
             # Combine all parts
-            formatted = f"{timestamp} | {level} | {module} | {location} | {record.getMessage()}"
+            formatted = (
+                f"{timestamp} | {level} | {module} | {location} | {record.getMessage()}"
+            )
 
             return formatted
 
     return StructuredFormatter(max_level_width, max_module_width)
 
 
-__all__ = ['structured_formatter']
+__all__ = ["structured_formatter"]

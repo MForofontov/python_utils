@@ -48,7 +48,7 @@ async def async_batch(
     # Iterate over the items in batches of the specified batch_size
     for i in range(0, len(items), batch_size):
         # Get the current batch of items
-        batch = items[i: i + batch_size]
+        batch = items[i : i + batch_size]
 
         # Apply ``func`` to the batch and await the result
         result = await func(batch)
@@ -59,4 +59,5 @@ async def async_batch(
     # Return the list of results from processing all the batches
     return results
 
-__all__ = ['async_batch']
+
+__all__ = ["async_batch"]

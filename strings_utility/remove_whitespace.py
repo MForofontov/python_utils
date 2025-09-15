@@ -33,4 +33,4 @@ def remove_whitespace(s: str) -> str:
     return "".join(s.split())
 
 
-__all__ = ['remove_whitespace']
+__all__ = ["remove_whitespace"]

@@ -66,8 +66,7 @@ def print_system_info_in_terminal() -> None:
 
     print_message(separator, None)
     print_message("System Information".center(terminal_width), None)
-    print_message(
-        f"Operating System: {platform.system()} {platform.release()}", "info")
+    print_message(f"Operating System: {platform.system()} {platform.release()}", "info")
     print_message(f"OS Version: {platform.version()}", "info")
     print_message(f"Machine: {platform.machine()}", "info")
     print_message(f"Processor: {get_processor_name()}", "info")
@@ -99,4 +98,4 @@ def print_system_info_in_terminal() -> None:
     print_message(separator, None)
 
 
-__all__ = ['print_system_info_in_terminal']
+__all__ = ["print_system_info_in_terminal"]

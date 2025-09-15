@@ -71,7 +71,9 @@ def group_by(
         raise TypeError(f"items must be a list, got {type(items).__name__}")
 
     if key_func is not None and not callable(key_func):
-        raise TypeError(f"key_func must be callable or None, got {type(key_func).__name__}")
+        raise TypeError(
+            f"key_func must be callable or None, got {type(key_func).__name__}"
+        )
 
     # Group items
     result: dict[K, list[T]] = {}
@@ -90,4 +92,4 @@ def group_by(
     return result
 
 
-__all__ = ['group_by']
+__all__ = ["group_by"]

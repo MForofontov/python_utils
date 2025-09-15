@@ -2,6 +2,7 @@ from typing import TypeVar
 
 T = TypeVar("T")
 
+
 def get_unique_sublists(list_of_lists: list[list[T]]) -> list[list[T]]:
     """
     Identify unique sublists within a list of lists.
@@ -37,9 +38,8 @@ def get_unique_sublists(list_of_lists: list[list[T]]) -> list[list[T]]:
                 seen.add(sublist_tuple)
                 unique_sublists.append(sublist)
         except TypeError as e:
-            raise ValueError(
-                f"Sublist contains unhashable elements: {e}") from e
+            raise ValueError(f"Sublist contains unhashable elements: {e}") from e
     return unique_sublists
 
 
-__all__ = ['get_unique_sublists']
+__all__ = ["get_unique_sublists"]

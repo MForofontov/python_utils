@@ -51,4 +51,4 @@ def compress_file_gzip(input_file: str, output_file: str) -> None:
         raise OSError(f"An I/O error occurred during compression: {e}")
 
 
-__all__ = ['compress_file_gzip']
+__all__ = ["compress_file_gzip"]

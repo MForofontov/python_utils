@@ -89,9 +89,13 @@ def validate_range(
     """
     # Validate input types
     if not isinstance(min_inclusive, bool):
-        raise TypeError(f"min_inclusive must be bool, got {type(min_inclusive).__name__}")
+        raise TypeError(
+            f"min_inclusive must be bool, got {type(min_inclusive).__name__}"
+        )
     if not isinstance(max_inclusive, bool):
-        raise TypeError(f"max_inclusive must be bool, got {type(max_inclusive).__name__}")
+        raise TypeError(
+            f"max_inclusive must be bool, got {type(max_inclusive).__name__}"
+        )
     if not isinstance(param_name, str):
         raise TypeError(f"param_name must be str, got {type(param_name).__name__}")
 
@@ -100,38 +104,52 @@ def validate_range(
         try:
             if min_inclusive:
                 if value < min_value:
-                    raise ValueError(f"{param_name} must be >= {min_value}, got {value}")
+                    raise ValueError(
+                        f"{param_name} must be >= {min_value}, got {value}"
+                    )
             else:
                 if value <= min_value:
                     raise ValueError(f"{param_name} must be > {min_value}, got {value}")
         except TypeError as e:
-            raise TypeError(f"Cannot compare {param_name} of type {type(value).__name__} "
-                          f"with min_value of type {type(min_value).__name__}") from e
+            raise TypeError(
+                f"Cannot compare {param_name} of type {type(value).__name__} "
+                f"with min_value of type {type(min_value).__name__}"
+            ) from e
 
     # Check maximum bound
     if max_value is not None:
         try:
             if max_inclusive:
                 if value > max_value:
-                    raise ValueError(f"{param_name} must be <= {max_value}, got {value}")
+                    raise ValueError(
+                        f"{param_name} must be <= {max_value}, got {value}"
+                    )
             else:
                 if value >= max_value:
                     raise ValueError(f"{param_name} must be < {max_value}, got {value}")
         except TypeError as e:
-            raise TypeError(f"Cannot compare {param_name} of type {type(value).__name__} "
-                          f"with max_value of type {type(max_value).__name__}") from e
+            raise TypeError(
+                f"Cannot compare {param_name} of type {type(value).__name__} "
+                f"with max_value of type {type(max_value).__name__}"
+            ) from e
 
     # Check that min_value <= max_value if both are provided
     if min_value is not None and max_value is not None:
         try:
             if min_value > max_value:
-                raise ValueError(f"min_value ({min_value}) cannot be greater than max_value ({max_value})")
+                raise ValueError(
+                    f"min_value ({min_value}) cannot be greater than max_value ({max_value})"
+                )
             if min_value == max_value and not (min_inclusive and max_inclusive):
-                raise ValueError(f"min_value and max_value are equal ({min_value}), "
-                               "but at least one bound is exclusive")
+                raise ValueError(
+                    f"min_value and max_value are equal ({min_value}), "
+                    "but at least one bound is exclusive"
+                )
         except TypeError as e:
-            raise TypeError(f"Cannot compare min_value of type {type(min_value).__name__} "
-                          f"with max_value of type {type(max_value).__name__}") from e
+            raise TypeError(
+                f"Cannot compare min_value of type {type(min_value).__name__} "
+                f"with max_value of type {type(max_value).__name__}"
+            ) from e
 
 
-__all__ = ['validate_range']
+__all__ = ["validate_range"]

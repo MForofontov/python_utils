@@ -79,10 +79,10 @@ def test_large_keys_and_values() -> None:
 
 
 def test_custom_key_type() -> None:
-
     """
     Test case 8: Test the hash table with custom key types.
     """
+
     class CustomKey:
         def __init__(self, key: int) -> None:
             self.key = key
@@ -105,10 +105,10 @@ def test_custom_key_type() -> None:
 
 
 def test_custom_value_type() -> None:
-
     """
     Test case 9: Test the hash table with custom value types.
     """
+
     class CustomValue:
         def __init__(self, value: int) -> None:
             self.value = value

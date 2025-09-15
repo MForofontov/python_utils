@@ -40,18 +40,14 @@ def polyline_decoding_list_of_ints(encoded_text: str) -> list[float]:
         try:
             index, difference = decompress_number(encoded_text, index)
         except Exception as e:
-            raise ValueError(
-                f"Error decompressing number at index {index}: {e}")
+            raise ValueError(f"Error decompressing number at index {index}: {e}")
 
         last_number += difference
         decoded_numbers.append(last_number)
 
     # Adjust numbers for precision
     scale_factor: float = 10 ** (-precision)
-    return [
-        round(number * scale_factor, precision)
-        for number in decoded_numbers
-    ]
+    return [round(number * scale_factor, precision) for number in decoded_numbers]
 
 
-__all__ = ['polyline_decoding_list_of_ints']
+__all__ = ["polyline_decoding_list_of_ints"]

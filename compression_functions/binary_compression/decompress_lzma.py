@@ -35,4 +35,4 @@ def decompress_lzma(compressed_data: bytes) -> bytes:
         raise ValueError(f"An error occurred during decompression: {e}")
 
 
-__all__ = ['decompress_lzma']
+__all__ = ["decompress_lzma"]

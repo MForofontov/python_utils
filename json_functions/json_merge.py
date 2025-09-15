@@ -1,10 +1,11 @@
 from typing import Any
 import copy
 
+
 def json_merge(a: Any, b: Any, deep: bool = True) -> Any:
     """
     Merge two JSON-serializable objects (dicts/lists/primitives).
-    
+
     Parameters
     ----------
     a : Any
@@ -13,13 +14,13 @@ def json_merge(a: Any, b: Any, deep: bool = True) -> Any:
         Second object to merge (takes precedence).
     deep : bool, optional
         If True, merge recursively for nested dicts/lists (default: True).
-        
+
     Returns
     -------
     Any
         Merged object. If both are dicts, merge keys (b overrides a).
         If both are lists, concatenate. Otherwise, return b if not None.
-        
+
     Examples
     --------
     >>> json_merge({'a': 1}, {'b': 2})

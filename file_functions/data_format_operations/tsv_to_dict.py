@@ -33,4 +33,4 @@ def tsv_to_dict(
     return data_dict
 
 
-__all__ = ['tsv_to_dict']
+__all__ = ["tsv_to_dict"]

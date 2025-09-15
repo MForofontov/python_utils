@@ -96,13 +96,13 @@ def test_time_until_invalid_input_type() -> None:
     Test case 9: Test time_until function with invalid input type raises TypeError.
     """
     test_date: date = date(2023, 1, 20)
-    
+
     with pytest.raises(TypeError):
-        time_until('2023-01-15', test_date)
-    
+        time_until("2023-01-15", test_date)
+
     with pytest.raises(TypeError):
         time_until(123, test_date)
-    
+
     with pytest.raises(TypeError):
         time_until(None, test_date)
 
@@ -113,6 +113,6 @@ def test_time_until_past_date_error() -> None:
     """
     future_date: date = date(2023, 1, 15)
     past_date: date = date(2023, 1, 20)
-    
+
     with pytest.raises(ValueError):
         time_until(future_date, past_date)

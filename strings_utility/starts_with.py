@@ -37,4 +37,4 @@ def starts_with(s: str, prefix: str) -> bool:
     return s.startswith(prefix)
 
 
-__all__ = ['starts_with']
+__all__ = ["starts_with"]

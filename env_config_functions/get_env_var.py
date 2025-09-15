@@ -3,7 +3,9 @@ from typing import Any
 from collections.abc import Callable
 
 
-def get_env_var(key: str, default: Any | None = None, cast: Callable[[str], Any] | None = None) -> Any:
+def get_env_var(
+    key: str, default: Any | None = None, cast: Callable[[str], Any] | None = None
+) -> Any:
     """
     Get an environment variable with optional type casting and default value.
 

@@ -62,7 +62,7 @@ def test_modify_weeks_month_boundary() -> None:
     test_date: date = date(2023, 1, 25)
     result_add: date = modify_weeks(test_date, 2)
     assert result_add == date(2023, 2, 8)
-    
+
     test_date2: date = date(2023, 2, 5)
     result_subtract: date = modify_weeks(test_date2, -2)
     assert result_subtract == date(2023, 1, 22)
@@ -73,11 +73,11 @@ def test_modify_weeks_invalid_input_type() -> None:
     Test case 7: Test modify_weeks function with invalid input type raises TypeError.
     """
     with pytest.raises(TypeError):
-        modify_weeks('2023-01-15', 2)
-    
+        modify_weeks("2023-01-15", 2)
+
     with pytest.raises(TypeError):
         modify_weeks(123, 2)
-    
+
     with pytest.raises(TypeError):
         modify_weeks(None, 2)
 
@@ -87,12 +87,12 @@ def test_modify_weeks_invalid_weeks_type() -> None:
     Test case 8: Test modify_weeks function with invalid weeks type raises TypeError.
     """
     test_date: date = date(2023, 1, 15)
-    
+
     with pytest.raises(TypeError):
-        modify_weeks(test_date, '2')
-    
+        modify_weeks(test_date, "2")
+
     with pytest.raises(TypeError):
         modify_weeks(test_date, 2.5)
-    
+
     with pytest.raises(TypeError):
         modify_weeks(test_date, None)

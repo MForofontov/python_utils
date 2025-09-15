@@ -11,10 +11,10 @@ from .create_directory import create_directory
 from .merge_folders import merge_folders
 
 __all__ = [
-    'cleanup',
-    'copy_folder',
-    'create_directory',
-    'merge_folders',
+    "cleanup",
+    "copy_folder",
+    "create_directory",
+    "merge_folders",
 ]
 
-__version__ = '1.0.0'
+__version__ = "1.0.0"

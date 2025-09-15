@@ -80,4 +80,4 @@ def partition_set_by_predicate(input_set: set[T], predicate) -> tuple[set[T], se
     return true_set, false_set
 
 
-__all__ = ['partition_set_by_predicate']
+__all__ = ["partition_set_by_predicate"]

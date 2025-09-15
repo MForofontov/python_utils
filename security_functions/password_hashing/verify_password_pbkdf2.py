@@ -65,12 +65,16 @@ def verify_password_pbkdf2(
     if not isinstance(password, str):
         raise TypeError(f"password must be a string, got {type(password).__name__}")
     if not isinstance(hashed_password, str):
-        raise TypeError(f"hashed_password must be a string, got {type(hashed_password).__name__}")
+        raise TypeError(
+            f"hashed_password must be a string, got {type(hashed_password).__name__}"
+        )
     if not isinstance(salt, bytes):
         raise TypeError(f"salt must be bytes, got {type(salt).__name__}")
     if not isinstance(iterations, int):
-        raise TypeError(f"iterations must be an integer, got {type(iterations).__name__}")
-    
+        raise TypeError(
+            f"iterations must be an integer, got {type(iterations).__name__}"
+        )
+
     # Value validation
     if len(password) == 0:
         raise ValueError("password cannot be empty")
@@ -79,27 +83,26 @@ def verify_password_pbkdf2(
     if len(salt) == 0:
         raise ValueError("salt cannot be empty")
     if iterations < 1000:
-        raise ValueError(f"iterations must be at least 1000 for security, got {iterations}")
-    
+        raise ValueError(
+            f"iterations must be at least 1000 for security, got {iterations}"
+        )
+
     # Validate hex format
     try:
         bytes.fromhex(hashed_password)
     except ValueError as e:
         raise ValueError(f"hashed_password must be a valid hex string: {e}") from e
-    
+
     try:
         # Recreate hash with same parameters
         computed_hash = hashlib.pbkdf2_hmac(
-            'sha256',
-            password.encode('utf-8'),
-            salt,
-            iterations
+            "sha256", password.encode("utf-8"), salt, iterations
         )
-        
+
         # Compare hashes using constant-time comparison
         return computed_hash.hex() == hashed_password
     except Exception as e:
         raise ValueError(f"Error during password verification: {e}") from e
 
 
-__all__ = ['verify_password_pbkdf2']
+__all__ = ["verify_password_pbkdf2"]

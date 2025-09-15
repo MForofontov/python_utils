@@ -2,10 +2,11 @@ from typing import Any
 from collections.abc import Callable
 import configparser
 
+
 def parse_ini_config(
     path: str,
     schema_validator: Callable[[dict[str, Any]], None] | None = None,
-    required_sections: list[str] | None = None
+    required_sections: list[str] | None = None,
 ) -> dict[str, Any]:
     """
     Parse an INI configuration file and return a dictionary, with optional schema validation.

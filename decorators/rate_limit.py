@@ -5,6 +5,7 @@ from functools import wraps
 import time
 import logging
 from logger_functions.logger import validate_logger
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -56,8 +57,7 @@ def rate_limit(
         raise ValueError("period must be a positive integer")
     if not isinstance(exception_message, str) and exception_message is not None:
         if logger:
-            logger.error(
-                "exception_message must be a string or None", exc_info=True)
+            logger.error("exception_message must be a string or None", exc_info=True)
         raise TypeError("exception_message must be a string or None")
 
     def decorator(func: Callable[P, R]) -> Callable[P, R]:
@@ -124,4 +124,4 @@ def rate_limit(
     return decorator
 
 
-__all__ = ['RateLimitExceededException', 'rate_limit']
+__all__ = ["RateLimitExceededException", "rate_limit"]

@@ -37,4 +37,4 @@ def lstrip_chars(s: str, chars: str) -> str:
     return s.lstrip(chars)
 
 
-__all__ = ['lstrip_chars']
+__all__ = ["lstrip_chars"]

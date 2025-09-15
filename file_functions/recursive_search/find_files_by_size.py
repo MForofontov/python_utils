@@ -55,21 +55,25 @@ def find_files_by_size(
     """
     # Input validation
     if not isinstance(directory, (str, Path)):
-        raise TypeError(f"directory must be a string or Path, got {type(directory).__name__}")
+        raise TypeError(
+            f"directory must be a string or Path, got {type(directory).__name__}"
+        )
     if not isinstance(min_size, int):
         raise TypeError(f"min_size must be an integer, got {type(min_size).__name__}")
     if max_size is not None and not isinstance(max_size, int):
-        raise TypeError(f"max_size must be an integer or None, got {type(max_size).__name__}")
-    
+        raise TypeError(
+            f"max_size must be an integer or None, got {type(max_size).__name__}"
+        )
+
     # Convert to Path object
     dir_path = Path(directory)
-    
+
     # Validate directory exists
     if not dir_path.exists():
         raise ValueError(f"Directory does not exist: {directory}")
     if not dir_path.is_dir():
         raise ValueError(f"Path is not a directory: {directory}")
-    
+
     # Validate size parameters
     if min_size < 0:
         raise ValueError(f"min_size must be non-negative, got {min_size}")
@@ -77,16 +81,16 @@ def find_files_by_size(
         raise ValueError(f"max_size must be non-negative, got {max_size}")
     if max_size is not None and max_size < min_size:
         raise ValueError(f"max_size ({max_size}) must be >= min_size ({min_size})")
-    
+
     matching_files: list[tuple[str, int]] = []
-    
+
     try:
         for root, _, files in os.walk(dir_path):
             for file in files:
                 file_path = Path(root) / file
                 try:
                     file_size = file_path.stat().st_size
-                    
+
                     # Check size criteria
                     if file_size >= min_size:
                         if max_size is None or file_size <= max_size:
@@ -96,8 +100,8 @@ def find_files_by_size(
                     continue
     except OSError as e:
         raise OSError(f"Error accessing directory {directory}: {e}") from e
-    
+
     return matching_files
 
 
-__all__ = ['find_files_by_size']
+__all__ = ["find_files_by_size"]

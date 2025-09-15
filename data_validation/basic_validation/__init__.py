@@ -14,11 +14,11 @@ from .validate_string import validate_string
 from .validate_email import validate_email
 
 __all__ = [
-    'validate_type',
-    'validate_range',
-    'validate_collection',
-    'validate_string',
-    'validate_email',
+    "validate_type",
+    "validate_range",
+    "validate_collection",
+    "validate_string",
+    "validate_email",
 ]
 
-__version__ = '1.0.0'
+__version__ = "1.0.0"

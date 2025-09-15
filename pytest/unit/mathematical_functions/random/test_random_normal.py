@@ -10,7 +10,7 @@ def test_random_normal_default_parameters() -> None:
     result = random_normal(100)
     assert len(result) == 100
     assert all(isinstance(x, float) for x in result)
-    
+
     # Check that mean is approximately 0 (within reasonable bounds for random data)
     sample_mean = sum(result) / len(result)
     assert abs(sample_mean) < 0.5  # Should be close to 0 for large sample
@@ -23,7 +23,7 @@ def test_random_normal_custom_parameters() -> None:
     result = random_normal(1000, mean=10.0, stddev=2.0)
     assert len(result) == 1000
     assert all(isinstance(x, float) for x in result)
-    
+
     # Check that sample mean is approximately the specified mean
     sample_mean = sum(result) / len(result)
     assert abs(sample_mean - 10.0) < 1.0  # Should be close to 10 for large sample
@@ -61,12 +61,12 @@ def test_random_normal_large_count() -> None:
     """
     result = random_normal(10000, mean=0.0, stddev=1.0)
     assert len(result) == 10000
-    
+
     # For large samples, check statistical properties
     sample_mean = sum(result) / len(result)
     sample_var = sum((x - sample_mean) ** 2 for x in result) / (len(result) - 1)
     sample_stddev = math.sqrt(sample_var)
-    
+
     # Mean should be close to 0, stddev close to 1
     assert abs(sample_mean) < 0.1
     assert abs(sample_stddev - 1.0) < 0.1

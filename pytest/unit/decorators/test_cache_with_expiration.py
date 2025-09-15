@@ -148,10 +148,10 @@ def test_cache_with_non_integer_expiration():
 
 
 def test_cache_with_unhashable_args():
-
     """
     Test case 12: Function with unhashable arguments.
     """
+
     @cache_with_expiration(2)
     def example_function_unhashable(a):
         return sum(a)
@@ -163,10 +163,10 @@ def test_cache_with_unhashable_args():
 
 
 def test_cache_with_exception():
-
     """
     Test case 13: Function that raises an exception.
     """
+
     @cache_with_expiration(2)
     def example_function_exception(a, b):
         raise ValueError("An error occurred")

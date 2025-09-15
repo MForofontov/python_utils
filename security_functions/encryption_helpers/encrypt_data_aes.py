@@ -64,23 +64,23 @@ def encrypt_data_aes(
         raise TypeError(f"data must be str or bytes, got {type(data).__name__}")
     if key is not None and not isinstance(key, (str, bytes)):
         raise TypeError(f"key must be str, bytes, or None, got {type(key).__name__}")
-    
+
     # Value validation
     if isinstance(data, str) and len(data) == 0:
         raise ValueError("data cannot be empty")
     if isinstance(data, bytes) and len(data) == 0:
         raise ValueError("data cannot be empty")
-    
+
     # Generate key if not provided
     if key is None:
         fernet_key = Fernet.generate_key()
     else:
         if isinstance(key, str):
             try:
-                fernet_key = base64.urlsafe_b64decode(key.encode('utf-8'))
+                fernet_key = base64.urlsafe_b64decode(key.encode("utf-8"))
                 if len(fernet_key) != 32:
                     raise ValueError("key must be 32 bytes when decoded")
-                fernet_key = key.encode('utf-8')
+                fernet_key = key.encode("utf-8")
             except Exception as e:
                 raise ValueError(f"invalid key format: {e}") from e
         else:
@@ -89,26 +89,30 @@ def encrypt_data_aes(
             elif len(key) == 44:  # base64 encoded 32 bytes
                 fernet_key = key
             else:
-                raise ValueError("key must be either 32 bytes or 44 character base64 string")
-    
+                raise ValueError(
+                    "key must be either 32 bytes or 44 character base64 string"
+                )
+
     # Create Fernet instance
     try:
         fernet = Fernet(fernet_key)
     except Exception as e:
         raise ValueError(f"invalid encryption key: {e}") from e
-    
+
     # Convert data to bytes if necessary
     if isinstance(data, str):
-        data_bytes = data.encode('utf-8')
+        data_bytes = data.encode("utf-8")
     else:
         data_bytes = data
-    
+
     # Encrypt data
     try:
         encrypted_data = fernet.encrypt(data_bytes)
-        return base64.b64encode(encrypted_data).decode('utf-8'), fernet_key.decode('utf-8')
+        return base64.b64encode(encrypted_data).decode("utf-8"), fernet_key.decode(
+            "utf-8"
+        )
     except Exception as e:
         raise ValueError(f"encryption failed: {e}") from e
 
 
-__all__ = ['encrypt_data_aes']
+__all__ = ["encrypt_data_aes"]

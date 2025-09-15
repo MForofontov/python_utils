@@ -84,4 +84,4 @@ def get_combinations(input_set: set[T], r: int) -> list[list[T]]:
     return combinations
 
 
-__all__ = ['get_combinations']
+__all__ = ["get_combinations"]

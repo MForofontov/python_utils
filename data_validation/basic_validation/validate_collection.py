@@ -104,22 +104,30 @@ def validate_collection(
 
     if min_length is not None:
         if not isinstance(min_length, int):
-            raise TypeError(f"min_length must be int or None, got {type(min_length).__name__}")
+            raise TypeError(
+                f"min_length must be int or None, got {type(min_length).__name__}"
+            )
         if min_length < 0:
             raise ValueError(f"min_length must be non-negative, got {min_length}")
 
     if max_length is not None:
         if not isinstance(max_length, int):
-            raise TypeError(f"max_length must be int or None, got {type(max_length).__name__}")
+            raise TypeError(
+                f"max_length must be int or None, got {type(max_length).__name__}"
+            )
         if max_length < 0:
             raise ValueError(f"max_length must be non-negative, got {max_length}")
 
     if min_length is not None and max_length is not None and min_length > max_length:
-        raise ValueError(f"min_length ({min_length}) cannot be greater than max_length ({max_length})")
+        raise ValueError(
+            f"min_length ({min_length}) cannot be greater than max_length ({max_length})"
+        )
 
     # Validate collection type
     if not isinstance(collection, expected_type):
-        raise TypeError(f"{param_name} must be {expected_type.__name__}, got {type(collection).__name__}")
+        raise TypeError(
+            f"{param_name} must be {expected_type.__name__}, got {type(collection).__name__}"
+        )
 
     # Validate that collection is sized (has length)
     if not isinstance(collection, Sized):
@@ -134,17 +142,23 @@ def validate_collection(
 
     # Validate minimum length
     if min_length is not None and length < min_length:
-        raise ValueError(f"{param_name} length ({length}) is below minimum allowed length ({min_length})")
+        raise ValueError(
+            f"{param_name} length ({length}) is below minimum allowed length ({min_length})"
+        )
 
     # Validate maximum length
     if max_length is not None and length > max_length:
-        raise ValueError(f"{param_name} length ({length}) exceeds maximum allowed length ({max_length})")
+        raise ValueError(
+            f"{param_name} length ({length}) exceeds maximum allowed length ({max_length})"
+        )
 
     # Validate element types if specified
     if element_type is not None and length > 0:
         # Make collection iterable for element checking
         if not isinstance(collection, Iterable):
-            raise TypeError(f"{param_name} must be iterable for element type validation")
+            raise TypeError(
+                f"{param_name} must be iterable for element type validation"
+            )
 
         # For dictionaries, validate values
         if isinstance(collection, dict):
@@ -152,24 +166,32 @@ def validate_collection(
                 if isinstance(element_type, tuple):
                     if not any(isinstance(value, t) for t in element_type):
                         type_names = " | ".join(t.__name__ for t in element_type)
-                        raise TypeError(f"{param_name} value for key '{key}' must be {type_names}, "
-                                      f"got {type(value).__name__}")
+                        raise TypeError(
+                            f"{param_name} value for key '{key}' must be {type_names}, "
+                            f"got {type(value).__name__}"
+                        )
                 else:
                     if not isinstance(value, element_type):
-                        raise TypeError(f"{param_name} value for key '{key}' must be {element_type.__name__}, "
-                                      f"got {type(value).__name__}")
+                        raise TypeError(
+                            f"{param_name} value for key '{key}' must be {element_type.__name__}, "
+                            f"got {type(value).__name__}"
+                        )
         else:
             # For other iterables, validate each element
             for index, element in enumerate(collection):
                 if isinstance(element_type, tuple):
                     if not any(isinstance(element, t) for t in element_type):
                         type_names = " | ".join(t.__name__ for t in element_type)
-                        raise TypeError(f"{param_name} element at index {index} must be {type_names}, "
-                                      f"got {type(element).__name__}")
+                        raise TypeError(
+                            f"{param_name} element at index {index} must be {type_names}, "
+                            f"got {type(element).__name__}"
+                        )
                 else:
                     if not isinstance(element, element_type):
-                        raise TypeError(f"{param_name} element at index {index} must be {element_type.__name__}, "
-                                      f"got {type(element).__name__}")
+                        raise TypeError(
+                            f"{param_name} element at index {index} must be {element_type.__name__}, "
+                            f"got {type(element).__name__}"
+                        )
 
 
-__all__ = ['validate_collection']
+__all__ = ["validate_collection"]

@@ -70,25 +70,25 @@ def create_temp_directory(
     if not isinstance(prefix, str):
         raise TypeError(f"prefix must be a string, got {type(prefix).__name__}")
     if dir is not None and not isinstance(dir, (str, Path)):
-        raise TypeError(f"dir must be a string, Path, or None, got {type(dir).__name__}")
+        raise TypeError(
+            f"dir must be a string, Path, or None, got {type(dir).__name__}"
+        )
     if not isinstance(delete, bool):
         raise TypeError(f"delete must be a boolean, got {type(delete).__name__}")
-    
+
     # Convert dir to string if it's a Path
     temp_parent_dir = str(dir) if dir is not None else None
-    
+
     temp_dir_path = None
-    
+
     try:
         # Create temporary directory
         temp_dir_path = tempfile.mkdtemp(
-            suffix=suffix,
-            prefix=prefix,
-            dir=temp_parent_dir
+            suffix=suffix, prefix=prefix, dir=temp_parent_dir
         )
-        
+
         yield temp_dir_path
-        
+
     except OSError as e:
         raise OSError(f"Error creating temporary directory: {e}") from e
     finally:
@@ -101,4 +101,4 @@ def create_temp_directory(
                 pass
 
 
-__all__ = ['create_temp_directory']
+__all__ = ["create_temp_directory"]

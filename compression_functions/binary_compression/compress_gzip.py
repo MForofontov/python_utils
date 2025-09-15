@@ -47,4 +47,4 @@ def compress_gzip(data: bytes) -> bytes:
         raise ValueError(f"An error occurred during compression: {e}")
 
 
-__all__ = ['compress_gzip']
+__all__ = ["compress_gzip"]

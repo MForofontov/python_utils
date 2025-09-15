@@ -10,28 +10,28 @@ def test_get_cpu_info_returns_valid_dict(interval: float | None) -> None:
         cpu_info = get_cpu_info()
     else:
         cpu_info = get_cpu_info(interval=interval)
-    
+
     # Check return type
     assert isinstance(cpu_info, dict)
-    
+
     # Check required keys
-    required_keys: list[str] = ['cpu_count', 'cpu_percent', 'cpu_percent_per_core']
+    required_keys: list[str] = ["cpu_count", "cpu_percent", "cpu_percent_per_core"]
     for key in required_keys:
         assert key in cpu_info
-    
+
     # Check cpu_count
-    assert isinstance(cpu_info['cpu_count'], int)
-    assert cpu_info['cpu_count'] > 0
-    
+    assert isinstance(cpu_info["cpu_count"], int)
+    assert cpu_info["cpu_count"] > 0
+
     # Check cpu_percent
-    assert isinstance(cpu_info['cpu_percent'], (int, float))
-    assert 0 <= cpu_info['cpu_percent'] <= 100
-    
+    assert isinstance(cpu_info["cpu_percent"], (int, float))
+    assert 0 <= cpu_info["cpu_percent"] <= 100
+
     # Check cpu_percent_per_core
-    assert isinstance(cpu_info['cpu_percent_per_core'], list)
-    assert len(cpu_info['cpu_percent_per_core']) == cpu_info['cpu_count']
-    
-    per_core_percents: list[float] = cpu_info['cpu_percent_per_core']
+    assert isinstance(cpu_info["cpu_percent_per_core"], list)
+    assert len(cpu_info["cpu_percent_per_core"]) == cpu_info["cpu_count"]
+
+    per_core_percents: list[float] = cpu_info["cpu_percent_per_core"]
     for core_percent in per_core_percents:
         assert isinstance(core_percent, (int, float))
         assert 0 <= core_percent <= 100

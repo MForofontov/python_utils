@@ -4,6 +4,7 @@ from functools import wraps
 import warnings
 import logging
 from logger_functions.logger import validate_logger
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -81,4 +82,4 @@ def deprecated(
     return decorator
 
 
-__all__ = ['deprecated']
+__all__ = ["deprecated"]

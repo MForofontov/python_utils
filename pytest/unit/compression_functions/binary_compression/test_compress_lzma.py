@@ -115,7 +115,8 @@ def test_compress_lzma_compression_error() -> None:
         # Mock lzma.compress to raise an exception
         original_compress = lzma.compress
         lzma.compress = lambda x: (_ for _ in ()).throw(
-            Exception("Mock error"))  # type: ignore
+            Exception("Mock error")
+        )  # type: ignore
         try:
             compress_lzma(b"data")
         finally:

@@ -63,7 +63,9 @@ def get_subsets_of_size(input_set: set[T], size: int) -> list[list[T]]:
         raise ValueError(f"size must be non-negative, got {size}")
 
     if size > len(input_set):
-        raise ValueError(f"size cannot be larger than set size {len(input_set)}, got {size}")
+        raise ValueError(
+            f"size cannot be larger than set size {len(input_set)}, got {size}"
+        )
 
     # Handle edge cases
     if size == 0:
@@ -71,6 +73,7 @@ def get_subsets_of_size(input_set: set[T], size: int) -> list[list[T]]:
 
     # Generate combinations
     from itertools import combinations
+
     elements = sorted(list(input_set))
     subsets = [list(comb) for comb in combinations(elements, size)]
     subsets.sort()  # Ensure lexicographic ordering
@@ -78,4 +81,4 @@ def get_subsets_of_size(input_set: set[T], size: int) -> list[list[T]]:
     return subsets
 
 
-__all__ = ['get_subsets_of_size']
+__all__ = ["get_subsets_of_size"]

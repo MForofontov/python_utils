@@ -23,8 +23,7 @@ def test_parallel_filter_custom_processes() -> None:
     Test case 2: Test parallel_filter with custom num_processes.
     """
     data: list[int] = [1, 2, 3, 4]
-    result: list[int] = parallel_filter(
-        greater_than_two, data, num_processes=2)
+    result: list[int] = parallel_filter(greater_than_two, data, num_processes=2)
     assert result == [3, 4]
 
 

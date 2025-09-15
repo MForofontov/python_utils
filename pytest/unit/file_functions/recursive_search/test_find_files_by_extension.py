@@ -22,10 +22,10 @@ def test_find_files_by_extension_case_1_normal_operation() -> None:
         (Path(temp_dir) / "readme.txt").touch()
         (Path(temp_dir) / "subdir").mkdir()
         (Path(temp_dir) / "subdir" / "utils.py").touch()
-        
+
         # Act
         result = find_files_by_extension(temp_dir, ".py")
-        
+
         # Assert
         assert len(result) == 3
         py_files = [Path(f).name for f in result]
@@ -42,10 +42,10 @@ def test_find_files_by_extension_case_2_extension_without_dot() -> None:
     with tempfile.TemporaryDirectory() as temp_dir:
         (Path(temp_dir) / "file.txt").touch()
         (Path(temp_dir) / "file.py").touch()
-        
+
         # Act
         result = find_files_by_extension(temp_dir, "txt")
-        
+
         # Assert
         assert len(result) == 1
         assert Path(result[0]).name == "file.txt"
@@ -59,12 +59,16 @@ def test_find_files_by_extension_case_3_case_sensitive() -> None:
     with tempfile.TemporaryDirectory() as temp_dir:
         (Path(temp_dir) / "file.TXT").touch()
         (Path(temp_dir) / "file.txt").touch()
-        
+
         # Act - case sensitive
-        result_sensitive = find_files_by_extension(temp_dir, ".txt", case_sensitive=True)
+        result_sensitive = find_files_by_extension(
+            temp_dir, ".txt", case_sensitive=True
+        )
         # Act - case insensitive
-        result_insensitive = find_files_by_extension(temp_dir, ".txt", case_sensitive=False)
-        
+        result_insensitive = find_files_by_extension(
+            temp_dir, ".txt", case_sensitive=False
+        )
+
         # Assert
         assert len(result_sensitive) == 1
         assert len(result_insensitive) == 2
@@ -78,7 +82,7 @@ def test_find_files_by_extension_case_4_empty_directory() -> None:
     with tempfile.TemporaryDirectory() as temp_dir:
         # Act
         result = find_files_by_extension(temp_dir, ".py")
-        
+
         # Assert
         assert result == []
 
@@ -89,7 +93,7 @@ def test_find_files_by_extension_case_5_invalid_directory_error() -> None:
     """
     # Arrange
     non_existent_dir = "/path/that/does/not/exist"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match="Directory does not exist"):
         find_files_by_extension(non_existent_dir, ".py")
@@ -102,11 +106,11 @@ def test_find_files_by_extension_case_6_invalid_type_errors() -> None:
     # Test invalid directory type
     with pytest.raises(TypeError, match="directory must be a string or Path"):
         find_files_by_extension(123, ".py")
-    
+
     # Test invalid extension type
     with pytest.raises(TypeError, match="extension must be a string"):
         find_files_by_extension("/tmp", 123)
-    
+
     # Test invalid case_sensitive type
     with pytest.raises(TypeError, match="case_sensitive must be a boolean"):
         find_files_by_extension("/tmp", ".py", "not_bool")
@@ -131,10 +135,10 @@ def test_find_files_by_extension_case_8_path_object_input() -> None:
     with tempfile.TemporaryDirectory() as temp_dir:
         temp_path = Path(temp_dir)
         (temp_path / "test.py").touch()
-        
+
         # Act
         result = find_files_by_extension(temp_path, ".py")
-        
+
         # Assert
         assert len(result) == 1
         assert Path(result[0]).name == "test.py"
@@ -157,7 +161,7 @@ def test_find_files_by_extension_case_10_os_error_handling() -> None:
     """
     # Arrange
     with tempfile.TemporaryDirectory() as temp_dir:
-        with patch('os.walk', side_effect=OSError("Permission denied")):
+        with patch("os.walk", side_effect=OSError("Permission denied")):
             # Act & Assert
             with pytest.raises(OSError, match="Error accessing directory"):
                 find_files_by_extension(temp_dir, ".py")

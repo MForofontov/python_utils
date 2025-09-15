@@ -26,8 +26,7 @@ def convert_set_elements_to_strings(input_set: set[Any]) -> set[str]:
     try:
         return {str(element) for element in input_set}
     except Exception as e:
-        raise TypeError(
-            f"An element in the set cannot be converted to a string: {e}")
+        raise TypeError(f"An element in the set cannot be converted to a string: {e}")
 
 
-__all__ = ['convert_set_elements_to_strings']
+__all__ = ["convert_set_elements_to_strings"]

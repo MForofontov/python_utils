@@ -10,23 +10,23 @@ def test_structured_formatter_basic():
 
     # Create a test log record
     record = logging.LogRecord(
-        name='test_logger',
+        name="test_logger",
         level=logging.INFO,
-        pathname='test.py',
+        pathname="test.py",
         lineno=10,
-        msg='Test message',
+        msg="Test message",
         args=(),
-        exc_info=None
+        exc_info=None,
     )
 
     # Format the record
     result = formatter.format(record)
 
     # Should contain structured format with separators
-    assert ' | ' in result
-    assert 'INFO' in result
-    assert 'Test message' in result
-    assert 'test' in result  # module name
+    assert " | " in result
+    assert "INFO" in result
+    assert "Test message" in result
+    assert "test" in result  # module name
 
 
 def test_structured_formatter_timestamp():
@@ -34,23 +34,23 @@ def test_structured_formatter_timestamp():
     formatter = structured_formatter()
 
     record = logging.LogRecord(
-        name='test_logger',
+        name="test_logger",
         level=logging.DEBUG,
-        pathname='test.py',
+        pathname="test.py",
         lineno=5,
-        msg='Debug message',
+        msg="Debug message",
         args=(),
-        exc_info=None
+        exc_info=None,
     )
 
     result = formatter.format(record)
 
     # Should start with timestamp in YYYY-MM-DD HH:MM:SS format
-    parts = result.split(' | ')
+    parts = result.split(" | ")
     timestamp_str = parts[0]
 
     # Should be able to parse as datetime
-    datetime.strptime(timestamp_str, '%Y-%m-%d %H:%M:%S')
+    datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S")
 
 
 def test_structured_formatter_level_alignment():
@@ -58,23 +58,23 @@ def test_structured_formatter_level_alignment():
     formatter = structured_formatter(max_level_width=10)
 
     record = logging.LogRecord(
-        name='test_logger',
+        name="test_logger",
         level=logging.WARNING,
-        pathname='test.py',
+        pathname="test.py",
         lineno=15,
-        msg='Warning message',
+        msg="Warning message",
         args=(),
-        exc_info=None
+        exc_info=None,
     )
 
     result = formatter.format(record)
 
-    parts = result.split(' | ')
+    parts = result.split(" | ")
     level_part = parts[1]
 
     # Should be padded to max_level_width
     assert len(level_part) == 10
-    assert level_part.strip() == 'WARNING'
+    assert level_part.strip() == "WARNING"
 
 
 def test_structured_formatter_module_alignment():
@@ -82,23 +82,23 @@ def test_structured_formatter_module_alignment():
     formatter = structured_formatter(max_module_width=12)
 
     record = logging.LogRecord(
-        name='test_logger',
+        name="test_logger",
         level=logging.ERROR,
-        pathname='test.py',
+        pathname="test.py",
         lineno=20,
-        msg='Error message',
+        msg="Error message",
         args=(),
-        exc_info=None
+        exc_info=None,
     )
 
     result = formatter.format(record)
 
-    parts = result.split(' | ')
+    parts = result.split(" | ")
     module_part = parts[2]
 
     # Should be padded to max_module_width
     assert len(module_part) == 12
-    assert module_part.strip() == 'test'
+    assert module_part.strip() == "test"
 
 
 def test_structured_formatter_location():
@@ -106,23 +106,23 @@ def test_structured_formatter_location():
     formatter = structured_formatter()
 
     record = logging.LogRecord(
-        name='test_logger',
+        name="test_logger",
         level=logging.CRITICAL,
-        pathname='test.py',
+        pathname="test.py",
         lineno=25,
-        msg='Critical message',
+        msg="Critical message",
         args=(),
-        exc_info=None
+        exc_info=None,
     )
-    record.funcName = 'test_function'
+    record.funcName = "test_function"
 
     result = formatter.format(record)
 
-    parts = result.split(' | ')
+    parts = result.split(" | ")
     location_part = parts[3]
 
     # Should contain function name and line number
-    assert 'test_function:25' in location_part
+    assert "test_function:25" in location_part
 
 
 def test_structured_formatter_long_module_name():
@@ -130,18 +130,18 @@ def test_structured_formatter_long_module_name():
     formatter = structured_formatter(max_module_width=10)
 
     record = logging.LogRecord(
-        name='test_logger',
+        name="test_logger",
         level=logging.INFO,
-        pathname='very_long_module_name.py',
+        pathname="very_long_module_name.py",
         lineno=30,
-        msg='Long module message',
+        msg="Long module message",
         args=(),
-        exc_info=None
+        exc_info=None,
     )
 
     result = formatter.format(record)
 
-    parts = result.split(' | ')
+    parts = result.split(" | ")
     module_part = parts[2]
 
     # Should be truncated to max_module_width
@@ -154,29 +154,29 @@ def test_structured_formatter_all_parts():
     formatter = structured_formatter()
 
     record = logging.LogRecord(
-        name='test_logger',
+        name="test_logger",
         level=logging.INFO,
-        pathname='test.py',
+        pathname="test.py",
         lineno=35,
-        msg='Complete test message',
+        msg="Complete test message",
         args=(),
-        exc_info=None
+        exc_info=None,
     )
-    record.funcName = 'test_func'
+    record.funcName = "test_func"
 
     result = formatter.format(record)
 
-    parts = result.split(' | ')
+    parts = result.split(" | ")
 
     # Should have 5 parts: timestamp, level, module, location, message
     assert len(parts) == 5
 
     # Check each part
     assert len(parts[0]) == 19  # YYYY-MM-DD HH:MM:SS
-    assert 'INFO' in parts[1]
-    assert 'test' in parts[2]
-    assert 'test_func:35' in parts[3]
-    assert 'Complete test message' in parts[4]
+    assert "INFO" in parts[1]
+    assert "test" in parts[2]
+    assert "test_func:35" in parts[3]
+    assert "Complete test message" in parts[4]
 
 
 def test_structured_formatter_with_formatting():
@@ -184,19 +184,19 @@ def test_structured_formatter_with_formatting():
     formatter = structured_formatter()
 
     record = logging.LogRecord(
-        name='test_logger',
+        name="test_logger",
         level=logging.WARNING,
-        pathname='test.py',
+        pathname="test.py",
         lineno=40,
-        msg='Value: %s, Count: %d',
-        args=('test_value', 42),
-        exc_info=None
+        msg="Value: %s, Count: %d",
+        args=("test_value", 42),
+        exc_info=None,
     )
 
     result = formatter.format(record)
 
-    parts = result.split(' | ')
+    parts = result.split(" | ")
     message_part = parts[4]
 
     # Should have formatted message
-    assert 'Value: test_value, Count: 42' in message_part
+    assert "Value: test_value, Count: 42" in message_part

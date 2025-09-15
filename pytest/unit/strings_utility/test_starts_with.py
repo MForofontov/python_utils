@@ -6,16 +6,14 @@ def test_starts_with_basic_true() -> None:
     """
     Test case 1: Test the starts_with function with a basic case where the string starts with the prefix.
     """
-    assert starts_with(
-        "hello world", "hello") == True, "Failed on basic true case"
+    assert starts_with("hello world", "hello") == True, "Failed on basic true case"
 
 
 def test_starts_with_basic_false() -> None:
     """
     Test case 2: Test the starts_with function with a basic case where the string does not start with the prefix.
     """
-    assert starts_with(
-        "hello world", "world") == False, "Failed on basic false case"
+    assert starts_with("hello world", "world") == False, "Failed on basic false case"
 
 
 def test_starts_with_empty_string() -> None:
@@ -36,16 +34,14 @@ def test_starts_with_both_empty() -> None:
     """
     Test case 5: Test the starts_with function with both the string and the prefix being empty.
     """
-    assert starts_with(
-        "", "") == True, "Failed on both string and prefix being empty"
+    assert starts_with("", "") == True, "Failed on both string and prefix being empty"
 
 
 def test_starts_with_special_characters() -> None:
     """
     Test case 6: Test the starts_with function with special characters.
     """
-    assert starts_with(
-        "!@#hello", "!@#") == True, "Failed on special characters"
+    assert starts_with("!@#hello", "!@#") == True, "Failed on special characters"
 
 
 def test_starts_with_numbers() -> None:
@@ -59,16 +55,14 @@ def test_starts_with_mixed_case_true() -> None:
     """
     Test case 8: Test the starts_with function with mixed case where the string starts with the prefix.
     """
-    assert starts_with(
-        "HelloWorld", "Hello") == True, "Failed on mixed case true"
+    assert starts_with("HelloWorld", "Hello") == True, "Failed on mixed case true"
 
 
 def test_starts_with_mixed_case_false() -> None:
     """
     Test case 9: Test the starts_with function with mixed case where the string does not start with the prefix.
     """
-    assert starts_with(
-        "HelloWorld", "hello") == False, "Failed on mixed case false"
+    assert starts_with("HelloWorld", "hello") == False, "Failed on mixed case false"
 
 
 def test_starts_with_non_english_characters() -> None:
@@ -84,8 +78,7 @@ def test_starts_with_whitespace_characters() -> None:
     """
     Test case 11: Test the starts_with function with whitespace characters.
     """
-    assert starts_with(
-        "   hello", "   ") == True, "Failed on whitespace characters"
+    assert starts_with("   hello", "   ") == True, "Failed on whitespace characters"
 
 
 def test_starts_with_newline_characters() -> None:

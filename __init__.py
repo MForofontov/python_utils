@@ -51,6 +51,6 @@ except ImportError:
     from .ssh_functions import *
 
 # Version information
-__version__ = '1.0.0'
-__author__ = 'Python Utils Contributors'
-__license__ = 'MIT'
+__version__ = "1.0.0"
+__author__ = "Python Utils Contributors"
+__license__ = "MIT"

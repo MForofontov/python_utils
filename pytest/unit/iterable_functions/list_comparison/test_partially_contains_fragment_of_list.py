@@ -88,8 +88,7 @@ def test_partially_contains_fragment_of_list_type_error_target_list() -> None:
     Test case 7: Test the partially_contains_fragment_of_list function with invalid type for target_list.
     """
     with pytest.raises(TypeError):
-        partially_contains_fragment_of_list(
-            "not a list", [["a", "b", "c"], ["d", "e"]])
+        partially_contains_fragment_of_list("not a list", [["a", "b", "c"], ["d", "e"]])
 
 
 def test_partially_contains_fragment_of_list_type_error_list_of_lists() -> None:
@@ -105,5 +104,4 @@ def test_partially_contains_fragment_of_list_type_error_elements() -> None:
     Test case 9: Test the partially_contains_fragment_of_list function with invalid elements in list_of_lists.
     """
     with pytest.raises(TypeError):
-        partially_contains_fragment_of_list(
-            ["a", "b"], [["a", "b", "c"], "not a list"])
+        partially_contains_fragment_of_list(["a", "b"], [["a", "b", "c"], "not a list"])

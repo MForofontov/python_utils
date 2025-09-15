@@ -60,7 +60,9 @@ def chunk_by_size(items: list[T], chunk_size: int) -> list[list[T]]:
         raise TypeError(f"items must be a list, got {type(items).__name__}")
 
     if not isinstance(chunk_size, int):
-        raise TypeError(f"chunk_size must be an integer, got {type(chunk_size).__name__}")
+        raise TypeError(
+            f"chunk_size must be an integer, got {type(chunk_size).__name__}"
+        )
 
     if chunk_size <= 0:
         raise ValueError(f"chunk_size must be positive, got {chunk_size}")
@@ -72,9 +74,9 @@ def chunk_by_size(items: list[T], chunk_size: int) -> list[list[T]]:
     # Create chunks
     chunks = []
     for i in range(0, len(items), chunk_size):
-        chunks.append(items[i:i + chunk_size])
+        chunks.append(items[i : i + chunk_size])
 
     return chunks
 
 
-__all__ = ['chunk_by_size']
+__all__ = ["chunk_by_size"]

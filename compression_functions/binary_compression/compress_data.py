@@ -56,4 +56,4 @@ def compress_data(data: bytes, algorithm: str = "gzip", level: int = 3) -> bytes
         raise ValueError(f"Unsupported algorithm: {algorithm}")
 
 
-__all__ = ['compress_data']
+__all__ = ["compress_data"]

@@ -48,7 +48,7 @@ def test_modify_months_day_overflow() -> None:
     result: date = modify_months(test_date, 1)
     assert isinstance(result, date)
     assert result == date(2023, 2, 28)  # Feb 31 doesn't exist
-    
+
     """
     Test case 6: Test modify_months function with day overflow handling.
     """
@@ -94,11 +94,11 @@ def test_modify_months_invalid_input_type() -> None:
     Test case 10: Test modify_months function with invalid input type raises TypeError.
     """
     with pytest.raises(TypeError):
-        modify_months('2023-01-15', 3)
-    
+        modify_months("2023-01-15", 3)
+
     with pytest.raises(TypeError):
         modify_months(123, 3)
-    
+
     with pytest.raises(TypeError):
         modify_months(None, 3)
 
@@ -108,12 +108,12 @@ def test_modify_months_invalid_months_type() -> None:
     Test case 11: Test modify_months function with invalid months type raises TypeError.
     """
     test_date: date = date(2023, 1, 15)
-    
+
     with pytest.raises(TypeError):
-        modify_months(test_date, '3')
-    
+        modify_months(test_date, "3")
+
     with pytest.raises(TypeError):
         modify_months(test_date, 3.5)
-    
+
     with pytest.raises(TypeError):
         modify_months(test_date, None)

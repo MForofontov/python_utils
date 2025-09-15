@@ -87,7 +87,9 @@ def get_set_partitions(input_set: set[T], k: int) -> list[list[set[T]]]:
         # Try putting first element in each possible subset
         for i in range(num_parts):
             # Get partitions of the rest
-            sub_partitions = generate_partitions(rest, num_parts if i == num_parts - 1 else num_parts - 1)
+            sub_partitions = generate_partitions(
+                rest, num_parts if i == num_parts - 1 else num_parts - 1
+            )
 
             for partition in sub_partitions:
                 # Insert first element into the i-th subset
@@ -122,4 +124,4 @@ def get_set_partitions(input_set: set[T], k: int) -> list[list[set[T]]]:
     return unique_partitions
 
 
-__all__ = ['get_set_partitions']
+__all__ = ["get_set_partitions"]

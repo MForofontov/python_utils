@@ -27,4 +27,4 @@ def write_lines(
     write_to_file(joined_lines, output_file, write_mode, "\n")
 
 
-__all__ = ['write_lines']
+__all__ = ["write_lines"]

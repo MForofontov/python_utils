@@ -38,18 +38,18 @@ def list_directories(directory_path: str, include_hidden: bool = False) -> list[
     """
     if not isinstance(directory_path, str):
         raise TypeError("directory_path must be a string")
-    
+
     if not os.path.exists(directory_path):
         raise FileNotFoundError(f"Directory does not exist: {directory_path}")
-    
+
     if not os.path.isdir(directory_path):
         raise NotADirectoryError(f"Path is not a directory: {directory_path}")
-    
+
     directories = []
     for item in os.listdir(directory_path):
         item_path = os.path.join(directory_path, item)
         if os.path.isdir(item_path):
-            if include_hidden or not item.startswith('.'):
+            if include_hidden or not item.startswith("."):
                 directories.append(item)
-    
+
     return sorted(directories)

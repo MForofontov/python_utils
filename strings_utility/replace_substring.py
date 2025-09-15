@@ -45,4 +45,4 @@ def replace_substring(s: str, old: str, new: str) -> str:
     return s.replace(old, new)
 
 
-__all__ = ['replace_substring']
+__all__ = ["replace_substring"]

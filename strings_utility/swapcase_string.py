@@ -33,4 +33,4 @@ def swapcase_string(s: str) -> str:
     return s.swapcase()
 
 
-__all__ = ['swapcase_string']
+__all__ = ["swapcase_string"]

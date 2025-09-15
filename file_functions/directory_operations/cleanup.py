@@ -23,9 +23,7 @@ def cleanup(directory: str, exclude: list[str]) -> None:
     -------
     None
     """
-    normalized_exclude = {
-        os.path.basename(os.path.normpath(path)) for path in exclude
-    }
+    normalized_exclude = {os.path.basename(os.path.normpath(path)) for path in exclude}
 
     for item in os.listdir(directory):
         if item not in normalized_exclude:
@@ -36,4 +34,4 @@ def cleanup(directory: str, exclude: list[str]) -> None:
                 shutil.rmtree(item_path)
 
 
-__all__ = ['cleanup']
+__all__ = ["cleanup"]

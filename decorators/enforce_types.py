@@ -4,6 +4,7 @@ from typing import Any, get_type_hints, get_origin, get_args, ParamSpec, TypeVar
 import inspect
 from collections.abc import Callable
 from logger_functions.logger import validate_logger
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -143,4 +144,4 @@ def enforce_types(
     return decorator
 
 
-__all__ = ['enforce_types']
+__all__ = ["enforce_types"]

@@ -66,18 +66,24 @@ def generate_secure_token(
     if not isinstance(length, int):
         raise TypeError(f"length must be an integer, got {type(length).__name__}")
     if not isinstance(include_letters, bool):
-        raise TypeError(f"include_letters must be a boolean, got {type(include_letters).__name__}")
+        raise TypeError(
+            f"include_letters must be a boolean, got {type(include_letters).__name__}"
+        )
     if not isinstance(include_digits, bool):
-        raise TypeError(f"include_digits must be a boolean, got {type(include_digits).__name__}")
+        raise TypeError(
+            f"include_digits must be a boolean, got {type(include_digits).__name__}"
+        )
     if not isinstance(include_symbols, bool):
-        raise TypeError(f"include_symbols must be a boolean, got {type(include_symbols).__name__}")
-    
+        raise TypeError(
+            f"include_symbols must be a boolean, got {type(include_symbols).__name__}"
+        )
+
     # Value validation
     if length < 1:
         raise ValueError(f"length must be at least 1, got {length}")
     if not (include_letters or include_digits or include_symbols):
         raise ValueError("at least one character type must be included")
-    
+
     # Build character set
     charset = ""
     if include_letters:
@@ -86,9 +92,9 @@ def generate_secure_token(
         charset += string.digits
     if include_symbols:
         charset += "!@#$%^&*-_=+[]{}|;:,.<>?"
-    
+
     # Generate token
-    return ''.join(secrets.choice(charset) for _ in range(length))
+    return "".join(secrets.choice(charset) for _ in range(length))
 
 
-__all__ = ['generate_secure_token']
+__all__ = ["generate_secure_token"]

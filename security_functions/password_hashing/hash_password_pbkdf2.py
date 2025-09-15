@@ -68,27 +68,26 @@ def hash_password_pbkdf2(
     if salt is not None and not isinstance(salt, bytes):
         raise TypeError(f"salt must be bytes or None, got {type(salt).__name__}")
     if not isinstance(iterations, int):
-        raise TypeError(f"iterations must be an integer, got {type(iterations).__name__}")
-    
+        raise TypeError(
+            f"iterations must be an integer, got {type(iterations).__name__}"
+        )
+
     # Value validation
     if len(password) == 0:
         raise ValueError("password cannot be empty")
     if iterations < 1000:
-        raise ValueError(f"iterations must be at least 1000 for security, got {iterations}")
-    
+        raise ValueError(
+            f"iterations must be at least 1000 for security, got {iterations}"
+        )
+
     # Generate salt if not provided
     if salt is None:
         salt = secrets.token_bytes(32)
-    
+
     # Hash password using PBKDF2
-    hashed = hashlib.pbkdf2_hmac(
-        'sha256',
-        password.encode('utf-8'),
-        salt,
-        iterations
-    )
-    
+    hashed = hashlib.pbkdf2_hmac("sha256", password.encode("utf-8"), salt, iterations)
+
     return hashed.hex(), salt
 
 
-__all__ = ['hash_password_pbkdf2']
+__all__ = ["hash_password_pbkdf2"]

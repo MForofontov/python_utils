@@ -52,34 +52,38 @@ def calculate_md5_hash(
     """
     # Input validation
     if not isinstance(file_path, (str, Path)):
-        raise TypeError(f"file_path must be a string or Path, got {type(file_path).__name__}")
+        raise TypeError(
+            f"file_path must be a string or Path, got {type(file_path).__name__}"
+        )
     if not isinstance(chunk_size, int):
-        raise TypeError(f"chunk_size must be an integer, got {type(chunk_size).__name__}")
-    
+        raise TypeError(
+            f"chunk_size must be an integer, got {type(chunk_size).__name__}"
+        )
+
     # Convert to Path object
     path = Path(file_path)
-    
+
     # Validate file exists and is a file
     if not path.exists():
         raise ValueError(f"File does not exist: {file_path}")
     if not path.is_file():
         raise ValueError(f"Path is not a file: {file_path}")
-    
+
     # Validate chunk_size
     if chunk_size <= 0:
         raise ValueError(f"chunk_size must be positive, got {chunk_size}")
-    
+
     # Calculate MD5 hash
     md5_hash = hashlib.md5()
-    
+
     try:
-        with open(path, 'rb') as file:
+        with open(path, "rb") as file:
             while chunk := file.read(chunk_size):
                 md5_hash.update(chunk)
     except OSError as e:
         raise OSError(f"Error reading file {file_path}: {e}") from e
-    
+
     return md5_hash.hexdigest()
 
 
-__all__ = ['calculate_md5_hash']
+__all__ = ["calculate_md5_hash"]

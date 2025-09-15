@@ -11,13 +11,13 @@ from .extract_domain import extract_domain
 from .get_query_params import get_query_params
 
 __all__ = [
-    'http_get',
-    'http_post', 
-    'download_file',
-    'upload_file',
-    'parse_url',
-    'is_valid_url',
-    'build_url',
-    'extract_domain',
-    'get_query_params'
+    "http_get",
+    "http_post",
+    "download_file",
+    "upload_file",
+    "parse_url",
+    "is_valid_url",
+    "build_url",
+    "extract_domain",
+    "get_query_params",
 ]

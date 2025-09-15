@@ -52,4 +52,4 @@ def replace_by_regex(string: str, pattern: str, replacement: str) -> str:
     return re.sub(r"\s+", " ", result)
 
 
-__all__ = ['replace_by_regex']
+__all__ = ["replace_by_regex"]

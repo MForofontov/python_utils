@@ -4,18 +4,20 @@ from datetime import datetime, date
 from calendar import monthrange
 
 
-def get_days_in_month(date_obj: datetime | date | None = None, year: int = None, month: int = None) -> int:
+def get_days_in_month(
+    date_obj: datetime | date | None = None, year: int = None, month: int = None
+) -> int:
     """
     Get the number of days in a month.
-    
+
     Args:
         date_obj: Date object to get month from (optional if year/month provided)
         year: Year (optional if date_obj provided)
         month: Month (optional if date_obj provided)
-        
+
     Returns:
         Number of days in the month
-        
+
     Raises:
         TypeError: If invalid input types
         ValueError: If neither date_obj nor year/month are provided, or if values are invalid
@@ -32,5 +34,5 @@ def get_days_in_month(date_obj: datetime | date | None = None, year: int = None,
             raise ValueError("month must be between 1 and 12")
     else:
         raise ValueError("Either date_obj or both year and month must be provided")
-    
+
     return monthrange(year, month)[1]

@@ -48,8 +48,7 @@ def merge_folders(folder1: str, folder2: str, output_folder: str) -> None:
             for file in files:
                 src_file_path: str = os.path.join(root, file)
                 relative_path: str = os.path.relpath(src_file_path, src_folder)
-                dest_file_path: str = os.path.join(
-                    output_folder, relative_path)
+                dest_file_path: str = os.path.join(output_folder, relative_path)
 
                 os.makedirs(os.path.dirname(dest_file_path), exist_ok=True)
 
@@ -66,4 +65,4 @@ def merge_folders(folder1: str, folder2: str, output_folder: str) -> None:
     copy_files(folder2)
 
 
-__all__ = ['merge_folders']
+__all__ = ["merge_folders"]

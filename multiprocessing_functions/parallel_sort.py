@@ -54,7 +54,7 @@ def parallel_sort(
     with Pool(processes=num_processes) as pool:
         # Split the data into chunks
         data_chunks = [
-            data[i: i + chunk_size] for i in range(0, len(data), chunk_size)
+            data[i : i + chunk_size] for i in range(0, len(data), chunk_size)
         ]
         # Sort each chunk in parallel
         sorted_chunks = pool.map(sorted, data_chunks)
@@ -75,4 +75,4 @@ def parallel_sort(
     return sorted_chunks[0] if sorted_chunks else []
 
 
-__all__ = ['parallel_sort']
+__all__ = ["parallel_sort"]

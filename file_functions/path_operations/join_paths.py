@@ -30,4 +30,4 @@ def join_paths(parent_path: str, child_paths: list[str]) -> str:
     return joined_paths
 
 
-__all__ = ['join_paths']
+__all__ = ["join_paths"]

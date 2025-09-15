@@ -91,4 +91,4 @@ def partition_set_into_n_parts(input_set: set[T], n: int) -> list[set[T]]:
     return partitions
 
 
-__all__ = ['partition_set_into_n_parts']
+__all__ = ["partition_set_into_n_parts"]

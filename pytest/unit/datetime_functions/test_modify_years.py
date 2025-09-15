@@ -82,7 +82,7 @@ def test_modify_years_leap_to_leap() -> None:
     test_date: date = date(2020, 2, 29)
     result_add: date = modify_years(test_date, 4)
     assert result_add == date(2024, 2, 29)  # 2024 is also leap year
-    
+
     test_date2: date = date(2024, 2, 29)
     result_subtract: date = modify_years(test_date2, -4)
     assert result_subtract == date(2020, 2, 29)  # 2020 is also leap year
@@ -93,11 +93,11 @@ def test_modify_years_invalid_input_type() -> None:
     Test case 9: Test modify_years function with invalid input type raises TypeError.
     """
     with pytest.raises(TypeError):
-        modify_years('2023-01-15', 2)
-    
+        modify_years("2023-01-15", 2)
+
     with pytest.raises(TypeError):
         modify_years(123, 2)
-    
+
     with pytest.raises(TypeError):
         modify_years(None, 2)
 
@@ -107,12 +107,12 @@ def test_modify_years_invalid_years_type() -> None:
     Test case 10: Test modify_years function with invalid years type raises TypeError.
     """
     test_date: date = date(2023, 1, 15)
-    
+
     with pytest.raises(TypeError):
-        modify_years(test_date, '2')
-    
+        modify_years(test_date, "2")
+
     with pytest.raises(TypeError):
         modify_years(test_date, 2.5)
-    
+
     with pytest.raises(TypeError):
         modify_years(test_date, None)

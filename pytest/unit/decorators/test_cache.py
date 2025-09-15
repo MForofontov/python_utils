@@ -137,10 +137,10 @@ def test_cache_clear():
 
 
 def test_cache_with_unhashable_args():
-
     """
     Test case 11: Function with unhashable arguments.
     """
+
     @cache
     def example_function_unhashable(a):
         return sum(a)
@@ -152,10 +152,10 @@ def test_cache_with_unhashable_args():
 
 
 def test_cache_with_exception():
-
     """
     Test case 12: Function that raises an exception.
     """
+
     @cache
     def example_function_exception(a, b):
         raise ValueError("An error occurred")

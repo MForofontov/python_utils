@@ -20,4 +20,4 @@ def concat_files(source_file: str, destination_file: str) -> None:
         shutil.copyfileobj(infile, outfile)
 
 
-__all__ = ['concat_files']
+__all__ = ["concat_files"]

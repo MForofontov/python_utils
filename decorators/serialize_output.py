@@ -4,6 +4,7 @@ from functools import wraps
 import json
 import logging
 from logger_functions.logger import validate_logger
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -52,8 +53,7 @@ def serialize_output(
                 "Value error in serialize_output decorator: Unsupported format.",
                 exc_info=True,
             )
-        raise ValueError(
-            "Unsupported format. Currently, only 'json' is supported.")
+        raise ValueError("Unsupported format. Currently, only 'json' is supported.")
 
     def decorator(func: Callable[P, R]) -> Callable[P, str]:
         """
@@ -103,4 +103,4 @@ def serialize_output(
     return decorator
 
 
-__all__ = ['serialize_output']
+__all__ = ["serialize_output"]

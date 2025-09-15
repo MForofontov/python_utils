@@ -4,6 +4,7 @@ from functools import wraps
 import time
 import logging
 from logger_functions.logger import validate_logger
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -94,4 +95,4 @@ def throttle(
     return decorator
 
 
-__all__ = ['throttle']
+__all__ = ["throttle"]

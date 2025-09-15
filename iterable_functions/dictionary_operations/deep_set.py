@@ -65,7 +65,7 @@ def deep_set(d: dict[str, Any], keys: str | list[str], value: Any) -> None:
         raise TypeError("d must be a dictionary")
 
     if isinstance(keys, str):
-        keys = keys.split('.')
+        keys = keys.split(".")
 
     current = d
     for key in keys[:-1]:
@@ -76,4 +76,4 @@ def deep_set(d: dict[str, Any], keys: str | list[str], value: Any) -> None:
     current[keys[-1]] = value
 
 
-__all__ = ['deep_set']
+__all__ = ["deep_set"]

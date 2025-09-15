@@ -37,4 +37,4 @@ def strip_chars(s: str, chars: str) -> str:
     return s.strip(chars)
 
 
-__all__ = ['strip_chars']
+__all__ = ["strip_chars"]

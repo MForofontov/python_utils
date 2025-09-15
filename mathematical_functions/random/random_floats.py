@@ -3,7 +3,9 @@
 import random
 
 
-def random_floats(count: int, min_value: float = 0.0, max_value: float = 1.0) -> list[float]:
+def random_floats(
+    count: int, min_value: float = 0.0, max_value: float = 1.0
+) -> list[float]:
     """
     Generate a list of random floating-point numbers within a specified range.
 
@@ -39,20 +41,20 @@ def random_floats(count: int, min_value: float = 0.0, max_value: float = 1.0) ->
     """
     if not isinstance(count, int):
         raise TypeError("count must be an integer")
-    
+
     if not isinstance(min_value, (int, float)):
         raise TypeError("min_value must be numeric (int or float)")
-    
+
     if not isinstance(max_value, (int, float)):
         raise TypeError("max_value must be numeric (int or float)")
-    
+
     if count < 0:
         raise ValueError("count must be non-negative")
-    
+
     if min_value >= max_value:
         raise ValueError("min_value must be less than max_value")
-    
+
     return [random.uniform(min_value, max_value) for _ in range(count)]
 
 
-__all__ = ['random_floats']
+__all__ = ["random_floats"]

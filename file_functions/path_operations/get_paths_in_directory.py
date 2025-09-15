@@ -47,9 +47,7 @@ def get_paths_in_directory(directory: str, type_: str) -> list[str]:
     try:
         all_items: list[str] = os.listdir(directory)
     except OSError as exc:
-        raise type(exc)(
-            f"Unable to access directory '{directory}': {exc}"
-        ) from exc
+        raise type(exc)(f"Unable to access directory '{directory}': {exc}") from exc
     file_paths: list[str] = [
         os.path.join(directory, item)
         for item in all_items
@@ -59,4 +57,4 @@ def get_paths_in_directory(directory: str, type_: str) -> list[str]:
     return file_paths
 
 
-__all__ = ['get_paths_in_directory']
+__all__ = ["get_paths_in_directory"]

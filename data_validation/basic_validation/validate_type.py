@@ -94,4 +94,4 @@ def validate_type(
         raise TypeError(f"{param_name} must be {expected_name}, got {actual_type}")
 
 
-__all__ = ['validate_type']
+__all__ = ["validate_type"]

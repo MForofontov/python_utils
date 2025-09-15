@@ -35,4 +35,4 @@ def read_lines(
     return lines
 
 
-__all__ = ['read_lines']
+__all__ = ["read_lines"]

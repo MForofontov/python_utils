@@ -42,4 +42,4 @@ def zfill_string(s: str, width: int) -> str:
     return s.zfill(width)
 
 
-__all__ = ['zfill_string']
+__all__ = ["zfill_string"]

@@ -74,15 +74,15 @@ def test_days_between_invalid_input_type() -> None:
     Test case 7: Test days_between function with invalid input type raises TypeError.
     """
     test_date: date = date(2023, 1, 15)
-    
+
     with pytest.raises(TypeError):
-        days_between('2023-01-15', test_date)
-    
+        days_between("2023-01-15", test_date)
+
     with pytest.raises(TypeError):
-        days_between(test_date, '2023-01-20')
-    
+        days_between(test_date, "2023-01-20")
+
     with pytest.raises(TypeError):
         days_between(123, test_date)
-    
+
     with pytest.raises(TypeError):
         days_between(test_date, None)

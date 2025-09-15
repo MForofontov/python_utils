@@ -27,14 +27,14 @@ from .schema_validation import (
 
 __all__ = [
     # Basic validation functions
-    'validate_type',
-    'validate_range',
-    'validate_collection',
-    'validate_string',
-    'validate_email',
+    "validate_type",
+    "validate_range",
+    "validate_collection",
+    "validate_string",
+    "validate_email",
     # Schema validation functions
-    'validate_pydantic_schema',
-    'validate_cerberus_schema',
+    "validate_pydantic_schema",
+    "validate_cerberus_schema",
 ]
 
-__version__ = '1.0.0'
+__version__ = "1.0.0"

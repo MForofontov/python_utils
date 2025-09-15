@@ -5,6 +5,7 @@ from functools import wraps, partial
 from logger_functions.logger import validate_logger
 from typing import ParamSpec, TypeVar
 from collections.abc import Callable, Awaitable
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -98,4 +99,4 @@ def async_wrapper(
     return decorator  # Return the decorator instead of the wrapper itself
 
 
-__all__ = ['async_wrapper']
+__all__ = ["async_wrapper"]

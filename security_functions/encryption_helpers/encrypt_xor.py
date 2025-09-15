@@ -63,35 +63,39 @@ def encrypt_xor(
         raise TypeError(f"data must be a string, got {type(data).__name__}")
     if key is not None and not isinstance(key, str):
         raise TypeError(f"key must be a string or None, got {type(key).__name__}")
-    
+
     # Value validation
     if len(data) == 0:
         raise ValueError("data cannot be empty")
     if key is not None and len(key) == 0:
         raise ValueError("key cannot be empty")
-    
+
     # Generate random key if not provided
     if key is None:
         key_length = max(8, len(data) // 4)  # Key length based on data size
-        key = ''.join(secrets.choice('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') 
-                     for _ in range(key_length))
-    
+        key = "".join(
+            secrets.choice(
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+            )
+            for _ in range(key_length)
+        )
+
     # Convert data and key to bytes
-    data_bytes = data.encode('utf-8')
-    key_bytes = key.encode('utf-8')
-    
+    data_bytes = data.encode("utf-8")
+    key_bytes = key.encode("utf-8")
+
     # Perform XOR encryption
     encrypted_bytes = bytearray()
     key_len = len(key_bytes)
-    
+
     for i, byte in enumerate(data_bytes):
         encrypted_byte = byte ^ key_bytes[i % key_len]
         encrypted_bytes.append(encrypted_byte)
-    
+
     # Convert to hex string
     encrypted_hex = encrypted_bytes.hex()
-    
+
     return encrypted_hex, key
 
 
-__all__ = ['encrypt_xor']
+__all__ = ["encrypt_xor"]

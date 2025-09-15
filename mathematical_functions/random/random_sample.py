@@ -4,7 +4,9 @@ import random
 from typing import Any
 
 
-def random_sample(population: list[Any], count: int, replace: bool = False) -> list[Any]:
+def random_sample(
+    population: list[Any], count: int, replace: bool = False
+) -> list[Any]:
     """
     Generate random samples from a population list.
 
@@ -15,7 +17,7 @@ def random_sample(population: list[Any], count: int, replace: bool = False) -> l
     count : int
         Number of samples to generate.
     replace : bool, optional
-        If True, sampling is done with replacement (same element can be chosen 
+        If True, sampling is done with replacement (same element can be chosen
         multiple times). If False (default), sampling is without replacement.
 
     Returns
@@ -28,7 +30,7 @@ def random_sample(population: list[Any], count: int, replace: bool = False) -> l
     TypeError
         If population is not a list, count is not an integer, or replace is not boolean.
     ValueError
-        If count is negative, population is empty, or count exceeds population 
+        If count is negative, population is empty, or count exceeds population
         size when replace=False.
 
     Examples
@@ -43,26 +45,26 @@ def random_sample(population: list[Any], count: int, replace: bool = False) -> l
     """
     if not isinstance(population, list):
         raise TypeError("population must be a list")
-    
+
     if not isinstance(count, int):
         raise TypeError("count must be an integer")
-    
+
     if not isinstance(replace, bool):
         raise TypeError("replace must be a boolean")
-    
+
     if count < 0:
         raise ValueError("count must be non-negative")
-    
+
     if len(population) == 0:
         raise ValueError("population cannot be empty")
-    
+
     if not replace and count > len(population):
         raise ValueError("count cannot exceed population size when replace=False")
-    
+
     if replace:
         return [random.choice(population) for _ in range(count)]
     else:
         return random.sample(population, count)
 
 
-__all__ = ['random_sample']
+__all__ = ["random_sample"]

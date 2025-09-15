@@ -3,6 +3,7 @@ from collections import Counter
 
 T = TypeVar("T")
 
+
 def check_if_all_elements_are_duplicates(input_list: list[T]) -> bool:
     """
     Check if all elements in the list are duplicates.
@@ -32,9 +33,8 @@ def check_if_all_elements_are_duplicates(input_list: list[T]) -> bool:
     )
 
     return (
-        all(count > 1 for count in element_counts.values()
-            ) if element_counts else False
+        all(count > 1 for count in element_counts.values()) if element_counts else False
     )
 
 
-__all__ = ['check_if_all_elements_are_duplicates']
+__all__ = ["check_if_all_elements_are_duplicates"]

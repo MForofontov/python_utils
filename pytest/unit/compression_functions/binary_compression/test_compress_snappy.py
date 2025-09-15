@@ -115,7 +115,8 @@ def test_compress_snappy_compression_error() -> None:
         # Mock snappy.compress to raise an exception
         original_compress = snappy.compress
         snappy.compress = lambda x: (_ for _ in ()).throw(
-            Exception("Mock error"))  # type: ignore
+            Exception("Mock error")
+        )  # type: ignore
         try:
             compress_snappy(b"data")
         finally:

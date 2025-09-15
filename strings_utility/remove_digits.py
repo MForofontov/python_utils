@@ -33,4 +33,4 @@ def remove_digits(s: str) -> str:
     return "".join(char for char in s if not char.isdigit())
 
 
-__all__ = ['remove_digits']
+__all__ = ["remove_digits"]

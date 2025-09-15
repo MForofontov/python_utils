@@ -74,8 +74,7 @@ def test_contains_sublist_mixed_types() -> None:
     Test case 8: Test the contains_sublist function with lists of mixed types.
     """
     main_list: list[Any] = [1, "banana", 3.14]
-    list_of_lists: list[list[Any]] = [
-        [1, "banana", 3.14], ["apple", 1, "grape"]]
+    list_of_lists: list[list[Any]] = [[1, "banana", 3.14], ["apple", 1, "grape"]]
     assert contains_sublist(main_list, list_of_lists) == True
 
 

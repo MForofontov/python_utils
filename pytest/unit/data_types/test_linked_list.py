@@ -86,10 +86,10 @@ def test_size() -> None:
 
 
 def test_custom_object_nodes() -> None:
-
     """
     Test case 7: Test the linked list with custom object nodes.
     """
+
     class CustomObject:
         def __init__(self, value: int) -> None:
             self.value = value

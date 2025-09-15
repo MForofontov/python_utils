@@ -60,4 +60,5 @@ async def async_retry_with_backoff(
             delay *= backoff_factor
     raise RuntimeError("Retry loop exhausted without executing function")
 
-__all__ = ['async_retry_with_backoff']
+
+__all__ = ["async_retry_with_backoff"]

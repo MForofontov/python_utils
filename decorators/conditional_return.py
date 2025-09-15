@@ -1,6 +1,7 @@
 from typing import TypeVar, ParamSpec
 from collections.abc import Callable
 from functools import wraps
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -82,4 +83,4 @@ def conditional_return(
     return decorator
 
 
-__all__ = ['conditional_return']
+__all__ = ["conditional_return"]

@@ -55,7 +55,9 @@ def get_unique_elements_across_sets(*sets: set[T]) -> list[T]:
 
     for i, s in enumerate(sets):
         if not isinstance(s, set):
-            raise TypeError(f"All arguments must be sets, got {type(s).__name__} at position {i}")
+            raise TypeError(
+                f"All arguments must be sets, got {type(s).__name__} at position {i}"
+            )
 
     # Calculate symmetric difference and convert to list
     symmetric_diff = set_symmetric_difference(*sets)
@@ -118,7 +120,9 @@ def set_symmetric_difference(*sets: set[T]) -> set[T]:
 
     for i, s in enumerate(sets):
         if not isinstance(s, set):
-            raise TypeError(f"All arguments must be sets, got {type(s).__name__} at position {i}")
+            raise TypeError(
+                f"All arguments must be sets, got {type(s).__name__} at position {i}"
+            )
 
     # Calculate symmetric difference
     if len(sets) == 2:
@@ -133,4 +137,4 @@ def set_symmetric_difference(*sets: set[T]) -> set[T]:
     return result
 
 
-__all__ = ['get_unique_elements_across_sets']
+__all__ = ["get_unique_elements_across_sets"]

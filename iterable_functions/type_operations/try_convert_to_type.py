@@ -36,4 +36,4 @@ def try_convert_to_type(value: Any, target_type: type[T]) -> T:
         raise ValueError(f"Failed to convert {value} to {target_type}") from e
 
 
-__all__ = ['try_convert_to_type']
+__all__ = ["try_convert_to_type"]

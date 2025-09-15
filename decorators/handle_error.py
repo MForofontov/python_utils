@@ -3,6 +3,7 @@ from collections.abc import Callable
 from functools import wraps
 import logging
 from logger_functions.logger import validate_logger
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -79,4 +80,4 @@ def handle_error(
     return decorator
 
 
-__all__ = ['handle_error']
+__all__ = ["handle_error"]

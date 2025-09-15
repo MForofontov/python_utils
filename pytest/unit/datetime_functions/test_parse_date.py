@@ -7,7 +7,7 @@ def test_parse_date_with_default_formats() -> None:
     """
     Test case 1: Test parse_date function with default date formats.
     """
-    result: date = parse_date('2023-01-15')
+    result: date = parse_date("2023-01-15")
     assert isinstance(result, date)
     assert result.year == 2023
     assert result.month == 1
@@ -18,7 +18,7 @@ def test_parse_date_with_datetime_formats() -> None:
     """
     Test case 2: Test parse_date function with datetime formats returns datetime objects.
     """
-    result: datetime = parse_date('2023-01-15 14:30:00')
+    result: datetime = parse_date("2023-01-15 14:30:00")
     assert isinstance(result, datetime)
     assert result.year == 2023
     assert result.month == 1
@@ -31,8 +31,8 @@ def test_parse_date_with_custom_formats() -> None:
     """
     Test case 3: Test parse_date function with custom format list.
     """
-    custom_formats: list[str] = ['%d.%m.%Y']
-    result: date = parse_date('15.01.2023', formats=custom_formats)
+    custom_formats: list[str] = ["%d.%m.%Y"]
+    result: date = parse_date("15.01.2023", formats=custom_formats)
     assert isinstance(result, date)
     assert result.year == 2023
     assert result.month == 1
@@ -45,12 +45,12 @@ def test_parse_date_invalid_input_type() -> None:
     """
     with pytest.raises(TypeError):
         parse_date(123)
-    
+
     with pytest.raises(TypeError):
         parse_date(None)
-    
+
     with pytest.raises(TypeError):
-        parse_date(['2023-01-15'])
+        parse_date(["2023-01-15"])
 
 
 def test_parse_date_empty_string() -> None:
@@ -58,10 +58,10 @@ def test_parse_date_empty_string() -> None:
     Test case 5: Test parse_date function with empty string raises ValueError.
     """
     with pytest.raises(ValueError):
-        parse_date('')
-    
+        parse_date("")
+
     with pytest.raises(ValueError):
-        parse_date('   ')
+        parse_date("   ")
 
 
 def test_parse_date_unparseable_string() -> None:
@@ -69,7 +69,7 @@ def test_parse_date_unparseable_string() -> None:
     Test case 6: Test parse_date function with unparseable string raises ValueError.
     """
     with pytest.raises(ValueError):
-        parse_date('not a date')
-    
+        parse_date("not a date")
+
     with pytest.raises(ValueError):
-        parse_date('2023-13-01')  # Invalid month
+        parse_date("2023-13-01")  # Invalid month

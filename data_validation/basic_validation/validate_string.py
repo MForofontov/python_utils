@@ -112,36 +112,50 @@ def validate_string(
 
     if min_length is not None:
         if not isinstance(min_length, int):
-            raise TypeError(f"min_length must be int or None, got {type(min_length).__name__}")
+            raise TypeError(
+                f"min_length must be int or None, got {type(min_length).__name__}"
+            )
         if min_length < 0:
             raise ValueError(f"min_length must be non-negative, got {min_length}")
 
     if max_length is not None:
         if not isinstance(max_length, int):
-            raise TypeError(f"max_length must be int or None, got {type(max_length).__name__}")
+            raise TypeError(
+                f"max_length must be int or None, got {type(max_length).__name__}"
+            )
         if max_length < 0:
             raise ValueError(f"max_length must be non-negative, got {max_length}")
 
     if min_length is not None and max_length is not None and min_length > max_length:
-        raise ValueError(f"min_length ({min_length}) cannot be greater than max_length ({max_length})")
+        raise ValueError(
+            f"min_length ({min_length}) cannot be greater than max_length ({max_length})"
+        )
 
     if not isinstance(allow_empty, bool):
         raise TypeError(f"allow_empty must be bool, got {type(allow_empty).__name__}")
 
     if not isinstance(strip_whitespace, bool):
-        raise TypeError(f"strip_whitespace must be bool, got {type(strip_whitespace).__name__}")
+        raise TypeError(
+            f"strip_whitespace must be bool, got {type(strip_whitespace).__name__}"
+        )
 
     if not isinstance(case_sensitive, bool):
-        raise TypeError(f"case_sensitive must be bool, got {type(case_sensitive).__name__}")
+        raise TypeError(
+            f"case_sensitive must be bool, got {type(case_sensitive).__name__}"
+        )
 
     if not isinstance(param_name, str):
         raise TypeError(f"param_name must be str, got {type(param_name).__name__}")
 
     if allowed_chars is not None and not isinstance(allowed_chars, str):
-        raise TypeError(f"allowed_chars must be str or None, got {type(allowed_chars).__name__}")
+        raise TypeError(
+            f"allowed_chars must be str or None, got {type(allowed_chars).__name__}"
+        )
 
     if forbidden_chars is not None and not isinstance(forbidden_chars, str):
-        raise TypeError(f"forbidden_chars must be str or None, got {type(forbidden_chars).__name__}")
+        raise TypeError(
+            f"forbidden_chars must be str or None, got {type(forbidden_chars).__name__}"
+        )
 
     # Strip whitespace if requested
     validated_value = value.strip() if strip_whitespace else value
@@ -154,10 +168,14 @@ def validate_string(
     length = len(validated_value)
 
     if min_length is not None and length < min_length:
-        raise ValueError(f"{param_name} length ({length}) is below minimum allowed length ({min_length})")
+        raise ValueError(
+            f"{param_name} length ({length}) is below minimum allowed length ({min_length})"
+        )
 
     if max_length is not None and length > max_length:
-        raise ValueError(f"{param_name} length ({length}) exceeds maximum allowed length ({max_length})")
+        raise ValueError(
+            f"{param_name} length ({length}) exceeds maximum allowed length ({max_length})"
+        )
 
     # Validate pattern if provided
     if pattern is not None:
@@ -168,11 +186,15 @@ def validate_string(
         elif isinstance(pattern, Pattern):
             compiled_pattern = pattern
         else:
-            raise TypeError(f"pattern must be str or Pattern, got {type(pattern).__name__}")
+            raise TypeError(
+                f"pattern must be str or Pattern, got {type(pattern).__name__}"
+            )
 
         if not compiled_pattern.fullmatch(validated_value):
             pattern_str = pattern if isinstance(pattern, str) else pattern.pattern
-            raise ValueError(f"{param_name} does not match required pattern: {pattern_str}")
+            raise ValueError(
+                f"{param_name} does not match required pattern: {pattern_str}"
+            )
 
     # Validate allowed characters
     if allowed_chars is not None:
@@ -189,4 +211,4 @@ def validate_string(
                 raise ValueError(f"{param_name} contains forbidden character: {char}")
 
 
-__all__ = ['validate_string']
+__all__ = ["validate_string"]

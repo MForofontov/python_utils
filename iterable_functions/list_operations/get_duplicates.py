@@ -25,9 +25,8 @@ def get_duplicates(input_list: list[Any]) -> list[Any]:
         raise TypeError("input_list must be a list")
 
     element_counts = Counter(input_list)
-    duplicates = [element for element,
-                  count in element_counts.items() if count > 1]
+    duplicates = [element for element, count in element_counts.items() if count > 1]
     return duplicates
 
 
-__all__ = ['get_duplicates']
+__all__ = ["get_duplicates"]

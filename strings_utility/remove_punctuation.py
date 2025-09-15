@@ -36,4 +36,4 @@ def remove_punctuation(s: str) -> str:
     return s.translate(str.maketrans("", "", string.punctuation))
 
 
-__all__ = ['remove_punctuation']
+__all__ = ["remove_punctuation"]

@@ -2,6 +2,7 @@ import aiohttp
 import asyncio
 from .fetch_url import fetch_url
 
+
 async def fetch_multiple_urls(urls: list[str]) -> list[str]:
     """
     Fetch data from multiple URLs asynchronously.
@@ -26,4 +27,5 @@ async def fetch_multiple_urls(urls: list[str]) -> list[str]:
         tasks = [fetch_url(session, url) for url in urls]
         return await asyncio.gather(*tasks)
 
-__all__ = ['fetch_multiple_urls']
+
+__all__ = ["fetch_multiple_urls"]

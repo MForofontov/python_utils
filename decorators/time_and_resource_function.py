@@ -8,6 +8,7 @@ from logger_functions.logger import validate_logger
 from typing import Any, ParamSpec, TypeVar
 from collections.abc import Callable
 from functools import wraps
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -141,7 +142,8 @@ def time_and_resource_function(
                             context_switches: Any = process.num_ctx_switches()
                         else:
                             context_switches = SimpleNamespace(
-                                voluntary=0, involuntary=0)
+                                voluntary=0, involuntary=0
+                            )
 
                         # Monitor GC statistics
                         if monitor_gc:
@@ -191,8 +193,7 @@ def time_and_resource_function(
 
                         # Update maximums
                         if monitor_memory:
-                            max_memory_usage = max(
-                                max_memory_usage, total_memory_usage)
+                            max_memory_usage = max(max_memory_usage, total_memory_usage)
                         if monitor_cpu:
                             max_cpu_usage = max(max_cpu_usage, total_cpu_usage)
                             max_cpu_cores = max(
@@ -217,8 +218,7 @@ def time_and_resource_function(
                         continue
 
             # Start resource monitoring in a separate thread
-            resource_thread = threading.Thread(
-                target=monitor_resources, daemon=True)
+            resource_thread = threading.Thread(target=monitor_resources, daemon=True)
             resource_thread.start()
 
             try:
@@ -337,4 +337,4 @@ def time_and_resource_function(
     return decorator
 
 
-__all__ = ['time_and_resource_function']
+__all__ = ["time_and_resource_function"]

@@ -53,4 +53,4 @@ def find_duplicates(items: list[T]) -> dict[T, int]:
     return {item: count for item, count in counter.items() if count > 1}
 
 
-__all__ = ['find_duplicates']
+__all__ = ["find_duplicates"]

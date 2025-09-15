@@ -59,40 +59,44 @@ def find_files_by_pattern(
     """
     # Input validation
     if not isinstance(directory, (str, Path)):
-        raise TypeError(f"directory must be a string or Path, got {type(directory).__name__}")
+        raise TypeError(
+            f"directory must be a string or Path, got {type(directory).__name__}"
+        )
     if not isinstance(pattern, str):
         raise TypeError(f"pattern must be a string, got {type(pattern).__name__}")
     if not isinstance(case_sensitive, bool):
-        raise TypeError(f"case_sensitive must be a boolean, got {type(case_sensitive).__name__}")
-    
+        raise TypeError(
+            f"case_sensitive must be a boolean, got {type(case_sensitive).__name__}"
+        )
+
     # Convert to Path object
     dir_path = Path(directory)
-    
+
     # Validate directory exists
     if not dir_path.exists():
         raise ValueError(f"Directory does not exist: {directory}")
     if not dir_path.is_dir():
         raise ValueError(f"Path is not a directory: {directory}")
-    
+
     # Validate pattern
     if not pattern.strip():
         raise ValueError("Pattern cannot be empty")
-    
+
     matching_files: list[str] = []
-    
+
     try:
         for root, _, files in os.walk(dir_path):
             for file in files:
                 # Apply case sensitivity
                 test_file = file if case_sensitive else file.lower()
                 test_pattern = pattern if case_sensitive else pattern.lower()
-                
+
                 if fnmatch.fnmatch(test_file, test_pattern):
                     matching_files.append(str(Path(root) / file))
     except OSError as e:
         raise OSError(f"Error accessing directory {directory}: {e}") from e
-    
+
     return matching_files
 
 
-__all__ = ['find_files_by_pattern']
+__all__ = ["find_files_by_pattern"]

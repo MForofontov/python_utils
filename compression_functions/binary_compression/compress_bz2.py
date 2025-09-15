@@ -35,4 +35,4 @@ def compress_bz2(data: bytes) -> bytes:
         raise ValueError(f"An error occurred during compression: {e}")
 
 
-__all__ = ['compress_bz2']
+__all__ = ["compress_bz2"]

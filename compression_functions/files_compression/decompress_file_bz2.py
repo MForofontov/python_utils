@@ -31,8 +31,7 @@ def decompress_file_bz2(input_bz2: str, output_file: str) -> None:
 
     try:
         if not os.path.exists(input_bz2):
-            raise FileNotFoundError(
-                f"The input file {input_bz2} does not exist.")
+            raise FileNotFoundError(f"The input file {input_bz2} does not exist.")
         mode = os.stat(input_bz2).st_mode
         if mode & (stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH) == 0:
             raise OSError("Input file is not readable")
@@ -59,4 +58,4 @@ def decompress_file_bz2(input_bz2: str, output_file: str) -> None:
         raise OSError(f"An I/O error occurred during decompression: {e}")
 
 
-__all__ = ['decompress_file_bz2']
+__all__ = ["decompress_file_bz2"]

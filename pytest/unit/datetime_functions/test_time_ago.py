@@ -75,7 +75,7 @@ def test_time_ago_future_date_error() -> None:
     """
     reference: datetime = datetime(2023, 1, 15, 12, 0, 0)
     future: datetime = datetime(2023, 1, 15, 13, 0, 0)
-    
+
     with pytest.raises(ValueError):
         time_ago(future, reference)
 
@@ -85,10 +85,10 @@ def test_time_ago_invalid_input_type() -> None:
     Test case 8: Test time_ago function with invalid input type raises TypeError.
     """
     with pytest.raises(TypeError):
-        time_ago('2023-01-15')
-    
+        time_ago("2023-01-15")
+
     with pytest.raises(TypeError):
         time_ago(123)
-    
+
     with pytest.raises(TypeError):
         time_ago(None)

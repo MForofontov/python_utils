@@ -6,8 +6,7 @@ from decorators.async_handle_error import async_handle_error
 test_logger = logging.getLogger("test_logger")
 test_logger.setLevel(logging.ERROR)
 handler = logging.StreamHandler()
-formatter = logging.Formatter(
-    "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 handler.setFormatter(formatter)
 test_logger.addHandler(handler)
 
@@ -118,8 +117,7 @@ async def test_async_function_exception(caplog, capsys):
         with pytest.raises(ValueError, match="Test exception"):
             await sample_function_exception(1, 2)
     assert (
-        "An error occurred in sample_function_exception: Test exception"
-        in caplog.text
+        "An error occurred in sample_function_exception: Test exception" in caplog.text
     )
     captured = capsys.readouterr()
     assert captured.out == ""

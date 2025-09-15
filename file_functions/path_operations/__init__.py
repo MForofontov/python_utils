@@ -12,11 +12,11 @@ from .get_paths_in_directory_with_suffix import get_paths_in_directory_with_suff
 from .join_paths import join_paths
 
 __all__ = [
-    'file_basename',
-    'get_paths_dict',
-    'get_paths_in_directory',
-    'get_paths_in_directory_with_suffix',
-    'join_paths',
+    "file_basename",
+    "get_paths_dict",
+    "get_paths_in_directory",
+    "get_paths_in_directory_with_suffix",
+    "join_paths",
 ]
 
-__version__ = '1.0.0'
+__version__ = "1.0.0"

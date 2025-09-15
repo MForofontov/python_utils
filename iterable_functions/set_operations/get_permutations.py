@@ -83,4 +83,4 @@ def get_permutations(input_set: set[T], r: int | None = None) -> list[list[T]]:
     return permutations
 
 
-__all__ = ['get_permutations']
+__all__ = ["get_permutations"]

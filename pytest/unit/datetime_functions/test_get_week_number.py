@@ -79,10 +79,10 @@ def test_get_week_number_different_years() -> None:
     """
     test_date_2022: date = date(2022, 6, 15)
     test_date_2023: date = date(2023, 6, 15)
-    
+
     result_2022: int = get_week_number(test_date_2022)
     result_2023: int = get_week_number(test_date_2023)
-    
+
     assert isinstance(result_2022, int)
     assert isinstance(result_2023, int)
     assert result_2022 == 24
@@ -104,10 +104,10 @@ def test_get_week_number_invalid_input_type() -> None:
     Test case 10: Test get_week_number function with invalid input type raises TypeError.
     """
     with pytest.raises(TypeError):
-        get_week_number('2023-06-15')
-    
+        get_week_number("2023-06-15")
+
     with pytest.raises(TypeError):
         get_week_number(123)
-    
+
     with pytest.raises(TypeError):
         get_week_number(None)

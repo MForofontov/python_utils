@@ -1,5 +1,7 @@
 import pytest
-from iterable_functions.set_operations.partition_set_by_sizes import partition_set_by_sizes
+from iterable_functions.set_operations.partition_set_by_sizes import (
+    partition_set_by_sizes,
+)
 
 
 def test_partition_set_by_sizes_normal_case() -> None:
@@ -24,7 +26,7 @@ def test_partition_set_by_sizes_three_partitions() -> None:
     """
     Test case 2: Three partitions.
     """
-    input_set = {'a', 'b', 'c', 'd', 'e', 'f'}
+    input_set = {"a", "b", "c", "d", "e", "f"}
     sizes = [1, 2, 3]
     result = partition_set_by_sizes(input_set, sizes)
 

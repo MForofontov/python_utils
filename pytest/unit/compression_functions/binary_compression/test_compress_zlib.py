@@ -116,7 +116,8 @@ def test_compress_zlib_compression_error() -> None:
         # Mock zlib.compress to raise an exception
         original_compress = zlib.compress
         zlib.compress = lambda x: (_ for _ in ()).throw(
-            Exception("Mock error"))  # type: ignore
+            Exception("Mock error")
+        )  # type: ignore
         try:
             compress_zlib(b"data")
         finally:

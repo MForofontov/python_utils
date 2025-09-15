@@ -21,7 +21,9 @@ def test_write_dict_to_json_writes_empty_dict(tmp_path: Path) -> None:
     assert output_file.read_text() == "{}"
 
 
-def test_write_dict_to_json_raises_permission_error(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_write_dict_to_json_raises_permission_error(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     """Test case 3: Ensure PermissionError is raised when the file cannot be written."""
     data: dict[str, int] = {"a": 1}
     file_path: Path = tmp_path / "output.json"
