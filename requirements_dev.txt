@@ -10,7 +10,6 @@ pytest-asyncio==1.1.0
 tomli==2.2.1
 pylint==3.3.7
 mypy==1.18.1
-black==25.1.0
 ruff==0.13.0
 bandit==1.8.6
 types-psutil==5.9.5.20240522

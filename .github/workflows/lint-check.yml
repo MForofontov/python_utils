@@ -16,15 +16,12 @@ on:
 
 permissions:
   contents: read
-  security-events: write   # <-- needed for SARIF uploads to Code Scanning
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     env:
-      RUFF_SARIF: ruff-results.sarif
       PYLINT_JSON: pylint.json
-      PYLINT_SARIF: pylint-results.sarif
 
     steps:
       - uses: actions/checkout@v4
@@ -40,7 +37,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install ruff mypy
           if [ "${{ inputs.run_pylint }}" = "true" ]; then
-            pip install pylint pylint-json2sarif
+            pip install pylint
           fi
 
       - name: Ruff - format check (formatter)
@@ -62,16 +59,6 @@ jobs:
           set -e
         continue-on-error: true
 
-      # SARIF for Code Scanning
-      - name: Ruff - lint (SARIF)
-        id: ruff_sarif
-        run: |
-          set +e
-          ruff check --force-exclude . --output-format sarif --output-file "$RUFF_SARIF"
-          echo "exit_code=$?" >> $GITHUB_OUTPUT
-          set -e
-        continue-on-error: true
-
       - name: mypy - type checking
         id: mypy
         run: |
@@ -81,7 +68,7 @@ jobs:
           set -e
         continue-on-error: true
 
-      # Optional Pylint (JSON for logs + convert to SARIF)
+      # Optional Pylint (JSON for logs)
       - name: pylint - lint (optional JSON)
         if: ${{ inputs.run_pylint }}
         id: pylint
@@ -99,18 +86,7 @@ jobs:
           set -e
         continue-on-error: true
 
-      - name: Convert Pylint JSON to SARIF (optional)
-        if: ${{ inputs.run_pylint }}
-        id: pylint_sarif
-        run: |
-          set +e
-          # Convert JSON -> SARIF (creates an empty SARIF if JSON is empty)
-          pylint-json2sarif -i "$PYLINT_JSON" -o "$PYLINT_SARIF"
-          echo "exit_code=$?" >> $GITHUB_OUTPUT
-          set -e
-        continue-on-error: true
-
-      # Upload artifacts (logs + SARIF files)
+      # Upload artifacts (logs)
       - name: Upload reports
         uses: actions/upload-artifact@v4
         with:
@@ -119,34 +95,17 @@ jobs:
             ruff_format.txt
             ruff_lint.txt
             mypy.txt
-            ${{ env.RUFF_SARIF }}
             ${{ env.PYLINT_JSON }}
-            ${{ env.PYLINT_SARIF }}
           if-no-files-found: ignore
-
-      # Upload SARIF to Code Scanning
-      - name: Upload Ruff SARIF
-        if: always()
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: ${{ env.RUFF_SARIF }}
-
-      - name: Upload Pylint SARIF (optional)
-        if: ${{ always() && inputs.run_pylint }}
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: ${{ env.PYLINT_SARIF }}
 
       - name: Summary & final status
         run: |
           echo "## Lint & Types Summary" >> $GITHUB_STEP_SUMMARY
           echo "- Ruff format:        ${{ steps.ruff_fmt.outputs.exit_code }}" >> $GITHUB_STEP_SUMMARY
           echo "- Ruff lint (console):${{ steps.ruff_lint.outputs.exit_code }}" >> $GITHUB_STEP_SUMMARY
-          echo "- Ruff lint (SARIF):  ${{ steps.ruff_sarif.outputs.exit_code }}" >> $GITHUB_STEP_SUMMARY
           echo "- mypy:               ${{ steps.mypy.outputs.exit_code }}" >> $GITHUB_STEP_SUMMARY
           if [ "${{ inputs.run_pylint }}" = "true" ]; then
             echo "- pylint (json):      ${{ steps.pylint.outputs.exit_code }}" >> $GITHUB_STEP_SUMMARY
-            echo "- pylint (sarif):     ${{ steps.pylint_sarif.outputs.exit_code }}" >> $GITHUB_STEP_SUMMARY
           fi
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Artifacts: lint-mypy-reports" >> $GITHUB_STEP_SUMMARY
@@ -154,10 +113,8 @@ jobs:
           FAIL=0
           [ "${{ steps.ruff_fmt.outputs.exit_code }}" != "0" ] && FAIL=1
           [ "${{ steps.ruff_lint.outputs.exit_code }}" != "0" ] && FAIL=1
-          [ "${{ steps.ruff_sarif.outputs.exit_code }}" != "0" ] && FAIL=1
           [ "${{ steps.mypy.outputs.exit_code }}" != "0" ] && FAIL=1
           if [ "${{ inputs.run_pylint }}" = "true" ] && [ "${{ steps.pylint.outputs.exit_code }}" != "0" ]; then FAIL=1; fi
-          if [ "${{ inputs.run_pylint }}" = "true" ] && [ "${{ steps.pylint_sarif.outputs.exit_code }}" != "0" ]; then FAIL=1; fi
 
           if [ "${{ inputs.fail_on_any_issue }}" = "true" ] && [ "$FAIL" -ne 0 ]; then
             exit 1
