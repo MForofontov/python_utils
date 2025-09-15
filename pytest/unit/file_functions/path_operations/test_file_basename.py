@@ -16,9 +16,9 @@ def test_file_basename_strip_extension() -> None:
     Test case 2: Test that setting ``file_extension`` to ``False`` strips the extension.
     """
     path: str = "/path/to/example.txt"
-    assert file_basename(path, file_extension=False) == "example", (
-        "Should remove the extension"
-    )
+    assert (
+        file_basename(path, file_extension=False) == "example"
+    ), "Should remove the extension"
 
 
 def test_file_basename_multiple_dots() -> None:
@@ -27,9 +27,9 @@ def test_file_basename_multiple_dots() -> None:
     """
     path: str = "/path/to/archive.tar.gz"
     assert file_basename(path) == "archive.tar.gz", "Should retain full filename"
-    assert file_basename(path, file_extension=False) == "archive.tar", (
-        "Should remove only the last extension"
-    )
+    assert (
+        file_basename(path, file_extension=False) == "archive.tar"
+    ), "Should remove only the last extension"
 
 
 def test_file_basename_trailing_slash() -> None:
@@ -38,9 +38,9 @@ def test_file_basename_trailing_slash() -> None:
     """
     path: str = "/path/to/file.txt/"
     assert file_basename(path) == "file.txt", "Should handle trailing slash correctly"
-    assert file_basename(path, file_extension=False) == "file", (
-        "Should handle trailing slash and remove extension"
-    )
+    assert (
+        file_basename(path, file_extension=False) == "file"
+    ), "Should handle trailing slash and remove extension"
 
 
 def test_file_basename_empty_path_raises_value_error() -> None:

@@ -24,9 +24,9 @@ def test_read_tabular_custom_delimiter(tmp_path: Path) -> None:
     file_path: Path = tmp_path / "test.csv"
     file_path.write_text(content)
     expected: list[list[str]] = [["a", "b"], ["3", "4"]]
-    assert read_tabular(str(file_path), delimiter=",") == expected, (
-        "Should parse CSV with custom delimiter"
-    )
+    assert (
+        read_tabular(str(file_path), delimiter=",") == expected
+    ), "Should parse CSV with custom delimiter"
 
 
 def test_read_tabular_empty_file(tmp_path: Path) -> None:

@@ -26,9 +26,9 @@ def test_write_dict_to_tsv_writes_padded_rows_and_preserves_order(
         "2\t\ty\n",
         "\t\tz\n",
     ]
-    assert output_file.read_text().splitlines(keepends=True) == expected_lines, (
-        "Output file should contain padded rows in order"
-    )
+    assert (
+        output_file.read_text().splitlines(keepends=True) == expected_lines
+    ), "Output file should contain padded rows in order"
 
 
 def test_write_dict_to_tsv_writes_only_newline_with_empty_dict(

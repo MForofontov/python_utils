@@ -18,9 +18,9 @@ def test_get_paths_in_directory_files_only(tmp_path: Path) -> None:
         os.path.join(tmp_path, "file2.log"),
     ]
     returned_paths: list[str] = get_paths_in_directory(str(tmp_path), "files")
-    assert sorted(returned_paths) == sorted(expected_paths), (
-        "Should return only file paths"
-    )
+    assert sorted(returned_paths) == sorted(
+        expected_paths
+    ), "Should return only file paths"
 
 
 def test_get_paths_in_directory_directories_only(tmp_path: Path) -> None:
@@ -46,9 +46,9 @@ def test_get_paths_in_directory_all_items(tmp_path: Path) -> None:
         os.path.join(tmp_path, "folder"),
     ]
     returned_paths: list[str] = get_paths_in_directory(str(tmp_path), "all")
-    assert sorted(returned_paths) == sorted(expected_paths), (
-        "Should return files and directories"
-    )
+    assert sorted(returned_paths) == sorted(
+        expected_paths
+    ), "Should return files and directories"
 
 
 def test_get_paths_in_directory_empty_directory(tmp_path: Path) -> None:
@@ -106,9 +106,9 @@ def test_get_paths_in_directory_non_recursive(tmp_path: Path) -> None:
     (nested_dir / "inner.txt").write_text("b")
     returned_paths: list[str] = get_paths_in_directory(str(tmp_path), "files")
     expected_paths: list[str] = [os.path.join(tmp_path, "top.txt")]
-    assert returned_paths == expected_paths, (
-        "Should not include files from nested directories"
-    )
+    assert (
+        returned_paths == expected_paths
+    ), "Should not include files from nested directories"
 
 
 def test_get_paths_in_directory_invalid_type(tmp_path: Path) -> None:

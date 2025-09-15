@@ -13,9 +13,9 @@ def test_string_does_not_end_with_suffix() -> None:
     """
     Test case 2: Test if the string does not end with the specified suffix.
     """
-    assert not ends_with("hello world", "hello"), (
-        "Failed on string not ending with suffix"
-    )
+    assert not ends_with(
+        "hello world", "hello"
+    ), "Failed on string not ending with suffix"
 
 
 def test_suffix_is_entire_string() -> None:
@@ -57,18 +57,18 @@ def test_string_ends_with_special_characters() -> None:
     """
     Test case 8: Test if the string ends with special characters.
     """
-    assert ends_with("hello!@#", "!@#"), (
-        "Failed on string ending with special characters"
-    )
+    assert ends_with(
+        "hello!@#", "!@#"
+    ), "Failed on string ending with special characters"
 
 
 def test_string_does_not_end_with_special_characters() -> None:
     """
     Test case 9: Test if the string does not end with special characters.
     """
-    assert not ends_with("hello!@#", "@!"), (
-        "Failed on string not ending with special characters"
-    )
+    assert not ends_with(
+        "hello!@#", "@!"
+    ), "Failed on string not ending with special characters"
 
 
 def test_string_ends_with_space() -> None:
@@ -89,36 +89,36 @@ def test_string_ends_with_newline_character() -> None:
     """
     Test case 12: Test if the string ends with a newline character.
     """
-    assert ends_with("hello world\n", "\n"), (
-        "Failed on string ending with a newline character"
-    )
+    assert ends_with(
+        "hello world\n", "\n"
+    ), "Failed on string ending with a newline character"
 
 
 def test_string_does_not_end_with_newline_character() -> None:
     """
     Test case 13: Test if the string does not end with a newline character.
     """
-    assert not ends_with("hello world", "\n"), (
-        "Failed on string not ending with a newline character"
-    )
+    assert not ends_with(
+        "hello world", "\n"
+    ), "Failed on string not ending with a newline character"
 
 
 def test_string_ends_with_tab_character() -> None:
     """
     Test case 14: Test if the string ends with a tab character.
     """
-    assert ends_with("hello world\t", "\t"), (
-        "Failed on string ending with a tab character"
-    )
+    assert ends_with(
+        "hello world\t", "\t"
+    ), "Failed on string ending with a tab character"
 
 
 def test_string_does_not_end_with_tab_character() -> None:
     """
     Test case 15: Test if the string does not end with a tab character.
     """
-    assert not ends_with("hello world", "\t"), (
-        "Failed on string not ending with a tab character"
-    )
+    assert not ends_with(
+        "hello world", "\t"
+    ), "Failed on string not ending with a tab character"
 
 
 def test_string_ends_with_digit() -> None:
@@ -132,36 +132,36 @@ def test_string_does_not_end_with_digit() -> None:
     """
     Test case 17: Test if the string does not end with a digit.
     """
-    assert not ends_with("hello world 123", "124"), (
-        "Failed on string not ending with a digit"
-    )
+    assert not ends_with(
+        "hello world 123", "124"
+    ), "Failed on string not ending with a digit"
 
 
 def test_string_ends_with_mixed_case_suffix() -> None:
     """
     Test case 18: Test if the string ends with a mixed case suffix.
     """
-    assert not ends_with("hello world", "World"), (
-        "Failed on string ending with mixed case suffix"
-    )
+    assert not ends_with(
+        "hello world", "World"
+    ), "Failed on string ending with mixed case suffix"
 
 
 def test_string_ends_with_mixed_case_suffix_case_insensitive() -> None:
     """
     Test case 19: Test if the string ends with a mixed case suffix (case insensitive).
     """
-    assert ends_with("hello world", "World".lower()), (
-        "Failed on string ending with mixed case suffix (case insensitive)"
-    )
+    assert ends_with(
+        "hello world", "World".lower()
+    ), "Failed on string ending with mixed case suffix (case insensitive)"
 
 
 def test_string_ends_with_non_english_characters() -> None:
     """
     Test case 20: Test if the string ends with non-English characters.
     """
-    assert ends_with("héllo wörld", "wörld"), (
-        "Failed on string ending with non-English characters"
-    )
+    assert ends_with(
+        "héllo wörld", "wörld"
+    ), "Failed on string ending with non-English characters"
 
 
 def test_ends_with_invalid_string_type() -> None:

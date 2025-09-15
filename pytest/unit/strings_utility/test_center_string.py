@@ -6,36 +6,36 @@ def test_center_string_default_fill() -> None:
     """
     Test case 1: Test the center_string function with the default fill character (space).
     """
-    assert center_string("hello", 11) == "   hello   ", (
-        "Failed on default fill character"
-    )
+    assert (
+        center_string("hello", 11) == "   hello   "
+    ), "Failed on default fill character"
 
 
 def test_center_string_custom_fill() -> None:
     """
     Test case 2: Test the center_string function with a custom fill character.
     """
-    assert center_string("hello", 11, "-") == "---hello---", (
-        "Failed on custom fill character"
-    )
+    assert (
+        center_string("hello", 11, "-") == "---hello---"
+    ), "Failed on custom fill character"
 
 
 def test_center_string_width_less_than_length() -> None:
     """
     Test case 3: Test the center_string function with width less than string length.
     """
-    assert center_string("hello", 3) == "hello", (
-        "Failed on width less than string length"
-    )
+    assert (
+        center_string("hello", 3) == "hello"
+    ), "Failed on width less than string length"
 
 
 def test_center_string_width_equal_to_length() -> None:
     """
     Test case 4: Test the center_string function with width equal to string length.
     """
-    assert center_string("hello", 5) == "hello", (
-        "Failed on width equal to string length"
-    )
+    assert (
+        center_string("hello", 5) == "hello"
+    ), "Failed on width equal to string length"
 
 
 def test_center_string_empty_string() -> None:
@@ -77,9 +77,9 @@ def test_center_string_multiple_custom_fill() -> None:
     """
     Test case 10: Test the center_string function with multiple custom fill characters.
     """
-    assert center_string("hello", 11, "*") == "***hello***", (
-        "Failed on multiple custom fill characters"
-    )
+    assert (
+        center_string("hello", 11, "*") == "***hello***"
+    ), "Failed on multiple custom fill characters"
 
 
 def test_center_string_single_character() -> None:
@@ -114,45 +114,45 @@ def test_center_string_leading_trailing_spaces() -> None:
     """
     Test case 15: Test the center_string function with leading and trailing spaces.
     """
-    assert center_string("  hello  ", 15) == "     hello     ", (
-        "Failed on leading and trailing spaces"
-    )
+    assert (
+        center_string("  hello  ", 15) == "     hello     "
+    ), "Failed on leading and trailing spaces"
 
 
 def test_center_string_newline_characters() -> None:
     """
     Test case 16: Test the center_string function with newline characters.
     """
-    assert center_string("hello\nworld", 15) == "  hello\nworld  ", (
-        "Failed on newline characters"
-    )
+    assert (
+        center_string("hello\nworld", 15) == "  hello\nworld  "
+    ), "Failed on newline characters"
 
 
 def test_center_string_tab_characters() -> None:
     """
     Test case 17: Test the center_string function with tab characters.
     """
-    assert center_string("hello\tworld", 15) == "  hello\tworld  ", (
-        "Failed on tab characters"
-    )
+    assert (
+        center_string("hello\tworld", 15) == "  hello\tworld  "
+    ), "Failed on tab characters"
 
 
 def test_center_string_mixed_whitespace_characters() -> None:
     """
     Test case 18: Test the center_string function with mixed whitespace characters.
     """
-    assert center_string("hello \t\nworld", 20) == "   hello \t\nworld    ", (
-        "Failed on mixed whitespace characters"
-    )
+    assert (
+        center_string("hello \t\nworld", 20) == "   hello \t\nworld    "
+    ), "Failed on mixed whitespace characters"
 
 
 def test_center_string_non_english_characters() -> None:
     """
     Test case 19: Test the center_string function with non-English characters.
     """
-    assert center_string("héllo wörld", 15) == "  héllo wörld  ", (
-        "Failed on non-English characters"
-    )
+    assert (
+        center_string("héllo wörld", 15) == "  héllo wörld  "
+    ), "Failed on non-English characters"
 
 
 def test_center_string_invalid_string_type() -> None:

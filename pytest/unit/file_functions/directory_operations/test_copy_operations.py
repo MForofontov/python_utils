@@ -15,9 +15,9 @@ def test_copy_file_preserves_contents(tmp_path: Path) -> None:
     content: str = "sample text"
     source.write_text(content)
     copy_file(str(source), str(destination))
-    assert destination.read_text() == content, (
-        "Destination should contain the same text as source"
-    )
+    assert (
+        destination.read_text() == content
+    ), "Destination should contain the same text as source"
 
 
 def test_copy_file_overwrite_destination(tmp_path: Path) -> None:
@@ -29,9 +29,9 @@ def test_copy_file_overwrite_destination(tmp_path: Path) -> None:
     source.write_text("new data")
     destination.write_text("old data")
     copy_file(str(source), str(destination))
-    assert destination.read_text() == "new data", (
-        "Destination should be overwritten with source content"
-    )
+    assert (
+        destination.read_text() == "new data"
+    ), "Destination should be overwritten with source content"
 
 
 def test_copy_folder_replica_structure(tmp_path: Path) -> None:
@@ -46,12 +46,12 @@ def test_copy_folder_replica_structure(tmp_path: Path) -> None:
     (nested / "file2.txt").write_text("b")
     dest_folder: Path = tmp_path / "dest"
     copy_folder(str(src_folder), str(dest_folder))
-    assert (dest_folder / "file1.txt").read_text() == "a", (
-        "Top level file should be copied"
-    )
-    assert (dest_folder / "nested" / "file2.txt").read_text() == "b", (
-        "Nested file should be copied"
-    )
+    assert (
+        dest_folder / "file1.txt"
+    ).read_text() == "a", "Top level file should be copied"
+    assert (
+        dest_folder / "nested" / "file2.txt"
+    ).read_text() == "b", "Nested file should be copied"
 
 
 def test_copy_folder_overwrite_file(tmp_path: Path) -> None:
@@ -65,9 +65,9 @@ def test_copy_folder_overwrite_file(tmp_path: Path) -> None:
     dest_folder.mkdir()
     (dest_folder / "file.txt").write_text("old")
     copy_folder(str(src_folder), str(dest_folder))
-    assert (dest_folder / "file.txt").read_text() == "new", (
-        "Destination file should be overwritten with source content"
-    )
+    assert (
+        dest_folder / "file.txt"
+    ).read_text() == "new", "Destination file should be overwritten with source content"
 
 
 def test_copy_file_missing_source(tmp_path: Path) -> None:

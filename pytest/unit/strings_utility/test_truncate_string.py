@@ -13,18 +13,18 @@ def test_truncate_string_length_greater_than_string() -> None:
     """
     Test case 2: Test the truncate_string function with length greater than the string length.
     """
-    assert truncate_string("abc", 5) == "abc", (
-        "Failed on length greater than the string length"
-    )
+    assert (
+        truncate_string("abc", 5) == "abc"
+    ), "Failed on length greater than the string length"
 
 
 def test_truncate_string_length_equal_to_string() -> None:
     """
     Test case 3: Test the truncate_string function with length equal to the string length.
     """
-    assert truncate_string("hello", 5) == "hello", (
-        "Failed on length equal to the string length"
-    )
+    assert (
+        truncate_string("hello", 5) == "hello"
+    ), "Failed on length equal to the string length"
 
 
 def test_truncate_string_length_zero() -> None:
@@ -45,9 +45,9 @@ def test_truncate_string_special_characters() -> None:
     """
     Test case 6: Test the truncate_string function with a string that contains special characters.
     """
-    assert truncate_string("!@#hello$%^", 3) == "!@#", (
-        "Failed on string with special characters"
-    )
+    assert (
+        truncate_string("!@#hello$%^", 3) == "!@#"
+    ), "Failed on string with special characters"
 
 
 def test_truncate_string_numbers() -> None:
@@ -61,27 +61,27 @@ def test_truncate_string_mixed_case() -> None:
     """
     Test case 8: Test the truncate_string function with a string that contains mixed case letters.
     """
-    assert truncate_string("HeLLoWoRLd", 7) == "HeLLoWo", (
-        "Failed on string with mixed case letters"
-    )
+    assert (
+        truncate_string("HeLLoWoRLd", 7) == "HeLLoWo"
+    ), "Failed on string with mixed case letters"
 
 
 def test_truncate_string_non_english_characters() -> None:
     """
     Test case 9: Test the truncate_string function with a string that contains non-English characters.
     """
-    assert truncate_string("héllo wörld", 5) == "héllo", (
-        "Failed on string with non-English characters"
-    )
+    assert (
+        truncate_string("héllo wörld", 5) == "héllo"
+    ), "Failed on string with non-English characters"
 
 
 def test_truncate_string_mixed_whitespace() -> None:
     """
     Test case 10: Test the truncate_string function with a string that contains mixed whitespace characters.
     """
-    assert truncate_string(" \t\nhello world\t\n ", 8) == " \t\nhello", (
-        "Failed on string with mixed whitespace characters"
-    )
+    assert (
+        truncate_string(" \t\nhello world\t\n ", 8) == " \t\nhello"
+    ), "Failed on string with mixed whitespace characters"
 
 
 def test_truncate_string_negative_length() -> None:

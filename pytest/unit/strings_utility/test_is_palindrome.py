@@ -55,18 +55,18 @@ def test_palindrome_with_spaces() -> None:
     """
     Test case 8: Test the is_palindrome function with a palindrome that includes spaces.
     """
-    assert not is_palindrome("a man a plan a canal panama"), (
-        "Failed on palindrome with spaces"
-    )
+    assert not is_palindrome(
+        "a man a plan a canal panama"
+    ), "Failed on palindrome with spaces"
 
 
 def test_palindrome_with_punctuation() -> None:
     """
     Test case 9: Test the is_palindrome function with a palindrome that includes punctuation.
     """
-    assert not is_palindrome("A man, a plan, a canal, Panama!"), (
-        "Failed on palindrome with punctuation"
-    )
+    assert not is_palindrome(
+        "A man, a plan, a canal, Panama!"
+    ), "Failed on palindrome with punctuation"
 
 
 def test_palindrome_with_numbers() -> None:
@@ -101,27 +101,27 @@ def test_palindrome_mixed_alphanumeric() -> None:
     """
     Test case 14: Test the is_palindrome function with a palindrome that includes mixed alphanumeric characters.
     """
-    assert is_palindrome("A1B2B1A"), (
-        "Failed on palindrome with mixed alphanumeric characters"
-    )
+    assert is_palindrome(
+        "A1B2B1A"
+    ), "Failed on palindrome with mixed alphanumeric characters"
 
 
 def test_non_palindrome_mixed_alphanumeric() -> None:
     """
     Test case 15: Test the is_palindrome function with a non-palindrome that includes mixed alphanumeric characters.
     """
-    assert not is_palindrome("A1B2C3"), (
-        "Failed on non-palindrome with mixed alphanumeric characters"
-    )
+    assert not is_palindrome(
+        "A1B2C3"
+    ), "Failed on non-palindrome with mixed alphanumeric characters"
 
 
 def test_palindrome_leading_trailing_spaces() -> None:
     """
     Test case 16: Test the is_palindrome function with a palindrome that includes leading and trailing spaces.
     """
-    assert is_palindrome(" racecar "), (
-        "Failed on palindrome with leading and trailing spaces"
-    )
+    assert is_palindrome(
+        " racecar "
+    ), "Failed on palindrome with leading and trailing spaces"
 
 
 def test_is_palindrome_invalid_type() -> None:

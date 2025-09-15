@@ -24,9 +24,9 @@ def test_get_paths_in_directory_with_suffix_case_sensitive(tmp_path: Path) -> No
     returned_paths: list[str] = get_paths_in_directory_with_suffix(
         str(tmp_path), ".txt"
     )
-    assert sorted(returned_paths) == sorted(expected_paths), (
-        "Should return only .txt files"
-    )
+    assert sorted(returned_paths) == sorted(
+        expected_paths
+    ), "Should return only .txt files"
 
 
 def test_get_paths_in_directory_with_suffix_no_matching_files(tmp_path: Path) -> None:

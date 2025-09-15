@@ -115,22 +115,9 @@ def time_and_resource_function(
             stop_event = threading.Event()
 
             def monitor_resources() -> None:
-                nonlocal \
-                    max_memory_usage, \
-                    max_cpu_usage, \
-                    max_cpu_cores, \
-                    max_threads, \
-                    max_open_files, \
-                    max_page_faults
-                nonlocal \
-                    total_gc_collections, \
-                    total_voluntary_context_switches, \
-                    total_involuntary_context_switches
-                nonlocal \
-                    total_read_ops, \
-                    total_write_ops, \
-                    total_bytes_sent, \
-                    total_bytes_recv
+                nonlocal max_memory_usage, max_cpu_usage, max_cpu_cores, max_threads, max_open_files, max_page_faults
+                nonlocal total_gc_collections, total_voluntary_context_switches, total_involuntary_context_switches
+                nonlocal total_read_ops, total_write_ops, total_bytes_sent, total_bytes_recv
                 nonlocal total_read_bytes, total_write_bytes
 
                 while not stop_event.is_set():
