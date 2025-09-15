@@ -1,3 +1,5 @@
+from collections.abc import Callable
+
 """
 Set partition utilities.
 
@@ -8,8 +10,7 @@ from typing import TypeVar
 
 T = TypeVar("T")
 
-
-def partition_set_by_predicate(input_set: set[T], predicate) -> tuple[set[T], set[T]]:
+def partition_set_by_predicate(input_set: set[T], predicate: Callable[[T], bool]) -> tuple[set[T], set[T]]:
     """
     Partition a set into two subsets based on a predicate function.
 
