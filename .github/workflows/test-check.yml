@@ -2,50 +2,170 @@ name: test-check
 
 on:
   workflow_dispatch:
+    inputs:
+      python_versions:
+        description: 'JSON list of Python versions'
+        default: '["3.11"]'
+        type: string
+        required: false
+      tests_path:
+        description: 'Tests path or pytest expression'
+        default: 'pytest/unit'
+        type: string
+        required: false
+      allure_version:
+        description: 'Allure CLI version'
+        default: '2.24.0'
+        type: string
+        required: false
+      extra_pytest_args:
+        description: 'Extra pytest args (e.g., "-q -m smoke")'
+        default: ''
+        type: string
+        required: false
+      run_parallel:
+        description: 'Run tests in parallel with pytest-xdist (-n auto)'
+        default: true
+        type: boolean
+        required: false
+      deploy_pages:
+        description: 'Deploy Allure report to GitHub Pages'
+        default: false
+        type: boolean
+        required: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ${{ fromJSON(inputs.python_versions) }}
+
+    env:
+      ALLURE_RESULTS_DIR: pytest_run_tests/allure-results
+      ALLURE_REPORT_DIR: pytest_run_tests/allure-report
+      TESTS_PATH: ${{ inputs.tests_path }}
+
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Setup Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: |
+            requirements*.txt
+            **/requirements*.txt
 
-      - name: Install Allure
+      - name: Setup Java (for Allure)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install Allure CLI ${{ inputs.allure_version }}
         run: |
-          sudo apt-get update
-          sudo apt-get install -y openjdk-8-jdk
-          wget https://github.com/allure-framework/allure2/releases/download/2.24.0/allure-2.24.0.tgz
-          tar -zxf allure-2.24.0.tgz
-          sudo mv allure-2.24.0 /opt/allure
-          sudo ln -s /opt/allure/bin/allure /usr/bin/allure
+          set -eux
+          curl -L -o allure.tgz "https://github.com/allure-framework/allure2/releases/download/${{ inputs.allure_version }}/allure-${{ inputs.allure_version }}.tgz"
+          sudo tar -C /opt -xzf allure.tgz
+          sudo mv "/opt/allure-${{ inputs.allure_version }}" /opt/allure
+          sudo ln -sf /opt/allure/bin/allure /usr/local/bin/allure
+          allure --version
 
-      - name: Install dependencies
+      - name: Install test dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements_dev.txt
+          # Ensure these are present for best UX
+          pip install pytest pytest-xdist allure-pytest
 
-      - name: Run tests with Allure
+      - name: Run tests (prefers your pytest.sh if present)
+        shell: bash
+        continue-on-error: false
         run: |
-          chmod +x pytest.sh
-          ./pytest.sh pytest/unit pytest_run_tests/allure-results pytest_run_tests/allure-report true
+          set -eux
+          mkdir -p "$ALLURE_RESULTS_DIR" "$ALLURE_REPORT_DIR"
 
-      - name: Upload Allure results
+          # Decide parallelization flag
+          PARALLEL=""
+          if [ "${{ inputs.run_parallel }}" = "true" ]; then
+            PARALLEL="-n auto"
+          fi
+
+          # If repo provides pytest.sh, use it for consistency with your local runs
+          if [ -x ./pytest.sh ]; then
+            ./pytest.sh "${TESTS_PATH}" "$ALLURE_RESULTS_DIR" "$ALLURE_REPORT_DIR" false
+          else
+            # Fallback: direct pytest invocation
+            pytest "${TESTS_PATH}" \
+              --alluredir="$ALLURE_RESULTS_DIR" \
+              $PARALLEL ${{ inputs.extra_pytest_args }}
+          fi
+
+      - name: Generate Allure report
+        if: always()
+        run: |
+          set -eux
+          # Generate even on failures so you can inspect failing runs
+          allure generate "$ALLURE_RESULTS_DIR" --clean -o "$ALLURE_REPORT_DIR" || true
+
+      - name: Upload Allure results (raw)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results
-          path: pytest_run_tests/allure-results/
+          name: allure-results-${{ matrix.python-version }}
+          path: ${{ env.ALLURE_RESULTS_DIR }}
           retention-days: 30
 
-      - name: Upload Allure report
+      - name: Upload Allure report (HTML)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-report
-          path: pytest_run_tests/allure-report/
+          name: allure-report-${{ matrix.python-version }}
+          path: ${{ env.ALLURE_REPORT_DIR }}
           retention-days: 30
+
+      - name: Job summary
+        if: always()
+        run: |
+          echo "## Pytest + Allure summary" >> $GITHUB_STEP_SUMMARY
+          echo "- Python: \`${{ matrix.python-version }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- Tests path: \`${{ inputs.tests_path }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- Parallel: \`${{ inputs.run_parallel }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- Extra pytest args: \`${{ inputs.extra_pytest_args }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- Artifacts: \`allure-results-${{ matrix.python-version }}\`, \`allure-report-${{ matrix.python-version }}\`" >> $GITHUB_STEP_SUMMARY
+
+  deploy-allure:
+    if: ${{ inputs.deploy_pages }}
+    needs: [test]
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Download Allure report from first matrix (3.11 or first provided)
+        uses: actions/download-artifact@v4
+        with:
+          # pick one to publish; you can change it to a specific version name
+          name: allure-report-${{ fromJSON(inputs.python_versions)[0] }}
+          path: ./site
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
