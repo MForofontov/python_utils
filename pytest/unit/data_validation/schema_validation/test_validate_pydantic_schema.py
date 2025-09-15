@@ -16,7 +16,8 @@ try:
 except ImportError:
     PYDANTIC_AVAILABLE = False
     BaseModel = object  # type: ignore
-    Field = lambda **kwargs: None  # type: ignore
+    def Field(**kwargs):
+        return None  # type: ignore
     ValidationError = Exception  # type: ignore
 
 from data_validation import validate_pydantic_schema

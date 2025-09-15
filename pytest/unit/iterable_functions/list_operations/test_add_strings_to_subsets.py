@@ -8,7 +8,7 @@ def test_add_strings_to_subsets_success() -> None:
     """
     my_list: list[set[str]] = [{"a", "b"}, {"c", "d"}]
     my_strings: list[str] = ["a", "e"]
-    assert add_strings_to_subsets(my_list, my_strings) == True
+    assert add_strings_to_subsets(my_list, my_strings)
     assert my_list == [{"a", "b", "e"}, {"c", "d"}]
 
 
@@ -18,7 +18,7 @@ def test_add_strings_to_subsets_no_match() -> None:
     """
     my_list: list[set[str]] = [{"a", "b"}, {"c", "d"}]
     my_strings: list[str] = ["e", "f"]
-    assert add_strings_to_subsets(my_list, my_strings) == False
+    assert not add_strings_to_subsets(my_list, my_strings)
     assert my_list == [{"a", "b"}, {"c", "d"}]
 
 
@@ -28,7 +28,7 @@ def test_add_strings_to_subsets_empty_strings() -> None:
     """
     my_list: list[set[str]] = [{"a", "b"}, {"c", "d"}]
     my_strings: list[str] = []
-    assert add_strings_to_subsets(my_list, my_strings) == False
+    assert not add_strings_to_subsets(my_list, my_strings)
     assert my_list == [{"a", "b"}, {"c", "d"}]
 
 
@@ -38,7 +38,7 @@ def test_add_strings_to_subsets_empty_list() -> None:
     """
     my_list: list[set[str]] = []
     my_strings: list[str] = ["a", "b"]
-    assert add_strings_to_subsets(my_list, my_strings) == False
+    assert not add_strings_to_subsets(my_list, my_strings)
     assert my_list == []
 
 
@@ -48,7 +48,7 @@ def test_add_strings_to_subsets_two_empty_lists() -> None:
     """
     my_list: list[set[str]] = []
     my_strings: list[str] = []
-    assert add_strings_to_subsets(my_list, my_strings) == False
+    assert not add_strings_to_subsets(my_list, my_strings)
     assert my_list == []
 
 

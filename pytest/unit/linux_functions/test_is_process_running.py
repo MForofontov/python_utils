@@ -15,7 +15,7 @@ def test_is_process_running_nonexistent_process() -> None:
     Test case 2: Test is_process_running function with a nonexistent process.
     """
     result: bool = is_process_running("nonexistent_process_12345")
-    assert result == False
+    assert not result
 
 
 def test_is_process_running_invalid_type() -> None:

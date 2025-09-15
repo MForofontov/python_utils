@@ -8,7 +8,7 @@ def test_check_if_all_sets_are_same_identical_sets() -> None:
     Test case 1: Test the check_if_all_sets_are_same function with identical sets.
     """
     sets_list: list[set[int]] = [{1, 2, 3}, {1, 2, 3}, {1, 2, 3}]
-    assert check_if_all_sets_are_same(sets_list) == True
+    assert check_if_all_sets_are_same(sets_list)
 
 
 def test_check_if_all_sets_are_same_different_sets() -> None:
@@ -16,7 +16,7 @@ def test_check_if_all_sets_are_same_different_sets() -> None:
     Test case 2: Test the check_if_all_sets_are_same function with different sets.
     """
     sets_list: list[set[int]] = [{1, 2, 3}, {4, 5, 6}, {1, 2, 3}]
-    assert check_if_all_sets_are_same(sets_list) == False
+    assert not check_if_all_sets_are_same(sets_list)
 
 
 def test_check_if_all_sets_are_same_single_set() -> None:
@@ -24,7 +24,7 @@ def test_check_if_all_sets_are_same_single_set() -> None:
     Test case 3: Test the check_if_all_sets_are_same function with a single set.
     """
     sets_list: list[set[int]] = [{1, 2, 3}]
-    assert check_if_all_sets_are_same(sets_list) == True
+    assert check_if_all_sets_are_same(sets_list)
 
 
 def test_check_if_all_sets_are_same_empty_list() -> None:
@@ -32,7 +32,7 @@ def test_check_if_all_sets_are_same_empty_list() -> None:
     Test case 4: Test the check_if_all_sets_are_same function with an empty list.
     """
     sets_list: list[set[int]] = []
-    assert check_if_all_sets_are_same(sets_list) == True
+    assert check_if_all_sets_are_same(sets_list)
 
 
 def test_check_if_all_sets_are_same_empty_sets() -> None:
@@ -40,7 +40,7 @@ def test_check_if_all_sets_are_same_empty_sets() -> None:
     Test case 5: Test the check_if_all_sets_are_same function with empty sets.
     """
     sets_list: list[set[int]] = [set(), set(), set()]
-    assert check_if_all_sets_are_same(sets_list) == True
+    assert check_if_all_sets_are_same(sets_list)
 
 
 def test_check_if_all_sets_are_same_strings() -> None:
@@ -52,7 +52,7 @@ def test_check_if_all_sets_are_same_strings() -> None:
         {"apple", "banana"},
         {"apple", "banana"},
     ]
-    assert check_if_all_sets_are_same(sets_list) == True
+    assert check_if_all_sets_are_same(sets_list)
 
 
 def test_check_if_all_sets_are_same_mixed_types() -> None:
@@ -64,7 +64,7 @@ def test_check_if_all_sets_are_same_mixed_types() -> None:
         {1, "banana", 3.14},
         {1, "banana", 3.14},
     ]
-    assert check_if_all_sets_are_same(sets_list) == True
+    assert check_if_all_sets_are_same(sets_list)
 
 
 def test_check_if_all_sets_are_same_type_error() -> None:

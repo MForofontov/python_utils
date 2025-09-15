@@ -7,7 +7,7 @@ def test_kill_process_nonexistent_pid() -> None:
     Test case 1: Test kill_process function with a nonexistent PID returns False.
     """
     result: bool = kill_process(999999)
-    assert result == False
+    assert not result
 
 
 def test_kill_process_invalid_type() -> None:

@@ -9,7 +9,7 @@ def test_ping_localhost() -> None:
     result: bool = ping_host("127.0.0.1")
     assert isinstance(result, bool)
     # localhost should generally be reachable
-    assert result == True
+    assert result
 
 
 def test_ping_invalid_host() -> None:
@@ -19,7 +19,7 @@ def test_ping_invalid_host() -> None:
     result: bool = ping_host("192.0.2.1", timeout=1)
     assert isinstance(result, bool)
     # This should fail quickly
-    assert result == False
+    assert not result
 
 
 def test_ping_with_custom_count() -> None:

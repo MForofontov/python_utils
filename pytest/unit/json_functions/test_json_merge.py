@@ -85,7 +85,7 @@ def test_json_merge_primitives() -> None:
     assert result == "world"
 
     result = json_merge(True, False)
-    assert result == False
+    assert not result
 
 
 def test_json_merge_complex_nested() -> None:

@@ -37,7 +37,7 @@ def test_deprecated_without_logger(capsys):
 
     with pytest.warns(DeprecationWarning) as record:
         result = old_function_no_logger()
-    captured = capsys.readouterr()
+    capsys.readouterr()
     assert result == "This is an old function."
     assert "old_function_no_logger is deprecated." in str(record[0].message)
 

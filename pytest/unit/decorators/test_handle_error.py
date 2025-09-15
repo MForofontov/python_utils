@@ -142,7 +142,7 @@ def test_handle_invalid_logger():
     """
     Test case 9: Invalid logger.
     """
-    with pytest.raises(TypeError) as e:
+    with pytest.raises(TypeError):
 
         @handle_error("An error occurred", logger="test_logger")
         def raise_value_error_invalid_logger():

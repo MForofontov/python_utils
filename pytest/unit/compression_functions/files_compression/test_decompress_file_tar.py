@@ -44,7 +44,7 @@ def test_decompress_file_tar_empty_file(tmp_path) -> None:
     output_dir = tmp_path / "output"
 
     # Create an empty tar-compressed file
-    with tarfile.open(compressed_file, "w:gz") as tar:
+    with tarfile.open(compressed_file, "w:gz"):
         pass
 
     decompress_file_tar(str(compressed_file), str(output_dir))

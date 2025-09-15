@@ -1,6 +1,5 @@
 import tarfile
 import os
-import tarfile
 
 
 def compress_tar(input_path: str, output_tar: str) -> None:

@@ -78,7 +78,7 @@ def test_generate_secure_token_case_5_with_symbols() -> None:
     # Check that token contains at least one character from each enabled set
     has_letter = any(c in string.ascii_letters for c in token)
     has_digit = any(c in string.digits for c in token)
-    has_symbol = any(c in "!@#$%^&*-_=+[]{}|;:,.<>?" for c in token)
+    any(c in "!@#$%^&*-_=+[]{}|;:,.<>?" for c in token)
     # At least letters and digits should be present (symbols may or may not appear)
     assert has_letter or has_digit
 

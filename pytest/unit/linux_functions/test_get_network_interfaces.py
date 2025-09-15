@@ -1,7 +1,6 @@
 from linux_functions.get_network_interfaces import get_network_interfaces
 
 
-from linux_functions.get_network_interfaces import get_network_interfaces
 
 
 def test_get_network_interfaces_returns_dict() -> None:
@@ -20,7 +19,7 @@ def test_get_network_interfaces_has_loopback() -> None:
     # Most systems have a loopback interface
     # This might be 'lo', 'lo0', or similar depending on the system
     loopback_found: bool = any("lo" in iface.lower() for iface in interfaces.keys())
-    assert loopback_found == True
+    assert loopback_found
 
 
 def test_get_network_interfaces_structure() -> None:

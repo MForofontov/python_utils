@@ -186,7 +186,7 @@ def test_verify_password_bcrypt_case_12_timing_attack_resistance() -> None:
     """
     # Arrange
     password = "test_password"
-    valid_hash = hash_password_bcrypt(password)
+    hash_password_bcrypt(password)
 
     # Test with various invalid hash formats that might cause timing differences
     invalid_hashes = [
