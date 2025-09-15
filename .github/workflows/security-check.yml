@@ -1,0 +1,35 @@
+name: security-check
+
+on:
+  workflow_dispatch:
+
+jobs:
+  bandit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install bandit
+
+      - name: Run Bandit (security scan)
+        run: |
+          bandit -r asyncio_functions compression_functions data_types datetime_functions decorators env_config_functions file_functions http_functions iterable_functions json_functions linux_functions logger_functions logging_debugging mathematical_functions multiprocessing_functions print_functions security_functions ssh_functions strings_utility
+
+      - name: Show security instructions if scan fails
+        if: failure()
+        run: |
+          echo "❌ Security issues detected by Bandit!"
+          echo "Please review the Bandit report and fix any high or medium severity issues."
+          echo "After fixing, commit and push your changes:"
+          echo "    git add ."
+          echo "    git commit -m 'Fix security issues'"
+          echo "    git push"
