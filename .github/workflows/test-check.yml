@@ -83,6 +83,9 @@ jobs:
       - name: Install test dependencies
         run: |
           python -m pip install --upgrade pip
+          # Install main project dependencies first
+          pip install -r requirements.txt
+          # Then install development/testing dependencies
           pip install -r requirements_dev.txt
           # Ensure these are present for best UX
           pip install pytest pytest-xdist allure-pytest
