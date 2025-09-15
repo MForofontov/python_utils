@@ -49,9 +49,9 @@ def parallel_dynamic_distribute(
     # Create a pool of worker processes
     with Pool(processes=num_processes) as pool:
         # Use imap to apply the function to the data in parallel with dynamic task distribution
-        results = pool.imap(func, data, chunksize=chunk_size)
-    # Convert the results to a list and return
-    return list(results)
+        results = list(pool.imap(func, data, chunksize=chunk_size))
+    # Return the results
+    return results
 
 
 __all__ = ["parallel_dynamic_distribute"]
