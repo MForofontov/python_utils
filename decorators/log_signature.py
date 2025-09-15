@@ -4,6 +4,7 @@ from functools import wraps
 import inspect
 import logging
 from logger_functions.logger import validate_logger
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -79,9 +80,7 @@ def log_signature(
                 logger.info(f"{func.__name__} returned: {result}")
                 return result
             except Exception:
-                logger.exception(
-                    f"Exception occurred in {func.__name__}():"
-                )
+                logger.exception(f"Exception occurred in {func.__name__}():")
                 raise
 
         return wrapper
@@ -89,4 +88,4 @@ def log_signature(
     return decorator
 
 
-__all__ = ['log_signature']
+__all__ = ["log_signature"]

@@ -25,7 +25,7 @@ def get_combinations_with_replacement(input_set: set[T], r: int) -> list[list[T]
 
     Returns
     -------
-    list[List[T]]
+    list[list[T]]
         List of all combinations with replacement, sorted lexicographically.
 
     Raises
@@ -73,10 +73,12 @@ def get_combinations_with_replacement(input_set: set[T], r: int) -> list[list[T]
 
     # Generate combinations with replacement
     elements = sorted(list(input_set))
-    combinations = [list(comb) for comb in itertools.combinations_with_replacement(elements, r)]
+    combinations = [
+        list(comb) for comb in itertools.combinations_with_replacement(elements, r)
+    ]
     combinations.sort()  # Ensure lexicographic ordering
 
     return combinations
 
 
-__all__ = ['get_combinations_with_replacement']
+__all__ = ["get_combinations_with_replacement"]

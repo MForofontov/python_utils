@@ -4,6 +4,7 @@ from functools import wraps
 import inspect
 import logging
 from logger_functions.logger import validate_logger
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -31,9 +32,7 @@ def async_handle_error(
     """
     validate_logger(logger)
 
-    def decorator(
-        func: Callable[P, Awaitable[R]]
-    ) -> Callable[P, Awaitable[R | None]]:
+    def decorator(func: Callable[P, Awaitable[R]]) -> Callable[P, Awaitable[R | None]]:
         """
         Decorator function.
 
@@ -104,4 +103,4 @@ def async_handle_error(
     return decorator
 
 
-__all__ = ['async_handle_error']
+__all__ = ["async_handle_error"]

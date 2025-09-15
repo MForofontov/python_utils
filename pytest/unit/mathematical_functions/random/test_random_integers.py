@@ -95,5 +95,7 @@ def test_random_integers_value_error_invalid_range() -> None:
     """
     Test case 11: Test random_integers with min_value > max_value.
     """
-    with pytest.raises(ValueError, match="min_value must be less than or equal to max_value"):
+    with pytest.raises(
+        ValueError, match="min_value must be less than or equal to max_value"
+    ):
         random_integers(5, 10, 5)

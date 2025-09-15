@@ -3,6 +3,7 @@ from collections.abc import Callable
 from functools import wraps
 import logging
 from logger_functions.logger import validate_logger
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -160,4 +161,4 @@ def event_trigger(
     return decorator
 
 
-__all__ = ['EventManager', 'event_trigger']
+__all__ = ["EventManager", "event_trigger"]

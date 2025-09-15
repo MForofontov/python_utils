@@ -88,10 +88,10 @@ def test_get_end_of_week_invalid_input_type() -> None:
     Test case 9: Test get_end_of_week function with invalid input type raises TypeError.
     """
     with pytest.raises(TypeError):
-        get_end_of_week('2023-06-05')
-    
+        get_end_of_week("2023-06-05")
+
     with pytest.raises(TypeError):
         get_end_of_week(123)
-    
+
     with pytest.raises(TypeError):
         get_end_of_week(None)

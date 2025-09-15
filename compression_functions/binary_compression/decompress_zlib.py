@@ -38,4 +38,4 @@ def decompress_zlib(compressed_data: bytes) -> bytes:
         raise ValueError(f"An error occurred during decompression: {e}")
 
 
-__all__ = ['decompress_zlib']
+__all__ = ["decompress_zlib"]

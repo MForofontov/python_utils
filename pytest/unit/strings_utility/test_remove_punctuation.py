@@ -103,8 +103,7 @@ def test_remove_punctuation_numbers() -> None:
     """
     Test case 12: Test the remove_punctuation function with a string that contains numbers.
     """
-    assert remove_punctuation(
-        "123, 456!") == "123 456", "Failed on string with numbers"
+    assert remove_punctuation("123, 456!") == "123 456", "Failed on string with numbers"
 
 
 def test_remove_punctuation_numbers_within_words() -> None:

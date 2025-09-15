@@ -29,4 +29,4 @@ def get_current_datetime_iso_utc() -> str:
     return datetime.now(pytz.UTC).isoformat()
 
 
-__all__ = ['get_current_datetime_iso_utc']
+__all__ = ["get_current_datetime_iso_utc"]

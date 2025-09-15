@@ -8,7 +8,10 @@ R = TypeVar("R")
 
 
 def parallel_broadcast(
-    func: Callable[[T, T], R], shared_input: T, data: list[T], num_processes: int | None = None
+    func: Callable[[T, T], R],
+    shared_input: T,
+    data: list[T],
+    num_processes: int | None = None,
 ) -> list[R]:
     """
     Apply a function in parallel to a list of items, with a shared input broadcasted to all processes.
@@ -54,4 +57,4 @@ def parallel_broadcast(
     return results
 
 
-__all__ = ['parallel_broadcast']
+__all__ = ["parallel_broadcast"]

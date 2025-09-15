@@ -3,9 +3,7 @@
 from datetime import datetime, date
 
 
-def modify_years(
-    date_obj: datetime | date, years: int
-) -> datetime | date:
+def modify_years(date_obj: datetime | date, years: int) -> datetime | date:
     """
     Add or subtract a specified number of years from a datetime or
     date object.

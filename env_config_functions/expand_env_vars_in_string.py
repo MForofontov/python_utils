@@ -27,7 +27,9 @@ def expand_env_vars_in_string(s: str, default: str | None = None) -> str:
     >>> expand_env_vars_in_string('Path: $NOT_SET', default='none')
     'Path: none'
     """
+
     def replacer(match):
         var = match.group(1) or match.group(2)
-        return os.environ.get(var, default or '')
-    return re.sub(r'\$(\w+)|\${(\w+)}', replacer, s)
+        return os.environ.get(var, default or "")
+
+    return re.sub(r"\$(\w+)|\${(\w+)}", replacer, s)

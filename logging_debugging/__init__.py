@@ -12,9 +12,9 @@ from .performance_formatter import performance_formatter
 from .structured_formatter import structured_formatter
 
 __all__ = [
-    'colored_formatter',
-    'contextual_logger',
-    'json_formatter',
-    'performance_formatter',
-    'structured_formatter',
+    "colored_formatter",
+    "contextual_logger",
+    "json_formatter",
+    "performance_formatter",
+    "structured_formatter",
 ]

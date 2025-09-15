@@ -6,8 +6,7 @@ from decorators.handle_error import handle_error
 test_logger = logging.getLogger("test_logger")
 test_logger.setLevel(logging.DEBUG)
 handler = logging.StreamHandler()
-formatter = logging.Formatter(
-    "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 handler.setFormatter(formatter)
 test_logger.addHandler(handler)
 
@@ -59,10 +58,10 @@ def test_handle_error_add():
 
 
 def test_handle_error_with_kwargs():
-
     """
     Test case 3: Function with keyword arguments.
     """
+
     @handle_error("An error occurred")
     def with_kwargs(a, b=0):
         return a + b
@@ -72,10 +71,10 @@ def test_handle_error_with_kwargs():
 
 
 def test_handle_error_with_multiple_args():
-
     """
     Test case 4: Function with multiple arguments.
     """
+
     @handle_error("An error occurred")
     def multiple_args(a, b, c):
         return a + b + c
@@ -105,10 +104,10 @@ def test_handle_error_type_error(capfd):
 
 
 def test_handle_error_with_exception_in_kwargs(capfd):
-
     """
     Test case 7: Function with keyword arguments that raises an exception.
     """
+
     @handle_error("An error occurred")
     def with_kwargs_exception(a, b=0):
         if b == 0:
@@ -122,10 +121,10 @@ def test_handle_error_with_exception_in_kwargs(capfd):
 
 
 def test_handle_error_with_custom_exception(capfd):
-
     """
     Test case 8: Function that raises a custom exception.
     """
+
     class CustomException(Exception):
         pass
 
@@ -143,7 +142,7 @@ def test_handle_invalid_logger():
     """
     Test case 9: Invalid logger.
     """
-    with pytest.raises(TypeError) as e:
+    with pytest.raises(TypeError):
 
         @handle_error("An error occurred", logger="test_logger")
         def raise_value_error_invalid_logger():

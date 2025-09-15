@@ -30,10 +30,8 @@ def test_get_paths_dict_directories_only(tmp_path: Path) -> None:
     folder_path: Path = tmp_path / "folder"
     folder_path.mkdir()
 
-    returned_paths: dict[str, str] = get_paths_dict(
-        str(tmp_path), "directories")
-    expected_paths: dict[str, str] = {
-        "folder": os.path.join(tmp_path, "folder")}
+    returned_paths: dict[str, str] = get_paths_dict(str(tmp_path), "directories")
+    expected_paths: dict[str, str] = {"folder": os.path.join(tmp_path, "folder")}
     assert returned_paths == expected_paths, "Should return only directory paths"
 
 

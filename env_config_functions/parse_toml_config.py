@@ -2,10 +2,11 @@ from typing import Any
 from collections.abc import Callable
 import toml
 
+
 def parse_toml_config(
     path: str,
     schema_validator: Callable[[dict[str, Any]], None] | None = None,
-    required_keys: list[str] | None = None
+    required_keys: list[str] | None = None,
 ) -> dict[str, Any]:
     """
     Parse a TOML configuration file and return a dictionary, with optional schema validation.

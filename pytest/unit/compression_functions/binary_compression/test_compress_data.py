@@ -91,5 +91,4 @@ def test_compress_data_invalid_level() -> None:
     """
     data: bytes = b"hello world"
     with pytest.raises(TypeError):
-        compress_data(data, algorithm="zstd",
-                      level="not an integer")  # type: ignore
+        compress_data(data, algorithm="zstd", level="not an integer")  # type: ignore

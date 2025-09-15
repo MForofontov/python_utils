@@ -49,4 +49,4 @@ def parallel_map(
     return results
 
 
-__all__ = ['parallel_map']
+__all__ = ["parallel_map"]

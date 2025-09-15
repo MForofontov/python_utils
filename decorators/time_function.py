@@ -4,6 +4,7 @@ from typing import ParamSpec, TypeVar
 from collections.abc import Callable
 from functools import wraps
 from logger_functions.logger import validate_logger
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -68,4 +69,4 @@ def time_function(
     return decorator
 
 
-__all__ = ['time_function']
+__all__ = ["time_function"]

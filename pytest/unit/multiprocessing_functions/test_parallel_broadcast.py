@@ -23,8 +23,7 @@ def test_parallel_broadcast_custom_processes() -> None:
     Test case 2: Test parallel_broadcast with a custom process count.
     """
     data: list[int] = [1, 2, 3]
-    result: list[int] = parallel_broadcast(
-        add_shared, 5, data, num_processes=2)
+    result: list[int] = parallel_broadcast(add_shared, 5, data, num_processes=2)
     assert result == [6, 7, 8]
 
 

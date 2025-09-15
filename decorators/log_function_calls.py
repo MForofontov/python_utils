@@ -3,6 +3,7 @@ from functools import wraps
 from typing import ParamSpec, TypeVar
 from collections.abc import Callable
 from logger_functions.logger import validate_logger
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -62,8 +63,7 @@ def log_function_calls(
                 logger.info(f"{func.__name__} returned: {result}")
                 return result
             except Exception as e:
-                logger.error(
-                    f"Exception in {func.__name__}: {e}", exc_info=True)
+                logger.error(f"Exception in {func.__name__}: {e}", exc_info=True)
                 raise
 
         return wrapper
@@ -71,4 +71,4 @@ def log_function_calls(
     return decorator
 
 
-__all__ = ['log_function_calls']
+__all__ = ["log_function_calls"]

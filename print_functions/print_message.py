@@ -83,4 +83,4 @@ def print_message(
     print(formatted_message, end=end, flush=flush)
 
 
-__all__ = ['print_message']
+__all__ = ["print_message"]

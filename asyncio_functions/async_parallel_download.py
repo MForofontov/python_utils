@@ -1,7 +1,10 @@
 import aiohttp
 import asyncio
 
-async def async_parallel_download(url: str, dest_path: str, num_chunks: int = 8, timeout: float = 30.0) -> None:
+
+async def async_parallel_download(
+    url: str, dest_path: str, num_chunks: int = 8, timeout: float = 30.0
+) -> None:
     """
     Download a file asynchronously from a URL in parallel chunks and save to dest_path.
 
@@ -53,14 +56,18 @@ async def async_parallel_download(url: str, dest_path: str, num_chunks: int = 8,
         raise ValueError("timeout must be positive")
 
     try:
-        async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=timeout)) as session:
+        async with aiohttp.ClientSession(
+            timeout=aiohttp.ClientTimeout(total=timeout)
+        ) as session:
             # Get file size
             async with session.head(url) as resp:
                 resp.raise_for_status()
                 size = int(resp.headers.get("Content-Length", 0))
                 accept_ranges = resp.headers.get("Accept-Ranges", "none")
                 if size == 0 or accept_ranges.lower() != "bytes":
-                    raise RuntimeError("Server does not support range requests or file size unknown")
+                    raise RuntimeError(
+                        "Server does not support range requests or file size unknown"
+                    )
             # Prepare chunk ranges
             ranges = []
             chunk_size = size // num_chunks
@@ -68,6 +75,7 @@ async def async_parallel_download(url: str, dest_path: str, num_chunks: int = 8,
                 start = i * chunk_size
                 end = start + chunk_size - 1 if i < num_chunks - 1 else size - 1
                 ranges.append((start, end))
+
             # Download chunks in parallel
             async def fetch_chunk(start, end, idx):
                 headers = {"Range": f"bytes={start}-{end}"}
@@ -75,7 +83,10 @@ async def async_parallel_download(url: str, dest_path: str, num_chunks: int = 8,
                     resp.raise_for_status()
                     data = await resp.content.read()
                     return idx, data
-            tasks = [fetch_chunk(start, end, idx) for idx, (start, end) in enumerate(ranges)]
+
+            tasks = [
+                fetch_chunk(start, end, idx) for idx, (start, end) in enumerate(ranges)
+            ]
             results = await asyncio.gather(*tasks)
             # Write chunks in order
             results.sort()
@@ -84,5 +95,6 @@ async def async_parallel_download(url: str, dest_path: str, num_chunks: int = 8,
                     f.write(data)
     except Exception as e:
         raise RuntimeError(f"Parallel download failed: {e}")
+
 
 __all__ = ["async_parallel_download"]

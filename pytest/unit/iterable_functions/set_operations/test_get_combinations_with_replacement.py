@@ -1,5 +1,7 @@
 import pytest
-from iterable_functions.set_operations.get_combinations_with_replacement import get_combinations_with_replacement
+from iterable_functions.set_operations.get_combinations_with_replacement import (
+    get_combinations_with_replacement,
+)
 
 
 def test_get_combinations_with_replacement_normal_case() -> None:

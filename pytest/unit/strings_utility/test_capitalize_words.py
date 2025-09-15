@@ -13,8 +13,7 @@ def test_multiple_words() -> None:
     """
     Test case 2: Test the capitalize_words function with multiple words.
     """
-    assert capitalize_words(
-        "hello world") == "Hello World", "Failed on multiple words"
+    assert capitalize_words("hello world") == "Hello World", "Failed on multiple words"
 
 
 def test_mixed_case_words() -> None:
@@ -73,8 +72,7 @@ def test_string_with_only_spaces() -> None:
     """
     Test case 9: Test the capitalize_words function with a string that contains only spaces.
     """
-    assert capitalize_words(
-        "   ") == "   ", "Failed on string with only spaces"
+    assert capitalize_words("   ") == "   ", "Failed on string with only spaces"
 
 
 def test_string_with_leading_and_trailing_spaces() -> None:

@@ -1,6 +1,7 @@
 import subprocess
 from typing import Any
 
+
 def ssh_check_connection(
     host: str,
     user: str | None = None,
@@ -62,24 +63,14 @@ def ssh_check_connection(
         raise ValueError(f"timeout must be positive, got {timeout}")
 
     ssh_target = f"{user + '@' if user else ''}{host}"
-    ssh_cmd = [
-        "ssh",
-        "-p", str(port),
-        ssh_target,
-        "exit"
-    ]
+    ssh_cmd = ["ssh", "-p", str(port), ssh_target, "exit"]
     try:
-        proc = subprocess.run(
-            ssh_cmd,
-            capture_output=True,
-            text=True,
-            timeout=timeout
-        )
+        proc = subprocess.run(ssh_cmd, capture_output=True, text=True, timeout=timeout)
         return {
             "success": proc.returncode == 0,
             "stdout": proc.stdout.strip(),
             "stderr": proc.stderr.strip(),
-            "exit_code": proc.returncode
+            "exit_code": proc.returncode,
         }
     except subprocess.TimeoutExpired:
         raise RuntimeError(f"SSH connection timed out after {timeout} seconds")
@@ -87,4 +78,4 @@ def ssh_check_connection(
         raise RuntimeError(f"SSH connection failed: {e}")
 
 
-__all__ = ['ssh_check_connection']
+__all__ = ["ssh_check_connection"]

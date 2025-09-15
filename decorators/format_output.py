@@ -1,6 +1,7 @@
 from typing import ParamSpec, TypeVar
 from collections.abc import Callable
 from functools import wraps
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -69,4 +70,4 @@ def format_output(
     return decorator
 
 
-__all__ = ['format_output']
+__all__ = ["format_output"]

@@ -77,9 +77,9 @@ def safe_cast(value: Any, target_type: type[T], default: T | None = None) -> T |
         if target_type == bool:
             # Special handling for boolean conversion
             if isinstance(value, str):
-                if value.lower() in ('true', '1', 'yes', 'on'):
+                if value.lower() in ("true", "1", "yes", "on"):
                     return True
-                elif value.lower() in ('false', '0', 'no', 'off', ''):
+                elif value.lower() in ("false", "0", "no", "off", ""):
                     return False
                 else:
                     raise ValueError(f"Cannot convert '{value}' to bool")
@@ -87,7 +87,7 @@ def safe_cast(value: Any, target_type: type[T], default: T | None = None) -> T |
         elif target_type == int:
             # Handle string to int conversion
             if isinstance(value, str):
-                return int(float(value)) if '.' in value else int(value)
+                return int(float(value)) if "." in value else int(value)
             return int(value)
         elif target_type == float:
             return float(value)
@@ -96,14 +96,14 @@ def safe_cast(value: Any, target_type: type[T], default: T | None = None) -> T |
         elif target_type == list:
             if isinstance(value, (list, tuple)):
                 return list(value)
-            elif hasattr(value, '__iter__'):
+            elif hasattr(value, "__iter__"):
                 return list(value)
             else:
                 return [value]
         elif target_type == tuple:
             if isinstance(value, (list, tuple)):
                 return tuple(value)
-            elif hasattr(value, '__iter__'):
+            elif hasattr(value, "__iter__"):
                 return tuple(value)
             else:
                 return (value,)
@@ -157,4 +157,4 @@ def is_numeric(value: Any) -> bool:
     return isinstance(value, (int, float, complex))
 
 
-__all__ = ['safe_cast', 'is_numeric']
+__all__ = ["safe_cast", "is_numeric"]

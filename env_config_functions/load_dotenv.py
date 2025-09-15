@@ -22,17 +22,17 @@ def load_dotenv(dotenv_path: str | None = None, override: bool = False) -> None:
     >>> import os; os.environ['MY_VAR']
     'some_value'
     """
-    path = dotenv_path or '.env'
+    path = dotenv_path or ".env"
     if not os.path.exists(path):
         return
     with open(path) as f:
         for line in f:
             line = line.strip()
-            if not line or line.startswith('#'):
+            if not line or line.startswith("#"):
                 continue
-            if '=' not in line:
+            if "=" not in line:
                 continue
-            key, value = line.split('=', 1)
+            key, value = line.split("=", 1)
             key = key.strip()
             value = value.strip().strip('"').strip("'")
             if override or key not in os.environ:

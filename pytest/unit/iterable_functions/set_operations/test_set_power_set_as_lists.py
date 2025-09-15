@@ -1,5 +1,7 @@
 import pytest
-from iterable_functions.set_operations.set_power_set_as_lists import set_power_set_as_lists
+from iterable_functions.set_operations.set_power_set_as_lists import (
+    set_power_set_as_lists,
+)
 
 
 def test_set_power_set_as_lists_normal_case() -> None:
@@ -101,9 +103,13 @@ def test_set_power_set_as_lists_ordering() -> None:
     result = set_power_set_as_lists(input_set)
     # Should be sorted by length, then lexicographically
     expected = [
-        [],           # length 0
-        [1], [2], [3], # length 1, sorted
-        [1, 2], [1, 3], [2, 3], # length 2, sorted
-        [1, 2, 3]     # length 3
+        [],  # length 0
+        [1],
+        [2],
+        [3],  # length 1, sorted
+        [1, 2],
+        [1, 3],
+        [2, 3],  # length 2, sorted
+        [1, 2, 3],  # length 3
     ]
     assert result == expected

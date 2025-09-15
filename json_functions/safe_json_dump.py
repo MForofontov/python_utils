@@ -12,7 +12,7 @@ def safe_json_dump(
 ) -> str | T:
     """
     Safely dump an object to a JSON string, returning a default value on error.
-    
+
     Parameters
     ----------
     obj : Any
@@ -23,13 +23,13 @@ def safe_json_dump(
         Custom JSONEncoder class.
     **kwargs
         Additional arguments for json.dumps.
-        
+
     Returns
     -------
     str or T
         The JSON string, or the provided default value (which may be any type) if
         serialization fails.
-        
+
     Examples
     --------
     >>> safe_json_dump({'a': 1})
@@ -38,6 +38,10 @@ def safe_json_dump(
     'error'
     """
     try:
-        return json.dumps(obj, cls=encoder, **kwargs) if encoder else json.dumps(obj, **kwargs)
+        return (
+            json.dumps(obj, cls=encoder, **kwargs)
+            if encoder
+            else json.dumps(obj, **kwargs)
+        )
     except (TypeError, ValueError):
         return default

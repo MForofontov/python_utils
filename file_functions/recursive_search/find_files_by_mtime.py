@@ -61,44 +61,52 @@ def find_files_by_mtime(
     """
     # Input validation
     if not isinstance(directory, (str, Path)):
-        raise TypeError(f"directory must be a string or Path, got {type(directory).__name__}")
+        raise TypeError(
+            f"directory must be a string or Path, got {type(directory).__name__}"
+        )
     if days_old is not None and not isinstance(days_old, int):
-        raise TypeError(f"days_old must be an integer or None, got {type(days_old).__name__}")
+        raise TypeError(
+            f"days_old must be an integer or None, got {type(days_old).__name__}"
+        )
     if newer_than is not None and not isinstance(newer_than, datetime):
-        raise TypeError(f"newer_than must be a datetime or None, got {type(newer_than).__name__}")
+        raise TypeError(
+            f"newer_than must be a datetime or None, got {type(newer_than).__name__}"
+        )
     if older_than is not None and not isinstance(older_than, datetime):
-        raise TypeError(f"older_than must be a datetime or None, got {type(older_than).__name__}")
-    
+        raise TypeError(
+            f"older_than must be a datetime or None, got {type(older_than).__name__}"
+        )
+
     # Convert to Path object
     dir_path = Path(directory)
-    
+
     # Validate directory exists
     if not dir_path.exists():
         raise ValueError(f"Directory does not exist: {directory}")
     if not dir_path.is_dir():
         raise ValueError(f"Path is not a directory: {directory}")
-    
+
     # Validate time parameters
     if days_old is not None and days_old < 0:
         raise ValueError(f"days_old must be non-negative, got {days_old}")
     if newer_than is not None and older_than is not None and newer_than >= older_than:
         raise ValueError("newer_than must be before older_than")
-    
+
     # At least one time criterion must be specified
     if days_old is None and newer_than is None and older_than is None:
         raise ValueError("At least one time criterion must be specified")
-    
+
     # Calculate time ranges
     current_time = datetime.now()
-    
+
     if days_old is not None:
         target_date = current_time - timedelta(days=days_old)
         # For days_old, we want files from that specific day (24-hour window)
         day_start = target_date.replace(hour=0, minute=0, second=0, microsecond=0)
         day_end = day_start + timedelta(days=1)
-    
+
     matching_files: list[tuple[str, datetime]] = []
-    
+
     try:
         for root, _, files in os.walk(dir_path):
             for file in files:
@@ -106,30 +114,30 @@ def find_files_by_mtime(
                 try:
                     mtime_timestamp = file_path.stat().st_mtime
                     mtime = datetime.fromtimestamp(mtime_timestamp)
-                    
+
                     # Check time criteria
                     matches = True
-                    
+
                     if days_old is not None:
                         if not (day_start <= mtime < day_end):
                             matches = False
-                    
+
                     if newer_than is not None and mtime <= newer_than:
                         matches = False
-                    
+
                     if older_than is not None and mtime >= older_than:
                         matches = False
-                    
+
                     if matches:
                         matching_files.append((str(file_path), mtime))
-                        
+
                 except OSError:
                     # Skip files that cannot be accessed
                     continue
     except OSError as e:
         raise OSError(f"Error accessing directory {directory}: {e}") from e
-    
+
     return matching_files
 
 
-__all__ = ['find_files_by_mtime']
+__all__ = ["find_files_by_mtime"]

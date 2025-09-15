@@ -49,4 +49,4 @@ def parallel_progress_bar(
     return results
 
 
-__all__ = ['parallel_progress_bar']
+__all__ = ["parallel_progress_bar"]

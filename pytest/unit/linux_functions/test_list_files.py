@@ -10,25 +10,25 @@ def test_list_files_valid_directory() -> None:
     """
     with tempfile.TemporaryDirectory() as temp_dir:
         # Create some test files
-        file1: str = os.path.join(temp_dir, 'file1.txt')
-        file2: str = os.path.join(temp_dir, 'file2.py')
-        hidden_file: str = os.path.join(temp_dir, '.hidden_file')
-        
+        file1: str = os.path.join(temp_dir, "file1.txt")
+        file2: str = os.path.join(temp_dir, "file2.py")
+        hidden_file: str = os.path.join(temp_dir, ".hidden_file")
+
         for file_path in [file1, file2, hidden_file]:
-            with open(file_path, 'w') as f:
-                f.write('test content')
-        
+            with open(file_path, "w") as f:
+                f.write("test content")
+
         # Test without hidden files
         files: list[str] = list_files(temp_dir, include_hidden=False)
         assert isinstance(files, list)
-        assert 'file1.txt' in files
-        assert 'file2.py' in files
-        assert '.hidden_file' not in files
+        assert "file1.txt" in files
+        assert "file2.py" in files
+        assert ".hidden_file" not in files
         assert len(files) == 2
-        
+
         # Test with hidden files
         files_with_hidden: list[str] = list_files(temp_dir, include_hidden=True)
-        assert '.hidden_file' in files_with_hidden
+        assert ".hidden_file" in files_with_hidden
         assert len(files_with_hidden) == 3
 
 
@@ -48,16 +48,16 @@ def test_list_files_with_subdirectories() -> None:
     """
     with tempfile.TemporaryDirectory() as temp_dir:
         # Create a file and a subdirectory
-        file1: str = os.path.join(temp_dir, 'file1.txt')
-        subdir: str = os.path.join(temp_dir, 'subdir')
-        
-        with open(file1, 'w') as f:
-            f.write('test content')
+        file1: str = os.path.join(temp_dir, "file1.txt")
+        subdir: str = os.path.join(temp_dir, "subdir")
+
+        with open(file1, "w") as f:
+            f.write("test content")
         os.mkdir(subdir)
-        
+
         files: list[str] = list_files(temp_dir)
-        assert 'file1.txt' in files
-        assert 'subdir' not in files
+        assert "file1.txt" in files
+        assert "subdir" not in files
         assert len(files) == 1
 
 
@@ -66,7 +66,7 @@ def test_list_files_nonexistent_directory() -> None:
     Test case 4: Test list_files function with a nonexistent directory raises FileNotFoundError.
     """
     with pytest.raises(FileNotFoundError):
-        list_files('/nonexistent/directory')
+        list_files("/nonexistent/directory")
 
 
 def test_list_files_not_a_directory() -> None:
@@ -87,6 +87,6 @@ def test_list_files_invalid_type() -> None:
     """
     with pytest.raises(TypeError):
         list_files(123)
-    
+
     with pytest.raises(TypeError):
         list_files(None)

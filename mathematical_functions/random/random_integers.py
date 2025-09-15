@@ -39,20 +39,20 @@ def random_integers(count: int, min_value: int = 0, max_value: int = 100) -> lis
     """
     if not isinstance(count, int):
         raise TypeError("count must be an integer")
-    
+
     if not isinstance(min_value, int):
         raise TypeError("min_value must be an integer")
-    
+
     if not isinstance(max_value, int):
         raise TypeError("max_value must be an integer")
-    
+
     if count < 0:
         raise ValueError("count must be non-negative")
-    
+
     if min_value > max_value:
         raise ValueError("min_value must be less than or equal to max_value")
-    
+
     return [random.randint(min_value, max_value) for _ in range(count)]
 
 
-__all__ = ['random_integers']
+__all__ = ["random_integers"]

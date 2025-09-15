@@ -31,4 +31,4 @@ def capitalize_words(s: str) -> str:
     return s.title()
 
 
-__all__ = ['capitalize_words']
+__all__ = ["capitalize_words"]

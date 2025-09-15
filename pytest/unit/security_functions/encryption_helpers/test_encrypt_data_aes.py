@@ -13,10 +13,10 @@ def test_encrypt_data_aes_case_1_string_data_auto_key() -> None:
     """
     # Arrange
     data = "Hello, World!"
-    
+
     # Act
     encrypted, key = encrypt_data_aes(data)
-    
+
     # Assert
     assert isinstance(encrypted, str)
     assert isinstance(key, str)
@@ -36,10 +36,10 @@ def test_encrypt_data_aes_case_2_bytes_data_auto_key() -> None:
     """
     # Arrange
     data = b"Hello, World!"
-    
+
     # Act
     encrypted, key = encrypt_data_aes(data)
-    
+
     # Assert
     assert isinstance(encrypted, str)
     assert isinstance(key, str)
@@ -55,11 +55,12 @@ def test_encrypt_data_aes_case_3_string_data_custom_key() -> None:
     data = "Test message"
     # Generate a valid Fernet key
     from cryptography.fernet import Fernet
-    custom_key = Fernet.generate_key().decode('utf-8')
-    
+
+    custom_key = Fernet.generate_key().decode("utf-8")
+
     # Act
     encrypted, returned_key = encrypt_data_aes(data, key=custom_key)
-    
+
     # Assert
     assert isinstance(encrypted, str)
     assert returned_key == custom_key
@@ -73,7 +74,7 @@ def test_encrypt_data_aes_case_4_type_validation() -> None:
     # Test invalid data type
     with pytest.raises(TypeError, match="data must be str or bytes"):
         encrypt_data_aes(123)
-    
+
     # Test invalid key type
     with pytest.raises(TypeError, match="key must be str, bytes, or None"):
         encrypt_data_aes("data", key=123)
@@ -86,7 +87,7 @@ def test_encrypt_data_aes_case_5_value_validation() -> None:
     # Test empty string data
     with pytest.raises(ValueError, match="data cannot be empty"):
         encrypt_data_aes("")
-    
+
     # Test empty bytes data
     with pytest.raises(ValueError, match="data cannot be empty"):
         encrypt_data_aes(b"")
@@ -99,10 +100,10 @@ def test_encrypt_data_aes_case_6_invalid_key_format() -> None:
     # Test invalid key format
     with pytest.raises(ValueError, match="invalid key format"):
         encrypt_data_aes("data", key="invalid_key")
-    
+
     # Test key with wrong length
     with pytest.raises(ValueError, match="key must be 32 bytes when decoded"):
-        encrypt_data_aes("data", key=base64.urlsafe_b64encode(b"short").decode('utf-8'))
+        encrypt_data_aes("data", key=base64.urlsafe_b64encode(b"short").decode("utf-8"))
 
 
 def test_encrypt_data_aes_case_7_unicode_data() -> None:
@@ -111,10 +112,10 @@ def test_encrypt_data_aes_case_7_unicode_data() -> None:
     """
     # Arrange
     data = "Hello 世界! 🌍 ümläuts"
-    
+
     # Act
     encrypted, key = encrypt_data_aes(data)
-    
+
     # Assert
     assert isinstance(encrypted, str)
     assert isinstance(key, str)
@@ -127,10 +128,10 @@ def test_encrypt_data_aes_case_8_long_data() -> None:
     """
     # Arrange
     data = "This is a very long message that spans multiple lines. " * 100
-    
+
     # Act
     encrypted, key = encrypt_data_aes(data)
-    
+
     # Assert
     assert isinstance(encrypted, str)
     assert isinstance(key, str)
@@ -145,12 +146,13 @@ def test_encrypt_data_aes_case_9_different_data_different_results() -> None:
     data1 = "Message 1"
     data2 = "Message 2"
     from cryptography.fernet import Fernet
-    same_key = Fernet.generate_key().decode('utf-8')
-    
+
+    same_key = Fernet.generate_key().decode("utf-8")
+
     # Act
     encrypted1, _ = encrypt_data_aes(data1, key=same_key)
     encrypted2, _ = encrypt_data_aes(data2, key=same_key)
-    
+
     # Assert
     assert encrypted1 != encrypted2
 
@@ -162,13 +164,14 @@ def test_encrypt_data_aes_case_10_same_data_different_keys() -> None:
     # Arrange
     data = "Same data"
     from cryptography.fernet import Fernet
-    key1 = Fernet.generate_key().decode('utf-8')
-    key2 = Fernet.generate_key().decode('utf-8')
-    
+
+    key1 = Fernet.generate_key().decode("utf-8")
+    key2 = Fernet.generate_key().decode("utf-8")
+
     # Act
     encrypted1, _ = encrypt_data_aes(data, key=key1)
     encrypted2, _ = encrypt_data_aes(data, key=key2)
-    
+
     # Assert
     assert encrypted1 != encrypted2
 
@@ -180,11 +183,12 @@ def test_encrypt_data_aes_case_11_bytes_key_handling() -> None:
     # Arrange
     data = "Test message"
     from cryptography.fernet import Fernet
+
     key_bytes = Fernet.generate_key()
-    
+
     # Act
     encrypted, returned_key = encrypt_data_aes(data, key=key_bytes)
-    
+
     # Assert
     assert isinstance(encrypted, str)
     assert isinstance(returned_key, str)
@@ -197,10 +201,10 @@ def test_encrypt_data_aes_case_12_special_characters() -> None:
     """
     # Arrange
     data = "!@#$%^&*()_+-=[]{}|;':\",./<>?`~"
-    
+
     # Act
     encrypted, key = encrypt_data_aes(data)
-    
+
     # Assert
     assert isinstance(encrypted, str)
     assert isinstance(key, str)

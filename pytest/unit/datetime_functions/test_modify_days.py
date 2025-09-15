@@ -62,7 +62,7 @@ def test_modify_days_month_boundary() -> None:
     test_date: date = date(2023, 1, 30)
     result_add: date = modify_days(test_date, 5)
     assert result_add == date(2023, 2, 4)
-    
+
     test_date2: date = date(2023, 2, 3)
     result_subtract: date = modify_days(test_date2, -5)
     assert result_subtract == date(2023, 1, 29)
@@ -73,11 +73,11 @@ def test_modify_days_invalid_input_type() -> None:
     Test case 7: Test modify_days function with invalid input type raises TypeError.
     """
     with pytest.raises(TypeError):
-        modify_days('2023-01-15', 5)
-    
+        modify_days("2023-01-15", 5)
+
     with pytest.raises(TypeError):
         modify_days(123, 5)
-    
+
     with pytest.raises(TypeError):
         modify_days(None, 5)
 
@@ -87,12 +87,12 @@ def test_modify_days_invalid_days_type() -> None:
     Test case 8: Test modify_days function with invalid days type raises TypeError.
     """
     test_date: date = date(2023, 1, 15)
-    
+
     with pytest.raises(TypeError):
-        modify_days(test_date, '5')
-    
+        modify_days(test_date, "5")
+
     with pytest.raises(TypeError):
         modify_days(test_date, 5.5)
-    
+
     with pytest.raises(TypeError):
         modify_days(test_date, None)

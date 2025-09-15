@@ -69,23 +69,13 @@ def ssh_execute_command(
         raise ValueError(f"timeout must be positive, got {timeout}")
 
     ssh_target = f"{user + '@' if user else ''}{host}"
-    ssh_cmd = [
-        "ssh",
-        "-p", str(port),
-        ssh_target,
-        command
-    ]
+    ssh_cmd = ["ssh", "-p", str(port), ssh_target, command]
     try:
-        proc = subprocess.run(
-            ssh_cmd,
-            capture_output=True,
-            text=True,
-            timeout=timeout
-        )
+        proc = subprocess.run(ssh_cmd, capture_output=True, text=True, timeout=timeout)
         return {
             "stdout": proc.stdout.strip(),
             "stderr": proc.stderr.strip(),
-            "exit_code": proc.returncode
+            "exit_code": proc.returncode,
         }
     except subprocess.TimeoutExpired:
         raise RuntimeError(f"SSH command timed out after {timeout} seconds")
@@ -93,4 +83,4 @@ def ssh_execute_command(
         raise RuntimeError(f"SSH command failed: {e}")
 
 
-__all__ = ['ssh_execute_command']
+__all__ = ["ssh_execute_command"]

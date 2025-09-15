@@ -40,8 +40,7 @@ def test_rstrip_chars_no_chars_argument() -> None:
     """
     Test case 5: Test the rstrip_chars function with an empty chars argument.
     """
-    assert rstrip_chars(
-        "hello", "") == "hello", "Failed on empty chars argument"
+    assert rstrip_chars("hello", "") == "hello", "Failed on empty chars argument"
 
 
 def test_rstrip_chars_all_match() -> None:
@@ -102,8 +101,7 @@ def test_rstrip_chars_only_spaces() -> None:
     """
     Test case 12: Test the rstrip_chars function when the input string is only spaces.
     """
-    assert rstrip_chars(
-        "     ", " ") == "", "Failed on input string with only spaces"
+    assert rstrip_chars("     ", " ") == "", "Failed on input string with only spaces"
 
 
 def test_rstrip_chars_only_numbers() -> None:
@@ -126,8 +124,7 @@ def test_rstrip_chars_partial_non_match() -> None:
     """
     Test case 15: Test the rstrip_chars function when chars partially overlap but don't match fully.
     """
-    assert rstrip_chars(
-        "abccba", "a") == "abccb", "Failed on partial non-match"
+    assert rstrip_chars("abccba", "a") == "abccb", "Failed on partial non-match"
 
 
 def test_rstrip_chars_strip_same_as_string() -> None:
@@ -143,8 +140,7 @@ def test_rstrip_chars_alphanumeric() -> None:
     """
     Test case 17: Test the rstrip_chars function with a mix of alphanumeric characters to strip.
     """
-    assert rstrip_chars(
-        "123abc456", "456") == "123abc", "Failed on alphanumeric mix"
+    assert rstrip_chars("123abc456", "456") == "123abc", "Failed on alphanumeric mix"
 
 
 def test_rstrip_chars_substring_in_middle() -> None:
@@ -160,8 +156,7 @@ def test_rstrip_chars_case_sensitivity() -> None:
     """
     Test case 19: Test the rstrip_chars function for case sensitivity in chars to strip.
     """
-    assert rstrip_chars(
-        "aAaHello", "a") == "aAaHello", "Failed on case sensitivity"
+    assert rstrip_chars("aAaHello", "a") == "aAaHello", "Failed on case sensitivity"
 
 
 def test_rstrip_chars_with_escapes() -> None:

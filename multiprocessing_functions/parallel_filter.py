@@ -47,4 +47,4 @@ def parallel_filter(
     return [item for item, keep in zip(data, results) if keep]
 
 
-__all__ = ['parallel_filter']
+__all__ = ["parallel_filter"]

@@ -1,5 +1,7 @@
 import pytest
-from iterable_functions.set_operations.set_symmetric_difference import set_symmetric_difference
+from iterable_functions.set_operations.set_symmetric_difference import (
+    set_symmetric_difference,
+)
 
 
 def test_set_symmetric_difference_two_sets() -> None:

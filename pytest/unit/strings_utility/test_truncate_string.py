@@ -6,8 +6,7 @@ def test_truncate_string_basic() -> None:
     """
     Test case 1: Test the truncate_string function with basic truncation.
     """
-    assert truncate_string(
-        "hello world", 5) == "hello", "Failed on basic truncation"
+    assert truncate_string("hello world", 5) == "hello", "Failed on basic truncation"
 
 
 def test_truncate_string_length_greater_than_string() -> None:
@@ -55,8 +54,7 @@ def test_truncate_string_numbers() -> None:
     """
     Test case 7: Test the truncate_string function with a string that contains numbers.
     """
-    assert truncate_string(
-        "1234567890", 5) == "12345", "Failed on string with numbers"
+    assert truncate_string("1234567890", 5) == "12345", "Failed on string with numbers"
 
 
 def test_truncate_string_mixed_case() -> None:

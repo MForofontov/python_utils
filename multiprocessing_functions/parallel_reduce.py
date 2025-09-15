@@ -58,7 +58,7 @@ def parallel_reduce(
     with Pool(processes=num_processes) as pool:
         # Split the data into chunks
         data_chunks = [
-            data[i: i + chunk_size] for i in range(0, len(data), chunk_size)
+            data[i : i + chunk_size] for i in range(0, len(data), chunk_size)
         ]
         # Apply the pair_reduce function to each chunk in parallel
         reduced_chunks = pool.map(
@@ -69,4 +69,4 @@ def parallel_reduce(
     return reduce(func, reduced_chunks)
 
 
-__all__ = ['parallel_reduce']
+__all__ = ["parallel_reduce"]

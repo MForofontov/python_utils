@@ -84,4 +84,4 @@ def count_combinations(input_set: set[T], r: int) -> int:
     return result
 
 
-__all__ = ['count_combinations']
+__all__ = ["count_combinations"]

@@ -3,6 +3,7 @@ from collections import Counter
 
 T = TypeVar("T")
 
+
 def get_shared_elements(dict_: dict[str, list[T]]) -> list[T]:
     """
     Identify elements that appear in at least two lists within a dictionary.
@@ -37,9 +38,8 @@ def get_shared_elements(dict_: dict[str, list[T]]) -> list[T]:
             raise TypeError(f"Sublist contains unhashable elements: {e}")
 
     element_counts = Counter(all_elements)
-    shared_elements = [elem for elem,
-                       count in element_counts.items() if count >= 2]
+    shared_elements = [elem for elem, count in element_counts.items() if count >= 2]
     return shared_elements
 
 
-__all__ = ['get_shared_elements']
+__all__ = ["get_shared_elements"]

@@ -55,48 +55,52 @@ def find_files_by_extension(
     """
     # Input validation
     if not isinstance(directory, (str, Path)):
-        raise TypeError(f"directory must be a string or Path, got {type(directory).__name__}")
+        raise TypeError(
+            f"directory must be a string or Path, got {type(directory).__name__}"
+        )
     if not isinstance(extension, str):
         raise TypeError(f"extension must be a string, got {type(extension).__name__}")
     if not isinstance(case_sensitive, bool):
-        raise TypeError(f"case_sensitive must be a boolean, got {type(case_sensitive).__name__}")
-    
+        raise TypeError(
+            f"case_sensitive must be a boolean, got {type(case_sensitive).__name__}"
+        )
+
     # Convert to Path object
     dir_path = Path(directory)
-    
+
     # Validate directory exists
     if not dir_path.exists():
         raise ValueError(f"Directory does not exist: {directory}")
     if not dir_path.is_dir():
         raise ValueError(f"Path is not a directory: {directory}")
-    
+
     # Validate extension
     if not extension.strip():
         raise ValueError("Extension cannot be empty")
-    
+
     # Normalize extension (ensure it starts with a dot)
-    if not extension.startswith('.'):
-        extension = '.' + extension
-    
+    if not extension.startswith("."):
+        extension = "." + extension
+
     # Normalize case if not case sensitive
     if not case_sensitive:
         extension = extension.lower()
-    
+
     matching_files: list[str] = []
-    
+
     try:
         for root, _, files in os.walk(dir_path):
             for file in files:
                 file_ext = Path(file).suffix
                 if not case_sensitive:
                     file_ext = file_ext.lower()
-                
+
                 if file_ext == extension:
                     matching_files.append(str(Path(root) / file))
     except OSError as e:
         raise OSError(f"Error accessing directory {directory}: {e}") from e
-    
+
     return matching_files
 
 
-__all__ = ['find_files_by_extension']
+__all__ = ["find_files_by_extension"]

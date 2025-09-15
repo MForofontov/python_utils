@@ -38,18 +38,18 @@ def list_files(directory_path: str, include_hidden: bool = False) -> list[str]:
     """
     if not isinstance(directory_path, str):
         raise TypeError("directory_path must be a string")
-    
+
     if not os.path.exists(directory_path):
         raise FileNotFoundError(f"Directory does not exist: {directory_path}")
-    
+
     if not os.path.isdir(directory_path):
         raise NotADirectoryError(f"Path is not a directory: {directory_path}")
-    
+
     files = []
     for item in os.listdir(directory_path):
         item_path = os.path.join(directory_path, item)
         if os.path.isfile(item_path):
-            if include_hidden or not item.startswith('.'):
+            if include_hidden or not item.startswith("."):
                 files.append(item)
-    
+
     return sorted(files)

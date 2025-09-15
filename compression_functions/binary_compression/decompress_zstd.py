@@ -37,4 +37,4 @@ def decompress_zstd(compressed_data: bytes) -> bytes:
         raise ValueError(f"An error occurred during decompression: {e}")
 
 
-__all__ = ['decompress_zstd']
+__all__ = ["decompress_zstd"]

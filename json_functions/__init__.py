@@ -10,8 +10,8 @@ from .json_merge import json_merge
 from .json_diff import json_diff
 
 __all__ = [
-    'safe_json_load',
-    'safe_json_dump',
-    'json_merge',
-    'json_diff',
+    "safe_json_load",
+    "safe_json_dump",
+    "json_merge",
+    "json_diff",
 ]

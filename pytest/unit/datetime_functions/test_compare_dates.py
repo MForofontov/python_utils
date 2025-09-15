@@ -85,15 +85,15 @@ def test_compare_dates_invalid_input_type() -> None:
     Test case 8: Test compare_dates function with invalid input type raises TypeError.
     """
     test_date: date = date(2023, 1, 15)
-    
+
     with pytest.raises(TypeError):
-        compare_dates('2023-01-15', test_date)
-    
+        compare_dates("2023-01-15", test_date)
+
     with pytest.raises(TypeError):
-        compare_dates(test_date, '2023-01-16')
-    
+        compare_dates(test_date, "2023-01-16")
+
     with pytest.raises(TypeError):
         compare_dates(123, test_date)
-    
+
     with pytest.raises(TypeError):
         compare_dates(test_date, None)

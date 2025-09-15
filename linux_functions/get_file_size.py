@@ -37,11 +37,11 @@ def get_file_size(file_path: str) -> int:
     """
     if not isinstance(file_path, str):
         raise TypeError("file_path must be a string")
-    
+
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"File does not exist: {file_path}")
-    
+
     if os.path.isdir(file_path):
         raise IsADirectoryError(f"Path is a directory, not a file: {file_path}")
-    
+
     return os.path.getsize(file_path)

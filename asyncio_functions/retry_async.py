@@ -52,4 +52,5 @@ async def retry_async(
             else:
                 raise e
 
-__all__ = ['retry_async']
+
+__all__ = ["retry_async"]

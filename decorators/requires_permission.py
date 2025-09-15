@@ -3,13 +3,16 @@ from collections.abc import Callable
 from functools import wraps
 import logging
 from logger_functions.logger import validate_logger
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
 
 def requires_permission(
     permission: str, logger: logging.Logger | None = None
-) -> Callable[[Callable[Concatenate[list[str], P], R]], Callable[Concatenate[list[str], P], R]]:
+) -> Callable[
+    [Callable[Concatenate[list[str], P], R]], Callable[Concatenate[list[str], P], R]
+]:
     """
     A decorator to enforce that a user has a specific permission before executing a function.
 
@@ -40,7 +43,7 @@ def requires_permission(
         raise TypeError("permission must be a string")
 
     def decorator(
-        func: Callable[Concatenate[list[str], P], R]
+        func: Callable[Concatenate[list[str], P], R],
     ) -> Callable[Concatenate[list[str], P], R]:
         """
         The actual decorator function.
@@ -96,9 +99,7 @@ def requires_permission(
             # Check if the required permission is in the user's permissions
             if permission not in user_permissions:
                 permissions_str = repr(user_permissions)
-                error_message = (
-                    f"User does not have the required permission. Required permission: '{permission}', User permissions: {permissions_str}"
-                )
+                error_message = f"User does not have the required permission. Required permission: '{permission}', User permissions: {permissions_str}"
                 if logger:
                     logger.error(
                         f"Permission error in {func.__name__}: {error_message}",
@@ -113,4 +114,4 @@ def requires_permission(
     return decorator
 
 
-__all__ = ['requires_permission']
+__all__ = ["requires_permission"]

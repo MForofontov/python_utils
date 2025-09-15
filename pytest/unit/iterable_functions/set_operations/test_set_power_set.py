@@ -46,12 +46,7 @@ def test_set_power_set_two_elements() -> None:
     """
     input_set = {1, 2}
     result = set_power_set(input_set)
-    expected = {
-        frozenset(),
-        frozenset({1}),
-        frozenset({2}),
-        frozenset({1, 2})
-    }
+    expected = {frozenset(), frozenset({1}), frozenset({2}), frozenset({1, 2})}
     assert result == expected
 
 

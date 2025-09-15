@@ -2,6 +2,7 @@ from typing import ParamSpec, TypeVar
 from collections.abc import Callable
 import logging
 from logger_functions.logger import validate_logger
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -60,4 +61,4 @@ def multi_decorator(
     return combine
 
 
-__all__ = ['multi_decorator']
+__all__ = ["multi_decorator"]

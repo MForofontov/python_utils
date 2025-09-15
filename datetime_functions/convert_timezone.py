@@ -5,13 +5,13 @@ import pytz
 
 
 def convert_timezone(
-    dt: datetime, 
-    to_timezone: str | pytz.BaseTzInfo, 
-    from_timezone: str | pytz.BaseTzInfo | None = None
+    dt: datetime,
+    to_timezone: str | pytz.BaseTzInfo,
+    from_timezone: str | pytz.BaseTzInfo | None = None,
 ) -> datetime:
     """
     Convert a datetime object from one timezone to another.
-    
+
     Parameters
     ----------
     dt : datetime
@@ -21,19 +21,19 @@ def convert_timezone(
     from_timezone : str or pytz.BaseTzInfo, optional
         Source timezone (string name or pytz timezone object).
         If None and dt is naive, assumes UTC.
-        
+
     Returns
     -------
     datetime
         Datetime object converted to the target timezone.
-        
+
     Raises
     ------
     TypeError
         If dt is not a datetime object.
     ValueError
         If timezone names are invalid.
-        
+
     Examples
     --------
     >>> from datetime import datetime
@@ -43,7 +43,7 @@ def convert_timezone(
     """
     if not isinstance(dt, datetime):
         raise TypeError("dt must be a datetime object")
-    
+
     # Convert timezone strings to pytz objects
     if isinstance(to_timezone, str):
         try:
@@ -52,7 +52,7 @@ def convert_timezone(
             raise ValueError(f"Unknown timezone: {to_timezone}")
     else:
         to_tz = to_timezone
-    
+
     # Handle source timezone
     if dt.tzinfo is None:
         # Naive datetime
@@ -66,9 +66,9 @@ def convert_timezone(
                 raise ValueError(f"Unknown timezone: {from_timezone}")
         else:
             from_tz = from_timezone
-        
+
         # Localize the naive datetime
         dt = from_tz.localize(dt)
-    
+
     # Convert to target timezone
     return dt.astimezone(to_tz)

@@ -12,11 +12,11 @@ from .write_dict_to_json import write_dict_to_json
 from .write_dict_to_tsv import write_dict_to_tsv
 
 __all__ = [
-    'json_to_dict',
-    'read_tabular',
-    'tsv_to_dict',
-    'write_dict_to_json',
-    'write_dict_to_tsv',
+    "json_to_dict",
+    "read_tabular",
+    "tsv_to_dict",
+    "write_dict_to_json",
+    "write_dict_to_tsv",
 ]
 
-__version__ = '1.0.0'
+__version__ = "1.0.0"

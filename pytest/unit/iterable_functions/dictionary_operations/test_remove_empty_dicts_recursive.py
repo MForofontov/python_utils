@@ -6,8 +6,7 @@ def test_remove_empty_dicts_recursive_success() -> None:
     """
     Test case 1: Test the remove_empty_dicts_recursive function with valid inputs.
     """
-    nested_dict = {"a": 1, "b": {}, "c": {
-        "d": {}, "e": 2}, "f": {"g": {"h": {}}}}
+    nested_dict = {"a": 1, "b": {}, "c": {"d": {}, "e": 2}, "f": {"g": {"h": {}}}}
     expected_output = {"a": 1, "c": {"e": 2}}
     assert remove_empty_dicts_recursive(nested_dict) == expected_output
 

@@ -14,8 +14,9 @@ def read_tabular(input_file: str, delimiter: str = "\t") -> list[list[str]]:
 
     Returns
     -------
-    list[List[str]]
-        A list with a sublist per line in the input file. Each sublist has the fields that were separated by the defined delimiter.
+    list[list[str]]
+        A list with a sublist per line in the input file. Each sublist has
+        the fields that were separated by the defined delimiter.
     """
     with open(input_file) as infile:
         reader = csv.reader(infile, delimiter=delimiter)
@@ -24,4 +25,4 @@ def read_tabular(input_file: str, delimiter: str = "\t") -> list[list[str]]:
     return lines
 
 
-__all__ = ['read_tabular']
+__all__ = ["read_tabular"]

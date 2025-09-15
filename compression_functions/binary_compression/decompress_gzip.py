@@ -46,4 +46,4 @@ def decompress_gzip(compressed_data: bytes) -> bytes:
         raise ValueError(f"An error occurred during decompression: {e}")
 
 
-__all__ = ['decompress_gzip']
+__all__ = ["decompress_gzip"]

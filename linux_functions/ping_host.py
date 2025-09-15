@@ -38,16 +38,18 @@ def ping_host(host: str, count: int = 1, timeout: int = 5) -> bool:
     """
     if not isinstance(host, str):
         raise TypeError("host must be a string")
-    
+
     # Determine the ping command based on the operating system
     system = platform.system().lower()
     if system == "windows":
         cmd = ["ping", "-n", str(count), "-w", str(timeout * 1000), host]
     else:  # Linux, macOS, etc.
         cmd = ["ping", "-c", str(count), "-W", str(timeout), host]
-    
+
     try:
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout + 5)
+        result = subprocess.run(
+            cmd, capture_output=True, text=True, timeout=timeout + 5
+        )
         return result.returncode == 0
     except (subprocess.TimeoutExpired, FileNotFoundError):
         return False

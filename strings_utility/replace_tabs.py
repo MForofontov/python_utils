@@ -40,4 +40,4 @@ def replace_tabs(s: str, tabsize: int = 4) -> str:
     return s.replace("\t", " " * tabsize)
 
 
-__all__ = ['replace_tabs']
+__all__ = ["replace_tabs"]

@@ -35,4 +35,4 @@ def compress_lzma(data: bytes) -> bytes:
         raise ValueError(f"An error occurred during compression: {e}")
 
 
-__all__ = ['compress_lzma']
+__all__ = ["compress_lzma"]

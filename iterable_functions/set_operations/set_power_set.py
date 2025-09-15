@@ -72,14 +72,14 @@ def set_power_set(input_set: set[T]) -> set[frozenset[T]]:
     # Generate all possible subsets using bit manipulation
     power_set = set()
 
-    for i in range(2 ** n):
+    for i in range(2**n):
         subset = frozenset()
         for j in range(n):
-            if (i & (1 << j)):
+            if i & (1 << j):
                 subset = subset | {elements[j]}
         power_set.add(subset)
 
     return power_set
 
 
-__all__ = ['set_power_set']
+__all__ = ["set_power_set"]

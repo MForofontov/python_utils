@@ -44,7 +44,7 @@ def test_decompress_file_zip_empty_file(tmp_path) -> None:
     output_dir = tmp_path / "output"
 
     # Create an empty zip-compressed file
-    with zipfile.ZipFile(compressed_file, "w") as zipf:
+    with zipfile.ZipFile(compressed_file, "w"):
         pass
 
     decompress_file_zip(str(compressed_file), str(output_dir))

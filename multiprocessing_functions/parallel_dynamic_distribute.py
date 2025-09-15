@@ -54,4 +54,4 @@ def parallel_dynamic_distribute(
     return list(results)
 
 
-__all__ = ['parallel_dynamic_distribute']
+__all__ = ["parallel_dynamic_distribute"]

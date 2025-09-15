@@ -8,7 +8,7 @@ def test_get_current_datetime_iso_format() -> None:
     """
     result: str = get_current_datetime_iso()
     assert isinstance(result, str)
-    assert 'T' in result  # ISO format contains T separator
+    assert "T" in result  # ISO format contains T separator
     assert len(result) >= 19  # At least YYYY-MM-DDTHH:MM:SS
 
 
@@ -27,6 +27,7 @@ def test_get_current_datetime_iso_different_calls() -> None:
     Test case 3: Test get_current_datetime_iso function returns different values on consecutive calls.
     """
     import time
+
     result1: str = get_current_datetime_iso()
     time.sleep(0.001)  # Small delay
     result2: str = get_current_datetime_iso()

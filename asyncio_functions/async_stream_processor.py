@@ -43,4 +43,5 @@ async def async_stream_processor(
         # Process each item using the provided process function
         await process(item)
 
-__all__ = ['async_stream_processor']
+
+__all__ = ["async_stream_processor"]

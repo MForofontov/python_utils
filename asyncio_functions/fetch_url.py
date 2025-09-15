@@ -1,5 +1,6 @@
 import aiohttp
 
+
 async def fetch_url(session: aiohttp.ClientSession, url: str) -> str:
     """
     Fetch the content from a single URL asynchronously.
@@ -19,4 +20,5 @@ async def fetch_url(session: aiohttp.ClientSession, url: str) -> str:
     async with session.get(url) as response:
         return await response.text()
 
-__all__ = ['fetch_url']
+
+__all__ = ["fetch_url"]

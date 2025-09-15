@@ -22,4 +22,4 @@ def create_directory(directory: str) -> bool:
         return False
 
 
-__all__ = ['create_directory']
+__all__ = ["create_directory"]

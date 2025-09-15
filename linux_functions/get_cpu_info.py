@@ -32,11 +32,11 @@ def get_cpu_info(interval: float = 0.1) -> dict[str, int | float | list[float]]:
     freq = psutil.cpu_freq()
 
     return {
-        'cpu_count': os.cpu_count(),
-        'cpu_percent': psutil.cpu_percent(interval=interval),
-        'cpu_percent_per_core': psutil.cpu_percent(interval=interval, percpu=True),
-        'cpu_freq_current': freq.current if freq else None,
-        'cpu_freq_min': freq.min if freq else None,
-        'cpu_freq_max': freq.max if freq else None,
-        'load_average': os.getloadavg() if hasattr(os, 'getloadavg') else None
+        "cpu_count": os.cpu_count(),
+        "cpu_percent": psutil.cpu_percent(interval=interval),
+        "cpu_percent_per_core": psutil.cpu_percent(interval=interval, percpu=True),
+        "cpu_freq_current": freq.current if freq else None,
+        "cpu_freq_min": freq.min if freq else None,
+        "cpu_freq_max": freq.max if freq else None,
+        "load_average": os.getloadavg() if hasattr(os, "getloadavg") else None,
     }

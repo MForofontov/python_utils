@@ -36,8 +36,8 @@ def test_merge_folders_conflicting_filenames(tmp_path: Path) -> None:
     merge_folders(str(folder1), str(folder2), str(output))
     assert (output / "same.txt").read_text() == "one", "Original file should be copied"
     assert (
-        (output / "same_copy.txt").read_text() == "two"
-    ), "Conflicting file should be renamed with _copy"
+        output / "same_copy.txt"
+    ).read_text() == "two", "Conflicting file should be renamed with _copy"
 
 
 def test_merge_folders_nested_directories(tmp_path: Path) -> None:
@@ -53,11 +53,11 @@ def test_merge_folders_nested_directories(tmp_path: Path) -> None:
     (folder2 / "sub2" / "b.txt").write_text("b")
     merge_folders(str(folder1), str(folder2), str(output))
     assert (
-        (output / "sub1" / "a.txt").read_text() == "a"
-    ), "File in nested sub1 should be copied"
+        output / "sub1" / "a.txt"
+    ).read_text() == "a", "File in nested sub1 should be copied"
     assert (
-        (output / "sub2" / "b.txt").read_text() == "b"
-    ), "File in nested sub2 should be copied"
+        output / "sub2" / "b.txt"
+    ).read_text() == "b", "File in nested sub2 should be copied"
 
 
 def test_merge_folders_missing_input_folder(tmp_path: Path) -> None:

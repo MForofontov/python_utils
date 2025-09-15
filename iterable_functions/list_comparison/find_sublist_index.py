@@ -35,4 +35,4 @@ def find_sublist_index(
     return None
 
 
-__all__ = ['find_sublist_index']
+__all__ = ["find_sublist_index"]

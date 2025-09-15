@@ -9,7 +9,7 @@ def test_all_match_lists_success() -> None:
     """
     list1: list[int] = [1, 2, 3]
     list2: list[int] = [1, 2, 3, 4, 5]
-    assert all_match_lists(list1, list2) == True
+    assert all_match_lists(list1, list2)
 
 
 def test_all_match_lists_partial_match() -> None:
@@ -18,7 +18,7 @@ def test_all_match_lists_partial_match() -> None:
     """
     list1: list[int] = [1, 2, 6]
     list2: list[int] = [1, 2, 3, 4, 5]
-    assert all_match_lists(list1, list2) == False
+    assert not all_match_lists(list1, list2)
 
 
 def test_all_match_lists_empty_list1() -> None:
@@ -27,7 +27,7 @@ def test_all_match_lists_empty_list1() -> None:
     """
     list1: list[int] = []
     list2: list[int] = [1, 2, 3, 4, 5]
-    assert all_match_lists(list1, list2) == True
+    assert all_match_lists(list1, list2)
 
 
 def test_all_match_lists_empty_list2() -> None:
@@ -36,7 +36,7 @@ def test_all_match_lists_empty_list2() -> None:
     """
     list1: list[int] = [1, 2, 3]
     list2: list[int] = []
-    assert all_match_lists(list1, list2) == False
+    assert not all_match_lists(list1, list2)
 
 
 def test_all_match_lists_two_empty_lists() -> None:
@@ -45,7 +45,7 @@ def test_all_match_lists_two_empty_lists() -> None:
     """
     list1: list[int] = []
     list2: list[int] = []
-    assert all_match_lists(list1, list2) == True
+    assert all_match_lists(list1, list2)
 
 
 def test_all_match_lists_strings() -> None:
@@ -54,7 +54,7 @@ def test_all_match_lists_strings() -> None:
     """
     list1: list[str] = ["apple", "banana"]
     list2: list[str] = ["apple", "banana", "cherry"]
-    assert all_match_lists(list1, list2) == True
+    assert all_match_lists(list1, list2)
 
 
 def test_all_match_lists_mixed_types() -> None:
@@ -63,7 +63,7 @@ def test_all_match_lists_mixed_types() -> None:
     """
     list1: list[Any] = [1, "banana", 3.14]
     list2: list[Any] = [1, "banana", 3.14, "apple"]
-    assert all_match_lists(list1, list2) == True
+    assert all_match_lists(list1, list2)
 
 
 def test_all_match_lists_unhashable_elements() -> None:
@@ -72,7 +72,7 @@ def test_all_match_lists_unhashable_elements() -> None:
     """
     list1: list[Any] = [[1, 2], [3, 4]]
     list2: list[Any] = [[1, 2], [3, 4], [5, 6]]
-    assert all_match_lists(list1, list2) == True
+    assert all_match_lists(list1, list2)
 
 
 def test_all_match_lists_type_error_list1() -> None:

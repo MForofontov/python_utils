@@ -80,12 +80,12 @@ def test_json_merge_primitives() -> None:
     """
     result = json_merge(1, 2)
     assert result == 2
-    
+
     result = json_merge("hello", "world")
     assert result == "world"
-    
+
     result = json_merge(True, False)
-    assert result == False
+    assert not result
 
 
 def test_json_merge_complex_nested() -> None:
@@ -97,7 +97,7 @@ def test_json_merge_complex_nested() -> None:
     result = json_merge(a, b, deep=True)
     expected = {
         "users": [{"id": 1, "name": "Alice"}, {"id": 2, "name": "Bob"}],
-        "config": {"theme": "dark", "timeout": 30}
+        "config": {"theme": "dark", "timeout": 30},
     }
     assert result == expected
 

@@ -49,4 +49,5 @@ async def async_chain(
     # Return the final result after chaining all functions, cast to R
     return cast(R, value)
 
-__all__ = ['async_chain']
+
+__all__ = ["async_chain"]

@@ -91,7 +91,9 @@ def validate_email(
         raise TypeError(f"{param_name} must be str, got {type(email).__name__}")
 
     if not isinstance(allow_unicode, bool):
-        raise TypeError(f"allow_unicode must be bool, got {type(allow_unicode).__name__}")
+        raise TypeError(
+            f"allow_unicode must be bool, got {type(allow_unicode).__name__}"
+        )
 
     if not isinstance(check_mx, bool):
         raise TypeError(f"check_mx must be bool, got {type(check_mx).__name__}")
@@ -106,39 +108,49 @@ def validate_email(
     if len(email) > 254:  # RFC 5321 limit
         raise ValueError(f"{param_name} exceeds maximum length of 254 characters")
 
-    if email.count('@') != 1:
+    if email.count("@") != 1:
         raise ValueError(f"{param_name} must contain exactly one @ symbol")
 
     # Split into local and domain parts
-    local_part, domain_part = email.rsplit('@', 1)
+    local_part, domain_part = email.rsplit("@", 1)
 
     if len(local_part) == 0:
         raise ValueError(f"{param_name} local part cannot be empty")
 
     if len(local_part) > 64:  # RFC 5321 limit
-        raise ValueError(f"{param_name} local part exceeds maximum length of 64 characters")
+        raise ValueError(
+            f"{param_name} local part exceeds maximum length of 64 characters"
+        )
 
     if len(domain_part) == 0:
         raise ValueError(f"{param_name} domain part cannot be empty")
 
     if len(domain_part) > 253:  # RFC 5321 limit
-        raise ValueError(f"{param_name} domain part exceeds maximum length of 253 characters")
+        raise ValueError(
+            f"{param_name} domain part exceeds maximum length of 253 characters"
+        )
 
     # Check for Unicode characters if not allowed
     if not allow_unicode:
         try:
-            email.encode('ascii')
+            email.encode("ascii")
         except UnicodeEncodeError:
-            raise ValueError(f"{param_name} contains non-ASCII characters but allow_unicode=False")
+            raise ValueError(
+                f"{param_name} contains non-ASCII characters but allow_unicode=False"
+            )
 
     # Define regex patterns
     if allow_unicode:
         # Unicode-aware pattern (simplified)
-        local_pattern = r"[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*"
+        local_pattern = (
+            r"[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*"
+        )
         domain_pattern = r"[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*"
     else:
         # ASCII-only RFC 5322 compliant pattern
-        local_pattern = r"[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*"
+        local_pattern = (
+            r"[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*"
+        )
         domain_pattern = r"[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*"
 
     # Validate local part
@@ -150,14 +162,14 @@ def validate_email(
         raise ValueError(f"{param_name} domain part format is invalid")
 
     # Additional domain checks
-    if domain_part.startswith('.') or domain_part.endswith('.'):
+    if domain_part.startswith(".") or domain_part.endswith("."):
         raise ValueError(f"{param_name} domain cannot start or end with a dot")
 
-    if '..' in domain_part:
+    if ".." in domain_part:
         raise ValueError(f"{param_name} domain cannot contain consecutive dots")
 
     # Check if domain has at least one dot (basic TLD requirement)
-    if '.' not in domain_part:
+    if "." not in domain_part:
         raise ValueError(f"{param_name} domain must contain at least one dot")
 
     # Optional MX record checking
@@ -165,12 +177,14 @@ def validate_email(
         try:
             import socket
             import dns.resolver
-            
+
             # Check for MX record
             try:
-                mx_records = dns.resolver.resolve(domain_part, 'MX')
+                mx_records = dns.resolver.resolve(domain_part, "MX")
                 if not mx_records:
-                    raise ValueError(f"{param_name} domain does not have valid MX record")
+                    raise ValueError(
+                        f"{param_name} domain does not have valid MX record"
+                    )
             except (dns.resolver.NXDOMAIN, dns.resolver.NoAnswer):
                 raise ValueError(f"{param_name} domain does not have valid MX record")
             except Exception:
@@ -179,14 +193,15 @@ def validate_email(
                     socket.gethostbyname(domain_part)
                 except socket.gaierror:
                     raise ValueError(f"{param_name} domain does not exist")
-                    
+
         except ImportError:
             # If dnspython is not available, use basic socket check
             try:
                 import socket
+
                 socket.gethostbyname(domain_part)
             except socket.gaierror:
                 raise ValueError(f"{param_name} domain does not exist")
 
 
-__all__ = ['validate_email']
+__all__ = ["validate_email"]

@@ -43,4 +43,4 @@ def repeat_string(s: str, n: int) -> str:
     return s * n
 
 
-__all__ = ['repeat_string']
+__all__ = ["repeat_string"]

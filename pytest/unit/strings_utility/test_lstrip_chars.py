@@ -40,8 +40,7 @@ def test_lstrip_chars_no_chars_argument() -> None:
     """
     Test case 5: Test the lstrip_chars function with an empty chars argument.
     """
-    assert lstrip_chars(
-        "hello", "") == "hello", "Failed on empty chars argument"
+    assert lstrip_chars("hello", "") == "hello", "Failed on empty chars argument"
 
 
 def test_lstrip_chars_all_match() -> None:
@@ -102,8 +101,7 @@ def test_lstrip_chars_only_spaces() -> None:
     """
     Test case 12: Test the lstrip_chars function when the input string is only spaces.
     """
-    assert lstrip_chars(
-        "     ", " ") == "", "Failed on input string with only spaces"
+    assert lstrip_chars("     ", " ") == "", "Failed on input string with only spaces"
 
 
 def test_lstrip_chars_only_numbers() -> None:
@@ -126,8 +124,7 @@ def test_lstrip_chars_partial_non_match() -> None:
     """
     Test case 15: Test the lstrip_chars function when chars partially overlap but don't match fully.
     """
-    assert lstrip_chars(
-        "abccba", "a") == "bccba", "Failed on partial non-match"
+    assert lstrip_chars("abccba", "a") == "bccba", "Failed on partial non-match"
 
 
 def test_lstrip_chars_strip_same_as_string() -> None:
@@ -143,8 +140,7 @@ def test_lstrip_chars_alphanumeric() -> None:
     """
     Test case 17: Test the lstrip_chars function with a mix of alphanumeric characters to strip.
     """
-    assert lstrip_chars(
-        "123abc456", "123") == "abc456", "Failed on alphanumeric mix"
+    assert lstrip_chars("123abc456", "123") == "abc456", "Failed on alphanumeric mix"
 
 
 def test_lstrip_chars_substring_in_middle() -> None:
@@ -160,16 +156,14 @@ def test_lstrip_chars_case_sensitivity() -> None:
     """
     Test case 19: Test the lstrip_chars function for case sensitivity in chars to strip.
     """
-    assert lstrip_chars(
-        "aAaHello", "a") == "AaHello", "Failed on case sensitivity"
+    assert lstrip_chars("aAaHello", "a") == "AaHello", "Failed on case sensitivity"
 
 
 def test_lstrip_chars_with_escapes() -> None:
     """
     Test case 20: Test the lstrip_chars function when chars include escape characters.
     """
-    assert lstrip_chars(
-        "\n\tHello", "\n\t") == "Hello", "Failed on escape characters"
+    assert lstrip_chars("\n\tHello", "\n\t") == "Hello", "Failed on escape characters"
 
 
 def test_lstrip_chars_invalid_string_type() -> None:

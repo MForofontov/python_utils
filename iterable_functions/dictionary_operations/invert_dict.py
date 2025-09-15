@@ -89,4 +89,4 @@ def invert_dict(d: dict[str, Any], allow_duplicates: bool = False) -> dict[Any, 
     return inverted
 
 
-__all__ = ['invert_dict']
+__all__ = ["invert_dict"]

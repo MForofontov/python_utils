@@ -82,10 +82,10 @@ def test_get_neighbors_of_nonexistent_vertex() -> None:
 
 
 def test_graph_with_custom_objects() -> None:
-
     """
     Test case 8: Test the graph with custom object vertices.
     """
+
     class CustomVertex:
         def __init__(self, name: str) -> None:
             self.name = name
@@ -177,7 +177,7 @@ def test_graph_consistency_after_operations() -> None:
     graph.add_vertex("A")
     graph.add_edge("A", "B")
     graph.add_edge("B", "C")
-    
+
     # Verify bidirectional edges
     assert "B" in graph.get_neighbors("A")
     assert "A" in graph.get_neighbors("B")

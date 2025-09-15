@@ -1,6 +1,5 @@
 import tarfile
 import os
-import tarfile
 
 
 def compress_tar(input_path: str, output_tar: str) -> None:
@@ -72,4 +71,4 @@ def compress_tar(input_path: str, output_tar: str) -> None:
         raise OSError(f"An I/O error occurred during compression: {e}")
 
 
-__all__ = ['compress_tar']
+__all__ = ["compress_tar"]

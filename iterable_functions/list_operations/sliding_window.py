@@ -52,7 +52,7 @@ def sliding_window(items: list[T], window_size: int) -> Iterator[list[T]]:
         raise ValueError(f"window_size must be at least 1, got {window_size}")
 
     for i in range(len(items) - window_size + 1):
-        yield items[i:i + window_size]
+        yield items[i : i + window_size]
 
 
-__all__ = ['sliding_window']
+__all__ = ["sliding_window"]

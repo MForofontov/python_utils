@@ -4,7 +4,9 @@ Unit tests for generate_secure_token function.
 
 import pytest
 import string
-from security_functions.token_generation.generate_secure_token import generate_secure_token
+from security_functions.token_generation.generate_secure_token import (
+    generate_secure_token,
+)
 
 
 def test_generate_secure_token_case_1_default_parameters() -> None:
@@ -13,7 +15,7 @@ def test_generate_secure_token_case_1_default_parameters() -> None:
     """
     # Act
     token = generate_secure_token()
-    
+
     # Assert
     assert isinstance(token, str)
     assert len(token) == 32  # Default length
@@ -26,10 +28,10 @@ def test_generate_secure_token_case_2_custom_length() -> None:
     """
     # Arrange
     length = 16
-    
+
     # Act
     token = generate_secure_token(length=length)
-    
+
     # Assert
     assert isinstance(token, str)
     assert len(token) == length
@@ -41,7 +43,7 @@ def test_generate_secure_token_case_3_letters_only() -> None:
     """
     # Act
     token = generate_secure_token(include_digits=False, include_symbols=False)
-    
+
     # Assert
     assert isinstance(token, str)
     assert len(token) == 32
@@ -56,7 +58,7 @@ def test_generate_secure_token_case_4_digits_only() -> None:
     """
     # Act
     token = generate_secure_token(include_letters=False, include_symbols=False)
-    
+
     # Assert
     assert isinstance(token, str)
     assert len(token) == 32
@@ -69,14 +71,14 @@ def test_generate_secure_token_case_5_with_symbols() -> None:
     """
     # Act
     token = generate_secure_token(include_symbols=True)
-    
+
     # Assert
     assert isinstance(token, str)
     assert len(token) == 32
     # Check that token contains at least one character from each enabled set
     has_letter = any(c in string.ascii_letters for c in token)
     has_digit = any(c in string.digits for c in token)
-    has_symbol = any(c in "!@#$%^&*-_=+[]{}|;:,.<>?" for c in token)
+    any(c in "!@#$%^&*-_=+[]{}|;:,.<>?" for c in token)
     # At least letters and digits should be present (symbols may or may not appear)
     assert has_letter or has_digit
 
@@ -88,15 +90,15 @@ def test_generate_secure_token_case_6_type_validation() -> None:
     # Test invalid length type
     with pytest.raises(TypeError, match="length must be an integer"):
         generate_secure_token(length="invalid")
-    
+
     # Test invalid include_letters type
     with pytest.raises(TypeError, match="include_letters must be a boolean"):
         generate_secure_token(include_letters="invalid")
-    
+
     # Test invalid include_digits type
     with pytest.raises(TypeError, match="include_digits must be a boolean"):
         generate_secure_token(include_digits="invalid")
-    
+
     # Test invalid include_symbols type
     with pytest.raises(TypeError, match="include_symbols must be a boolean"):
         generate_secure_token(include_symbols="invalid")
@@ -109,10 +111,14 @@ def test_generate_secure_token_case_7_value_validation() -> None:
     # Test length less than 1
     with pytest.raises(ValueError, match="length must be at least 1"):
         generate_secure_token(length=0)
-    
+
     # Test no character types selected
-    with pytest.raises(ValueError, match="at least one character type must be included"):
-        generate_secure_token(include_letters=False, include_digits=False, include_symbols=False)
+    with pytest.raises(
+        ValueError, match="at least one character type must be included"
+    ):
+        generate_secure_token(
+            include_letters=False, include_digits=False, include_symbols=False
+        )
 
 
 def test_generate_secure_token_case_8_randomness() -> None:
@@ -123,7 +129,7 @@ def test_generate_secure_token_case_8_randomness() -> None:
     token1 = generate_secure_token()
     token2 = generate_secure_token()
     token3 = generate_secure_token()
-    
+
     # Assert
     assert token1 != token2
     assert token2 != token3
@@ -136,12 +142,9 @@ def test_generate_secure_token_case_9_symbols_only() -> None:
     """
     # Act
     token = generate_secure_token(
-        length=20,
-        include_letters=False,
-        include_digits=False,
-        include_symbols=True
+        length=20, include_letters=False, include_digits=False, include_symbols=True
     )
-    
+
     # Assert
     assert isinstance(token, str)
     assert len(token) == 20
@@ -155,7 +158,7 @@ def test_generate_secure_token_case_10_boundary_lengths() -> None:
     # Test minimum length
     token_min = generate_secure_token(length=1)
     assert len(token_min) == 1
-    
+
     # Test large length
     token_large = generate_secure_token(length=1000)
     assert len(token_large) == 1000
@@ -170,9 +173,9 @@ def test_generate_secure_token_case_11_all_character_types() -> None:
         length=100,  # Larger length to increase chance of all types appearing
         include_letters=True,
         include_digits=True,
-        include_symbols=True
+        include_symbols=True,
     )
-    
+
     # Assert
     assert isinstance(token, str)
     assert len(token) == 100

@@ -11,12 +11,14 @@ from dataclasses import dataclass
 try:
     from pydantic import BaseModel, ValidationError, Field, ConfigDict
     from pydantic.dataclasses import dataclass as pydantic_dataclass
+
     PYDANTIC_AVAILABLE = True
 except ImportError:
     # Fallback classes when pydantic is not available
     BaseModel = object
     ValidationError = Exception
-    Field = lambda **kwargs: None
+    def Field(**kwargs):
+        return None
     ConfigDict = dict  # type: ignore
     pydantic_dataclass = dataclass
     PYDANTIC_AVAILABLE = False
@@ -71,7 +73,7 @@ def validate_pydantic_schema(
     ...     name: str
     ...     age: int
     ...     email: str
-    >>> 
+    >>>
     >>> data = {"name": "John", "age": 30, "email": "john@example.com"}
     >>> user = validate_pydantic_schema(data, UserSchema)
     >>> user.name
@@ -86,7 +88,7 @@ def validate_pydantic_schema(
     >>> class NestedSchema(BaseModel):
     ...     user: UserSchema
     ...     created_at: str
-    >>> 
+    >>>
     >>> nested_data = {
     ...     "user": {"name": "John", "age": 30, "email": "john@example.com"},
     ...     "created_at": "2023-01-01"
@@ -130,25 +132,27 @@ def validate_pydantic_schema(
 
     # Validate that schema_model is a Pydantic model class
     if not (isinstance(schema_model, type) and issubclass(schema_model, BaseModel)):
-        raise TypeError(f"schema_model must be a Pydantic BaseModel class, got {type(schema_model).__name__}")
+        raise TypeError(
+            f"schema_model must be a Pydantic BaseModel class, got {type(schema_model).__name__}"
+        )
 
     try:
         # Configure validation settings for Pydantic v2
         from pydantic import ConfigDict
-        
+
         # Create a new model class with the desired configuration
         config_dict = {}
         if not allow_extra:
-            config_dict['extra'] = 'forbid'
+            config_dict["extra"] = "forbid"
         if strict:
-            config_dict['strict'] = True
-        
+            config_dict["strict"] = True
+
         if config_dict:
             # Create a new model class with the configuration
             configured_model = type(
-                f'{schema_model.__name__}Configured',
+                f"{schema_model.__name__}Configured",
                 (schema_model,),
-                {'model_config': ConfigDict(**config_dict)}
+                {"model_config": ConfigDict(**config_dict)},
             )
         else:
             configured_model = schema_model
@@ -165,15 +169,17 @@ def validate_pydantic_schema(
         # Format validation errors into a readable message
         error_details = []
         for error in e.errors():
-            field_path = " -> ".join(str(loc) for loc in error['loc'])
-            error_msg = error['msg']
+            field_path = " -> ".join(str(loc) for loc in error["loc"])
+            error_msg = error["msg"]
             error_details.append(f"{field_path}: {error_msg}")
 
         formatted_errors = "; ".join(error_details)
         raise ValueError(f"{param_name} validation failed: {formatted_errors}") from e
 
     except Exception as e:
-        raise ValueError(f"{param_name} validation failed with unexpected error: {str(e)}") from e
+        raise ValueError(
+            f"{param_name} validation failed with unexpected error: {str(e)}"
+        ) from e
 
 
-__all__ = ['validate_pydantic_schema']
+__all__ = ["validate_pydantic_schema"]

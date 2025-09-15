@@ -48,4 +48,5 @@ async def async_cancellable_task(
         cancel_event.set()
         raise asyncio.CancelledError("Task was cancelled.")
 
-__all__ = ['async_cancellable_task']
+
+__all__ = ["async_cancellable_task"]

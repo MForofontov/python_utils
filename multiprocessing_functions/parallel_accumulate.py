@@ -58,7 +58,7 @@ def parallel_accumulate(
     with Pool(processes=num_processes) as pool:
         # Split the data into chunks
         data_chunks = [
-            data[i: i + chunk_size] for i in range(0, len(data), chunk_size)
+            data[i : i + chunk_size] for i in range(0, len(data), chunk_size)
         ]
         # Apply the partial_accumulate function to each chunk in parallel
         partial_results = pool.map(
@@ -82,4 +82,4 @@ def parallel_accumulate(
     return results
 
 
-__all__ = ['parallel_accumulate']
+__all__ = ["parallel_accumulate"]

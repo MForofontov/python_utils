@@ -2,6 +2,7 @@ from typing import TypeVar
 
 T = TypeVar("T")
 
+
 def get_common_elements_in_lists(list_of_lists: list[list[T]]) -> list[T]:
     """
     Finds common elements between various lists.
@@ -36,4 +37,4 @@ def get_common_elements_in_lists(list_of_lists: list[list[T]]) -> list[T]:
     return list(intersection_set) if intersection_set is not None else []
 
 
-__all__ = ['get_common_elements_in_lists']
+__all__ = ["get_common_elements_in_lists"]

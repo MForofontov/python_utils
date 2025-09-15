@@ -2,47 +2,125 @@ name: lint-check
 
 on:
   workflow_dispatch:
+    inputs:
+      run_black:
+        description: "Also run Black (format check)"
+        required: false
+        type: boolean
+        default: false
+      run_pylint:
+        description: "Also run Pylint (extra, slower)"
+        required: false
+        type: boolean
+        default: false
+      fail_on_any_issue:
+        description: "Fail the job if any issues found"
+        required: false
+        type: boolean
+        default: true
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: 'pip'
 
-      - name: Install dependencies
+      - name: Install tools
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements_dev.txt
-          pip install black ruff pylint
+          pip install ruff mypy
+          if [ "${{ inputs.run_black }}" = "true" ]; then pip install black; fi
+          if [ "${{ inputs.run_pylint }}" = "true" ]; then pip install pylint; fi
 
-      - name: Run black (auto-format check)
+      - name: Ruff - format check
+        id: ruff_fmt
         run: |
-          black --check .
-      
-      - name: Run ruff (lint and auto-fix)
-        run: |
-          ruff check . --fix
+          set +e
+          ruff format --check . | tee ruff_format.txt
+          echo "exit_code=$?" >> $GITHUB_OUTPUT
+          set -e
+        continue-on-error: true
 
-      - name: Run pylint (code quality)
+      - name: Ruff - lint
+        id: ruff_lint
         run: |
-          find . -name "*.py" | xargs pylint
+          set +e
+          ruff check --output-format=github --force-exclude . | tee ruff_lint.txt
+          echo "exit_code=$?" >> $GITHUB_OUTPUT
+          set -e
+        continue-on-error: true
 
-      - name: Show formatting instructions if lint fails
-        if: failure()
+      - name: Black - format check (optional)
+        if: ${{ inputs.run_black }}
+        id: black
         run: |
-          echo "❌ Bad formatting or lint issues detected!"
-          echo "Please run the following commands locally to fix formatting and lint issues, then commit and push your changes:"
-          echo ""
-          echo "    black ."
-          echo "    ruff check . --fix"
-          echo ""
-          echo "After fixing, commit and push your changes:"
-          echo "    git add ."
-          echo "    git commit -m 'Fix formatting and lint issues'"
-          echo "    git push"
+          set +e
+          black --check . | tee black.txt
+          echo "exit_code=$?" >> $GITHUB_OUTPUT
+          set -e
+        continue-on-error: true
+
+      - name: mypy - type checking
+        id: mypy
+        run: |
+          set +e
+          mypy . --install-types --non-interactive --cache-dir .mypy_cache | tee mypy.txt
+          echo "exit_code=$?" >> $GITHUB_OUTPUT
+          set -e
+        continue-on-error: true
+
+      - name: pylint - lint (optional)
+        if: ${{ inputs.run_pylint }}
+        id: pylint
+        run: |
+          set +e
+          # Lint only tracked Python files (avoids vendored/venv)
+          files="$(git ls-files '*.py')"
+          if [ -z "$files" ]; then echo "No Python files."; echo "exit_code=0" >> $GITHUB_OUTPUT; exit 0; fi
+          pylint $files | tee pylint.txt
+          echo "exit_code=$?" >> $GITHUB_OUTPUT
+          set -e
+        continue-on-error: true
+
+      - name: Upload reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: lint-mypy-reports
+          path: |
+            ruff_format.txt
+            ruff_lint.txt
+            mypy.txt
+            black.txt
+            pylint.txt
+
+      - name: Summary & final status
+        run: |
+          echo "## Lint & Types Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- Ruff format:  ${{ steps.ruff_fmt.outputs.exit_code }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Ruff lint:    ${{ steps.ruff_lint.outputs.exit_code }}" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ inputs.run_black }}" = "true" ]; then
+            echo "- Black:        ${{ steps.black.outputs.exit_code }}" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "- mypy:         ${{ steps.mypy.outputs.exit_code }}" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ inputs.run_pylint }}" = "true" ]; then
+            echo "- pylint:       ${{ steps.pylint.outputs.exit_code }}" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Artifacts: lint-mypy-reports" >> $GITHUB_STEP_SUMMARY
+
+          FAIL=0
+          [ "${{ steps.ruff_fmt.outputs.exit_code }}" != "0" ] && FAIL=1
+          [ "${{ steps.ruff_lint.outputs.exit_code }}" != "0" ] && FAIL=1
+          [ "${{ steps.mypy.outputs.exit_code }}" != "0" ] && FAIL=1
+          if [ "${{ inputs.run_black }}" = "true" ] && [ "${{ steps.black.outputs.exit_code }}" != "0" ]; then FAIL=1; fi
+          if [ "${{ inputs.run_pylint }}" = "true" ] && [ "${{ steps.pylint.outputs.exit_code }}" != "0" ]; then FAIL=1; fi
+
+          if [ "${{ inputs.fail_on_any_issue }}" = "true" ] && [ "$FAIL" -ne 0 ]; then
+            exit 1
+          fi

@@ -64,10 +64,10 @@ def test_no_chain_method():
 
 
 def test_chain_method_with_kwargs():
-
     """
     Test case 4: Chain method with keyword arguments.
     """
+
     class ChainableWithKwargs:
         def __init__(self, value):
             self.value = value
@@ -84,10 +84,10 @@ def test_chain_method_with_kwargs():
 
 
 def test_chain_method_with_args():
-
     """
     Test case 5: Chain method with positional arguments.
     """
+
     class ChainableWithArgs:
         def __init__(self, value):
             self.value = value
@@ -105,10 +105,10 @@ def test_chain_method_with_args():
 
 
 def test_chain_method_with_args_and_kwargs():
-
     """
     Test case 6: Chain method with positional and keyword arguments.
     """
+
     class ChainableWithArgsAndKwargs:
         def __init__(self, value):
             self.value = value
@@ -126,10 +126,10 @@ def test_chain_method_with_args_and_kwargs():
 
 
 def test_chain_method_with_no_args():
-
     """
     Test case 7: Chain method with no arguments.
     """
+
     class ChainableWithNoArgs:
         def __init__(self, value):
             self.value = value
@@ -157,10 +157,10 @@ def test_chain_method_raises_exception():
 
 
 def test_chain_method_with_custom_exception():
-
     """
     Test case 9: Chain method raises a custom exception.
     """
+
     class CustomException(Exception):
         pass
 

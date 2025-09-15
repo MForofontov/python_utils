@@ -1,5 +1,7 @@
 import pytest
-from iterable_functions.set_operations.set_cartesian_product_as_list import set_cartesian_product_as_list
+from iterable_functions.set_operations.set_cartesian_product_as_list import (
+    set_cartesian_product_as_list,
+)
 
 
 def test_set_cartesian_product_as_list_two_sets() -> None:
@@ -7,14 +9,14 @@ def test_set_cartesian_product_as_list_two_sets() -> None:
     Test case 1: Cartesian product of two sets as list.
     """
     set1 = {1, 2}
-    set2 = {'a', 'b'}
+    set2 = {"a", "b"}
     result = set_cartesian_product_as_list(set1, set2)
     assert len(result) == 4
     # Check that it's a list, not a set
     assert isinstance(result, list)
     # Check that all combinations are present
-    assert (1, 'a') in result
-    assert (2, 'b') in result
+    assert (1, "a") in result
+    assert (2, "b") in result
 
 
 def test_set_cartesian_product_as_list_three_sets() -> None:
@@ -22,8 +24,8 @@ def test_set_cartesian_product_as_list_three_sets() -> None:
     Test case 2: Cartesian product of three sets as list.
     """
     set1 = {1, 2}
-    set2 = {'a', 'b'}
-    set3 = {'x', 'y'}
+    set2 = {"a", "b"}
+    set3 = {"x", "y"}
     result = set_cartesian_product_as_list(set1, set2, set3)
     assert len(result) == 8  # 2 * 2 * 2 = 8
     assert isinstance(result, list)
@@ -108,8 +110,8 @@ def test_set_cartesian_product_as_list_large_sets() -> None:
     Test case 10: Test with larger sets.
     """
     set1 = {1, 2, 3}
-    set2 = {'a', 'b', 'c'}
-    set3 = {'x', 'y'}
+    set2 = {"a", "b", "c"}
+    set3 = {"x", "y"}
     result = set_cartesian_product_as_list(set1, set2, set3)
     assert len(result) == 18  # 3 * 3 * 2 = 18
     assert isinstance(result, list)

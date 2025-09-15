@@ -31,8 +31,7 @@ def decompress_file_lzma(input_file: str, output_file: str) -> None:
 
     try:
         if not os.path.exists(input_file):
-            raise FileNotFoundError(
-                f"The input file {input_file} does not exist.")
+            raise FileNotFoundError(f"The input file {input_file} does not exist.")
         mode = os.stat(input_file).st_mode
         if mode & (stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH) == 0:
             raise OSError("Input file is not readable")
@@ -59,4 +58,4 @@ def decompress_file_lzma(input_file: str, output_file: str) -> None:
         raise OSError(f"An I/O error occurred during decompression: {e}")
 
 
-__all__ = ['decompress_file_lzma']
+__all__ = ["decompress_file_lzma"]

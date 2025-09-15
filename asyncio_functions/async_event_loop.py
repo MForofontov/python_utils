@@ -54,4 +54,4 @@ def async_event_loop(func: Callable[[], Awaitable[T]]) -> T:
             loop.close()
 
 
-__all__ = ['async_event_loop']
+__all__ = ["async_event_loop"]

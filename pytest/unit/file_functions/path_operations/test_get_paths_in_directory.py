@@ -19,7 +19,8 @@ def test_get_paths_in_directory_files_only(tmp_path: Path) -> None:
     ]
     returned_paths: list[str] = get_paths_in_directory(str(tmp_path), "files")
     assert sorted(returned_paths) == sorted(
-        expected_paths), "Should return only file paths"
+        expected_paths
+    ), "Should return only file paths"
 
 
 def test_get_paths_in_directory_directories_only(tmp_path: Path) -> None:
@@ -29,8 +30,7 @@ def test_get_paths_in_directory_directories_only(tmp_path: Path) -> None:
     (tmp_path / "file.txt").write_text("a")
     folder_path: Path = tmp_path / "folder"
     folder_path.mkdir()
-    returned_paths: list[str] = get_paths_in_directory(
-        str(tmp_path), "directories")
+    returned_paths: list[str] = get_paths_in_directory(str(tmp_path), "directories")
     expected_paths: list[str] = [os.path.join(tmp_path, "folder")]
     assert returned_paths == expected_paths, "Should return only directory paths"
 
@@ -47,7 +47,8 @@ def test_get_paths_in_directory_all_items(tmp_path: Path) -> None:
     ]
     returned_paths: list[str] = get_paths_in_directory(str(tmp_path), "all")
     assert sorted(returned_paths) == sorted(
-        expected_paths), "Should return files and directories"
+        expected_paths
+    ), "Should return files and directories"
 
 
 def test_get_paths_in_directory_empty_directory(tmp_path: Path) -> None:
@@ -90,8 +91,7 @@ def test_get_paths_in_directory_trailing_slash(tmp_path: Path) -> None:
     """
     (tmp_path / "file.txt").write_text("a")
     path_with_slash: str = os.path.join(str(tmp_path), "")
-    returned_paths: list[str] = get_paths_in_directory(
-        path_with_slash, "files")
+    returned_paths: list[str] = get_paths_in_directory(path_with_slash, "files")
     expected_paths: list[str] = [os.path.join(tmp_path, "file.txt")]
     assert returned_paths == expected_paths, "Should handle paths with trailing slash"
 
@@ -106,7 +106,9 @@ def test_get_paths_in_directory_non_recursive(tmp_path: Path) -> None:
     (nested_dir / "inner.txt").write_text("b")
     returned_paths: list[str] = get_paths_in_directory(str(tmp_path), "files")
     expected_paths: list[str] = [os.path.join(tmp_path, "top.txt")]
-    assert returned_paths == expected_paths, "Should not include files from nested directories"
+    assert (
+        returned_paths == expected_paths
+    ), "Should not include files from nested directories"
 
 
 def test_get_paths_in_directory_invalid_type(tmp_path: Path) -> None:

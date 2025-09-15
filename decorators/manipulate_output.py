@@ -3,6 +3,7 @@ from collections.abc import Callable
 from functools import wraps
 import logging
 from logger_functions.logger import validate_logger
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -78,4 +79,4 @@ def manipulate_output(
     return decorator
 
 
-__all__ = ['manipulate_output']
+__all__ = ["manipulate_output"]

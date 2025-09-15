@@ -38,7 +38,9 @@ Examples
 from typing import Any
 
 
-def dict_diff(dict1: dict[str, Any], dict2: dict[str, Any], recursive: bool = True) -> dict[str, list[str]]:
+def dict_diff(
+    dict1: dict[str, Any], dict2: dict[str, Any], recursive: bool = True
+) -> dict[str, list[str]]:
     """
     Find differences between two dictionaries.
 
@@ -88,7 +90,11 @@ def dict_diff(dict1: dict[str, Any], dict2: dict[str, Any], recursive: bool = Tr
         if key not in dict2:
             removed.append(key)
         else:
-            if recursive and isinstance(dict1[key], dict) and isinstance(dict2[key], dict):
+            if (
+                recursive
+                and isinstance(dict1[key], dict)
+                and isinstance(dict2[key], dict)
+            ):
                 if dict1[key] != dict2[key]:
                     modified.append(key)
                 else:
@@ -104,11 +110,11 @@ def dict_diff(dict1: dict[str, Any], dict2: dict[str, Any], recursive: bool = Tr
             added.append(key)
 
     return {
-        'added': added,
-        'removed': removed,
-        'modified': modified,
-        'unchanged': unchanged
+        "added": added,
+        "removed": removed,
+        "modified": modified,
+        "unchanged": unchanged,
     }
 
 
-__all__ = ['dict_diff']
+__all__ = ["dict_diff"]

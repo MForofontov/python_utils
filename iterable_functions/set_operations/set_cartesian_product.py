@@ -66,7 +66,9 @@ def set_cartesian_product(*sets: set[T]) -> set[tuple[T, ...]]:
 
     for i, s in enumerate(sets):
         if not isinstance(s, set):
-            raise TypeError(f"All arguments must be sets, got {type(s).__name__} at position {i}")
+            raise TypeError(
+                f"All arguments must be sets, got {type(s).__name__} at position {i}"
+            )
 
     # Calculate cartesian product
     if len(sets) == 1:
@@ -78,4 +80,4 @@ def set_cartesian_product(*sets: set[T]) -> set[tuple[T, ...]]:
     return set(product)
 
 
-__all__ = ['set_cartesian_product']
+__all__ = ["set_cartesian_product"]

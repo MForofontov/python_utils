@@ -6,7 +6,7 @@ def test_is_anagram_basic() -> None:
     """
     Test case 1: Test the is_anagram function with basic input.
     """
-    assert is_anagram("listen", "silent") == True, "Failed on basic anagram"
+    assert is_anagram("listen", "silent"), "Failed on basic anagram"
 
 
 def test_is_anagram_with_spaces() -> None:
@@ -14,7 +14,7 @@ def test_is_anagram_with_spaces() -> None:
     Test case 2: Test the is_anagram function with strings containing spaces.
     """
     assert (
-        is_anagram("conversation", "voices rant on") == True
+        is_anagram("conversation", "voices rant on")
     ), "Failed on anagram with spaces"
 
 
@@ -23,7 +23,7 @@ def test_is_anagram_with_different_cases() -> None:
     Test case 3: Test the is_anagram function with strings containing different cases.
     """
     assert (
-        is_anagram("Listen", "Silent") == True
+        is_anagram("Listen", "Silent")
     ), "Failed on anagram with different cases"
 
 
@@ -31,15 +31,14 @@ def test_is_anagram_with_non_anagram() -> None:
     """
     Test case 4: Test the is_anagram function with non-anagram strings.
     """
-    assert is_anagram(
-        "hello", "world") == False, "Failed on non-anagram strings"
+    assert not is_anagram("hello", "world"), "Failed on non-anagram strings"
 
 
 def test_is_anagram_with_empty_strings() -> None:
     """
     Test case 5: Test the is_anagram function with empty strings.
     """
-    assert is_anagram("", "") == True, "Failed on empty strings"
+    assert is_anagram("", ""), "Failed on empty strings"
 
 
 def test_is_anagram_with_special_characters() -> None:
@@ -47,7 +46,7 @@ def test_is_anagram_with_special_characters() -> None:
     Test case 6: Test the is_anagram function with strings containing special characters.
     """
     assert (
-        is_anagram("a!b@c#", "c@b!a#") == True
+        is_anagram("a!b@c#", "c@b!a#")
     ), "Failed on anagram with special characters"
 
 
@@ -55,8 +54,7 @@ def test_is_anagram_with_numbers() -> None:
     """
     Test case 7: Test the is_anagram function with strings containing numbers.
     """
-    assert is_anagram(
-        "12345", "54321") == True, "Failed on anagram with numbers"
+    assert is_anagram("12345", "54321"), "Failed on anagram with numbers"
 
 
 def test_is_anagram_with_unicode_characters() -> None:
@@ -64,7 +62,7 @@ def test_is_anagram_with_unicode_characters() -> None:
     Test case 8: Test the is_anagram function with strings containing unicode characters.
     """
     assert (
-        is_anagram("déjà vu", "vu déjà") == True
+        is_anagram("déjà vu", "vu déjà")
     ), "Failed on anagram with unicode characters"
 
 

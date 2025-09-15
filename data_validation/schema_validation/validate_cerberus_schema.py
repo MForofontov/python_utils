@@ -9,6 +9,7 @@ from typing import Any
 
 try:
     from cerberus import Validator
+
     CERBERUS_AVAILABLE = True
 except ImportError:
     # Fallback when cerberus is not available
@@ -127,7 +128,9 @@ def validate_cerberus_schema(
         raise TypeError(f"schema must be a dictionary, got {type(schema).__name__}")
 
     if not isinstance(allow_unknown, bool):
-        raise TypeError(f"allow_unknown must be bool, got {type(allow_unknown).__name__}")
+        raise TypeError(
+            f"allow_unknown must be bool, got {type(allow_unknown).__name__}"
+        )
 
     if not isinstance(normalize, bool):
         raise TypeError(f"normalize must be bool, got {type(normalize).__name__}")
@@ -174,4 +177,4 @@ def validate_cerberus_schema(
         return data.copy()  # Return a copy to avoid modifying original
 
 
-__all__ = ['validate_cerberus_schema']
+__all__ = ["validate_cerberus_schema"]

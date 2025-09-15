@@ -1,6 +1,10 @@
 import pytest
-from iterable_functions.set_operations.get_unique_elements_across_sets import get_unique_elements_across_sets
-from iterable_functions.set_operations.set_symmetric_difference import set_symmetric_difference
+from iterable_functions.set_operations.get_unique_elements_across_sets import (
+    get_unique_elements_across_sets,
+)
+from iterable_functions.set_operations.set_symmetric_difference import (
+    set_symmetric_difference,
+)
 
 
 def test_get_unique_elements_across_sets_two_sets() -> None:

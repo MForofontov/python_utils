@@ -72,4 +72,5 @@ async def async_rate_limited(
 
     return results
 
-__all__ = ['async_rate_limited']
+
+__all__ = ["async_rate_limited"]

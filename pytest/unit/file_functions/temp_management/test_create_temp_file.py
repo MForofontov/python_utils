@@ -20,16 +20,16 @@ def test_create_temp_file_case_1_normal_operation() -> None:
         assert isinstance(temp_path, str)
         assert Path(temp_path).exists()
         assert Path(temp_path).is_file()
-        
+
         # Write and read content
-        with open(temp_path, 'w') as f:
+        with open(temp_path, "w") as f:
             f.write("test content")
-        
+
         with open(temp_path) as f:
             content = f.read()
-        
+
         assert content == "test content"
-    
+
     # Assert file is deleted after context
     assert not Path(temp_path).exists()
 
@@ -78,14 +78,14 @@ def test_create_temp_file_case_5_no_delete() -> None:
     with create_temp_file(delete=False) as temp_path:
         temp_file_path = Path(temp_path)
         assert temp_file_path.exists()
-        
+
         # Write some content
-        with open(temp_path, 'w') as f:
+        with open(temp_path, "w") as f:
             f.write("persistent content")
-    
+
     # Assert file still exists after context
     assert temp_file_path.exists()
-    
+
     # Cleanup
     try:
         temp_file_path.unlink()
@@ -101,14 +101,14 @@ def test_create_temp_file_case_6_binary_mode() -> None:
     with create_temp_file(text=False) as temp_path:
         # Assert
         assert Path(temp_path).exists()
-        
+
         # Write binary content
-        with open(temp_path, 'wb') as f:
+        with open(temp_path, "wb") as f:
             f.write(b"binary content")
-        
-        with open(temp_path, 'rb') as f:
+
+        with open(temp_path, "rb") as f:
             content = f.read()
-        
+
         assert content == b"binary content"
 
 
@@ -119,7 +119,7 @@ def test_create_temp_file_case_7_path_object_directory() -> None:
     # Arrange
     with tempfile.TemporaryDirectory() as custom_dir:
         custom_path = Path(custom_dir)
-        
+
         # Act
         with create_temp_file(dir=custom_path) as temp_path:
             # Assert
@@ -135,22 +135,22 @@ def test_create_temp_file_case_8_invalid_type_errors() -> None:
     with pytest.raises(TypeError, match="suffix must be a string"):
         with create_temp_file(suffix=123):
             pass
-    
+
     # Test invalid prefix type
     with pytest.raises(TypeError, match="prefix must be a string"):
         with create_temp_file(prefix=123):
             pass
-    
+
     # Test invalid dir type
     with pytest.raises(TypeError, match="dir must be a string, Path, or None"):
         with create_temp_file(dir=123):
             pass
-    
+
     # Test invalid text type
     with pytest.raises(TypeError, match="text must be a boolean"):
         with create_temp_file(text="not_bool"):
             pass
-    
+
     # Test invalid delete type
     with pytest.raises(TypeError, match="delete must be a boolean"):
         with create_temp_file(delete="not_bool"):
@@ -162,7 +162,7 @@ def test_create_temp_file_case_9_file_creation_error() -> None:
     Test case 9: OSError handling during file creation.
     """
     # Mock NamedTemporaryFile to raise OSError
-    with patch('tempfile.NamedTemporaryFile', side_effect=OSError("Disk full")):
+    with patch("tempfile.NamedTemporaryFile", side_effect=OSError("Disk full")):
         # Act & Assert
         with pytest.raises(OSError, match="Error creating temporary file"):
             with create_temp_file():
@@ -174,14 +174,14 @@ def test_create_temp_file_case_10_cleanup_error_handling() -> None:
     Test case 10: Graceful handling of cleanup errors.
     """
     temp_path_holder = []
-    
+
     # Act
     with create_temp_file() as temp_path:
         temp_path_holder.append(temp_path)
         assert Path(temp_path).exists()
-        
+
         # Manually delete the file to simulate cleanup error
         Path(temp_path).unlink()
-    
+
     # Assert - should not raise error even if file was already deleted
     assert not Path(temp_path_holder[0]).exists()

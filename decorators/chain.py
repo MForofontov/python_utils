@@ -2,6 +2,7 @@ from typing import Any, TypeVar, ParamSpec
 from collections.abc import Callable
 from functools import wraps
 from inspect import Parameter, signature
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -72,4 +73,4 @@ def chain(func: Callable[P, T]) -> Callable[P, T | Any]:
     return wrapper
 
 
-__all__ = ['chain']
+__all__ = ["chain"]

@@ -4,6 +4,7 @@ from functools import wraps
 import os
 import logging
 from logger_functions.logger import validate_logger
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -129,4 +130,4 @@ def env_config(
     return decorator
 
 
-__all__ = ['env_config']
+__all__ = ["env_config"]

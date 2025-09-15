@@ -3,13 +3,19 @@
 import urllib.parse
 
 
-def build_url(scheme: str, hostname: str, port: int | None = None, 
-              path: str = "", query_params: dict[str, str] | None = None,
-              fragment: str | None = None, username: str | None = None,
-              password: str | None = None) -> str:
+def build_url(
+    scheme: str,
+    hostname: str,
+    port: int | None = None,
+    path: str = "",
+    query_params: dict[str, str] | None = None,
+    fragment: str | None = None,
+    username: str | None = None,
+    password: str | None = None,
+) -> str:
     """
     Build a URL from components.
-    
+
     Parameters
     ----------
     scheme : str
@@ -28,17 +34,17 @@ def build_url(scheme: str, hostname: str, port: int | None = None,
         Username for authentication.
     password : str, optional
         Password for authentication.
-        
+
     Returns
     -------
     str
         The constructed URL.
-        
+
     Raises
     ------
     ValueError
         If required parameters are invalid.
-        
+
     Examples
     --------
     >>> build_url('https', 'example.com', path='/api/v1')
@@ -48,26 +54,26 @@ def build_url(scheme: str, hostname: str, port: int | None = None,
     """
     if not isinstance(scheme, str) or not scheme.strip():
         raise ValueError("Scheme must be a non-empty string")
-    
+
     if not isinstance(hostname, str) or not hostname.strip():
         raise ValueError("Hostname must be a non-empty string")
-    
+
     # Build netloc
     netloc = hostname
     if port:
         netloc = f"{hostname}:{port}"
-    
+
     if username:
         if password:
             netloc = f"{username}:{password}@{netloc}"
         else:
             netloc = f"{username}@{netloc}"
-    
+
     # Build query string
     query = ""
     if query_params:
         query = urllib.parse.urlencode(query_params)
-    
+
     # Use urlunparse to build the URL
     url_parts = (scheme, netloc, path, "", query, fragment or "")
     return urllib.parse.urlunparse(url_parts)

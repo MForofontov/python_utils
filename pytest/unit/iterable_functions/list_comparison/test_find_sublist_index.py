@@ -10,8 +10,7 @@ def test_find_sublist_index_success() -> None:
     input_list_of_lists: list[list[int]] = [[1, 2], [3, 4], [5, 6]]
     target_value: int = 4
     expected_output: int = 1
-    assert find_sublist_index(
-        input_list_of_lists, target_value) == expected_output
+    assert find_sublist_index(input_list_of_lists, target_value) == expected_output
 
 
 def test_find_sublist_index_not_found() -> None:
@@ -21,8 +20,7 @@ def test_find_sublist_index_not_found() -> None:
     input_list_of_lists: list[list[int]] = [[1, 2], [3, 4], [5, 6]]
     target_value: int = 7
     expected_output: None = None
-    assert find_sublist_index(
-        input_list_of_lists, target_value) == expected_output
+    assert find_sublist_index(input_list_of_lists, target_value) == expected_output
 
 
 def test_find_sublist_index_empty_list() -> None:
@@ -32,8 +30,7 @@ def test_find_sublist_index_empty_list() -> None:
     input_list_of_lists: list[list[int]] = []
     target_value: int = 1
     expected_output: None = None
-    assert find_sublist_index(
-        input_list_of_lists, target_value) == expected_output
+    assert find_sublist_index(input_list_of_lists, target_value) == expected_output
 
 
 def test_find_sublist_index_empty_sublists() -> None:
@@ -43,8 +40,7 @@ def test_find_sublist_index_empty_sublists() -> None:
     input_list_of_lists: list[list[int]] = [[], [], []]
     target_value: int = 1
     expected_output: None = None
-    assert find_sublist_index(
-        input_list_of_lists, target_value) == expected_output
+    assert find_sublist_index(input_list_of_lists, target_value) == expected_output
 
 
 def test_find_sublist_index_strings() -> None:
@@ -58,8 +54,7 @@ def test_find_sublist_index_strings() -> None:
     ]
     target_value: str = "date"
     expected_output: int = 1
-    assert find_sublist_index(
-        input_list_of_lists, target_value) == expected_output
+    assert find_sublist_index(input_list_of_lists, target_value) == expected_output
 
 
 def test_find_sublist_index_mixed_types() -> None:
@@ -73,8 +68,7 @@ def test_find_sublist_index_mixed_types() -> None:
     ]
     target_value: Any = "apple"
     expected_output: int = 1
-    assert find_sublist_index(
-        input_list_of_lists, target_value) == expected_output
+    assert find_sublist_index(input_list_of_lists, target_value) == expected_output
 
 
 def test_find_sublist_index_type_error_input_list_of_lists() -> None:

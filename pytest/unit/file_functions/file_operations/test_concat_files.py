@@ -18,7 +18,9 @@ def test_concat_files_appends_two_files(tmp_path: Path) -> None:
     concat_files(str(src1), str(dest))
     concat_files(str(src2), str(dest))
 
-    assert dest.read_text() == "Hello\nWorld", "Destination should contain combined contents"
+    assert (
+        dest.read_text() == "Hello\nWorld"
+    ), "Destination should contain combined contents"
 
 
 def test_concat_files_empty_source(tmp_path: Path) -> None:

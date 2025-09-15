@@ -12,8 +12,8 @@ from .validate_pydantic_schema import validate_pydantic_schema
 from .validate_cerberus_schema import validate_cerberus_schema
 
 __all__ = [
-    'validate_pydantic_schema',
-    'validate_cerberus_schema',
+    "validate_pydantic_schema",
+    "validate_cerberus_schema",
 ]
 
-__version__ = '1.0.0'
+__version__ = "1.0.0"

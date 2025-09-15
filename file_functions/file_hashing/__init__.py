@@ -11,10 +11,10 @@ from .calculate_sha256_hash import calculate_sha256_hash
 from .compare_file_hashes import compare_file_hashes
 
 __all__ = [
-    'calculate_md5_hash',
-    'calculate_sha1_hash',
-    'calculate_sha256_hash',
-    'compare_file_hashes',
+    "calculate_md5_hash",
+    "calculate_sha1_hash",
+    "calculate_sha256_hash",
+    "compare_file_hashes",
 ]
 
-__version__ = '1.0.0'
+__version__ = "1.0.0"

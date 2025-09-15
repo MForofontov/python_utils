@@ -37,4 +37,4 @@ def ends_with(s: str, suffix: str) -> bool:
     return s.endswith(suffix)
 
 
-__all__ = ['ends_with']
+__all__ = ["ends_with"]

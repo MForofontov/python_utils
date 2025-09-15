@@ -3,6 +3,7 @@ from .any_match_lists import any_match_lists
 
 T = TypeVar("T")
 
+
 def partially_contains_sublist(
     main_list: list[T], list_of_lists: list[list[T]]
 ) -> bool:
@@ -39,4 +40,4 @@ def partially_contains_sublist(
     return False
 
 
-__all__ = ['partially_contains_sublist']
+__all__ = ["partially_contains_sublist"]

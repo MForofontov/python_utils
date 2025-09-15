@@ -38,15 +38,15 @@ def kill_process(pid: int, signal_type: int = signal.SIGTERM) -> bool:
     """
     if not isinstance(pid, int):
         raise TypeError("pid must be an integer")
-    
+
     if pid <= 0:
         raise ValueError("pid must be positive")
-    
+
     try:
         # Check if process exists first
         if not psutil.pid_exists(pid):
             return False
-        
+
         os.kill(pid, signal_type)
         return True
     except (OSError, ProcessLookupError, PermissionError):

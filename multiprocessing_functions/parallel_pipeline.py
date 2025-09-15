@@ -62,4 +62,4 @@ def parallel_pipeline(
     return results
 
 
-__all__ = ['parallel_pipeline']
+__all__ = ["parallel_pipeline"]

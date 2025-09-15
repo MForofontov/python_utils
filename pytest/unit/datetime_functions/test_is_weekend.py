@@ -108,10 +108,10 @@ def test_is_weekend_invalid_input_type() -> None:
     Test case 11: Test is_weekend function with invalid input type raises TypeError.
     """
     with pytest.raises(TypeError):
-        is_weekend('2023-06-10')
-    
+        is_weekend("2023-06-10")
+
     with pytest.raises(TypeError):
         is_weekend(123)
-    
+
     with pytest.raises(TypeError):
         is_weekend(None)

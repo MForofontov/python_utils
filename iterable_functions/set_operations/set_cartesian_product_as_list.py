@@ -55,7 +55,9 @@ def set_cartesian_product_as_list(*sets: set[T]) -> list[tuple[T, ...]]:
 
     for i, s in enumerate(sets):
         if not isinstance(s, set):
-            raise TypeError(f"All arguments must be sets, got {type(s).__name__} at position {i}")
+            raise TypeError(
+                f"All arguments must be sets, got {type(s).__name__} at position {i}"
+            )
 
     # Calculate cartesian product and sort for consistent ordering
     product = list(itertools.product(*sets))
@@ -63,4 +65,4 @@ def set_cartesian_product_as_list(*sets: set[T]) -> list[tuple[T, ...]]:
     return product
 
 
-__all__ = ['set_cartesian_product_as_list']
+__all__ = ["set_cartesian_product_as_list"]

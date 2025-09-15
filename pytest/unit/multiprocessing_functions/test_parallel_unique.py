@@ -1,5 +1,6 @@
 from multiprocessing_functions.parallel_unique import parallel_unique
 
+
 def test_parallel_unique_basic() -> None:
     """
     Test case 1: Test extracting unique elements from a list.
@@ -7,6 +8,7 @@ def test_parallel_unique_basic() -> None:
     data: list[int] = [1, 2, 2, 3, 3, 4]
     result: list[int] = parallel_unique(data)
     assert sorted(result) == [1, 2, 3, 4]
+
 
 def test_parallel_unique_chunk_size() -> None:
     """
@@ -16,12 +18,14 @@ def test_parallel_unique_chunk_size() -> None:
     result: list[int] = parallel_unique(data, chunk_size=2)
     assert sorted(result) == [1, 2, 3]
 
+
 def test_parallel_unique_empty_list() -> None:
     """
     Test case 3: Test parallel_unique with an empty list.
     """
     result = parallel_unique([])
     assert result == []
+
 
 def test_parallel_unique_all_identical() -> None:
     """
@@ -31,6 +35,7 @@ def test_parallel_unique_all_identical() -> None:
     result = parallel_unique(data)
     assert result == [7]
 
+
 def test_parallel_unique_strings() -> None:
     """
     Test case 5: Test parallel_unique with string elements.
@@ -38,6 +43,7 @@ def test_parallel_unique_strings() -> None:
     data = ["a", "b", "a", "c", "b"]
     result = sorted(parallel_unique(data))
     assert result == ["a", "b", "c"]
+
 
 def test_parallel_unique_non_list_input() -> None:
     """
@@ -47,6 +53,7 @@ def test_parallel_unique_non_list_input() -> None:
         parallel_unique("not a list")
     except Exception as e:
         assert isinstance(e, Exception)
+
 
 def test_parallel_unique_invalid_chunk_size() -> None:
     """
@@ -61,6 +68,7 @@ def test_parallel_unique_invalid_chunk_size() -> None:
         parallel_unique(data, chunk_size=-1)
     except Exception as e:
         assert isinstance(e, Exception)
+
 
 def test_parallel_unique_invalid_num_processes() -> None:
     """

@@ -47,7 +47,7 @@ __all__ = [
     "find_files_by_mtime",
     # File hashing functions
     "calculate_md5_hash",
-    "calculate_sha1_hash", 
+    "calculate_sha1_hash",
     "calculate_sha256_hash",
     "compare_file_hashes",
     # Temporary management functions

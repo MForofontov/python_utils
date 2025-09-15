@@ -37,4 +37,4 @@ def count_substring(s: str, substring: str) -> int:
     return s.count(substring)
 
 
-__all__ = ['count_substring']
+__all__ = ["count_substring"]

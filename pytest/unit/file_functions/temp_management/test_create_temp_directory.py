@@ -21,12 +21,12 @@ def test_create_temp_directory_case_1_normal_operation() -> None:
         assert isinstance(temp_dir, str)
         assert Path(temp_dir).exists()
         assert Path(temp_dir).is_dir()
-        
+
         # Create file in directory
         test_file = Path(temp_dir) / "test.txt"
         test_file.write_text("test content")
         assert test_file.exists()
-    
+
     # Assert directory is deleted after context
     assert not Path(temp_dir).exists()
 
@@ -76,15 +76,15 @@ def test_create_temp_directory_case_5_no_delete() -> None:
     with create_temp_directory(delete=False) as temp_dir:
         temp_dir_path = Path(temp_dir)
         assert temp_dir_path.exists()
-        
+
         # Create file in directory
         test_file = temp_dir_path / "persistent.txt"
         test_file.write_text("persistent content")
-    
+
     # Assert directory still exists after context
     assert temp_dir_path.exists()
     assert (temp_dir_path / "persistent.txt").exists()
-    
+
     # Cleanup
     try:
         shutil.rmtree(temp_dir_path)
@@ -99,17 +99,17 @@ def test_create_temp_directory_case_6_nested_structure() -> None:
     # Act
     with create_temp_directory() as temp_dir:
         temp_path = Path(temp_dir)
-        
+
         # Create nested structure
         subdir = temp_path / "subdir"
         subdir.mkdir()
         (subdir / "file.txt").write_text("nested content")
-        
+
         # Assert
         assert subdir.exists()
         assert (subdir / "file.txt").exists()
         assert (subdir / "file.txt").read_text() == "nested content"
-    
+
     # Assert all is cleaned up
     assert not temp_path.exists()
 
@@ -121,7 +121,7 @@ def test_create_temp_directory_case_7_path_object_directory() -> None:
     # Arrange
     with tempfile.TemporaryDirectory() as parent_dir:
         parent_path = Path(parent_dir)
-        
+
         # Act
         with create_temp_directory(dir=parent_path) as temp_dir:
             # Assert
@@ -137,17 +137,17 @@ def test_create_temp_directory_case_8_invalid_type_errors() -> None:
     with pytest.raises(TypeError, match="suffix must be a string"):
         with create_temp_directory(suffix=123):
             pass
-    
+
     # Test invalid prefix type
     with pytest.raises(TypeError, match="prefix must be a string"):
         with create_temp_directory(prefix=123):
             pass
-    
+
     # Test invalid dir type
     with pytest.raises(TypeError, match="dir must be a string, Path, or None"):
         with create_temp_directory(dir=123):
             pass
-    
+
     # Test invalid delete type
     with pytest.raises(TypeError, match="delete must be a boolean"):
         with create_temp_directory(delete="not_bool"):
@@ -159,7 +159,7 @@ def test_create_temp_directory_case_9_directory_creation_error() -> None:
     Test case 9: OSError handling during directory creation.
     """
     # Mock mkdtemp to raise OSError
-    with patch('tempfile.mkdtemp', side_effect=OSError("Permission denied")):
+    with patch("tempfile.mkdtemp", side_effect=OSError("Permission denied")):
         # Act & Assert
         with pytest.raises(OSError, match="Error creating temporary directory"):
             with create_temp_directory():
@@ -171,14 +171,14 @@ def test_create_temp_directory_case_10_cleanup_error_handling() -> None:
     Test case 10: Graceful handling of cleanup errors.
     """
     temp_dir_holder = []
-    
+
     # Act
     with create_temp_directory() as temp_dir:
         temp_dir_holder.append(temp_dir)
         assert Path(temp_dir).exists()
-        
+
         # Manually delete the directory to simulate cleanup error
         shutil.rmtree(temp_dir)
-    
+
     # Assert - should not raise error even if directory was already deleted
     assert not Path(temp_dir_holder[0]).exists()

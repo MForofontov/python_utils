@@ -6,24 +6,21 @@ def test_count_substring_multiple_occurrences() -> None:
     """
     Test case 1: Test the count_substring function when the substring occurs multiple times.
     """
-    assert count_substring(
-        "hello world", "o") == 2, "Failed on multiple occurrences"
+    assert count_substring("hello world", "o") == 2, "Failed on multiple occurrences"
 
 
 def test_count_substring_beginning() -> None:
     """
     Test case 2: Test the count_substring function when the substring occurs at the beginning.
     """
-    assert count_substring(
-        "ababab", "ab") == 3, "Failed on substring at the beginning"
+    assert count_substring("ababab", "ab") == 3, "Failed on substring at the beginning"
 
 
 def test_count_substring_end() -> None:
     """
     Test case 3: Test the count_substring function when the substring occurs at the end.
     """
-    assert count_substring(
-        "hello", "lo") == 1, "Failed on substring at the end"
+    assert count_substring("hello", "lo") == 1, "Failed on substring at the end"
 
 
 def test_count_substring_entire_string() -> None:
@@ -39,8 +36,7 @@ def test_count_substring_not_occur() -> None:
     """
     Test case 5: Test the count_substring function when the substring does not occur.
     """
-    assert count_substring(
-        "hello", "world") == 0, "Failed on substring does not occur"
+    assert count_substring("hello", "world") == 0, "Failed on substring does not occur"
 
 
 def test_count_substring_empty_substring() -> None:
@@ -61,16 +57,14 @@ def test_count_substring_both_empty() -> None:
     """
     Test case 8: Test the count_substring function when both the string and the substring are empty.
     """
-    assert count_substring(
-        "", "") == 1, "Failed on both string and substring empty"
+    assert count_substring("", "") == 1, "Failed on both string and substring empty"
 
 
 def test_count_substring_overlapping() -> None:
     """
     Test case 9: Test the count_substring function when the substring occurs with overlapping.
     """
-    assert count_substring(
-        "aaaa", "aa") == 2, "Failed on overlapping occurrences"
+    assert count_substring("aaaa", "aa") == 2, "Failed on overlapping occurrences"
 
 
 def test_count_substring_special_characters() -> None:
@@ -100,8 +94,7 @@ def test_count_substring_spaces() -> None:
     """
     Test case 13: Test the count_substring function when the substring contains spaces.
     """
-    assert count_substring("hello world hello",
-                           "hello") == 2, "Failed on spaces"
+    assert count_substring("hello world hello", "hello") == 2, "Failed on spaces"
 
 
 def test_count_substring_newline_characters() -> None:

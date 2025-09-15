@@ -4,6 +4,7 @@ from typing import Any, ParamSpec, TypeVar
 from collections.abc import Callable
 from functools import wraps
 from logger_functions.logger import validate_logger
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -105,4 +106,4 @@ def timeout(
     return decorator
 
 
-__all__ = ['TimeoutException', 'timeout']
+__all__ = ["TimeoutException", "timeout"]

@@ -28,4 +28,4 @@ def get_current_datetime_iso() -> str:
     return datetime.now().isoformat()
 
 
-__all__ = ['get_current_datetime_iso']
+__all__ = ["get_current_datetime_iso"]

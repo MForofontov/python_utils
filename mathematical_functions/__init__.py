@@ -7,7 +7,7 @@ and algorithms where applicable.
 
 Submodules:
     basic: Basic mathematical operations with multiple algorithms
-    advanced: Advanced mathematical computations and algorithms  
+    advanced: Advanced mathematical computations and algorithms
     statistics: Statistical functions with various methods
     random: Random number generation and sampling functions
 """
@@ -22,7 +22,9 @@ from .random import *
 __all__ = [
     # Basic math operations
     "power",
-    
     # Random generators
-    "random_integers", "random_floats", "random_normal", "random_sample",
+    "random_integers",
+    "random_floats",
+    "random_normal",
+    "random_sample",
 ]

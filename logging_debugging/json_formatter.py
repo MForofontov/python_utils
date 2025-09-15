@@ -10,7 +10,9 @@ import logging
 from datetime import datetime
 
 
-def json_formatter(include_extra: bool = True, pretty_print: bool = False) -> logging.Formatter:
+def json_formatter(
+    include_extra: bool = True, pretty_print: bool = False
+) -> logging.Formatter:
     """
     Create a JSON log formatter for structured logging.
 
@@ -47,29 +49,46 @@ def json_formatter(include_extra: bool = True, pretty_print: bool = False) -> lo
         def format(self, record: logging.LogRecord) -> str:
             # Create base log entry
             log_entry = {
-                'timestamp': datetime.fromtimestamp(record.created).isoformat(),
-                'level': record.levelname,
-                'logger': record.name,
-                'message': record.getMessage(),
-                'module': record.module,
-                'function': record.funcName,
-                'line': record.lineno,
-                'process': record.process,
-                'thread': record.thread,
+                "timestamp": datetime.fromtimestamp(record.created).isoformat(),
+                "level": record.levelname,
+                "logger": record.name,
+                "message": record.getMessage(),
+                "module": record.module,
+                "function": record.funcName,
+                "line": record.lineno,
+                "process": record.process,
+                "thread": record.thread,
             }
 
             # Add exception info if present
             if record.exc_info:
-                log_entry['exception'] = self.formatException(record.exc_info)
+                log_entry["exception"] = self.formatException(record.exc_info)
 
             # Add extra fields if requested
             if self.include_extra:
                 for key, value in record.__dict__.items():
                     if key not in {
-                        'name', 'msg', 'args', 'levelname', 'levelno', 'pathname',
-                        'filename', 'module', 'exc_info', 'exc_text', 'stack_info',
-                        'lineno', 'funcName', 'created', 'msecs', 'relativeCreated',
-                        'thread', 'threadName', 'processName', 'process', 'message'
+                        "name",
+                        "msg",
+                        "args",
+                        "levelname",
+                        "levelno",
+                        "pathname",
+                        "filename",
+                        "module",
+                        "exc_info",
+                        "exc_text",
+                        "stack_info",
+                        "lineno",
+                        "funcName",
+                        "created",
+                        "msecs",
+                        "relativeCreated",
+                        "thread",
+                        "threadName",
+                        "processName",
+                        "process",
+                        "message",
                     }:
                         log_entry[key] = value
 
@@ -82,4 +101,4 @@ def json_formatter(include_extra: bool = True, pretty_print: bool = False) -> lo
     return JsonFormatter(include_extra, pretty_print)
 
 
-__all__ = ['json_formatter']
+__all__ = ["json_formatter"]

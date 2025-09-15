@@ -9,7 +9,15 @@ def test_get_days_of_week_full_names() -> None:
     result: list[str] = get_days_of_week()
     assert isinstance(result, list)
     assert len(result) == 7
-    assert result == ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    assert result == [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+    ]
 
 
 def test_get_days_of_week_abbreviated_names() -> None:
@@ -19,7 +27,7 @@ def test_get_days_of_week_abbreviated_names() -> None:
     result: list[str] = get_days_of_week(abbreviated=True)
     assert isinstance(result, list)
     assert len(result) == 7
-    assert result == ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    assert result == ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
 
 def test_get_days_of_week_all_strings() -> None:
@@ -47,10 +55,10 @@ def test_get_days_of_week_invalid_abbreviated_type() -> None:
     Test case 5: Test get_days_of_week function with invalid abbreviated type raises TypeError.
     """
     with pytest.raises(TypeError):
-        get_days_of_week(abbreviated='true')
-    
+        get_days_of_week(abbreviated="true")
+
     with pytest.raises(TypeError):
         get_days_of_week(abbreviated=1)
-    
+
     with pytest.raises(TypeError):
         get_days_of_week(abbreviated=None)

@@ -1,10 +1,16 @@
 import json
 from typing import Any
 
-def safe_json_load(json_string: str, object_hook: Any | None = None, default: Any | None = None, decoder: type[json.JSONDecoder] | None = None) -> Any:
+
+def safe_json_load(
+    json_string: str,
+    object_hook: Any | None = None,
+    default: Any | None = None,
+    decoder: type[json.JSONDecoder] | None = None,
+) -> Any:
     """
     Safely load a JSON string, returning a default value on error.
-    
+
     Parameters
     ----------
     json_string : str
@@ -15,12 +21,12 @@ def safe_json_load(json_string: str, object_hook: Any | None = None, default: An
         Value to return if parsing fails (default: None).
     decoder : type, optional
         Custom JSONDecoder class.
-        
+
     Returns
     -------
     Any
         The parsed object, or default if parsing fails.
-        
+
     Examples
     --------
     >>> safe_json_load('{"a": 1}')
@@ -31,12 +37,12 @@ def safe_json_load(json_string: str, object_hook: Any | None = None, default: An
     try:
         kwargs = {}
         if object_hook is not None:
-            kwargs['object_hook'] = object_hook
+            kwargs["object_hook"] = object_hook
         if decoder is not None:
-            kwargs['cls'] = decoder
+            kwargs["cls"] = decoder
         return json.loads(json_string, **kwargs)
     except (json.JSONDecodeError, TypeError, ValueError):
         return default
 
 
-__all__ = ['safe_json_load']
+__all__ = ["safe_json_load"]

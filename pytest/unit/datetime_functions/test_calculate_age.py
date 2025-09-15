@@ -84,13 +84,13 @@ def test_calculate_age_invalid_input_type() -> None:
     Test case 8: Test calculate_age function with invalid input type raises TypeError.
     """
     reference_date: date = date(2023, 1, 15)
-    
+
     with pytest.raises(TypeError):
-        calculate_age('1990-01-15', reference_date)
-    
+        calculate_age("1990-01-15", reference_date)
+
     with pytest.raises(TypeError):
         calculate_age(123, reference_date)
-    
+
     with pytest.raises(TypeError):
         calculate_age(None, reference_date)
 
@@ -101,6 +101,6 @@ def test_calculate_age_future_birth_date() -> None:
     """
     birth_date: date = date(2025, 1, 15)
     reference_date: date = date(2023, 1, 15)
-    
+
     with pytest.raises(ValueError):
         calculate_age(birth_date, reference_date)

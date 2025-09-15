@@ -34,8 +34,7 @@ def test_split_string_no_delimiter_in_string() -> None:
     """
     Test case 4: Test the split_string function when the delimiter is not in the string.
     """
-    assert split_string("hello") == [
-        "hello"], "Failed on no delimiter in the string"
+    assert split_string("hello") == ["hello"], "Failed on no delimiter in the string"
 
 
 def test_split_string_multiple_delimiters() -> None:

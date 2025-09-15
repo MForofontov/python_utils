@@ -54,9 +54,11 @@ def verify_password(
 
     if custom_checks is None:
         custom_checks = []
-    elif not isinstance(custom_checks, Iterable) or isinstance(
-        custom_checks, (str, bytes)
-    ) or not all(callable(check) for check in custom_checks):
+    elif (
+        not isinstance(custom_checks, Iterable)
+        or isinstance(custom_checks, (str, bytes))
+        or not all(callable(check) for check in custom_checks)
+    ):
         raise TypeError("custom_checks must be an iterable of callables.")
 
     # Check if the password is at least 8 characters long
@@ -83,4 +85,4 @@ def verify_password(
     return True
 
 
-__all__ = ['verify_password']
+__all__ = ["verify_password"]

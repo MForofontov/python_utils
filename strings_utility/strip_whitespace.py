@@ -33,4 +33,4 @@ def strip_whitespace(s: str) -> str:
     return s.strip()
 
 
-__all__ = ['strip_whitespace']
+__all__ = ["strip_whitespace"]

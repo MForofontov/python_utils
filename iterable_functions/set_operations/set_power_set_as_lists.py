@@ -22,8 +22,9 @@ def set_power_set_as_lists(input_set: set[T]) -> list[list[T]]:
 
     Returns
     -------
-    list[List[T]]
-        Power set as a list of lists, sorted by subset size and lexicographically.
+    list[list[T]]
+        Power set as a list of lists, sorted by subset size and
+        lexicographically.
 
     Raises
     ------
@@ -59,10 +60,10 @@ def set_power_set_as_lists(input_set: set[T]) -> list[list[T]]:
     # Generate all possible subsets
     subsets = []
 
-    for i in range(2 ** n):
+    for i in range(2**n):
         subset = []
         for j in range(n):
-            if (i & (1 << j)):
+            if i & (1 << j):
                 subset.append(elements[j])
         subsets.append(subset)
 
@@ -72,4 +73,4 @@ def set_power_set_as_lists(input_set: set[T]) -> list[list[T]]:
     return subsets
 
 
-__all__ = ['set_power_set_as_lists']
+__all__ = ["set_power_set_as_lists"]

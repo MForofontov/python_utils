@@ -61,25 +61,27 @@ def verify_password_bcrypt(
     if not isinstance(password, str):
         raise TypeError(f"password must be a string, got {type(password).__name__}")
     if not isinstance(hashed_password, str):
-        raise TypeError(f"hashed_password must be a string, got {type(hashed_password).__name__}")
-    
+        raise TypeError(
+            f"hashed_password must be a string, got {type(hashed_password).__name__}"
+        )
+
     # Value validation
     if len(password) == 0:
         raise ValueError("password cannot be empty")
     if len(hashed_password) == 0:
         raise ValueError("hashed_password cannot be empty")
-    
+
     # Validate bcrypt hash format
-    if not hashed_password.startswith(('$2a$', '$2b$', '$2x$', '$2y$')):
+    if not hashed_password.startswith(("$2a$", "$2b$", "$2x$", "$2y$")):
         raise ValueError("hashed_password is not a valid bcrypt hash format")
     if len(hashed_password) != 60:
         raise ValueError("hashed_password must be exactly 60 characters long")
-    
+
     try:
         # Verify password against hash
-        return bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8'))
+        return bcrypt.checkpw(password.encode("utf-8"), hashed_password.encode("utf-8"))
     except Exception as e:
         raise ValueError(f"Invalid bcrypt hash format: {e}") from e
 
 
-__all__ = ['verify_password_bcrypt']
+__all__ = ["verify_password_bcrypt"]

@@ -4,6 +4,7 @@ from contextlib import redirect_stdout
 from functools import wraps
 import logging
 from logger_functions.logger import validate_logger
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -83,4 +84,4 @@ def redirect_output(
     return decorator
 
 
-__all__ = ['redirect_output']
+__all__ = ["redirect_output"]

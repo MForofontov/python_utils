@@ -6,8 +6,7 @@ from decorators.log_signature import log_signature
 test_logger = logging.getLogger("test_logger")
 test_logger.setLevel(logging.DEBUG)
 handler = logging.StreamHandler()
-formatter = logging.Formatter(
-    "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 handler.setFormatter(formatter)
 test_logger.addHandler(handler)
 
@@ -80,10 +79,10 @@ def test_log_signature_return_value(caplog):
 
 
 def test_log_signature_with_kwargs(caplog):
-
     """
     Test case 5: Logging function signature with keyword arguments.
     """
+
     @log_signature(logger=test_logger)
     def with_kwargs(a, b=0):
         return a + b
@@ -98,10 +97,10 @@ def test_log_signature_with_kwargs(caplog):
 
 
 def test_log_signature_with_multiple_args(caplog):
-
     """
     Test case 6: Logging function signature with multiple arguments.
     """
+
     @log_signature(logger=test_logger)
     def multiple_args(a, b, c):
         return a + b + c

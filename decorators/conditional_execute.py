@@ -1,6 +1,7 @@
 from typing import TypeVar, ParamSpec
 from collections.abc import Callable
 from functools import wraps
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -80,4 +81,4 @@ def conditional_execute(
     return decorator
 
 
-__all__ = ['conditional_execute']
+__all__ = ["conditional_execute"]

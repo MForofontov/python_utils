@@ -2,6 +2,7 @@ from typing import Any, ParamSpec, TypeVar, cast
 from collections.abc import Callable
 from functools import wraps
 import time
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -100,4 +101,4 @@ def cache_with_expiration(
     return decorator
 
 
-__all__ = ['cache_with_expiration']
+__all__ = ["cache_with_expiration"]

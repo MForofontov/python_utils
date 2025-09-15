@@ -11,10 +11,10 @@ from .read_lines import read_lines
 from .write_lines import write_lines
 
 __all__ = [
-    'check_and_delete_file',
-    'concat_files',
-    'read_lines',
-    'write_lines',
+    "check_and_delete_file",
+    "concat_files",
+    "read_lines",
+    "write_lines",
 ]
 
-__version__ = '1.0.0'
+__version__ = "1.0.0"

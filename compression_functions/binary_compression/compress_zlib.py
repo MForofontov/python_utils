@@ -38,4 +38,4 @@ def compress_zlib(data: bytes) -> bytes:
         raise ValueError(f"An error occurred during compression: {e}")
 
 
-__all__ = ['compress_zlib']
+__all__ = ["compress_zlib"]

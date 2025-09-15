@@ -11,10 +11,10 @@ from .find_files_by_pattern import find_files_by_pattern
 from .find_files_by_size import find_files_by_size
 
 __all__ = [
-    'find_files_by_extension',
-    'find_files_by_pattern',
-    'find_files_by_size',
-    'find_files_by_mtime',
+    "find_files_by_extension",
+    "find_files_by_pattern",
+    "find_files_by_size",
+    "find_files_by_mtime",
 ]
 
-__version__ = '1.0.0'
+__version__ = "1.0.0"

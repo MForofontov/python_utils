@@ -33,4 +33,4 @@ def remove_non_alphanumeric(s: str) -> str:
     return "".join(char for char in s if char.isalnum())
 
 
-__all__ = ['remove_non_alphanumeric']
+__all__ = ["remove_non_alphanumeric"]

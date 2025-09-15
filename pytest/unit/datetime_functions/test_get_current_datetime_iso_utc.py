@@ -9,8 +9,8 @@ def test_get_current_datetime_iso_utc_format() -> None:
     """
     result: str = get_current_datetime_iso_utc()
     assert isinstance(result, str)
-    assert 'T' in result  # ISO format contains T separator
-    assert result.endswith('+00:00') or result.endswith('Z')  # UTC timezone indicator
+    assert "T" in result  # ISO format contains T separator
+    assert result.endswith("+00:00") or result.endswith("Z")  # UTC timezone indicator
 
 
 def test_get_current_datetime_iso_utc_parseable() -> None:
@@ -39,6 +39,7 @@ def test_get_current_datetime_iso_utc_different_calls() -> None:
     Test case 4: Test get_current_datetime_iso_utc function returns different values on consecutive calls.
     """
     import time
+
     result1: str = get_current_datetime_iso_utc()
     time.sleep(0.001)  # Small delay
     result2: str = get_current_datetime_iso_utc()
@@ -53,9 +54,9 @@ def test_get_current_datetime_iso_utc_consistency() -> None:
     """
     result: str = get_current_datetime_iso_utc()
     # Should contain timezone information
-    assert '+' in result or 'Z' in result
+    assert "+" in result or "Z" in result
     # Should be parseable and represent current time (approximately)
-    parsed: datetime = datetime.fromisoformat(result.replace('Z', '+00:00'))
+    parsed: datetime = datetime.fromisoformat(result.replace("Z", "+00:00"))
     now_utc = datetime.now(pytz.UTC)
     time_diff = abs((parsed - now_utc).total_seconds())
     assert time_diff < 1  # Should be within 1 second of current time

@@ -6,8 +6,7 @@ from decorators.redirect_output import redirect_output
 test_logger = logging.getLogger("test_logger")
 test_logger.setLevel(logging.DEBUG)
 handler = logging.StreamHandler()
-formatter = logging.Formatter(
-    "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 handler.setFormatter(formatter)
 test_logger.addHandler(handler)
 
@@ -70,8 +69,7 @@ def test_redirect_output_with_var_args(tmpdir):
     function_with_var_args(1, "arg1", "arg2", kwarg1=1.0, kwarg2=2.0)
     with open(output_file) as f:
         assert (
-            f.read().strip(
-            ) == "1 - ('arg1', 'arg2') - {'kwarg1': 1.0, 'kwarg2': 2.0}"
+            f.read().strip() == "1 - ('arg1', 'arg2') - {'kwarg1': 1.0, 'kwarg2': 2.0}"
         )
 
 

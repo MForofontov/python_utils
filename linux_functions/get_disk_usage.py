@@ -6,7 +6,7 @@ import os
 import psutil
 
 
-def get_disk_usage(path: str = '/') -> dict[str, int | float]:
+def get_disk_usage(path: str = "/") -> dict[str, int | float]:
     """
     Get disk usage information for a given path.
 
@@ -37,14 +37,14 @@ def get_disk_usage(path: str = '/') -> dict[str, int | float]:
     """
     if not isinstance(path, str):
         raise TypeError("path must be a string")
-    
+
     if not os.path.exists(path):
         raise FileNotFoundError(f"Path does not exist: {path}")
-    
+
     usage = psutil.disk_usage(path)
     return {
-        'total': usage.total,
-        'used': usage.used,
-        'free': usage.free,
-        'percent_used': (usage.used / usage.total) * 100 if usage.total > 0 else 0
+        "total": usage.total,
+        "used": usage.used,
+        "free": usage.free,
+        "percent_used": (usage.used / usage.total) * 100 if usage.total > 0 else 0,
     }

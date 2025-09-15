@@ -45,4 +45,5 @@ async def gather_with_timeout(
     except asyncio.TimeoutError:
         return await asyncio.gather(*[t for t in tasks if not t.cancelled()])
 
-__all__ = ['gather_with_timeout']
+
+__all__ = ["gather_with_timeout"]

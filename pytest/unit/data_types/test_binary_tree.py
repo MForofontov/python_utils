@@ -188,8 +188,7 @@ def test_traversals_with_large_tree() -> None:
     tree = BinaryTree[int]()
     for i in range(1, 11):  # Insert values 1 to 10
         tree.insert(i)
-    assert tree.inorder_traversal() == list(
-        range(1, 11))  # In-order should be sorted
+    assert tree.inorder_traversal() == list(range(1, 11))  # In-order should be sorted
     assert tree.preorder_traversal() == [
         1,
         2,

@@ -4,6 +4,7 @@ from functools import wraps
 import logging
 import time
 from logger_functions.logger import validate_logger
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -36,8 +37,7 @@ def retry(
     validate_logger(logger)
     if not isinstance(max_retries, int) or max_retries < 0:
         if logger:
-            logger.error(
-                "max_retries must be an positive integer or 0", exc_info=True)
+            logger.error("max_retries must be an positive integer or 0", exc_info=True)
         raise TypeError("max_retries must be an positive integer or 0")
     if not isinstance(delay, (int, float)) or delay < 0:
         if logger:
@@ -45,8 +45,7 @@ def retry(
                 "delay must be a positive float or an positive integer or 0",
                 exc_info=True,
             )
-        raise TypeError(
-            "delay must be a positive float or an positive integer or 0")
+        raise TypeError("delay must be a positive float or an positive integer or 0")
 
     def decorator(func: Callable[P, R]) -> Callable[P, R]:
         """
@@ -105,4 +104,4 @@ def retry(
     return decorator
 
 
-__all__ = ['retry']
+__all__ = ["retry"]

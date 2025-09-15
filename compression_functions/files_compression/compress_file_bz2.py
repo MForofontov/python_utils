@@ -52,17 +52,12 @@ def compress_file_bz2(input_file: str, output_file: str) -> None:
         # Explicitly verify write permissions on the output directory or file.
         if os.stat(output_dir).st_mode & 0o222 == 0:
             raise OSError("Output location is not writable")
-        if (
-            os.path.exists(output_file)
-            and os.stat(output_file).st_mode & 0o222 == 0
-        ):
+        if os.path.exists(output_file) and os.stat(output_file).st_mode & 0o222 == 0:
             raise OSError("Output file is not writable")
 
         # Open the input file in binary read mode and write the compressed
         # contents to the output file.
-        with open(input_file, "rb") as f_in, bz2.open(
-            output_file, "wb"
-        ) as f_out:
+        with open(input_file, "rb") as f_in, bz2.open(output_file, "wb") as f_out:
             f_out.writelines(f_in)
     except FileNotFoundError:
         # Re-raise file not found errors for callers to handle.
@@ -72,4 +67,4 @@ def compress_file_bz2(input_file: str, output_file: str) -> None:
         raise OSError(f"An I/O error occurred during compression: {e}")
 
 
-__all__ = ['compress_file_bz2']
+__all__ = ["compress_file_bz2"]

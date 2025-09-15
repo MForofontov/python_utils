@@ -59,22 +59,22 @@ def generate_url_safe_token(
     # Input validation
     if not isinstance(length, int):
         raise TypeError(f"length must be an integer, got {type(length).__name__}")
-    
+
     # Value validation
     if length < 1:
         raise ValueError(f"length must be at least 1, got {length}")
-    
+
     # Calculate number of bytes needed for approximately the desired length
     # Base64 encoding produces 4 characters for every 3 bytes
     num_bytes = ((length * 3) + 3) // 4
-    
+
     # Generate random bytes and encode as URL-safe base64
     random_bytes = secrets.token_bytes(num_bytes)
-    token = base64.urlsafe_b64encode(random_bytes).decode('ascii')
-    
+    token = base64.urlsafe_b64encode(random_bytes).decode("ascii")
+
     # Remove padding and truncate to desired length
-    token = token.rstrip('=')
+    token = token.rstrip("=")
     return token[:length] if len(token) > length else token
 
 
-__all__ = ['generate_url_safe_token']
+__all__ = ["generate_url_safe_token"]

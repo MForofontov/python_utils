@@ -42,4 +42,4 @@ def is_anagram(string_1: str, string_2: str) -> bool:
     return Counter(string_1) == Counter(string_2)
 
 
-__all__ = ['is_anagram']
+__all__ = ["is_anagram"]

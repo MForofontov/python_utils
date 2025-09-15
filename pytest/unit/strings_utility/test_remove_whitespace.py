@@ -24,8 +24,7 @@ def test_remove_whitespace_only_letters() -> None:
     """
     Test case 3: Test the remove_whitespace function with a string that contains only letters.
     """
-    assert remove_whitespace(
-        "abcdef") == "abcdef", "Failed on string with only letters"
+    assert remove_whitespace("abcdef") == "abcdef", "Failed on string with only letters"
 
 
 def test_remove_whitespace_empty_string() -> None:
@@ -93,8 +92,7 @@ def test_remove_whitespace_numbers() -> None:
     """
     Test case 11: Test the remove_whitespace function with a string that contains numbers.
     """
-    assert remove_whitespace(
-        "123 456") == "123456", "Failed on string with numbers"
+    assert remove_whitespace("123 456") == "123456", "Failed on string with numbers"
 
 
 def test_remove_whitespace_numbers_within_words() -> None:

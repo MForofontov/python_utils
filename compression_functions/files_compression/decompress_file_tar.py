@@ -1,6 +1,4 @@
 import tarfile
-import tarfile
-import tarfile
 import stat
 import os
 
@@ -42,8 +40,7 @@ def decompress_file_tar(input_tar: str, output_dir: str) -> None:
 
     try:
         if not os.path.exists(input_tar):
-            raise FileNotFoundError(
-                f"The input tar file {input_tar} does not exist.")
+            raise FileNotFoundError(f"The input tar file {input_tar} does not exist.")
         mode = os.stat(input_tar).st_mode
         if mode & (stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH) == 0:
             raise OSError("Input file is not readable")
@@ -66,11 +63,10 @@ def decompress_file_tar(input_tar: str, output_dir: str) -> None:
             tar.extractall(path=output_dir)
     except FileNotFoundError:
         # Raise a FileNotFoundError if the input tar file does not exist
-        raise FileNotFoundError(
-            f"The input tar file {input_tar} does not exist.")
+        raise FileNotFoundError(f"The input tar file {input_tar} does not exist.")
     except OSError as e:
         # Raise an IOError if an I/O error occurs during decompression
         raise OSError(f"An I/O error occurred during decompression: {e}")
 
 
-__all__ = ['decompress_file_tar']
+__all__ = ["decompress_file_tar"]

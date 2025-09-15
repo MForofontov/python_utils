@@ -38,20 +38,20 @@ def random_normal(count: int, mean: float = 0.0, stddev: float = 1.0) -> list[fl
     """
     if not isinstance(count, int):
         raise TypeError("count must be an integer")
-    
+
     if not isinstance(mean, (int, float)):
         raise TypeError("mean must be numeric (int or float)")
-    
+
     if not isinstance(stddev, (int, float)):
         raise TypeError("stddev must be numeric (int or float)")
-    
+
     if count < 0:
         raise ValueError("count must be non-negative")
-    
+
     if stddev <= 0:
         raise ValueError("stddev must be positive")
-    
+
     return [random.normalvariate(mean, stddev) for _ in range(count)]
 
 
-__all__ = ['random_normal']
+__all__ = ["random_normal"]

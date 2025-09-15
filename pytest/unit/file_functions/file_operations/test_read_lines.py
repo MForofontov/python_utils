@@ -57,7 +57,9 @@ def test_read_lines_negative_num_lines(tmp_path: Path) -> None:
     file_path.write_text("line1\nline2\n")
     returned: list[str] = read_lines(str(file_path), num_lines=-1)
     expected: list[str] = []
-    assert returned == expected, "Should return an empty list when num_lines is negative"
+    assert (
+        returned == expected
+    ), "Should return an empty list when num_lines is negative"
 
 
 def test_read_lines_missing_file(tmp_path: Path) -> None:

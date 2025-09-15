@@ -49,4 +49,4 @@ def get_paths_dict(directory: str, type_: str) -> dict[str, str]:
     return paths_dict
 
 
-__all__ = ['get_paths_dict']
+__all__ = ["get_paths_dict"]

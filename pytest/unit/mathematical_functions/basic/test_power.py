@@ -61,7 +61,7 @@ def test_power_fractional_exponent() -> None:
     Test case 7: Test power with fractional exponent.
     """
     assert power(16, 0.25) == 2.0
-    assert power(27, 1/3) == 3.0
+    assert power(27, 1 / 3) == 3.0
 
 
 def test_power_type_error_base() -> None:

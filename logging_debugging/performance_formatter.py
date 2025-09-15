@@ -46,7 +46,9 @@ def performance_formatter(include_thread_info: bool = True) -> logging.Formatter
             elapsed_ms = elapsed.total_seconds() * 1000
 
             # Format timestamp with milliseconds
-            timestamp = datetime.fromtimestamp(record.created).strftime('%H:%M:%S.%f')[:-3]
+            timestamp = datetime.fromtimestamp(record.created).strftime("%H:%M:%S.%f")[
+                :-3
+            ]
 
             # Build performance info
             perf_parts = [f"[{timestamp}]"]
@@ -54,11 +56,13 @@ def performance_formatter(include_thread_info: bool = True) -> logging.Formatter
             if self.include_thread_info:
                 perf_parts.append(f"T{record.thread}")
 
-            perf_parts.extend([
-                f"{record.levelname}",
-                f"{record.module}.{record.funcName}:{record.lineno}",
-                f"+{elapsed_ms:.1f}ms"
-            ])
+            perf_parts.extend(
+                [
+                    f"{record.levelname}",
+                    f"{record.module}.{record.funcName}:{record.lineno}",
+                    f"+{elapsed_ms:.1f}ms",
+                ]
+            )
 
             # Add message
             perf_parts.append(record.getMessage())
@@ -68,4 +72,4 @@ def performance_formatter(include_thread_info: bool = True) -> logging.Formatter
     return PerformanceFormatter(include_thread_info)
 
 
-__all__ = ['performance_formatter']
+__all__ = ["performance_formatter"]
