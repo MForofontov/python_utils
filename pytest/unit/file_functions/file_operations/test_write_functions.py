@@ -13,9 +13,9 @@ def test_write_lines_default_joiner(tmp_path: Path) -> None:
     lines: list[str] = ["one", "two", "three"]
     out_file: Path = tmp_path / "out.txt"
     write_lines(lines, str(out_file))
-    assert (
-        out_file.read_text() == "one\ntwo\nthree\n"
-    ), "Should join lines with newline by default"
+    assert out_file.read_text() == "one\ntwo\nthree\n", (
+        "Should join lines with newline by default"
+    )
 
 
 def test_write_lines_empty_list(tmp_path: Path) -> None:

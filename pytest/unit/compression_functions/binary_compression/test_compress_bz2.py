@@ -10,9 +10,9 @@ def test_compress_bz2_basic() -> None:
     data: bytes = b"hello world"
     compressed_data: bytes = compress_bz2(data)
     expected_compressed_data: bytes = bz2.compress(data)
-    assert (
-        compressed_data == expected_compressed_data
-    ), "Compressed data should match expected bz2 compression"
+    assert compressed_data == expected_compressed_data, (
+        "Compressed data should match expected bz2 compression"
+    )
 
 
 def test_compress_bz2_empty() -> None:
@@ -22,9 +22,9 @@ def test_compress_bz2_empty() -> None:
     data: bytes = b""
     compressed_data: bytes = compress_bz2(data)
     expected_compressed_data: bytes = bz2.compress(data)
-    assert (
-        compressed_data == expected_compressed_data
-    ), "Compressed data should match expected bz2 compression"
+    assert compressed_data == expected_compressed_data, (
+        "Compressed data should match expected bz2 compression"
+    )
 
 
 def test_compress_bz2_large_data() -> None:
@@ -34,9 +34,9 @@ def test_compress_bz2_large_data() -> None:
     data: bytes = b"a" * 1000000  # 1 MB of data
     compressed_data: bytes = compress_bz2(data)
     expected_compressed_data: bytes = bz2.compress(data)
-    assert (
-        compressed_data == expected_compressed_data
-    ), "Compressed data should match expected bz2 compression"
+    assert compressed_data == expected_compressed_data, (
+        "Compressed data should match expected bz2 compression"
+    )
 
 
 def test_compress_bz2_special_characters() -> None:
@@ -46,9 +46,9 @@ def test_compress_bz2_special_characters() -> None:
     data: bytes = b"!@#$%^&*()_+-=[]{}|;':,.<>/?"
     compressed_data: bytes = compress_bz2(data)
     expected_compressed_data: bytes = bz2.compress(data)
-    assert (
-        compressed_data == expected_compressed_data
-    ), "Compressed data should match expected bz2 compression"
+    assert compressed_data == expected_compressed_data, (
+        "Compressed data should match expected bz2 compression"
+    )
 
 
 def test_compress_bz2_binary_data() -> None:
@@ -58,9 +58,9 @@ def test_compress_bz2_binary_data() -> None:
     data: bytes = bytes(range(256))
     compressed_data: bytes = compress_bz2(data)
     expected_compressed_data: bytes = bz2.compress(data)
-    assert (
-        compressed_data == expected_compressed_data
-    ), "Compressed data should match expected bz2 compression"
+    assert compressed_data == expected_compressed_data, (
+        "Compressed data should match expected bz2 compression"
+    )
 
 
 def test_compress_bz2_small_data() -> None:
@@ -70,9 +70,9 @@ def test_compress_bz2_small_data() -> None:
     data: bytes = b"a"
     compressed_data: bytes = compress_bz2(data)
     expected_compressed_data: bytes = bz2.compress(data)
-    assert (
-        compressed_data == expected_compressed_data
-    ), "Compressed data should match expected bz2 compression"
+    assert compressed_data == expected_compressed_data, (
+        "Compressed data should match expected bz2 compression"
+    )
 
 
 def test_compress_bz2_already_compressed_data() -> None:
@@ -82,9 +82,9 @@ def test_compress_bz2_already_compressed_data() -> None:
     data: bytes = bz2.compress(b"hello world")
     compressed_data: bytes = compress_bz2(data)
     expected_compressed_data: bytes = bz2.compress(data)
-    assert (
-        compressed_data == expected_compressed_data
-    ), "Compressed data should match expected bz2 compression"
+    assert compressed_data == expected_compressed_data, (
+        "Compressed data should match expected bz2 compression"
+    )
 
 
 def test_compress_bz2_unicode_data() -> None:
@@ -94,9 +94,9 @@ def test_compress_bz2_unicode_data() -> None:
     data: bytes = "你好，世界".encode()
     compressed_data: bytes = compress_bz2(data)
     expected_compressed_data: bytes = bz2.compress(data)
-    assert (
-        compressed_data == expected_compressed_data
-    ), "Compressed data should match expected bz2 compression"
+    assert compressed_data == expected_compressed_data, (
+        "Compressed data should match expected bz2 compression"
+    )
 
 
 def test_compress_bz2_invalid_type() -> None:

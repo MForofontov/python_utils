@@ -14,9 +14,9 @@ def test_compress_data_gzip() -> None:
     data: bytes = b"hello world"
     compressed_data: bytes = compress_data(data, algorithm="gzip")
     expected_compressed_data: bytes = gzip.compress(data)
-    assert (
-        compressed_data == expected_compressed_data
-    ), "Compressed data should match expected gzip compression"
+    assert compressed_data == expected_compressed_data, (
+        "Compressed data should match expected gzip compression"
+    )
 
 
 def test_compress_data_bz2() -> None:
@@ -26,9 +26,9 @@ def test_compress_data_bz2() -> None:
     data: bytes = b"hello world"
     compressed_data: bytes = compress_data(data, algorithm="bz2")
     expected_compressed_data: bytes = bz2.compress(data)
-    assert (
-        compressed_data == expected_compressed_data
-    ), "Compressed data should match expected bz2 compression"
+    assert compressed_data == expected_compressed_data, (
+        "Compressed data should match expected bz2 compression"
+    )
 
 
 def test_compress_data_lzma() -> None:
@@ -38,9 +38,9 @@ def test_compress_data_lzma() -> None:
     data: bytes = b"hello world"
     compressed_data: bytes = compress_data(data, algorithm="lzma")
     expected_compressed_data: bytes = lzma.compress(data)
-    assert (
-        compressed_data == expected_compressed_data
-    ), "Compressed data should match expected lzma compression"
+    assert compressed_data == expected_compressed_data, (
+        "Compressed data should match expected lzma compression"
+    )
 
 
 def test_compress_data_snappy() -> None:
@@ -50,9 +50,9 @@ def test_compress_data_snappy() -> None:
     data: bytes = b"hello world"
     compressed_data: bytes = compress_data(data, algorithm="snappy")
     expected_compressed_data: bytes = snappy.compress(data)
-    assert (
-        compressed_data == expected_compressed_data
-    ), "Compressed data should match expected snappy compression"
+    assert compressed_data == expected_compressed_data, (
+        "Compressed data should match expected snappy compression"
+    )
 
 
 def test_compress_data_zstd() -> None:
@@ -63,9 +63,9 @@ def test_compress_data_zstd() -> None:
     compressed_data: bytes = compress_data(data, algorithm="zstd", level=4)
     compressor = zstd.ZstdCompressor(level=4)
     expected_compressed_data: bytes = compressor.compress(data)
-    assert (
-        compressed_data == expected_compressed_data
-    ), "Compressed data should match expected zstd compression"
+    assert compressed_data == expected_compressed_data, (
+        "Compressed data should match expected zstd compression"
+    )
 
 
 def test_compress_data_invalid_algorithm() -> None:
