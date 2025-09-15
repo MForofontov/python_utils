@@ -1,5 +1,5 @@
 import pytest
-from iterable_functions.remove_empty_dicts_recursive import remove_empty_dicts_recursive
+from iterable_functions.dictionary_operations.remove_empty_dicts_recursive import remove_empty_dicts_recursive
 
 
 def test_remove_empty_dicts_recursive_success() -> None:

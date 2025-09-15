@@ -1,6 +1,6 @@
 import pytest
 from typing import Any
-from iterable_functions.check_if_all_sets_are_same import check_if_all_sets_are_same
+from iterable_functions.set_operations.check_if_all_sets_are_same import check_if_all_sets_are_same
 
 
 def test_check_if_all_sets_are_same_identical_sets() -> None:

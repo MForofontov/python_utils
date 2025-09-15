@@ -1,5 +1,5 @@
 import pytest
-from iterable_functions.identify_string_in_dict_lists_regex import (
+from iterable_functions.dictionary_operations.identify_string_in_dict_lists_regex import (
     identify_string_in_dict_lists_regex,
 )
 

@@ -1,6 +1,6 @@
 import pytest
 from typing import Any
-from iterable_functions.is_nested_list_empty import is_nested_list_empty
+from iterable_functions.list_operations.is_nested_list_empty import is_nested_list_empty
 
 
 def test_is_list_empty_success() -> None:

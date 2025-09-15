@@ -1,6 +1,6 @@
 import pytest
 from typing import Any
-from iterable_functions.get_shared_elements import get_shared_elements
+from iterable_functions.set_operations.get_shared_elements import get_shared_elements
 
 
 def test_get_shared_elements_success() -> None:

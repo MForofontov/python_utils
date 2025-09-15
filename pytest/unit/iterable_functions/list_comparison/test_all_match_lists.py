@@ -1,6 +1,6 @@
 import pytest
 from typing import Any
-from iterable_functions.all_match_lists import all_match_lists
+from iterable_functions.list_comparison.all_match_lists import all_match_lists
 
 
 def test_all_match_lists_success() -> None:

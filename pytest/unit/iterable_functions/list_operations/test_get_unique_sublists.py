@@ -1,6 +1,6 @@
 import pytest
 from typing import Any
-from iterable_functions.get_unique_sublists import get_unique_sublists
+from iterable_functions.list_operations.get_unique_sublists import get_unique_sublists
 
 
 def test_get_unique_sublists_success() -> None:

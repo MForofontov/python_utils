@@ -1,6 +1,6 @@
 import pytest
 from typing import Any
-from iterable_functions.get_duplicates import get_duplicates
+from iterable_functions.list_operations.get_duplicates import get_duplicates
 
 
 def test_get_duplicates_success() -> None:

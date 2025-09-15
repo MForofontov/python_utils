@@ -1,6 +1,6 @@
 import pytest
 from typing import Any
-from iterable_functions.try_convert_to_type import try_convert_to_type
+from iterable_functions.type_operations.try_convert_to_type import try_convert_to_type
 
 
 def test_try_convert_to_type_success_int() -> None:
