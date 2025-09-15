@@ -27,9 +27,9 @@ def test_count_substring_entire_string() -> None:
     """
     Test case 4: Test the count_substring function when the substring is the entire string.
     """
-    assert (
-        count_substring("hello", "hello") == 1
-    ), "Failed on substring is the entire string"
+    assert count_substring("hello", "hello") == 1, (
+        "Failed on substring is the entire string"
+    )
 
 
 def test_count_substring_not_occur() -> None:
@@ -71,9 +71,9 @@ def test_count_substring_special_characters() -> None:
     """
     Test case 10: Test the count_substring function when the substring contains special characters.
     """
-    assert (
-        count_substring("hello!@#hello", "hello") == 2
-    ), "Failed on special characters"
+    assert count_substring("hello!@#hello", "hello") == 2, (
+        "Failed on special characters"
+    )
 
 
 def test_count_substring_mixed_case() -> None:
@@ -101,54 +101,54 @@ def test_count_substring_newline_characters() -> None:
     """
     Test case 14: Test the count_substring function when the substring contains newline characters.
     """
-    assert (
-        count_substring("hello\nworld\nhello", "hello") == 2
-    ), "Failed on newline characters"
+    assert count_substring("hello\nworld\nhello", "hello") == 2, (
+        "Failed on newline characters"
+    )
 
 
 def test_count_substring_tab_characters() -> None:
     """
     Test case 15: Test the count_substring function when the substring contains tab characters.
     """
-    assert (
-        count_substring("hello\tworld\thello", "hello") == 2
-    ), "Failed on tab characters"
+    assert count_substring("hello\tworld\thello", "hello") == 2, (
+        "Failed on tab characters"
+    )
 
 
 def test_count_substring_mixed_whitespace_characters() -> None:
     """
     Test case 16: Test the count_substring function when the substring contains mixed whitespace characters.
     """
-    assert (
-        count_substring("hello \t\nworld \t\nhello", "hello") == 2
-    ), "Failed on mixed whitespace characters"
+    assert count_substring("hello \t\nworld \t\nhello", "hello") == 2, (
+        "Failed on mixed whitespace characters"
+    )
 
 
 def test_count_substring_leading_trailing_spaces() -> None:
     """
     Test case 17: Test the count_substring function when the substring contains leading and trailing spaces.
     """
-    assert (
-        count_substring("  hello world  hello  ", "hello") == 2
-    ), "Failed on leading and trailing spaces"
+    assert count_substring("  hello world  hello  ", "hello") == 2, (
+        "Failed on leading and trailing spaces"
+    )
 
 
 def test_count_substring_punctuation() -> None:
     """
     Test case 18: Test the count_substring function when the substring contains punctuation.
     """
-    assert (
-        count_substring("hello, world! hello.", "hello") == 2
-    ), "Failed on punctuation"
+    assert count_substring("hello, world! hello.", "hello") == 2, (
+        "Failed on punctuation"
+    )
 
 
 def test_count_substring_non_english_characters() -> None:
     """
     Test case 19: Test the count_substring function when the substring contains non-English characters.
     """
-    assert (
-        count_substring("héllo wörld héllo", "héllo") == 2
-    ), "Failed on non-English characters"
+    assert count_substring("héllo wörld héllo", "héllo") == 2, (
+        "Failed on non-English characters"
+    )
 
 
 def test_count_substring_invalid_string_type() -> None:

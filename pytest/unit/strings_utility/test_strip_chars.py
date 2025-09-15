@@ -6,27 +6,27 @@ def test_strip_chars_single_character() -> None:
     """
     Test case 1: Test the strip_chars function with a single character to strip.
     """
-    assert (
-        strip_chars("...hello...", ".") == "hello"
-    ), "Failed on single character strip"
+    assert strip_chars("...hello...", ".") == "hello", (
+        "Failed on single character strip"
+    )
 
 
 def test_strip_chars_multiple_characters() -> None:
     """
     Test case 2: Test the strip_chars function with multiple characters to strip.
     """
-    assert (
-        strip_chars("xyzhellozyx", "xyz") == "hello"
-    ), "Failed on multiple characters strip"
+    assert strip_chars("xyzhellozyx", "xyz") == "hello", (
+        "Failed on multiple characters strip"
+    )
 
 
 def test_strip_chars_no_match() -> None:
     """
     Test case 3: Test the strip_chars function when there are no matching characters to strip.
     """
-    assert (
-        strip_chars("hello", "xyz") == "hello"
-    ), "Failed on no matching characters to strip"
+    assert strip_chars("hello", "xyz") == "hello", (
+        "Failed on no matching characters to strip"
+    )
 
 
 def test_strip_chars_empty_string() -> None:
@@ -47,27 +47,27 @@ def test_strip_chars_all_match() -> None:
     """
     Test case 6: Test the strip_chars function when all characters match the strip characters.
     """
-    assert (
-        strip_chars("aaaa", "a") == ""
-    ), "Failed when all characters match strip characters"
+    assert strip_chars("aaaa", "a") == "", (
+        "Failed when all characters match strip characters"
+    )
 
 
 def test_strip_chars_special_characters() -> None:
     """
     Test case 7: Test the strip_chars function with special characters.
     """
-    assert (
-        strip_chars("!!!hello!!!", "!") == "hello"
-    ), "Failed on special character strip"
+    assert strip_chars("!!!hello!!!", "!") == "hello", (
+        "Failed on special character strip"
+    )
 
 
 def test_strip_chars_leading_and_trailing() -> None:
     """
     Test case 8: Test the strip_chars function with both leading and trailing characters to strip.
     """
-    assert (
-        strip_chars("///hello///", "/") == "hello"
-    ), "Failed on leading and trailing characters"
+    assert strip_chars("///hello///", "/") == "hello", (
+        "Failed on leading and trailing characters"
+    )
 
 
 def test_strip_chars_numbers_and_letters() -> None:
@@ -102,9 +102,9 @@ def test_strip_chars_only_numbers() -> None:
     """
     Test case 13: Test the strip_chars function with a string of only numbers.
     """
-    assert (
-        strip_chars("123456789", "123") == "456789"
-    ), "Failed on string of only numbers"
+    assert strip_chars("123456789", "123") == "456789", (
+        "Failed on string of only numbers"
+    )
 
 
 def test_strip_chars_partial_match() -> None:
@@ -125,9 +125,9 @@ def test_strip_chars_strip_same_as_string() -> None:
     """
     Test case 16: Test the strip_chars function when the chars to strip are the same as the string.
     """
-    assert (
-        strip_chars("xyz", "xyz") == ""
-    ), "Failed when chars to strip are the same as string"
+    assert strip_chars("xyz", "xyz") == "", (
+        "Failed when chars to strip are the same as string"
+    )
 
 
 def test_strip_chars_alphanumeric() -> None:
@@ -141,9 +141,9 @@ def test_strip_chars_substring_in_middle() -> None:
     """
     Test case 18: Test the strip_chars function when the strip characters appear in the middle of the string.
     """
-    assert (
-        strip_chars("hello123world", "world") == "hello123"
-    ), "Failed on substring in middle"
+    assert strip_chars("hello123world", "world") == "hello123", (
+        "Failed on substring in middle"
+    )
 
 
 def test_strip_chars_case_sensitivity() -> None:

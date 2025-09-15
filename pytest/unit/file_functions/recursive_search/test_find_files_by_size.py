@@ -153,7 +153,6 @@ def test_find_files_by_size_case_8_invalid_size_values() -> None:
     """
     # Arrange
     with tempfile.TemporaryDirectory() as temp_dir:
-
         # Test negative min_size
         with pytest.raises(ValueError, match="min_size must be non-negative"):
             find_files_by_size(temp_dir, min_size=-1)

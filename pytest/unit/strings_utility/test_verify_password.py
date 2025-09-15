@@ -59,9 +59,9 @@ def test_verify_password_custom_check_pass() -> None:
     def custom_check(p):
         return "example" in p
 
-    assert verify_password(
-        "Password123!example", custom_checks=[custom_check]
-    ), "Failed on custom check that passes"
+    assert verify_password("Password123!example", custom_checks=[custom_check]), (
+        "Failed on custom check that passes"
+    )
 
 
 def test_verify_password_custom_check_fail() -> None:
@@ -72,9 +72,9 @@ def test_verify_password_custom_check_fail() -> None:
     def custom_check(p):
         return "example" in p
 
-    assert not verify_password(
-        "Password123!", custom_checks=[custom_check]
-    ), "Failed on custom check that fails"
+    assert not verify_password("Password123!", custom_checks=[custom_check]), (
+        "Failed on custom check that fails"
+    )
 
 
 def test_verify_password_no_shared_state() -> None:

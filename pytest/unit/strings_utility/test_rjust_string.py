@@ -13,18 +13,18 @@ def test_rjust_string_custom_fill() -> None:
     """
     Test case 2: Test the rjust_string function with a custom fill character.
     """
-    assert (
-        rjust_string("hello", 10, "-") == "-----hello"
-    ), "Failed on custom fill character"
+    assert rjust_string("hello", 10, "-") == "-----hello", (
+        "Failed on custom fill character"
+    )
 
 
 def test_rjust_string_width_less_than_length() -> None:
     """
     Test case 3: Test the rjust_string function with width less than string length.
     """
-    assert (
-        rjust_string("hello", 3) == "hello"
-    ), "Failed on width less than string length"
+    assert rjust_string("hello", 3) == "hello", (
+        "Failed on width less than string length"
+    )
 
 
 def test_rjust_string_width_equal_to_length() -> None:
@@ -52,9 +52,9 @@ def test_rjust_string_special_characters() -> None:
     """
     Test case 7: Test the rjust_string function with a string that contains special characters.
     """
-    assert (
-        rjust_string("!@#", 5, "-") == "--!@#"
-    ), "Failed on string with special characters"
+    assert rjust_string("!@#", 5, "-") == "--!@#", (
+        "Failed on string with special characters"
+    )
 
 
 def test_rjust_string_numbers() -> None:
@@ -68,18 +68,18 @@ def test_rjust_string_mixed_case() -> None:
     """
     Test case 9: Test the rjust_string function with a string that contains mixed case letters.
     """
-    assert (
-        rjust_string("AbC", 5, "_") == "__AbC"
-    ), "Failed on string with mixed case letters"
+    assert rjust_string("AbC", 5, "_") == "__AbC", (
+        "Failed on string with mixed case letters"
+    )
 
 
 def test_rjust_string_non_english_characters() -> None:
     """
     Test case 10: Test the rjust_string function with a string that contains non-English characters.
     """
-    assert (
-        rjust_string("héllo", 8, "*") == "***héllo"
-    ), "Failed on string with non-English characters"
+    assert rjust_string("héllo", 8, "*") == "***héllo", (
+        "Failed on string with non-English characters"
+    )
 
 
 def test_rjust_string_invalid_string_type() -> None:

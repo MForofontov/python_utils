@@ -50,9 +50,9 @@ def test_compress_tar_empty_directory_compression(tmp_path) -> None:
         tar.extractall(path=tmp_path)
 
     extracted_dir = tmp_path / "empty_dir"
-    assert (
-        extracted_dir.exists() and extracted_dir.is_dir()
-    ), "Extracted directory should exist and be empty"
+    assert extracted_dir.exists() and extracted_dir.is_dir(), (
+        "Extracted directory should exist and be empty"
+    )
 
 
 def test_compress_tar_directory_with_files_compression(tmp_path) -> None:
@@ -89,12 +89,12 @@ def test_compress_tar_directory_with_files_compression(tmp_path) -> None:
     with open(extracted_file2, "rb") as f:
         extracted_data2 = f.read()
 
-    assert (
-        extracted_data1 == data
-    ), "Extracted data from file1 should match the original data"
-    assert (
-        extracted_data2 == data
-    ), "Extracted data from file2 should match the original data"
+    assert extracted_data1 == data, (
+        "Extracted data from file1 should match the original data"
+    )
+    assert extracted_data2 == data, (
+        "Extracted data from file2 should match the original data"
+    )
 
 
 def test_compress_tar_invalid_input_path_type(tmp_path) -> None:
