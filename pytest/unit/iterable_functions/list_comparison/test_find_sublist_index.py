@@ -1,6 +1,6 @@
 import pytest
 from typing import Any
-from iterable_functions.find_sublist_index import find_sublist_index
+from iterable_functions.list_comparison.find_sublist_index import find_sublist_index
 
 
 def test_find_sublist_index_success() -> None:

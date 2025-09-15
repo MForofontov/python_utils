@@ -1,6 +1,6 @@
 import pytest
 from typing import Any
-from iterable_functions.check_if_all_elements_are_duplicates import (
+from iterable_functions.list_operations.check_if_all_elements_are_duplicates import (
     check_if_all_elements_are_duplicates,
 )
 

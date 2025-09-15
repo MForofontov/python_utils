@@ -1,6 +1,6 @@
 import pytest
 from typing import Any
-from iterable_functions.identify_dict_structure import identify_dict_structure
+from iterable_functions.dictionary_operations.identify_dict_structure import identify_dict_structure
 
 
 def test_identify_dict_structure_success() -> None:

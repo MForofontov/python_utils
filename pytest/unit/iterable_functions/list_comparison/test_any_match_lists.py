@@ -1,6 +1,6 @@
 import pytest
 from typing import Any
-from iterable_functions.any_match_lists import any_match_lists
+from iterable_functions.list_comparison.any_match_lists import any_match_lists
 
 
 def test_any_match_lists_integers() -> None:

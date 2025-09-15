@@ -1,6 +1,6 @@
 import pytest
 from typing import Any
-from iterable_functions.has_element_of_type import has_element_of_type
+from iterable_functions.type_operations.has_element_of_type import has_element_of_type
 
 
 def test_has_element_of_type_success() -> None:

@@ -1,6 +1,6 @@
 import pytest
 from typing import Any
-from iterable_functions.contains_sublist import contains_sublist
+from iterable_functions.list_comparison.contains_sublist import contains_sublist
 
 
 def test_contains_sublist_success() -> None:
