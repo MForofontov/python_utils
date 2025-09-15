@@ -119,18 +119,29 @@ jobs:
           set +e
           # Newer Bandit supports SARIF directly; try it first.
           if [ -n "${{ steps.files.outputs.files }}" ]; then
+            BASELINE_ARG=""
+            if [ -n "${{ inputs.use_baseline }}" ]; then
+              [ -f "${{ inputs.use_baseline }}" ] && BASELINE_ARG="--baseline ${{ inputs.use_baseline }}"
+            fi
             bandit \
               --severity-level "${{ inputs.severity }}" \
               --confidence-level "${{ inputs.confidence }}" \
               -f sarif -o bandit.sarif \
               -r $(tr '\n' ' ' < "${{ steps.files.outputs.files }}") \
-              ${ { inputs.use_baseline } && printf -- "--baseline %s" "${{ inputs.use_baseline }}" ; }
+              $BASELINE_ARG
           else
-            echo '{}' > bandit.sarif
+            echo '{"version":"2.1.0","$schema":"https://json.schemastore.org/sarif-2.1.0.json","runs":[{"tool":{"driver":{"name":"bandit","version":"1.0.0"}},"results":[]}]}' > bandit.sarif
           fi
           echo "exit_code=$?" >> $GITHUB_OUTPUT
           set -e
         continue-on-error: true
+
+      - name: Ensure SARIF file exists
+        if: ${{ inputs.upload_sarif }}
+        run: |
+          if [ ! -f bandit.sarif ]; then
+            echo '{"version":"2.1.0","$schema":"https://json.schemastore.org/sarif-2.1.0.json","runs":[{"tool":{"driver":{"name":"bandit","version":"1.0.0"}},"results":[]}]}' > bandit.sarif
+          fi
 
       - name: pip-audit (dependency CVEs) — optional
         if: ${{ inputs.run_pip_audit }}
