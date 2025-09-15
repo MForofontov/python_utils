@@ -102,7 +102,7 @@ jobs:
 
           # If repo provides pytest.sh, use it for consistency with your local runs
           if [ -x ./pytest.sh ]; then
-            ./pytest.sh "${TESTS_PATH}" "$ALLURE_RESULTS_DIR" "$ALLURE_REPORT_DIR" false
+            ./pytest.sh "${TESTS_PATH}" "$ALLURE_RESULTS_DIR" "$ALLURE_REPORT_DIR" true
           else
             # Fallback: direct pytest invocation
             pytest "${TESTS_PATH}" \
