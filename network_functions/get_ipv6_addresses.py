@@ -1,5 +1,7 @@
 import socket
+
 import psutil
+
 
 def get_ipv6_addresses() -> list[str]:
     """

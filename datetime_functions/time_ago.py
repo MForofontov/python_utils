@@ -1,6 +1,6 @@
 """Human-readable time differences functionality - past dates."""
 
-from datetime import datetime, date
+from datetime import date, datetime
 
 
 def time_ago(

@@ -1,6 +1,7 @@
-import pytest
-import tempfile
 import os
+import tempfile
+
+import pytest
 from linux_functions.get_file_size import get_file_size
 
 

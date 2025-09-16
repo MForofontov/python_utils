@@ -1,5 +1,6 @@
-import pytest
 import logging
+
+import pytest
 from decorators.validate_args import validate_args
 
 # Configure test_logger

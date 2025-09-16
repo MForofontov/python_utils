@@ -1,5 +1,6 @@
-import pytest
 import logging
+
+import pytest
 from decorators.handle_error import handle_error
 
 # Configure test_logger

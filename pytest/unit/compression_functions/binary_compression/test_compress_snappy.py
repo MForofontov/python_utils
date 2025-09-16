@@ -1,5 +1,6 @@
-import pytest
 import snappy
+
+import pytest
 from compression_functions.binary_compression.compress_snappy import compress_snappy
 
 

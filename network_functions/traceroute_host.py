@@ -1,5 +1,5 @@
 import subprocess
-from typing import List
+
 
 def traceroute_host(host: str, max_hops: int = 30) -> list[str]:
     """

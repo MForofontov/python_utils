@@ -1,7 +1,8 @@
-import pytest
 import logging
 from typing import Any
-from decorators.event_trigger import event_trigger, EventManager
+
+import pytest
+from decorators.event_trigger import EventManager, event_trigger
 
 # Configure test_logger
 test_logger = logging.getLogger("test_logger")

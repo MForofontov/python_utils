@@ -1,6 +1,7 @@
 import socket
+
 import psutil
-from typing import Dict
+
 
 def get_network_interfaces() -> dict[str, str]:
     """

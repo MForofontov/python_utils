@@ -1,5 +1,6 @@
 import psutil
 
+
 def get_default_gateway() -> str:
     """
     Get the default gateway IP address.

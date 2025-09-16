@@ -5,11 +5,11 @@ This module provides comprehensive schema validation using Pydantic models
 for validating complex nested data structures, API payloads, and configuration objects.
 """
 
-from typing import Any, TypeVar
 from dataclasses import dataclass
+from typing import Any, TypeVar
 
 try:
-    from pydantic import BaseModel, ValidationError, Field, ConfigDict
+    from pydantic import BaseModel, ConfigDict, Field, ValidationError
     from pydantic.dataclasses import dataclass as pydantic_dataclass
 
     PYDANTIC_AVAILABLE = True

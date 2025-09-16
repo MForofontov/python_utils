@@ -1,5 +1,5 @@
-from .decompress_gzip import decompress_gzip
 from .decompress_bz2 import decompress_bz2
+from .decompress_gzip import decompress_gzip
 from .decompress_lzma import decompress_lzma
 from .decompress_snappy import decompress_snappy
 from .decompress_zstd import decompress_zstd

@@ -1,5 +1,5 @@
 import socket
-from typing import Any
+
 
 def check_port_open(host: str, port: int, timeout: float = 2.0) -> bool:
     """

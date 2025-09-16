@@ -7,8 +7,8 @@ Automatically includes contextual information in all log messages.
 import logging
 import threading
 from contextlib import contextmanager
-from typing import Any
 from dataclasses import dataclass, field
+from typing import Any
 
 
 @dataclass

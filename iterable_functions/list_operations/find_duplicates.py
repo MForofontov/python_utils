@@ -5,8 +5,8 @@ This module provides utilities for identifying and counting duplicate elements
 in various iterable types.
 """
 
-from typing import TypeVar
 from collections import Counter
+from typing import TypeVar
 
 T = TypeVar("T")
 

@@ -1,6 +1,7 @@
-import pytest
 import logging
-from decorators.rate_limit import rate_limit, RateLimitExceededException
+
+import pytest
+from decorators.rate_limit import RateLimitExceededException, rate_limit
 
 # Configure test_logger
 test_logger = logging.getLogger("test_logger")

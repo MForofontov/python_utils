@@ -1,6 +1,6 @@
 """Modify days on a date or datetime object."""
 
-from datetime import datetime, date, timedelta
+from datetime import date, datetime, timedelta
 
 
 def modify_days(date_obj: datetime | date, days: int) -> datetime | date:

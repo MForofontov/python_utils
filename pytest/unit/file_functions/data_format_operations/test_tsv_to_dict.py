@@ -1,7 +1,6 @@
 from pathlib import Path
 
 import pytest
-
 from file_functions import tsv_to_dict
 
 

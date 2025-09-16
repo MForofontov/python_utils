@@ -1,8 +1,9 @@
-import time
 import logging
-from typing import ParamSpec, TypeVar
+import time
 from collections.abc import Callable
 from functools import wraps
+from typing import ParamSpec, TypeVar
+
 from logger_functions.logger import validate_logger
 
 P = ParamSpec("P")

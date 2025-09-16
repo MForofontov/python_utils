@@ -5,9 +5,10 @@ This module contains comprehensive tests for the validate_range function,
 including numeric ranges, string ranges, date ranges, and boundary conditions.
 """
 
-import pytest
 from datetime import date, datetime
 from decimal import Decimal
+
+import pytest
 from data_validation import validate_range
 
 

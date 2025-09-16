@@ -1,5 +1,5 @@
-from typing import Any
 import copy
+from typing import Any
 
 
 def json_merge(a: Any, b: Any, deep: bool = True) -> Any:

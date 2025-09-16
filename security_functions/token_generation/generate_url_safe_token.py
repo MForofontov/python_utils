@@ -6,8 +6,8 @@ safely used in URLs, file names, and other contexts where special characters
 might cause issues.
 """
 
-import secrets
 import base64
+import secrets
 
 
 def generate_url_safe_token(

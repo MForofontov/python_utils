@@ -1,7 +1,7 @@
-from typing import Any, TypeVar, ParamSpec
 from collections.abc import Callable
 from functools import wraps
 from inspect import Parameter, signature
+from typing import Any, ParamSpec, TypeVar
 
 P = ParamSpec("P")
 R = TypeVar("R")
@@ -47,8 +47,8 @@ def chain(func: Callable[P, T]) -> Callable[P, T | Any]:
             If the 'chain' method raises an error.
         """
         result = func(*args, **kwargs)
-        if hasattr(result, "chain") and callable(getattr(result, "chain")):
-            chain_method = getattr(result, "chain")
+        if hasattr(result, "chain") and callable(result.chain):
+            chain_method = result.chain
             try:
                 if not args and not kwargs:
                     sig = signature(chain_method)

@@ -1,5 +1,5 @@
-from typing import TypeVar
 from collections import Counter
+from typing import TypeVar
 
 T = TypeVar("T")
 

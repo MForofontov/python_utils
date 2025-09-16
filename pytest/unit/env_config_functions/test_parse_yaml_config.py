@@ -1,5 +1,6 @@
-import pytest
 import yaml
+
+import pytest
 from env_config_functions.parse_yaml_config import parse_yaml_config
 
 

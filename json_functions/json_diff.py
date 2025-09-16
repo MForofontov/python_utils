@@ -42,7 +42,7 @@ def json_diff(a: Any, b: Any, path: str = "") -> list[tuple[str, Any, Any]]:
             else:
                 diffs.append((new_path, None, b[k]))
     elif isinstance(a, list):
-        for i, (ai, bi) in enumerate(zip(a, b)):
+        for i, (ai, bi) in enumerate(zip(a, b, strict=False)):
             new_path = f"{path}[{i}]"
             diffs.extend(json_diff(ai, bi, new_path))
         if len(a) > len(b):

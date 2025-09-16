@@ -1,5 +1,6 @@
-import pytest
 from typing import Any
+
+import pytest
 from iterable_functions.list_comparison.all_match_lists import all_match_lists
 
 

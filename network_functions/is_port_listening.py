@@ -1,5 +1,6 @@
 import psutil
 
+
 def is_port_listening(port: int) -> bool:
     """
     Check if a local port is being listened to.

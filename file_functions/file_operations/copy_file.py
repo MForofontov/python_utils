@@ -5,8 +5,8 @@ This module provides a function to copy files from source to destination,
 preserving file contents and overwriting existing files.
 """
 
-import shutil
 import os
+import shutil
 
 
 def copy_file(source: str, destination: str) -> None:

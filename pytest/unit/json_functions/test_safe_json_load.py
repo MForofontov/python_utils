@@ -1,5 +1,6 @@
-from json_functions.safe_json_load import safe_json_load
 import json
+
+from json_functions.safe_json_load import safe_json_load
 
 
 def test_safe_json_load_valid():

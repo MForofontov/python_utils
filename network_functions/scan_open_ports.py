@@ -1,5 +1,5 @@
 import socket
-from typing import List
+
 
 def scan_open_ports(host: str, start_port: int = 1, end_port: int = 1024, timeout: float = 0.5) -> list[int]:
     """

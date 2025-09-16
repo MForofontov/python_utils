@@ -1,8 +1,8 @@
-from typing import TypeVar
-from collections.abc import Callable, Awaitable, Iterable
-from collections import deque
 import asyncio
 import time
+from collections import deque
+from collections.abc import Awaitable, Callable, Iterable
+from typing import TypeVar
 
 T = TypeVar("T")
 R = TypeVar("R")

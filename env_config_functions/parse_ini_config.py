@@ -1,6 +1,6 @@
-from typing import Any
-from collections.abc import Callable
 import configparser
+from collections.abc import Callable
+from typing import Any
 
 
 def parse_ini_config(

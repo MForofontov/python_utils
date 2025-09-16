@@ -1,5 +1,6 @@
 import socket
 
+
 def is_internet_available(timeout: float = 2.0) -> bool:
     """
     Check if the machine has internet connectivity.

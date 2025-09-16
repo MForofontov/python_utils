@@ -1,7 +1,7 @@
-from multiprocessing import Pool, cpu_count
-from itertools import accumulate
-from typing import TypeVar
 from collections.abc import Callable
+from itertools import accumulate
+from multiprocessing import Pool, cpu_count
+from typing import TypeVar
 
 # Define type variable for input and output types
 T = TypeVar("T")

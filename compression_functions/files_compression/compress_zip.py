@@ -1,5 +1,5 @@
-import zipfile
 import os
+import zipfile
 
 
 def compress_zip(input_path: str, output_zip: str) -> None:

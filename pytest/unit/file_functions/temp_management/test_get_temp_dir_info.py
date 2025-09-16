@@ -2,11 +2,11 @@
 Unit tests for get_temp_dir_info function.
 """
 
-import pytest
 import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
+import pytest
 from file_functions import get_temp_dir_info
 
 

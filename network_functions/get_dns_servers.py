@@ -1,4 +1,3 @@
-import os
 
 def get_dns_servers() -> list[str]:
     """

@@ -1,6 +1,7 @@
-import pytest
 import lzma
 import os
+
+import pytest
 from compression_functions.files_compression.compress_file_lzma import (
     compress_file_lzma,
 )

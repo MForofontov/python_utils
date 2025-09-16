@@ -1,5 +1,6 @@
-import pytest
 from typing import Any
+
+import pytest
 from iterable_functions.list_operations.is_nested_list_empty import is_nested_list_empty
 
 

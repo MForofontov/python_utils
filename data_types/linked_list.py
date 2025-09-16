@@ -1,5 +1,5 @@
-from typing import Generic, TypeVar
 from collections.abc import Iterator
+from typing import Generic, TypeVar
 
 # Define a generic type variable
 T = TypeVar("T")

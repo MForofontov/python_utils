@@ -1,6 +1,7 @@
 """Domain extraction functionality."""
 
 import urllib.parse
+
 from .is_valid_url import is_valid_url
 
 

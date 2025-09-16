@@ -176,6 +176,7 @@ def validate_email(
     if check_mx:
         try:
             import socket
+
             import dns.resolver
 
             # Check for MX record

@@ -1,5 +1,6 @@
 import requests
 
+
 def get_public_ip(timeout: float = 5.0) -> str:
     """
     Get the public IP address of the machine using an external service.

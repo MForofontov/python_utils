@@ -5,8 +5,9 @@ This module provides functions for AES decryption using Fernet symmetric
 encryption from the cryptography library.
 """
 
-from cryptography.fernet import Fernet
 import base64
+
+from cryptography.fernet import Fernet
 
 
 def decrypt_data_aes(

@@ -2,7 +2,6 @@ import json
 from pathlib import Path
 
 import pytest
-
 from file_functions import write_dict_to_json
 
 

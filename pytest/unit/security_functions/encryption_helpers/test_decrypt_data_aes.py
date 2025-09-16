@@ -3,8 +3,8 @@ Unit tests for decrypt_data_aes function.
 """
 
 import pytest
-from security_functions.encryption_helpers.encrypt_data_aes import encrypt_data_aes
 from security_functions.encryption_helpers.decrypt_data_aes import decrypt_data_aes
+from security_functions.encryption_helpers.encrypt_data_aes import encrypt_data_aes
 
 
 def test_decrypt_data_aes_case_1_basic_decryption() -> None:

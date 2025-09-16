@@ -1,7 +1,7 @@
 import socket
-from typing import Optional
 
-def multicast_receive(group: str, port: int, timeout: float = 5.0) -> Optional[str]:
+
+def multicast_receive(group: str, port: int, timeout: float = 5.0) -> str | None:
     """
     Receive a UDP multicast message from a group.
 
@@ -33,7 +33,7 @@ def multicast_receive(group: str, port: int, timeout: float = 5.0) -> Optional[s
     try:
         data, _ = sock.recvfrom(1024)
         return data.decode()
-    except socket.timeout:
+    except TimeoutError:
         return None
     finally:
         sock.close()

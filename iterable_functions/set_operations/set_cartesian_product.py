@@ -4,8 +4,8 @@ Set cartesian product utilities.
 This module provides utilities for computing cartesian products of sets.
 """
 
-from typing import TypeVar
 import itertools
+from typing import TypeVar
 
 T = TypeVar("T")
 

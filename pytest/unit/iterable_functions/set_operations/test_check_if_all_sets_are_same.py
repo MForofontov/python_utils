@@ -1,5 +1,6 @@
-import pytest
 from typing import Any
+
+import pytest
 from iterable_functions.set_operations.check_if_all_sets_are_same import check_if_all_sets_are_same
 
 

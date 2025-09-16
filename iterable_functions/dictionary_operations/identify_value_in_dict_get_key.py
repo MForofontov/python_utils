@@ -1,6 +1,5 @@
 from typing import TypeVar
 
-
 KT = TypeVar("KT", str, int)
 VT = TypeVar("VT")
 

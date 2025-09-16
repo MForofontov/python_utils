@@ -1,8 +1,9 @@
 """Unit tests for file upload functionality."""
 
-import pytest
-from unittest.mock import patch, Mock, mock_open
 import urllib.error
+from unittest.mock import Mock, mock_open, patch
+
+import pytest
 from http_functions.upload_file import upload_file
 
 

@@ -1,5 +1,6 @@
-import pytest
 from typing import Any
+
+import pytest
 from iterable_functions.dictionary_operations.deep_get import deep_get
 
 

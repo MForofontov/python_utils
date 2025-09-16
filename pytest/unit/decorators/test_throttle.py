@@ -1,6 +1,7 @@
-import pytest
 import logging
 import time
+
+import pytest
 from decorators.throttle import throttle
 
 # Configure test_logger

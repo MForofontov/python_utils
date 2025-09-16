@@ -1,5 +1,5 @@
-from collections.abc import Callable, Awaitable
 import asyncio
+from collections.abc import Awaitable, Callable
 
 
 # Define an asynchronous function to run another function periodically

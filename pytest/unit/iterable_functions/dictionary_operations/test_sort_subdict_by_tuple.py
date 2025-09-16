@@ -1,5 +1,6 @@
-import pytest
 from collections import OrderedDict
+
+import pytest
 from iterable_functions.dictionary_operations.sort_subdict_by_tuple import sort_subdict_by_tuple
 
 

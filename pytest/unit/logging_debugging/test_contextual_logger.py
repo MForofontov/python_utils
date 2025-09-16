@@ -1,5 +1,6 @@
 import logging
-from logging_debugging.contextual_logger import contextual_logger, LogContext
+
+from logging_debugging.contextual_logger import LogContext, contextual_logger
 
 
 def test_contextual_logger_creation():

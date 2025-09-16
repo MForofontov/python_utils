@@ -1,7 +1,7 @@
-from typing import Any, ParamSpec, TypeVar, cast
+import time
 from collections.abc import Callable
 from functools import wraps
-import time
+from typing import Any, ParamSpec, TypeVar, cast
 
 P = ParamSpec("P")
 R = TypeVar("R")
@@ -94,7 +94,7 @@ def cache_with_expiration(
             """Clear the cache."""
             cached_results.clear()
 
-        setattr(wrapper, "cache_clear", cache_clear)
+        wrapper.cache_clear = cache_clear
 
         return cast(Callable[P, R], wrapper)
 

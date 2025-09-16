@@ -1,6 +1,6 @@
 """Check if a date is a weekend."""
 
-from datetime import datetime, date
+from datetime import date, datetime
 
 
 def is_weekend(date_obj: datetime | date) -> bool:

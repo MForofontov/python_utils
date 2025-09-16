@@ -1,5 +1,6 @@
-import pytest
 import tempfile
+
+import pytest
 from linux_functions.get_disk_usage import get_disk_usage
 
 

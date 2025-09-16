@@ -1,5 +1,6 @@
-import pytest
 from typing import Any
+
+import pytest
 from iterable_functions.type_operations.has_element_of_type import has_element_of_type
 
 

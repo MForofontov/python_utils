@@ -1,6 +1,6 @@
 import gzip
-import shutil
 import os
+import shutil
 
 
 def compress_file_gzip(input_file: str, output_file: str) -> None:

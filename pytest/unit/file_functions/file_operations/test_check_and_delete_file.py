@@ -2,7 +2,6 @@ import os
 from pathlib import Path
 
 import pytest
-
 from file_functions import check_and_delete_file
 
 

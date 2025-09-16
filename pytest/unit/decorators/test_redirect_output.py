@@ -1,5 +1,6 @@
-import pytest
 import logging
+
+import pytest
 from decorators.redirect_output import redirect_output
 
 # Configure test_logger

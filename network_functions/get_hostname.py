@@ -1,5 +1,6 @@
 import socket
 
+
 def get_hostname() -> str:
     """
     Get the local machine's hostname.

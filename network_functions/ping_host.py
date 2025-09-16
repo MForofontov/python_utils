@@ -1,5 +1,5 @@
-from typing import Any
 import subprocess
+
 
 def ping_host(host: str, count: int = 1, timeout: int = 2) -> bool:
     """

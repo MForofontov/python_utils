@@ -1,6 +1,6 @@
 import os
-import zipfile
 import stat
+import zipfile
 
 
 def decompress_file_zip(input_zip: str, output_dir: str) -> None:

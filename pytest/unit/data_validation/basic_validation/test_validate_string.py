@@ -5,8 +5,9 @@ This module contains comprehensive tests for the validate_string function,
 including length validation, pattern matching, character restrictions, and edge cases.
 """
 
-import pytest
 import re
+
+import pytest
 from data_validation import validate_string
 
 

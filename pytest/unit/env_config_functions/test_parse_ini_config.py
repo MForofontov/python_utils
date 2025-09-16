@@ -1,5 +1,6 @@
-import pytest
 import configparser
+
+import pytest
 from env_config_functions.parse_ini_config import parse_ini_config
 
 

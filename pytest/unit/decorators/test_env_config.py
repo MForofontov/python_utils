@@ -1,5 +1,6 @@
-import pytest
 import logging
+
+import pytest
 from decorators.env_config import env_config
 
 # Configure test_logger

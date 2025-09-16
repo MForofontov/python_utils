@@ -1,11 +1,11 @@
 """File download functionality."""
 
-import urllib.request
 import urllib.parse
-from urllib.error import URLError
+import urllib.request
+from collections.abc import Callable
 from pathlib import Path
 from typing import Any
-from collections.abc import Callable
+from urllib.error import URLError
 
 
 def download_file(

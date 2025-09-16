@@ -1,6 +1,6 @@
 """Human-readable time differences functionality - future dates."""
 
-from datetime import datetime, date
+from datetime import date, datetime
 
 
 def time_until(

@@ -1,5 +1,6 @@
-import pytest
 import toml
+
+import pytest
 from env_config_functions.parse_toml_config import parse_toml_config
 
 

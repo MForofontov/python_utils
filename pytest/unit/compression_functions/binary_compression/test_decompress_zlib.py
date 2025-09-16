@@ -1,6 +1,7 @@
-import pytest
-import zlib
 import base64
+import zlib
+
+import pytest
 from compression_functions.binary_compression.decompress_zlib import decompress_zlib
 
 

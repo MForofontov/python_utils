@@ -1,6 +1,6 @@
 """Modify years on a date or datetime object."""
 
-from datetime import datetime, date
+from datetime import date, datetime
 
 
 def modify_years(date_obj: datetime | date, years: int) -> datetime | date:

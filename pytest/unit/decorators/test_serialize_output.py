@@ -1,6 +1,7 @@
-import pytest
-import logging
 import json
+import logging
+
+import pytest
 from decorators.serialize_output import serialize_output
 
 # Configure test_logger

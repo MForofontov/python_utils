@@ -1,5 +1,6 @@
-import pytest
 from unittest.mock import patch
+
+import pytest
 from asyncio_functions.async_parallel_download import async_parallel_download
 
 

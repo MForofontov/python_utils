@@ -1,5 +1,6 @@
-import pytest
 import logging
+
+import pytest
 from decorators.deprecated import deprecated
 
 # Configure test_logger

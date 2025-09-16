@@ -4,8 +4,8 @@ Get combinations from a set.
 This module provides a utility for generating combinations from sets.
 """
 
-from typing import TypeVar
 import itertools
+from typing import TypeVar
 
 T = TypeVar("T")
 

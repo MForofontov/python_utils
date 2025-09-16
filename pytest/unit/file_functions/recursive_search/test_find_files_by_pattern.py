@@ -2,11 +2,11 @@
 Unit tests for find_files_by_pattern function.
 """
 
-import pytest
 import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
+import pytest
 from file_functions import find_files_by_pattern
 
 

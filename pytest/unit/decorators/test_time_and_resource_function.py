@@ -1,6 +1,7 @@
-import pytest
 import logging
 import time
+
+import pytest
 from decorators.time_and_resource_function import time_and_resource_function
 
 # Configure test_logger

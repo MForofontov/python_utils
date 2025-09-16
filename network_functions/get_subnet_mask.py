@@ -1,6 +1,8 @@
 
-import psutil
 import socket
+
+import psutil
+
 
 def get_subnet_mask(interface: str) -> str:
     """

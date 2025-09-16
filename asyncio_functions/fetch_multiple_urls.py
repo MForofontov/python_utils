@@ -1,5 +1,7 @@
-import aiohttp
 import asyncio
+
+import aiohttp
+
 from .fetch_url import fetch_url
 
 

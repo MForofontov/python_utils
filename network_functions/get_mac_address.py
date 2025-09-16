@@ -1,5 +1,6 @@
 import uuid
 
+
 def get_mac_address() -> str:
     """
     Get the MAC address of the local machine.

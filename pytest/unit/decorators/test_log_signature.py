@@ -1,5 +1,6 @@
-import pytest
 import logging
+
+import pytest
 from decorators.log_signature import log_signature
 
 # Configure test_logger

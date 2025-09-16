@@ -1,6 +1,9 @@
-import pytest
 from typing import Any
-from iterable_functions.list_comparison.get_common_elements_in_lists import get_common_elements_in_lists
+
+import pytest
+from iterable_functions.list_comparison.get_common_elements_in_lists import (
+    get_common_elements_in_lists,
+)
 
 
 def test_get_common_elements_in_lists_success() -> None:

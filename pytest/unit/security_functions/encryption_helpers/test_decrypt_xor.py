@@ -3,8 +3,8 @@ Unit tests for decrypt_xor function.
 """
 
 import pytest
-from security_functions.encryption_helpers.encrypt_xor import encrypt_xor
 from security_functions.encryption_helpers.decrypt_xor import decrypt_xor
+from security_functions.encryption_helpers.encrypt_xor import encrypt_xor
 
 
 def test_decrypt_xor_case_1_basic_decryption() -> None:

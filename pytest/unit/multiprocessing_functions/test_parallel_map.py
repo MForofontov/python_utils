@@ -1,5 +1,5 @@
-from multiprocessing_functions.parallel_map import parallel_map
 import pytest
+from multiprocessing_functions.parallel_map import parallel_map
 
 
 def square(x: int) -> int:

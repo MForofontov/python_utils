@@ -6,8 +6,9 @@ the cryptographically secure Fernet symmetric encryption from the
 cryptography library.
 """
 
-from cryptography.fernet import Fernet
 import base64
+
+from cryptography.fernet import Fernet
 
 
 def encrypt_data_aes(

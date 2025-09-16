@@ -1,5 +1,6 @@
 import socket
 
+
 def resolve_hostname(hostname: str) -> str:
     """
     Resolve a hostname to its IP address.

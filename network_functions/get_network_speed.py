@@ -1,5 +1,7 @@
 import time
+
 import requests
+
 
 def get_network_speed(test_url: str = "https://speed.hetzner.de/100MB.bin", timeout: float = 10.0) -> dict[str, float]:
     """

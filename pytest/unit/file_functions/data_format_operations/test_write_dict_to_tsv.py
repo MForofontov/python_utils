@@ -1,7 +1,6 @@
 from pathlib import Path
 
 import pytest
-
 from file_functions.data_format_operations.write_dict_to_tsv import write_dict_to_tsv
 
 

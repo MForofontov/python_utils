@@ -6,17 +6,19 @@ including lists, sets, dictionaries, and type operations.
 """
 
 # Import submodules
-from . import list_operations
-from . import set_operations
-from . import list_comparison
-from . import dictionary_operations
-from . import type_operations
+from . import (
+    dictionary_operations,
+    list_comparison,
+    list_operations,
+    set_operations,
+    type_operations,
+)
+from .dictionary_operations import *
+from .list_comparison import *
 
 # Import all functions from submodules for backward compatibility
 from .list_operations import *
 from .set_operations import *
-from .list_comparison import *
-from .dictionary_operations import *
 from .type_operations import *
 
 __all__ = [

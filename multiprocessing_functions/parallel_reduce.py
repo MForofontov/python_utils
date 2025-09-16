@@ -1,7 +1,7 @@
-from multiprocessing import Pool, cpu_count
-from typing import TypeVar
 from collections.abc import Callable
 from functools import reduce
+from multiprocessing import Pool, cpu_count
+from typing import TypeVar
 
 # Define a type variable for generic type support
 T = TypeVar("T")

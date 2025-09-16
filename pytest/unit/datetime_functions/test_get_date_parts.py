@@ -1,7 +1,6 @@
 from datetime import date, datetime
 
 import pytest
-
 from datetime_functions.get_date_parts import get_date_parts
 
 

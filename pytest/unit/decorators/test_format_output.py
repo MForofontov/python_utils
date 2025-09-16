@@ -1,5 +1,6 @@
-import pytest
 from typing import Any
+
+import pytest
 from decorators.format_output import format_output
 
 

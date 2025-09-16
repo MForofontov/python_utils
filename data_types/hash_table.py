@@ -1,4 +1,4 @@
-from typing import TypeVar, Generic
+from typing import Generic, TypeVar
 
 # Define generic type variables for keys and values
 K = TypeVar("K")  # Key type

@@ -1,8 +1,10 @@
 import logging
-from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
-from typing import Any, ParamSpec, TypeVar
 from collections.abc import Callable
+from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import TimeoutError as FuturesTimeoutError
 from functools import wraps
+from typing import Any, ParamSpec, TypeVar
+
 from logger_functions.logger import validate_logger
 
 P = ParamSpec("P")

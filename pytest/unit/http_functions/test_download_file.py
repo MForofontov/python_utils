@@ -1,9 +1,10 @@
 """Unit tests for file download functionality."""
 
-import pytest
-from unittest.mock import patch, Mock, mock_open
-from pathlib import Path
 import urllib.error
+from pathlib import Path
+from unittest.mock import Mock, mock_open, patch
+
+import pytest
 from http_functions.download_file import download_file
 
 
@@ -218,7 +219,7 @@ def test_download_file_request_failure(mock_unlink, mock_urlopen):
 
 
 @patch("urllib.request.urlopen")
-@patch("builtins.open", side_effect=IOError("Write failed"))
+@patch("builtins.open", side_effect=OSError("Write failed"))
 @patch("pathlib.Path.mkdir")
 @patch("pathlib.Path.exists", return_value=True)
 @patch("pathlib.Path.unlink")

@@ -4,8 +4,8 @@ Get combinations with replacement from a set.
 This module provides a utility for generating combinations with replacement from sets.
 """
 
-from typing import TypeVar
 import itertools
+from typing import TypeVar
 
 T = TypeVar("T")
 

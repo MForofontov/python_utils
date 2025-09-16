@@ -1,5 +1,6 @@
 import socket
 
+
 def multicast_send(message: str, group: str, port: int) -> None:
     """
     Send a UDP multicast message to a group.

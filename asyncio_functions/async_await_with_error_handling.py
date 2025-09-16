@@ -1,7 +1,6 @@
 # Import necessary types from the typing module
+from collections.abc import Awaitable, Callable
 from typing import TypeVar
-from collections.abc import Callable
-from collections.abc import Awaitable
 
 # Define a type variable T to represent the return type of the tasks
 T = TypeVar("T")

@@ -1,6 +1,7 @@
+import bz2
+
 import pytest
 from compression_functions.binary_compression.compress_bz2 import compress_bz2
-import bz2
 
 
 def test_compress_bz2_basic() -> None:

@@ -1,5 +1,5 @@
-from multiprocessing_functions.parallel_progress_bar import parallel_progress_bar
 import pytest
+from multiprocessing_functions.parallel_progress_bar import parallel_progress_bar
 
 
 def square(x: int) -> int:

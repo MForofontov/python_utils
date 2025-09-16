@@ -5,10 +5,10 @@ This module provides functions for generating and verifying JSON Web Tokens (JWT
 using HMAC-SHA256 algorithm for secure token-based authentication.
 """
 
-import json
 import base64
 import hashlib
 import hmac
+import json
 from datetime import datetime, timedelta, timezone
 from typing import Any
 

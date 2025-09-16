@@ -1,6 +1,7 @@
-import pytest
 import bz2
 import os
+
+import pytest
 from compression_functions.files_compression.compress_file_bz2 import compress_file_bz2
 
 

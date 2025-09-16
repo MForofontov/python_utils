@@ -1,6 +1,6 @@
-import tarfile
-import stat
 import os
+import stat
+import tarfile
 
 
 def decompress_file_tar(input_tar: str, output_dir: str) -> None:

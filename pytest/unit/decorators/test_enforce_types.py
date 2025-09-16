@@ -1,5 +1,6 @@
-import pytest
 import logging
+
+import pytest
 from decorators.enforce_types import enforce_types
 
 # Configure test_logger
