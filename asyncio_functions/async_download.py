@@ -51,8 +51,8 @@ async def async_download(url: str, dest_path: str, timeout: float = 30.0) -> Non
                 with open(dest_path, "wb") as f:
                     async for chunk in resp.content.iter_chunked(8192):
                         f.write(chunk)
-    except Exception as e:
-        raise RuntimeError(f"Download failed: {e}")
+    except Exception as exc:
+        raise RuntimeError(f"Download failed: {exc}") from exc
 
 
 __all__ = ["async_download"]

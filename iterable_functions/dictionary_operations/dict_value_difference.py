@@ -40,9 +40,9 @@ def dict_value_difference(
     --------
     >>> dict1 = {'a': 1, 'b': 2, 'c': 3}
     >>> dict2 = {'a': 1, 'b': 5, 'd': 4}
-    >>> dict_difference(dict1, dict2)
+    >>> dict_value_difference(dict1, dict2)
     {'b': 5, 'd': 4}
-    >>> dict_difference(dict1, dict2, ignore_missing=True)
+    >>> dict_value_difference(dict1, dict2, ignore_missing=True)
     {'b': 5}
 
     Notes
@@ -84,4 +84,4 @@ def dict_value_difference(
     return differences
 
 
-__all__ = ["dict_difference"]
+__all__ = ["dict_value_difference"]

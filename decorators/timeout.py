@@ -93,7 +93,7 @@ def timeout(
                 future = executor.submit(_run_func)
                 try:
                     return future.result(timeout=seconds)
-                except FuturesTimeoutError:
+                except FuturesTimeoutError as exc:
                     message = (
                         f"Function {func.__name__} timed out after {seconds} seconds"
                     )
@@ -101,7 +101,7 @@ def timeout(
                         logger.error(message)
                     # Attempt to cancel but function may continue running in background
                     future.cancel()
-                    raise TimeoutException(message)
+                    raise TimeoutException(message) from exc
 
         return wrapper
 

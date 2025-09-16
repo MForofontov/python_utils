@@ -33,9 +33,11 @@ def compress_zlib(data: bytes) -> bytes:
         # Encode the compressed data with base64
         encoded: bytes = base64.b64encode(compressed)
         return encoded
-    except Exception as e:
+    except Exception as exc:
         # Raise a ValueError if an error occurs during compression
-        raise ValueError(f"An error occurred during compression: {e}")
+        raise ValueError(
+            f"An error occurred during compression: {exc}"
+        ) from exc
 
 
 __all__ = ["compress_zlib"]

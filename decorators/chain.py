@@ -64,10 +64,10 @@ def chain(func: Callable[P, T]) -> Callable[P, T | Any]:
                         return chain_method()
                 else:
                     return chain_method(*args, **kwargs)
-            except Exception as e:
+            except Exception as exc:
                 raise RuntimeError(
-                    f"Error calling 'chain' method on result of {func.__name__}: {e}"
-                )
+                    f"Error calling 'chain' method on result of {func.__name__}: {exc}"
+                ) from exc
         return result
 
     return wrapper

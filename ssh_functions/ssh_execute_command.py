@@ -77,10 +77,12 @@ def ssh_execute_command(
             "stderr": proc.stderr.strip(),
             "exit_code": proc.returncode,
         }
-    except subprocess.TimeoutExpired:
-        raise RuntimeError(f"SSH command timed out after {timeout} seconds")
-    except Exception as e:
-        raise RuntimeError(f"SSH command failed: {e}")
+    except subprocess.TimeoutExpired as exc:
+        raise RuntimeError(
+            f"SSH command timed out after {timeout} seconds"
+        ) from exc
+    except Exception as exc:
+        raise RuntimeError(f"SSH command failed: {exc}") from exc
 
 
 __all__ = ["ssh_execute_command"]

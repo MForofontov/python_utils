@@ -74,8 +74,10 @@ def conditional_return(
             try:
                 if condition(*args, **kwargs):
                     return return_value
-            except Exception as e:
-                raise RuntimeError(f"Condition function raised an error: {e}")
+            except Exception as exc:
+                raise RuntimeError(
+                    f"Condition function raised an error: {exc}"
+                ) from exc
             return func(*args, **kwargs)
 
         return wrapper

@@ -41,6 +41,6 @@ def get_env_var(
     if value is not None and cast is not None:
         try:
             return cast(value)
-        except Exception as e:
-            raise ValueError(f"Failed to cast env var {key}: {e}")
+        except Exception as exc:
+            raise ValueError(f"Failed to cast env var {key}: {exc}") from exc
     return value

@@ -1,11 +1,10 @@
-from collections.abc import Callable
-
 """
 Set partition utilities.
 
 This module provides utilities for partitioning sets into subsets.
 """
 
+from collections.abc import Callable
 from typing import TypeVar
 
 T = TypeVar("T")

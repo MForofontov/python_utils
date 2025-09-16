@@ -27,5 +27,5 @@ def modify_weeks(date_obj: datetime | date, weeks: int) -> datetime | date:
     try:
         delta = timedelta(weeks=weeks)
         return date_obj + delta
-    except (ValueError, OverflowError) as e:
-        raise ValueError(f"Invalid weeks value: {e}")
+    except (ValueError, OverflowError) as exc:
+        raise ValueError(f"Invalid weeks value: {exc}") from exc

@@ -43,12 +43,12 @@ from .list_operations import (
     add_strings_to_subsets,
     check_if_all_elements_are_duplicates,
     divide_list_into_n_chunks,
+    find_duplicates,
     get_duplicates,
     get_unique_sublists,
     group_by,
     is_nested_list_empty,
     repeat_strings_in_a_list,
-    find_duplicates,
     sliding_window,
 )
 from .set_operations import (
@@ -63,13 +63,13 @@ from .set_operations import (
     get_subsets_of_size,
     get_unique_elements_across_sets,
     partition_set_by_predicate,
+    partition_set_by_sizes,
     partition_set_into_n_parts,
     set_cartesian_product,
     set_cartesian_product_as_list,
     set_power_set,
     set_power_set_as_lists,
     set_symmetric_difference,
-    partition_set_by_sizes,
 )
 from .type_operations import (
     has_element_of_type,

@@ -18,7 +18,7 @@ def get_ipv6_addresses() -> list[str]:
     ['fe80::1', '2001:db8::1']
     """
     ipv6_addrs = []
-    for iface, addrs in psutil.net_if_addrs().items():
+    for _iface, addrs in psutil.net_if_addrs().items():
         for addr in addrs:
             if addr.family == socket.AF_INET6:
                 ipv6_addrs.append(addr.address)

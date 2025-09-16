@@ -77,17 +77,17 @@ def normalize_input(
                 normalized_kwargs = {
                     k: normalization_func(v) for k, v in kwargs.items()
                 }
-            except Exception as e:
-                message = f"Normalization failed: {e}"
+            except Exception as exc:
+                message = f"Normalization failed: {exc}"
                 if logger:
                     logger.error(message, exc_info=True)
-                raise TypeError(message)
+                raise TypeError(message) from exc
 
             try:
                 return func(*normalized_args, **normalized_kwargs)
-            except Exception as e:
+            except Exception as exc:
                 if logger:
-                    logger.error(str(e), exc_info=True)
+                    logger.error(str(exc), exc_info=True)
                 raise
 
         return wrapper

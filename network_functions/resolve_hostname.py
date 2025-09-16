@@ -33,7 +33,7 @@ def resolve_hostname(hostname: str) -> str:
         raise ValueError("hostname cannot be empty")
     try:
         return socket.gethostbyname(hostname)
-    except Exception as e:
-        raise ValueError(f"Could not resolve hostname: {e}")
+    except Exception as exc:
+        raise ValueError(f"Could not resolve hostname: {exc}") from exc
 
 __all__ = ["resolve_hostname"]

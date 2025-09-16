@@ -1,7 +1,8 @@
 from typing import Any
 
-import pytest
 from iterable_functions.dictionary_operations.dict_diff import dict_diff
+
+import pytest
 
 
 def test_dict_diff_case_1_identical_dictionaries() -> None:

@@ -46,12 +46,16 @@ def decompress_file_zip(input_zip: str, output_dir: str) -> None:
         with zipfile.ZipFile(input_zip, "r") as zipf:
             # Extract all files to the specified output directory
             zipf.extractall(output_dir)
-    except FileNotFoundError:
+    except FileNotFoundError as exc:
         # Raise a FileNotFoundError if the input zip file does not exist
-        raise FileNotFoundError(f"The input zip file {input_zip} does not exist.")
-    except OSError as e:
+        raise FileNotFoundError(
+            f"The input zip file {input_zip} does not exist."
+        ) from exc
+    except OSError as exc:
         # Raise an IOError if an I/O error occurs during decompression
-        raise OSError(f"An I/O error occurred during decompression: {e}")
+        raise OSError(
+            f"An I/O error occurred during decompression: {exc}"
+        ) from exc
 
 
 __all__ = ["decompress_file_zip"]

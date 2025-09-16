@@ -30,9 +30,11 @@ def compress_lzma(data: bytes) -> bytes:
         # Compress the data using lzma
         compressed: bytes = lzma.compress(data)
         return compressed
-    except Exception as e:
+    except Exception as exc:
         # Raise a ValueError if an error occurs during compression
-        raise ValueError(f"An error occurred during compression: {e}")
+        raise ValueError(
+            f"An error occurred during compression: {exc}"
+        ) from exc
 
 
 __all__ = ["compress_lzma"]

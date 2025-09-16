@@ -74,7 +74,7 @@ def safe_cast(value: Any, target_type: type[T], default: T | None = None) -> T |
 
     # Attempt type conversion
     try:
-        if target_type == bool:
+        if target_type is bool:
             # Special handling for boolean conversion
             if isinstance(value, str):
                 if value.lower() in ("true", "1", "yes", "on"):
@@ -84,23 +84,23 @@ def safe_cast(value: Any, target_type: type[T], default: T | None = None) -> T |
                 else:
                     raise ValueError(f"Cannot convert '{value}' to bool")
             return bool(value)
-        elif target_type == int:
+        elif target_type is int:
             # Handle string to int conversion
             if isinstance(value, str):
                 return int(float(value)) if "." in value else int(value)
             return int(value)
-        elif target_type == float:
+        elif target_type is float:
             return float(value)
-        elif target_type == str:
+        elif target_type is str:
             return str(value)
-        elif target_type == list:
+        elif target_type is list:
             if isinstance(value, (list, tuple)):
                 return list(value)
             elif hasattr(value, "__iter__"):
                 return list(value)
             else:
                 return [value]
-        elif target_type == tuple:
+        elif target_type is tuple:
             if isinstance(value, (list, tuple)):
                 return tuple(value)
             elif hasattr(value, "__iter__"):

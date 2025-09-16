@@ -68,7 +68,7 @@ class HashTable(Generic[K, V]):
             The value associated with the key.
         """
         index = self._hash(key)
-        for i, (k, v) in enumerate(self.table[index]):
+        for i, (k, _value) in enumerate(self.table[index]):
             if k == key:
                 self.table[index][i] = (key, value)
                 return
@@ -114,7 +114,7 @@ class HashTable(Generic[K, V]):
             If the key is not found in the hash table.
         """
         index = self._hash(key)
-        for i, (k, v) in enumerate(self.table[index]):
+        for i, (k, _value) in enumerate(self.table[index]):
             if k == key:
                 del self.table[index][i]
                 return
