@@ -7,8 +7,8 @@ value identification, recursive operations, sorting, and advanced utilities.
 
 from .deep_get import deep_get
 from .deep_set import deep_set
-from .dict_diff import dict_diff
-from .dict_difference import dict_difference
+from .dict_structural_difference import dict_structural_difference
+from .dict_value_difference import dict_value_difference
 from .filter_dict_by_keys import filter_dict_by_keys
 from .flatten_dict import flatten_dict
 from .identify_dict_structure import identify_dict_structure
@@ -31,6 +31,6 @@ __all__ = [
     "invert_dict",
     "deep_get",
     "deep_set",
-    "dict_diff",
-    "dict_difference",
+    "dict_structural_difference",
+    "dict_value_difference",
 ]

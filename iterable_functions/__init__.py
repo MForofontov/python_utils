@@ -18,7 +18,7 @@ from . import (
 from .dictionary_operations import (
     deep_get,
     deep_set,
-    dict_diff,
+    dict_value_difference,
     filter_dict_by_keys,
     flatten_dict,
     identify_dict_structure,
@@ -28,6 +28,7 @@ from .dictionary_operations import (
     merge_dicts_recursive,
     remove_empty_dicts_recursive,
     sort_subdict_by_tuple,
+    dict_structural_difference,
 )
 from .list_comparison import (
     all_match_lists,
@@ -126,7 +127,8 @@ __all__ = [
     "invert_dict",
     "deep_get",
     "deep_set",
-    "dict_diff",
+    "dict_structural_difference",
+    "dict_value_difference",
     # Type operations
     "has_element_of_type",
     "try_convert_to_type",

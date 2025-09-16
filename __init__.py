@@ -178,8 +178,8 @@ from .http_functions import (
 from .iterable_functions import (
 	deep_get,
 	deep_set,
-	dict_diff,
-	dict_difference,
+	dict_structural_difference,
+	dict_value_difference,
 	filter_dict_by_keys,
 	flatten_dict,
 	identify_dict_structure,

@@ -38,7 +38,7 @@ Examples
 from typing import Any
 
 
-def dict_diff(
+def dict_structural_diff(
     dict1: dict[str, Any], dict2: dict[str, Any], recursive: bool = True
 ) -> dict[str, list[str]]:
     """

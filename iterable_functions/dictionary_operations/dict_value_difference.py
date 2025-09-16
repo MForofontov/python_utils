@@ -8,7 +8,7 @@ returning only the changed values without categorization.
 from typing import Any
 
 
-def dict_difference(
+def dict_value_difference(
     dict1: dict[str, Any], 
     dict2: dict[str, Any], 
     ignore_missing: bool = False
