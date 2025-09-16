@@ -12,17 +12,14 @@ Submodules:
     random: Random number generation and sampling functions
 """
 
-# Import from all submodules
-from .basic import *
-from .random import *
+from .basic import power
+from .random import random_floats, random_integers, random_normal, random_sample
 
 # Re-export main functions for convenience
 # Statistics functions moved to external packages (scipy, numpy, statistics)
 
 __all__ = [
-    # Basic math operations
     "power",
-    # Random generators
     "random_integers",
     "random_floats",
     "random_normal",

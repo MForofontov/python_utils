@@ -1,7 +1,9 @@
 from typing import Any
 
 import pytest
-from iterable_functions.list_comparison.partially_contains_sublist import partially_contains_sublist
+from iterable_functions.list_comparison.partially_contains_sublist import (
+    partially_contains_sublist,
+)
 
 
 def test_partially_contains_sublist_success() -> None:
