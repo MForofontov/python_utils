@@ -1,5 +1,7 @@
 import pytest
-from iterable_functions.list_operations.divide_list_into_n_chunks import divide_list_into_n_chunks
+from iterable_functions.list_operations.divide_list_into_n_chunks import (
+    divide_list_into_n_chunks,
+)
 
 
 def test_divide_list_into_n_chunks_success() -> None:

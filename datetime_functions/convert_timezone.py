@@ -49,8 +49,8 @@ def convert_timezone(
     if isinstance(to_timezone, str):
         try:
             to_tz = pytz.timezone(to_timezone)
-        except pytz.exceptions.UnknownTimeZoneError:
-            raise ValueError(f"Unknown timezone: {to_timezone}")
+        except pytz.exceptions.UnknownTimeZoneError as exc:
+            raise ValueError(f"Unknown timezone: {to_timezone}") from exc
     else:
         to_tz = to_timezone
 
@@ -63,8 +63,8 @@ def convert_timezone(
         elif isinstance(from_timezone, str):
             try:
                 from_tz = pytz.timezone(from_timezone)
-            except pytz.exceptions.UnknownTimeZoneError:
-                raise ValueError(f"Unknown timezone: {from_timezone}")
+            except pytz.exceptions.UnknownTimeZoneError as exc:
+                raise ValueError(f"Unknown timezone: {from_timezone}") from exc
         else:
             from_tz = from_timezone
 

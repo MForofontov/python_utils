@@ -42,10 +42,10 @@ async def async_cancellable_task(
         # Attempt to run the task with a timeout of 5 seconds
         result = await asyncio.wait_for(task(), timeout=5)
         return result
-    except asyncio.TimeoutError:
+    except asyncio.TimeoutError as exc:
         # If a timeout occurs, set the cancel event and raise a CancelledError
         cancel_event.set()
-        raise asyncio.CancelledError("Task was cancelled.")
+        raise asyncio.CancelledError("Task was cancelled.") from exc
 
 
 __all__ = ["async_cancellable_task"]

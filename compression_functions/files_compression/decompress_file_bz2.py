@@ -50,12 +50,16 @@ def decompress_file_bz2(input_bz2: str, output_file: str) -> None:
             with open(output_file, "wb") as f_out:
                 # Write the contents of the input file to the output file
                 f_out.writelines(f_in)
-    except FileNotFoundError:
+    except FileNotFoundError as exc:
         # Raise a FileNotFoundError if the input file does not exist
-        raise FileNotFoundError(f"The input file {input_bz2} does not exist.")
-    except OSError as e:
+        raise FileNotFoundError(
+            f"The input file {input_bz2} does not exist."
+        ) from exc
+    except OSError as exc:
         # Raise an IOError if an I/O error occurs during decompression
-        raise OSError(f"An I/O error occurred during decompression: {e}")
+        raise OSError(
+            f"An I/O error occurred during decompression: {exc}"
+        ) from exc
 
 
 __all__ = ["decompress_file_bz2"]

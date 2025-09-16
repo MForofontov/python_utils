@@ -85,12 +85,14 @@ def ssh_execute_script(
             "stderr": proc.stderr.strip(),
             "exit_code": proc.returncode,
         }
-    except FileNotFoundError:
-        raise ValueError(f"Script file not found: {script_path}")
-    except subprocess.TimeoutExpired:
-        raise RuntimeError(f"SSH command timed out after {timeout} seconds")
-    except Exception as e:
-        raise RuntimeError(f"SSH command failed: {e}")
+    except FileNotFoundError as exc:
+        raise ValueError(f"Script file not found: {script_path}") from exc
+    except subprocess.TimeoutExpired as exc:
+        raise RuntimeError(
+            f"SSH command timed out after {timeout} seconds"
+        ) from exc
+    except Exception as exc:
+        raise RuntimeError(f"SSH command failed: {exc}") from exc
 
 
 __all__ = ["ssh_execute_script"]

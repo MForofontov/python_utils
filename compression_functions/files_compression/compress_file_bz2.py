@@ -62,9 +62,11 @@ def compress_file_bz2(input_file: str, output_file: str) -> None:
     except FileNotFoundError:
         # Re-raise file not found errors for callers to handle.
         raise
-    except (PermissionError, OSError) as e:
+    except (PermissionError, OSError) as exc:
         # Wrap all other I/O related errors in a generic OSError message.
-        raise OSError(f"An I/O error occurred during compression: {e}")
+        raise OSError(
+            f"An I/O error occurred during compression: {exc}"
+        ) from exc
 
 
 __all__ = ["compress_file_bz2"]

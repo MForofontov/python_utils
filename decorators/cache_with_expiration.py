@@ -85,8 +85,8 @@ def cache_with_expiration(
                         return cached_value
                 result = func(*args, **kwargs)
                 cached_results[key] = (current_time, result)
-            except TypeError as e:
-                raise TypeError(f"Unhashable arguments: {e}")
+            except TypeError as exc:
+                raise TypeError(f"Unhashable arguments: {exc}") from exc
 
             return result
 

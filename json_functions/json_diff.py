@@ -27,7 +27,7 @@ def json_diff(a: Any, b: Any, path: str = "") -> list[tuple[str, Any, Any]]:
     [('[1]', 2, 3)]
     """
     diffs = []
-    if type(a) != type(b):
+    if type(a) is not type(b):
         diffs.append((path, a, b))
         return diffs
     if isinstance(a, dict):

@@ -94,8 +94,8 @@ async def async_parallel_download(
             with open(dest_path, "wb") as f:
                 for _, data in results:
                     f.write(data)
-    except Exception as e:
-        raise RuntimeError(f"Parallel download failed: {e}")
+    except Exception as exc:
+        raise RuntimeError(f"Parallel download failed: {exc}") from exc
 
 
 __all__ = ["async_parallel_download"]

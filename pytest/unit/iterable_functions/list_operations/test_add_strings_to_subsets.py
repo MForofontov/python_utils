@@ -1,5 +1,7 @@
 import pytest
-from iterable_functions.list_operations.add_strings_to_subsets import add_strings_to_subsets
+from iterable_functions.list_operations.add_strings_to_subsets import (
+    add_strings_to_subsets,
+)
 
 
 def test_add_strings_to_subsets_success() -> None:

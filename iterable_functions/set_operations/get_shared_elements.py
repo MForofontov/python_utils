@@ -34,8 +34,10 @@ def get_shared_elements(dict_: dict[str, list[T]]) -> list[T]:
     for sublist in dict_.values():
         try:
             all_elements.extend(sublist)
-        except TypeError as e:
-            raise TypeError(f"Sublist contains unhashable elements: {e}")
+        except TypeError as exc:
+            raise TypeError(
+                f"Sublist contains unhashable elements: {exc}"
+            ) from exc
 
     element_counts = Counter(all_elements)
     shared_elements = [elem for elem, count in element_counts.items() if count >= 2]

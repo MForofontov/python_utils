@@ -15,7 +15,7 @@ def get_default_gateway() -> str:
     >>> get_default_gateway()
     '192.168.1.1'
     """
-    gws = psutil.net_if_stats()
+    psutil.net_if_stats()
     # This is a placeholder; for real gateway detection, use netifaces or parse 'ip route'
     return ""
 

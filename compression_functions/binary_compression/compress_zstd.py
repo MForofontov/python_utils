@@ -37,9 +37,11 @@ def compress_zstd(data: bytes, level: int = 3) -> bytes:
         # Compress the data using Zstandard
         compressed: bytes = compressor.compress(data)
         return compressed
-    except Exception as e:
+    except Exception as exc:
         # Raise a ValueError if an error occurs during compression
-        raise ValueError(f"An error occurred during compression: {e}")
+        raise ValueError(
+            f"An error occurred during compression: {exc}"
+        ) from exc
 
 
 __all__ = ["compress_zstd"]

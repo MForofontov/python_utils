@@ -74,11 +74,11 @@ def redirect_output(
             try:
                 with open(file_path, "w") as f, redirect_stdout(f):
                     return func(*args, **kwargs)
-            except Exception as e:
-                message = f"Failed to redirect output: {e}"
+            except Exception as exc:
+                message = f"Failed to redirect output: {exc}"
                 if logger:
                     logger.error(message, exc_info=True)
-                raise RuntimeError(message)
+                raise RuntimeError(message) from exc
 
         return wrapper
 

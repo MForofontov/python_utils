@@ -134,10 +134,10 @@ def validate_email(
     if not allow_unicode:
         try:
             email.encode("ascii")
-        except UnicodeEncodeError:
+        except UnicodeEncodeError as exc:
             raise ValueError(
                 f"{param_name} contains non-ASCII characters but allow_unicode=False"
-            )
+            ) from exc
 
     # Define regex patterns
     if allow_unicode:
@@ -186,14 +186,18 @@ def validate_email(
                     raise ValueError(
                         f"{param_name} domain does not have valid MX record"
                     )
-            except (dns.resolver.NXDOMAIN, dns.resolver.NoAnswer):
-                raise ValueError(f"{param_name} domain does not have valid MX record")
+            except (dns.resolver.NXDOMAIN, dns.resolver.NoAnswer) as exc:
+                raise ValueError(
+                    f"{param_name} domain does not have valid MX record"
+                ) from exc
             except Exception:
                 # Fallback to A record check if MX check fails
                 try:
                     socket.gethostbyname(domain_part)
-                except socket.gaierror:
-                    raise ValueError(f"{param_name} domain does not exist")
+                except socket.gaierror as socket_error:
+                    raise ValueError(
+                        f"{param_name} domain does not exist"
+                    ) from socket_error
 
         except ImportError:
             # If dnspython is not available, use basic socket check
@@ -201,8 +205,8 @@ def validate_email(
                 import socket
 
                 socket.gethostbyname(domain_part)
-            except socket.gaierror:
-                raise ValueError(f"{param_name} domain does not exist")
+            except socket.gaierror as exc:
+                raise ValueError(f"{param_name} domain does not exist") from exc
 
 
 __all__ = ["validate_email"]

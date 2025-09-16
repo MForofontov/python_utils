@@ -72,8 +72,10 @@ def conditional_execute(
             try:
                 if predicate():
                     return func(*args, **kwargs)
-            except Exception as e:
-                raise RuntimeError(f"Predicate function raised an error: {e}")
+            except Exception as exc:
+                raise RuntimeError(
+                    f"Predicate function raised an error: {exc}"
+                ) from exc
             return None
 
         return wrapper

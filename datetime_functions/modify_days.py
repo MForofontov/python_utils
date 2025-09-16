@@ -43,5 +43,5 @@ def modify_days(date_obj: datetime | date, days: int) -> datetime | date:
     try:
         delta = timedelta(days=days)
         return date_obj + delta
-    except (ValueError, OverflowError) as e:
-        raise ValueError(f"Invalid days value: {e}")
+    except (ValueError, OverflowError) as exc:
+        raise ValueError(f"Invalid days value: {exc}") from exc

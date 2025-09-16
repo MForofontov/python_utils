@@ -1,5 +1,7 @@
 import pytest
-from iterable_functions.list_operations.repeat_strings_in_a_list import repeat_strings_in_a_list
+from iterable_functions.list_operations.repeat_strings_in_a_list import (
+    repeat_strings_in_a_list,
+)
 
 
 def test_repeat_strings_in_a_list_success() -> None:

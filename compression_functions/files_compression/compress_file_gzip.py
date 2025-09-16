@@ -47,8 +47,10 @@ def compress_file_gzip(input_file: str, output_file: str) -> None:
             shutil.copyfileobj(f_in, f_out)
     except FileNotFoundError:
         raise
-    except (PermissionError, OSError) as e:
-        raise OSError(f"An I/O error occurred during compression: {e}")
+    except (PermissionError, OSError) as exc:
+        raise OSError(
+            f"An I/O error occurred during compression: {exc}"
+        ) from exc
 
 
 __all__ = ["compress_file_gzip"]
