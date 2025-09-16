@@ -42,9 +42,11 @@ def compress_gzip(data: bytes) -> bytes:
             gzip_file.write(data)
         # Return the compressed data
         return buffer.getvalue()
-    except Exception as e:
+    except Exception as exc:
         # Raise a ValueError if an error occurs during compression
-        raise ValueError(f"An error occurred during compression: {e}")
+        raise ValueError(
+            f"An error occurred during compression: {exc}"
+        ) from exc
 
 
 __all__ = ["compress_gzip"]

@@ -62,8 +62,10 @@ def compress_zip(input_path: str, output_zip: str) -> None:
                 zipf.write(input_path, arcname=os.path.basename(input_path))
     except FileNotFoundError:
         raise
-    except (PermissionError, OSError) as e:
-        raise OSError(f"An I/O error occurred during compression: {e}")
+    except (PermissionError, OSError) as exc:
+        raise OSError(
+            f"An I/O error occurred during compression: {exc}"
+        ) from exc
 
 
 __all__ = ["compress_zip"]

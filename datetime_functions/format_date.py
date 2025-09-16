@@ -45,5 +45,5 @@ def format_date(date_obj: datetime | date, format_string: str = "%Y-%m-%d") -> s
 
     try:
         return date_obj.strftime(format_string)
-    except ValueError as e:
-        raise ValueError(f"Invalid format string: {e}")
+    except ValueError as exc:
+        raise ValueError(f"Invalid format string: {exc}") from exc

@@ -33,9 +33,11 @@ def decompress_zlib(compressed_data: bytes) -> bytes:
         # Decompress the data using zlib
         decompressed: bytes = zlib.decompress(compressed)
         return decompressed
-    except Exception as e:
+    except Exception as exc:
         # Raise a ValueError if an error occurs during decompression
-        raise ValueError(f"An error occurred during decompression: {e}")
+        raise ValueError(
+            f"An error occurred during decompression: {exc}"
+        ) from exc
 
 
 __all__ = ["decompress_zlib"]

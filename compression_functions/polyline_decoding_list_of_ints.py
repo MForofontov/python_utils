@@ -39,8 +39,10 @@ def polyline_decoding_list_of_ints(encoded_text: str) -> list[float]:
     while index < len(encoded_text):
         try:
             index, difference = decompress_number(encoded_text, index)
-        except Exception as e:
-            raise ValueError(f"Error decompressing number at index {index}: {e}")
+        except Exception as exc:
+            raise ValueError(
+                f"Error decompressing number at index {index}: {exc}"
+            ) from exc
 
         last_number += difference
         decoded_numbers.append(last_number)

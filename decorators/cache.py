@@ -72,8 +72,8 @@ def cache(func: Callable[P, R]) -> Callable[P, R]:
             if key not in cached_results:
                 # If not cached, call the function and store the result
                 cached_results[key] = func(*args, **kwargs)
-        except TypeError as e:
-            raise TypeError(f"Unhashable arguments: {e}")
+        except TypeError as exc:
+            raise TypeError(f"Unhashable arguments: {exc}") from exc
 
         # Return the cached result
         return cached_results[key]
