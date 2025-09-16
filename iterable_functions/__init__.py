@@ -18,6 +18,7 @@ from . import (
 from .dictionary_operations import (
     deep_get,
     deep_set,
+    dict_structural_difference,
     dict_value_difference,
     filter_dict_by_keys,
     flatten_dict,
@@ -28,7 +29,6 @@ from .dictionary_operations import (
     merge_dicts_recursive,
     remove_empty_dicts_recursive,
     sort_subdict_by_tuple,
-    dict_structural_difference,
 )
 from .list_comparison import (
     all_match_lists,
