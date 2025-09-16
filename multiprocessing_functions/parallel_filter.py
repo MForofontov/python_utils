@@ -1,6 +1,6 @@
+from collections.abc import Callable
 from multiprocessing import Pool, cpu_count
 from typing import TypeVar
-from collections.abc import Callable
 
 # Define a type variable for the input type
 T = TypeVar("T")
@@ -44,7 +44,7 @@ def parallel_filter(
         results = pool.map(condition, data)
 
     # Return a list of items that satisfy the condition
-    return [item for item, keep in zip(data, results) if keep]
+    return [item for item, keep in zip(data, results, strict=False) if keep]
 
 
 __all__ = ["parallel_filter"]

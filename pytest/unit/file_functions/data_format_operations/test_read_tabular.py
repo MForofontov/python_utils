@@ -1,7 +1,6 @@
 from pathlib import Path
 
 import pytest
-
 from file_functions import read_tabular
 
 

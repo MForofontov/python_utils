@@ -1,5 +1,5 @@
-import zlib
 import base64
+import zlib
 
 
 def decompress_zlib(compressed_data: bytes) -> bytes:

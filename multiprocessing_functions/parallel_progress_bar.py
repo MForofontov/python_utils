@@ -1,6 +1,7 @@
+from collections.abc import Callable
 from multiprocessing import Pool, cpu_count
 from typing import TypeVar
-from collections.abc import Callable
+
 from tqdm import tqdm  # Install using: pip install tqdm
 
 # Define type variables for input and output types

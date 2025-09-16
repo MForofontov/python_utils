@@ -1,5 +1,6 @@
-import pytest
 from typing import Any
+
+import pytest
 from iterable_functions.type_operations.try_convert_to_type import try_convert_to_type
 
 

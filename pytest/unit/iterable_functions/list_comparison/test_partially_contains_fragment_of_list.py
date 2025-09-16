@@ -1,5 +1,6 @@
-import pytest
 from typing import Any
+
+import pytest
 from iterable_functions.list_comparison.partially_contains_fragment_of_list import (
     partially_contains_fragment_of_list,
 )

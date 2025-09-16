@@ -1,6 +1,6 @@
 """Get the start of week for a given date."""
 
-from datetime import datetime, date, timedelta
+from datetime import date, datetime, timedelta
 
 
 def get_start_of_week(

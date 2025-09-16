@@ -1,7 +1,8 @@
-import pytest
 import logging
 import time
-from decorators.timeout import timeout, TimeoutException
+
+import pytest
+from decorators.timeout import TimeoutException, timeout
 
 # Configure test_logger
 test_logger = logging.getLogger("test_logger")

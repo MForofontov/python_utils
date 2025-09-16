@@ -1,5 +1,6 @@
-import pytest
 from typing import Any
+
+import pytest
 from iterable_functions.list_operations.group_by import group_by
 
 

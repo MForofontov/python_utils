@@ -1,5 +1,6 @@
-import pytest
 import gzip
+
+import pytest
 from compression_functions.binary_compression.compress_gzip import compress_gzip
 
 

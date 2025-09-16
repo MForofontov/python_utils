@@ -1,5 +1,6 @@
+from unittest.mock import mock_open, patch
+
 import pytest
-from unittest.mock import patch, mock_open
 from ssh_functions.ssh_execute_script import ssh_execute_script
 
 

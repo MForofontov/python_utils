@@ -1,6 +1,6 @@
-from typing import Any, ParamSpec, TypeVar, cast
 from collections.abc import Callable
 from functools import wraps
+from typing import Any, ParamSpec, TypeVar, cast
 
 P = ParamSpec("P")
 R = TypeVar("R")
@@ -82,7 +82,7 @@ def cache(func: Callable[P, R]) -> Callable[P, R]:
         """Public method to clear the cached results for ``func``."""
         cached_results.clear()
 
-    setattr(wrapper, "cache_clear", cache_clear)
+    wrapper.cache_clear = cache_clear
 
     return cast(Callable[P, R], wrapper)
 

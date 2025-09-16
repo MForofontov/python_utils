@@ -1,5 +1,6 @@
-import pytest
 from typing import Any
+
+import pytest
 from iterable_functions.set_operations.convert_set_elements_to_strings import (
     convert_set_elements_to_strings,
 )

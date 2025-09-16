@@ -1,5 +1,6 @@
-import pytest
 from typing import Any
+
+import pytest
 from iterable_functions.list_comparison.find_sublist_index import find_sublist_index
 
 

@@ -1,5 +1,6 @@
 import logging
 from unittest.mock import patch
+
 from logging_debugging.colored_formatter import colored_formatter
 
 

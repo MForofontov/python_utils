@@ -1,6 +1,7 @@
 """Get current UTC date and time in ISO format."""
 
 from datetime import datetime
+
 import pytz
 
 

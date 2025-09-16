@@ -1,5 +1,6 @@
-import pytest
 from typing import Any
+
+import pytest
 from iterable_functions.list_comparison.contains_sublist import contains_sublist
 
 

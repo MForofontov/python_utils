@@ -5,10 +5,10 @@ This module provides functions for verifying and decoding JSON Web Tokens (JWT)
 using HMAC-SHA256 algorithm.
 """
 
-import json
 import base64
 import hashlib
 import hmac
+import json
 from datetime import datetime, timezone
 from typing import Any
 

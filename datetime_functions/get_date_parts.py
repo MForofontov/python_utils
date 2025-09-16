@@ -1,6 +1,6 @@
 """Get date parts from a date object."""
 
-from datetime import datetime, date
+from datetime import date, datetime
 
 
 def get_date_parts(date_obj: datetime | date) -> dict[str, int]:

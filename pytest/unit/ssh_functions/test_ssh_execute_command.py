@@ -1,5 +1,6 @@
-import pytest
 from unittest.mock import patch
+
+import pytest
 from ssh_functions.ssh_execute_command import ssh_execute_command
 
 

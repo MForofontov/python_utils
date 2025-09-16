@@ -1,10 +1,11 @@
 import asyncio
 import inspect
 import logging
-from functools import wraps, partial
-from logger_functions.logger import validate_logger
+from collections.abc import Awaitable, Callable
+from functools import partial, wraps
 from typing import ParamSpec, TypeVar
-from collections.abc import Callable, Awaitable
+
+from logger_functions.logger import validate_logger
 
 P = ParamSpec("P")
 R = TypeVar("R")

@@ -1,12 +1,12 @@
 """File upload functionality."""
 
-import urllib.request
+import mimetypes
 import urllib.parse
-from urllib.error import HTTPError, URLError
+import urllib.request
+import uuid
 from pathlib import Path
 from typing import Any
-import mimetypes
-import uuid
+from urllib.error import HTTPError, URLError
 
 
 def upload_file(

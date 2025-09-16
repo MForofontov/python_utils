@@ -1,5 +1,6 @@
-import pytest
 import time
+
+import pytest
 from decorators.cache_with_expiration import cache_with_expiration
 
 call_counts = {"add": 0, "concat": 0}

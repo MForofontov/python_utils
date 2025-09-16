@@ -1,5 +1,6 @@
-from json_functions.safe_json_dump import safe_json_dump
 import json
+
+from json_functions.safe_json_dump import safe_json_dump
 
 
 def test_safe_json_dump_valid():

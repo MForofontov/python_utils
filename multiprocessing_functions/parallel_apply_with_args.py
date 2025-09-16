@@ -1,6 +1,6 @@
-from multiprocessing import Pool, cpu_count
-from typing import TypeVar, Any
 from collections.abc import Callable
+from multiprocessing import Pool, cpu_count
+from typing import Any, TypeVar
 
 # Define type variables for input and output types
 T = TypeVar("T")

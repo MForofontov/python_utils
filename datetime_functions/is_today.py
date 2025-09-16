@@ -1,6 +1,6 @@
 """Check if a date is today."""
 
-from datetime import datetime, date
+from datetime import date, datetime
 
 
 def is_today(date_obj: datetime | date) -> bool:

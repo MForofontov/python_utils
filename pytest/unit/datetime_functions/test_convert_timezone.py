@@ -1,6 +1,8 @@
-import pytest
 from datetime import datetime
+
 import pytz
+
+import pytest
 from datetime_functions.convert_timezone import convert_timezone
 
 

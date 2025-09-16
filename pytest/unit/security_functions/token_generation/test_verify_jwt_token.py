@@ -2,10 +2,11 @@
 Unit tests for verify_jwt_token function.
 """
 
-import pytest
-import json
 import base64
-from datetime import datetime, timezone, timedelta
+import json
+from datetime import datetime, timedelta, timezone
+
+import pytest
 from security_functions.token_generation.generate_jwt_token import generate_jwt_token
 from security_functions.token_generation.verify_jwt_token import verify_jwt_token
 
@@ -161,8 +162,8 @@ def test_verify_jwt_token_case_9_expired_token() -> None:
     encoded_payload = encode_part(payload)
 
     # Create proper signature
-    import hmac
     import hashlib
+    import hmac
 
     message = f"{encoded_header}.{encoded_payload}"
     secret = "test_secret"
@@ -195,8 +196,8 @@ def test_verify_jwt_token_case_10_invalid_expiration_format() -> None:
     encoded_payload = encode_part(payload)
 
     # Create proper signature
-    import hmac
     import hashlib
+    import hmac
 
     message = f"{encoded_header}.{encoded_payload}"
     secret = "test_secret"
@@ -257,8 +258,8 @@ def test_verify_jwt_token_case_12_token_without_expiration() -> None:
     encoded_payload = encode_part(payload)
 
     # Create proper signature
-    import hmac
     import hashlib
+    import hmac
 
     message = f"{encoded_header}.{encoded_payload}"
     secret = "test_secret"

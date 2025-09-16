@@ -1,5 +1,6 @@
-import pytest
 import logging
+
+import pytest
 from decorators.retry import retry
 
 # Configure test_logger

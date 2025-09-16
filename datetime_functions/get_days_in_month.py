@@ -1,7 +1,7 @@
 """Get the number of days in a month."""
 
-from datetime import datetime, date
 from calendar import monthrange
+from datetime import date, datetime
 
 
 def get_days_in_month(

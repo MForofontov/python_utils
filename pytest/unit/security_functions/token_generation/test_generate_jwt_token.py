@@ -2,10 +2,11 @@
 Unit tests for generate_jwt_token function.
 """
 
-import pytest
-import json
 import base64
+import json
 from datetime import datetime, timezone
+
+import pytest
 from security_functions.token_generation.generate_jwt_token import generate_jwt_token
 
 

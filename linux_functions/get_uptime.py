@@ -2,8 +2,9 @@
 Module for getting system uptime.
 """
 
-import psutil
 import time
+
+import psutil
 
 
 def get_uptime() -> float:

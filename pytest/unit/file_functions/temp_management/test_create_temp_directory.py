@@ -2,12 +2,12 @@
 Unit tests for create_temp_directory function.
 """
 
-import pytest
 import shutil
 import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
+import pytest
 from file_functions import create_temp_directory
 
 

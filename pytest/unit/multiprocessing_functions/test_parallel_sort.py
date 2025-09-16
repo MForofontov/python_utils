@@ -1,5 +1,5 @@
-from multiprocessing_functions.parallel_sort import parallel_sort
 import pytest
+from multiprocessing_functions.parallel_sort import parallel_sort
 
 
 def test_parallel_sort_basic() -> None:

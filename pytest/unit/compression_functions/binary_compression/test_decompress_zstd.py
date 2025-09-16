@@ -1,5 +1,6 @@
-import pytest
 import zstandard as zstd
+
+import pytest
 from compression_functions.binary_compression.decompress_zstd import decompress_zstd
 
 

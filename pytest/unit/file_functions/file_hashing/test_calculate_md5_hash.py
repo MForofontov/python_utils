@@ -3,11 +3,11 @@ Unit tests for calculate_md5_hash function.
 """
 
 import hashlib
-import pytest
 import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
+import pytest
 from file_functions import calculate_md5_hash
 
 

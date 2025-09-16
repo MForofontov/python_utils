@@ -1,6 +1,6 @@
 """Get the end of week for a given date."""
 
-from datetime import datetime, date, timedelta
+from datetime import date, datetime, timedelta
 
 
 def get_end_of_week(

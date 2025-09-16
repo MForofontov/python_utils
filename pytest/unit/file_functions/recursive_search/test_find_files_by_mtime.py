@@ -3,13 +3,13 @@ Unit tests for find_files_by_mtime function.
 """
 
 import os
-import pytest
 import tempfile
 import time
 from datetime import datetime, timedelta
 from pathlib import Path
 from unittest.mock import patch
 
+import pytest
 from file_functions import find_files_by_mtime
 
 

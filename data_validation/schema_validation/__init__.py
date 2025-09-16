@@ -8,8 +8,8 @@ The module focuses on advanced schema-based validation for APIs, configuration f
 and complex data structures.
 """
 
-from .validate_pydantic_schema import validate_pydantic_schema
 from .validate_cerberus_schema import validate_cerberus_schema
+from .validate_pydantic_schema import validate_pydantic_schema
 
 __all__ = [
     "validate_pydantic_schema",

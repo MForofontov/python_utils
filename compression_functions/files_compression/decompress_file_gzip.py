@@ -1,6 +1,6 @@
 import gzip
-import shutil
 import os
+import shutil
 import stat
 
 

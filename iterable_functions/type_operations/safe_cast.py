@@ -5,7 +5,7 @@ This module provides utilities for safely casting values to different types
 with fallback options.
 """
 
-from typing import TypeVar, Any
+from typing import Any, TypeVar
 
 T = TypeVar("T")
 

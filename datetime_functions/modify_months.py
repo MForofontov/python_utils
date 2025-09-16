@@ -1,7 +1,7 @@
 """Modify months on a date or datetime object."""
 
-from datetime import datetime, date
 from calendar import monthrange
+from datetime import date, datetime
 
 
 def modify_months(date_obj: datetime | date, months: int) -> datetime | date:

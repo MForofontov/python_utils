@@ -1,6 +1,7 @@
-import pytest
-import zipfile
 import os
+import zipfile
+
+import pytest
 from compression_functions.files_compression.decompress_file_zip import (
     decompress_file_zip,
 )

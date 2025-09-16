@@ -1,6 +1,7 @@
-import pytest
-import tempfile
 import os
+import tempfile
+
+import pytest
 from linux_functions.list_directories import list_directories
 
 

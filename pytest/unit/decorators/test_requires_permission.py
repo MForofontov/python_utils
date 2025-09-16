@@ -1,6 +1,7 @@
-import pytest
 import logging
 import re
+
+import pytest
 from decorators.requires_permission import requires_permission
 
 # Configure test_logger

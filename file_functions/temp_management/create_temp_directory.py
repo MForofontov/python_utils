@@ -4,9 +4,9 @@ Create temporary directory with automatic cleanup.
 
 import shutil
 import tempfile
+from collections.abc import Generator
 from contextlib import contextmanager
 from pathlib import Path
-from collections.abc import Generator
 
 
 @contextmanager

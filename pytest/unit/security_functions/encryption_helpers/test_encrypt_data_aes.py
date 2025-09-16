@@ -2,8 +2,9 @@
 Unit tests for encrypt_data_aes function.
 """
 
-import pytest
 import base64
+
+import pytest
 from security_functions.encryption_helpers.encrypt_data_aes import encrypt_data_aes
 
 

@@ -1,6 +1,6 @@
 """Get the week number of the year."""
 
-from datetime import datetime, date
+from datetime import date, datetime
 
 
 def get_week_number(date_obj: datetime | date) -> int:

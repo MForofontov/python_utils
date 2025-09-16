@@ -1,6 +1,7 @@
-import pytest
-from datetime import datetime, date
+from datetime import date, datetime
 from unittest.mock import patch
+
+import pytest
 from datetime_functions.is_today import is_today
 
 

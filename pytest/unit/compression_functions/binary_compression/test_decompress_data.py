@@ -1,10 +1,10 @@
 import pytest
-from compression_functions.binary_compression.decompress_data import decompress_data
-from compression_functions.binary_compression.compress_gzip import compress_gzip
 from compression_functions.binary_compression.compress_bz2 import compress_bz2
+from compression_functions.binary_compression.compress_gzip import compress_gzip
 from compression_functions.binary_compression.compress_lzma import compress_lzma
 from compression_functions.binary_compression.compress_snappy import compress_snappy
 from compression_functions.binary_compression.compress_zstd import compress_zstd
+from compression_functions.binary_compression.decompress_data import decompress_data
 
 
 def test_decompress_data_gzip() -> None:

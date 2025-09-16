@@ -1,6 +1,6 @@
 """Calculate age from a birth date."""
 
-from datetime import datetime, date
+from datetime import date, datetime
 
 
 def calculate_age(

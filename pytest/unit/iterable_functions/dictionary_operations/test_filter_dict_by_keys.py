@@ -1,5 +1,6 @@
-import pytest
 from typing import Any
+
+import pytest
 from iterable_functions.dictionary_operations.filter_dict_by_keys import (
     filter_dict_by_keys,
 )

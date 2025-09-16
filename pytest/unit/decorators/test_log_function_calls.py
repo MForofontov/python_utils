@@ -1,6 +1,7 @@
-import pytest
 import logging
 from typing import Any
+
+import pytest
 from decorators.log_function_calls import log_function_calls
 
 # Configure test_logger

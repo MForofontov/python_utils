@@ -1,5 +1,6 @@
-import pytest
 import logging
+
+import pytest
 from decorators.async_wrapper import async_wrapper
 
 # Configure test_logger

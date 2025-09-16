@@ -1,8 +1,8 @@
 """Simple HTTP GET request functionality."""
 
 import urllib.request
-from urllib.error import HTTPError, URLError
 from typing import Any
+from urllib.error import HTTPError, URLError
 
 
 def http_get(

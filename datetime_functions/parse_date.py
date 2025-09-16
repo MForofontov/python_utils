@@ -1,6 +1,6 @@
 """Date parsing functionality."""
 
-from datetime import datetime, date
+from datetime import date, datetime
 
 
 def parse_date(date_string: str, formats: list[str] | None = None) -> datetime | date:

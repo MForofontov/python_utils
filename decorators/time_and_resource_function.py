@@ -1,13 +1,15 @@
-import time
-import psutil
+import gc
 import logging
 import threading
-import gc
-from types import SimpleNamespace
-from logger_functions.logger import validate_logger
-from typing import Any, ParamSpec, TypeVar
+import time
 from collections.abc import Callable
 from functools import wraps
+from types import SimpleNamespace
+from typing import Any, ParamSpec, TypeVar
+
+import psutil
+
+from logger_functions.logger import validate_logger
 
 P = ParamSpec("P")
 R = TypeVar("R")

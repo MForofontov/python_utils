@@ -2,9 +2,10 @@
 Unit tests for write_lines function.
 """
 
-import pytest
 import os
 import tempfile
+
+import pytest
 from file_functions import write_lines
 
 

@@ -1,6 +1,7 @@
-import pytest
 import logging
 from typing import Any
+
+import pytest
 from decorators.manipulate_output import manipulate_output
 
 # Configure test_logger

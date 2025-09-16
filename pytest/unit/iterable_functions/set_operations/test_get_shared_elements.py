@@ -1,5 +1,6 @@
-import pytest
 from typing import Any
+
+import pytest
 from iterable_functions.set_operations.get_shared_elements import get_shared_elements
 
 

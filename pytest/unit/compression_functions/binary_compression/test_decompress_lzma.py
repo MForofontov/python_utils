@@ -1,5 +1,6 @@
-import pytest
 import lzma
+
+import pytest
 from compression_functions.binary_compression.decompress_lzma import decompress_lzma
 
 

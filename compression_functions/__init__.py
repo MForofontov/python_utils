@@ -1,6 +1,3 @@
-from .decompress_number import decompress_number
-from .polyline_decoding_list_of_ints import polyline_decoding_list_of_ints
-from .polyline_encoding_list_of_ints import polyline_encoding_list_of_ints
 from .binary_compression.compress_bz2 import compress_bz2
 from .binary_compression.compress_data import compress_data
 from .binary_compression.compress_gzip import compress_gzip
@@ -15,6 +12,7 @@ from .binary_compression.decompress_lzma import decompress_lzma
 from .binary_compression.decompress_snappy import decompress_snappy
 from .binary_compression.decompress_zlib import decompress_zlib
 from .binary_compression.decompress_zstd import decompress_zstd
+from .decompress_number import decompress_number
 from .files_compression.compress_file_bz2 import compress_file_bz2
 from .files_compression.compress_file_gzip import compress_file_gzip
 from .files_compression.compress_file_lzma import compress_file_lzma
@@ -25,6 +23,8 @@ from .files_compression.decompress_file_gzip import decompress_file_gzip
 from .files_compression.decompress_file_lzma import decompress_file_lzma
 from .files_compression.decompress_file_tar import decompress_file_tar
 from .files_compression.decompress_file_zip import decompress_file_zip
+from .polyline_decoding_list_of_ints import polyline_decoding_list_of_ints
+from .polyline_encoding_list_of_ints import polyline_encoding_list_of_ints
 
 __all__ = [
     "decompress_number",

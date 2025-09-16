@@ -1,7 +1,8 @@
 """Unit tests for domain extraction functionality."""
 
-import pytest
 from unittest.mock import patch
+
+import pytest
 from http_functions.extract_domain import extract_domain
 
 

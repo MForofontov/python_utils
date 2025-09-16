@@ -1,14 +1,14 @@
 from .avl_node import AVLNode, AVLTree
-from .binary_tree import BinaryTreeNode, BinaryTree
+from .binary_tree import BinaryTree, BinaryTreeNode
 from .circular_queue import CircularQueue
 from .graph import Graph
 from .hash_table import HashTable
-from .linked_list import Node, LinkedList
+from .linked_list import LinkedList, Node
 from .red_black_tree import RedBlackNode, RedBlackTree
 from .segment_tree import SegmentTree
-from .skip_list import SkipNode, SkipList
+from .skip_list import SkipList, SkipNode
 from .splay_tree import SplayNode, SplayTree
-from .trie import TrieNode, Trie
+from .trie import Trie, TrieNode
 from .union_find import UnionFind
 
 __all__ = [

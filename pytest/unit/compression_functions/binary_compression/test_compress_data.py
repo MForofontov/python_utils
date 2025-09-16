@@ -1,9 +1,11 @@
-import pytest
 import bz2
 import gzip
 import lzma
+
 import snappy
 import zstandard as zstd
+
+import pytest
 from compression_functions.binary_compression.compress_data import compress_data
 
 

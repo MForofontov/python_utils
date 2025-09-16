@@ -2,8 +2,8 @@
 Module for pinging a host.
 """
 
-import subprocess
 import platform
+import subprocess
 
 
 def ping_host(host: str, count: int = 1, timeout: int = 5) -> bool:

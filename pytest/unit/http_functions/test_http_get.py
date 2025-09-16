@@ -1,8 +1,9 @@
 """Unit tests for HTTP GET functionality."""
 
-import pytest
-from unittest.mock import patch, Mock
 import urllib.error
+from unittest.mock import Mock, patch
+
+import pytest
 from http_functions.http_get import http_get
 
 

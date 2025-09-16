@@ -1,5 +1,6 @@
-import pytest
 import math
+
+import pytest
 from mathematical_functions.random.random_normal import random_normal
 
 

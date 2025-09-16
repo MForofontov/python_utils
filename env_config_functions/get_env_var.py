@@ -1,6 +1,6 @@
 import os
-from typing import Any
 from collections.abc import Callable
+from typing import Any
 
 
 def get_env_var(

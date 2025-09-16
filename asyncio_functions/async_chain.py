@@ -1,6 +1,5 @@
+from collections.abc import Awaitable, Callable
 from typing import TypeVar, cast
-from collections.abc import Callable
-from collections.abc import Awaitable
 
 # Define type variables T and R to represent input and output types
 T = TypeVar("T")

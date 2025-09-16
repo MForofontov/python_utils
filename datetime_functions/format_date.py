@@ -1,6 +1,6 @@
 """Date formatting functionality."""
 
-from datetime import datetime, date
+from datetime import date, datetime
 
 
 def format_date(date_obj: datetime | date, format_string: str = "%Y-%m-%d") -> str:

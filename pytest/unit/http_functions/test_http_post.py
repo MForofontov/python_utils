@@ -1,9 +1,10 @@
 """Unit tests for HTTP POST functionality."""
 
-import pytest
-from unittest.mock import patch, Mock
-import urllib.error
 import json
+import urllib.error
+from unittest.mock import Mock, patch
+
+import pytest
 from http_functions.http_post import http_post
 
 

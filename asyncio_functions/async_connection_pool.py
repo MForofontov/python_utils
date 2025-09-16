@@ -1,7 +1,6 @@
-from typing import TypeVar, Generic
-from collections.abc import Callable
-from collections.abc import Awaitable
 import asyncio
+from collections.abc import Awaitable, Callable
+from typing import Generic, TypeVar
 
 # Define type variables for the connection object and the return type of the task
 C = TypeVar("C")

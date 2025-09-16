@@ -1,6 +1,6 @@
 """Get the end of year for a given date."""
 
-from datetime import datetime, date
+from datetime import date, datetime
 
 
 def get_end_of_year(date_obj: datetime | date) -> datetime | date:

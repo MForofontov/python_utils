@@ -2,8 +2,9 @@
 Unit tests for generate_secure_token function.
 """
 
-import pytest
 import string
+
+import pytest
 from security_functions.token_generation.generate_secure_token import (
     generate_secure_token,
 )

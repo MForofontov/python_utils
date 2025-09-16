@@ -1,5 +1,6 @@
-import pytest
 from typing import Any
+
+import pytest
 from iterable_functions.dictionary_operations.merge_dicts_recursive import (
     merge_dicts_recursive,
 )

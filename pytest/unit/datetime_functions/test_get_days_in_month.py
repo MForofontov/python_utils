@@ -1,5 +1,6 @@
-import pytest
 from datetime import date
+
+import pytest
 from datetime_functions.get_days_in_month import get_days_in_month
 
 

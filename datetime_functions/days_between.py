@@ -1,6 +1,6 @@
 """Calculate days between two dates."""
 
-from datetime import datetime, date
+from datetime import date, datetime
 
 
 def days_between(date1: datetime | date, date2: datetime | date) -> int:

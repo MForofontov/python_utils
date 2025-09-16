@@ -1,8 +1,9 @@
-import logging
-from functools import wraps
-from typing import Any, get_type_hints, get_origin, get_args, ParamSpec, TypeVar
 import inspect
+import logging
 from collections.abc import Callable
+from functools import wraps
+from typing import Any, ParamSpec, TypeVar, get_args, get_origin, get_type_hints
+
 from logger_functions.logger import validate_logger
 
 P = ParamSpec("P")
@@ -88,7 +89,7 @@ def enforce_types(
                         return all(_is_instance(v, args[0]) for v in value)
                     if len(args) != len(value):
                         return False
-                    return all(_is_instance(v, t) for v, t in zip(value, args))
+                    return all(_is_instance(v, t) for v, t in zip(value, args, strict=False))
                 if origin is dict:
                     if not isinstance(value, dict):
                         return False

@@ -1,6 +1,6 @@
 """Modify weeks on a date or datetime object."""
 
-from datetime import datetime, date, timedelta
+from datetime import date, datetime, timedelta
 
 
 def modify_weeks(date_obj: datetime | date, weeks: int) -> datetime | date:

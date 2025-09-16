@@ -1,6 +1,6 @@
+from collections.abc import Callable
 from multiprocessing import Pool, cpu_count
 from typing import TypeVar
-from collections.abc import Callable
 
 T = TypeVar("T")
 R = TypeVar("R")

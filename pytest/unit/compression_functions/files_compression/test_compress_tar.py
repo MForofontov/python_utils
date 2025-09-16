@@ -1,6 +1,7 @@
-import pytest
 import os
 import tarfile
+
+import pytest
 from compression_functions.files_compression.compress_tar import compress_tar
 
 

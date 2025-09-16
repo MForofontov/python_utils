@@ -11,6 +11,7 @@ import pytest
 # Try to import cerberus - tests will be skipped if not available
 try:
     from cerberus import Validator
+
     from data_validation import validate_cerberus_schema
 
     CERBERUS_AVAILABLE = True

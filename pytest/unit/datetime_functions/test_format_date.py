@@ -1,5 +1,6 @@
+from datetime import date, datetime
+
 import pytest
-from datetime import datetime, date
 from datetime_functions.format_date import format_date
 
 

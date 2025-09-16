@@ -2,7 +2,6 @@ import os
 from pathlib import Path
 
 import pytest
-
 from file_functions import (
     get_paths_in_directory_with_suffix,
 )

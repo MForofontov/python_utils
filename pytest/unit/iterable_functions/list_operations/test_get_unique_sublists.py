@@ -1,5 +1,6 @@
-import pytest
 from typing import Any
+
+import pytest
 from iterable_functions.list_operations.get_unique_sublists import get_unique_sublists
 
 

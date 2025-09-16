@@ -1,8 +1,8 @@
 import platform
 import shutil
-
 from collections.abc import Iterable
 from importlib.metadata import PackageNotFoundError, version
+
 from print_functions.print_message import print_message
 
 

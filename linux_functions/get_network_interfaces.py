@@ -2,8 +2,9 @@
 Module for getting network interface information.
 """
 
-import psutil
 from typing import Any
+
+import psutil
 
 
 def get_network_interfaces() -> dict[str, list[dict[str, Any]]]:
