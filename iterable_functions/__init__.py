@@ -48,6 +48,8 @@ from .list_operations import (
     group_by,
     is_nested_list_empty,
     repeat_strings_in_a_list,
+    find_duplicates,
+    sliding_window,
 )
 from .set_operations import (
     check_if_all_sets_are_same,
@@ -67,6 +69,7 @@ from .set_operations import (
     set_power_set,
     set_power_set_as_lists,
     set_symmetric_difference,
+    partition_set_by_sizes,
 )
 from .type_operations import (
     has_element_of_type,
@@ -89,6 +92,8 @@ __all__ = [
     "group_by",
     "is_nested_list_empty",
     "repeat_strings_in_a_list",
+    "find_duplicates",
+    "sliding_window",
     # Set operations
     "check_if_all_sets_are_same",
     "convert_set_elements_to_strings",
@@ -107,6 +112,7 @@ __all__ = [
     "get_combinations_with_replacement",
     "get_permutations",
     "count_combinations",
+    "partition_set_by_sizes",
     # List comparison
     "all_match_lists",
     "any_match_lists",
