@@ -34,7 +34,7 @@ def dict_structural_difference(
     --------
     >>> d1 = {'a': 1, 'b': 2, 'c': {'d': 3}}
     >>> d2 = {'a': 1, 'b': 3, 'e': 4, 'c': {'d': 4}}
-    >>> diff = dict_diff(d1, d2)
+    >>> diff = dict_structural_difference(d1, d2)
     >>> diff['modified']
     ['b', 'c']
     >>> diff['added']

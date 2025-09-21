@@ -6,7 +6,7 @@ from iterable_functions.dictionary_operations.filter_dict_by_keys import (
 )
 
 
-def test_filter_dict_by_keys_case_1_exact_key_matches() -> None:
+def test_filter_dict_by_keys_exact_key_matches() -> None:
     """
     Test case 1: Normal operation with exact key matches.
     """
@@ -27,7 +27,7 @@ def test_filter_dict_by_keys_case_1_exact_key_matches() -> None:
     assert result == expected_output
 
 
-def test_filter_dict_by_keys_case_2_set_of_keys() -> None:
+def test_filter_dict_by_keys_set_of_keys() -> None:
     """
     Test case 2: Normal operation with set of keys.
     """
@@ -43,7 +43,7 @@ def test_filter_dict_by_keys_case_2_set_of_keys() -> None:
     assert result == expected_output
 
 
-def test_filter_dict_by_keys_case_3_regex_pattern() -> None:
+def test_filter_dict_by_keys_regex_pattern() -> None:
     """
     Test case 3: Normal operation with regex pattern.
     """
@@ -64,7 +64,7 @@ def test_filter_dict_by_keys_case_3_regex_pattern() -> None:
     assert result == expected_output
 
 
-def test_filter_dict_by_keys_case_4_invert_filter() -> None:
+def test_filter_dict_by_keys_invert_filter() -> None:
     """
     Test case 4: Normal operation with invert flag.
     """
@@ -80,7 +80,7 @@ def test_filter_dict_by_keys_case_4_invert_filter() -> None:
     assert result == expected_output
 
 
-def test_filter_dict_by_keys_case_5_pattern_with_invert() -> None:
+def test_filter_dict_by_keys_pattern_with_invert() -> None:
     """
     Test case 5: Normal operation with pattern and invert.
     """
@@ -96,7 +96,7 @@ def test_filter_dict_by_keys_case_5_pattern_with_invert() -> None:
     assert result == expected_output
 
 
-def test_filter_dict_by_keys_case_6_no_matches() -> None:
+def test_filter_dict_by_keys_no_matches() -> None:
     """
     Test case 6: Edge case with no matches.
     """
@@ -112,7 +112,7 @@ def test_filter_dict_by_keys_case_6_no_matches() -> None:
     assert result == expected_output
 
 
-def test_filter_dict_by_keys_case_7_empty_keys_list() -> None:
+def test_filter_dict_by_keys_empty_keys_list() -> None:
     """
     Test case 7: Edge case with empty keys list.
     """
@@ -128,7 +128,7 @@ def test_filter_dict_by_keys_case_7_empty_keys_list() -> None:
     assert result == expected_output
 
 
-def test_filter_dict_by_keys_case_8_no_keys_no_pattern() -> None:
+def test_filter_dict_by_keys_no_keys_no_pattern() -> None:
     """
     Test case 8: Edge case with no keys and no pattern.
     """
@@ -143,7 +143,7 @@ def test_filter_dict_by_keys_case_8_no_keys_no_pattern() -> None:
     assert result == expected_output
 
 
-def test_filter_dict_by_keys_case_9_invalid_dict_type_error() -> None:
+def test_filter_dict_by_keys_invalid_dict_type_error() -> None:
     """
     Test case 9: TypeError for invalid dictionary input.
     """
@@ -157,7 +157,7 @@ def test_filter_dict_by_keys_case_9_invalid_dict_type_error() -> None:
         filter_dict_by_keys(invalid_input, filter_keys)
 
 
-def test_filter_dict_by_keys_case_10_invalid_keys_type_error() -> None:
+def test_filter_dict_by_keys_invalid_keys_type_error() -> None:
     """
     Test case 10: TypeError for invalid keys type.
     """
@@ -171,7 +171,7 @@ def test_filter_dict_by_keys_case_10_invalid_keys_type_error() -> None:
         filter_dict_by_keys(input_data, invalid_keys)
 
 
-def test_filter_dict_by_keys_case_11_no_modification_original() -> None:
+def test_filter_dict_by_keys_no_modification_original() -> None:
     """
     Test case 11: Verify original dictionary is not modified.
     """

@@ -48,7 +48,7 @@ def dict_value_difference(
     Notes
     -----
     This function performs a shallow comparison of dictionary values.
-    For nested dictionaries, use dict_diff for more detailed analysis.
+    For nested dictionaries, use dict_structural_difference for more detailed analysis.
 
     Complexity
     ----------

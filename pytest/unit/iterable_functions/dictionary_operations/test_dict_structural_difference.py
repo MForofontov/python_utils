@@ -1,11 +1,11 @@
 from typing import Any
 
-from iterable_functions.dictionary_operations.dict_diff import dict_diff
+from iterable_functions.dictionary_operations.dict_structural_difference import dict_structural_difference
 
 import pytest
 
 
-def test_dict_diff_case_1_identical_dictionaries() -> None:
+def test_dict_structural_difference_identical_dicts() -> None:
     """
     Test case 1: Normal operation with identical dictionaries.
     """
@@ -20,13 +20,13 @@ def test_dict_diff_case_1_identical_dictionaries() -> None:
     }
 
     # Act
-    result = dict_diff(dict1, dict2)
+    result = dict_structural_difference(dict1, dict2)
 
     # Assert
     assert result == expected_output
 
 
-def test_dict_diff_case_2_added_keys() -> None:
+def test_dict_structural_difference_added_keys() -> None:
     """
     Test case 2: Normal operation with added keys.
     """
@@ -41,13 +41,13 @@ def test_dict_diff_case_2_added_keys() -> None:
     }
 
     # Act
-    result = dict_diff(dict1, dict2)
+    result = dict_structural_difference(dict1, dict2)
 
     # Assert
     assert result == expected_output
 
 
-def test_dict_diff_case_3_removed_keys() -> None:
+def test_dict_structural_difference_removed_keys() -> None:
     """
     Test case 3: Normal operation with removed keys.
     """
@@ -62,13 +62,13 @@ def test_dict_diff_case_3_removed_keys() -> None:
     }
 
     # Act
-    result = dict_diff(dict1, dict2)
+    result = dict_structural_difference(dict1, dict2)
 
     # Assert
     assert result == expected_output
 
 
-def test_dict_diff_case_4_modified_values() -> None:
+def test_dict_structural_difference_modified_values() -> None:
     """
     Test case 4: Normal operation with modified values.
     """
@@ -83,13 +83,13 @@ def test_dict_diff_case_4_modified_values() -> None:
     }
 
     # Act
-    result = dict_diff(dict1, dict2)
+    result = dict_structural_difference(dict1, dict2)
 
     # Assert
     assert result == expected_output
 
 
-def test_dict_diff_case_5_mixed_changes() -> None:
+def test_dict_structural_difference_mixed_changes() -> None:
     """
     Test case 5: Normal operation with mixed changes.
     """
@@ -104,13 +104,13 @@ def test_dict_diff_case_5_mixed_changes() -> None:
     }
 
     # Act
-    result = dict_diff(dict1, dict2)
+    result = dict_structural_difference(dict1, dict2)
 
     # Assert
     assert result == expected_output
 
 
-def test_dict_diff_case_6_nested_dictionaries() -> None:
+def test_dict_structural_difference_nested_dictionaries() -> None:
     """
     Test case 6: Normal operation with nested dictionaries.
     """
@@ -125,13 +125,13 @@ def test_dict_diff_case_6_nested_dictionaries() -> None:
     }
 
     # Act
-    result = dict_diff(dict1, dict2)
+    result = dict_structural_difference(dict1, dict2)
 
     # Assert
     assert result == expected_output
 
 
-def test_dict_diff_case_7_nested_recursive_comparison() -> None:
+def test_dict_structural_difference_nested_recursive_comparison() -> None:
     """
     Test case 7: Normal operation with nested dictionaries using recursive comparison.
     """
@@ -146,13 +146,13 @@ def test_dict_diff_case_7_nested_recursive_comparison() -> None:
     }
 
     # Act
-    result = dict_diff(dict1, dict2, recursive=True)
+    result = dict_structural_difference(dict1, dict2, recursive=True)
 
     # Assert
     assert result == expected_output
 
 
-def test_dict_diff_case_8_empty_dictionaries() -> None:
+def test_dict_structural_difference_empty_dicts() -> None:
     """
     Test case 8: Edge case with empty dictionaries.
     """
@@ -167,13 +167,13 @@ def test_dict_diff_case_8_empty_dictionaries() -> None:
     }
 
     # Act
-    result = dict_diff(dict1, dict2)
+    result = dict_structural_difference(dict1, dict2)
 
     # Assert
     assert result == expected_output
 
 
-def test_dict_diff_case_9_one_empty_dictionary() -> None:
+def test_dict_structural_difference_one_empty_dict() -> None:
     """
     Test case 9: Edge case with one empty dictionary.
     """
@@ -188,13 +188,13 @@ def test_dict_diff_case_9_one_empty_dictionary() -> None:
     }
 
     # Act
-    result = dict_diff(dict1, dict2)
+    result = dict_structural_difference(dict1, dict2)
 
     # Assert
     assert result == expected_output
 
 
-def test_dict_diff_case_10_invalid_type_error() -> None:
+def test_dict_structural_difference_type_error_invalid_input() -> None:
     """
     Test case 10: TypeError for invalid input types.
     """
@@ -205,10 +205,10 @@ def test_dict_diff_case_10_invalid_type_error() -> None:
 
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
-        dict_diff(dict1, invalid_dict2)
+        dict_structural_difference(dict1, invalid_dict2)
 
 
-def test_dict_diff_case_11_complex_nested_structure() -> None:
+def test_dict_structural_difference_complex_nested_structure() -> None:
     """
     Test case 11: Normal operation with complex nested structure.
     """
@@ -233,13 +233,13 @@ def test_dict_diff_case_11_complex_nested_structure() -> None:
     }
 
     # Act
-    result = dict_diff(dict1, dict2, recursive=True)
+    result = dict_structural_difference(dict1, dict2, recursive=True)
 
     # Assert
     assert result == expected_output
 
 
-def test_dict_diff_case_12_no_changes() -> None:
+def test_dict_structural_difference_no_changes_deeply_nested() -> None:
     """
     Test case 12: Edge case with no changes in deeply nested structure.
     """
@@ -254,7 +254,7 @@ def test_dict_diff_case_12_no_changes() -> None:
     }
 
     # Act
-    result = dict_diff(dict1, dict2, recursive=True)
+    result = dict_structural_difference(dict1, dict2, recursive=True)
 
     # Assert
     assert result == expected_output
