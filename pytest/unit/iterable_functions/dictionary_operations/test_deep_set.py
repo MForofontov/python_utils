@@ -4,7 +4,7 @@ import pytest
 from iterable_functions.dictionary_operations.deep_set import deep_set
 
 
-def test_deep_set_case_1_basic_functionality() -> None:
+def test_deep_set_basic_functionality() -> None:
     """
     Test case 1: Normal operation with basic deep set functionality.
     """
@@ -21,7 +21,7 @@ def test_deep_set_case_1_basic_functionality() -> None:
     assert input_data == expected_output
 
 
-def test_deep_set_case_2_list_of_keys() -> None:
+def test_deep_set_list_of_keys() -> None:
     """
     Test case 2: Normal operation with list of keys.
     """
@@ -40,7 +40,7 @@ def test_deep_set_case_2_list_of_keys() -> None:
     assert input_data == expected_output
 
 
-def test_deep_set_case_3_existing_nested_structure() -> None:
+def test_deep_set_existing_nested_structure() -> None:
     """
     Test case 3: Normal operation on existing nested structure.
     """
@@ -57,7 +57,7 @@ def test_deep_set_case_3_existing_nested_structure() -> None:
     assert input_data == expected_output
 
 
-def test_deep_set_case_4_overwrite_existing_value() -> None:
+def test_deep_set_overwrite_existing_value() -> None:
     """
     Test case 4: Normal operation overwriting existing value.
     """
@@ -74,7 +74,7 @@ def test_deep_set_case_4_overwrite_existing_value() -> None:
     assert input_data == expected_output
 
 
-def test_deep_set_case_5_root_level_key() -> None:
+def test_deep_set_root_level_key() -> None:
     """
     Test case 5: Normal operation with root level key.
     """
@@ -91,7 +91,7 @@ def test_deep_set_case_5_root_level_key() -> None:
     assert input_data == expected_output
 
 
-def test_deep_set_case_6_deeply_nested_structure() -> None:
+def test_deep_set_deeply_nested_structure() -> None:
     """
     Test case 6: Normal operation with deeply nested structure.
     """
@@ -110,7 +110,7 @@ def test_deep_set_case_6_deeply_nested_structure() -> None:
     assert input_data == expected_output
 
 
-def test_deep_set_case_7_mixed_data_types() -> None:
+def test_deep_set_mixed_data_types() -> None:
     """
     Test case 7: Normal operation with mixed data types.
     """
@@ -129,7 +129,7 @@ def test_deep_set_case_7_mixed_data_types() -> None:
     assert input_data == expected_output
 
 
-def test_deep_set_case_8_invalid_type_error() -> None:
+def test_deep_set_invalid_type_error() -> None:
     """
     Test case 8: TypeError for invalid input type.
     """
@@ -144,7 +144,7 @@ def test_deep_set_case_8_invalid_type_error() -> None:
         deep_set(invalid_input, key_path, value)
 
 
-def test_deep_set_case_9_empty_string_in_path() -> None:
+def test_deep_set_empty_string_in_path() -> None:
     """
     Test case 9: Edge case with empty string in path.
     """
@@ -161,7 +161,7 @@ def test_deep_set_case_9_empty_string_in_path() -> None:
     assert input_data == expected_output
 
 
-def test_deep_set_case_10_single_key() -> None:
+def test_deep_set_single_key() -> None:
     """
     Test case 10: Edge case with single key.
     """
@@ -178,7 +178,7 @@ def test_deep_set_case_10_single_key() -> None:
     assert input_data == expected_output
 
 
-def test_deep_set_case_11_numeric_keys_in_path() -> None:
+def test_deep_set_numeric_keys_in_path() -> None:
     """
     Test case 11: Normal operation with numeric keys in path.
     """

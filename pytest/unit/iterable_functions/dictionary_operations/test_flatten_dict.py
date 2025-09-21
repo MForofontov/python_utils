@@ -4,7 +4,7 @@ import pytest
 from iterable_functions.dictionary_operations.flatten_dict import flatten_dict
 
 
-def test_flatten_dict_case_1_basic_flat_dictionary() -> None:
+def test_flatten_dict_basic_flat_dictionary() -> None:
     """
     Test case 1: Basic operation with flat dictionary.
     """
@@ -19,7 +19,7 @@ def test_flatten_dict_case_1_basic_flat_dictionary() -> None:
     assert result == expected_output
 
 
-def test_flatten_dict_case_2_nested_dictionary() -> None:
+def test_flatten_dict_nested_dictionary() -> None:
     """
     Test case 2: Normal operation with nested dictionary.
     """
@@ -34,7 +34,7 @@ def test_flatten_dict_case_2_nested_dictionary() -> None:
     assert result == expected_output
 
 
-def test_flatten_dict_case_3_deeply_nested_dictionary() -> None:
+def test_flatten_dict_deeply_nested_dictionary() -> None:
     """
     Test case 3: Normal operation with deeply nested dictionary.
     """
@@ -49,7 +49,7 @@ def test_flatten_dict_case_3_deeply_nested_dictionary() -> None:
     assert result == expected_output
 
 
-def test_flatten_dict_case_4_custom_separator() -> None:
+def test_flatten_dict_custom_separator() -> None:
     """
     Test case 4: Normal operation with custom separator.
     """
@@ -64,7 +64,7 @@ def test_flatten_dict_case_4_custom_separator() -> None:
     assert result == expected_output
 
 
-def test_flatten_dict_case_5_with_prefix() -> None:
+def test_flatten_dict_with_prefix() -> None:
     """
     Test case 5: Normal operation with prefix.
     """
@@ -79,7 +79,7 @@ def test_flatten_dict_case_5_with_prefix() -> None:
     assert result == expected_output
 
 
-def test_flatten_dict_case_6_mixed_value_types() -> None:
+def test_flatten_dict_mixed_value_types() -> None:
     """
     Test case 6: Normal operation with mixed value types.
     """
@@ -104,7 +104,7 @@ def test_flatten_dict_case_6_mixed_value_types() -> None:
     assert result == expected_output
 
 
-def test_flatten_dict_case_7_empty_dictionary() -> None:
+def test_flatten_dict_empty_dictionary() -> None:
     """
     Test case 7: Edge case with empty dictionary.
     """
@@ -119,7 +119,7 @@ def test_flatten_dict_case_7_empty_dictionary() -> None:
     assert result == expected_output
 
 
-def test_flatten_dict_case_8_invalid_type_error() -> None:
+def test_flatten_dict_invalid_type_error() -> None:
     """
     Test case 8: TypeError for invalid input type.
     """
@@ -132,7 +132,7 @@ def test_flatten_dict_case_8_invalid_type_error() -> None:
         flatten_dict(invalid_input)
 
 
-def test_flatten_dict_case_9_no_modification_original() -> None:
+def test_flatten_dict_no_modification_original() -> None:
     """
     Test case 9: Verify original dictionary is not modified.
     """
@@ -147,7 +147,7 @@ def test_flatten_dict_case_9_no_modification_original() -> None:
     assert input_data == original_data
 
 
-def test_flatten_dict_case_10_complex_separator() -> None:
+def test_flatten_dict_complex_separator() -> None:
     """
     Test case 10: Normal operation with complex separator.
     """

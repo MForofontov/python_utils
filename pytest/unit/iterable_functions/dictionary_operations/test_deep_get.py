@@ -4,7 +4,7 @@ import pytest
 from iterable_functions.dictionary_operations.deep_get import deep_get
 
 
-def test_deep_get_case_1_basic_functionality() -> None:
+def test_deep_get_basic_functionality() -> None:
     """
     Test case 1: Normal operation with basic deep get functionality.
     """
@@ -20,7 +20,7 @@ def test_deep_get_case_1_basic_functionality() -> None:
     assert result == expected_output
 
 
-def test_deep_get_case_2_list_of_keys() -> None:
+def test_deep_get_list_of_keys() -> None:
     """
     Test case 2: Normal operation with list of keys.
     """
@@ -36,7 +36,7 @@ def test_deep_get_case_2_list_of_keys() -> None:
     assert result == expected_output
 
 
-def test_deep_get_case_3_default_value() -> None:
+def test_deep_get_default_value() -> None:
     """
     Test case 3: Normal operation with default value for missing key.
     """
@@ -53,7 +53,7 @@ def test_deep_get_case_3_default_value() -> None:
     assert result == expected_output
 
 
-def test_deep_get_case_4_missing_key() -> None:
+def test_deep_get_missing_key() -> None:
     """
     Test case 4: Edge case with missing key (returns None).
     """
@@ -69,7 +69,7 @@ def test_deep_get_case_4_missing_key() -> None:
     assert result == expected_output
 
 
-def test_deep_get_case_5_partial_path() -> None:
+def test_deep_get_partial_path() -> None:
     """
     Test case 5: Edge case with partial path existing.
     """
@@ -85,7 +85,7 @@ def test_deep_get_case_5_partial_path() -> None:
     assert result == expected_output
 
 
-def test_deep_get_case_6_empty_dictionary() -> None:
+def test_deep_get_empty_dictionary() -> None:
     """
     Test case 6: Edge case with empty dictionary.
     """
@@ -101,7 +101,7 @@ def test_deep_get_case_6_empty_dictionary() -> None:
     assert result == expected_output
 
 
-def test_deep_get_case_7_root_level_key() -> None:
+def test_deep_get_root_level_key() -> None:
     """
     Test case 7: Normal operation with root level key.
     """
@@ -117,7 +117,7 @@ def test_deep_get_case_7_root_level_key() -> None:
     assert result == expected_output
 
 
-def test_deep_get_case_8_invalid_type_error() -> None:
+def test_deep_get_invalid_type_error() -> None:
     """
     Test case 8: TypeError for invalid input type.
     """
@@ -131,7 +131,7 @@ def test_deep_get_case_8_invalid_type_error() -> None:
         deep_get(invalid_input, key_path)
 
 
-def test_deep_get_case_9_deeply_nested_structure() -> None:
+def test_deep_get_deeply_nested_structure() -> None:
     """
     Test case 9: Normal operation with deeply nested structure.
     """
@@ -147,7 +147,7 @@ def test_deep_get_case_9_deeply_nested_structure() -> None:
     assert result == expected_output
 
 
-def test_deep_get_case_10_mixed_data_types() -> None:
+def test_deep_get_mixed_data_types() -> None:
     """
     Test case 10: Normal operation with mixed data types.
     """
@@ -171,7 +171,7 @@ def test_deep_get_case_10_mixed_data_types() -> None:
     assert result == expected_output
 
 
-def test_deep_get_case_11_empty_string_in_path() -> None:
+def test_deep_get_empty_string_in_path() -> None:
     """
     Test case 11: Edge case with empty string in path.
     """

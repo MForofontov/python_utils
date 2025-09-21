@@ -4,7 +4,7 @@ import pytest
 from iterable_functions.dictionary_operations.invert_dict import invert_dict
 
 
-def test_invert_dict_case_1_basic_inversion() -> None:
+def test_invert_dict_basic_inversion() -> None:
     """
     Test case 1: Normal operation with basic dictionary inversion.
     """
@@ -19,7 +19,7 @@ def test_invert_dict_case_1_basic_inversion() -> None:
     assert result == expected_output
 
 
-def test_invert_dict_case_2_allow_duplicates() -> None:
+def test_invert_dict_allow_duplicates() -> None:
     """
     Test case 2: Normal operation with duplicate values allowed.
     """
@@ -34,7 +34,7 @@ def test_invert_dict_case_2_allow_duplicates() -> None:
     assert result == expected_output
 
 
-def test_invert_dict_case_3_duplicates_not_allowed_error() -> None:
+def test_invert_dict_duplicates_not_allowed_error() -> None:
     """
     Test case 3: ValueError for duplicate values when not allowed.
     """
@@ -47,7 +47,7 @@ def test_invert_dict_case_3_duplicates_not_allowed_error() -> None:
         invert_dict(input_data, allow_duplicates=False)
 
 
-def test_invert_dict_case_4_empty_dictionary() -> None:
+def test_invert_dict_empty_dictionary() -> None:
     """
     Test case 4: Edge case with empty dictionary.
     """
@@ -62,7 +62,7 @@ def test_invert_dict_case_4_empty_dictionary() -> None:
     assert result == expected_output
 
 
-def test_invert_dict_case_5_mixed_value_types() -> None:
+def test_invert_dict_mixed_value_types() -> None:
     """
     Test case 5: Normal operation with mixed value types.
     """
@@ -77,7 +77,7 @@ def test_invert_dict_case_5_mixed_value_types() -> None:
     assert result == expected_output
 
 
-def test_invert_dict_case_6_invalid_type_error() -> None:
+def test_invert_dict_invalid_type_error() -> None:
     """
     Test case 6: TypeError for invalid input type.
     """
@@ -90,7 +90,7 @@ def test_invert_dict_case_6_invalid_type_error() -> None:
         invert_dict(invalid_input)
 
 
-def test_invert_dict_case_7_multiple_duplicates() -> None:
+def test_invert_dict_multiple_duplicates() -> None:
     """
     Test case 7: Normal operation with multiple duplicates.
     """
@@ -105,7 +105,7 @@ def test_invert_dict_case_7_multiple_duplicates() -> None:
     assert result == expected_output
 
 
-def test_invert_dict_case_8_single_item() -> None:
+def test_invert_dict_single_item() -> None:
     """
     Test case 8: Edge case with single item dictionary.
     """
@@ -120,7 +120,7 @@ def test_invert_dict_case_8_single_item() -> None:
     assert result == expected_output
 
 
-def test_invert_dict_case_9_no_modification_original() -> None:
+def test_invert_dict_no_modification_original() -> None:
     """
     Test case 9: Verify original dictionary is not modified.
     """
@@ -135,7 +135,7 @@ def test_invert_dict_case_9_no_modification_original() -> None:
     assert input_data == original_data
 
 
-def test_invert_dict_case_10_no_duplicates_with_allow_true() -> None:
+def test_invert_dict_no_duplicates_with_allow_true() -> None:
     """
     Test case 10: Normal operation with no duplicates but allow_duplicates=True.
     """
