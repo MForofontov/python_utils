@@ -16,7 +16,8 @@ async def async_parallel_download(
     dest_path : str
         The local file path to save the downloaded content.
     num_chunks : int, optional
-        Number of parallel chunks (default 8).
+        Number of parallel chunks (default 8). The actual chunk count will not
+        exceed the file size so that every chunk downloads at least one byte.
     timeout : float, optional
         Timeout in seconds (default 30.0).
 
@@ -70,12 +71,16 @@ async def async_parallel_download(
                         "Server does not support range requests or file size unknown"
                     )
             # Prepare chunk ranges
+            chunk_count = min(num_chunks, size)
+            base_chunk_size = size // chunk_count
+            remainder = size % chunk_count
             ranges = []
-            chunk_size = size // num_chunks
-            for i in range(num_chunks):
-                start = i * chunk_size
-                end = start + chunk_size - 1 if i < num_chunks - 1 else size - 1
+            start = 0
+            for i in range(chunk_count):
+                chunk_len = base_chunk_size + (1 if i < remainder else 0)
+                end = min(size, start + chunk_len) - 1
                 ranges.append((start, end))
+                start += chunk_len
 
             # Download chunks in parallel
             async def fetch_chunk(start, end, idx):
