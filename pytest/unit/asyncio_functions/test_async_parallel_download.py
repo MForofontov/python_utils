@@ -63,10 +63,10 @@ async def test_async_parallel_download_normal_operation(tmp_path):
         async def __aexit__(self, exc_type, exc, tb):
             pass
 
-        async def head(self, url):
+        def head(self, url):
             return MockHeadResponse()
 
-        async def get(self, url, headers=None):
+        def get(self, url, headers=None):
             # Parse range
             rng = headers["Range"].split("=")[1]
             start, end = map(int, rng.split("-"))
@@ -78,6 +78,93 @@ async def test_async_parallel_download_normal_operation(tmp_path):
             data = f.read()
             assert data.count(b"x") == len(chunk_data) * (num_chunks - 1)
             assert data.endswith(last_chunk_data)
+
+
+@pytest.mark.asyncio
+async def test_async_parallel_download_more_chunks_than_size(tmp_path):
+    """
+    Ensure chunks are capped by file size so each chunk has at least one byte.
+    """
+
+    url = "https://example.com/small.bin"
+    dest = tmp_path / "small.bin"
+    file_size = 3
+    num_chunks = 10
+
+    class MockHeadResponse:
+        def __init__(self):
+            self.status = 200
+            self.headers = {"Content-Length": str(file_size), "Accept-Ranges": "bytes"}
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, exc_type, exc, tb):
+            pass
+
+        def raise_for_status(self):
+            pass
+
+    class MockGetResponse:
+        def __init__(self, start, end, idx):
+            self.status = 206
+            self._start = start
+            self._end = end
+            self._idx = idx
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, exc_type, exc, tb):
+            pass
+
+        def raise_for_status(self):
+            pass
+
+        @property
+        def content(self):
+            class Content:
+                def __init__(inner_self, idx, start, end):
+                    inner_self._idx = idx
+                    inner_self._start = start
+                    inner_self._end = end
+
+                async def read(inner_self):
+                    length = inner_self._end - inner_self._start + 1
+                    return bytes([65 + inner_self._idx]) * length
+
+            return Content(self._idx, self._start, self._end)
+
+    class MockSession:
+        def __init__(self):
+            self.requests = []
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, exc_type, exc, tb):
+            pass
+
+        def head(self, url):
+            return MockHeadResponse()
+
+        def get(self, url, headers=None):
+            rng = headers["Range"].split("=")[1]
+            start, end = map(int, rng.split("-"))
+            idx = len(self.requests)
+            self.requests.append((start, end))
+            return MockGetResponse(start, end, idx)
+
+    session = MockSession()
+    with patch("aiohttp.ClientSession", return_value=session):
+        await async_parallel_download(url, str(dest), num_chunks=num_chunks)
+
+    assert len(session.requests) == file_size
+    assert all(end - start == 0 for start, end in session.requests)
+
+    with open(dest, "rb") as f:
+        data = f.read()
+    assert data == b"ABC"
 
 
 @pytest.mark.asyncio
@@ -186,7 +273,7 @@ async def test_async_parallel_download_runtime_error_no_range(tmp_path):
         async def __aexit__(self, exc_type, exc, tb):
             pass
 
-        async def head(self, url):
+        def head(self, url):
             return MockHeadResponse()
 
     with patch("aiohttp.ClientSession", return_value=MockSession()):
@@ -227,10 +314,10 @@ async def test_async_parallel_download_runtime_error_download(tmp_path):
         async def __aexit__(self, exc_type, exc, tb):
             pass
 
-        async def head(self, url):
+        def head(self, url):
             return MockHeadResponse()
 
-        async def get(self, url, headers=None):
+        def get(self, url, headers=None):
             raise Exception("network error")
 
     with patch("aiohttp.ClientSession", return_value=MockSession()):
