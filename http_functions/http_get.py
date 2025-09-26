@@ -27,8 +27,10 @@ def http_get(
 
     Raises
     ------
+    TypeError
+        If ``url`` is not provided as a string.
     ValueError
-        If URL is invalid.
+        If ``url`` is an empty or whitespace-only string.
 
     Examples
     --------
@@ -38,7 +40,10 @@ def http_get(
     >>> 'content' in response
     True
     """
-    if not isinstance(url, str) or not url.strip():
+    if not isinstance(url, str):
+        raise TypeError("URL must be a string")
+
+    if not url.strip():
         raise ValueError("URL must be a non-empty string")
 
     # Create request
