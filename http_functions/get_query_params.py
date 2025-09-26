@@ -19,8 +19,10 @@ def get_query_params(url: str) -> dict[str, list[str]]:
 
     Raises
     ------
+    TypeError
+        If ``url`` is not a string.
     ValueError
-        If URL is invalid.
+        If ``url`` is an empty or whitespace-only string.
 
     Examples
     --------
@@ -29,7 +31,10 @@ def get_query_params(url: str) -> dict[str, list[str]]:
     >>> get_query_params('https://example.com')
     {}
     """
-    if not isinstance(url, str) or not url.strip():
+    if not isinstance(url, str):
+        raise TypeError("URL must be a string")
+
+    if not url.strip():
         raise ValueError("URL must be a non-empty string")
 
     parsed = urllib.parse.urlparse(url)

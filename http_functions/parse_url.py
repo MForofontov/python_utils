@@ -21,8 +21,10 @@ def parse_url(url: str) -> dict[str, Any]:
 
     Raises
     ------
+    TypeError
+        If the provided URL is not a string.
     ValueError
-        If URL is invalid or empty.
+        If the URL string is empty or only whitespace.
 
     Examples
     --------
@@ -34,7 +36,10 @@ def parse_url(url: str) -> dict[str, Any]:
     >>> result['port']
     8080
     """
-    if not isinstance(url, str) or not url.strip():
+    if not isinstance(url, str):
+        raise TypeError("URL must be a string")
+
+    if not url.strip():
         raise ValueError("URL must be a non-empty string")
 
     parsed = urllib.parse.urlparse(url)
