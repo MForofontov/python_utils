@@ -42,8 +42,10 @@ def build_url(
 
     Raises
     ------
+    TypeError
+        If ``scheme`` or ``hostname`` are not strings.
     ValueError
-        If required parameters are invalid.
+        If required parameters are empty strings.
 
     Examples
     --------
@@ -52,10 +54,14 @@ def build_url(
     >>> build_url('https', 'example.com', query_params={'q': 'search', 'page': '1'})
     'https://example.com?q=search&page=1'
     """
-    if not isinstance(scheme, str) or not scheme.strip():
+    if not isinstance(scheme, str):
+        raise TypeError("Scheme must be a string")
+    if not scheme.strip():
         raise ValueError("Scheme must be a non-empty string")
 
-    if not isinstance(hostname, str) or not hostname.strip():
+    if not isinstance(hostname, str):
+        raise TypeError("Hostname must be a string")
+    if not hostname.strip():
         raise ValueError("Hostname must be a non-empty string")
 
     # Build netloc
