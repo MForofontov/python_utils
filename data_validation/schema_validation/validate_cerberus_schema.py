@@ -141,39 +141,25 @@ def validate_cerberus_schema(
     # Create validator instance
     validator = Validator(schema, allow_unknown=allow_unknown)
 
-    # Validate the data
+    # Always validate first
+    is_valid = validator.validate(data)
+    if not is_valid:
+        error_details = []
+        for field, errors in validator.errors.items():
+            if isinstance(errors, list):
+                field_errors = "; ".join(str(error) for error in errors)
+            else:
+                field_errors = str(errors)
+            error_details.append(f"{field}: {field_errors}")
+
+        formatted_errors = "; ".join(error_details)
+        raise ValueError(f"{param_name} validation failed: {formatted_errors}")
+
+    # If normalization requested, apply it
     if normalize:
-        # Validate and normalize (applies defaults, coercion, etc.)
         normalized_data = validator.normalized(data)
-        if normalized_data is None:
-            # Validation failed
-            error_details = []
-            for field, errors in validator.errors.items():
-                if isinstance(errors, list):
-                    field_errors = "; ".join(str(error) for error in errors)
-                else:
-                    field_errors = str(errors)
-                error_details.append(f"{field}: {field_errors}")
-
-            formatted_errors = "; ".join(error_details)
-            raise ValueError(f"{param_name} validation failed: {formatted_errors}")
-
         return normalized_data
     else:
-        # Validate without normalization
-        is_valid = validator.validate(data)
-        if not is_valid:
-            error_details = []
-            for field, errors in validator.errors.items():
-                if isinstance(errors, list):
-                    field_errors = "; ".join(str(error) for error in errors)
-                else:
-                    field_errors = str(errors)
-                error_details.append(f"{field}: {field_errors}")
-
-            formatted_errors = "; ".join(error_details)
-            raise ValueError(f"{param_name} validation failed: {formatted_errors}")
-
         return data.copy()  # Return a copy to avoid modifying original
 
 

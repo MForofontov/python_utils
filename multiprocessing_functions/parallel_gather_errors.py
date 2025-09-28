@@ -6,6 +6,12 @@ from typing import TypeVar
 T = TypeVar("T")
 R = TypeVar("R")
 
+def _wrapper(args: tuple[Callable[[T], R], T]) -> tuple[R | None, Exception | None]:
+    func, item = args
+    try:
+        return func(item), None
+    except Exception as e:
+        return None, e
 
 def parallel_gather_errors(
     func: Callable[[T], R], data: list[T], num_processes: int | None = None
@@ -42,13 +48,6 @@ def parallel_gather_errors(
     results = []
     errors = []
 
-    def _wrapper(item: T) -> tuple[R | None, Exception | None]:
-        """Apply ``func`` and capture any raised exception."""
-        try:
-            return func(item), None
-        except Exception as e:
-            return None, e
-
     # If num_processes is not specified, default to the number of available CPUs minus one
     if num_processes is None:
         num_processes = max(
@@ -58,18 +57,14 @@ def parallel_gather_errors(
 
     # Create a pool of worker processes
     with Pool(processes=num_processes) as pool:
-        # Apply the wrapper function to each item in the data list in parallel
-        processed = pool.map(_wrapper, data)
-
-    # Separate results and errors
-    for result, error in processed:
-        if error:
-            errors.append(error)
-        else:
-            results.append(result)
-
-    # Return the list of results and the list of errors
-    return results, errors
+        processed = pool.map(_wrapper, [(func, item) for item in data])
+        for result, error in processed:
+            if error is None:
+                results.append(result)
+            else:
+                errors.append(error)
+    filtered_results = [r for r in results if r is not None]
+    return filtered_results, errors
 
 
 __all__ = ["parallel_gather_errors"]

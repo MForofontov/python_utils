@@ -1,11 +1,13 @@
 from unittest.mock import MagicMock, patch
+from typing import Any
+from pathlib import Path
 
 import pytest
 from asyncio_functions.async_download import async_download
 
 
 @pytest.mark.asyncio
-async def test_async_download_normal_operation(tmp_path):
+async def test_async_download_normal_operation(tmp_path: Path) -> None:
     """
     Test case 1: Normal operation with valid URL and destination.
     """
@@ -14,31 +16,31 @@ async def test_async_download_normal_operation(tmp_path):
     content = b"hello world"
 
     class MockResponse:
-        def __init__(self):
-            self.status = 200
-            self.content = MagicMock()
+        def __init__(self) -> None:
+            self.status: int = 200
+            self.content: Any = MagicMock()
             self.content.iter_chunked = self._iter_chunked
 
-        async def _iter_chunked(self, size):
+        async def _iter_chunked(self, size: int) -> Any:
             yield content
 
-        async def __aenter__(self):
+        async def __aenter__(self) -> 'MockResponse':
             return self
 
-        async def __aexit__(self, exc_type, exc, tb):
+        async def __aexit__(self, exc_type: Any, exc: Any, tb: Any) -> None:
             pass
 
-        def raise_for_status(self):
+        def raise_for_status(self) -> None:
             pass
 
     class MockSession:
-        async def __aenter__(self):
+        async def __aenter__(self) -> 'MockSession':
             return self
 
-        async def __aexit__(self, exc_type, exc, tb):
+        async def __aexit__(self, exc_type: Any, exc: Any, tb: Any) -> None:
             pass
 
-        async def get(self, url):
+        def get(self, url: str) -> MockResponse:
             return MockResponse()
 
     with patch("aiohttp.ClientSession", return_value=MockSession()):
@@ -48,7 +50,7 @@ async def test_async_download_normal_operation(tmp_path):
 
 
 @pytest.mark.asyncio
-async def test_async_download_type_error_url(tmp_path):
+async def test_async_download_type_error_url(tmp_path: Path) -> None:
     """
     Test case 2: TypeError for non-string URL.
     """
@@ -58,7 +60,7 @@ async def test_async_download_type_error_url(tmp_path):
 
 
 @pytest.mark.asyncio
-async def test_async_download_type_error_dest_path():
+async def test_async_download_type_error_dest_path() -> None:
     """
     Test case 3: TypeError for non-string dest_path.
     """
@@ -67,7 +69,7 @@ async def test_async_download_type_error_dest_path():
 
 
 @pytest.mark.asyncio
-async def test_async_download_value_error_url(tmp_path):
+async def test_async_download_value_error_url(tmp_path: Path) -> None:
     """
     Test case 4: ValueError for empty URL.
     """
@@ -77,7 +79,7 @@ async def test_async_download_value_error_url(tmp_path):
 
 
 @pytest.mark.asyncio
-async def test_async_download_type_error_timeout(tmp_path):
+async def test_async_download_type_error_timeout(tmp_path: Path) -> None:
     """
     Test case 5: TypeError for invalid timeout type.
     """
@@ -87,7 +89,7 @@ async def test_async_download_type_error_timeout(tmp_path):
 
 
 @pytest.mark.asyncio
-async def test_async_download_value_error_timeout(tmp_path):
+async def test_async_download_value_error_timeout(tmp_path: Path) -> None:
     """
     Test case 6: ValueError for non-positive timeout.
     """
@@ -97,22 +99,29 @@ async def test_async_download_value_error_timeout(tmp_path):
 
 
 @pytest.mark.asyncio
-async def test_async_download_runtime_error(tmp_path):
+async def test_async_download_runtime_error(tmp_path: Path) -> None:
     """
     Test case 7: RuntimeError for download failure.
     """
     url = "https://example.com/file.txt"
     dest = tmp_path / "file.txt"
 
-    class MockSession:
-        async def __aenter__(self):
-            return self
+    class MockResponse:
+        async def __aenter__(self) -> 'MockResponse':
+            raise Exception("network error")
 
-        async def __aexit__(self, exc_type, exc, tb):
+        async def __aexit__(self, exc_type: Any, exc: Any, tb: Any) -> None:
             pass
 
-        async def get(self, url):
-            raise Exception("network error")
+    class MockSession:
+        async def __aenter__(self) -> 'MockSession':
+            return self
+
+        async def __aexit__(self, exc_type: Any, exc: Any, tb: Any) -> None:
+            pass
+
+        def get(self, url: str) -> MockResponse:
+            return MockResponse()
 
     with patch("aiohttp.ClientSession", return_value=MockSession()):
         with pytest.raises(RuntimeError, match="Download failed: network error"):
