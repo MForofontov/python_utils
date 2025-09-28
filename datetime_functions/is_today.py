@@ -16,7 +16,7 @@ def is_today(date_obj: datetime | date) -> bool:
     Raises:
         TypeError: If date_obj is not a datetime or date object
     """
-    if not isinstance(date_obj, (datetime, date)):
+    if not isinstance(date_obj, (type(datetime.now()), type(date.today()))):
         raise TypeError("date_obj must be a datetime or date object")
 
     # Convert to date for comparison
