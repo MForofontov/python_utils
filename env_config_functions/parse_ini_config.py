@@ -45,7 +45,9 @@ def parse_ini_config(
     >>> parse_ini_config('config.ini', schema_validator=schema)
     """
     parser = configparser.ConfigParser()
-    parser.read(path)
+    files_read = parser.read(path)
+    if not files_read:
+        raise FileNotFoundError(f"INI configuration file not found: {path}")
     config = {section: dict(parser.items(section)) for section in parser.sections()}
     if required_sections:
         missing = [s for s in required_sections if s not in config]
