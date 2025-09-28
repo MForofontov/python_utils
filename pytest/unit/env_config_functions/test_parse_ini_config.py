@@ -48,3 +48,12 @@ def test_parse_ini_config_schema_validator(tmp_path):
     write_ini_file(data, config_file)
     with pytest.raises(ValueError, match="section2 required"):
         parse_ini_config(str(config_file), schema_validator=schema)
+
+
+def test_parse_ini_config_file_not_found(tmp_path):
+    """Test that missing INI files raise FileNotFoundError."""
+
+    missing_file = tmp_path / "missing.ini"
+
+    with pytest.raises(FileNotFoundError):
+        parse_ini_config(str(missing_file))
