@@ -43,9 +43,14 @@ class UnionFind(Generic[T]):
         T
             The representative (root) of the set containing the element.
         """
-        if self.parent.get(element) != element:
-            self.parent[element] = self.find(self.parent[element])
-        return self.parent.get(element, element)
+        parent = self.parent.setdefault(element, element)
+        if element not in self.rank:
+            self.rank[element] = 0
+
+        if parent != element:
+            self.parent[element] = self.find(parent)
+
+        return self.parent[element]
 
     def union(self, element1: T, element2: T) -> None:
         """
