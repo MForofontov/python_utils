@@ -2,14 +2,17 @@
 Schema validation utility using Pydantic for complex data structure validation.
 
 This module provides comprehensive schema validation using Pydantic models
-for validating complex nested data structures, API payloads, and configuration objects.
+for validating complex nested data structures, API payloads, and configuration
+objects. The helper supports both Pydantic v1 and v2 by dynamically
+configuring models to respect ``allow_extra`` and ``strict`` options for the
+requested runtime.
 """
 
 from dataclasses import dataclass
 from typing import Any, TypeVar
 
 try:
-    from pydantic import BaseModel, ConfigDict, Field, ValidationError
+    from pydantic import BaseModel, ValidationError
     from pydantic.dataclasses import dataclass as pydantic_dataclass
 
     PYDANTIC_AVAILABLE = True
@@ -17,13 +20,16 @@ except ImportError:
     # Fallback classes when pydantic is not available
     BaseModel = object
     ValidationError = Exception
-
-    def Field(**kwargs):
-        return None
-
-    ConfigDict = dict  # type: ignore
     pydantic_dataclass = dataclass
     PYDANTIC_AVAILABLE = False
+
+try:
+    from pydantic import ConfigDict
+
+    HAS_CONFIG_DICT = True
+except ImportError:
+    ConfigDict = None  # type: ignore[assignment]
+    HAS_CONFIG_DICT = False
 
 T = TypeVar("T")
 
@@ -139,25 +145,47 @@ def validate_pydantic_schema(
         )
 
     try:
-        # Configure validation settings for Pydantic v2
-        from pydantic import ConfigDict
+        configured_model = schema_model
 
-        # Create a new model class with the desired configuration
-        config_dict = {}
-        if not allow_extra:
-            config_dict["extra"] = "forbid"
-        if strict:
-            config_dict["strict"] = True
+        if PYDANTIC_AVAILABLE:
+            if HAS_CONFIG_DICT:
+                config_dict: dict[str, Any] = {}
+                if allow_extra:
+                    config_dict["extra"] = "allow"
+                else:
+                    config_dict["extra"] = "forbid"
+                if strict:
+                    config_dict["strict"] = True
 
-        if config_dict:
-            # Create a new model class with the configuration
-            configured_model = type(
-                f"{schema_model.__name__}Configured",
-                (schema_model,),
-                {"model_config": ConfigDict(**config_dict)},
-            )
-        else:
-            configured_model = schema_model
+                if config_dict:
+                    configured_model = type(
+                        f"{schema_model.__name__}Configured",
+                        (schema_model,),
+                        {"model_config": ConfigDict(**config_dict)},
+                    )
+            else:
+                config_attrs: dict[str, Any] = {
+                    "extra": "allow" if allow_extra else "forbid",
+                    "allow_mutation": not strict,
+                }
+                base_config = getattr(schema_model, "Config", None)
+                config_bases: tuple[type, ...]
+                if isinstance(base_config, type):
+                    config_bases = (base_config,)
+                else:
+                    config_bases = (object,)
+
+                Config = type(
+                    f"{schema_model.__name__}Config",
+                    config_bases,
+                    config_attrs,
+                )
+
+                configured_model = type(
+                    f"{schema_model.__name__}Configured",
+                    (schema_model,),
+                    {"Config": Config},
+                )
 
         # Validate the data
         if isinstance(data, dict):

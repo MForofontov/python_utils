@@ -6,6 +6,8 @@ including schema validation, error handling, and edge cases.
 Note: These tests will be skipped if Pydantic is not installed.
 """
 
+import importlib
+
 import pytest
 
 # Try to import pydantic - tests will be skipped if not available
@@ -23,6 +25,10 @@ except ImportError:
     ValidationError = Exception  # type: ignore
 
 from data_validation import validate_pydantic_schema
+
+validate_pydantic_schema_module = importlib.import_module(
+    "data_validation.schema_validation.validate_pydantic_schema"
+)
 
 pytestmark = pytest.mark.skipif(not PYDANTIC_AVAILABLE, reason="Pydantic not installed")
 
@@ -323,3 +329,65 @@ def test_validate_pydantic_schema_performance_large_data() -> None:
     elapsed_time = time.time() - start_time
 
     assert elapsed_time < 1.0  # Should complete within 1 second
+
+
+@pytest.mark.skipif(
+    not PYDANTIC_AVAILABLE or not hasattr(__import__("pydantic"), "v1"),
+    reason="Pydantic v1 compatibility layer not available",
+)
+def test_validate_pydantic_schema_pydantic_v1_branch(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Ensure the legacy branch configures Config.extra and Config.allow_mutation."""
+
+    import pydantic
+
+    # Simulate importing against the v1 compatibility layer.
+    monkeypatch.setattr(validate_pydantic_schema_module, "HAS_CONFIG_DICT", False, raising=False)
+    monkeypatch.setattr(validate_pydantic_schema_module, "ConfigDict", None, raising=False)
+    monkeypatch.setattr(
+        validate_pydantic_schema_module,
+        "BaseModel",
+        pydantic.v1.BaseModel,
+        raising=False,
+    )
+    monkeypatch.setattr(
+        validate_pydantic_schema_module,
+        "ValidationError",
+        pydantic.v1.ValidationError,
+        raising=False,
+    )
+    monkeypatch.setattr(
+        validate_pydantic_schema_module,
+        "PYDANTIC_AVAILABLE",
+        True,
+        raising=False,
+    )
+
+    class LegacyUser(validate_pydantic_schema_module.BaseModel):
+        name: str
+        age: int
+
+        class Config:
+            extra = "ignore"
+            allow_mutation = True
+
+    # allow_extra=True should retain the extra field and strict=True should disable mutation
+    legacy_instance = validate_pydantic_schema_module.validate_pydantic_schema(
+        {"name": "Alice", "age": 30, "extra_field": "allowed"},
+        LegacyUser,
+        allow_extra=True,
+        strict=True,
+    )
+
+    assert legacy_instance.extra_field == "allowed"
+
+    with pytest.raises(TypeError):
+        legacy_instance.age = 31
+
+    # When allow_extra is False the extra field should trigger validation failure
+    with pytest.raises(ValueError, match="validation failed"):
+        validate_pydantic_schema_module.validate_pydantic_schema(
+            {"name": "Bob", "age": 22, "extra": "not allowed"},
+            LegacyUser,
+            allow_extra=False,
+            strict=False,
+        )
