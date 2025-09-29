@@ -133,7 +133,7 @@ def test_validate_email_case_8_value_error_length_violations() -> None:
     # Test domain part too long (over 253 characters)
     long_domain = "user@" + "a" * 250 + ".com"
     with pytest.raises(
-        ValueError, match="email domain part exceeds maximum length of 253 characters"
+        ValueError, match="email exceeds maximum length of 254 characters"
     ):
         validate_email(long_domain)
 
@@ -177,10 +177,10 @@ def test_validate_email_case_10_value_error_invalid_format() -> None:
         validate_email("user.@example.com")  # ends with dot
 
     # Test invalid domain format
-    with pytest.raises(ValueError, match="email domain part format is invalid"):
+    with pytest.raises(ValueError, match="email domain cannot start or end with a dot"):
         validate_email("user@.example.com")  # starts with dot
 
-    with pytest.raises(ValueError, match="email domain part format is invalid"):
+    with pytest.raises(ValueError, match="email domain cannot start or end with a dot"):
         validate_email("user@example.com.")  # ends with dot
 
     with pytest.raises(
