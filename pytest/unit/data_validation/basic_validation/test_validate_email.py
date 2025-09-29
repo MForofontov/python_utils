@@ -244,7 +244,7 @@ def test_validate_email_case_14_mx_checking_failure() -> None:
 
 @patch("dns.resolver.resolve", side_effect=Exception("No MX"))
 @patch("socket.gethostbyname")
-def test_validate_email_case_15_mx_checking_socket_fallback_success(mock_gethostbyname, mock_resolve):
+def test_validate_email_case_15_mx_checking_socket_fallback_success(mock_gethostbyname, mock_resolve) -> None:
     """
     Test case 15: MX record validation fallback to A record (success).
     """
@@ -255,7 +255,7 @@ def test_validate_email_case_15_mx_checking_socket_fallback_success(mock_gethost
 
 @patch("dns.resolver.resolve", side_effect=Exception("No MX"))
 @patch("socket.gethostbyname")
-def test_validate_email_case_16_mx_checking_socket_fallback_failure(mock_gethostbyname, mock_resolve):
+def test_validate_email_case_16_mx_checking_socket_fallback_failure(mock_gethostbyname, mock_resolve) -> None:
     """
     Test case 16: MX record validation fallback to A record (failure).
     """
