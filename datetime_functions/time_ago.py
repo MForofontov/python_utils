@@ -58,14 +58,15 @@ def time_ago(
         raise TypeError("reference_date must be a datetime or date object")
 
     # Ensure both dates are the same type for comparison
-    if isinstance(past_date, datetime) and isinstance(reference_date, date):
-        reference_date = datetime.combine(reference_date, datetime.min.time())
-        if past_date.tzinfo is not None:
-            reference_date = reference_date.replace(tzinfo=past_date.tzinfo)
-    elif isinstance(past_date, date) and isinstance(reference_date, datetime):
-        past_date = datetime.combine(past_date, datetime.min.time())
-        if reference_date.tzinfo is not None:
-            past_date = past_date.replace(tzinfo=reference_date.tzinfo)
+    if type(past_date) != type(reference_date):
+        if isinstance(past_date, datetime) and isinstance(reference_date, date):
+            reference_date = datetime.combine(reference_date, past_date.time())
+            if past_date.tzinfo is not None:
+                reference_date = reference_date.replace(tzinfo=past_date.tzinfo)
+        elif isinstance(past_date, date) and isinstance(reference_date, datetime):
+            past_date = datetime.combine(past_date, reference_date.time())
+            if reference_date.tzinfo is not None:
+                past_date = past_date.replace(tzinfo=reference_date.tzinfo)
 
     # Calculate the difference
     if past_date > reference_date:

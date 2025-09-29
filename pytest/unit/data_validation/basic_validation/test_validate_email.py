@@ -8,6 +8,7 @@ including format validation, Unicode support, and domain checking.
 from unittest.mock import patch
 
 import pytest
+import socket
 from data_validation import validate_email
 
 
@@ -133,7 +134,7 @@ def test_validate_email_case_8_value_error_length_violations() -> None:
     # Test domain part too long (over 253 characters)
     long_domain = "user@" + "a" * 250 + ".com"
     with pytest.raises(
-        ValueError, match="email domain part exceeds maximum length of 253 characters"
+        ValueError, match="email exceeds maximum length of 254 characters"
     ):
         validate_email(long_domain)
 
@@ -177,10 +178,10 @@ def test_validate_email_case_10_value_error_invalid_format() -> None:
         validate_email("user.@example.com")  # ends with dot
 
     # Test invalid domain format
-    with pytest.raises(ValueError, match="email domain part format is invalid"):
+    with pytest.raises(ValueError, match="email domain cannot start or end with a dot"):
         validate_email("user@.example.com")  # starts with dot
 
-    with pytest.raises(ValueError, match="email domain part format is invalid"):
+    with pytest.raises(ValueError, match="email domain cannot start or end with a dot"):
         validate_email("user@example.com.")  # ends with dot
 
     with pytest.raises(
@@ -221,37 +222,51 @@ def test_validate_email_case_12_value_error_unicode_not_allowed() -> None:
         validate_email("用户@example.com")  # default allow_unicode=False
 
 
-@patch("socket.gethostbyname")
-def test_validate_email_case_13_mx_checking_success(mock_gethostbyname) -> None:
+def test_validate_email_case_13_mx_checking_success() -> None:
     """
-    Test case 13: Successful MX record checking.
+    Test case 13: MX record validation using dnspython (success).
     """
-    # Mock successful domain resolution
-    mock_gethostbyname.return_value = "1.2.3.4"
+    with patch("dns.resolver.resolve") as mock_resolve:
+        mock_resolve.return_value = ["mx1.example.com"]
+        validate_email("user@example.com", check_mx=True)
+        mock_resolve.assert_called_with("example.com", "MX")
 
-    # Test with check_mx=True (fallback to A record)
+
+def test_validate_email_case_14_mx_checking_failure() -> None:
+    """
+    Test case 14: MX record validation using dnspython (failure).
+    """
+    # Patch dns.resolver.resolve to simulate MX record not found
+    with patch("dns.resolver.resolve", side_effect=Exception("No MX")) as mock_resolve:
+        with pytest.raises(ValueError, match="email domain does not exist|email domain does not have valid MX record"):
+            validate_email("user@nonexistent.com", check_mx=True)
+
+
+@patch("dns.resolver.resolve", side_effect=Exception("No MX"))
+@patch("socket.gethostbyname")
+def test_validate_email_case_15_mx_checking_socket_fallback_success(mock_gethostbyname, mock_resolve) -> None:
+    """
+    Test case 15: MX record validation fallback to A record (success).
+    """
+    mock_gethostbyname.return_value = "1.2.3.4"
     validate_email("user@example.com", check_mx=True)
     mock_gethostbyname.assert_called_with("example.com")
 
 
+@patch("dns.resolver.resolve", side_effect=Exception("No MX"))
 @patch("socket.gethostbyname")
-def test_validate_email_case_14_mx_checking_failure(mock_gethostbyname) -> None:
+def test_validate_email_case_16_mx_checking_socket_fallback_failure(mock_gethostbyname, mock_resolve) -> None:
     """
-    Test case 14: Failed MX record checking.
+    Test case 16: MX record validation fallback to A record (failure).
     """
-    import socket
-
-    # Mock failed domain resolution
     mock_gethostbyname.side_effect = socket.gaierror("Name resolution failed")
-
-    # Test with check_mx=True
     with pytest.raises(ValueError, match="email domain does not exist"):
         validate_email("user@nonexistent-domain-12345.com", check_mx=True)
 
 
-def test_validate_email_case_15_edge_cases() -> None:
+def test_validate_email_case_17_edge_cases() -> None:
     """
-    Test case 15: Edge cases and boundary conditions.
+    Test case 17: Edge cases and boundary conditions.
     """
     # Test minimum valid email
     validate_email("a@b.co")
@@ -269,9 +284,9 @@ def test_validate_email_case_15_edge_cases() -> None:
     validate_email("user-name@domain-name.org")
 
 
-def test_validate_email_case_16_performance_complex_emails() -> None:
+def test_validate_email_case_18_performance_complex_emails() -> None:
     """
-    Test case 16: Performance with complex email validation.
+    Test case 18: Performance with complex email validation.
     """
     # Test performance with many validations
     emails = [
