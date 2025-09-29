@@ -220,7 +220,7 @@ def test_validate_string_value_error_length_violations() -> None:
 
     # Test above maximum length
     with pytest.raises(
-        ValueError, match="value length \\(10\\) exceeds maximum allowed length \\(5\\)"
+        ValueError, match="value length \\(11\\) exceeds maximum allowed length \\(5\\)"
     ):
         validate_string("hello world", max_length=5)
 
@@ -261,7 +261,7 @@ def test_validate_string_value_error_character_violations() -> None:
     """
     # Test disallowed characters
     with pytest.raises(ValueError, match="value contains disallowed character: x"):
-        validate_string("hello world", allowed_chars="helo wrd")
+        validate_string("hello worldx", allowed_chars="helo wrd ")
 
     # Test forbidden characters
     with pytest.raises(ValueError, match="value contains forbidden character: !"):
@@ -287,7 +287,7 @@ def test_validate_string_edge_cases() -> None:
     validate_string("你好", allowed_chars="你好")
 
     # Test strings with newlines and tabs
-    validate_string("hello\nworld\t!", allowed_chars="helo wrldn!\t")
+    validate_string("hello\nworld\t!", allowed_chars="helo wrldn!\t\n")
 
     # Test edge case: min_length > max_length (should be caught in parameter validation)
     with pytest.raises(
