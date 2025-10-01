@@ -1,15 +1,13 @@
-"""Get date parts from a date object."""
-
-from datetime import date, datetime
-
-
-def get_date_parts(date_obj: datetime | date) -> dict[str, int]:
-    """Return key date attributes in a dictionary.
+from datetime import datetime
+from datetime import datetime
+def get_date_parts(date_obj: datetime) -> dict[str, int]:
+    """
+    Return key date attributes in a dictionary from a datetime object.
 
     Parameters
     ----------
-    date_obj : datetime | date
-        The date object to extract parts from.
+    date_obj : datetime
+        The datetime object to extract parts from.
 
     Returns
     -------
@@ -20,15 +18,10 @@ def get_date_parts(date_obj: datetime | date) -> dict[str, int]:
     Raises
     ------
     TypeError
-        If ``date_obj`` is not a ``datetime`` or ``date`` instance.
+        If ``date_obj`` is not a ``datetime`` instance.
     """
-    if not isinstance(date_obj, (datetime, date)):
-        raise TypeError("date_obj must be a datetime or date object")
-
-    # Convert datetime to date if needed
-    if isinstance(date_obj, datetime):
-        date_obj = date_obj.date()
-
+    if not isinstance(date_obj, datetime):
+        raise TypeError("date_obj must be a datetime object")
     return {
         "year": date_obj.year,
         "month": date_obj.month,

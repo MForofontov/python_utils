@@ -1,4 +1,5 @@
-from datetime import date, datetime
+
+from datetime import datetime
 
 import pytest
 from datetime_functions.format_date import format_date
@@ -6,27 +7,27 @@ from datetime_functions.format_date import format_date
 
 def test_format_date_with_default_format() -> None:
     """
-    Test case 1: Test format_date function with default format string.
+    Test case 1: format_date returns ISO format by default.
     """
-    test_date: date = date(2023, 1, 15)
-    result: str = format_date(test_date)
+    test_datetime: datetime = datetime(2023, 1, 15, 0, 0, 0)
+    result: str = format_date(test_datetime)
     assert isinstance(result, str)
     assert result == "2023-01-15"
 
 
 def test_format_date_with_custom_format() -> None:
     """
-    Test case 2: Test format_date function with custom format string.
+    Test case 2: format_date returns string in custom format.
     """
-    test_date: date = date(2023, 1, 15)
-    result: str = format_date(test_date, "%d/%m/%Y")
+    test_datetime: datetime = datetime(2023, 1, 15, 0, 0, 0)
+    result: str = format_date(test_datetime, "%d/%m/%Y")
     assert isinstance(result, str)
     assert result == "15/01/2023"
 
 
 def test_format_datetime_object() -> None:
     """
-    Test case 3: Test format_date function with datetime object.
+    Test case 3: format_date works with datetime objects and custom format.
     """
     test_datetime: datetime = datetime(2023, 1, 15, 14, 30, 0)
     result: str = format_date(test_datetime, "%Y-%m-%d %H:%M:%S")
@@ -36,51 +37,45 @@ def test_format_datetime_object() -> None:
 
 def test_format_date_human_readable() -> None:
     """
-    Test case 4: Test format_date function with human-readable format.
+    Test case 4: format_date returns human-readable string format.
     """
-    test_date: date = date(2023, 1, 15)
-    result: str = format_date(test_date, "%B %d, %Y")
+    test_datetime: datetime = datetime(2023, 1, 15, 0, 0, 0)
+    result: str = format_date(test_datetime, "%B %d, %Y")
     assert isinstance(result, str)
     assert result == "January 15, 2023"
 
 
 def test_format_date_invalid_input_type() -> None:
     """
-    Test case 5: Test format_date function with invalid input type raises TypeError.
+    Test case 5: format_date raises TypeError for invalid input types.
     """
     with pytest.raises(TypeError):
         format_date("2023-01-15")
-
     with pytest.raises(TypeError):
         format_date(123)
-
     with pytest.raises(TypeError):
         format_date(None)
 
 
 def test_format_date_invalid_format_type() -> None:
     """
-    Test case 6: Test format_date function with invalid format type raises TypeError.
+    Test case 6: format_date raises TypeError for invalid format argument types.
     """
-    test_date: date = date(2023, 1, 15)
-
+    test_datetime: datetime = datetime(2023, 1, 15, 0, 0, 0)
     with pytest.raises(TypeError):
-        format_date(test_date, 123)
-
+        format_date(test_datetime, 123)
     with pytest.raises(TypeError):
-        format_date(test_date, None)
+        format_date(test_datetime, None)
 
 
 def test_format_date_empty_format_string() -> None:
     """
-    Test case 7: Test format_date function with empty format string raises ValueError.
+    Test case 7: format_date raises ValueError for empty or whitespace format string.
     """
-    test_date: date = date(2023, 1, 15)
-
+    test_datetime: datetime = datetime(2023, 1, 15, 0, 0, 0)
     with pytest.raises(ValueError):
-        format_date(test_date, "")
-
+        format_date(test_datetime, "")
     with pytest.raises(ValueError):
-        format_date(test_date, "   ")
+        format_date(test_datetime, "   ")
 
 

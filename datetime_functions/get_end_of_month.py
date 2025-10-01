@@ -4,27 +4,32 @@ from calendar import monthrange
 from datetime import date, datetime
 
 
-def get_end_of_month(date_obj: datetime | date) -> datetime | date:
+def get_end_of_month(date_obj: datetime) -> datetime:
     """
-    Get the last day of the month for a given date.
+    Get the last day of the month for a given datetime.
 
-    Args:
-        date_obj: The date object to get end of month for
+    Parameters
+    ----------
+    date_obj : datetime
+        The datetime object to get end of month for.
 
-    Returns:
-        Date object representing the last day of the month
+    Returns
+    -------
+    datetime
+        Datetime representing the last day of the month (time preserved).
 
-    Raises:
-        TypeError: If date_obj is not a datetime or date object
+    Raises
+    ------
+    TypeError
+        If date_obj is not a datetime object.
+
+    Examples
+    --------
+    >>> from datetime import datetime
+    >>> get_end_of_month(datetime(2023, 1, 15, 10, 30))
+    datetime(2023, 1, 31, 10, 30)
     """
-    if not isinstance(date_obj, (datetime, date)):
-        raise TypeError("date_obj must be a datetime or date object")
-
-    # Get the last day of the month
+    if not isinstance(date_obj, datetime):
+        raise TypeError(f"date_obj must be a datetime, got {type(date_obj).__name__}")
     last_day = monthrange(date_obj.year, date_obj.month)[1]
-
-    # Return the same type as input
-    if isinstance(date_obj, datetime):
-        return date_obj.replace(day=last_day)
-    else:
-        return date(date_obj.year, date_obj.month, last_day)
+    return date_obj.replace(day=last_day)
