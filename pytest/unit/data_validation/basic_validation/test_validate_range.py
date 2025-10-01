@@ -72,7 +72,7 @@ def test_validate_range_string_ranges() -> None:
     # Test alphabetical ranges
     validate_range("hello", min_value="a", max_value="z")
     validate_range("apple", min_value="a", max_value="z")
-    validate_range("zebra", min_value="a", max_value="z")
+    validate_range("zulu", min_value="a", max_value="zulu")
 
     # Test specific string ranges
     validate_range("dog", min_value="cat", max_value="elephant")
