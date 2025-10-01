@@ -1,38 +1,40 @@
-"""Get the number of days in a month."""
 
 from calendar import monthrange
-from datetime import date, datetime
+from datetime import datetime
 
-
-def get_days_in_month(
-    date_obj: datetime | date | None = None, year: int = None, month: int = None
-) -> int:
+def get_days_in_month(date_obj: datetime) -> int:
     """
-    Get the number of days in a month.
+    Get the number of days in the month for a given datetime.
 
-    Args:
-        date_obj: Date object to get month from (optional if year/month provided)
-        year: Year (optional if date_obj provided)
-        month: Month (optional if date_obj provided)
+    Parameters
+    ----------
+    date_obj : datetime
+        Datetime object to get month from.
 
-    Returns:
-        Number of days in the month
+    Returns
+    -------
+    int
+        Number of days in the month.
 
-    Raises:
-        TypeError: If invalid input types
-        ValueError: If neither date_obj nor year/month are provided, or if values are invalid
+    Raises
+    ------
+    TypeError
+        If date_obj is not a datetime object.
+
+    Examples
+    --------
+    >>> from datetime import datetime
+    >>> get_days_in_month(datetime(2023, 2, 10))
+    28
+    >>> get_days_in_month(datetime(2020, 2, 10))
+    29
+
+    Complexity
+    ----------
+    Time: O(1), Space: O(1)
     """
-    if date_obj is not None:
-        if not isinstance(date_obj, (datetime, date)):
-            raise TypeError("date_obj must be a datetime or date object")
-        year = date_obj.year
-        month = date_obj.month
-    elif year is not None and month is not None:
-        if not isinstance(year, int) or not isinstance(month, int):
-            raise TypeError("year and month must be integers")
-        if month < 1 or month > 12:
-            raise ValueError("month must be between 1 and 12")
-    else:
-        raise ValueError("Either date_obj or both year and month must be provided")
-
+    if not isinstance(date_obj, datetime):
+        raise TypeError("date_obj must be a datetime object")
+    year = date_obj.year
+    month = date_obj.month
     return monthrange(year, month)[1]

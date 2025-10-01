@@ -6,7 +6,7 @@ from datetime_functions.modify_months import modify_months
 
 def test_modify_months_add_to_date_object() -> None:
     """
-    Test case 1: Test modify_months function adding months to date object.
+    Test case 1: modify_months adds months to a date object.
     """
     test_date: date = date(2023, 1, 15)
     result: date = modify_months(test_date, 3)
@@ -16,7 +16,7 @@ def test_modify_months_add_to_date_object() -> None:
 
 def test_modify_months_add_with_year_overflow() -> None:
     """
-    Test case 2: Test modify_months function adding months with year overflow.
+    Test case 2: modify_months adds months with year overflow.
     """
     test_date: date = date(2023, 10, 15)
     result: date = modify_months(test_date, 6)
@@ -26,7 +26,7 @@ def test_modify_months_add_with_year_overflow() -> None:
 
 def test_modify_months_subtract_from_date_object() -> None:
     """
-    Test case 3: Test modify_months function subtracting months from date object.
+    Test case 3: modify_months subtracts months from a date object.
     """
     test_date: date = date(2023, 6, 15)
     result: date = modify_months(test_date, -3)
@@ -36,7 +36,7 @@ def test_modify_months_subtract_from_date_object() -> None:
 
 def test_modify_months_subtract_with_year_underflow() -> None:
     """
-    Test case 4: Test modify_months function subtracting months with year underflow.
+    Test case 4: modify_months subtracts months with year underflow.
     """
     test_date: date = date(2023, 2, 15)
     result: date = modify_months(test_date, -6)
@@ -45,14 +45,14 @@ def test_modify_months_subtract_with_year_underflow() -> None:
 
 
 def test_modify_months_day_overflow() -> None:
+    """
+    Test case 5: modify_months handles day overflow (e.g., Jan 31 to Feb 28).
+    """
     test_date: date = date(2023, 1, 31)
     result: date = modify_months(test_date, 1)
     assert isinstance(result, date)
     assert result == date(2023, 2, 28)  # Feb 31 doesn't exist
 
-    """
-    Test case 6: Test modify_months function with day overflow handling.
-    """
     test_date2: date = date(2023, 3, 31)
     result2: date = modify_months(test_date2, -1)
     assert isinstance(result2, date)
@@ -61,7 +61,7 @@ def test_modify_months_day_overflow() -> None:
 
 def test_modify_months_leap_year_handling() -> None:
     """
-    Test case 7: Test modify_months function with leap year handling.
+    Test case 6: modify_months handles leap year correctly (e.g., Jan 31 to Feb 29 in leap year).
     """
     test_date: date = date(2020, 1, 31)
     result: date = modify_months(test_date, 1)
@@ -71,7 +71,7 @@ def test_modify_months_leap_year_handling() -> None:
 
 def test_modify_months_datetime_object() -> None:
     """
-    Test case 8: Test modify_months function with datetime object.
+    Test case 7: modify_months works with datetime objects and preserves time.
     """
     test_datetime: datetime = datetime(2023, 1, 15, 12, 30, 0)
     result: datetime = modify_months(test_datetime, 2)
@@ -82,7 +82,7 @@ def test_modify_months_datetime_object() -> None:
 
 def test_modify_months_zero_change() -> None:
     """
-    Test case 9: Test modify_months function with zero months.
+    Test case 8: modify_months returns the same date when months=0.
     """
     test_date: date = date(2023, 6, 15)
     result: date = modify_months(test_date, 0)
@@ -92,7 +92,7 @@ def test_modify_months_zero_change() -> None:
 
 def test_modify_months_invalid_input_type() -> None:
     """
-    Test case 10: Test modify_months function with invalid input type raises TypeError.
+    Test case 9: modify_months raises TypeError for invalid input types.
     """
     with pytest.raises(TypeError):
         modify_months("2023-01-15", 3)
@@ -106,7 +106,7 @@ def test_modify_months_invalid_input_type() -> None:
 
 def test_modify_months_invalid_months_type() -> None:
     """
-    Test case 11: Test modify_months function with invalid months type raises TypeError.
+    Test case 10: modify_months raises TypeError for invalid months argument types.
     """
     test_date: date = date(2023, 1, 15)
 

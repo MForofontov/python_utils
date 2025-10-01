@@ -1,57 +1,42 @@
-"""Compare two dates."""
+from datetime import datetime
 
-from datetime import date, datetime
-from typing import Literal
-
-
-def compare_dates(
-    date1: datetime | date,
-    date2: datetime | date,
-) -> Literal[-1, 0, 1]:
+def compare_dates(date1: datetime, date2: datetime) -> int:
     """
-    Compare two dates.
+    Compare two datetime objects.
 
     Parameters
     ----------
-    date1 : datetime | date
-        First date to compare.
-    date2 : datetime | date
-        Second date to compare.
+    date1 : datetime
+        First datetime to compare.
+    date2 : datetime
+        Second datetime to compare.
 
     Returns
     -------
-    Literal[-1, 0, 1]
-        ``-1`` if ``date1`` is earlier than ``date2``; ``0`` if they are
-        equal; ``1`` if ``date1`` is later.
+    int
+        -1 if date1 < date2, 0 if equal, 1 if date1 > date2
 
     Raises
     ------
     TypeError
-        If either argument is not a ``datetime`` or ``date`` instance.
+        If either argument is not a ``datetime`` instance.
 
     Examples
     --------
-    >>> compare_dates(date(2020, 1, 1), date(2020, 1, 2))
+    >>> from datetime import datetime
+    >>> compare_dates(datetime(2020, 1, 1), datetime(2020, 1, 2))
     -1
-    >>> compare_dates(date(2020, 1, 2), date(2020, 1, 2))
+    >>> compare_dates(datetime(2020, 1, 2), datetime(2020, 1, 2))
     0
-    >>> compare_dates(date(2020, 1, 3), date(2020, 1, 2))
+    >>> compare_dates(datetime(2020, 1, 3), datetime(2020, 1, 2))
     1
     """
-    if not isinstance(date1, (datetime, date)):
-        raise TypeError("date1 must be a datetime or date object")
-
-    if not isinstance(date2, (datetime, date)):
-        raise TypeError("date2 must be a datetime or date object")
-
-    # Convert to date objects for comparison if needed
-    if isinstance(date1, datetime):
-        date1 = date1.date()
-    if isinstance(date2, datetime):
-        date2 = date2.date()
-
+    if not isinstance(date1, datetime):
+        raise TypeError(f"date1 must be a datetime, got {type(date1).__name__}")
+    if not isinstance(date2, datetime):
+        raise TypeError(f"date2 must be a datetime, got {type(date2).__name__}")
     if date1 < date2:
         return -1
-    if date1 > date2:
+    elif date1 > date2:
         return 1
     return 0

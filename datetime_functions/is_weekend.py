@@ -1,29 +1,41 @@
 """Check if a date is a weekend."""
 
-from datetime import date, datetime
+
+from datetime import datetime
 
 
-def is_weekend(date_obj: datetime | date) -> bool:
+def is_weekend(date_obj: datetime) -> bool:
     """
-    Check if a given date is a weekend (Saturday or Sunday).
+    Check if a given datetime is a weekend (Saturday or Sunday).
 
-    Args:
-        date_obj: The date object to check
+    Parameters
+    ----------
+    date_obj : datetime
+        The datetime object to check.
 
-    Returns:
-        True if the date is a weekend, False otherwise
+    Returns
+    -------
+    bool
+        True if the datetime is a weekend, False otherwise.
 
-    Raises:
-        TypeError: If date_obj is not a datetime or date object
+    Raises
+    ------
+    TypeError
+        If date_obj is not a datetime object.
+
+    Examples
+    --------
+    >>> from datetime import datetime
+    >>> is_weekend(datetime(2023, 10, 1))
+    True
+    >>> is_weekend(datetime(2023, 10, 2))
+    False
+
+    Complexity
+    ----------
+    Time: O(1), Space: O(1)
     """
-    if not isinstance(date_obj, (datetime, date)):
-        raise TypeError("date_obj must be a datetime or date object")
-
-    # Convert to date for comparison
-    if isinstance(date_obj, datetime):
-        date_obj = date_obj.date()
-
+    if not isinstance(date_obj, datetime):
+        raise TypeError("date_obj must be a datetime object")
     # weekday() returns 0=Monday, 6=Sunday
-    # Weekend is Saturday (5) and Sunday (6)
-    weekday = date_obj.weekday()
-    return weekday >= 5
+    return date_obj.weekday() >= 5
