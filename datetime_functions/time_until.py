@@ -39,15 +39,17 @@ def time_until(
     if not isinstance(reference_date, (datetime, date)):
         raise TypeError("reference_date must be a datetime or date object")
 
-    # Ensure both dates are the same type for comparison
-    if isinstance(future_date, datetime) and isinstance(reference_date, date):
+    # Ensure both dates are the same type for comparison, but preserve time if both are datetime
+    if isinstance(future_date, datetime) and isinstance(reference_date, date) and not isinstance(reference_date, datetime):
         reference_date = datetime.combine(reference_date, datetime.min.time())
         if future_date.tzinfo is not None:
             reference_date = reference_date.replace(tzinfo=future_date.tzinfo)
-    elif isinstance(future_date, date) and isinstance(reference_date, datetime):
+    elif isinstance(future_date, date) and not isinstance(future_date, datetime) and isinstance(reference_date, datetime):
         future_date = datetime.combine(future_date, datetime.min.time())
         if reference_date.tzinfo is not None:
             future_date = future_date.replace(tzinfo=reference_date.tzinfo)
+    # If both are date (not datetime), keep as date
+    # If both are datetime, keep as datetime
 
     # Calculate the difference
     if future_date < reference_date:
