@@ -23,7 +23,8 @@ def get_end_of_month(date_obj: datetime | date) -> datetime | date:
     # Get the last day of the month
     last_day = monthrange(date_obj.year, date_obj.month)[1]
 
+    # Return the same type as input
     if isinstance(date_obj, datetime):
         return date_obj.replace(day=last_day)
     else:
-        return date_obj.replace(day=last_day)
+        return date(date_obj.year, date_obj.month, last_day)

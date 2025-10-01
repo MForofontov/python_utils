@@ -59,9 +59,9 @@ def test_get_end_of_month_with_datetime() -> None:
     Test case 6: Test get_end_of_month function with datetime object.
     """
     test_datetime: datetime = datetime(2023, 6, 15, 12, 30, 45)
-    result: date = get_end_of_month(test_datetime)
-    assert isinstance(result, date)
-    assert result == date(2023, 6, 30)
+    result = get_end_of_month(test_datetime)
+    assert isinstance(result, datetime)
+    assert result == datetime(2023, 6, 30, 12, 30, 45)
 
 
 def test_get_end_of_month_already_last_day() -> None:

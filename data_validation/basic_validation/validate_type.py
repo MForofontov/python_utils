@@ -71,9 +71,12 @@ def validate_type(
     """
     # Handle None values
     if value is None:
+        # Accept None if allow_none is True, or if type(None) is in expected_type tuple
         if allow_none:
             return
         if isinstance(expected_type, tuple):
+            if type(None) in expected_type:
+                return
             type_names = " | ".join(t.__name__ for t in expected_type)
         else:
             type_names = expected_type.__name__

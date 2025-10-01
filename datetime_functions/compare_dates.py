@@ -44,12 +44,17 @@ def compare_dates(
     if not isinstance(date2, (datetime, date)):
         raise TypeError("date2 must be a datetime or date object")
 
-    # Convert to date objects for comparison if needed
-    if isinstance(date1, datetime):
-        date1 = date1.date()
-    if isinstance(date2, datetime):
-        date2 = date2.date()
-
+    # If either is datetime, compare as datetime (preserve time info)
+    if isinstance(date1, datetime) or isinstance(date2, datetime):
+        # Convert both to datetime for fair comparison
+        dt1 = date1 if isinstance(date1, datetime) else datetime.combine(date1, datetime.min.time())
+        dt2 = date2 if isinstance(date2, datetime) else datetime.combine(date2, datetime.min.time())
+        if dt1 < dt2:
+            return -1
+        if dt1 > dt2:
+            return 1
+        return 0
+    # Otherwise, compare as date
     if date1 < date2:
         return -1
     if date1 > date2:
