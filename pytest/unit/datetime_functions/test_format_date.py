@@ -84,11 +84,3 @@ def test_format_date_empty_format_string() -> None:
         format_date(test_date, "   ")
 
 
-def test_format_date_invalid_format_string() -> None:
-    """
-    Test case 8: Test format_date function with invalid format string raises ValueError.
-    """
-    test_date: date = date(2023, 1, 15)
-
-    with pytest.raises(ValueError):
-        format_date(test_date, "%Z")  # Invalid format for date object

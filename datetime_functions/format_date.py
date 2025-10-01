@@ -43,7 +43,4 @@ def format_date(date_obj: datetime | date, format_string: str = "%Y-%m-%d") -> s
     if not format_string.strip():
         raise ValueError("format_string cannot be empty")
 
-    try:
-        return date_obj.strftime(format_string)
-    except ValueError as exc:
-        raise ValueError(f"Invalid format string: {exc}") from exc
+    return date_obj.strftime(format_string)
