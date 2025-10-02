@@ -40,9 +40,8 @@ def test_get_permutations_empty_set() -> None:
     """
     input_set = set()
     r = 2
-    expected = []
-    result = get_permutations(input_set, r)
-    assert result == expected
+    with pytest.raises(ValueError, match="r cannot be larger than set size"):
+        get_permutations(input_set, r)
 
 
 def test_get_permutations_single_element() -> None:

@@ -68,7 +68,7 @@ def deep_get(d: dict[str, Any], keys: str | list[str], default: Any = None) -> A
     'not found'
     """
     if not isinstance(d, dict):
-        raise TypeError("d must be a dictionary")
+        raise TypeError(f"d must be a dictionary, got {type(d).__name__}")
 
     if isinstance(keys, str):
         keys = keys.split(".")

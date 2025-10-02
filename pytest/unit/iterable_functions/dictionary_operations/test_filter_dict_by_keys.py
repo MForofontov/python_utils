@@ -54,7 +54,7 @@ def test_filter_dict_by_keys_regex_pattern() -> None:
         "city": "NYC",
         "email": "john@example.com",
     }
-    pattern: str = r".*name.*"
+    pattern: str = r"name|email"
     expected_output: dict[str, Any] = {"name": "John", "email": "john@example.com"}
 
     # Act

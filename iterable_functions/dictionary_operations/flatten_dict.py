@@ -62,7 +62,7 @@ def flatten_dict(
     {'a': 1, 'b_c': 2, 'b_d_e': 3}
     """
     if not isinstance(d, dict):
-        raise TypeError("d must be a dictionary")
+        raise TypeError(f"d must be a dictionary, got {type(d).__name__}")
 
     flattened = {}
 
