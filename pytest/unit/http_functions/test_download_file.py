@@ -223,12 +223,8 @@ def test_download_file_request_failure(
     """Test case 13: Test file download when request fails returns error response."""
     mock_urlopen.side_effect = urllib.error.URLError("Connection failed")
 
-    result = download_file("https://example.com/file.txt", "/tmp/test.txt")
-
-    assert result["success"] is False
-    assert result["file_size"] == 0
-    assert "Download failed" in result["message"]
-    assert "Connection failed" in result["message"]
+    with pytest.raises(urllib.error.URLError, match="Connection failed"):
+        download_file("https://example.com/file.txt", "/tmp/test.txt")
 
 
 @patch("urllib.request.urlopen")
@@ -245,12 +241,8 @@ def test_download_file_write_failure_cleanup(
     mock_response.read.side_effect = [b"test", b""]
     mock_urlopen.return_value.__enter__.return_value = mock_response
 
-    result = download_file("https://example.com/file.txt", "/tmp/test.txt")
-
-    assert result["success"] is False
-    assert result["file_size"] == 0
-    assert "Unexpected error: Write failed" in result["message"]
-    assert "Write failed" in result["message"]
+    with pytest.raises(OSError, match="Write failed"):
+        download_file("https://example.com/file.txt", "/tmp/test.txt")
 
     # Verify cleanup was attempted
     mock_unlink.assert_called_once()

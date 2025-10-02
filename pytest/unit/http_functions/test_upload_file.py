@@ -4,47 +4,48 @@ import urllib.error
 from unittest.mock import Mock, mock_open, patch
 
 import pytest
+from unittest.mock import MagicMock
 from http_functions.upload_file import upload_file
 
 
-def test_upload_file_with_empty_url():
+def test_upload_file_with_empty_url() -> None:
     """Test case 1: Test upload_file function with empty URL raises ValueError."""
     with pytest.raises(ValueError, match="URL must be a non-empty string"):
         upload_file("", "test.txt")
 
 
-def test_upload_file_with_whitespace_url():
+def test_upload_file_with_whitespace_url() -> None:
     """Test case 2: Test upload_file function with whitespace-only URL raises ValueError."""
     with pytest.raises(ValueError, match="URL must be a non-empty string"):
         upload_file("   ", "test.txt")
 
 
-def test_upload_file_with_none_url():
-    """Test case 3: Test upload_file function with None URL raises TypeError."""
-    with pytest.raises(TypeError):
+def test_upload_file_with_none_url() -> None:
+    """Test case 3: Test upload_file function with None URL raises ValueError."""
+    with pytest.raises(ValueError, match="URL must be a non-empty string"):
         upload_file(None, "test.txt")
 
 
-def test_upload_file_with_empty_file_path():
+def test_upload_file_with_empty_file_path() -> None:
     """Test case 4: Test upload_file function with empty file path raises ValueError."""
     with pytest.raises(ValueError, match="file_path must be a non-empty string"):
         upload_file("https://example.com/upload", "")
 
 
-def test_upload_file_with_whitespace_file_path():
+def test_upload_file_with_whitespace_file_path() -> None:
     """Test case 5: Test upload_file function with whitespace-only file path raises ValueError."""
     with pytest.raises(ValueError, match="file_path must be a non-empty string"):
         upload_file("https://example.com/upload", "   ")
 
 
-def test_upload_file_with_none_file_path():
-    """Test case 6: Test upload_file function with None file path raises TypeError."""
-    with pytest.raises(TypeError):
+def test_upload_file_with_none_file_path() -> None:
+    """Test case 6: Test upload_file function with None file path raises ValueError."""
+    with pytest.raises(ValueError, match="file_path must be a non-empty string"):
         upload_file("https://example.com/upload", None)
 
 
 @patch("pathlib.Path.exists", return_value=False)
-def test_upload_file_not_found(mock_exists):
+def test_upload_file_not_found(mock_exists: MagicMock) -> None:
     """Test case 7: Test upload_file function when file doesn't exist raises FileNotFoundError."""
     with pytest.raises(FileNotFoundError, match="File not found"):
         upload_file("https://example.com/upload", "/tmp/nonexistent.txt")
@@ -52,7 +53,7 @@ def test_upload_file_not_found(mock_exists):
 
 @patch("pathlib.Path.exists", return_value=True)
 @patch("pathlib.Path.is_file", return_value=False)
-def test_upload_file_not_a_file(mock_is_file, mock_exists):
+def test_upload_file_not_a_file(mock_is_file: MagicMock, mock_exists: MagicMock) -> None:
     """Test case 8: Test upload_file function when path is not a file raises ValueError."""
     with pytest.raises(ValueError, match="Path is not a file"):
         upload_file("https://example.com/upload", "/tmp/directory")
@@ -64,8 +65,12 @@ def test_upload_file_not_a_file(mock_is_file, mock_exists):
 @patch("urllib.request.urlopen")
 @patch("mimetypes.guess_type", return_value=("text/plain", None))
 def test_upload_file_successful(
-    mock_guess_type, mock_urlopen, mock_file_open, mock_is_file, mock_exists
-):
+    mock_guess_type: MagicMock,
+    mock_urlopen: MagicMock,
+    mock_file_open: MagicMock,
+    mock_is_file: MagicMock,
+    mock_exists: MagicMock,
+) -> None:
     """Test case 9: Test successful file upload returns correct response structure."""
     # Mock response
     mock_response = Mock()
@@ -95,8 +100,12 @@ def test_upload_file_successful(
 @patch("urllib.request.urlopen")
 @patch("mimetypes.guess_type", return_value=(None, None))
 def test_upload_file_unknown_content_type(
-    mock_guess_type, mock_urlopen, mock_file_open, mock_is_file, mock_exists
-):
+    mock_guess_type: MagicMock,
+    mock_urlopen: MagicMock,
+    mock_file_open: MagicMock,
+    mock_is_file: MagicMock,
+    mock_exists: MagicMock,
+) -> None:
     """Test case 10: Test file upload when content type cannot be determined uses default."""
     mock_response = Mock()
     mock_response.getcode.return_value = 200
@@ -120,8 +129,12 @@ def test_upload_file_unknown_content_type(
 @patch("urllib.request.urlopen")
 @patch("mimetypes.guess_type", return_value=("text/plain", None))
 def test_upload_file_with_custom_field_name(
-    mock_guess_type, mock_urlopen, mock_file_open, mock_is_file, mock_exists
-):
+    mock_guess_type: MagicMock,
+    mock_urlopen: MagicMock,
+    mock_file_open: MagicMock,
+    mock_is_file: MagicMock,
+    mock_exists: MagicMock,
+) -> None:
     """Test case 11: Test file upload with custom field name parameter."""
     mock_response = Mock()
     mock_response.getcode.return_value = 200
@@ -147,8 +160,12 @@ def test_upload_file_with_custom_field_name(
 @patch("urllib.request.urlopen")
 @patch("mimetypes.guess_type", return_value=("text/plain", None))
 def test_upload_file_with_custom_headers(
-    mock_guess_type, mock_urlopen, mock_file_open, mock_is_file, mock_exists
-):
+    mock_guess_type: MagicMock,
+    mock_urlopen: MagicMock,
+    mock_file_open: MagicMock,
+    mock_is_file: MagicMock,
+    mock_exists: MagicMock,
+) -> None:
     """Test case 12: Test file upload with additional custom headers."""
     mock_response = Mock()
     mock_response.getcode.return_value = 200
@@ -174,8 +191,12 @@ def test_upload_file_with_custom_headers(
 @patch("urllib.request.urlopen")
 @patch("mimetypes.guess_type", return_value=("text/plain", None))
 def test_upload_file_with_additional_data(
-    mock_guess_type, mock_urlopen, mock_file_open, mock_is_file, mock_exists
-):
+    mock_guess_type: MagicMock,
+    mock_urlopen: MagicMock,
+    mock_file_open: MagicMock,
+    mock_is_file: MagicMock,
+    mock_exists: MagicMock,
+) -> None:
     """Test case 13: Test file upload with additional form data fields."""
     mock_response = Mock()
     mock_response.getcode.return_value = 200
@@ -208,8 +229,12 @@ def test_upload_file_with_additional_data(
 @patch("urllib.request.urlopen")
 @patch("mimetypes.guess_type", return_value=("text/plain", None))
 def test_upload_file_with_custom_timeout(
-    mock_guess_type, mock_urlopen, mock_file_open, mock_is_file, mock_exists
-):
+    mock_guess_type: MagicMock,
+    mock_urlopen: MagicMock,
+    mock_file_open: MagicMock,
+    mock_is_file: MagicMock,
+    mock_exists: MagicMock,
+) -> None:
     """Test case 14: Test file upload with custom timeout value."""
     mock_response = Mock()
     mock_response.getcode.return_value = 200
@@ -231,8 +256,12 @@ def test_upload_file_with_custom_timeout(
 @patch("urllib.request.urlopen")
 @patch("mimetypes.guess_type", return_value=("text/plain", None))
 def test_upload_file_default_timeout(
-    mock_guess_type, mock_urlopen, mock_file_open, mock_is_file, mock_exists
-):
+    mock_guess_type: MagicMock,
+    mock_urlopen: MagicMock,
+    mock_file_open: MagicMock,
+    mock_is_file: MagicMock,
+    mock_exists: MagicMock,
+) -> None:
     """Test case 15: Test that default timeout is 30 seconds when not specified."""
     mock_response = Mock()
     mock_response.getcode.return_value = 200
@@ -253,26 +282,32 @@ def test_upload_file_default_timeout(
 @patch("urllib.request.urlopen")
 @patch("mimetypes.guess_type", return_value=("text/plain", None))
 def test_upload_file_http_error(
-    mock_guess_type, mock_urlopen, mock_file_open, mock_is_file, mock_exists
-):
+    mock_guess_type: MagicMock,
+    mock_urlopen: MagicMock,
+    mock_file_open: MagicMock,
+    mock_is_file: MagicMock,
+    mock_exists: MagicMock,
+) -> None:
     """Test case 16: Test file upload with HTTP error response returns error details."""
+    from email.message import Message
+    hdrs = Message()
+    hdrs["Content-Type"] = "application/json"
+    fp_mock = Mock()
+    fp_mock.read = Mock(return_value=b'{"error": "invalid file"}')
     error = urllib.error.HTTPError(
         url="https://example.com/upload",
         code=400,
         msg="Bad Request",
-        hdrs={"Content-Type": "application/json"},
-        fp=Mock(),
+        hdrs=hdrs,
+        fp=fp_mock,
     )
-    error.fp.read.return_value = b'{"error": "invalid file"}'
     mock_urlopen.side_effect = error
 
     with patch("pathlib.Path.name", "test.txt"):
-        result = upload_file("https://example.com/upload", "/tmp/test.txt")
-
-    assert result["status_code"] == 400
-    assert result["content"] == '{"error": "invalid file"}'
-    assert result["success"] is False
-    assert result["headers"] == {"Content-Type": "application/json"}
+        with pytest.raises(urllib.error.HTTPError) as exc_info:
+            upload_file("https://example.com/upload", "/tmp/test.txt")
+        assert exc_info.value.code == 400
+        assert exc_info.value.msg == "Bad Request"
 
 
 @patch("pathlib.Path.exists", return_value=True)
@@ -281,15 +316,15 @@ def test_upload_file_http_error(
 @patch("urllib.request.urlopen")
 @patch("mimetypes.guess_type", return_value=("text/plain", None))
 def test_upload_file_url_error(
-    mock_guess_type, mock_urlopen, mock_file_open, mock_is_file, mock_exists
-):
+    mock_guess_type: MagicMock,
+    mock_urlopen: MagicMock,
+    mock_file_open: MagicMock,
+    mock_is_file: MagicMock,
+    mock_exists: MagicMock,
+) -> None:
     """Test case 17: Test file upload when request fails returns error details."""
     mock_urlopen.side_effect = urllib.error.URLError("Connection failed")
 
     with patch("pathlib.Path.name", "test.txt"):
-        result = upload_file("https://example.com/upload", "/tmp/test.txt")
-
-    assert result["status_code"] is None
-    assert result["success"] is False
-    assert result["headers"] == {}
-    assert result["content"] == "Connection failed"
+        with pytest.raises(urllib.error.URLError, match="Connection failed"):
+            upload_file("https://example.com/upload", "/tmp/test.txt")

@@ -26,6 +26,8 @@ def extract_domain(url: str) -> str | None:
     >>> extract_domain('invalid-url')
     None
     """
+    if not isinstance(url, str):
+        raise TypeError(f"url must be a string, got {type(url).__name__}")
     if not is_valid_url(url):
         return None
 

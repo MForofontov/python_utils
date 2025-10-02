@@ -34,12 +34,16 @@ def is_valid_url(url: str, allowed_schemes: list[str] | None = None) -> bool:
     try:
         parsed = urllib.parse.urlparse(url)
 
-        # Check if we have a scheme and netloc
-        if not parsed.scheme or not parsed.netloc:
-            return False
-
         # Check allowed schemes if provided
         if allowed_schemes and parsed.scheme not in allowed_schemes:
+            return False
+
+        # For file URLs, netloc may be empty, but path must be non-empty
+        if parsed.scheme == "file":
+            return bool(parsed.path)
+
+        # For other schemes, require scheme and netloc
+        if not parsed.scheme or not parsed.netloc:
             return False
 
         # Additional validation: hostname should not be empty
