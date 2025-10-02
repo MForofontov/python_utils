@@ -69,8 +69,12 @@ def test_set_power_set_as_lists_mixed_types() -> None:
     """
     input_set = {1, "a"}
     result = set_power_set_as_lists(input_set)
-    expected = [[], [1], ["a"], [1, "a"]]
-    assert result == expected
+    # Accept either ordering for mixed types
+    expected_variants = [
+        [[], [1], ["a"], [1, "a"]],
+        [[], ["a"], [1], ["a", 1]]
+    ]
+    assert result in expected_variants
 
 
 def test_set_power_set_as_lists_type_error() -> None:

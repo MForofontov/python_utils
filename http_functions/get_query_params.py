@@ -38,4 +38,4 @@ def get_query_params(url: str) -> dict[str, list[str]]:
         raise ValueError("URL must be a non-empty string")
 
     parsed = urllib.parse.urlparse(url)
-    return urllib.parse.parse_qs(parsed.query)
+    return urllib.parse.parse_qs(parsed.query, keep_blank_values=True)

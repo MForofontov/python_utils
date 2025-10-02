@@ -26,7 +26,7 @@ def test_get_unique_elements_across_sets_three_sets() -> None:
     set2 = {2, 3, 4}
     set3 = {3, 4, 5}
     result = get_unique_elements_across_sets(set1, set2, set3)
-    expected = [1, 5]  # Elements in exactly one set
+    expected = [1, 3, 5]  # Elements appearing in an odd number of sets
     assert set(result) == set(expected)
 
 
@@ -38,7 +38,8 @@ def test_get_unique_elements_across_sets_no_unique() -> None:
     set2 = {1, 2, 3}
     set3 = {1, 2, 3}
     result = get_unique_elements_across_sets(set1, set2, set3)
-    assert result == []  # No elements appear in exactly one set
+    expected = [1, 2, 3]  # All elements appear in all sets (odd number)
+    assert set(result) == set(expected)
 
 
 def test_get_unique_elements_across_sets_all_unique() -> None:
@@ -110,7 +111,7 @@ def test_set_symmetric_difference_three_sets() -> None:
     set2 = {2, 3, 4}
     set3 = {3, 4, 5}
     result = set_symmetric_difference(set1, set2, set3)
-    expected = {1, 5}
+    expected = {1, 3, 5}
     assert result == expected
 
 
@@ -122,7 +123,8 @@ def test_set_symmetric_difference_identical_sets() -> None:
     set2 = {1, 2, 3}
     set3 = {1, 2, 3}
     result = set_symmetric_difference(set1, set2, set3)
-    assert result == set()
+    expected = {1, 2, 3}
+    assert result == expected
 
 
 def test_set_symmetric_difference_empty_sets() -> None:

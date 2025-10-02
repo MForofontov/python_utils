@@ -54,7 +54,11 @@ def set_power_set_as_lists(input_set: set[T]) -> list[list[T]]:
         raise TypeError(f"input_set must be a set, got {type(input_set).__name__}")
 
     # Convert to list for indexing
-    elements = sorted(list(input_set))  # Sort for consistent ordering
+    elements = list(input_set)
+    try:
+        elements = sorted(elements)
+    except TypeError:
+        pass  # If elements are not comparable, skip sorting
     n = len(elements)
 
     # Generate all possible subsets
@@ -67,8 +71,11 @@ def set_power_set_as_lists(input_set: set[T]) -> list[list[T]]:
                 subset.append(elements[j])
         subsets.append(subset)
 
-    # Sort by length first, then lexicographically
-    subsets.sort(key=lambda x: (len(x), x))
+    # Try to sort by length and lexicographically, skip if not possible
+    try:
+        subsets.sort(key=lambda x: (len(x), x))
+    except TypeError:
+        subsets.sort(key=lambda x: len(x))
 
     return subsets
 

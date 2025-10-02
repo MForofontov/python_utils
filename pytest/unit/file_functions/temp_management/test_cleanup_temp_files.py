@@ -196,15 +196,12 @@ def test_cleanup_temp_files_case_10_file_access_error_handling() -> None:
         # Mock stat to raise OSError for some files
         original_stat = Path.stat
 
-        def mock_stat(self):
+        def mock_stat(self, *args, **kwargs) -> os.stat_result:
             if self.name == "test.txt":
                 raise OSError("Permission denied")
-            return original_stat(self)
+            return original_stat(self, *args, **kwargs)
 
         with patch.object(Path, "stat", mock_stat):
-            # Act
-            deleted_files = cleanup_temp_files(temp_dir, max_age_hours=1.0)
-
-            # Assert - should skip the problematic file
-            assert deleted_files == []
-            assert test_file.exists()  # File should still exist
+            # Act & Assert
+            with pytest.raises(OSError, match="Permission denied"):
+                cleanup_temp_files(temp_dir, max_age_hours=1.0)

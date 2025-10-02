@@ -31,6 +31,8 @@ def http_get(
         If ``url`` is not provided as a string.
     ValueError
         If ``url`` is an empty or whitespace-only string.
+    Exception
+        For any error during HTTP GET, including network errors. All exceptions are re-raised.
 
     Examples
     --------
@@ -63,17 +65,5 @@ def http_get(
                 "headers": dict(response.headers),
                 "url": response.geturl(),
             }
-    except HTTPError as e:
-        return {
-            "status_code": e.code,
-            "content": e.read().decode("utf-8") if e.fp else "",
-            "headers": dict(e.headers) if e.headers else {},
-            "url": url,
-        }
-    except URLError as e:
-        return {
-            "status_code": None,
-            "content": str(e.reason),
-            "headers": {},
-            "url": url,
-        }
+    except Exception as e:
+        raise

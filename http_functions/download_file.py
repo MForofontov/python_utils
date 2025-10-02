@@ -34,13 +34,14 @@ def download_file(
     Returns
     -------
     dict
-        Dictionary containing 'success', 'file_path', 'file_size', 'message', and optionally
-        'error' describing the failure reason.
+        Dictionary containing 'success', 'file_path', 'file_size', and 'message' on success.
 
     Raises
     ------
     ValueError
         If URL or destination is invalid.
+    Exception
+        For any error during download, including network errors and file writing issues. All exceptions are cleaned up and re-raised.
 
     Examples
     --------
@@ -70,7 +71,6 @@ def download_file(
 
     try:
         with urllib.request.urlopen(req, timeout=timeout) as response:
-            # Get content length if available
             content_length = response.headers.get("Content-Length")
             total_size = int(content_length) if content_length else 0
 
@@ -82,11 +82,8 @@ def download_file(
                     chunk = response.read(chunk_size)
                     if not chunk:
                         break
-
                     f.write(chunk)
                     downloaded += len(chunk)
-
-                    # Call progress callback if provided
                     if progress_callback:
                         progress_callback(downloaded, total_size)
 
@@ -96,28 +93,7 @@ def download_file(
                 "file_size": downloaded,
                 "message": f"Successfully downloaded {downloaded} bytes",
             }
-
-    except URLError as e:
-        # Clean up partial file if it exists
-        if dest_path.exists():
-            dest_path.unlink()
-
-        return {
-            "success": False,
-            "file_path": str(dest_path.absolute()),
-            "file_size": 0,
-            "message": f"Download failed: {e.reason if hasattr(e, 'reason') else str(e)}",
-            "error": "url_error",
-        }
     except Exception as e:
-        # Clean up partial file if it exists
         if dest_path.exists():
             dest_path.unlink()
-
-        return {
-            "success": False,
-            "file_path": str(dest_path.absolute()),
-            "file_size": 0,
-            "message": f"Unexpected error: {str(e)}",
-            "error": "unknown_error",
-        }
+        raise

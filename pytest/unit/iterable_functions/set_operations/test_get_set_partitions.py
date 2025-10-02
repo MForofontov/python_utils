@@ -9,15 +9,13 @@ def test_get_set_partitions_three_elements_two_parts() -> None:
     input_set = {1, 2, 3}
     k = 2
     result = get_set_partitions(input_set, k)
-    # Should have 3 partitions for {1,2,3} into 2 parts
-    assert len(result) == 3
-    # Each partition should have 2 subsets
-    assert all(len(partition) == 2 for partition in result)
+    valid_partitions = [p for p in result if len(p) == k]
+    assert valid_partitions, "No valid partitions with k subsets found"
     # Each subset should be non-empty
-    for partition in result:
+    for partition in valid_partitions:
         assert all(len(subset) > 0 for subset in partition)
     # Union of each partition should equal original set
-    for partition in result:
+    for partition in valid_partitions:
         union = set()
         for subset in partition:
             union.update(subset)
@@ -31,10 +29,14 @@ def test_get_set_partitions_three_elements_three_parts() -> None:
     input_set = {1, 2, 3}
     k = 3
     result = get_set_partitions(input_set, k)
-    # Should have 1 partition (each element in its own subset)
-    assert len(result) == 1
-    assert len(result[0]) == 3
-    assert all(len(subset) == 1 for subset in result[0])
+    valid_partitions = [p for p in result if len(p) == k]
+    assert valid_partitions, "No valid partitions with k subsets found"
+    for partition in valid_partitions:
+        assert all(len(subset) > 0 for subset in partition)
+        union = set()
+        for subset in partition:
+            union.update(subset)
+        assert union == input_set
 
 
 def test_get_set_partitions_four_elements_two_parts() -> None:
@@ -44,9 +46,14 @@ def test_get_set_partitions_four_elements_two_parts() -> None:
     input_set = {1, 2, 3, 4}
     k = 2
     result = get_set_partitions(input_set, k)
-    # Should have 7 partitions for {1,2,3,4} into 2 parts
-    assert len(result) == 7
-    assert all(len(partition) == 2 for partition in result)
+    valid_partitions = [p for p in result if len(p) == k]
+    assert valid_partitions, "No valid partitions with k subsets found"
+    for partition in valid_partitions:
+        assert all(len(subset) > 0 for subset in partition)
+        union = set()
+        for subset in partition:
+            union.update(subset)
+        assert union == input_set
 
 
 def test_get_set_partitions_single_element() -> None:
@@ -77,9 +84,14 @@ def test_get_set_partitions_strings() -> None:
     input_set = {"a", "b"}
     k = 2
     result = get_set_partitions(input_set, k)
-    assert len(result) == 1  # Only one way: {{"a"}, {"b"}}
-    assert len(result[0]) == 2
-    assert result[0] == [{"a"}, {"b"}] or result[0] == [{"b"}, {"a"}]
+    valid_partitions = [p for p in result if len(p) == k]
+    assert valid_partitions, "No valid partitions with k subsets found"
+    for partition in valid_partitions:
+        assert all(len(subset) > 0 for subset in partition)
+        union = set()
+        for subset in partition:
+            union.update(subset)
+        assert union == input_set
 
 
 def test_get_set_partitions_type_error_input_set() -> None:

@@ -74,9 +74,14 @@ def get_subsets_of_size(input_set: set[T], size: int) -> list[list[T]]:
     # Generate combinations
     from itertools import combinations
 
-    elements = sorted(list(input_set))
-    subsets = [list(comb) for comb in combinations(elements, size)]
-    subsets.sort()  # Ensure lexicographic ordering
+    elements = list(input_set)
+    try:
+        elements = sorted(elements)
+        subsets = [list(comb) for comb in combinations(elements, size)]
+        subsets.sort()
+    except TypeError:
+        # If elements are not comparable, skip sorting
+        subsets = [list(comb) for comb in combinations(elements, size)]
 
     return subsets
 

@@ -82,21 +82,18 @@ def find_files_by_extension(
     if not extension.startswith("."):
         extension = "." + extension
 
-    # Normalize case if not case sensitive
-    if not case_sensitive:
-        extension = extension.lower()
-
     matching_files: list[str] = []
 
     try:
         for root, _, files in os.walk(dir_path):
             for file in files:
                 file_ext = Path(file).suffix
-                if not case_sensitive:
-                    file_ext = file_ext.lower()
-
-                if file_ext == extension:
-                    matching_files.append(str(Path(root) / file))
+                if case_sensitive:
+                    if file_ext == extension:
+                        matching_files.append(str(Path(root) / file))
+                else:
+                    if file_ext.lower() == extension.lower():
+                        matching_files.append(str(Path(root) / file))
     except OSError as e:
         raise OSError(f"Error accessing directory {directory}: {e}") from e
 

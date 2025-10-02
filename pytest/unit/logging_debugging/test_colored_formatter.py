@@ -1,4 +1,5 @@
 import logging
+import sys
 from unittest.mock import patch
 
 from logging_debugging.colored_formatter import colored_formatter
@@ -30,33 +31,34 @@ def test_colored_formatter_basic():
 
 def test_colored_formatter_colors():
     """Test that colored formatter adds ANSI color codes."""
-    formatter = colored_formatter(use_color=True)
+    with patch.object(sys.stdout, "isatty", return_value=True):
+        formatter = colored_formatter(use_color=True)
 
-    # Test different log levels
-    test_cases = [
-        (logging.DEBUG, "\033[36m"),  # Cyan
-        (logging.INFO, "\033[32m"),  # Green
-        (logging.WARNING, "\033[33m"),  # Yellow
-        (logging.ERROR, "\033[31m"),  # Red
-        (logging.CRITICAL, "\033[35m"),  # Magenta
-    ]
+        # Test different log levels
+        test_cases = [
+            (logging.DEBUG, "\033[36m"),  # Cyan
+            (logging.INFO, "\033[32m"),  # Green
+            (logging.WARNING, "\033[33m"),  # Yellow
+            (logging.ERROR, "\033[31m"),  # Red
+            (logging.CRITICAL, "\033[35m"),  # Magenta
+        ]
 
-    for level, expected_color in test_cases:
-        record = logging.LogRecord(
-            name="test_logger",
-            level=level,
-            pathname="test.py",
-            lineno=10,
-            msg=f"Level {level} message",
-            args=(),
-            exc_info=None,
-        )
+        for level, expected_color in test_cases:
+            record = logging.LogRecord(
+                name="test_logger",
+                level=level,
+                pathname="test.py",
+                lineno=10,
+                msg=f"Level {level} message",
+                args=(),
+                exc_info=None,
+            )
 
-        result = formatter.format(record)
+            result = formatter.format(record)
 
-        # Should contain color codes and reset
-        assert expected_color in result
-        assert "\033[0m" in result  # Reset code
+            # Should contain color codes and reset
+            assert expected_color in result
+            assert "\033[0m" in result  # Reset code
 
 
 def test_colored_formatter_no_color():

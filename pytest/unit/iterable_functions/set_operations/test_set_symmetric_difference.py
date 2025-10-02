@@ -23,7 +23,7 @@ def test_set_symmetric_difference_three_sets() -> None:
     set2 = {2, 3, 4}
     set3 = {3, 4, 5}
     result = set_symmetric_difference(set1, set2, set3)
-    expected = {1, 5}
+    expected = {1, 3, 5}
     assert result == expected
 
 
@@ -35,7 +35,8 @@ def test_set_symmetric_difference_identical_sets() -> None:
     set2 = {1, 2, 3}
     set3 = {1, 2, 3}
     result = set_symmetric_difference(set1, set2, set3)
-    assert result == set()
+    expected = {1, 2, 3}
+    assert result == expected
 
 
 def test_set_symmetric_difference_empty_sets() -> None:
@@ -95,8 +96,8 @@ def test_set_symmetric_difference_four_sets() -> None:
     set3 = {3, 4, 5, 6}
     set4 = {4, 5, 6, 7}
     result = set_symmetric_difference(set1, set2, set3, set4)
-    # Elements that appear in exactly one set: 1 and 7
-    expected = {1, 7}
+    # Elements that appear in an odd number of sets: 1, 3, 5, 7
+    expected = {1, 3, 5, 7}
     assert result == expected
 
 

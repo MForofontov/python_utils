@@ -66,7 +66,7 @@ def invert_dict(d: dict[str, Any], allow_duplicates: bool = False) -> dict[Any, 
     ValueError: Duplicate values found: [1]
     """
     if not isinstance(d, dict):
-        raise TypeError("d must be a dictionary")
+        raise TypeError(f"d must be a dictionary, got {type(d).__name__}")
 
     inverted = {}
     duplicates = []
@@ -82,6 +82,11 @@ def invert_dict(d: dict[str, Any], allow_duplicates: bool = False) -> dict[Any, 
                 inverted[value].append(key)
         else:
             inverted[value] = key
+        if allow_duplicates:
+            # Ensure all values are lists (even if only one key)
+            for key in inverted:
+                if not isinstance(inverted[key], list):
+                    inverted[key] = [inverted[key]]
 
     if duplicates and not allow_duplicates:
         raise ValueError(f"Duplicate values found: {duplicates}")

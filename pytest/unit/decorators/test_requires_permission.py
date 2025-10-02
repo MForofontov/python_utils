@@ -15,18 +15,18 @@ test_logger.addHandler(handler)
 
 # Sample function to be decorated
 @requires_permission("admin")
-def sample_function() -> str:
+def sample_function(user_permissions: list[str]) -> str:
     return "Function executed"
 
 
-def test_requires_permission_success():
+def test_requires_permission_success() -> None:
     """
     Test case 1: User has the required permission
     """
     assert sample_function(["admin"]) == "Function executed"
 
 
-def test_requires_permission_with_args():
+def test_requires_permission_with_args() -> None:
     """
     Test case 2: Function with positional arguments
     """
@@ -38,7 +38,7 @@ def test_requires_permission_with_args():
     assert function_with_args(["admin"], 1, 2) == 3
 
 
-def test_requires_permission_with_kwargs():
+def test_requires_permission_with_kwargs() -> None:
     """
     Test case 3: Function with keyword arguments
     """
@@ -50,7 +50,7 @@ def test_requires_permission_with_kwargs():
     assert function_with_kwargs(["admin"], 1, b=2) == 3
 
 
-def test_requires_permission_with_var_args():
+def test_requires_permission_with_var_args() -> None:
     """
     Test case 4: Function with variable length arguments (*args and **kwargs)
     """
@@ -67,7 +67,7 @@ def test_requires_permission_with_var_args():
     )
 
 
-def test_requires_permission_invalid_permission_type():
+def test_requires_permission_invalid_permission_type() -> None:
     """
     Test case 5: Invalid permission type for requires_permission decorator
     """
@@ -78,7 +78,7 @@ def test_requires_permission_invalid_permission_type():
             pass
 
 
-def test_requires_permission_type_with_logger(caplog):
+def test_requires_permission_type_with_logger(caplog: pytest.LogCaptureFixture) -> None:
     """
     Test case 6: Logger functionality when type error occurs for permission
     """
@@ -95,7 +95,7 @@ def test_requires_permission_type_with_logger(caplog):
         )
 
 
-def test_requires_permission_no_permissions():
+def test_requires_permission_no_permissions() -> None:
     """
     Test case 7: User has no permissions
     """
@@ -105,7 +105,7 @@ def test_requires_permission_no_permissions():
         sample_function([])
 
 
-def test_requires_permission_permission_not_list():
+def test_requires_permission_permission_not_list() -> None:
     """
     Test case 8: User permissions is not a list
     """
@@ -113,7 +113,7 @@ def test_requires_permission_permission_not_list():
         sample_function("admin")
 
 
-def test_requires_permission_permission_not_list_with_logger(caplog):
+def test_requires_permission_permission_not_list_with_logger(caplog: pytest.LogCaptureFixture) -> None:
     """
     Test case 9: Logger functionality when type error occurs
     """
@@ -131,7 +131,7 @@ def test_requires_permission_permission_not_list_with_logger(caplog):
         )
 
 
-def test_requires_permission_failure():
+def test_requires_permission_failure() -> None:
     """
     Test case 10: User does not have the required permission
     """
@@ -141,7 +141,7 @@ def test_requires_permission_failure():
         sample_function(["user"])
 
 
-def test_requires_permission_with_logger(caplog):
+def test_requires_permission_with_logger(caplog: pytest.LogCaptureFixture) -> None:
     """
     Test case 11: Logger functionality when permission error occurs
     """
@@ -164,7 +164,7 @@ def test_requires_permission_with_logger(caplog):
         )
 
 
-def test_invalid_permission_type():
+def test_invalid_permission_type() -> None:
     """
     Test case 12: Invalid permission type
     """
@@ -175,7 +175,7 @@ def test_invalid_permission_type():
             pass
 
 
-def test_invalid_logger_type():
+def test_invalid_logger_type() -> None:
     """
     Test case 13: Invalid logger type
     """

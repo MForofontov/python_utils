@@ -38,7 +38,7 @@ def upload_file(
     Returns
     -------
     dict
-        Dictionary containing 'status_code', 'content', 'headers', and 'success'.
+        Dictionary containing 'status_code', 'content', 'headers', and 'success' on success.
 
     Raises
     ------
@@ -46,6 +46,8 @@ def upload_file(
         If URL or file_path is invalid.
     FileNotFoundError
         If the file doesn't exist.
+    Exception
+        For any error during upload, including HTTP/network errors. All exceptions are re-raised.
 
     Examples
     --------
@@ -125,17 +127,6 @@ def upload_file(
                 "headers": dict(response.headers),
                 "success": True,
             }
-    except HTTPError as e:
-        return {
-            "status_code": e.code,
-            "content": e.read().decode("utf-8") if e.fp else "",
-            "headers": dict(e.headers) if e.headers else {},
-            "success": False,
-        }
-    except URLError as e:
-        return {
-            "status_code": None,
-            "content": str(e.reason),
-            "headers": {},
-            "success": False,
-        }
+    except Exception as e:
+        # No file cleanup needed for upload, just re-raise
+        raise

@@ -70,10 +70,10 @@ def filter_dict_by_keys(
     {'name': 'John', 'age': 30}
     """
     if not isinstance(d, dict):
-        raise TypeError("d must be a dictionary")
+        raise TypeError(f"d must be a dictionary, got {type(d).__name__}")
 
     if keys is not None and not isinstance(keys, (list, set)):
-        raise TypeError("keys must be a list or set")
+        raise TypeError(f"keys must be a list or set, got {type(keys).__name__}")
 
     filtered = {}
 

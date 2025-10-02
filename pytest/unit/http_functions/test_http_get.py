@@ -127,12 +127,8 @@ def test_http_get_http_error_with_response_body(mock_urlopen):
     error.fp.read.return_value = b"Not found"
     mock_urlopen.side_effect = error
 
-    result = http_get("https://example.com")
-
-    assert result["status_code"] == 404
-    assert result["content"] == "Not found"
-    assert result["headers"] == {"Content-Type": "text/plain"}
-    assert result["url"] == "https://example.com"
+    with pytest.raises(urllib.error.HTTPError):
+        http_get("https://example.com")
 
 
 @patch("urllib.request.urlopen")
@@ -145,12 +141,8 @@ def test_http_get_http_error_without_response_body(mock_urlopen):
     )
     mock_urlopen.side_effect = error
 
-    result = http_get("https://example.com")
-
-    assert result["status_code"] == 500
-    assert result["content"] == ""
-    assert result["headers"] == {}
-    assert result["url"] == "https://example.com"
+    with pytest.raises(urllib.error.HTTPError):
+        http_get("https://example.com")
 
 
 @patch("urllib.request.urlopen")
