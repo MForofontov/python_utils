@@ -1,8 +1,9 @@
 """Unit tests for file download functionality."""
 
+
 import urllib.error
 from pathlib import Path
-from unittest.mock import Mock, mock_open, patch
+from unittest.mock import Mock, mock_open, patch, MagicMock
 
 import pytest
 from http_functions.download_file import download_file
@@ -47,7 +48,9 @@ def test_download_file_with_none_destination() -> None:
 @patch("urllib.request.urlopen")
 @patch("builtins.open", new_callable=mock_open)
 @patch("pathlib.Path.mkdir")
-def test_download_file_successful(mock_mkdir, mock_file_open, mock_urlopen) -> None:
+def test_download_file_successful(
+    mock_mkdir: MagicMock, mock_file_open: MagicMock, mock_urlopen: MagicMock
+) -> None:
     """Test case 7: Test successful file download returns correct response structure."""
     # Mock response
     mock_response = Mock()
@@ -81,7 +84,9 @@ def test_download_file_successful(mock_mkdir, mock_file_open, mock_urlopen) -> N
 @patch("urllib.request.urlopen")
 @patch("builtins.open", new_callable=mock_open)
 @patch("pathlib.Path.mkdir")
-def test_download_file_with_custom_headers(mock_mkdir, mock_file_open, mock_urlopen) -> None:
+def test_download_file_with_custom_headers(
+    mock_mkdir: MagicMock, mock_file_open: MagicMock, mock_urlopen: MagicMock
+) -> None:
     """Test case 8: Test file download with custom headers are properly set."""
     mock_response = Mock()
     mock_response.headers = {}
@@ -104,7 +109,9 @@ def test_download_file_with_custom_headers(mock_mkdir, mock_file_open, mock_urlo
 @patch("urllib.request.urlopen")
 @patch("builtins.open", new_callable=mock_open)
 @patch("pathlib.Path.mkdir")
-def test_download_file_with_progress_callback(mock_mkdir, mock_file_open, mock_urlopen) -> None:
+def test_download_file_with_progress_callback(
+    mock_mkdir: MagicMock, mock_file_open: MagicMock, mock_urlopen: MagicMock
+) -> None:
     """Test case 9: Test file download with progress callback function called correctly."""
     mock_response = Mock()
     mock_response.headers = {"Content-Length": "100"}
@@ -135,7 +142,7 @@ def test_download_file_with_progress_callback(mock_mkdir, mock_file_open, mock_u
 @patch("builtins.open", new_callable=mock_open)
 @patch("pathlib.Path.mkdir")
 def test_download_file_no_content_length_header(
-    mock_mkdir, mock_file_open, mock_urlopen
+    mock_mkdir: MagicMock, mock_file_open: MagicMock, mock_urlopen: MagicMock
 ) -> None:
     """Test case 10: Test file download when Content-Length header is missing."""
     mock_response = Mock()
@@ -168,7 +175,9 @@ def test_download_file_no_content_length_header(
 @patch("urllib.request.urlopen")
 @patch("builtins.open", new_callable=mock_open)
 @patch("pathlib.Path.mkdir")
-def test_download_file_with_custom_timeout(mock_mkdir, mock_file_open, mock_urlopen) -> None:
+def test_download_file_with_custom_timeout(
+    mock_mkdir: MagicMock, mock_file_open: MagicMock, mock_urlopen: MagicMock
+) -> None:
     """Test case 11: Test file download with custom timeout value."""
     mock_response = Mock()
     mock_response.headers = {}
@@ -188,7 +197,9 @@ def test_download_file_with_custom_timeout(mock_mkdir, mock_file_open, mock_urlo
 @patch("urllib.request.urlopen")
 @patch("builtins.open", new_callable=mock_open)
 @patch("pathlib.Path.mkdir")
-def test_download_file_default_timeout(mock_mkdir, mock_file_open, mock_urlopen) -> None:
+def test_download_file_default_timeout(
+    mock_mkdir: MagicMock, mock_file_open: MagicMock, mock_urlopen: MagicMock
+) -> None:
     """Test case 12: Test that default timeout is 30 seconds when not specified."""
     mock_response = Mock()
     mock_response.headers = {}
@@ -206,7 +217,9 @@ def test_download_file_default_timeout(mock_mkdir, mock_file_open, mock_urlopen)
 
 @patch("urllib.request.urlopen")
 @patch("pathlib.Path.unlink")
-def test_download_file_request_failure(mock_unlink, mock_urlopen) -> None:
+def test_download_file_request_failure(
+    mock_unlink: MagicMock, mock_urlopen: MagicMock
+) -> None:
     """Test case 13: Test file download when request fails returns error response."""
     mock_urlopen.side_effect = urllib.error.URLError("Connection failed")
 
@@ -224,7 +237,7 @@ def test_download_file_request_failure(mock_unlink, mock_urlopen) -> None:
 @patch("pathlib.Path.exists", return_value=True)
 @patch("pathlib.Path.unlink")
 def test_download_file_write_failure_cleanup(
-    mock_unlink, mock_exists, mock_mkdir, mock_file_open, mock_urlopen
+    mock_unlink: MagicMock, mock_exists: MagicMock, mock_mkdir: MagicMock, mock_file_open: MagicMock, mock_urlopen: MagicMock
 ) -> None:
     """Test case 14: Test file download when file write fails performs cleanup."""
     mock_response = Mock()
