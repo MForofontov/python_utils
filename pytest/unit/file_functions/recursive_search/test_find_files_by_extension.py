@@ -57,8 +57,8 @@ def test_find_files_by_extension_case_3_case_sensitive() -> None:
     """
     # Arrange
     with tempfile.TemporaryDirectory() as temp_dir:
-        (Path(temp_dir) / "file.TXT").touch()
-        (Path(temp_dir) / "file.txt").touch()
+        (Path(temp_dir) / "file1.TXT").touch()
+        (Path(temp_dir) / "file2.txt").touch()
 
         # Act - case sensitive
         result_sensitive = find_files_by_extension(
@@ -70,8 +70,12 @@ def test_find_files_by_extension_case_3_case_sensitive() -> None:
         )
 
         # Assert
+        # Only file2.txt should match in case-sensitive mode
         assert len(result_sensitive) == 1
-        assert len(result_insensitive) == 2
+        assert Path(result_sensitive[0]).name == "file2.txt"
+        # Both should match in case-insensitive mode
+        found_names = {Path(f).name for f in result_insensitive}
+        assert found_names == {"file1.TXT", "file2.txt"}
 
 
 def test_find_files_by_extension_case_4_empty_directory() -> None:
