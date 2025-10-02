@@ -69,6 +69,7 @@ def test_set_power_set_as_lists_mixed_types() -> None:
     """
     input_set = {1, "a"}
     result = set_power_set_as_lists(input_set)
+    # Actual output: [[], [1], ['a'], [1, 'a']]
     expected = [[], [1], ["a"], [1, "a"]]
     assert result == expected
 

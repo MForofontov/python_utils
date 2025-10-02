@@ -28,10 +28,8 @@ def test_get_network_interfaces_structure() -> None:
 
     for interface_name, interface_data in interfaces.items():
         assert isinstance(interface_name, str)
-        assert isinstance(interface_data, dict)
-
-        # Check if expected keys are present
-        expected_keys = ["addresses"]
-        for key in expected_keys:
-            if key in interface_data:
-                assert isinstance(interface_data[key], list)
+        # Accept list of snicaddr objects or similar structure
+        assert isinstance(interface_data, (list, tuple)), f"Expected list/tuple, got {type(interface_data).__name__}"
+        # Optionally check that each item is an address object (has 'address' attribute)
+        for addr in interface_data:
+            assert hasattr(addr, "address"), f"Item missing 'address' attribute: {addr}"
