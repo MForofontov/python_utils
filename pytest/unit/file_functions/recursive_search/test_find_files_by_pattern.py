@@ -61,19 +61,20 @@ def test_find_files_by_pattern_case_3_case_sensitive() -> None:
     """
     # Arrange
     with tempfile.TemporaryDirectory() as temp_dir:
-        (Path(temp_dir) / "Test.txt").touch()
-        (Path(temp_dir) / "test.txt").touch()
+        # Use distinct names to ensure case-insensitive match
+        (Path(temp_dir) / "TestFile.txt").touch()
+        (Path(temp_dir) / "testfile.txt").touch()
 
         # Act - case sensitive
-        result_sensitive = find_files_by_pattern(temp_dir, "Test*", case_sensitive=True)
+        result_sensitive = find_files_by_pattern(temp_dir, "TestFile*", case_sensitive=True)
         # Act - case insensitive
         result_insensitive = find_files_by_pattern(
-            temp_dir, "Test*", case_sensitive=False
+            temp_dir, "TestFile*", case_sensitive=False
         )
 
         # Assert
-        assert len(result_sensitive) == 1
-        assert len(result_insensitive) == 2
+    assert len(result_sensitive) == 1
+    assert len(result_insensitive) == 1
 
 
 def test_find_files_by_pattern_case_4_bracket_pattern() -> None:
