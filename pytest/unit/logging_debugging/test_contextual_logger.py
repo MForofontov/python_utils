@@ -86,7 +86,7 @@ def test_contextual_logger_with_context_logging(caplog: pytest.LogCaptureFixture
     # Check that context is included in log record
     assert hasattr(record, "user_id")
     assert record.user_id == "123"
-    assert record.operation == "test_op"
+    assert getattr(record, "operation") == "test_op"
 
 
 def test_contextual_logger_different_levels(caplog: pytest.LogCaptureFixture) -> None:
