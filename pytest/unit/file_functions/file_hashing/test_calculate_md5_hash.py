@@ -25,7 +25,7 @@ def test_calculate_md5_hash_case_1_normal_operation() -> None:
         result = calculate_md5_hash(temp_file_path)
 
         # Assert - Known MD5 hash of "hello world"
-        expected = "5d41402abc4b2a76b9719d911017c592"
+        expected = "5eb63bbbe01eeed093cb22bb8f5acdc3"
         assert result == expected
     finally:
         Path(temp_file_path).unlink()
