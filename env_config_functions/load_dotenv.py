@@ -22,6 +22,12 @@ def load_dotenv(dotenv_path: str | None = None, override: bool = False) -> None:
     >>> import os; os.environ['MY_VAR']
     'some_value'
     """
+    # Type validation
+    if dotenv_path is not None and not isinstance(dotenv_path, str):
+        raise TypeError("dotenv_path must be a string or None")
+    if not isinstance(override, bool):
+        raise TypeError("override must be a boolean")
+
     path = dotenv_path or ".env"
     if not os.path.exists(path):
         return
