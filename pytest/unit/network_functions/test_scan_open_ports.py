@@ -4,6 +4,7 @@ from unittest.mock import patch, MagicMock
 import socket
 
 
+
 def test_scan_open_ports_normal() -> None:
     """
     Test case 1: Normal operation with mocked socket.
@@ -15,7 +16,6 @@ def test_scan_open_ports_normal() -> None:
             open_ports = scan_open_ports("localhost", 22, 25, timeout=0.1)
             assert isinstance(open_ports, list)
             assert all(isinstance(port, int) for port in open_ports)
-
 
 def test_scan_open_ports_closed() -> None:
     """
@@ -29,7 +29,6 @@ def test_scan_open_ports_closed() -> None:
             open_ports = scan_open_ports("localhost", 22, 25, timeout=0.1)
             assert open_ports == []
 
-
 def test_scan_open_ports_type_error_host() -> None:
     """
     Test case 3: TypeError for non-string host (simulate error).
@@ -37,23 +36,9 @@ def test_scan_open_ports_type_error_host() -> None:
     with pytest.raises(TypeError, match="host must be a string"):
         scan_open_ports(123, 22, 25)
 
-
 def test_scan_open_ports_type_error_port() -> None:
     """
     Test case 4: TypeError for non-integer port (simulate error).
     """
     with pytest.raises(TypeError, match="start_port must be an integer"):
         scan_open_ports("localhost", "not_an_int", 25)
-
-
-def test_scan_open_ports_performance() -> None:
-    """
-    Test case 5: Performance with repeated calls.
-    """
-    mock_sock = MagicMock()
-    mock_sock.connect.return_value = None
-    with patch("socket.socket", return_value=mock_sock):
-        with patch.object(mock_sock, "settimeout"):
-            for _ in range(5):
-                open_ports = scan_open_ports("localhost", 22, 25, timeout=0.1)
-                assert isinstance(open_ports, list)

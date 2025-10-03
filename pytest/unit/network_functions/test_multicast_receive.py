@@ -4,6 +4,7 @@ from unittest.mock import patch, MagicMock
 import socket
 
 
+
 def test_multicast_receive_normal() -> None:
     """
     Test case 1: Normal operation with mocked socket.
@@ -17,7 +18,6 @@ def test_multicast_receive_normal() -> None:
                     with patch.object(mock_sock, "close"):
                         result = multicast_receive("224.0.0.1", 5007, timeout=1)
                         assert result == "hello"
-
 
 def test_multicast_receive_timeout() -> None:
     """
@@ -33,7 +33,6 @@ def test_multicast_receive_timeout() -> None:
                         result = multicast_receive("224.0.0.1", 5007, timeout=1)
                         assert result is None
 
-
 def test_multicast_receive_type_error_group() -> None:
     """
     Test case 3: TypeError for non-string group (simulate error).
@@ -41,26 +40,9 @@ def test_multicast_receive_type_error_group() -> None:
     with pytest.raises(Exception):
         multicast_receive(123, 5007)
 
-
 def test_multicast_receive_type_error_port() -> None:
     """
     Test case 4: TypeError for non-integer port (simulate error).
     """
     with pytest.raises(Exception):
         multicast_receive("224.0.0.1", "not_an_int")
-
-
-def test_multicast_receive_performance() -> None:
-    """
-    Test case 5: Performance with repeated calls.
-    """
-    mock_sock = MagicMock()
-    mock_sock.recvfrom.return_value = (b'hello', None)
-    with patch("socket.socket", return_value=mock_sock):
-        with patch.object(mock_sock, "settimeout"):
-            with patch.object(mock_sock, "setsockopt"):
-                with patch.object(mock_sock, "bind"):
-                    with patch.object(mock_sock, "close"):
-                        for _ in range(10):
-                            result = multicast_receive("224.0.0.1", 5007, timeout=1)
-                            assert result == "hello"

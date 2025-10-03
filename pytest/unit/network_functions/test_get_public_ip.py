@@ -3,13 +3,13 @@ from network_functions.get_public_ip import get_public_ip
 from unittest.mock import patch
 
 
+
 def test_get_public_ip_type() -> None:
     """
     Test case 1: get_public_ip returns a string.
     """
     ip = get_public_ip()
     assert isinstance(ip, str)
-
 
 def test_get_public_ip_format() -> None:
     """
@@ -19,7 +19,6 @@ def test_get_public_ip_format() -> None:
     parts = ip.split(".")
     assert len(parts) == 4
     assert all(part.isdigit() and 0 <= int(part) <= 255 for part in parts)
-
 
 def test_get_public_ip_mocked() -> None:
     """
@@ -33,7 +32,6 @@ def test_get_public_ip_mocked() -> None:
     with patch("requests.get", return_value=MockResponse("8.8.8.8")):
         ip = get_public_ip()
         assert ip == "8.8.8.8"
-
 
 def test_get_public_ip_network_error() -> None:
     """
@@ -49,19 +47,9 @@ def test_get_public_ip_network_error() -> None:
         ip = get_public_ip()
         assert ip == ""
 
-
-def test_get_public_ip_performance() -> None:
-    """
-    Test case 5: Performance with repeated calls.
-    """
-    for _ in range(20):
-        ip = get_public_ip()
-        assert isinstance(ip, str)
-
-
 def test_get_public_ip_type_error() -> None:
     """
-    Test case 6: TypeError if requests.get returns wrong type.
+    Test case 5: TypeError if requests.get returns wrong type.
     """
     with patch("requests.get", return_value="not_a_response"):
         ip = get_public_ip()

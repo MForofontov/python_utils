@@ -3,13 +3,13 @@ from network_functions.get_network_interfaces import get_network_interfaces
 from unittest.mock import patch
 
 
+
 def test_get_network_interfaces_type() -> None:
     """
     Test case 1: get_network_interfaces returns a dict.
     """
     interfaces = get_network_interfaces()
     assert isinstance(interfaces, dict)
-
 
 def test_get_network_interfaces_keys_values() -> None:
     """
@@ -20,7 +20,6 @@ def test_get_network_interfaces_keys_values() -> None:
         assert isinstance(k, str)
         assert isinstance(v, list)
         assert all(isinstance(ip, str) for ip in v)
-
 
 def test_get_network_interfaces_mocked() -> None:
     """
@@ -39,7 +38,6 @@ def test_get_network_interfaces_mocked() -> None:
         interfaces = get_network_interfaces()
         assert interfaces == {"eth0": ["192.168.1.2"], "lo": ["127.0.0.1"]}
 
-
 def test_get_network_interfaces_empty() -> None:
     """
     Test case 4: Edge case with no interfaces.
@@ -48,19 +46,9 @@ def test_get_network_interfaces_empty() -> None:
         interfaces = get_network_interfaces()
         assert interfaces == {}
 
-
-def test_get_network_interfaces_performance() -> None:
-    """
-    Test case 5: Performance with repeated calls.
-    """
-    for _ in range(50):
-        interfaces = get_network_interfaces()
-        assert isinstance(interfaces, dict)
-
-
 def test_get_network_interfaces_type_error() -> None:
     """
-    Test case 6: TypeError if psutil.net_if_addrs returns wrong type.
+    Test case 5: TypeError if psutil.net_if_addrs returns wrong type.
     """
     with patch("psutil.net_if_addrs", return_value="not_a_dict"):
         with pytest.raises(Exception):

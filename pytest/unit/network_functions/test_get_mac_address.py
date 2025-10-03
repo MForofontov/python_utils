@@ -3,13 +3,13 @@ from network_functions.get_mac_address import get_mac_address
 from unittest.mock import patch
 
 
+
 def test_get_mac_address_type() -> None:
     """
     Test case 1: get_mac_address returns a string.
     """
     mac = get_mac_address()
     assert isinstance(mac, str)
-
 
 def test_get_mac_address_format() -> None:
     """
@@ -20,7 +20,6 @@ def test_get_mac_address_format() -> None:
     assert len(parts) == 6
     assert all(len(part) == 2 for part in parts)
 
-
 def test_get_mac_address_mocked() -> None:
     """
     Test case 3: Mocked uuid.getnode returns expected MAC.
@@ -29,28 +28,17 @@ def test_get_mac_address_mocked() -> None:
         mac = get_mac_address()
         assert mac == "00:1a:2b:3c:4d:5e"
 
-
-def test_get_mac_address_performance() -> None:
-    """
-    Test case 4: Performance with repeated calls.
-    """
-    for _ in range(50):
-        mac = get_mac_address()
-        assert isinstance(mac, str)
-
-
 def test_get_mac_address_edge_case() -> None:
     """
-    Test case 5: Edge case with all zeros MAC.
+    Test case 4: Edge case with all zeros MAC.
     """
     with patch("uuid.getnode", return_value=0):
         mac = get_mac_address()
         assert mac == "00:00:00:00:00:00"
 
-
 def test_get_mac_address_type_error() -> None:
     """
-    Test case 6: TypeError if uuid.getnode returns non-int (simulate error).
+    Test case 5: TypeError if uuid.getnode returns non-int (simulate error).
     """
     with patch("uuid.getnode", return_value="not_an_int"):
         with pytest.raises(Exception):

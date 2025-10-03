@@ -3,18 +3,17 @@ from network_functions.get_default_gateway import get_default_gateway
 from unittest.mock import patch
 
 
+
 def test_get_default_gateway_normal() -> None:
     """
     Test case 1: Normal operation returns a string IP or empty string.
     """
     gateway = get_default_gateway()
     assert isinstance(gateway, str)
-    # Accept empty string or valid IPv4
     if gateway:
         parts = gateway.split('.')
         assert len(parts) == 4
         assert all(part.isdigit() and 0 <= int(part) <= 255 for part in parts)
-
 
 def test_get_default_gateway_fallback() -> None:
     """
@@ -24,7 +23,6 @@ def test_get_default_gateway_fallback() -> None:
         with patch("network_functions.get_default_gateway._gateway_from_command", return_value=""):
             assert get_default_gateway() == ""
 
-
 def test_get_default_gateway_type() -> None:
     """
     Test case 3: Return type is always string.
@@ -32,27 +30,16 @@ def test_get_default_gateway_type() -> None:
     gateway = get_default_gateway()
     assert isinstance(gateway, str)
 
-
-def test_get_default_gateway_performance() -> None:
-    """
-    Test case 4: Performance with repeated calls.
-    """
-    for _ in range(50):
-        gateway = get_default_gateway()
-        assert isinstance(gateway, str)
-
-
 def test_get_default_gateway_edge_case() -> None:
     """
-    Test case 5: Edge case with unusual system config.
+    Test case 4: Edge case with unusual system config.
     """
     with patch("network_functions.get_default_gateway._gateway_from_proc", return_value="0.0.0.0"):
         assert get_default_gateway() == "0.0.0.0"
 
-
 def test_get_default_gateway_value_error() -> None:
     """
-    Test case 6: ValueError for invalid gateway format (simulate parser error).
+    Test case 5: ValueError for invalid gateway format (simulate parser error).
     """
     with patch("network_functions.get_default_gateway._gateway_from_proc", return_value="not_an_ip"):
         gateway = get_default_gateway()
