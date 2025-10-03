@@ -2,7 +2,7 @@ import re
 import logging
 import time
 
-from logging_debugging.performance_formatter import performance_formatter
+from logger_functions.performance_formatter import performance_formatter
 
 
 def test_performance_formatter_basic():

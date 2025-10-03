@@ -2,7 +2,7 @@ import logging
 import sys
 from unittest.mock import patch
 
-from logging_debugging.colored_formatter import colored_formatter
+from logger_functions.colored_formatter import colored_formatter
 
 
 def test_colored_formatter_basic():

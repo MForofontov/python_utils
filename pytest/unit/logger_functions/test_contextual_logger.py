@@ -2,13 +2,12 @@
 import logging
 from typing import Any
 import pytest
-from logging_debugging.contextual_logger import LogContext, contextual_logger
+from logger_functions.contextual_logger import LogContext, contextual_logger, ContextualLogger
 
 
 def test_contextual_logger_creation() -> None:
     """Test creating a contextual logger."""
     logger = contextual_logger("test_logger")
-    from logging_debugging.contextual_logger import ContextualLogger
     assert isinstance(logger, ContextualLogger)
     assert logger.logger.name == "test_logger"
 

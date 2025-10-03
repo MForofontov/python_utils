@@ -6,13 +6,11 @@ file operations, and network utilities.
 from .get_cpu_info import get_cpu_info
 from .get_disk_usage import get_disk_usage
 from .get_file_size import get_file_size
-from .get_network_interfaces import get_network_interfaces
 from .get_uptime import get_uptime
 from .is_process_running import is_process_running
 from .kill_process import kill_process
 from .list_directories import list_directories
 from .list_files import list_files
-from .ping_host import ping_host
 
 __all__ = [
     "get_uptime",
@@ -23,6 +21,4 @@ __all__ = [
     "get_file_size",
     "list_files",
     "list_directories",
-    "get_network_interfaces",
-    "ping_host",
 ]
