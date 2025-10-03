@@ -44,6 +44,15 @@ def parallel_sort(
     [1, 2, 3, 4, 5]
     """
 
+
+    # Input validation
+    if not isinstance(data, list):
+        raise TypeError("data must be a list")
+    if not isinstance(chunk_size, int):
+        raise TypeError("chunk_size must be an integer")
+    if chunk_size <= 0:
+        raise ValueError("chunk_size must be positive")
+
     if num_processes is None:
         num_processes = max(
             cpu_count() - 1,
