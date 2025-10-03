@@ -3,7 +3,7 @@ import socket
 import psutil
 
 
-def get_network_interfaces() -> dict[str, str]:
+def get_network_interfaces() -> dict[str, list[str]]:
     """
     List all network interfaces and their IP addresses.
 
@@ -17,11 +17,11 @@ def get_network_interfaces() -> dict[str, str]:
     >>> get_network_interfaces()
     {'eth0': '192.168.1.100', 'lo': '127.0.0.1'}
     """
-    interfaces = {}
+    interfaces: dict[str, list[str]] = {}
     for iface, addrs in psutil.net_if_addrs().items():
-        for addr in addrs:
-            if addr.family == socket.AF_INET:
-                interfaces[iface] = addr.address
+        ip_list = [addr.address for addr in addrs if addr.family == socket.AF_INET]
+        if ip_list:
+            interfaces[iface] = ip_list
     return interfaces
 
 __all__ = ["get_network_interfaces"]

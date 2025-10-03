@@ -87,8 +87,8 @@ def generate_jwt_token(
 
     full_payload = {
         **payload,
-        "iat": int(now.timestamp()),
-        "exp": int(exp_time.timestamp()),
+        "iat": now.timestamp(),
+        "exp": exp_time.timestamp(),
     }
 
     # Encode header and payload

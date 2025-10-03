@@ -24,16 +24,23 @@ def get_network_speed(test_url: str = "https://speed.hetzner.de/100MB.bin", time
     >>> get_network_speed()
     {'download_mbps': 85.2}
     """
-    try:
-        start = time.time()
-        response = requests.get(test_url, stream=True, timeout=timeout)
-        total_bytes = 0
-        for chunk in response.iter_content(chunk_size=8192):
-            total_bytes += len(chunk)
-        elapsed = time.time() - start
-        mbps = (total_bytes * 8) / (elapsed * 1_000_000)
-        return {'download_mbps': mbps}
-    except Exception:
-        return {'download_mbps': 0.0}
+    # Input validation
+    if not isinstance(test_url, str):
+        raise TypeError(f"test_url must be a string, got {type(test_url).__name__}")
+    if not test_url:
+        raise ValueError("test_url cannot be empty")
+    if not isinstance(timeout, (int, float)):
+        raise TypeError(f"timeout must be a number, got {type(timeout).__name__}")
+    if timeout <= 0:
+        raise ValueError("timeout must be positive")
+
+    start = time.time()
+    response = requests.get(test_url, stream=True, timeout=timeout)
+    total_bytes = 0
+    for chunk in response.iter_content(chunk_size=8192):
+        total_bytes += len(chunk)
+    elapsed = time.time() - start
+    mbps = (total_bytes * 8) / (elapsed * 1_000_000)
+    return {'download_mbps': mbps}
 
 __all__ = ["get_network_speed"]

@@ -14,3 +14,4 @@ bcrypt==4.3.0
 cryptography==45.0.7
 PyJWT==2.10.1
 dnspython==2.8.0
+requests==2.32.5

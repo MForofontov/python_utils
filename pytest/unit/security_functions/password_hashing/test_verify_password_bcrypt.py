@@ -94,7 +94,7 @@ def test_verify_password_bcrypt_case_6_invalid_hash_format() -> None:
     """
     # Test invalid bcrypt identifier
     with pytest.raises(
-        ValueError, match="hashed_password is not a valid bcrypt hash format"
+        ValueError, match="Invalid bcrypt hash format"
     ):
         verify_password_bcrypt("password", "$1$invalid_hash_format_here")
 

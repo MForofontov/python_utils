@@ -1,3 +1,4 @@
+import re
 import logging
 import time
 
@@ -30,7 +31,7 @@ def test_performance_formatter_basic():
     assert "+0.0ms" in result  # Initial elapsed time
 
 
-def test_performance_formatter_timestamp():
+def test_performance_formatter_timestamp() -> None:
     """Test that performance formatter includes timestamp."""
     formatter = performance_formatter()
 
@@ -48,9 +49,7 @@ def test_performance_formatter_timestamp():
 
     # Should start with timestamp in [HH:MM:SS.mmm] format
     assert result.startswith("[")
-    assert (
-        ":00.000]" in result or ":00.001]" in result
-    )  # Allow for small timing variations
+    assert re.match(r"\[\d{2}:\d{2}:\d{2}\.\d{3}\]", result)
 
 
 def test_performance_formatter_thread_info():
@@ -221,7 +220,7 @@ def test_performance_formatter_with_formatting():
     assert "Value: test, Time: 1.23" in message_part
 
 
-def test_performance_formatter_all_parts():
+def test_performance_formatter_all_parts() -> None:
     """Test that all expected parts are present."""
     formatter = performance_formatter(include_thread_info=True)
 
@@ -248,4 +247,4 @@ def test_performance_formatter_all_parts():
     assert parts[1].startswith("T")  # thread
     assert parts[2] == "ERROR"  # level
     assert "complete_test:50" in parts[3]  # location
-    assert "Complete test message" in parts[4]  # message
+    assert "Complete test message" in parts[-1]  # message

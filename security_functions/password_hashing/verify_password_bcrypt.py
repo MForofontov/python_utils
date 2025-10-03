@@ -73,15 +73,15 @@ def verify_password_bcrypt(
 
     # Validate bcrypt hash format
     if not hashed_password.startswith(("$2a$", "$2b$", "$2x$", "$2y$")):
-        raise ValueError("hashed_password is not a valid bcrypt hash format")
+        raise ValueError("Invalid bcrypt hash format")
     if len(hashed_password) != 60:
         raise ValueError("hashed_password must be exactly 60 characters long")
 
     try:
         # Verify password against hash
         return bcrypt.checkpw(password.encode("utf-8"), hashed_password.encode("utf-8"))
-    except Exception as e:
-        raise ValueError(f"Invalid bcrypt hash format: {e}") from e
+    except Exception:
+        return False
 
 
 __all__ = ["verify_password_bcrypt"]
