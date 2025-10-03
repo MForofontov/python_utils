@@ -3,7 +3,7 @@ import logging
 import sys
 from datetime import datetime
 
-from logging_debugging.json_formatter import json_formatter
+from logger_functions.json_formatter import json_formatter
 
 
 def test_json_formatter_basic() -> None:

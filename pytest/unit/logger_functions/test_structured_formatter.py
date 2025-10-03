@@ -1,7 +1,7 @@
 import logging
 from datetime import datetime
 
-from logging_debugging.structured_formatter import structured_formatter
+from logger_functions.structured_formatter import structured_formatter
 
 
 def test_structured_formatter_basic():
