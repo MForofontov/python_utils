@@ -102,7 +102,7 @@ def verify_jwt_token(
         payload = json.loads(payload_bytes.decode("utf-8"))
 
     except (json.JSONDecodeError, UnicodeDecodeError) as e:
-        raise ValueError(f"invalid JSON in token: {e}") from e
+        raise ValueError(f"invalid base64url encoding: {e}") from e
 
     # Verify algorithm
     if header.get("alg") != "HS256":

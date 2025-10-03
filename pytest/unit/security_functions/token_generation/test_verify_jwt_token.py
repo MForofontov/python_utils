@@ -112,7 +112,7 @@ def test_verify_jwt_token_case_7_invalid_json() -> None:
     invalid_token = f"{invalid_json}.{invalid_json}.{invalid_json}"
 
     # Act & Assert
-    with pytest.raises(ValueError, match="invalid JSON in token"):
+    with pytest.raises(ValueError, match="invalid base64url encoding"):
         verify_jwt_token(invalid_token, "secret")
 
 
