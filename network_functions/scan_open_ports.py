@@ -26,6 +26,26 @@ def scan_open_ports(host: str, start_port: int = 1, end_port: int = 1024, timeou
     >>> scan_open_ports('localhost', 22, 25)
     [22, 23, 25]
     """
+    # Input validation
+    if not isinstance(host, str):
+        raise TypeError(f"host must be a string, got {type(host).__name__}")
+    if not host:
+        raise ValueError("host cannot be empty")
+    if not isinstance(start_port, int):
+        raise TypeError(f"start_port must be an integer, got {type(start_port).__name__}")
+    if not isinstance(end_port, int):
+        raise TypeError(f"end_port must be an integer, got {type(end_port).__name__}")
+    if not (0 < start_port < 65536):
+        raise ValueError("start_port must be between 1 and 65535")
+    if not (0 < end_port < 65536):
+        raise ValueError("end_port must be between 1 and 65535")
+    if start_port > end_port:
+        raise ValueError("start_port must be less than or equal to end_port")
+    if not isinstance(timeout, (int, float)):
+        raise TypeError(f"timeout must be a number, got {type(timeout).__name__}")
+    if timeout <= 0:
+        raise ValueError("timeout must be positive")
+
     open_ports = []
     for port in range(start_port, end_port + 1):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:

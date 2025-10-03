@@ -23,6 +23,12 @@ def get_subnet_mask(interface: str) -> str:
     >>> get_subnet_mask('eth0')
     '255.255.255.0'
     """
+    # Input validation
+    if not isinstance(interface, str):
+        raise TypeError(f"interface must be a string, got {type(interface).__name__}")
+    if not interface:
+        raise ValueError("interface cannot be empty")
+
     for addr in psutil.net_if_addrs().get(interface, []):
         if addr.family == socket.AF_INET:
             return addr.netmask or ""
