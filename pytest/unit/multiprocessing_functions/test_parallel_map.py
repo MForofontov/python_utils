@@ -9,6 +9,10 @@ def square(x: int) -> int:
 def add_one(x: int) -> int:
     return x + 1
 
+def fail_on_two(x: int) -> int:
+    if x == 2:
+        raise ValueError("fail")
+    return x
 
 def test_parallel_map_basic() -> None:
     """
@@ -77,12 +81,6 @@ def test_parallel_map_func_raises_exception() -> None:
     """
     Test case 7: Test parallel_map with a function that raises an exception.
     """
-
-    def fail_on_two(x):
-        if x == 2:
-            raise ValueError("fail")
-        return x
-
     data = [1, 2, 3]
     with pytest.raises(ValueError):
         parallel_map(fail_on_two, data)
