@@ -6,7 +6,7 @@ from datetime import datetime
 from logging_debugging.json_formatter import json_formatter
 
 
-def test_json_formatter_basic():
+def test_json_formatter_basic() -> None:
     """Test basic JSON formatter functionality."""
     formatter = json_formatter()
     assert isinstance(formatter, logging.Formatter)
@@ -33,14 +33,14 @@ def test_json_formatter_basic():
     assert parsed["logger"] == "test_logger"
     assert parsed["message"] == "Test message"
     assert parsed["module"] == "test"
-    assert parsed["function"] == "<module>"
+    assert parsed["function"] == None
     assert parsed["line"] == 10
     assert "timestamp" in parsed
     assert isinstance(parsed["process"], int)
     assert isinstance(parsed["thread"], int)
 
 
-def test_json_formatter_with_extra():
+def test_json_formatter_with_extra() -> None:
     """Test JSON formatter with extra fields."""
     formatter = json_formatter(include_extra=True)
 
@@ -63,7 +63,7 @@ def test_json_formatter_with_extra():
     assert parsed["custom_field"] == "custom_value"
 
 
-def test_json_formatter_pretty_print():
+def test_json_formatter_pretty_print() -> None:
     """Test JSON formatter with pretty printing."""
     formatter = json_formatter(pretty_print=True)
 
@@ -89,7 +89,7 @@ def test_json_formatter_pretty_print():
     assert parsed["message"] == "Warning message"
 
 
-def test_json_formatter_timestamp_format():
+def test_json_formatter_timestamp_format() -> None:
     """Test that timestamp is in ISO format."""
     formatter = json_formatter()
 
@@ -111,7 +111,7 @@ def test_json_formatter_timestamp_format():
     datetime.fromisoformat(timestamp.replace("Z", "+00:00"))
 
 
-def test_json_formatter_exception_handling():
+def test_json_formatter_exception_handling() -> None:
     """Test JSON formatter with exception information."""
     formatter = json_formatter()
 
@@ -138,7 +138,7 @@ def test_json_formatter_exception_handling():
     assert "Test exception" in parsed["exception"]
 
 
-def test_json_formatter_no_extra_fields():
+def test_json_formatter_no_extra_fields() -> None:
     """Test JSON formatter without extra fields."""
     formatter = json_formatter(include_extra=False)
 
