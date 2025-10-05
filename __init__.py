@@ -63,7 +63,12 @@ from .bioinformatics_functions import (
 	sequence_statistics,
 	transcribe_dna_to_rna,
 	translate_dna_to_protein,
+    merge_annotations,
+    parse_gff,
+    parse_bed,
+    extract_features,
 )
+
 from .compression_functions import (
 	decompress_number,
 	polyline_decoding_list_of_ints,
@@ -691,4 +696,8 @@ __all__ = [
 	"sequence_statistics",
 	"transcribe_dna_to_rna",
 	"translate_dna_to_protein",
+	"merge_annotations",
+	"parse_gff",
+	"parse_bed",
+	"extract_features",
 ]

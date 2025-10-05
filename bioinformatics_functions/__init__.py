@@ -48,6 +48,11 @@ from .sequence_statistics.sequence_statistics import sequence_statistics
 from .translation_functions.transcribe_dna_to_rna import transcribe_dna_to_rna
 from .translation_functions.translate_dna_to_protein import translate_dna_to_protein
 
+from .annotation_functions.merge_annotations import merge_annotations
+from .annotation_functions.parse_gff import parse_gff
+from .annotation_functions.parse_bed import parse_bed
+from .annotation_functions.feature_extractor import extract_features
+
 __all__ = [
     "blast_score_ratio",
     "phylogenetic_distance",
@@ -85,4 +90,8 @@ __all__ = [
     "sequence_statistics",
     "transcribe_dna_to_rna",
     "translate_dna_to_protein",
+    "merge_annotations",
+    "parse_gff",
+    "parse_bed",
+    "extract_features",
 ]
