@@ -4,7 +4,7 @@ Bioinformatics functions package: unified exports for all submodules.
 
 from .alignment_functions.blast_score_ratio import blast_score_ratio
 from .alignment_functions.phylogenetic_distance import phylogenetic_distance
-from .alignment_functions.sequence_alignment import sequence_alignment
+from .alignment_functions.simple_alignment import simple_alignment
 
 from .clustering_functions.motif_clustering import motif_clustering
 
@@ -51,7 +51,7 @@ from .translation_functions.translate_dna_to_protein import translate_dna_to_pro
 __all__ = [
     "blast_score_ratio",
     "phylogenetic_distance",
-    "sequence_alignment",
+    "simple_alignment",
     "motif_clustering",
     "degenerate_primer_generator",
     "fasta_concat",
