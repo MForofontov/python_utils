@@ -63,10 +63,16 @@ from .bioinformatics_functions import (
 	sequence_statistics,
 	transcribe_dna_to_rna,
 	translate_dna_to_protein,
-    merge_annotations,
-    parse_gff,
-    parse_bed,
-    extract_features,
+	merge_annotations,
+	parse_gff,
+	parse_bed,
+	extract_features,
+	parse_gtf,
+	parse_vcf,
+	filter_annotations,
+	sort_annotations,
+	annotation_to_bed,
+	annotation_statistics,
 )
 
 from .compression_functions import (
@@ -700,4 +706,10 @@ __all__ = [
 	"parse_gff",
 	"parse_bed",
 	"extract_features",
+	"parse_gtf",
+	"parse_vcf",
+	"filter_annotations",
+	"sort_annotations",
+	"annotation_to_bed",
+	"annotation_statistics",
 ]
