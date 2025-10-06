@@ -66,14 +66,12 @@ from .bioinformatics_functions import (
 	merge_annotations,
 	parse_gff,
 	parse_bed,
-	extract_features,
 	parse_gtf,
 	parse_vcf,
 	filter_annotations,
 	sort_annotations,
 	annotation_to_bed,
 	annotation_statistics,
-	extract_features,
 )
 
 from .compression_functions import (
@@ -706,12 +704,10 @@ __all__ = [
 	"merge_annotations",
 	"parse_gff",
 	"parse_bed",
-	"extract_features",
 	"parse_gtf",
 	"parse_vcf",
 	"filter_annotations",
 	"sort_annotations",
 	"annotation_to_bed",
 	"annotation_statistics",
-	"extract_features",
 ]

@@ -51,14 +51,12 @@ from .translation_functions.translate_dna_to_protein import translate_dna_to_pro
 from .annotation_functions.merge_annotations import merge_annotations
 from .annotation_functions.parse_gff import parse_gff
 from .annotation_functions.parse_bed import parse_bed
-from .annotation_functions.extract_features import extract_features
 from .annotation_functions.parse_gtf import parse_gtf
 from .annotation_functions.parse_vcf import parse_vcf
 from .annotation_functions.filter_annotations import filter_annotations
 from .annotation_functions.sort_annotations import sort_annotations
 from .annotation_functions.annotation_to_bed import annotation_to_bed
 from .annotation_functions.annotation_statistics import annotation_statistics
-from .annotation_functions.extract_features import extract_features
 
 __all__ = [
     "blast_score_ratio",
@@ -100,12 +98,10 @@ __all__ = [
     "merge_annotations",
     "parse_gff",
     "parse_bed",
-    "extract_features",
     "parse_gtf",
     "parse_vcf",
     "filter_annotations",
     "sort_annotations",
     "annotation_to_bed",
     "annotation_statistics",
-    "extract_features",
 ]
