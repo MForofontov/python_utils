@@ -32,6 +32,8 @@ def phylogenetic_distance(seq1: str, seq2: str) -> float:
     """
     if len(seq1) != len(seq2):
         raise ValueError("Sequences must be the same length")
+    if len(seq1) == 0:
+        raise ValueError("Sequences must not be empty")
     differences = sum(a != b for a, b in zip(seq1, seq2))
     return differences / len(seq1)
 
