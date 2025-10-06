@@ -73,6 +73,7 @@ from .bioinformatics_functions import (
 	sort_annotations,
 	annotation_to_bed,
 	annotation_statistics,
+	extract_features,
 )
 
 from .compression_functions import (
@@ -712,4 +713,5 @@ __all__ = [
 	"sort_annotations",
 	"annotation_to_bed",
 	"annotation_statistics",
+	"extract_features",
 ]
