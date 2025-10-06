@@ -1,13 +1,13 @@
 from typing import Iterator, Dict, Any
 
-def parse_bed(bed_str: str) -> Iterator[Dict[str, Any]]:
+def parse_bed(bed_file: str) -> Iterator[Dict[str, Any]]:
     """
-    Parse a BED formatted string and yield annotation dictionaries.
+    Parse a BED formatted file and yield annotation dictionaries.
 
     Parameters
     ----------
-    bed_str : str
-        BED formatted string.
+    bed_file : str
+        Path to BED formatted file.
 
     Yields
     ------
@@ -17,30 +17,37 @@ def parse_bed(bed_str: str) -> Iterator[Dict[str, Any]]:
     Raises
     ------
     TypeError
-        If bed_str is not a string.
+        If bed_file is not a string.
+    FileNotFoundError
+        If the file does not exist.
     ValueError
         If BED format is invalid.
 
     Examples
     --------
-    >>> list(parse_bed('chr1\t1\t100\tfeature1'))
-    [{'chrom': 'chr1', 'start': 1, 'end': 100, 'name': 'feature1'}]
+    >>> for record in parse_bed('example.bed'):
+    ...     print(record)
+    {'chrom': 'chr1', 'start': 1, 'end': 100, 'name': 'feature1'}
     """
-    if not isinstance(bed_str, str):
-        raise TypeError("bed_str must be str")
-    for line in bed_str.splitlines():
-        if not line or line.startswith('#'):
-            continue
-        parts = line.split('\t')
-        if len(parts) < 3:
-            raise ValueError("Invalid BED line: " + line)
-        ann = {
-            'chrom': parts[0],
-            'start': int(parts[1]),
-            'end': int(parts[2]),
-        }
-        if len(parts) > 3:
-            ann['name'] = parts[3]
-        yield ann
+    if not isinstance(bed_file, str):
+        raise TypeError("bed_file must be str")
+    try:
+        with open(bed_file) as f:
+            for line in f:
+                if not line or line.startswith('#'):
+                    continue
+                parts = line.strip().split('\t')
+                if len(parts) < 3:
+                    raise ValueError("Invalid BED line: " + line)
+                ann = {
+                    'chrom': parts[0],
+                    'start': int(parts[1]),
+                    'end': int(parts[2]),
+                }
+                if len(parts) > 3:
+                    ann['name'] = parts[3]
+                yield ann
+    except FileNotFoundError:
+        raise FileNotFoundError(f"File not found: {bed_file}")
 
 __all__ = ["parse_bed"]

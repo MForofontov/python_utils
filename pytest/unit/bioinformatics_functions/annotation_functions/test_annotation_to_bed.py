@@ -34,7 +34,7 @@ def test_annotation_to_bed_missing_feature() -> None:
         {'seqname': 'chr1', 'start': 2, 'end': 5}
     ]
     result = annotation_to_bed(annots)
-    assert result == ['chr1\t1\t5\.']
+    assert result == ['chr1\t1\t5\t.']
 
 
 def test_annotation_to_bed_empty() -> None:
