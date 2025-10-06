@@ -1,38 +1,59 @@
 import pytest
 from bioinformatics_functions.annotation_functions.parse_bed import parse_bed
 
+import tempfile
+import os
+
 def test_parse_bed_typical() -> None:
     """
-    Test case 1: Parse a valid BED string.
+    Test case 1: Parse a valid BED file.
     """
-    bed_str = 'chr1\t1\t100\tfeature1\nchr2\t5\t50\tfeature2'
-    result = list(parse_bed(bed_str))
-    assert isinstance(result, list)
-    assert result[0]['chrom'] == 'chr1'
-    assert result[0]['start'] == 1
-    assert result[0]['end'] == 100
-    assert result[0]['name'] == 'feature1'
-    assert result[1]['chrom'] == 'chr2'
-    assert result[1]['start'] == 5
-    assert result[1]['end'] == 50
-    assert result[1]['name'] == 'feature2'
+    bed_content = 'chr1\t1\t100\tfeature1\nchr2\t5\t50\tfeature2'
+    with tempfile.NamedTemporaryFile('w+', delete=False) as tmp:
+        tmp.write(bed_content)
+        tmp.flush()
+        tmp_name = tmp.name
+    try:
+        result = list(parse_bed(tmp_name))
+        assert isinstance(result, list)
+        assert result[0]['chrom'] == 'chr1'
+        assert result[0]['start'] == 1
+        assert result[0]['end'] == 100
+        assert result[0]['name'] == 'feature1'
+        assert result[1]['chrom'] == 'chr2'
+        assert result[1]['start'] == 5
+        assert result[1]['end'] == 50
+        assert result[1]['name'] == 'feature2'
+    finally:
+        os.remove(tmp_name)
 
-def test_parse_bed_empty() -> None:
+def test_parse_bed_empty_file() -> None:
     """
-    Test case 2: Empty BED string yields no records.
+    Test case 2: Empty BED file yields no records.
     """
-    bed_str = ''
-    result = list(parse_bed(bed_str))
-    assert result == []
+    with tempfile.NamedTemporaryFile('w+', delete=False) as tmp:
+        tmp.flush()
+        tmp_name = tmp.name
+    try:
+        result = list(parse_bed(tmp_name))
+        assert result == []
+    finally:
+        os.remove(tmp_name)
 
-def test_parse_bed_comment() -> None:
+def test_parse_bed_comment_and_invalid_lines() -> None:
     """
-    Test case 3: BED string with comment line is ignored.
+    Test case 3: BED file with comment and invalid lines.
     """
-    bed_str = '# comment\nchr1\t1\t100\tfeature1'
-    result = list(parse_bed(bed_str))
-    assert len(result) == 1
-    assert result[0]['chrom'] == 'chr1'
+    bed_content = '# comment\nchr1\t1\t100\tfeature1\nchr2\t5'
+    with tempfile.NamedTemporaryFile('w+', delete=False) as tmp:
+        tmp.write(bed_content)
+        tmp.flush()
+        tmp_name = tmp.name
+    try:
+        with pytest.raises(ValueError):
+            list(parse_bed(tmp_name))
+    finally:
+        os.remove(tmp_name)
 
 def test_parse_bed_type_error() -> None:
     """
@@ -41,10 +62,9 @@ def test_parse_bed_type_error() -> None:
     with pytest.raises(TypeError):
         list(parse_bed(123))
 
-def test_parse_bed_value_error() -> None:
+def test_parse_bed_file_not_found() -> None:
     """
-    Test case 5: ValueError for invalid BED line.
+    Test case 5: FileNotFoundError for missing file.
     """
-    bed_str = 'chr1\t1'
-    with pytest.raises(ValueError):
-        list(parse_bed(bed_str))
+    with pytest.raises(FileNotFoundError):
+        list(parse_bed("nonexistent_file.bed"))
