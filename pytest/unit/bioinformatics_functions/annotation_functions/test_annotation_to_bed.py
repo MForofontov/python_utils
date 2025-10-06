@@ -33,8 +33,11 @@ def test_annotation_to_bed_missing_feature() -> None:
     annots: list[dict[str, object]] = [
         {'seqname': 'chr1', 'start': 2, 'end': 5}
     ]
-    result = annotation_to_bed(annots)
-    assert result == ['chr1\t1\t5\.']
+        annots: list[dict[str, object]] = [
+            {'chrom': 'chr1', 'start': 1, 'end': 5}
+        ]
+        result = annotation_to_bed(annots)
+        assert result == ['chr1\t1\t5\t.']
 
 
 def test_annotation_to_bed_empty() -> None:

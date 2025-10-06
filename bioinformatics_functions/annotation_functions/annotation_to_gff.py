@@ -34,12 +34,12 @@ def annotation_to_gff(
         raise TypeError(f"annotations must be a list or tuple, got {type(annotations).__name__}")
     result = []
     for record in annotations:
-        for key in ("seqid", "source", "type", "start", "end", "score", "strand", "phase", "attributes"):
+        for key in ("seqid", "source", "feature", "start", "end", "score", "strand", "frame", "attribute"):
             if key not in record:
                 raise KeyError(f"Missing required GFF key: {key}")
         result.append(
-            f"{record['seqid']}\t{record['source']}\t{record['type']}\t{record['start']}\t{record['end']}\t"
-            f"{record['score']}\t{record['strand']}\t{record['phase']}\t{record['attributes']}"
+            f"{record['seqid']}\t{record['source']}\t{record['feature']}\t{record['start']}\t{record['end']}\t"
+            f"{record['score']}\t{record['strand']}\t{record['frame']}\t{record['attribute']}"
         )
     return result
 
