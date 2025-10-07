@@ -2,6 +2,7 @@
 sequence_operations: General sequence manipulation utilities.
 """
 
+from .find_cpg_islands import find_cpg_islands
 from .find_orfs import find_orfs
 from .reverse_complement import reverse_complement
 from .reverse_sequence import reverse_sequence
@@ -10,6 +11,7 @@ from .sequence_shuffling import sequence_shuffling
 from .sequence_to_kmers import sequence_to_kmers
 
 __all__ = [
+    "find_cpg_islands",
     "find_orfs",
     "reverse_complement",
     "reverse_sequence",
