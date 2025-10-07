@@ -17,7 +17,7 @@ def test_reverse_sequence_longer() -> None:
     """
     seq = "ATGCATGC"
     result = reverse_sequence(seq)
-    assert result == "CGTAGCTA"
+    assert result == "CGTACGTA"
 
 
 def test_reverse_sequence_single_char() -> None:
