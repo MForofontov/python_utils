@@ -3,7 +3,7 @@ from bioinformatics_functions.data_validation.validate_protein_sequence import v
 
 
 def test_validate_protein_sequence_valid() -> None:
-    """Test validation of a valid protein sequence."""
+    """Test case 1: Test validation of a valid protein sequence."""
     result = validate_protein_sequence("ACDEFG")
     assert result['is_valid'] is True
     assert result['length'] == 6
@@ -14,7 +14,7 @@ def test_validate_protein_sequence_valid() -> None:
 
 
 def test_validate_protein_sequence_all_standard() -> None:
-    """Test all 20 standard amino acids."""
+    """Test case 2: Test all 20 standard amino acids."""
     result = validate_protein_sequence("ACDEFGHIKLMNPQRSTVWY")
     assert result['is_valid'] is True
     assert result['length'] == 20
@@ -22,14 +22,14 @@ def test_validate_protein_sequence_all_standard() -> None:
 
 
 def test_validate_protein_sequence_invalid_chars() -> None:
-    """Test validation detects invalid characters."""
+    """Test case 3: Test validation detects invalid characters."""
     result = validate_protein_sequence("ACDEFJ")
     assert result['is_valid'] is False
     assert result['invalid_chars'] == ['J']
 
 
 def test_validate_protein_sequence_lowercase() -> None:
-    """Test validation detects lowercase letters."""
+    """Test case 4: Test validation detects lowercase letters."""
     result = validate_protein_sequence("acdef")
     assert result['is_valid'] is True
     assert result['has_lowercase'] is True
@@ -37,21 +37,21 @@ def test_validate_protein_sequence_lowercase() -> None:
 
 
 def test_validate_protein_sequence_stop_codon() -> None:
-    """Test detection of stop codon."""
+    """Test case 5: Test detection of stop codon."""
     result = validate_protein_sequence("ACDEF*")
     assert result['is_valid'] is True
     assert result['has_stop_codon'] is True
 
 
 def test_validate_protein_sequence_ambiguous() -> None:
-    """Test ambiguous amino acid codes (B, Z, X)."""
+    """Test case 6: Test ambiguous amino acid codes (B, Z, X)."""
     result = validate_protein_sequence("ABZX")
     assert result['is_valid'] is True
     assert result['invalid_chars'] == []
 
 
 def test_validate_protein_sequence_molecular_weight() -> None:
-    """Test molecular weight calculation."""
+    """Test case 7: Test molecular weight calculation."""
     # Alanine (A) has MW of 89.1 Da
     result = validate_protein_sequence("AAA")
     expected_weight = 89.1 * 3
@@ -59,7 +59,7 @@ def test_validate_protein_sequence_molecular_weight() -> None:
 
 
 def test_validate_protein_sequence_empty() -> None:
-    """Test validation of empty sequence."""
+    """Test case 8: Test validation of empty sequence."""
     result = validate_protein_sequence("")
     assert result['is_valid'] is True
     assert result['length'] == 0
@@ -67,6 +67,6 @@ def test_validate_protein_sequence_empty() -> None:
 
 
 def test_validate_protein_sequence_type_error() -> None:
-    """Test TypeError for non-string input."""
+    """Test case 9: Test TypeError for non-string input."""
     with pytest.raises(TypeError, match="seq must be a string"):
         validate_protein_sequence(123)
