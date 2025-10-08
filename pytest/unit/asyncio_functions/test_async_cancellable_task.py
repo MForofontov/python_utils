@@ -43,7 +43,7 @@ async def test_async_cancellable_task_cancelled_when_event_set():
 
 @pytest.mark.asyncio
 async def test_async_cancellable_task_timeout():
-    """A timeout raises asyncio.TimeoutError when reached first."""
+    """Test case 3: A timeout raises asyncio.TimeoutError when reached first."""
 
     cancel_event = asyncio.Event()
 
