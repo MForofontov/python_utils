@@ -6,7 +6,7 @@ from logger_functions.performance_formatter import performance_formatter
 
 
 def test_performance_formatter_basic():
-    """Test basic performance formatter functionality."""
+    """Test case 1: Test basic performance formatter functionality."""
     formatter = performance_formatter()
     assert isinstance(formatter, logging.Formatter)
 
@@ -32,7 +32,7 @@ def test_performance_formatter_basic():
 
 
 def test_performance_formatter_timestamp() -> None:
-    """Test that performance formatter includes timestamp."""
+    """Test case 2: Test that performance formatter includes timestamp."""
     formatter = performance_formatter()
 
     record = logging.LogRecord(

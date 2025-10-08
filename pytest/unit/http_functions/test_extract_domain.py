@@ -9,7 +9,7 @@ from http_functions.extract_domain import extract_domain
 @patch("http_functions.extract_domain.is_valid_url")
 def test_extract_domain_invalid_url(mock_is_valid_url):
     """
-    Test extract_domain function with invalid URL returns None.
+    Test case 1: Extract_domain function with invalid URL returns None.
     """
     mock_is_valid_url.return_value = False
 

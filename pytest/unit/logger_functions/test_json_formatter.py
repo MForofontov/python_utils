@@ -7,7 +7,7 @@ from logger_functions.json_formatter import json_formatter
 
 
 def test_json_formatter_basic() -> None:
-    """Test basic JSON formatter functionality."""
+    """Test case 1: Test basic JSON formatter functionality."""
     formatter = json_formatter()
     assert isinstance(formatter, logging.Formatter)
 
@@ -41,7 +41,7 @@ def test_json_formatter_basic() -> None:
 
 
 def test_json_formatter_with_extra() -> None:
-    """Test JSON formatter with extra fields."""
+    """Test case 2: Test JSON formatter with extra fields."""
     formatter = json_formatter(include_extra=True)
 
     record = logging.LogRecord(
@@ -64,7 +64,7 @@ def test_json_formatter_with_extra() -> None:
 
 
 def test_json_formatter_pretty_print() -> None:
-    """Test JSON formatter with pretty printing."""
+    """Test case 3: Test JSON formatter with pretty printing."""
     formatter = json_formatter(pretty_print=True)
 
     record = logging.LogRecord(
@@ -90,7 +90,7 @@ def test_json_formatter_pretty_print() -> None:
 
 
 def test_json_formatter_timestamp_format() -> None:
-    """Test that timestamp is in ISO format."""
+    """Test case 4: Test that timestamp is in ISO format."""
     formatter = json_formatter()
 
     record = logging.LogRecord(
@@ -112,7 +112,7 @@ def test_json_formatter_timestamp_format() -> None:
 
 
 def test_json_formatter_exception_handling() -> None:
-    """Test JSON formatter with exception information."""
+    """Test case 5: Test JSON formatter with exception information."""
     formatter = json_formatter()
 
     try:
@@ -139,7 +139,7 @@ def test_json_formatter_exception_handling() -> None:
 
 
 def test_json_formatter_no_extra_fields() -> None:
-    """Test JSON formatter without extra fields."""
+    """Test case 6: Test JSON formatter without extra fields."""
     formatter = json_formatter(include_extra=False)
 
     record = logging.LogRecord(

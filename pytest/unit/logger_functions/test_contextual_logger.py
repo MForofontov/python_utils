@@ -6,14 +6,14 @@ from logger_functions.contextual_logger import LogContext, contextual_logger, Co
 
 
 def test_contextual_logger_creation() -> None:
-    """Test creating a contextual logger."""
+    """Test case 1: Test creating a contextual logger."""
     logger = contextual_logger("test_logger")
     assert isinstance(logger, ContextualLogger)
     assert logger.logger.name == "test_logger"
 
 
 def test_contextual_logger_with_context() -> None:
-    """Test creating a contextual logger with initial context."""
+    """Test case 2: Test creating a contextual logger with initial context."""
     context = LogContext(user_id="123", operation="test")
     logger = contextual_logger("test_logger", context)
 
@@ -23,7 +23,7 @@ def test_contextual_logger_with_context() -> None:
 
 
 def test_log_context_creation() -> None:
-    """Test LogContext creation and methods."""
+    """Test case 3: Test LogContext creation and methods."""
     context = LogContext(
         context_id="ctx123",
         user_id="user456",
@@ -38,7 +38,7 @@ def test_log_context_creation() -> None:
 
 
 def test_log_context_to_dict() -> None:
-    """Test LogContext to_dict method."""
+    """Test case 4: Test LogContext to_dict method."""
     context = LogContext(user_id="123", operation="test")
     context_dict = context.to_dict()
 
@@ -51,7 +51,7 @@ def test_log_context_to_dict() -> None:
 
 
 def test_log_context_update() -> None:
-    """Test LogContext update method."""
+    """Test case 5: Test LogContext update method."""
     context = LogContext(user_id="123")
     context.update(operation="updated_op", custom_field="custom_value")
 
@@ -60,7 +60,7 @@ def test_log_context_update() -> None:
 
 
 def test_contextual_logger_logging(caplog: pytest.LogCaptureFixture) -> None:
-    """Test basic logging functionality."""
+    """Test case 6: Test basic logging functionality."""
     logger = contextual_logger("test_logger")
 
     with caplog.at_level(logging.INFO):
@@ -72,7 +72,7 @@ def test_contextual_logger_logging(caplog: pytest.LogCaptureFixture) -> None:
 
 
 def test_contextual_logger_with_context_logging(caplog: pytest.LogCaptureFixture) -> None:
-    """Test logging with context information."""
+    """Test case 7: Test logging with context information."""
     context = LogContext(user_id="123", operation="test_op")
     logger = contextual_logger("test_logger", context)
 
@@ -89,7 +89,7 @@ def test_contextual_logger_with_context_logging(caplog: pytest.LogCaptureFixture
 
 
 def test_contextual_logger_different_levels(caplog: pytest.LogCaptureFixture) -> None:
-    """Test logging at different levels."""
+    """Test case 8: Test logging at different levels."""
     logger = contextual_logger("test_logger")
 
     with caplog.at_level(logging.DEBUG):
@@ -105,7 +105,7 @@ def test_contextual_logger_different_levels(caplog: pytest.LogCaptureFixture) ->
 
 
 def test_contextual_logger_exception_logging(caplog: pytest.LogCaptureFixture) -> None:
-    """Test exception logging."""
+    """Test case 9: Test exception logging."""
     logger = contextual_logger("test_logger")
 
     with caplog.at_level(logging.ERROR):
@@ -120,7 +120,7 @@ def test_contextual_logger_exception_logging(caplog: pytest.LogCaptureFixture) -
 
 
 def test_contextual_logger_extra_fields(caplog: pytest.LogCaptureFixture) -> None:
-    """Test logging with extra fields."""
+    """Test case 10: Test logging with extra fields."""
     logger = contextual_logger("test_logger")
 
     with caplog.at_level(logging.INFO):
@@ -133,7 +133,7 @@ def test_contextual_logger_extra_fields(caplog: pytest.LogCaptureFixture) -> Non
 
 
 def test_contextual_logger_context_scope() -> None:
-    """Test context scope management."""
+    """Test case 11: Test context scope management."""
     logger = contextual_logger("test_logger")
 
     # Initial context should be empty
@@ -152,7 +152,7 @@ def test_contextual_logger_context_scope() -> None:
 
 
 def test_contextual_logger_thread_local_context() -> None:
-    """Test thread-local context storage."""
+    """Test case 12: Test thread-local context storage."""
     logger = contextual_logger("test_logger")
 
     # Set thread-local context
@@ -170,7 +170,7 @@ def test_contextual_logger_thread_local_context() -> None:
 
 
 def test_contextual_logger_multiple_context_updates() -> None:
-    """Test multiple context updates."""
+    """Test case 13: Test multiple context updates."""
     logger = contextual_logger("test_logger")
 
     # Multiple updates
@@ -191,7 +191,7 @@ def test_contextual_logger_multiple_context_updates() -> None:
 
 
 def test_log_context_empty_fields() -> None:
-    """Test LogContext with empty fields."""
+    """Test case 14: Test LogContext with empty fields."""
     context = LogContext()
     context_dict = context.to_dict()
 

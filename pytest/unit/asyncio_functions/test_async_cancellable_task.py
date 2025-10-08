@@ -7,7 +7,7 @@ from asyncio_functions.async_cancellable_task import async_cancellable_task
 
 @pytest.mark.asyncio
 async def test_async_cancellable_task_returns_result():
-    """Task result is returned when cancellation is not requested."""
+    """Test case 1: Task result is returned when cancellation is not requested."""
 
     cancel_event = asyncio.Event()
 
@@ -22,7 +22,7 @@ async def test_async_cancellable_task_returns_result():
 
 @pytest.mark.asyncio
 async def test_async_cancellable_task_cancelled_when_event_set():
-    """The task is cancelled when the cancel event is triggered."""
+    """Test case 2: The task is cancelled when the cancel event is triggered."""
 
     cancel_event = asyncio.Event()
 
