@@ -32,10 +32,10 @@ def test_remove_empty_dicts_recursive_all_empty_dicts() -> None:
 
 
 def test_remove_empty_dicts_recursive_mixed_types() -> None:
+    """
+    Test case 4: The remove_empty_dicts_recursive function handles mixed types.
+    """
     test_object = object()
-    """
-    Test case 4: Test the remove_empty_dicts_recursive function with mixed types.
-    """
     nested_dict = {
         "a": 1,
         "b": {"c": {}, "d": 2},

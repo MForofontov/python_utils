@@ -55,7 +55,7 @@ def test_http_get_successful_request(mock_urlopen):
 @patch("urllib.request.urlopen")
 def test_http_get_with_custom_headers(mock_urlopen):
     """
-    Test HTTP GET request with custom headers are properly set.
+    Test case 5: HTTP GET request applies custom headers correctly.
     """
     mock_response = Mock()
     mock_response.getcode.return_value = 200
@@ -78,7 +78,7 @@ def test_http_get_with_custom_headers(mock_urlopen):
 @patch("urllib.request.urlopen")
 def test_http_get_with_custom_timeout(mock_urlopen):
     """
-    Test HTTP GET request with custom timeout value.
+    Test case 6: HTTP GET request with custom timeout value.
     """
     mock_response = Mock()
     mock_response.getcode.return_value = 200
@@ -97,7 +97,7 @@ def test_http_get_with_custom_timeout(mock_urlopen):
 @patch("urllib.request.urlopen")
 def test_http_get_default_timeout(mock_urlopen):
     """
-    Test that default timeout is 30 seconds when not specified.
+    Test case 7: Default timeout is 30 seconds when not specified.
     """
     mock_response = Mock()
     mock_response.getcode.return_value = 200
@@ -115,7 +115,7 @@ def test_http_get_default_timeout(mock_urlopen):
 @patch("urllib.request.urlopen")
 def test_http_get_http_error_with_response_body(mock_urlopen):
     """
-    Test HTTP GET request with HTTP error that includes response body.
+    Test case 8: HTTP GET request with HTTP error that includes response body.
     """
     error = urllib.error.HTTPError(
         url="https://example.com",
@@ -134,7 +134,7 @@ def test_http_get_http_error_with_response_body(mock_urlopen):
 @patch("urllib.request.urlopen")
 def test_http_get_http_error_without_response_body(mock_urlopen):
     """
-    Test HTTP GET request with HTTP error but no response body.
+    Test case 9: HTTP GET request with HTTP error but no response body.
     """
     error = urllib.error.HTTPError(
         url="https://example.com", code=500, msg="Server Error", hdrs=None, fp=None
@@ -148,7 +148,7 @@ def test_http_get_http_error_without_response_body(mock_urlopen):
 @patch("urllib.request.urlopen")
 def test_http_get_url_error(mock_urlopen):
     """
-    Test HTTP GET request with URL error raises exception.
+    Test case 10: HTTP GET request with URL error raises exception.
     """
     mock_urlopen.side_effect = urllib.error.URLError("Connection failed")
 
