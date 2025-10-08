@@ -123,7 +123,7 @@ def test_invalid_format_type_with_logger(caplog):
 
 def test_invalid_format():
     """
-    Test case 6: Invalid format
+    Test case 9: Invalid format
     """
     with pytest.raises(
         ValueError, match="Unsupported format. Currently, only 'json' is supported."
@@ -136,7 +136,7 @@ def test_invalid_format():
 
 def test_invalid_format_with_logger(caplog):
     """
-    Test case 7: Invalid format with logger
+    Test case 10: Invalid format with logger
     """
     with caplog.at_level(logging.ERROR):
         with pytest.raises(

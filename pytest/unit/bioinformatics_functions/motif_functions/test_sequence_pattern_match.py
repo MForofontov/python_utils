@@ -63,6 +63,6 @@ def test_sequence_pattern_match_invalid_iupac() -> None:
 
 
 def test_sequence_pattern_match_invalid_sequence_type() -> None:
-    """Test case 11: TypeError for non-string seq."""
+    """Test case 10: TypeError for non-string seq."""
     with pytest.raises(TypeError, match="seq must be a string"):
         sequence_pattern_match(123, "ATG")
