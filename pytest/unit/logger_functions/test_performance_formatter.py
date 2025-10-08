@@ -6,7 +6,9 @@ from logger_functions.performance_formatter import performance_formatter
 
 
 def test_performance_formatter_basic():
-    """Test case 1: Test basic performance formatter functionality."""
+    """
+    Test case 1: Basic performance formatter functionality.
+    """
     formatter = performance_formatter()
     assert isinstance(formatter, logging.Formatter)
 
@@ -32,7 +34,9 @@ def test_performance_formatter_basic():
 
 
 def test_performance_formatter_timestamp() -> None:
-    """Test case 2: Test that performance formatter includes timestamp."""
+    """
+    Test case 2: Performance formatter includes timestamp.
+    """
     formatter = performance_formatter()
 
     record = logging.LogRecord(
@@ -53,7 +57,9 @@ def test_performance_formatter_timestamp() -> None:
 
 
 def test_performance_formatter_thread_info():
-    """Test thread information inclusion."""
+    """
+    Test case 3: Thread information inclusion.
+    """
     formatter = performance_formatter(include_thread_info=True)
 
     record = logging.LogRecord(
@@ -75,7 +81,9 @@ def test_performance_formatter_thread_info():
 
 
 def test_performance_formatter_no_thread_info():
-    """Test exclusion of thread information."""
+    """
+    Test case 4: Exclusion of thread information.
+    """
     formatter = performance_formatter(include_thread_info=False)
 
     record = logging.LogRecord(
@@ -98,7 +106,9 @@ def test_performance_formatter_no_thread_info():
 
 
 def test_performance_formatter_elapsed_time():
-    """Test elapsed time calculation."""
+    """
+    Test case 5: Elapsed time calculation.
+    """
     formatter = performance_formatter()
 
     # Wait a bit to ensure elapsed time > 0
@@ -129,7 +139,9 @@ def test_performance_formatter_elapsed_time():
 
 
 def test_performance_formatter_module_function():
-    """Test module and function name formatting."""
+    """
+    Test case 6: Module and function name formatting.
+    """
     formatter = performance_formatter(include_thread_info=False)
 
     record = logging.LogRecord(
@@ -153,7 +165,9 @@ def test_performance_formatter_module_function():
 
 
 def test_performance_formatter_multiple_calls():
-    """Test elapsed time accumulation across multiple calls."""
+    """
+    Test case 7: Elapsed time accumulation across multiple calls.
+    """
     formatter = performance_formatter(include_thread_info=False)
 
     # First call
@@ -198,7 +212,9 @@ def test_performance_formatter_multiple_calls():
 
 
 def test_performance_formatter_with_formatting():
-    """Test performance formatter with message formatting."""
+    """
+    Test case 8: Performance formatter with message formatting.
+    """
     formatter = performance_formatter(include_thread_info=False)
 
     record = logging.LogRecord(
@@ -221,7 +237,9 @@ def test_performance_formatter_with_formatting():
 
 
 def test_performance_formatter_all_parts() -> None:
-    """Test that all expected parts are present."""
+    """
+    Test case 9: All expected parts are present.
+    """
     formatter = performance_formatter(include_thread_info=True)
 
     record = logging.LogRecord(

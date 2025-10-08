@@ -22,7 +22,7 @@ def test_extract_domain_invalid_url(mock_is_valid_url):
 @patch("http_functions.extract_domain.is_valid_url")
 def test_extract_domain_simple_url(mock_is_valid_url):
     """
-    Test extract_domain function with simple valid URL returns hostname.
+    Test case 2: Extract_domain function with simple valid URL returns hostname.
     """
     mock_is_valid_url.return_value = True
 
@@ -33,7 +33,7 @@ def test_extract_domain_simple_url(mock_is_valid_url):
 @patch("http_functions.extract_domain.is_valid_url")
 def test_extract_domain_with_www_subdomain(mock_is_valid_url):
     """
-    Test extract_domain function with www subdomain returns full hostname.
+    Test case 3: Extract_domain function with www subdomain returns full hostname.
     """
     mock_is_valid_url.return_value = True
 
@@ -44,7 +44,7 @@ def test_extract_domain_with_www_subdomain(mock_is_valid_url):
 @patch("http_functions.extract_domain.is_valid_url")
 def test_extract_domain_with_complex_subdomain(mock_is_valid_url):
     """
-    Test extract_domain function with complex subdomain returns full hostname.
+    Test case 4: Extract_domain function with complex subdomain returns full hostname.
     """
     mock_is_valid_url.return_value = True
 
@@ -55,7 +55,7 @@ def test_extract_domain_with_complex_subdomain(mock_is_valid_url):
 @patch("http_functions.extract_domain.is_valid_url")
 def test_extract_domain_with_port(mock_is_valid_url):
     """
-    Test extract_domain function with port returns hostname without port.
+    Test case 5: Extract_domain function with port returns hostname without port.
     """
     mock_is_valid_url.return_value = True
 
@@ -66,7 +66,7 @@ def test_extract_domain_with_port(mock_is_valid_url):
 @patch("http_functions.extract_domain.is_valid_url")
 def test_extract_domain_localhost_with_port(mock_is_valid_url):
     """
-    Test extract_domain function with localhost and port returns hostname.
+    Test case 6: Extract_domain function with localhost and port returns hostname.
     """
     mock_is_valid_url.return_value = True
 
@@ -77,7 +77,7 @@ def test_extract_domain_localhost_with_port(mock_is_valid_url):
 @patch("http_functions.extract_domain.is_valid_url")
 def test_extract_domain_with_path(mock_is_valid_url):
     """
-    Test extract_domain function with path returns hostname only.
+    Test case 7: Extract_domain function with path returns hostname only.
     """
     mock_is_valid_url.return_value = True
 
@@ -88,7 +88,7 @@ def test_extract_domain_with_path(mock_is_valid_url):
 @patch("http_functions.extract_domain.is_valid_url")
 def test_extract_domain_with_long_path(mock_is_valid_url):
     """
-    Test extract_domain function with long path returns hostname only.
+    Test case 8: Extract_domain function with long path returns hostname only.
     """
     mock_is_valid_url.return_value = True
 
@@ -99,7 +99,7 @@ def test_extract_domain_with_long_path(mock_is_valid_url):
 @patch("http_functions.extract_domain.is_valid_url")
 def test_extract_domain_with_query_parameters(mock_is_valid_url):
     """
-    Test extract_domain function with query parameters returns hostname only.
+    Test case 9: Extract_domain function with query parameters returns hostname only.
     """
     mock_is_valid_url.return_value = True
 
@@ -110,7 +110,7 @@ def test_extract_domain_with_query_parameters(mock_is_valid_url):
 @patch("http_functions.extract_domain.is_valid_url")
 def test_extract_domain_with_fragment(mock_is_valid_url):
     """
-    Test extract_domain function with fragment returns hostname only.
+    Test case 10: Extract_domain function with fragment returns hostname only.
     """
     mock_is_valid_url.return_value = True
 
@@ -121,7 +121,7 @@ def test_extract_domain_with_fragment(mock_is_valid_url):
 @patch("http_functions.extract_domain.is_valid_url")
 def test_extract_domain_with_query_and_fragment(mock_is_valid_url):
     """
-    Test extract_domain function with query and fragment returns hostname only.
+    Test case 11: Extract_domain function with query and fragment returns hostname only.
     """
     mock_is_valid_url.return_value = True
 
@@ -132,7 +132,7 @@ def test_extract_domain_with_query_and_fragment(mock_is_valid_url):
 @patch("http_functions.extract_domain.is_valid_url")
 def test_extract_domain_with_username_and_password(mock_is_valid_url):
     """
-    Test extract_domain function with authentication returns hostname only.
+    Test case 12: Extract_domain function with authentication returns hostname only.
     """
     mock_is_valid_url.return_value = True
 
@@ -143,7 +143,7 @@ def test_extract_domain_with_username_and_password(mock_is_valid_url):
 @patch("http_functions.extract_domain.is_valid_url")
 def test_extract_domain_ftp_with_username(mock_is_valid_url):
     """
-    Test extract_domain function with FTP and username returns hostname only.
+    Test case 13: Extract_domain function with FTP and username returns hostname only.
     """
     mock_is_valid_url.return_value = True
 
@@ -154,7 +154,7 @@ def test_extract_domain_ftp_with_username(mock_is_valid_url):
 @patch("http_functions.extract_domain.is_valid_url")
 def test_extract_domain_with_ipv4_address(mock_is_valid_url):
     """
-    Test extract_domain function with IPv4 address returns IP address.
+    Test case 14: Extract_domain function with IPv4 address returns IP address.
     """
     mock_is_valid_url.return_value = True
 
@@ -165,7 +165,7 @@ def test_extract_domain_with_ipv4_address(mock_is_valid_url):
 @patch("http_functions.extract_domain.is_valid_url")
 def test_extract_domain_with_ipv4_and_port(mock_is_valid_url):
     """
-    Test extract_domain function with IPv4 and port returns IP only.
+    Test case 15: Extract_domain function with IPv4 and port returns IP only.
     """
     mock_is_valid_url.return_value = True
 
@@ -176,7 +176,7 @@ def test_extract_domain_with_ipv4_and_port(mock_is_valid_url):
 @patch("http_functions.extract_domain.is_valid_url")
 def test_extract_domain_with_ipv4_and_path(mock_is_valid_url):
     """
-    Test extract_domain function with IPv4 and path returns IP only.
+    Test case 16: Extract_domain function with IPv4 and path returns IP only.
     """
     mock_is_valid_url.return_value = True
 
@@ -187,7 +187,7 @@ def test_extract_domain_with_ipv4_and_path(mock_is_valid_url):
 @patch("http_functions.extract_domain.is_valid_url")
 def test_extract_domain_https_scheme(mock_is_valid_url):
     """
-    Test extract_domain function with HTTPS scheme returns hostname.
+    Test case 17: Extract_domain function with HTTPS scheme returns hostname.
     """
     mock_is_valid_url.return_value = True
 
@@ -198,7 +198,7 @@ def test_extract_domain_https_scheme(mock_is_valid_url):
 @patch("http_functions.extract_domain.is_valid_url")
 def test_extract_domain_http_scheme(mock_is_valid_url):
     """
-    Test extract_domain function with HTTP scheme returns hostname.
+    Test case 18: Extract_domain function with HTTP scheme returns hostname.
     """
     mock_is_valid_url.return_value = True
 
@@ -209,7 +209,7 @@ def test_extract_domain_http_scheme(mock_is_valid_url):
 @patch("http_functions.extract_domain.is_valid_url")
 def test_extract_domain_ftp_scheme(mock_is_valid_url):
     """
-    Test extract_domain function with FTP scheme returns hostname.
+    Test case 19: Extract_domain function with FTP scheme returns hostname.
     """
     mock_is_valid_url.return_value = True
 
@@ -220,7 +220,7 @@ def test_extract_domain_ftp_scheme(mock_is_valid_url):
 @patch("http_functions.extract_domain.is_valid_url")
 def test_extract_domain_file_scheme(mock_is_valid_url):
     """
-    Test extract_domain function with file scheme returns hostname.
+    Test case 20: Extract_domain function with file scheme returns hostname.
     """
     mock_is_valid_url.return_value = True
 
@@ -231,7 +231,7 @@ def test_extract_domain_file_scheme(mock_is_valid_url):
 @patch("http_functions.extract_domain.is_valid_url")
 def test_extract_domain_complex_url(mock_is_valid_url):
     """
-    Test extract_domain function with complex URL returns hostname only.
+    Test case 21: Extract_domain function with complex URL returns hostname only.
     """
     mock_is_valid_url.return_value = True
 
@@ -242,7 +242,7 @@ def test_extract_domain_complex_url(mock_is_valid_url):
 
 def test_extract_domain_integration_valid_url():
     """
-    Test extract_domain function with real validation and valid URL.
+    Test case 22: Extract_domain function with real validation and valid URL.
     """
     # Test with real validation (without mocking)
     result = extract_domain("https://example.com")
@@ -251,7 +251,7 @@ def test_extract_domain_integration_valid_url():
 
 def test_extract_domain_integration_invalid_url():
     """
-    Test extract_domain function with real validation and invalid URL.
+    Test case 23: Extract_domain function with real validation and invalid URL.
     """
     # Test with real validation (without mocking)
     result = extract_domain("invalid-url")
@@ -260,7 +260,7 @@ def test_extract_domain_integration_invalid_url():
 
 def test_extract_domain_integration_complex_url():
     """
-    Test extract_domain function with real validation and complex URL.
+    Test case 24: Extract_domain function with real validation and complex URL.
     """
     # Test with real validation (without mocking)
     result = extract_domain("https://www.google.com/search?q=test")
@@ -269,7 +269,7 @@ def test_extract_domain_integration_complex_url():
 
 def test_extract_domain_invalid_url_type() -> None:
     """
-    Test case 26: Test extract_domain with invalid URL type.
+    Test case 25: Test extract_domain with invalid URL type.
     """
     with pytest.raises(TypeError):
         extract_domain(None)
@@ -277,7 +277,7 @@ def test_extract_domain_invalid_url_type() -> None:
 
 def test_extract_domain_invalid_url_int() -> None:
     """
-    Test case 27: Test extract_domain with integer input.
+    Test case 26: Test extract_domain with integer input.
     """
     with pytest.raises(TypeError):
         extract_domain(123)
@@ -285,7 +285,7 @@ def test_extract_domain_invalid_url_int() -> None:
 
 def test_extract_domain_invalid_url_list() -> None:
     """
-    Test case 28: Test extract_domain with list input.
+    Test case 27: Test extract_domain with list input.
     """
     with pytest.raises(TypeError):
         extract_domain(["https://example.com"])
@@ -293,7 +293,7 @@ def test_extract_domain_invalid_url_list() -> None:
 
 def test_extract_domain_empty_string() -> None:
     """
-    Test case 29: Test extract_domain with empty string.
+    Test case 28: Test extract_domain with empty string.
     """
     result = extract_domain("")
     assert result is None

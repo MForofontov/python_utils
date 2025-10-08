@@ -89,7 +89,7 @@ async def test_async_parallel_download_normal_operation(tmp_path: Path) -> None:
 @pytest.mark.asyncio
 async def test_async_parallel_download_more_chunks_than_size(tmp_path: Path) -> None:
     """
-    Test case 11: Ensure chunks are capped by file size so each chunk has at least one byte.
+    Test case 2: Ensure chunks are capped by file size so each chunk has at least one byte.
     """
 
     url = "https://example.com/small.bin"
@@ -178,7 +178,7 @@ async def test_async_parallel_download_more_chunks_than_size(tmp_path: Path) -> 
 @pytest.mark.asyncio
 async def test_async_parallel_download_type_error_url(tmp_path: Path) -> None:
     """
-    Test case 2: TypeError for non-string URL.
+    Test case 3: TypeError for non-string URL.
     """
     dest = tmp_path / "file.zip"
     with pytest.raises(TypeError, match="url must be str"):
@@ -188,7 +188,7 @@ async def test_async_parallel_download_type_error_url(tmp_path: Path) -> None:
 @pytest.mark.asyncio
 async def test_async_parallel_download_type_error_dest_path() -> None:
     """
-    Test case 3: TypeError for non-string dest_path.
+    Test case 4: TypeError for non-string dest_path.
     """
     with pytest.raises(TypeError, match="dest_path must be str"):
         await async_parallel_download("https://example.com/file.zip", 123)
@@ -197,7 +197,7 @@ async def test_async_parallel_download_type_error_dest_path() -> None:
 @pytest.mark.asyncio
 async def test_async_parallel_download_value_error_url(tmp_path: Path) -> None:
     """
-    Test case 4: ValueError for empty URL.
+    Test case 5: ValueError for empty URL.
     """
     dest = tmp_path / "file.zip"
     with pytest.raises(ValueError, match="url cannot be empty"):
@@ -207,7 +207,7 @@ async def test_async_parallel_download_value_error_url(tmp_path: Path) -> None:
 @pytest.mark.asyncio
 async def test_async_parallel_download_type_error_num_chunks(tmp_path: Path) -> None:
     """
-    Test case 5: TypeError for invalid num_chunks type.
+    Test case 6: TypeError for invalid num_chunks type.
     """
     dest = tmp_path / "file.zip"
     with pytest.raises(TypeError, match="num_chunks must be int"):
@@ -219,7 +219,7 @@ async def test_async_parallel_download_type_error_num_chunks(tmp_path: Path) -> 
 @pytest.mark.asyncio
 async def test_async_parallel_download_value_error_num_chunks(tmp_path: Path) -> None:
     """
-    Test case 6: ValueError for num_chunks < 1.
+    Test case 7: ValueError for num_chunks < 1.
     """
     dest = tmp_path / "file.zip"
     with pytest.raises(ValueError, match="num_chunks must be >= 1"):
@@ -231,7 +231,7 @@ async def test_async_parallel_download_value_error_num_chunks(tmp_path: Path) ->
 @pytest.mark.asyncio
 async def test_async_parallel_download_type_error_timeout(tmp_path: Path) -> None:
     """
-    Test case 7: TypeError for invalid timeout type.
+    Test case 8: TypeError for invalid timeout type.
     """
     dest = tmp_path / "file.zip"
     with pytest.raises(TypeError, match="timeout must be a number"):
@@ -243,7 +243,7 @@ async def test_async_parallel_download_type_error_timeout(tmp_path: Path) -> Non
 @pytest.mark.asyncio
 async def test_async_parallel_download_value_error_timeout(tmp_path: Path) -> None:
     """
-    Test case 8: ValueError for non-positive timeout.
+    Test case 9: ValueError for non-positive timeout.
     """
     dest = tmp_path / "file.zip"
     with pytest.raises(ValueError, match="timeout must be positive"):
@@ -255,7 +255,7 @@ async def test_async_parallel_download_value_error_timeout(tmp_path: Path) -> No
 @pytest.mark.asyncio
 async def test_async_parallel_download_runtime_error_no_range(tmp_path: Path) -> None:
     """
-    Test case 9: RuntimeError if server does not support range requests.
+    Test case 10: RuntimeError if server does not support range requests.
     """
     url = "https://example.com/file.zip"
     dest = tmp_path / "file.zip"
@@ -294,7 +294,7 @@ async def test_async_parallel_download_runtime_error_no_range(tmp_path: Path) ->
 @pytest.mark.asyncio
 async def test_async_parallel_download_runtime_error_download(tmp_path: Path) -> None:
     """
-    Test case 10: RuntimeError for download failure.
+    Test case 11: RuntimeError for download failure.
     """
     url = "https://example.com/file.zip"
     dest = tmp_path / "file.zip"
