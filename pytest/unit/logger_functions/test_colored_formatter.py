@@ -6,7 +6,7 @@ from logger_functions.colored_formatter import colored_formatter
 
 
 def test_colored_formatter_basic():
-    """Test basic colored formatter functionality."""
+    """Test case 1: Basic colored formatter functionality."""
     formatter = colored_formatter()
     assert isinstance(formatter, logging.Formatter)
 

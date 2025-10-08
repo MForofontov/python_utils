@@ -336,7 +336,7 @@ def test_validate_pydantic_schema_performance_large_data() -> None:
     reason="Pydantic v1 compatibility layer not available",
 )
 def test_validate_pydantic_schema_pydantic_v1_branch(monkeypatch: pytest.MonkeyPatch) -> None:
-    """Ensure the legacy branch configures Config.extra and Config.allow_mutation."""
+    """Test case 17: Ensure the legacy branch configures Config.extra and Config.allow_mutation."""
 
     import pydantic
 

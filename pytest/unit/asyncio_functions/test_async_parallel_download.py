@@ -89,7 +89,7 @@ async def test_async_parallel_download_normal_operation(tmp_path: Path) -> None:
 @pytest.mark.asyncio
 async def test_async_parallel_download_more_chunks_than_size(tmp_path: Path) -> None:
     """
-    Ensure chunks are capped by file size so each chunk has at least one byte.
+    Test case 11: Ensure chunks are capped by file size so each chunk has at least one byte.
     """
 
     url = "https://example.com/small.bin"

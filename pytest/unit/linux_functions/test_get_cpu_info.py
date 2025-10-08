@@ -4,7 +4,7 @@ from linux_functions.get_cpu_info import get_cpu_info
 
 @pytest.mark.parametrize("interval", [None, 0.05])
 def test_get_cpu_info_returns_valid_dict(interval: float | None) -> None:
-    """Test the get_cpu_info function returns a valid dictionary with CPU information."""
+    """Test case 1: The get_cpu_info function returns a valid dictionary with CPU information."""
     cpu_info: dict[str, int | float | list[float]]
     if interval is None:
         cpu_info = get_cpu_info()

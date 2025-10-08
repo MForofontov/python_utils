@@ -1,9 +1,9 @@
 import pytest
 from bioinformatics_functions.annotation_functions.annotation_to_gtf import annotation_to_gtf
 
-def test_annotation_to_gtf_case_1_basic_conversion() -> None:
+def test_annotation_to_gtf_basic_conversion() -> None:
     """
-    Test basic conversion of annotation records to GTF format.
+    Test case 1: Basic conversion of annotation records to GTF format.
     """
     annotations = [
         {
@@ -24,15 +24,15 @@ def test_annotation_to_gtf_case_1_basic_conversion() -> None:
     result = annotation_to_gtf(annotations)
     assert result == expected
 
-def test_annotation_to_gtf_case_2_empty_input() -> None:
+def test_annotation_to_gtf_empty_input() -> None:
     """
-    Test conversion with empty input list.
+    Test case 2: Conversion with empty input list.
     """
     assert annotation_to_gtf([]) == []
 
-def test_annotation_to_gtf_case_3_missing_key_error() -> None:
+def test_annotation_to_gtf_missing_required_key() -> None:
     """
-    Test error raised when a required key is missing.
+    Test case 3: Error raised when a required key is missing.
     """
     annotations = [
         {
@@ -44,16 +44,16 @@ def test_annotation_to_gtf_case_3_missing_key_error() -> None:
     with pytest.raises(KeyError, match=r"Missing required GTF key: attribute"):
         annotation_to_gtf(annotations)
 
-def test_annotation_to_gtf_case_4_type_error_non_list_input() -> None:
+def test_annotation_to_gtf_invalid_input_type() -> None:
     """
-    Test error raised when input is not a list or tuple.
+    Test case 4: Error raised when input is not a list or tuple.
     """
     with pytest.raises(TypeError, match=r"annotations must be a list or tuple"):
         annotation_to_gtf('not_a_list')  # type: ignore[arg-type]
 
-def test_annotation_to_gtf_case_5_type_error_non_dict_record() -> None:
+def test_annotation_to_gtf_invalid_record_type() -> None:
     """
-    Test error raised when a record is not a dict.
+    Test case 5: Error raised when a record is not a dict.
     """
     annotations = ['not_a_dict']
     with pytest.raises(TypeError, match=r"record must be a dict"):
@@ -65,9 +65,9 @@ def test_annotation_to_gtf_case_5_type_error_non_dict_record() -> None:
             # If KeyError is raised, fail the test with a message
             pytest.fail(f"Expected TypeError for non-dict record, got KeyError: {e}")
 
-def test_annotation_to_gtf_case_6_boundary_conditions() -> None:
+def test_annotation_to_gtf_boundary_values() -> None:
     """
-    Test conversion with minimal and maximal field values.
+    Test case 6: Conversion with minimal and maximal field values.
     """
     annotations = [
         {

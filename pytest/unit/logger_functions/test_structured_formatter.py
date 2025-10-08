@@ -5,7 +5,7 @@ from logger_functions.structured_formatter import structured_formatter
 
 
 def test_structured_formatter_basic():
-    """Test basic structured formatter functionality."""
+    """Test case 1: Test basic structured formatter functionality."""
     formatter = structured_formatter()
     assert isinstance(formatter, logging.Formatter)
 
@@ -31,7 +31,7 @@ def test_structured_formatter_basic():
 
 
 def test_structured_formatter_timestamp():
-    """Test that structured formatter includes timestamp."""
+    """Test case 2: Test that structured formatter includes timestamp."""
     formatter = structured_formatter()
 
     record = logging.LogRecord(
@@ -55,7 +55,7 @@ def test_structured_formatter_timestamp():
 
 
 def test_structured_formatter_level_alignment():
-    """Test level name alignment."""
+    """Test case 3: Test level name alignment."""
     formatter = structured_formatter(max_level_width=10)
 
     record = logging.LogRecord(
@@ -79,7 +79,7 @@ def test_structured_formatter_level_alignment():
 
 
 def test_structured_formatter_module_alignment():
-    """Test module name alignment."""
+    """Test case 4: Module name alignment."""
     formatter = structured_formatter(max_module_width=12)
 
     record = logging.LogRecord(
@@ -103,7 +103,7 @@ def test_structured_formatter_module_alignment():
 
 
 def test_structured_formatter_location():
-    """Test function and line number formatting."""
+    """Test case 5: Function and line number formatting."""
     formatter = structured_formatter()
 
     record = logging.LogRecord(
@@ -127,7 +127,7 @@ def test_structured_formatter_location():
 
 
 def test_structured_formatter_long_module_name() -> None:
-    """Test handling of long module names."""
+    """Test case 6: Handling of long module names."""
     formatter = structured_formatter(max_module_width=10)
 
     record = logging.LogRecord(
@@ -150,7 +150,7 @@ def test_structured_formatter_long_module_name() -> None:
 
 
 def test_structured_formatter_all_parts() -> None:
-    """Test that all parts are present in formatted output."""
+    """Test case 7: All parts are present in formatted output."""
     formatter = structured_formatter()
 
     record = logging.LogRecord(
@@ -180,7 +180,7 @@ def test_structured_formatter_all_parts() -> None:
 
 
 def test_structured_formatter_with_formatting() -> None:
-    """Test structured formatter with message formatting."""
+    """Test case 8: Structured formatter with message formatting."""
     formatter = structured_formatter()
 
     record = logging.LogRecord(
