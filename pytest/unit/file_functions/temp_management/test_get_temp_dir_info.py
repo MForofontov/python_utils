@@ -1,7 +1,3 @@
-"""
-Unit tests for get_temp_dir_info function.
-"""
-
 import tempfile
 from pathlib import Path
 from unittest.mock import patch

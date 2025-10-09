@@ -1,5 +1,3 @@
-"""Unit tests for domain extraction functionality."""
-
 from unittest.mock import patch
 
 import pytest

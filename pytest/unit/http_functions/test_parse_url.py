@@ -1,5 +1,3 @@
-"""Unit tests for URL parsing functionality."""
-
 import pytest
 from http_functions.parse_url import parse_url
 

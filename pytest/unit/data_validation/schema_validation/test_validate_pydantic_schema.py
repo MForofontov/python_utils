@@ -1,11 +1,3 @@
-"""
-Unit tests for validate_pydantic_schema function.
-
-This module contains comprehensive tests for the validate_pydantic_schema function,
-including schema validation, error handling, and edge cases.
-Note: These tests will be skipped if Pydantic is not installed.
-"""
-
 import importlib
 
 import pytest

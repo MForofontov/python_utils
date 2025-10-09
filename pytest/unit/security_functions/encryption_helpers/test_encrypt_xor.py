@@ -1,7 +1,3 @@
-"""
-Unit tests for encrypt_xor function.
-"""
-
 import pytest
 from security_functions.encryption_helpers.encrypt_xor import encrypt_xor
 

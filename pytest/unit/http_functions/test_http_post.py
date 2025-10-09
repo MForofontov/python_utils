@@ -1,5 +1,3 @@
-"""Unit tests for HTTP POST functionality."""
-
 import json
 import urllib.error
 from unittest.mock import Mock, patch

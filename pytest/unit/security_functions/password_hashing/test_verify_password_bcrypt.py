@@ -1,7 +1,3 @@
-"""
-Unit tests for verify_password_bcrypt function.
-"""
-
 import pytest
 from security_functions.password_hashing.hash_password_bcrypt import (
     hash_password_bcrypt,

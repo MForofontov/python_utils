@@ -1,7 +1,3 @@
-"""
-Unit tests for generate_url_safe_token function.
-"""
-
 import pytest
 from security_functions.token_generation.generate_url_safe_token import (
     generate_url_safe_token,

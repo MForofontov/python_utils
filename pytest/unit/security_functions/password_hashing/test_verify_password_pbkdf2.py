@@ -1,7 +1,3 @@
-"""
-Unit tests for verify_password_pbkdf2 function.
-"""
-
 import pytest
 from security_functions.password_hashing.hash_password_pbkdf2 import (
     hash_password_pbkdf2,

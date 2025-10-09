@@ -1,5 +1,3 @@
-"""Unit tests for URL validation functionality."""
-
 from http_functions.is_valid_url import is_valid_url
 
 

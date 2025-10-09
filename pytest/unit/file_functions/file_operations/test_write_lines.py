@@ -1,7 +1,3 @@
-"""
-Unit tests for write_lines function.
-"""
-
 import os
 import tempfile
 

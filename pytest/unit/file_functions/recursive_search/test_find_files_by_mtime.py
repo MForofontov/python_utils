@@ -1,7 +1,3 @@
-"""
-Unit tests for find_files_by_mtime function.
-"""
-
 import os
 import tempfile
 import time

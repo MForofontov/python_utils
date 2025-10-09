@@ -1,7 +1,3 @@
-"""
-Unit tests for encrypt_data_aes function.
-"""
-
 import base64
 
 import pytest

@@ -1,7 +1,3 @@
-"""
-Unit tests for calculate_sha256_hash function.
-"""
-
 import hashlib
 import tempfile
 from pathlib import Path

@@ -1,10 +1,3 @@
-"""
-Unit tests for validate_email function.
-
-This module contains comprehensive tests for the validate_email function,
-including format validation, Unicode support, and domain checking.
-"""
-
 from unittest.mock import patch
 
 import pytest

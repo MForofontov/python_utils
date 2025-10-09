@@ -1,7 +1,3 @@
-"""
-Unit tests for generate_jwt_token function.
-"""
-
 import base64
 import json
 from datetime import datetime, timezone

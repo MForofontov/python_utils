@@ -1,7 +1,3 @@
-"""
-Unit tests for generate_secure_token function.
-"""
-
 import string
 
 import pytest

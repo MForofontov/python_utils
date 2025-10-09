@@ -1,10 +1,3 @@
-"""
-Unit tests for validate_string function.
-
-This module contains comprehensive tests for the validate_string function,
-including length validation, pattern matching, character restrictions, and edge cases.
-"""
-
 import re
 
 import pytest
