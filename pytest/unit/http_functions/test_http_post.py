@@ -6,27 +6,9 @@ import pytest
 from http_functions.http_post import http_post
 
 
-def test_http_post_with_empty_url():
-    """Test case 1: Test http_post function with empty URL raises ValueError."""
-    with pytest.raises(ValueError, match="URL must be a non-empty string"):
-        http_post("")
-
-
-def test_http_post_with_whitespace_url():
-    """Test case 2: Test http_post function with whitespace-only URL raises ValueError."""
-    with pytest.raises(ValueError, match="URL must be a non-empty string"):
-        http_post("   ")
-
-
-def test_http_post_with_none_url():
-    """Test case 3: Test http_post function with None URL raises TypeError."""
-    with pytest.raises(TypeError):
-        http_post(None)
-
-
 @patch("urllib.request.urlopen")
 def test_http_post_no_data(mock_urlopen):
-    """Test case 4: Test HTTP POST request with no data payload."""
+    """Test case 1: Test HTTP POST request with no data payload."""
     mock_response = Mock()
     mock_response.getcode.return_value = 200
     mock_response.read.return_value = b'{"success": true}'
@@ -47,7 +29,7 @@ def test_http_post_no_data(mock_urlopen):
 
 @patch("urllib.request.urlopen")
 def test_http_post_with_dict_data(mock_urlopen):
-    """Test case 5: Test HTTP POST request with dictionary data gets JSON encoded."""
+    """Test case 2: Test HTTP POST request with dictionary data gets JSON encoded."""
     mock_response = Mock()
     mock_response.getcode.return_value = 201
     mock_response.read.return_value = b'{"created": true}'
@@ -69,7 +51,7 @@ def test_http_post_with_dict_data(mock_urlopen):
 
 @patch("urllib.request.urlopen")
 def test_http_post_with_string_data(mock_urlopen):
-    """Test case 6: Test HTTP POST request with string data uses form encoding."""
+    """Test case 3: Test HTTP POST request with string data uses form encoding."""
     mock_response = Mock()
     mock_response.getcode.return_value = 200
     mock_response.read.return_value = b"OK"
@@ -91,7 +73,7 @@ def test_http_post_with_string_data(mock_urlopen):
 
 @patch("urllib.request.urlopen")
 def test_http_post_with_custom_headers(mock_urlopen):
-    """Test case 7: Test HTTP POST request with custom headers are properly set."""
+    """Test case 4: Test HTTP POST request with custom headers are properly set."""
     mock_response = Mock()
     mock_response.getcode.return_value = 200
     mock_response.read.return_value = b"test response"
@@ -112,7 +94,7 @@ def test_http_post_with_custom_headers(mock_urlopen):
 
 @patch("urllib.request.urlopen")
 def test_http_post_with_custom_timeout(mock_urlopen):
-    """Test case 8: Test HTTP POST request with custom timeout value."""
+    """Test case 5: Test HTTP POST request with custom timeout value."""
     mock_response = Mock()
     mock_response.getcode.return_value = 200
     mock_response.read.return_value = b"test"
@@ -129,7 +111,7 @@ def test_http_post_with_custom_timeout(mock_urlopen):
 
 @patch("urllib.request.urlopen")
 def test_http_post_default_timeout(mock_urlopen):
-    """Test case 9: Test that default timeout is 30 seconds when not specified."""
+    """Test case 6: Test that default timeout is 30 seconds when not specified."""
     mock_response = Mock()
     mock_response.getcode.return_value = 200
     mock_response.read.return_value = b"test"
@@ -145,7 +127,7 @@ def test_http_post_default_timeout(mock_urlopen):
 
 @patch("urllib.request.urlopen")
 def test_http_post_http_error_with_response_body(mock_urlopen):
-    """Test case 10: Test HTTP POST request with HTTP error that includes response body."""
+    """Test case 7: Test HTTP POST request with HTTP error that includes response body."""
     error = urllib.error.HTTPError(
         url="https://example.com",
         code=400,
@@ -166,7 +148,7 @@ def test_http_post_http_error_with_response_body(mock_urlopen):
 
 @patch("urllib.request.urlopen")
 def test_http_post_complex_nested_data(mock_urlopen):
-    """Test case 11: Test HTTP POST request with complex nested dictionary data."""
+    """Test case 8: Test HTTP POST request with complex nested dictionary data."""
     mock_response = Mock()
     mock_response.getcode.return_value = 200
     mock_response.read.return_value = b'{"received": true}'
@@ -188,3 +170,21 @@ def test_http_post_complex_nested_data(mock_urlopen):
     request = call_args[0]
     sent_data = json.loads(request.data.decode("utf-8"))
     assert sent_data == data
+def test_http_post_with_empty_url():
+    """Test case 9: Test http_post function with empty URL raises ValueError."""
+    with pytest.raises(ValueError, match="URL must be a non-empty string"):
+        http_post("")
+
+
+def test_http_post_with_whitespace_url():
+    """Test case 10: Test http_post function with whitespace-only URL raises ValueError."""
+    with pytest.raises(ValueError, match="URL must be a non-empty string"):
+        http_post("   ")
+
+
+def test_http_post_with_none_url():
+    """Test case 11: Test http_post function with None URL raises TypeError."""
+    with pytest.raises(TypeError):
+        http_post(None)
+
+
