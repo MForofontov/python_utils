@@ -6,7 +6,9 @@ from logger_functions.colored_formatter import colored_formatter
 
 
 def test_colored_formatter_basic():
-    """Test case 1: Basic colored formatter functionality."""
+    """
+    Test case 1: Basic colored formatter functionality.
+    """
     formatter = colored_formatter()
     assert isinstance(formatter, logging.Formatter)
 
@@ -30,7 +32,9 @@ def test_colored_formatter_basic():
 
 
 def test_colored_formatter_colors():
-    """Test that colored formatter adds ANSI color codes."""
+    """
+    Test case 2: Colored formatter adds ANSI color codes.
+    """
     with patch.object(sys.stdout, "isatty", return_value=True):
         formatter = colored_formatter(use_color=True)
 
@@ -62,7 +66,9 @@ def test_colored_formatter_colors():
 
 
 def test_colored_formatter_no_color():
-    """Test colored formatter with colors disabled."""
+    """
+    Test case 3: Colored formatter with colors disabled.
+    """
     formatter = colored_formatter(use_color=False)
 
     record = logging.LogRecord(
@@ -84,7 +90,9 @@ def test_colored_formatter_no_color():
 
 @patch("sys.stdout.isatty")
 def test_colored_formatter_auto_detect_color(mock_isatty):
-    """Test automatic color detection."""
+    """
+    Test case 4: Automatic color detection.
+    """
     # Test when TTY is available
     mock_isatty.return_value = True
     formatter = colored_formatter(use_color=True)
@@ -97,7 +105,9 @@ def test_colored_formatter_auto_detect_color(mock_isatty):
 
 
 def test_colored_formatter_custom_format():
-    """Test colored formatter with custom format string."""
+    """
+    Test case 5: Colored formatter with custom format string.
+    """
     custom_fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     formatter = colored_formatter(fmt=custom_fmt, use_color=False)
 
@@ -120,7 +130,9 @@ def test_colored_formatter_custom_format():
 
 
 def test_colored_formatter_unknown_level():
-    """Test colored formatter with unknown log level."""
+    """
+    Test case 6: Colored formatter with unknown log level.
+    """
     formatter = colored_formatter(use_color=True)
 
     # Create record with custom level
@@ -145,7 +157,9 @@ def test_colored_formatter_unknown_level():
 
 
 def test_colored_formatter_with_args():
-    """Test colored formatter with message formatting arguments."""
+    """
+    Test case 7: Colored formatter with message formatting arguments.
+    """
     formatter = colored_formatter(use_color=False)
 
     record = logging.LogRecord(

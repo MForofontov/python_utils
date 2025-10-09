@@ -14,7 +14,7 @@ def write_ini_file(data, path):
 
 def test_parse_ini_config_basic(tmp_path):
     """
-    Test case 1: Basic INI config loads as dict
+    Test case 1: Basic INI config loads as dict.
     """
     data = {"section1": {"a": "1"}, "section2": {"b": "2"}}
     config_file = tmp_path / "config.ini"
@@ -25,7 +25,7 @@ def test_parse_ini_config_basic(tmp_path):
 
 def test_parse_ini_config_required_sections(tmp_path):
     """
-    Test case 2: Missing required sections raises ValueError
+    Test case 2: Missing required sections raises ValueError.
     """
     data = {"section1": {"a": "1"}}
     config_file = tmp_path / "config.ini"
@@ -36,7 +36,7 @@ def test_parse_ini_config_required_sections(tmp_path):
 
 def test_parse_ini_config_schema_validator(tmp_path):
     """
-    Test case 3: Custom schema validator raises ValueError
+    Test case 3: Custom schema validator raises ValueError.
     """
     data = {"section1": {"a": "1"}}
 
@@ -51,7 +51,9 @@ def test_parse_ini_config_schema_validator(tmp_path):
 
 
 def test_parse_ini_config_file_not_found(tmp_path):
-    """Test that missing INI files raise FileNotFoundError."""
+    """
+    Test case 4: Missing INI files raise FileNotFoundError.
+    """
 
     missing_file = tmp_path / "missing.ini"
 
