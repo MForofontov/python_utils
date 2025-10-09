@@ -5,34 +5,10 @@ import pytest
 from http_functions.http_get import http_get
 
 
-def test_http_get_with_empty_url():
-    """
-    Test case 1: Empty URL raises ValueError.
-    """
-    with pytest.raises(ValueError, match="URL must be a non-empty string"):
-        http_get("")
-
-
-def test_http_get_with_whitespace_url():
-    """
-    Test case 2: Whitespace-only URL raises ValueError.
-    """
-    with pytest.raises(ValueError, match="URL must be a non-empty string"):
-        http_get("   ")
-
-
-def test_http_get_with_none_url():
-    """
-    Test case 3: None URL raises TypeError.
-    """
-    with pytest.raises(TypeError):
-        http_get(None)
-
-
 @patch("urllib.request.urlopen")
 def test_http_get_successful_request(mock_urlopen):
     """
-    Test case 4: Successful HTTP GET request returns correct response structure.
+    Test case 1: Successful HTTP GET request returns correct response structure.
     """
     # Mock response
     mock_response = Mock()
@@ -53,7 +29,7 @@ def test_http_get_successful_request(mock_urlopen):
 @patch("urllib.request.urlopen")
 def test_http_get_with_custom_headers(mock_urlopen):
     """
-    Test case 5: HTTP GET request applies custom headers correctly.
+    Test case 2: HTTP GET request applies custom headers correctly.
     """
     mock_response = Mock()
     mock_response.getcode.return_value = 200
@@ -76,7 +52,7 @@ def test_http_get_with_custom_headers(mock_urlopen):
 @patch("urllib.request.urlopen")
 def test_http_get_with_custom_timeout(mock_urlopen):
     """
-    Test case 6: HTTP GET request with custom timeout value.
+    Test case 3: HTTP GET request with custom timeout value.
     """
     mock_response = Mock()
     mock_response.getcode.return_value = 200
@@ -95,7 +71,7 @@ def test_http_get_with_custom_timeout(mock_urlopen):
 @patch("urllib.request.urlopen")
 def test_http_get_default_timeout(mock_urlopen):
     """
-    Test case 7: Default timeout is 30 seconds when not specified.
+    Test case 4: Default timeout is 30 seconds when not specified.
     """
     mock_response = Mock()
     mock_response.getcode.return_value = 200
@@ -108,6 +84,30 @@ def test_http_get_default_timeout(mock_urlopen):
 
     # Check that timeout=30 was passed
     assert mock_urlopen.call_args[1]["timeout"] == 30
+
+
+def test_http_get_with_empty_url():
+    """
+    Test case 5: Empty URL raises ValueError.
+    """
+    with pytest.raises(ValueError, match="URL must be a non-empty string"):
+        http_get("")
+
+
+def test_http_get_with_whitespace_url():
+    """
+    Test case 6: Whitespace-only URL raises ValueError.
+    """
+    with pytest.raises(ValueError, match="URL must be a non-empty string"):
+        http_get("   ")
+
+
+def test_http_get_with_none_url():
+    """
+    Test case 7: None URL raises TypeError.
+    """
+    with pytest.raises(TypeError):
+        http_get(None)
 
 
 @patch("urllib.request.urlopen")

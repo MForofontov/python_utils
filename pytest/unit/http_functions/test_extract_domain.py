@@ -265,9 +265,15 @@ def test_extract_domain_integration_complex_url():
     assert result == "www.google.com"
 
 
+def test_extract_domain_empty_string() -> None:
+    """
+    Test case 25: Test extract_domain with empty string.
+    """
+    result = extract_domain("")
+    assert result is None
 def test_extract_domain_invalid_url_type() -> None:
     """
-    Test case 25: Test extract_domain with invalid URL type.
+    Test case 26: Test extract_domain with invalid URL type.
     """
     with pytest.raises(TypeError):
         extract_domain(None)
@@ -275,7 +281,7 @@ def test_extract_domain_invalid_url_type() -> None:
 
 def test_extract_domain_invalid_url_int() -> None:
     """
-    Test case 26: Test extract_domain with integer input.
+    Test case 27: Test extract_domain with integer input.
     """
     with pytest.raises(TypeError):
         extract_domain(123)
@@ -283,15 +289,9 @@ def test_extract_domain_invalid_url_int() -> None:
 
 def test_extract_domain_invalid_url_list() -> None:
     """
-    Test case 27: Test extract_domain with list input.
+    Test case 28: Test extract_domain with list input.
     """
     with pytest.raises(TypeError):
         extract_domain(["https://example.com"])
 
 
-def test_extract_domain_empty_string() -> None:
-    """
-    Test case 28: Test extract_domain with empty string.
-    """
-    result = extract_domain("")
-    assert result is None

@@ -6,57 +6,6 @@ from unittest.mock import MagicMock
 from http_functions.upload_file import upload_file
 
 
-def test_upload_file_with_empty_url() -> None:
-    """Test case 1: Test upload_file function with empty URL raises ValueError."""
-    with pytest.raises(ValueError, match="URL must be a non-empty string"):
-        upload_file("", "test.txt")
-
-
-def test_upload_file_with_whitespace_url() -> None:
-    """Test case 2: Test upload_file function with whitespace-only URL raises ValueError."""
-    with pytest.raises(ValueError, match="URL must be a non-empty string"):
-        upload_file("   ", "test.txt")
-
-
-def test_upload_file_with_none_url() -> None:
-    """Test case 3: Test upload_file function with None URL raises ValueError."""
-    with pytest.raises(ValueError, match="URL must be a non-empty string"):
-        upload_file(None, "test.txt")
-
-
-def test_upload_file_with_empty_file_path() -> None:
-    """Test case 4: Test upload_file function with empty file path raises ValueError."""
-    with pytest.raises(ValueError, match="file_path must be a non-empty string"):
-        upload_file("https://example.com/upload", "")
-
-
-def test_upload_file_with_whitespace_file_path() -> None:
-    """Test case 5: Test upload_file function with whitespace-only file path raises ValueError."""
-    with pytest.raises(ValueError, match="file_path must be a non-empty string"):
-        upload_file("https://example.com/upload", "   ")
-
-
-def test_upload_file_with_none_file_path() -> None:
-    """Test case 6: Test upload_file function with None file path raises ValueError."""
-    with pytest.raises(ValueError, match="file_path must be a non-empty string"):
-        upload_file("https://example.com/upload", None)
-
-
-@patch("pathlib.Path.exists", return_value=False)
-def test_upload_file_not_found(mock_exists: MagicMock) -> None:
-    """Test case 7: Test upload_file function when file doesn't exist raises FileNotFoundError."""
-    with pytest.raises(FileNotFoundError, match="File not found"):
-        upload_file("https://example.com/upload", "/tmp/nonexistent.txt")
-
-
-@patch("pathlib.Path.exists", return_value=True)
-@patch("pathlib.Path.is_file", return_value=False)
-def test_upload_file_not_a_file(mock_is_file: MagicMock, mock_exists: MagicMock) -> None:
-    """Test case 8: Test upload_file function when path is not a file raises ValueError."""
-    with pytest.raises(ValueError, match="Path is not a file"):
-        upload_file("https://example.com/upload", "/tmp/directory")
-
-
 @patch("pathlib.Path.exists", return_value=True)
 @patch("pathlib.Path.is_file", return_value=True)
 @patch("builtins.open", new_callable=mock_open, read_data=b"test file content")
@@ -69,7 +18,7 @@ def test_upload_file_successful(
     mock_is_file: MagicMock,
     mock_exists: MagicMock,
 ) -> None:
-    """Test case 9: Test successful file upload returns correct response structure."""
+    """Test case 1: Test successful file upload returns correct response structure."""
     # Mock response
     mock_response = Mock()
     mock_response.getcode.return_value = 200
@@ -104,7 +53,7 @@ def test_upload_file_unknown_content_type(
     mock_is_file: MagicMock,
     mock_exists: MagicMock,
 ) -> None:
-    """Test case 10: Test file upload when content type cannot be determined uses default."""
+    """Test case 2: Test file upload when content type cannot be determined uses default."""
     mock_response = Mock()
     mock_response.getcode.return_value = 200
     mock_response.read.return_value = b"OK"
@@ -133,7 +82,7 @@ def test_upload_file_with_custom_field_name(
     mock_is_file: MagicMock,
     mock_exists: MagicMock,
 ) -> None:
-    """Test case 11: Test file upload with custom field name parameter."""
+    """Test case 3: Test file upload with custom field name parameter."""
     mock_response = Mock()
     mock_response.getcode.return_value = 200
     mock_response.read.return_value = b"OK"
@@ -164,7 +113,7 @@ def test_upload_file_with_custom_headers(
     mock_is_file: MagicMock,
     mock_exists: MagicMock,
 ) -> None:
-    """Test case 12: Test file upload with additional custom headers."""
+    """Test case 4: Test file upload with additional custom headers."""
     mock_response = Mock()
     mock_response.getcode.return_value = 200
     mock_response.read.return_value = b"OK"
@@ -195,7 +144,7 @@ def test_upload_file_with_additional_data(
     mock_is_file: MagicMock,
     mock_exists: MagicMock,
 ) -> None:
-    """Test case 13: Test file upload with additional form data fields."""
+    """Test case 5: Test file upload with additional form data fields."""
     mock_response = Mock()
     mock_response.getcode.return_value = 200
     mock_response.read.return_value = b"OK"
@@ -233,7 +182,7 @@ def test_upload_file_with_custom_timeout(
     mock_is_file: MagicMock,
     mock_exists: MagicMock,
 ) -> None:
-    """Test case 14: Test file upload with custom timeout value."""
+    """Test case 6: Test file upload with custom timeout value."""
     mock_response = Mock()
     mock_response.getcode.return_value = 200
     mock_response.read.return_value = b"OK"
@@ -260,7 +209,7 @@ def test_upload_file_default_timeout(
     mock_is_file: MagicMock,
     mock_exists: MagicMock,
 ) -> None:
-    """Test case 15: Test that default timeout is 30 seconds when not specified."""
+    """Test case 7: Test that default timeout is 30 seconds when not specified."""
     mock_response = Mock()
     mock_response.getcode.return_value = 200
     mock_response.read.return_value = b"OK"
@@ -272,6 +221,57 @@ def test_upload_file_default_timeout(
 
         # Check that timeout=30 was passed
         assert mock_urlopen.call_args[1]["timeout"] == 30
+
+
+def test_upload_file_with_empty_url() -> None:
+    """Test case 8: Test upload_file function with empty URL raises ValueError."""
+    with pytest.raises(ValueError, match="URL must be a non-empty string"):
+        upload_file("", "test.txt")
+
+
+def test_upload_file_with_whitespace_url() -> None:
+    """Test case 9: Test upload_file function with whitespace-only URL raises ValueError."""
+    with pytest.raises(ValueError, match="URL must be a non-empty string"):
+        upload_file("   ", "test.txt")
+
+
+def test_upload_file_with_none_url() -> None:
+    """Test case 10: Test upload_file function with None URL raises ValueError."""
+    with pytest.raises(ValueError, match="URL must be a non-empty string"):
+        upload_file(None, "test.txt")
+
+
+def test_upload_file_with_empty_file_path() -> None:
+    """Test case 11: Test upload_file function with empty file path raises ValueError."""
+    with pytest.raises(ValueError, match="file_path must be a non-empty string"):
+        upload_file("https://example.com/upload", "")
+
+
+def test_upload_file_with_whitespace_file_path() -> None:
+    """Test case 12: Test upload_file function with whitespace-only file path raises ValueError."""
+    with pytest.raises(ValueError, match="file_path must be a non-empty string"):
+        upload_file("https://example.com/upload", "   ")
+
+
+def test_upload_file_with_none_file_path() -> None:
+    """Test case 13: Test upload_file function with None file path raises ValueError."""
+    with pytest.raises(ValueError, match="file_path must be a non-empty string"):
+        upload_file("https://example.com/upload", None)
+
+
+@patch("pathlib.Path.exists", return_value=False)
+def test_upload_file_not_found(mock_exists: MagicMock) -> None:
+    """Test case 14: Test upload_file function when file doesn't exist raises FileNotFoundError."""
+    with pytest.raises(FileNotFoundError, match="File not found"):
+        upload_file("https://example.com/upload", "/tmp/nonexistent.txt")
+
+
+@patch("pathlib.Path.exists", return_value=True)
+@patch("pathlib.Path.is_file", return_value=False)
+def test_upload_file_not_a_file(mock_is_file: MagicMock, mock_exists: MagicMock) -> None:
+    """Test case 15: Test upload_file function when path is not a file raises ValueError."""
+    with pytest.raises(ValueError, match="Path is not a file"):
+        upload_file("https://example.com/upload", "/tmp/directory")
 
 
 @patch("pathlib.Path.exists", return_value=True)

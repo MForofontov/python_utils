@@ -6,49 +6,13 @@ import pytest
 from http_functions.download_file import download_file
 
 
-def test_download_file_with_empty_url() -> None:
-    """Test case 1: Test download_file function with empty URL raises ValueError."""
-    with pytest.raises(ValueError, match="URL must be a non-empty string"):
-        download_file("", "test.txt")
-
-
-def test_download_file_with_whitespace_url() -> None:
-    """Test case 2: Test download_file function with whitespace-only URL raises ValueError."""
-    with pytest.raises(ValueError, match="URL must be a non-empty string"):
-        download_file("   ", "test.txt")
-
-
-def test_download_file_with_none_url() -> None:
-    """Test case 3: Test download_file function with None URL raises ValueError."""
-    with pytest.raises(ValueError, match="URL must be a non-empty string"):
-        download_file(None, "test.txt")
-
-
-def test_download_file_with_empty_destination() -> None:
-    """Test case 4: Test download_file function with empty destination raises ValueError."""
-    with pytest.raises(ValueError, match="Destination must be a non-empty string"):
-        download_file("https://example.com/file.txt", "")
-
-
-def test_download_file_with_whitespace_destination() -> None:
-    """Test case 5: Test download_file function with whitespace-only destination raises ValueError."""
-    with pytest.raises(ValueError, match="Destination must be a non-empty string"):
-        download_file("https://example.com/file.txt", "   ")
-
-
-def test_download_file_with_none_destination() -> None:
-    """Test case 6: Test download_file function with None destination raises ValueError."""
-    with pytest.raises(ValueError, match="Destination must be a non-empty string"):
-        download_file("https://example.com/file.txt", None)
-
-
 @patch("urllib.request.urlopen")
 @patch("builtins.open", new_callable=mock_open)
 @patch("pathlib.Path.mkdir")
 def test_download_file_successful(
     mock_mkdir: MagicMock, mock_file_open: MagicMock, mock_urlopen: MagicMock
 ) -> None:
-    """Test case 7: Test successful file download returns correct response structure."""
+    """Test case 1: Test successful file download returns correct response structure."""
     # Mock response
     mock_response = Mock()
     mock_response.headers = {"Content-Length": "1024"}
@@ -84,7 +48,7 @@ def test_download_file_successful(
 def test_download_file_with_custom_headers(
     mock_mkdir: MagicMock, mock_file_open: MagicMock, mock_urlopen: MagicMock
 ) -> None:
-    """Test case 8: Test file download with custom headers are properly set."""
+    """Test case 2: Test file download with custom headers are properly set."""
     mock_response = Mock()
     mock_response.headers = {}
     mock_response.read.side_effect = [b"test", b""]
@@ -109,7 +73,7 @@ def test_download_file_with_custom_headers(
 def test_download_file_with_progress_callback(
     mock_mkdir: MagicMock, mock_file_open: MagicMock, mock_urlopen: MagicMock
 ) -> None:
-    """Test case 9: Test file download with progress callback function called correctly."""
+    """Test case 3: Test file download with progress callback function called correctly."""
     mock_response = Mock()
     mock_response.headers = {"Content-Length": "100"}
     mock_response.read.side_effect = [b"a" * 50, b"b" * 50, b""]
@@ -141,7 +105,7 @@ def test_download_file_with_progress_callback(
 def test_download_file_no_content_length_header(
     mock_mkdir: MagicMock, mock_file_open: MagicMock, mock_urlopen: MagicMock
 ) -> None:
-    """Test case 10: Test file download when Content-Length header is missing."""
+    """Test case 4: Test file download when Content-Length header is missing."""
     mock_response = Mock()
     mock_response.headers = {}  # No Content-Length
     mock_response.read.side_effect = [b"test data", b""]
@@ -175,7 +139,7 @@ def test_download_file_no_content_length_header(
 def test_download_file_with_custom_timeout(
     mock_mkdir: MagicMock, mock_file_open: MagicMock, mock_urlopen: MagicMock
 ) -> None:
-    """Test case 11: Test file download with custom timeout value."""
+    """Test case 5: Test file download with custom timeout value."""
     mock_response = Mock()
     mock_response.headers = {}
     mock_response.read.side_effect = [b"test", b""]
@@ -197,7 +161,7 @@ def test_download_file_with_custom_timeout(
 def test_download_file_default_timeout(
     mock_mkdir: MagicMock, mock_file_open: MagicMock, mock_urlopen: MagicMock
 ) -> None:
-    """Test case 12: Test that default timeout is 30 seconds when not specified."""
+    """Test case 6: Test that default timeout is 30 seconds when not specified."""
     mock_response = Mock()
     mock_response.headers = {}
     mock_response.read.side_effect = [b"test", b""]
@@ -210,6 +174,42 @@ def test_download_file_default_timeout(
 
         # Check that timeout=30 was passed
         assert mock_urlopen.call_args[1]["timeout"] == 30
+
+
+def test_download_file_with_empty_url() -> None:
+    """Test case 7: Test download_file function with empty URL raises ValueError."""
+    with pytest.raises(ValueError, match="URL must be a non-empty string"):
+        download_file("", "test.txt")
+
+
+def test_download_file_with_whitespace_url() -> None:
+    """Test case 8: Test download_file function with whitespace-only URL raises ValueError."""
+    with pytest.raises(ValueError, match="URL must be a non-empty string"):
+        download_file("   ", "test.txt")
+
+
+def test_download_file_with_none_url() -> None:
+    """Test case 9: Test download_file function with None URL raises ValueError."""
+    with pytest.raises(ValueError, match="URL must be a non-empty string"):
+        download_file(None, "test.txt")
+
+
+def test_download_file_with_empty_destination() -> None:
+    """Test case 10: Test download_file function with empty destination raises ValueError."""
+    with pytest.raises(ValueError, match="Destination must be a non-empty string"):
+        download_file("https://example.com/file.txt", "")
+
+
+def test_download_file_with_whitespace_destination() -> None:
+    """Test case 11: Test download_file function with whitespace-only destination raises ValueError."""
+    with pytest.raises(ValueError, match="Destination must be a non-empty string"):
+        download_file("https://example.com/file.txt", "   ")
+
+
+def test_download_file_with_none_destination() -> None:
+    """Test case 12: Test download_file function with None destination raises ValueError."""
+    with pytest.raises(ValueError, match="Destination must be a non-empty string"):
+        download_file("https://example.com/file.txt", None)
 
 
 @patch("urllib.request.urlopen")
