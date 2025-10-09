@@ -1,4 +1,3 @@
-
 from datetime import datetime
 import pytest
 from datetime_functions.time_ago import time_ago

@@ -1,4 +1,3 @@
-
 from datetime import datetime
 import pytest
 from datetime_functions.is_weekend import is_weekend
