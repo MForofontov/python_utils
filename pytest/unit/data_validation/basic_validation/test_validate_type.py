@@ -1,10 +1,3 @@
-"""
-Unit tests for validate_type function.
-
-This module contains comprehensive tests for the validate_type function,
-including type checking, union types, None handling, and error cases.
-"""
-
 import pytest
 from data_validation import validate_type
 

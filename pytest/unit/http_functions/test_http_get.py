@@ -1,5 +1,3 @@
-"""Unit tests for HTTP GET functionality."""
-
 import urllib.error
 from unittest.mock import Mock, patch
 

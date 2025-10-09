@@ -1,7 +1,3 @@
-"""
-Unit tests for write_to_file function.
-"""
-
 import os
 import tempfile
 

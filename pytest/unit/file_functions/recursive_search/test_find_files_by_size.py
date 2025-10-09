@@ -1,7 +1,3 @@
-"""
-Unit tests for find_files_by_size function.
-"""
-
 import tempfile
 import os
 from pathlib import Path

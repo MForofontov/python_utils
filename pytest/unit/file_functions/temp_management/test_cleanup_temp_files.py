@@ -1,7 +1,3 @@
-"""
-Unit tests for cleanup_temp_files function.
-"""
-
 import os
 import tempfile
 import time

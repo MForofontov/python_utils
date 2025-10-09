@@ -1,10 +1,3 @@
-"""
-Unit tests for validate_collection function.
-
-This module contains comprehensive tests for the validate_collection function,
-including type checking, length validation, element type validation, and various collection types.
-"""
-
 import pytest
 from data_validation import validate_collection
 

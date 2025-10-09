@@ -1,7 +1,3 @@
-"""
-Unit tests for compare_file_hashes function.
-"""
-
 import tempfile
 from pathlib import Path
 

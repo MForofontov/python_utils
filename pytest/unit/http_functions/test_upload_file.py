@@ -1,5 +1,3 @@
-"""Unit tests for file upload functionality."""
-
 import urllib.error
 from unittest.mock import Mock, mock_open, patch
 

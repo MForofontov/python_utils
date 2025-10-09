@@ -1,5 +1,3 @@
-"""Unit tests for query parameters extraction functionality."""
-
 import pytest
 from http_functions.get_query_params import get_query_params
 

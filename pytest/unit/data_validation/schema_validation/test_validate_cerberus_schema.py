@@ -1,11 +1,3 @@
-"""
-Unit tests for validate_cerberus_schema function.
-
-This module contains comprehensive tests for the validate_cerberus_schema function,
-including schema validation, normalization, and error handling.
-Note: These tests will be skipped if Cerberus is not installed.
-"""
-
 import pytest
 
 # Try to import cerberus - tests will be skipped if not available

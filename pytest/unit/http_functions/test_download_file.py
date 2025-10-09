@@ -1,6 +1,3 @@
-"""Unit tests for file download functionality."""
-
-
 import urllib.error
 from pathlib import Path
 from unittest.mock import Mock, mock_open, patch, MagicMock

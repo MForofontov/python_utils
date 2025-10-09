@@ -1,5 +1,3 @@
-"""Unit tests for URL building functionality."""
-
 import pytest
 from http_functions.build_url import build_url
 
