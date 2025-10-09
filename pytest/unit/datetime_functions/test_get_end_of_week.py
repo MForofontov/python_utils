@@ -1,4 +1,3 @@
-
 import pytest
 from datetime import datetime
 from datetime_functions.get_end_of_week import get_end_of_week
