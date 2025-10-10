@@ -271,6 +271,8 @@ def test_extract_domain_empty_string() -> None:
     """
     result = extract_domain("")
     assert result is None
+
+
 def test_extract_domain_invalid_url_type() -> None:
     """
     Test case 26: Test extract_domain with invalid URL type.
@@ -293,5 +295,3 @@ def test_extract_domain_invalid_url_list() -> None:
     """
     with pytest.raises(TypeError):
         extract_domain(["https://example.com"])
-
-

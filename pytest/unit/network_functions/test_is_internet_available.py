@@ -1,5 +1,5 @@
 """Unit tests for is_internet_available function."""
-from typing import Any
+
 from unittest.mock import MagicMock, patch
 
 from network_functions.is_internet_available import is_internet_available
@@ -58,7 +58,9 @@ def test_is_internet_available_custom_timeout(mock_socket: MagicMock) -> None:
 
 @patch("socket.setdefaulttimeout")
 @patch("socket.socket")
-def test_is_internet_available_timeout_set(mock_socket: MagicMock, mock_timeout: MagicMock) -> None:
+def test_is_internet_available_timeout_set(
+    mock_socket: MagicMock, mock_timeout: MagicMock
+) -> None:
     """
     Test case 4: Verify timeout is set correctly.
     """

@@ -1,5 +1,6 @@
-import pytest
-from bioinformatics_functions.fasta_misc.fasta_reverse_complement import fasta_reverse_complement
+from bioinformatics_functions.fasta_misc.fasta_reverse_complement import (
+    fasta_reverse_complement,
+)
 
 
 def test_fasta_reverse_complement_basic() -> None:

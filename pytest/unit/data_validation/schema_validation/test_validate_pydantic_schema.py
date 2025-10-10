@@ -327,14 +327,20 @@ def test_validate_pydantic_schema_custom_param_name() -> None:
         validate_pydantic_schema(data, SimpleUserSchema, param_name="user_data")
 
 
-def test_validate_pydantic_schema_pydantic_v1_branch(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_validate_pydantic_schema_pydantic_v1_branch(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     """Test case 17: Ensure the legacy branch configures Config.extra and Config.allow_mutation."""
 
     import pydantic
 
     # Simulate importing against the v1 compatibility layer.
-    monkeypatch.setattr(validate_pydantic_schema_module, "HAS_CONFIG_DICT", False, raising=False)
-    monkeypatch.setattr(validate_pydantic_schema_module, "ConfigDict", None, raising=False)
+    monkeypatch.setattr(
+        validate_pydantic_schema_module, "HAS_CONFIG_DICT", False, raising=False
+    )
+    monkeypatch.setattr(
+        validate_pydantic_schema_module, "ConfigDict", None, raising=False
+    )
     monkeypatch.setattr(
         validate_pydantic_schema_module,
         "BaseModel",

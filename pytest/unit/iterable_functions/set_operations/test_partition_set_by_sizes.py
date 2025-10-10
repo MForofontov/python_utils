@@ -70,6 +70,8 @@ def test_partition_set_by_sizes_large_set() -> None:
     assert len(result[0]) == 300
     assert len(result[1]) == 400
     assert len(result[2]) == 300
+
+
 def test_partition_set_by_sizes_type_error_input_set() -> None:
     """
     Test case 6: TypeError for non-set input_set.

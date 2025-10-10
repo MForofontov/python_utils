@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.alignment_functions.simple_alignment import simple_alignment
+from bioinformatics_functions.alignment_functions.simple_alignment import (
+    simple_alignment,
+)
 
 
 def test_simple_alignment_basic() -> None:

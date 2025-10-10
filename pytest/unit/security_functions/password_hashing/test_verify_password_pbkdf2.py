@@ -118,6 +118,8 @@ def test_verify_password_pbkdf2_case_10_edge_case_similar_passwords() -> None:
     # Assert
     assert result1 is True
     assert result2 is False
+
+
 def test_verify_password_pbkdf2_case_4_type_validation() -> None:
     """
     Test case 8: Type validation for all parameters.

@@ -1,6 +1,8 @@
-from typing import Sequence
 
-def palindromic_sequence_finder(sequence: str, min_length: int = 4) -> list[tuple[int, int, str]]:
+
+def palindromic_sequence_finder(
+    sequence: str, min_length: int = 4
+) -> list[tuple[int, int, str]]:
     """
     Find palindromic regions in a sequence.
 
@@ -36,9 +38,10 @@ def palindromic_sequence_finder(sequence: str, min_length: int = 4) -> list[tupl
     results = []
     for l in range(min_length, n + 1):
         for i in range(n - l + 1):
-            substr = sequence[i:i + l]
+            substr = sequence[i : i + l]
             if substr == substr[::-1]:
                 results.append((i, i + l, substr))
     return results
 
-__all__ = ['palindromic_sequence_finder']
+
+__all__ = ["palindromic_sequence_finder"]

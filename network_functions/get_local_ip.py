@@ -24,4 +24,5 @@ def get_local_ip() -> str:
     except Exception:
         return "127.0.0.1"
 
+
 __all__ = ["get_local_ip"]

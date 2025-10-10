@@ -136,6 +136,8 @@ def test_verify_password_bcrypt_case_12_timing_attack_resistance() -> None:
     for invalid_hash in invalid_hashes:
         result = verify_password_bcrypt(password, invalid_hash)
         assert result is False  # Should return False, not raise exception
+
+
 def test_verify_password_bcrypt_case_4_type_validation() -> None:
     """
     Test case 9: Type validation for all parameters.
@@ -171,9 +173,7 @@ def test_verify_password_bcrypt_case_6_invalid_hash_format() -> None:
     Test case 11: Invalid bcrypt hash format should raise ValueError.
     """
     # Test invalid bcrypt identifier
-    with pytest.raises(
-        ValueError, match="Invalid bcrypt hash format"
-    ):
+    with pytest.raises(ValueError, match="Invalid bcrypt hash format"):
         verify_password_bcrypt("password", "$1$invalid_hash_format_here")
 
     # Test wrong length

@@ -24,4 +24,5 @@ def get_network_interfaces() -> dict[str, list[str]]:
             interfaces[iface] = ip_list
     return interfaces
 
+
 __all__ = ["get_network_interfaces"]

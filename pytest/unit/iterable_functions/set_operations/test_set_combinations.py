@@ -1,6 +1,6 @@
 """Unit tests for get_combinations function."""
-import pytest
 
+import pytest
 from iterable_functions.set_operations.get_combinations import get_combinations
 
 
@@ -117,6 +117,8 @@ def test_get_combinations_lexicographic_order() -> None:
     assert result == [[1, 2], [1, 3], [1, 4], [2, 3], [2, 4], [3, 4]]
     # Verify sorted order
     assert result == sorted(result)
+
+
 def test_get_combinations_type_error_non_set() -> None:
     """
     Test case 9: TypeError when input_set is not a set.

@@ -73,9 +73,7 @@ def ssh_check_connection(
             "exit_code": proc.returncode,
         }
     except subprocess.TimeoutExpired as exc:
-        raise RuntimeError(
-            f"SSH connection timed out after {timeout} seconds"
-        ) from exc
+        raise RuntimeError(f"SSH connection timed out after {timeout} seconds") from exc
     except Exception as exc:
         raise RuntimeError(f"SSH connection failed: {exc}") from exc
 

@@ -1,8 +1,10 @@
 import random
-from typing import Iterator, Tuple
+from collections.abc import Iterator
+
 from .fasta_parser import parse_fasta
 
-def fasta_subsample(fasta_str: str, n: int) -> Iterator[Tuple[str, str]]:
+
+def fasta_subsample(fasta_str: str, n: int) -> Iterator[tuple[str, str]]:
     """
     Randomly subsample n sequences from a FASTA string.
 
@@ -33,5 +35,6 @@ def fasta_subsample(fasta_str: str, n: int) -> Iterator[Tuple[str, str]]:
         raise ValueError("n must be between 0 and number of sequences")
     for rec in random.sample(records, n):
         yield rec
+
 
 __all__ = ["fasta_subsample"]

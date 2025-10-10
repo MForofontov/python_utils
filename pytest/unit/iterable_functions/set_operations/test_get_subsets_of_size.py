@@ -100,6 +100,8 @@ def test_get_subsets_of_size_boundary_size_1() -> None:
     result = get_subsets_of_size(input_set, size)
     expected = [[1], [2], [3]]
     assert result == expected
+
+
 def test_get_subsets_of_size_type_error_input_set() -> None:
     """
     Test case 10: TypeError for invalid input_set type.

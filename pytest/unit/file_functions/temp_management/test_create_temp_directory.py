@@ -141,6 +141,8 @@ def test_create_temp_directory_case_10_cleanup_error_handling() -> None:
 
     # Assert - should not raise error even if directory was already deleted
     assert not Path(temp_dir_holder[0]).exists()
+
+
 def test_create_temp_directory_case_8_invalid_type_errors() -> None:
     """
     Test case 9: TypeError for invalid parameter types.

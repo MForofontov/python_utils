@@ -1,5 +1,5 @@
 """Unit tests for get_local_ip function."""
-from typing import Any
+
 from unittest.mock import MagicMock, patch
 
 from network_functions.get_local_ip import get_local_ip

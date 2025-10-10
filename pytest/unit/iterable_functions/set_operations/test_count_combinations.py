@@ -89,6 +89,8 @@ def test_count_combinations_boundary_values() -> None:
     assert count_combinations({1, 2, 3, 4}, 4) == 1
     # Test C(4,0) = 1
     assert count_combinations({1, 2, 3, 4}, 0) == 1
+
+
 def test_count_combinations_type_error_input_set() -> None:
     """
     Test case 9: TypeError for invalid input_set type.

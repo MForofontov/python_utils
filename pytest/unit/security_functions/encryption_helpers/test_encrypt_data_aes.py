@@ -167,6 +167,8 @@ def test_encrypt_data_aes_case_12_special_characters() -> None:
     assert isinstance(encrypted, str)
     assert isinstance(key, str)
     assert len(encrypted) > 0
+
+
 def test_encrypt_data_aes_case_4_type_validation() -> None:
     """
     Test case 10: Type validation for parameters.

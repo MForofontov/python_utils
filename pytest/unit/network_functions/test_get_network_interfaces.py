@@ -1,7 +1,7 @@
-import pytest
-from network_functions.get_network_interfaces import get_network_interfaces
 from unittest.mock import patch
 
+import pytest
+from network_functions.get_network_interfaces import get_network_interfaces
 
 
 def test_get_network_interfaces_type() -> None:
@@ -10,6 +10,7 @@ def test_get_network_interfaces_type() -> None:
     """
     interfaces = get_network_interfaces()
     assert isinstance(interfaces, dict)
+
 
 def test_get_network_interfaces_keys_values() -> None:
     """
@@ -21,15 +22,18 @@ def test_get_network_interfaces_keys_values() -> None:
         assert isinstance(v, list)
         assert all(isinstance(ip, str) for ip in v)
 
+
 def test_get_network_interfaces_mocked() -> None:
     """
     Test case 3: Mock psutil.net_if_addrs returns expected structure.
     """
     import socket
+
     class Addr:
         def __init__(self, address: str) -> None:
             self.address = address
             self.family = socket.AF_INET
+
     mock_addrs = {
         "eth0": [Addr("192.168.1.2")],
         "lo": [Addr("127.0.0.1")],
@@ -38,6 +42,7 @@ def test_get_network_interfaces_mocked() -> None:
         interfaces = get_network_interfaces()
         assert interfaces == {"eth0": ["192.168.1.2"], "lo": ["127.0.0.1"]}
 
+
 def test_get_network_interfaces_empty() -> None:
     """
     Test case 4: Edge case with no interfaces.
@@ -45,6 +50,7 @@ def test_get_network_interfaces_empty() -> None:
     with patch("psutil.net_if_addrs", return_value={}):
         interfaces = get_network_interfaces()
         assert interfaces == {}
+
 
 def test_get_network_interfaces_type_error() -> None:
     """

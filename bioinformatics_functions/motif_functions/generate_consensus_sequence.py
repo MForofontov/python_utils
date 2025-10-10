@@ -45,7 +45,7 @@ def generate_consensus_sequence(sequences: list[str], threshold: float = 0.5) ->
     If no base reaches the threshold, 'N' is used.
     Gaps ('-') are treated as regular characters.
     Case-sensitive - returns uppercase consensus.
-    
+
     Complexity
     ----------
     Time: O(n*m), Space: O(m) where n is number of sequences, m is sequence length
@@ -55,43 +55,47 @@ def generate_consensus_sequence(sequences: list[str], threshold: float = 0.5) ->
         raise TypeError(f"sequences must be a list, got {type(sequences).__name__}")
     if not isinstance(threshold, (int, float)):
         raise TypeError(f"threshold must be a number, got {type(threshold).__name__}")
-    
+
     if len(sequences) == 0:
         raise ValueError("Sequences list cannot be empty")
-    
+
     if not (0.0 <= threshold <= 1.0):
         raise ValueError(f"threshold must be between 0 and 1, got {threshold}")
-    
+
     # Check all sequences have same length
     seq_length = len(sequences[0])
     for i, seq in enumerate(sequences):
         if not isinstance(seq, str):
-            raise TypeError(f"All sequences must be strings, got {type(seq).__name__} at index {i}")
+            raise TypeError(
+                f"All sequences must be strings, got {type(seq).__name__} at index {i}"
+            )
         if len(seq) != seq_length:
-            raise ValueError(f"All sequences must have same length. Expected {seq_length}, got {len(seq)} at index {i}")
-    
+            raise ValueError(
+                f"All sequences must have same length. Expected {seq_length}, got {len(seq)} at index {i}"
+            )
+
     # Convert all to uppercase
     sequences_upper = [seq.upper() for seq in sequences]
-    
+
     # Build consensus
     consensus = []
     num_sequences = len(sequences_upper)
-    
+
     for pos in range(seq_length):
         # Count bases at this position
         bases_at_pos = [seq[pos] for seq in sequences_upper]
         base_counts = Counter(bases_at_pos)
-        
+
         # Find most common base
         most_common_base, count = base_counts.most_common(1)[0]
-        
+
         # Check if it meets threshold
         if count / num_sequences >= threshold:
             consensus.append(most_common_base)
         else:
-            consensus.append('N')
-    
-    return ''.join(consensus)
+            consensus.append("N")
+
+    return "".join(consensus)
 
 
-__all__ = ['generate_consensus_sequence']
+__all__ = ["generate_consensus_sequence"]

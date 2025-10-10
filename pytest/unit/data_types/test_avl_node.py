@@ -1,5 +1,6 @@
-import pytest
 from data_types.avl_node import AVLTree
+
+import pytest
 
 
 def test_insert_single_node() -> None:
@@ -197,6 +198,8 @@ def test_balance_of_empty_tree() -> None:
     """
     tree = AVLTree[int]()
     assert tree._get_balance(tree.root) == 0
+
+
 def test_delete_non_existing_key() -> None:
     """
     Test case 17: Test deleting a non-existing key from the AVL tree.

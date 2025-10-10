@@ -89,6 +89,8 @@ def test_verify_jwt_token_case_12_token_without_expiration() -> None:
     # Assert
     assert decoded_payload["test"] == "data"
     assert "exp" not in decoded_payload
+
+
 def test_verify_jwt_token_case_2_wrong_secret() -> None:
     """
     Test case 4: Wrong secret should raise ValueError.

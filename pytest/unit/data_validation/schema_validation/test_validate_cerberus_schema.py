@@ -214,6 +214,8 @@ def test_validate_cerberus_schema_case_19_performance_large_data() -> None:
 
     assert len(result["items"]) == 1000
     assert elapsed_time < 2.0  # Should complete within 2 seconds
+
+
 def test_validate_cerberus_schema_case_9_type_error_invalid_data() -> None:
     """
     Test case 11: TypeError for invalid data type.

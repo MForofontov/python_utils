@@ -178,6 +178,8 @@ def test_parse_url_empty_components():
     assert result["path"] == "/"
     assert result["query"] == ""
     assert result["fragment"] == ""
+
+
 def test_parse_url_with_empty_string():
     """Test case 17: Test parse_url function with empty string raises ValueError."""
     with pytest.raises(ValueError, match="URL must be a non-empty string"):
@@ -194,5 +196,3 @@ def test_parse_url_with_none():
     """Test case 19: Test parse_url function with None raises TypeError."""
     with pytest.raises(TypeError):
         parse_url(None)
-
-

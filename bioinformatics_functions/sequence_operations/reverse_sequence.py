@@ -26,4 +26,5 @@ def reverse_sequence(seq: str) -> str:
         raise TypeError(f"seq must be str, got {type(seq).__name__}")
     return seq[::-1]
 
+
 __all__ = ["reverse_sequence"]

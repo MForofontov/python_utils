@@ -70,10 +70,7 @@ def test_set_power_set_as_lists_mixed_types() -> None:
     input_set = {1, "a"}
     result = set_power_set_as_lists(input_set)
     # Accept either ordering for mixed types
-    expected_variants = [
-        [[], [1], ["a"], [1, "a"]],
-        [[], ["a"], [1], ["a", 1]]
-    ]
+    expected_variants = [[[], [1], ["a"], [1, "a"]], [[], ["a"], [1], ["a", 1]]]
     assert result in expected_variants
 
 
@@ -109,6 +106,8 @@ def test_set_power_set_as_lists_ordering() -> None:
         [1, 2, 3],  # length 3
     ]
     assert result == expected
+
+
 def test_set_power_set_as_lists_type_error() -> None:
     """
     Test case 9: TypeError for invalid input type.

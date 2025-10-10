@@ -9,9 +9,7 @@ from typing import Any
 
 
 def dict_value_difference(
-    dict1: dict[str, Any], 
-    dict2: dict[str, Any], 
-    ignore_missing: bool = False
+    dict1: dict[str, Any], dict2: dict[str, Any], ignore_missing: bool = False
 ) -> dict[str, Any]:
     """
     Calculate the difference between two dictionaries.
@@ -60,10 +58,12 @@ def dict_value_difference(
     if not isinstance(dict2, dict):
         raise TypeError(f"dict2 must be a dictionary, got {type(dict2).__name__}")
     if not isinstance(ignore_missing, bool):
-        raise TypeError(f"ignore_missing must be a boolean, got {type(ignore_missing).__name__}")
+        raise TypeError(
+            f"ignore_missing must be a boolean, got {type(ignore_missing).__name__}"
+        )
 
     differences = {}
-    
+
     # Check all keys in dict2
     for key, value in dict2.items():
         if key not in dict1:
@@ -73,14 +73,14 @@ def dict_value_difference(
         elif dict1[key] != value:
             # Key exists in both but values are different
             differences[key] = value
-    
+
     # Check for keys that exist in dict1 but not in dict2
     if not ignore_missing:
         for key in dict1:
             if key not in dict2:
                 # Key was removed in dict2, mark with None
                 differences[key] = None
-    
+
     return differences
 
 

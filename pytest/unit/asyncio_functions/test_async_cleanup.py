@@ -1,8 +1,8 @@
 """Unit tests for async_cleanup function."""
+
 import asyncio
 
 import pytest
-
 from asyncio_functions.async_cleanup import async_cleanup
 
 
@@ -96,6 +96,8 @@ async def test_async_cleanup_different_return_types() -> None:
     # Assert
     assert result == [1, 2, 3]
     assert len(cleanup_called) == 1
+
+
 @pytest.mark.asyncio
 async def test_async_cleanup_failing_task_with_cleanup() -> None:
     """

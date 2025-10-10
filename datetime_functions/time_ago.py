@@ -1,11 +1,7 @@
-
-
 from datetime import datetime
 
 
-def time_ago(
-    past_date: datetime, reference_date: datetime | None = None
-) -> str:
+def time_ago(past_date: datetime, reference_date: datetime | None = None) -> str:
     """
     Get a human-readable description of how long ago a date was.
 
@@ -41,7 +37,9 @@ def time_ago(
     if not isinstance(past_date, datetime):
         raise TypeError("past_date must be a datetime object")
     if reference_date is None:
-        reference_date = datetime.now(tz=past_date.tzinfo) if past_date.tzinfo else datetime.now()
+        reference_date = (
+            datetime.now(tz=past_date.tzinfo) if past_date.tzinfo else datetime.now()
+        )
     if not isinstance(reference_date, datetime):
         raise TypeError("reference_date must be a datetime object")
     if past_date > reference_date:

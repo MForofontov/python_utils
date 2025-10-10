@@ -1,7 +1,11 @@
-from typing import Iterator, Tuple, Callable
+from collections.abc import Callable, Iterator
+
 from .fasta_parser import parse_fasta
 
-def fasta_rename_headers(fasta_str: str, rename_fn: Callable[[str], str]) -> Iterator[Tuple[str, str]]:
+
+def fasta_rename_headers(
+    fasta_str: str, rename_fn: Callable[[str], str]
+) -> Iterator[tuple[str, str]]:
     """
     Rename FASTA headers using a mapping function.
 
@@ -24,5 +28,6 @@ def fasta_rename_headers(fasta_str: str, rename_fn: Callable[[str], str]) -> Ite
     """
     for header, seq in parse_fasta(fasta_str):
         yield (rename_fn(header), seq)
+
 
 __all__ = ["fasta_rename_headers"]

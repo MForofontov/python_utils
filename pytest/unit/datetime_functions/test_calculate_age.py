@@ -68,7 +68,6 @@ def test_calculate_age_default_reference() -> None:
     assert isinstance(result, int)
     assert result >= 4  # Should be at least 4 years old as of 2025
 
-
     # Removed: covered by test_calculate_age_type_error_on_non_datetime
 
 

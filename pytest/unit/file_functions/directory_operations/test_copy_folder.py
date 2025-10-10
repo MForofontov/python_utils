@@ -1,9 +1,7 @@
 """Unit tests for copy_folder function."""
-import os
+
 import tempfile
 from pathlib import Path
-
-import pytest
 
 from file_functions.directory_operations.copy_folder import copy_folder
 
@@ -16,7 +14,7 @@ def test_copy_folder_basic_copy() -> None:
     with tempfile.TemporaryDirectory() as temp_dir:
         src = Path(temp_dir) / "source"
         dest = Path(temp_dir) / "destination"
-        
+
         src.mkdir()
         (src / "file1.txt").write_text("content1")
         (src / "file2.txt").write_text("content2")
@@ -40,7 +38,7 @@ def test_copy_folder_with_subdirectories() -> None:
     with tempfile.TemporaryDirectory() as temp_dir:
         src = Path(temp_dir) / "source"
         dest = Path(temp_dir) / "destination"
-        
+
         src.mkdir()
         subdir = src / "subdir"
         subdir.mkdir()
@@ -63,7 +61,7 @@ def test_copy_folder_creates_destination() -> None:
     with tempfile.TemporaryDirectory() as temp_dir:
         src = Path(temp_dir) / "source"
         dest = Path(temp_dir) / "new" / "destination"
-        
+
         src.mkdir()
         (src / "file.txt").write_text("content")
 
@@ -83,7 +81,7 @@ def test_copy_folder_empty_folder() -> None:
     with tempfile.TemporaryDirectory() as temp_dir:
         src = Path(temp_dir) / "source"
         dest = Path(temp_dir) / "destination"
-        
+
         src.mkdir()
 
         # Act
@@ -102,7 +100,7 @@ def test_copy_folder_overwrites_existing() -> None:
     with tempfile.TemporaryDirectory() as temp_dir:
         src = Path(temp_dir) / "source"
         dest = Path(temp_dir) / "destination"
-        
+
         src.mkdir()
         dest.mkdir()
         (src / "file.txt").write_text("new content")
@@ -123,7 +121,7 @@ def test_copy_folder_multiple_files() -> None:
     with tempfile.TemporaryDirectory() as temp_dir:
         src = Path(temp_dir) / "source"
         dest = Path(temp_dir) / "destination"
-        
+
         src.mkdir()
         for i in range(5):
             (src / f"file{i}.txt").write_text(f"content{i}")
@@ -145,7 +143,7 @@ def test_copy_folder_deep_hierarchy() -> None:
     with tempfile.TemporaryDirectory() as temp_dir:
         src = Path(temp_dir) / "source"
         dest = Path(temp_dir) / "destination"
-        
+
         src.mkdir()
         deep_path = src / "a" / "b" / "c"
         deep_path.mkdir(parents=True)
@@ -167,7 +165,7 @@ def test_copy_folder_preserves_structure() -> None:
     with tempfile.TemporaryDirectory() as temp_dir:
         src = Path(temp_dir) / "source"
         dest = Path(temp_dir) / "destination"
-        
+
         src.mkdir()
         (src / "dir1").mkdir()
         (src / "dir2").mkdir()

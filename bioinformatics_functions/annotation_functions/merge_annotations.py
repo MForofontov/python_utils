@@ -1,6 +1,8 @@
-from typing import Sequence, Dict, Any
+from collections.abc import Sequence
+from typing import Any
 
-def merge_annotations(annotations: Sequence[Dict[str, Any]]) -> Dict[str, Any]:
+
+def merge_annotations(annotations: Sequence[dict[str, Any]]) -> dict[str, Any]:
     """
     Merge multiple annotation dictionaries (e.g., GFF, BED, custom) for a sequence.
 
@@ -33,5 +35,6 @@ def merge_annotations(annotations: Sequence[Dict[str, Any]]) -> Dict[str, Any]:
     for ann in annotations:
         merged.update(ann)
     return merged
+
 
 __all__ = ["merge_annotations"]

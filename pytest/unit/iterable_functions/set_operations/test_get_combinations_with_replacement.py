@@ -92,6 +92,8 @@ def test_get_combinations_with_replacement_large_set() -> None:
     assert len(result) == 10
     # Each combination should have exactly 2 elements
     assert all(len(comb) == 2 for comb in result)
+
+
 def test_get_combinations_with_replacement_type_error_input_set() -> None:
     """
     Test case 9: TypeError for invalid input_set type.

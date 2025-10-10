@@ -157,6 +157,8 @@ def test_validate_string_performance_large_strings() -> None:
     validate_string(medium_string, pattern=r"^a+$")
     elapsed_time = time.time() - start_time
     assert elapsed_time < 1.0  # Should complete within 1 second
+
+
 def test_validate_string_type_error_invalid_input() -> None:
     """
     Test case 10: TypeError for non-string input.

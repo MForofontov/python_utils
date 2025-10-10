@@ -1,6 +1,8 @@
-from typing import Iterator, Dict, Any
+from collections.abc import Iterator
+from typing import Any
 
-def parse_gtf(gtf_file: str) -> Iterator[Dict[str, Any]]:
+
+def parse_gtf(gtf_file: str) -> Iterator[dict[str, Any]]:
     """
     Parse a GTF (Gene Transfer Format) file and yield annotation records as dictionaries.
 
@@ -40,24 +42,25 @@ def parse_gtf(gtf_file: str) -> Iterator[Dict[str, Any]]:
     try:
         with open(gtf_file) as f:
             for line in f:
-                if line.startswith('#') or not line.strip():
+                if line.startswith("#") or not line.strip():
                     continue
-                parts = line.strip().split('\t')
+                parts = line.strip().split("\t")
                 if len(parts) != 9:
                     continue
                 record = {
-                    'seqname': parts[0],
-                    'source': parts[1],
-                    'feature': parts[2],
-                    'start': int(parts[3]),
-                    'end': int(parts[4]),
-                    'score': parts[5],
-                    'strand': parts[6],
-                    'frame': parts[7],
-                    'attribute': parts[8],
+                    "seqname": parts[0],
+                    "source": parts[1],
+                    "feature": parts[2],
+                    "start": int(parts[3]),
+                    "end": int(parts[4]),
+                    "score": parts[5],
+                    "strand": parts[6],
+                    "frame": parts[7],
+                    "attribute": parts[8],
                 }
                 yield record
     except FileNotFoundError:
         raise FileNotFoundError(f"File not found: {gtf_file}")
 
-__all__ = ['parse_gtf']
+
+__all__ = ["parse_gtf"]

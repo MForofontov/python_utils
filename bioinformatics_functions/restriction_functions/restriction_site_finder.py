@@ -1,6 +1,9 @@
-from typing import Sequence
+from collections.abc import Sequence
 
-def restriction_site_finder(sequence: str, sites: Sequence[str]) -> list[tuple[int, str]]:
+
+def restriction_site_finder(
+    sequence: str, sites: Sequence[str]
+) -> list[tuple[int, str]]:
     """
     Locate restriction enzyme recognition sites in a sequence.
 
@@ -43,4 +46,5 @@ def restriction_site_finder(sequence: str, sites: Sequence[str]) -> list[tuple[i
             start = idx + 1
     return results
 
-__all__ = ['restriction_site_finder']
+
+__all__ = ["restriction_site_finder"]

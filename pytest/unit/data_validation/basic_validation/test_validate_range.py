@@ -144,6 +144,8 @@ def test_validate_range_case_12_performance_large_numbers() -> None:
     elapsed_time = time.time() - start_time
 
     assert elapsed_time < 1.0  # Should complete within 1 second
+
+
 def test_validate_range_value_error_below_minimum() -> None:
     """
     Test case 9: ValueError for values below minimum.

@@ -5,7 +5,6 @@ import urllib.request
 from collections.abc import Callable
 from pathlib import Path
 from typing import Any
-from urllib.error import URLError
 
 
 def download_file(
@@ -93,7 +92,7 @@ def download_file(
                 "file_size": downloaded,
                 "message": f"Successfully downloaded {downloaded} bytes",
             }
-    except Exception as e:
+    except Exception:
         if dest_path.exists():
             dest_path.unlink()
         raise

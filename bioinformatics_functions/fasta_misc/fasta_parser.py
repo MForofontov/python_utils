@@ -1,6 +1,7 @@
-from typing import Iterator, Tuple
+from collections.abc import Iterator
 
-def parse_fasta(fasta_str: str) -> Iterator[Tuple[str, str]]:
+
+def parse_fasta(fasta_str: str) -> Iterator[tuple[str, str]]:
     """
     Parse a FASTA formatted string and yield (header, sequence) tuples.
 
@@ -34,9 +35,9 @@ def parse_fasta(fasta_str: str) -> Iterator[Tuple[str, str]]:
         line = line.strip()
         if not line:
             continue
-        if line.startswith('>'):
+        if line.startswith(">"):
             if header:
-                yield (header, ''.join(seq))
+                yield (header, "".join(seq))
             header = line[1:].strip()
             seq = []
         else:
@@ -44,6 +45,7 @@ def parse_fasta(fasta_str: str) -> Iterator[Tuple[str, str]]:
                 raise ValueError("FASTA format error: sequence before header")
             seq.append(line)
     if header:
-        yield (header, ''.join(seq))
+        yield (header, "".join(seq))
+
 
 __all__ = ["parse_fasta"]

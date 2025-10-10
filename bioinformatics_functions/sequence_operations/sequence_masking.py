@@ -1,4 +1,4 @@
-def sequence_masking(seq: str, mask_char: str = 'N', threshold: int = 3) -> str:
+def sequence_masking(seq: str, mask_char: str = "N", threshold: int = 3) -> str:
     """
     Mask low-complexity regions in a sequence by replacing runs of identical bases with a mask character.
 
@@ -48,6 +48,7 @@ def sequence_masking(seq: str, mask_char: str = 'N', threshold: int = 3) -> str:
             for j in range(run_len):
                 out[i + j] = mask_char
         i += run_len
-    return ''.join(out)
+    return "".join(out)
+
 
 __all__ = ["sequence_masking"]

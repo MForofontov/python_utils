@@ -60,20 +60,20 @@ def hash_password_bcrypt(password: str, rounds: int = 12) -> str:
         raise TypeError(f"password must be a string, got {type(password).__name__}")
     if not isinstance(rounds, int):
         raise TypeError(f"rounds must be an integer, got {type(rounds).__name__}")
-    
+
     # Value validation
     if not password:
         raise ValueError("password cannot be empty")
     if not (4 <= rounds <= 31):
         raise ValueError(f"rounds must be between 4 and 31, got {rounds}")
-    
+
     # Convert password to bytes and hash
-    password_bytes = password.encode('utf-8')
+    password_bytes = password.encode("utf-8")
     salt = bcrypt.gensalt(rounds=rounds)
     hashed = bcrypt.hashpw(password_bytes, salt)
-    
+
     # Return as string
-    return hashed.decode('utf-8')
+    return hashed.decode("utf-8")
 
 
 __all__ = ["hash_password_bcrypt"]

@@ -9,10 +9,12 @@ def square(x: int) -> int:
 def add_one(x: int) -> int:
     return x + 1
 
+
 def fail_on_two(x: int) -> int:
     if x == 2:
         raise ValueError("fail")
     return x
+
 
 def test_parallel_map_basic() -> None:
     """

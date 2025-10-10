@@ -1,5 +1,6 @@
 import math
 
+
 def sequence_entropy(seq: str) -> float:
     """
     Calculate the Shannon entropy of a nucleotide or protein sequence.
@@ -40,5 +41,6 @@ def sequence_entropy(seq: str) -> float:
         p = count / len(seq)
         entropy -= p * math.log2(p)
     return entropy
+
 
 __all__ = ["sequence_entropy"]

@@ -1,8 +1,8 @@
 """Unit tests for async_periodic function."""
+
 import asyncio
 
 import pytest
-
 from asyncio_functions.async_periodic import async_periodic
 
 

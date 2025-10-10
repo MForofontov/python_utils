@@ -1,4 +1,3 @@
-
 def get_dns_servers() -> list[str]:
     """
     Get DNS servers configured on the system.
@@ -15,12 +14,13 @@ def get_dns_servers() -> list[str]:
     """
     servers = []
     try:
-        with open('/etc/resolv.conf') as f:
+        with open("/etc/resolv.conf") as f:
             for line in f:
-                if line.startswith('nameserver'):
+                if line.startswith("nameserver"):
                     servers.append(line.split()[1])
     except Exception:
         pass
     return servers
+
 
 __all__ = ["get_dns_servers"]

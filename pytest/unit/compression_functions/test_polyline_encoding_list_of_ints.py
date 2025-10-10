@@ -1,6 +1,6 @@
 """Unit tests for polyline_encoding_list_of_ints function."""
-import pytest
 
+import pytest
 from compression_functions.polyline_encoding_list_of_ints import (
     polyline_encoding_list_of_ints,
 )
@@ -109,6 +109,8 @@ def test_polyline_encoding_list_of_ints_zero_values() -> None:
     # Assert
     assert isinstance(result, str)
     assert len(result) > 0
+
+
 def test_polyline_encoding_list_of_ints_empty_list_error() -> None:
     """
     Test case 8: ValueError when input list is empty.

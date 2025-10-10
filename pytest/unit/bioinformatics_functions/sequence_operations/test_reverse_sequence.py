@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.sequence_operations.reverse_sequence import reverse_sequence
+from bioinformatics_functions.sequence_operations.reverse_sequence import (
+    reverse_sequence,
+)
 
 
 def test_reverse_sequence_basic() -> None:

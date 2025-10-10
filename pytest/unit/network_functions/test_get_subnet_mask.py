@@ -1,21 +1,24 @@
+import socket
+from unittest.mock import patch
+
 import pytest
 from network_functions.get_subnet_mask import get_subnet_mask
-from unittest.mock import patch
-import socket
-
 
 
 def test_get_subnet_mask_normal() -> None:
     """
     Test case 1: Normal operation with mocked interface.
     """
+
     class Addr:
         def __init__(self, netmask: str) -> None:
             self.family = socket.AF_INET
             self.netmask = netmask
+
     with patch("psutil.net_if_addrs", return_value={"eth0": [Addr("255.255.255.0")]}):
         mask = get_subnet_mask("eth0")
         assert mask == "255.255.255.0"
+
 
 def test_get_subnet_mask_not_found() -> None:
     """
@@ -25,17 +28,21 @@ def test_get_subnet_mask_not_found() -> None:
         mask = get_subnet_mask("eth0")
         assert mask == ""
 
+
 def test_get_subnet_mask_no_inet() -> None:
     """
     Test case 3: No AF_INET address returns empty string.
     """
+
     class Addr:
         def __init__(self) -> None:
             self.family = socket.AF_INET + 1
             self.netmask = None
+
     with patch("psutil.net_if_addrs", return_value={"eth0": [Addr()]}):
         mask = get_subnet_mask("eth0")
         assert mask == ""
+
 
 def test_get_subnet_mask_type_error() -> None:
     """

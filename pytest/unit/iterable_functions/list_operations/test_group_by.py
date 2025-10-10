@@ -205,6 +205,8 @@ def test_group_by_none_values() -> None:
 
     # Assert
     assert result == expected_output
+
+
 def test_group_by_invalid_items_type_error() -> None:
     """
     Test case 11: TypeError for invalid items type.

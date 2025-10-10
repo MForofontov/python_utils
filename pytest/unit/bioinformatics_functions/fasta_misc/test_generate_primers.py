@@ -9,10 +9,10 @@ def test_generate_primers_valid_sequence() -> None:
     # Arrange
     seq = "ATGCATGCATGCATGCATGC"
     length = 10
-    
+
     # Act
     result = generate_primers(seq, length=length, gc_min=0.4, gc_max=0.6)
-    
+
     # Assert
     assert isinstance(result, list)
     assert all(len(primer) == length for primer in result)
@@ -25,10 +25,10 @@ def test_generate_primers_default_parameters() -> None:
     """
     # Arrange
     seq = "ATGCATGCATGCATGCATGCATGC" * 2  # 48 bases
-    
+
     # Act
     result = generate_primers(seq)
-    
+
     # Assert
     assert isinstance(result, list)
     assert all(len(primer) == 20 for primer in result)
@@ -41,10 +41,10 @@ def test_generate_primers_custom_length() -> None:
     # Arrange
     seq = "ATGCATGCATGCATGCATGC"
     length = 15
-    
+
     # Act
     result = generate_primers(seq, length=length)
-    
+
     # Assert
     if result:
         assert all(len(primer) == length for primer in result)
@@ -57,10 +57,10 @@ def test_generate_primers_strict_gc_range() -> None:
     # Arrange
     seq = "GCGCGCGCGCGCGCGCGCGC"
     length = 10
-    
+
     # Act
     result = generate_primers(seq, length=length, gc_min=0.9, gc_max=1.0)
-    
+
     # Assert
     assert isinstance(result, list)
     # High GC sequence should have primers
@@ -74,10 +74,10 @@ def test_generate_primers_no_valid_primers() -> None:
     # Arrange
     seq = "AAAAAAAAAAAAAAAAAAAAAA"  # All A, 0% GC
     length = 10
-    
+
     # Act
     result = generate_primers(seq, length=length, gc_min=0.4, gc_max=0.6)
-    
+
     # Assert
     assert result == []
 
@@ -89,16 +89,16 @@ def test_generate_primers_filters_ccc_endings() -> None:
     # Arrange
     seq = "ATGCATGCGGGCCCATGC"
     length = 10
-    
+
     # Act
     result = generate_primers(seq, length=length, gc_min=0.3, gc_max=0.7)
-    
+
     # Assert
     assert isinstance(result, list)
     # Check no primers end with GGG or CCC
     for primer in result:
-        assert not primer.endswith('GGG')
-        assert not primer.endswith('CCC')
+        assert not primer.endswith("GGG")
+        assert not primer.endswith("CCC")
 
 
 def test_generate_primers_lowercase_input() -> None:
@@ -108,10 +108,10 @@ def test_generate_primers_lowercase_input() -> None:
     # Arrange
     seq = "atgcatgcatgcatgcatgc"
     length = 10
-    
+
     # Act
     result = generate_primers(seq, length=length)
-    
+
     # Assert
     assert isinstance(result, list)
     assert all(primer.isupper() for primer in result)
@@ -124,10 +124,10 @@ def test_generate_primers_mixed_case() -> None:
     # Arrange
     seq = "AtGcAtGcAtGcAtGcAtGc"
     length = 10
-    
+
     # Act
     result = generate_primers(seq, length=length)
-    
+
     # Assert
     assert isinstance(result, list)
     assert all(primer.isupper() for primer in result)
@@ -140,10 +140,10 @@ def test_generate_primers_minimum_length() -> None:
     # Arrange
     seq = "ATGCATGCATGCATGC"
     length = 5
-    
+
     # Act
     result = generate_primers(seq, length=length, gc_min=0.3, gc_max=0.7)
-    
+
     # Assert
     assert isinstance(result, list)
     if result:
@@ -157,7 +157,7 @@ def test_generate_primers_type_error_seq_not_string() -> None:
     # Arrange
     invalid_seq = 12345  # type: ignore
     expected_message = "seq must be str, got int"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         generate_primers(invalid_seq)  # type: ignore
@@ -171,7 +171,7 @@ def test_generate_primers_type_error_length_not_int() -> None:
     seq = "ATGCATGC"
     invalid_length = "20"  # type: ignore
     expected_message = "length must be int, got str"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         generate_primers(seq, length=invalid_length)  # type: ignore
@@ -185,7 +185,7 @@ def test_generate_primers_type_error_gc_min_not_number() -> None:
     seq = "ATGCATGC"
     invalid_gc = "0.4"  # type: ignore
     expected_message = "gc_min must be a number, got str"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         generate_primers(seq, gc_min=invalid_gc)  # type: ignore
@@ -199,7 +199,7 @@ def test_generate_primers_type_error_gc_max_not_number() -> None:
     seq = "ATGCATGC"
     invalid_gc = "0.6"  # type: ignore
     expected_message = "gc_max must be a number, got str"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         generate_primers(seq, gc_max=invalid_gc)  # type: ignore
@@ -212,7 +212,7 @@ def test_generate_primers_value_error_invalid_bases() -> None:
     # Arrange
     invalid_seq = "ATGCXYZ"
     expected_message = "Sequence contains invalid DNA bases"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         generate_primers(invalid_seq)
@@ -226,7 +226,7 @@ def test_generate_primers_value_error_length_zero() -> None:
     seq = "ATGCATGC"
     invalid_length = 0
     expected_message = "length must be positive"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         generate_primers(seq, length=invalid_length)
@@ -240,7 +240,7 @@ def test_generate_primers_value_error_length_negative() -> None:
     seq = "ATGCATGC"
     invalid_length = -5
     expected_message = "length must be positive"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         generate_primers(seq, length=invalid_length)
@@ -254,7 +254,7 @@ def test_generate_primers_value_error_length_too_large() -> None:
     seq = "ATGC"
     invalid_length = 100
     expected_message = "length must be positive and <= sequence length"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         generate_primers(seq, length=invalid_length)
@@ -268,7 +268,7 @@ def test_generate_primers_value_error_gc_min_negative() -> None:
     seq = "ATGCATGC"
     invalid_gc = -0.5
     expected_message = "gc_min must be between 0 and 1"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         generate_primers(seq, gc_min=invalid_gc)
@@ -282,7 +282,7 @@ def test_generate_primers_value_error_gc_min_greater_than_one() -> None:
     seq = "ATGCATGC"
     invalid_gc = 1.5
     expected_message = "gc_min must be between 0 and 1"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         generate_primers(seq, gc_min=invalid_gc)
@@ -296,7 +296,7 @@ def test_generate_primers_value_error_gc_max_negative() -> None:
     seq = "ATGCATGC"
     invalid_gc = -0.5
     expected_message = "gc_max must be between 0 and 1"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         generate_primers(seq, gc_max=invalid_gc)
@@ -310,7 +310,7 @@ def test_generate_primers_value_error_gc_max_greater_than_one() -> None:
     seq = "ATGCATGC"
     invalid_gc = 1.5
     expected_message = "gc_max must be between 0 and 1"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         generate_primers(seq, gc_max=invalid_gc)
@@ -325,7 +325,7 @@ def test_generate_primers_value_error_gc_min_greater_than_gc_max() -> None:
     invalid_min = 0.8
     invalid_max = 0.4
     expected_message = "gc_min cannot be greater than gc_max"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         generate_primers(seq, gc_min=invalid_min, gc_max=invalid_max)

@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.alignment_functions.pairwise_identity import pairwise_identity
+from bioinformatics_functions.alignment_functions.pairwise_identity import (
+    pairwise_identity,
+)
 
 
 def test_pairwise_identity_identical() -> None:
@@ -38,7 +40,9 @@ def test_pairwise_identity_aligned_different_gaps() -> None:
 
 def test_pairwise_identity_unequal_length_unaligned() -> None:
     """Test case 7: Test ValueError for unequal length when aligned=False."""
-    with pytest.raises(ValueError, match="Sequences must have equal length when aligned=False"):
+    with pytest.raises(
+        ValueError, match="Sequences must have equal length when aligned=False"
+    ):
         pairwise_identity("ACGT", "ACT", aligned=False)
 
 

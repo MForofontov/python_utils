@@ -24,4 +24,5 @@ def get_ipv6_addresses() -> list[str]:
                 ipv6_addrs.append(addr.address)
     return ipv6_addrs
 
+
 __all__ = ["get_ipv6_addresses"]

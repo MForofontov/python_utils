@@ -2,6 +2,7 @@
 
 from datetime import datetime
 
+
 def calculate_age(
     birth_date: datetime,
     reference_date: datetime | None = None,

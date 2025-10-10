@@ -157,6 +157,8 @@ def test_filter_dict_by_keys_no_modification_original() -> None:
 
     # Assert
     assert input_data == original_data
+
+
 def test_filter_dict_by_keys_invalid_dict_type_error() -> None:
     """
     Test case 10: TypeError for invalid dictionary input.

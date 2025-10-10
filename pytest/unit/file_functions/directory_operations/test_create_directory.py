@@ -76,7 +76,9 @@ def test_permission_error_read_only_parent(tmp_path: Path) -> None:
 
     # Skip test if not running as root or if setegid/seteuid is not permitted
     if os.geteuid() != 0:
-        pytest.skip("Skipping test: requires root privileges to change effective UID/GID.")
+        pytest.skip(
+            "Skipping test: requires root privileges to change effective UID/GID."
+        )
     try:
         uid = pwd.getpwnam("nobody").pw_uid
         gid = pwd.getpwnam("nobody").pw_gid

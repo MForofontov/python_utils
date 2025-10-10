@@ -1,6 +1,8 @@
 from datetime import datetime
+
 import pytest
 from datetime_functions.time_ago import time_ago
+
 
 def test_time_ago_seconds() -> None:
     """
@@ -12,6 +14,7 @@ def test_time_ago_seconds() -> None:
     assert isinstance(result, str)
     assert result == "30 seconds ago"
 
+
 def test_time_ago_minutes() -> None:
     """
     Test case 2: time_ago returns correct string for minutes difference.
@@ -21,6 +24,7 @@ def test_time_ago_minutes() -> None:
     result = time_ago(past, reference)
     assert isinstance(result, str)
     assert result == "30 minutes ago"
+
 
 def test_time_ago_hours() -> None:
     """
@@ -32,6 +36,7 @@ def test_time_ago_hours() -> None:
     assert isinstance(result, str)
     assert result == "3 hours ago"
 
+
 def test_time_ago_days() -> None:
     """
     Test case 4: time_ago returns correct string for days difference.
@@ -41,6 +46,7 @@ def test_time_ago_days() -> None:
     result = time_ago(past, reference)
     assert isinstance(result, str)
     assert result == "3 days ago"
+
 
 def test_time_ago_weeks() -> None:
     """
@@ -52,6 +58,7 @@ def test_time_ago_weeks() -> None:
     assert isinstance(result, str)
     assert result == "3 weeks ago"
 
+
 def test_time_ago_just_now() -> None:
     """
     Test case 6: time_ago returns 'just now' for very recent times.
@@ -62,6 +69,7 @@ def test_time_ago_just_now() -> None:
     assert isinstance(result, str)
     assert result == "just now"
 
+
 def test_time_ago_future_value_error() -> None:
     """
     Test case 7: time_ago raises ValueError if the first argument is in the future relative to reference.
@@ -70,6 +78,7 @@ def test_time_ago_future_value_error() -> None:
     future = datetime(2023, 1, 15, 13, 0, 0)
     with pytest.raises(ValueError):
         time_ago(future, reference)
+
 
 def test_time_ago_invalid_type() -> None:
     """

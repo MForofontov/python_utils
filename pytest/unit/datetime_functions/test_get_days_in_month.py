@@ -54,7 +54,6 @@ def test_get_days_in_month_december() -> None:
     assert result == 31
 
 
-
 def test_get_days_in_month_all_months() -> None:
     """
     Test case 6: get_days_in_month returns correct days for all months in a non-leap year.
@@ -64,7 +63,6 @@ def test_get_days_in_month_all_months() -> None:
         dt = datetime(2023, month, 10, 0, 0, 0)
         result: int = get_days_in_month(dt)
         assert result == expected
-
 
 
 def test_get_days_in_month_all_months_leap() -> None:
@@ -78,7 +76,6 @@ def test_get_days_in_month_all_months_leap() -> None:
         assert result == expected
 
 
-
 def test_get_days_in_month_from_datetime_object() -> None:
     """
     Test case 8: get_days_in_month returns 30 for June from a datetime object.
@@ -87,7 +84,6 @@ def test_get_days_in_month_from_datetime_object() -> None:
     result: int = get_days_in_month(dt)
     assert isinstance(result, int)
     assert result == 30  # June has 30 days
-
 
 
 def test_get_days_in_month_invalid_input_type() -> None:
@@ -100,6 +96,3 @@ def test_get_days_in_month_invalid_input_type() -> None:
         get_days_in_month(123)
     with pytest.raises(TypeError):
         get_days_in_month(None)
-
-
-

@@ -1,8 +1,8 @@
 """Unit tests for async_batch function."""
+
 import asyncio
 
 import pytest
-
 from asyncio_functions.async_batch import async_batch
 
 
@@ -11,6 +11,7 @@ async def test_async_batch_normal_operation() -> None:
     """
     Test case 1: Normal operation with valid batch processing.
     """
+
     # Arrange
     async def process_batch(batch: list[int]) -> list[int]:
         await asyncio.sleep(0.001)
@@ -31,6 +32,7 @@ async def test_async_batch_single_batch() -> None:
     """
     Test case 2: All items fit in a single batch.
     """
+
     # Arrange
     async def process_batch(batch: list[int]) -> list[int]:
         return [x + 1 for x in batch]
@@ -50,6 +52,7 @@ async def test_async_batch_exact_batches() -> None:
     """
     Test case 3: Items divide evenly into batches.
     """
+
     # Arrange
     async def process_batch(batch: list[int]) -> list[int]:
         return [x * 3 for x in batch]
@@ -69,6 +72,7 @@ async def test_async_batch_empty_list() -> None:
     """
     Test case 4: Empty input list returns empty results.
     """
+
     # Arrange
     async def process_batch(batch: list[int]) -> list[int]:
         return [x * 2 for x in batch]
@@ -88,6 +92,7 @@ async def test_async_batch_batch_size_one() -> None:
     """
     Test case 5: Batch size of 1 processes each item individually.
     """
+
     # Arrange
     async def process_batch(batch: list[str]) -> list[str]:
         return [s.upper() for s in batch]
@@ -107,6 +112,7 @@ async def test_async_batch_string_processing() -> None:
     """
     Test case 6: Process batches of strings.
     """
+
     # Arrange
     async def process_batch(batch: list[str]) -> list[str]:
         await asyncio.sleep(0.001)

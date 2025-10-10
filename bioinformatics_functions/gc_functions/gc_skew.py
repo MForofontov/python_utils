@@ -31,12 +31,13 @@ def gc_skew(seq: str) -> float:
     if not isinstance(seq, str):
         raise TypeError(f"seq must be str, got {type(seq).__name__}")
     seq = seq.upper()
-    if not all(base in 'ATCG' for base in seq):
+    if not all(base in "ATCG" for base in seq):
         raise ValueError("Sequence contains invalid DNA bases")
-    g = seq.count('G')
-    c = seq.count('C')
+    g = seq.count("G")
+    c = seq.count("C")
     if g + c == 0:
         raise ValueError("No G or C bases in sequence")
     return (g - c) / (g + c)
+
 
 __all__ = ["gc_skew"]

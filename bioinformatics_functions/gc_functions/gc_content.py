@@ -27,9 +27,10 @@ def gc_content(seq: str) -> float:
     if not isinstance(seq, str):
         raise TypeError(f"seq must be str, got {type(seq).__name__}")
     seq = seq.upper()
-    if not all(base in 'ATCG' for base in seq):
+    if not all(base in "ATCG" for base in seq):
         raise ValueError("Sequence contains invalid DNA bases")
-    gc = seq.count('G') + seq.count('C')
+    gc = seq.count("G") + seq.count("C")
     return (gc / len(seq)) * 100 if seq else 0.0
+
 
 __all__ = ["gc_content"]

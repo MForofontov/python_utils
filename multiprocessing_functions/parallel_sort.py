@@ -44,7 +44,6 @@ def parallel_sort(
     [1, 2, 3, 4, 5]
     """
 
-
     # Input validation
     if not isinstance(data, list):
         raise TypeError("data must be a list")

@@ -1,6 +1,6 @@
 """Unit tests for partition_set_by_predicate function."""
-import pytest
 
+import pytest
 from iterable_functions.set_operations.set_partition import partition_set_by_predicate
 
 
@@ -136,9 +136,7 @@ def test_partition_set_by_predicate_preserves_union() -> None:
     original_set = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 
     # Act
-    true_set, false_set = partition_set_by_predicate(
-        original_set, lambda x: x % 3 == 0
-    )
+    true_set, false_set = partition_set_by_predicate(original_set, lambda x: x % 3 == 0)
 
     # Assert
     assert true_set.union(false_set) == original_set
@@ -150,7 +148,7 @@ def test_partition_set_by_predicate_mixed_types() -> None:
     Test case 10: Partition set with mixed types.
     """
     # Arrange
-    mixed_set = {1, "a", 2.5, True, None}
+    mixed_set = {1, "a", 2.5, None}
 
     # Act
     true_set, false_set = partition_set_by_predicate(
@@ -163,6 +161,8 @@ def test_partition_set_by_predicate_mixed_types() -> None:
     assert "a" in false_set
     assert True in false_set
     assert None in false_set
+
+
 def test_partition_set_by_predicate_type_error_non_set() -> None:
     """
     Test case 11: TypeError when input_set is not a set.

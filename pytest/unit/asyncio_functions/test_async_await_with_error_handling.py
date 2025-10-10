@@ -1,6 +1,6 @@
 """Unit tests for async_await_with_error_handling function."""
-import pytest
 
+import pytest
 from asyncio_functions.async_await_with_error_handling import (
     async_await_with_error_handling,
 )
@@ -11,6 +11,7 @@ async def test_async_await_with_error_handling_all_tasks_succeed() -> None:
     """
     Test case 1: All tasks succeed and return results.
     """
+
     # Arrange
     async def task1() -> int:
         return 1
@@ -27,7 +28,9 @@ async def test_async_await_with_error_handling_all_tasks_succeed() -> None:
         errors.append(e)
 
     # Act
-    results = await async_await_with_error_handling([task1, task2, task3], error_handler)
+    results = await async_await_with_error_handling(
+        [task1, task2, task3], error_handler
+    )
 
     # Assert
     assert results == [1, 2, 3]
@@ -39,6 +42,7 @@ async def test_async_await_with_error_handling_some_tasks_fail() -> None:
     """
     Test case 2: Some tasks fail but error handler captures them.
     """
+
     # Arrange
     async def task1() -> int:
         return 1
@@ -55,7 +59,9 @@ async def test_async_await_with_error_handling_some_tasks_fail() -> None:
         errors.append(e)
 
     # Act
-    results = await async_await_with_error_handling([task1, task2, task3], error_handler)
+    results = await async_await_with_error_handling(
+        [task1, task2, task3], error_handler
+    )
 
     # Assert
     assert results == [1, 3]
@@ -69,6 +75,7 @@ async def test_async_await_with_error_handling_all_tasks_fail() -> None:
     """
     Test case 3: All tasks fail and error handler captures all exceptions.
     """
+
     # Arrange
     async def task1() -> int:
         raise ValueError("Task 1 failed")
@@ -85,7 +92,9 @@ async def test_async_await_with_error_handling_all_tasks_fail() -> None:
         errors.append(e)
 
     # Act
-    results = await async_await_with_error_handling([task1, task2, task3], error_handler)
+    results = await async_await_with_error_handling(
+        [task1, task2, task3], error_handler
+    )
 
     # Assert
     assert results == []
@@ -119,6 +128,7 @@ async def test_async_await_with_error_handling_error_handler_invoked() -> None:
     """
     Test case 5: Error handler is called with the correct exception.
     """
+
     # Arrange
     async def failing_task() -> int:
         raise ValueError("Specific error message")
@@ -141,6 +151,7 @@ async def test_async_await_with_error_handling_mixed_return_types() -> None:
     """
     Test case 6: Tasks with different return types work correctly.
     """
+
     # Arrange
     async def task1() -> str:
         return "hello"

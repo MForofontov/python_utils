@@ -36,4 +36,5 @@ def resolve_hostname(hostname: str) -> str:
     except Exception as exc:
         raise ValueError(f"Could not resolve hostname: {exc}") from exc
 
+
 __all__ = ["resolve_hostname"]

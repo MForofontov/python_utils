@@ -1,6 +1,8 @@
-from typing import Iterator, Dict, Any
+from collections.abc import Iterator
+from typing import Any
 
-def parse_vcf(vcf_file: str) -> Iterator[Dict[str, Any]]:
+
+def parse_vcf(vcf_file: str) -> Iterator[dict[str, Any]]:
     """
     Parse a VCF (Variant Call Format) file and yield variant records as dictionaries.
 
@@ -40,23 +42,24 @@ def parse_vcf(vcf_file: str) -> Iterator[Dict[str, Any]]:
     try:
         with open(vcf_file) as f:
             for line in f:
-                if line.startswith('#') or not line.strip():
+                if line.startswith("#") or not line.strip():
                     continue
-                parts = line.strip().split('\t')
+                parts = line.strip().split("\t")
                 if len(parts) < 8:
                     continue
                 record = {
-                    'chrom': parts[0],
-                    'pos': int(parts[1]),
-                    'id': parts[2],
-                    'ref': parts[3],
-                    'alt': parts[4],
-                    'qual': parts[5],
-                    'filter': parts[6],
-                    'info': parts[7],
+                    "chrom": parts[0],
+                    "pos": int(parts[1]),
+                    "id": parts[2],
+                    "ref": parts[3],
+                    "alt": parts[4],
+                    "qual": parts[5],
+                    "filter": parts[6],
+                    "info": parts[7],
                 }
                 yield record
     except FileNotFoundError:
         raise FileNotFoundError(f"File not found: {vcf_file}")
 
-__all__ = ['parse_vcf']
+
+__all__ = ["parse_vcf"]

@@ -1,6 +1,8 @@
-from typing import Iterator, Dict, Any
+from collections.abc import Iterator
+from typing import Any
 
-def parse_bed(bed_file: str) -> Iterator[Dict[str, Any]]:
+
+def parse_bed(bed_file: str) -> Iterator[dict[str, Any]]:
     """
     Parse a BED formatted file and yield annotation dictionaries.
 
@@ -34,20 +36,21 @@ def parse_bed(bed_file: str) -> Iterator[Dict[str, Any]]:
     try:
         with open(bed_file) as f:
             for line in f:
-                if not line or line.startswith('#'):
+                if not line or line.startswith("#"):
                     continue
-                parts = line.strip().split('\t')
+                parts = line.strip().split("\t")
                 if len(parts) < 3:
                     raise ValueError("Invalid BED line: " + line)
                 ann = {
-                    'chrom': parts[0],
-                    'start': int(parts[1]),
-                    'end': int(parts[2]),
+                    "chrom": parts[0],
+                    "start": int(parts[1]),
+                    "end": int(parts[2]),
                 }
                 if len(parts) > 3:
-                    ann['name'] = parts[3]
+                    ann["name"] = parts[3]
                 yield ann
     except FileNotFoundError:
         raise FileNotFoundError(f"File not found: {bed_file}")
+
 
 __all__ = ["parse_bed"]

@@ -1,5 +1,6 @@
-import pytest
-from bioinformatics_functions.fasta_misc.fasta_rename_headers import fasta_rename_headers
+from bioinformatics_functions.fasta_misc.fasta_rename_headers import (
+    fasta_rename_headers,
+)
 
 
 def test_fasta_rename_headers_basic() -> None:
@@ -46,7 +47,9 @@ def test_fasta_rename_headers_complex_function() -> None:
     Test case 5: Complex renaming function.
     """
     fasta_str = ">seq1\nATGC\n>seq2\nGGTT"
-    result = list(fasta_rename_headers(fasta_str, lambda h: h.replace("seq", "sequence")))
+    result = list(
+        fasta_rename_headers(fasta_str, lambda h: h.replace("seq", "sequence"))
+    )
     assert result[0][0] == "sequence1"
     assert result[1][0] == "sequence2"
 

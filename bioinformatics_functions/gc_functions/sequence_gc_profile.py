@@ -1,6 +1,6 @@
-from typing import List
 
-def sequence_gc_profile(seq: str, window: int) -> List[float]:
+
+def sequence_gc_profile(seq: str, window: int) -> list[float]:
     """
     Calculate GC content profile in sliding windows across a DNA sequence.
 
@@ -37,14 +37,15 @@ def sequence_gc_profile(seq: str, window: int) -> List[float]:
     if window > len(seq):
         raise ValueError("window cannot be longer than sequence")
     seq = seq.upper()
-    if not all(base in 'ATCG' for base in seq):
+    if not all(base in "ATCG" for base in seq):
         raise ValueError("Sequence contains invalid DNA bases")
     gc_profile = []
     for i in range(len(seq) - window + 1):
-        window_seq = seq[i:i+window]
-        gc = window_seq.count('G') + window_seq.count('C')
+        window_seq = seq[i : i + window]
+        gc = window_seq.count("G") + window_seq.count("C")
         gc_content = (gc / window) * 100 if window else 0.0
         gc_profile.append(gc_content)
     return gc_profile
+
 
 __all__ = ["sequence_gc_profile"]

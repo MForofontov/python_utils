@@ -3,7 +3,9 @@ import time
 import requests
 
 
-def get_network_speed(test_url: str = "https://speed.hetzner.de/100MB.bin", timeout: float = 10.0) -> dict[str, float]:
+def get_network_speed(
+    test_url: str = "https://speed.hetzner.de/100MB.bin", timeout: float = 10.0
+) -> dict[str, float]:
     """
     Measure download speed from a test server.
 
@@ -41,6 +43,7 @@ def get_network_speed(test_url: str = "https://speed.hetzner.de/100MB.bin", time
         total_bytes += len(chunk)
     elapsed = time.time() - start
     mbps = (total_bytes * 8) / (elapsed * 1_000_000)
-    return {'download_mbps': mbps}
+    return {"download_mbps": mbps}
+
 
 __all__ = ["get_network_speed"]

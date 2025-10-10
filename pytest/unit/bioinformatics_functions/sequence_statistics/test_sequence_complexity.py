@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.sequence_statistics.sequence_complexity import sequence_complexity
+from bioinformatics_functions.sequence_statistics.sequence_complexity import (
+    sequence_complexity,
+)
 
 
 def test_sequence_complexity_basic() -> None:

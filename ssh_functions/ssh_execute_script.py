@@ -88,9 +88,7 @@ def ssh_execute_script(
     except FileNotFoundError as exc:
         raise ValueError(f"Script file not found: {script_path}") from exc
     except subprocess.TimeoutExpired as exc:
-        raise RuntimeError(
-            f"SSH command timed out after {timeout} seconds"
-        ) from exc
+        raise RuntimeError(f"SSH command timed out after {timeout} seconds") from exc
     except Exception as exc:
         raise RuntimeError(f"SSH command failed: {exc}") from exc
 

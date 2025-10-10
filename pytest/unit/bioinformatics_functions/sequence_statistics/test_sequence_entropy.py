@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.sequence_statistics.sequence_entropy import sequence_entropy
+from bioinformatics_functions.sequence_statistics.sequence_entropy import (
+    sequence_entropy,
+)
 
 
 def test_sequence_entropy_uniform() -> None:

@@ -1,8 +1,8 @@
-from typing import Sequence, Dict, Any
+from collections.abc import Sequence
+from typing import Any
 
-def annotation_to_gff(
-    annotations: Sequence[Dict[str, Any]]
-) -> list[str]:
+
+def annotation_to_gff(annotations: Sequence[dict[str, Any]]) -> list[str]:
     """
     Convert annotation records to GFF format strings.
 
@@ -31,10 +31,22 @@ def annotation_to_gff(
     ['chr1\t.\tgene\t1\t100\t.\t+\t.\tID=gene1']
     """
     if not isinstance(annotations, (list, tuple)):
-        raise TypeError(f"annotations must be a list or tuple, got {type(annotations).__name__}")
+        raise TypeError(
+            f"annotations must be a list or tuple, got {type(annotations).__name__}"
+        )
     result = []
     for record in annotations:
-        for key in ("seqid", "source", "feature", "start", "end", "score", "strand", "frame", "attribute"):
+        for key in (
+            "seqid",
+            "source",
+            "feature",
+            "start",
+            "end",
+            "score",
+            "strand",
+            "frame",
+            "attribute",
+        ):
             if key not in record:
                 raise KeyError(f"Missing required GFF key: {key}")
         result.append(
@@ -43,4 +55,5 @@ def annotation_to_gff(
         )
     return result
 
-__all__ = ['annotation_to_gff']
+
+__all__ = ["annotation_to_gff"]

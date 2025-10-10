@@ -6,7 +6,6 @@ import urllib.request
 import uuid
 from pathlib import Path
 from typing import Any
-from urllib.error import HTTPError, URLError
 
 
 def upload_file(
@@ -127,6 +126,6 @@ def upload_file(
                 "headers": dict(response.headers),
                 "success": True,
             }
-    except Exception as e:
+    except Exception:
         # No file cleanup needed for upload, just re-raise
         raise

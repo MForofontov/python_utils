@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.sequence_operations.sequence_to_kmers import sequence_to_kmers
+from bioinformatics_functions.sequence_operations.sequence_to_kmers import (
+    sequence_to_kmers,
+)
 
 
 def test_sequence_to_kmers_basic() -> None:
@@ -8,7 +10,7 @@ def test_sequence_to_kmers_basic() -> None:
     """
     seq = "ATGCGA"
     result = sequence_to_kmers(seq, 3)
-    assert result == ['ATG', 'TGC', 'GCG', 'CGA']
+    assert result == ["ATG", "TGC", "GCG", "CGA"]
 
 
 def test_sequence_to_kmers_k_equals_length() -> None:
@@ -17,7 +19,7 @@ def test_sequence_to_kmers_k_equals_length() -> None:
     """
     seq = "ATGC"
     result = sequence_to_kmers(seq, 4)
-    assert result == ['ATGC']
+    assert result == ["ATGC"]
 
 
 def test_sequence_to_kmers_k_one() -> None:
@@ -26,7 +28,7 @@ def test_sequence_to_kmers_k_one() -> None:
     """
     seq = "ATGC"
     result = sequence_to_kmers(seq, 1)
-    assert result == ['A', 'T', 'G', 'C']
+    assert result == ["A", "T", "G", "C"]
 
 
 def test_sequence_to_kmers_k_two() -> None:
@@ -35,7 +37,7 @@ def test_sequence_to_kmers_k_two() -> None:
     """
     seq = "ATGC"
     result = sequence_to_kmers(seq, 2)
-    assert result == ['AT', 'TG', 'GC']
+    assert result == ["AT", "TG", "GC"]
 
 
 def test_sequence_to_kmers_longer_sequence() -> None:

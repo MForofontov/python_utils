@@ -1,4 +1,3 @@
-
 import socket
 
 import psutil
@@ -33,5 +32,6 @@ def get_subnet_mask(interface: str) -> str:
         if addr.family == socket.AF_INET:
             return addr.netmask or ""
     return ""
+
 
 __all__ = ["get_subnet_mask"]

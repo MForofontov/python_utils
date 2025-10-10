@@ -69,6 +69,7 @@ def test_compare_dates_same_date_different_time() -> None:
     assert isinstance(result, int)
     assert result == -1
 
+
 def test_compare_dates_type_error_on_non_datetime() -> None:
     """
     Test case 7: compare_dates raises TypeError if either argument is not datetime.

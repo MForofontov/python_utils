@@ -1,14 +1,16 @@
 """Unit tests for fetch_multiple_urls function."""
+
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
-
 from asyncio_functions.fetch_multiple_urls import fetch_multiple_urls
 
 
 @pytest.mark.asyncio
 @patch("asyncio_functions.fetch_multiple_urls.aiohttp.ClientSession")
-async def test_fetch_multiple_urls_successful_fetch(mock_session_class: MagicMock) -> None:
+async def test_fetch_multiple_urls_successful_fetch(
+    mock_session_class: MagicMock,
+) -> None:
     """
     Test case 1: Successfully fetch content from multiple URLs.
     """
@@ -154,7 +156,9 @@ async def test_fetch_multiple_urls_different_content_types(
 
 @pytest.mark.asyncio
 @patch("asyncio_functions.fetch_multiple_urls.aiohttp.ClientSession")
-async def test_fetch_multiple_urls_session_created(mock_session_class: MagicMock) -> None:
+async def test_fetch_multiple_urls_session_created(
+    mock_session_class: MagicMock,
+) -> None:
     """
     Test case 6: Verify session is created and cleaned up.
     """

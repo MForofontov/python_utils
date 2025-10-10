@@ -45,7 +45,9 @@ def test_gc_content_windows_no_gc() -> None:
 
 def test_gc_content_windows_too_short() -> None:
     """Test case 6: Test ValueError for sequence shorter than window."""
-    with pytest.raises(ValueError, match="Sequence length .* must be at least window_size"):
+    with pytest.raises(
+        ValueError, match="Sequence length .* must be at least window_size"
+    ):
         gc_content_windows("ATG", window_size=10)
 
 

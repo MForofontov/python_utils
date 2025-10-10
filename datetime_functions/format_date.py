@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 def format_date(date_obj: datetime, format_string: str = "%Y-%m-%d") -> str:
     """
     Format a datetime object into a string.

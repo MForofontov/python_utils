@@ -1,8 +1,8 @@
 """Unit tests for retry_async function."""
+
 import asyncio
 
 import pytest
-
 from asyncio_functions.retry_async import retry_async
 
 
@@ -92,6 +92,8 @@ async def test_retry_async_different_exception_types() -> None:
     # Assert
     assert result == "recovered"
     assert len(call_count) == 3
+
+
 @pytest.mark.asyncio
 async def test_retry_async_fails_all_retries() -> None:
     """

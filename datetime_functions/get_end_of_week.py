@@ -1,6 +1,6 @@
 """Get the end of week for a given date."""
 
-from datetime import date, datetime, timedelta
+from datetime import datetime, timedelta
 
 
 def get_end_of_week(date_obj: datetime, start_of_week: int = 0) -> datetime:
@@ -43,4 +43,6 @@ def get_end_of_week(date_obj: datetime, start_of_week: int = 0) -> datetime:
     else:
         days_to_add = 7 - (current_weekday - end_of_week_day)
     result_date = date_obj + timedelta(days=days_to_add)
-    return date_obj.replace(year=result_date.year, month=result_date.month, day=result_date.day)
+    return date_obj.replace(
+        year=result_date.year, month=result_date.month, day=result_date.day
+    )

@@ -1,6 +1,8 @@
-from typing import Sequence
-from sklearn.cluster import KMeans
+from collections.abc import Sequence
+
 import numpy as np
+from sklearn.cluster import KMeans
+
 
 def motif_clustering(motifs: Sequence[str], n_clusters: int = 2) -> list[int]:
     """
@@ -38,7 +40,7 @@ def motif_clustering(motifs: Sequence[str], n_clusters: int = 2) -> list[int]:
     if any(len(m) != length for m in motifs):
         raise ValueError("All motifs must be the same length")
     # One-hot encoding
-    alphabet = sorted(set(''.join(motifs)))
+    alphabet = sorted(set("".join(motifs)))
     char_to_idx = {c: i for i, c in enumerate(alphabet)}
     X = np.zeros((len(motifs), length * len(alphabet)), dtype=int)
     for i, motif in enumerate(motifs):
@@ -49,4 +51,5 @@ def motif_clustering(motifs: Sequence[str], n_clusters: int = 2) -> list[int]:
     labels = kmeans.fit_predict(X)
     return labels.tolist()
 
-__all__ = ['motif_clustering']
+
+__all__ = ["motif_clustering"]

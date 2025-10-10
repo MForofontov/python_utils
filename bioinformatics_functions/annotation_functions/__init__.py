@@ -2,16 +2,15 @@
 annotation_functions: Sequence annotation utilities.
 """
 
-
+from .annotation_statistics import annotation_statistics
+from .annotation_to_bed import annotation_to_bed
+from .filter_annotations import filter_annotations
 from .merge_annotations import merge_annotations
-from .parse_gff import parse_gff
 from .parse_bed import parse_bed
+from .parse_gff import parse_gff
 from .parse_gtf import parse_gtf
 from .parse_vcf import parse_vcf
-from .filter_annotations import filter_annotations
 from .sort_annotations import sort_annotations
-from .annotation_to_bed import annotation_to_bed
-from .annotation_statistics import annotation_statistics
 
 __all__ = [
     "merge_annotations",

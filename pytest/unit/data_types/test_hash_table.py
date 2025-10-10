@@ -1,5 +1,6 @@
-import pytest
 from data_types.hash_table import HashTable
+
+import pytest
 
 
 def test_insert_and_get() -> None:
@@ -133,6 +134,8 @@ def test_in_operator() -> None:
     hash_table.insert(1, "one")
     assert (1 in hash_table) is True
     assert (2 in hash_table) is False
+
+
 def test_empty_hash_table() -> None:
     """
     Test case 11: Test operations on an empty hash table.

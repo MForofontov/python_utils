@@ -1,7 +1,7 @@
+from unittest.mock import MagicMock, patch
+
 import pytest
 from network_functions.is_port_listening import is_port_listening
-from unittest.mock import patch, MagicMock
-
 
 
 def test_is_port_listening_true() -> None:
@@ -10,9 +10,10 @@ def test_is_port_listening_true() -> None:
     """
     mock_conn = MagicMock()
     mock_conn.laddr.port = 8080
-    mock_conn.status = 'LISTEN'
+    mock_conn.status = "LISTEN"
     with patch("psutil.net_connections", return_value=[mock_conn]):
         assert is_port_listening(8080) is True
+
 
 def test_is_port_listening_false() -> None:
     """
@@ -20,9 +21,10 @@ def test_is_port_listening_false() -> None:
     """
     mock_conn = MagicMock()
     mock_conn.laddr.port = 8081
-    mock_conn.status = 'CLOSE'
+    mock_conn.status = "CLOSE"
     with patch("psutil.net_connections", return_value=[mock_conn]):
         assert is_port_listening(8080) is False
+
 
 def test_is_port_listening_empty() -> None:
     """
@@ -30,6 +32,7 @@ def test_is_port_listening_empty() -> None:
     """
     with patch("psutil.net_connections", return_value=[]):
         assert is_port_listening(8080) is False
+
 
 def test_is_port_listening_type_error() -> None:
     """

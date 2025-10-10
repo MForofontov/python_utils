@@ -16,12 +16,17 @@ async def test_async_parallel_download_normal_operation(tmp_path: Path) -> None:
     file_size: int = 16000
     num_chunks: int = 4
     chunk_data: bytes = b"x" * (file_size // num_chunks)
-    last_chunk_data: bytes = b"y" * (file_size - (file_size // num_chunks) * (num_chunks - 1))
+    last_chunk_data: bytes = b"y" * (
+        file_size - (file_size // num_chunks) * (num_chunks - 1)
+    )
 
     class MockHeadResponse:
         def __init__(self) -> None:
             self.status: int = 200
-            self.headers: dict[str, str] = {"Content-Length": str(file_size), "Accept-Ranges": "bytes"}
+            self.headers: dict[str, str] = {
+                "Content-Length": str(file_size),
+                "Accept-Ranges": "bytes",
+            }
 
         async def __aenter__(self) -> "MockHeadResponse":
             return self
@@ -68,7 +73,9 @@ async def test_async_parallel_download_normal_operation(tmp_path: Path) -> None:
         def head(self, url: str) -> MockHeadResponse:
             return MockHeadResponse()
 
-        def get(self, url: str, headers: dict[str, str] | None = None) -> MockGetResponse:
+        def get(
+            self, url: str, headers: dict[str, str] | None = None
+        ) -> MockGetResponse:
             # Parse range
             if headers is None:
                 raise ValueError("headers required")
@@ -100,9 +107,12 @@ async def test_async_parallel_download_more_chunks_than_size(tmp_path: Path) -> 
     class MockHeadResponse:
         def __init__(self) -> None:
             self.status: int = 200
-            self.headers: dict[str, str] = {"Content-Length": str(file_size), "Accept-Ranges": "bytes"}
+            self.headers: dict[str, str] = {
+                "Content-Length": str(file_size),
+                "Accept-Ranges": "bytes",
+            }
 
-        async def __aenter__(self) -> 'MockHeadResponse':
+        async def __aenter__(self) -> "MockHeadResponse":
             return self
 
         async def __aexit__(self, exc_type: Any, exc: Any, tb: Any) -> None:
@@ -118,7 +128,7 @@ async def test_async_parallel_download_more_chunks_than_size(tmp_path: Path) -> 
             self._end: int = end
             self._idx: int = idx
 
-        async def __aenter__(self) -> 'MockGetResponse':
+        async def __aenter__(self) -> "MockGetResponse":
             return self
 
         async def __aexit__(self, exc_type: Any, exc: Any, tb: Any) -> None:
@@ -145,7 +155,7 @@ async def test_async_parallel_download_more_chunks_than_size(tmp_path: Path) -> 
         def __init__(self) -> None:
             self.requests: list[tuple[int, int]] = []
 
-        async def __aenter__(self) -> 'MockSession':
+        async def __aenter__(self) -> "MockSession":
             return self
 
         async def __aexit__(self, exc_type: Any, exc: Any, tb: Any) -> None:
@@ -154,7 +164,9 @@ async def test_async_parallel_download_more_chunks_than_size(tmp_path: Path) -> 
         def head(self, url: str) -> MockHeadResponse:
             return MockHeadResponse()
 
-        def get(self, url: str, headers: dict[str, str] | None = None) -> MockGetResponse:
+        def get(
+            self, url: str, headers: dict[str, str] | None = None
+        ) -> MockGetResponse:
             if headers is None:
                 headers = {}
             rng: str = headers["Range"].split("=")[1]
@@ -263,9 +275,12 @@ async def test_async_parallel_download_runtime_error_no_range(tmp_path: Path) ->
     class MockHeadResponse:
         def __init__(self) -> None:
             self.status: int = 200
-            self.headers: dict[str, str] = {"Content-Length": "1000", "Accept-Ranges": "none"}
+            self.headers: dict[str, str] = {
+                "Content-Length": "1000",
+                "Accept-Ranges": "none",
+            }
 
-        async def __aenter__(self) -> 'MockHeadResponse':
+        async def __aenter__(self) -> "MockHeadResponse":
             return self
 
         async def __aexit__(self, exc_type: Any, exc: Any, tb: Any) -> None:
@@ -275,7 +290,7 @@ async def test_async_parallel_download_runtime_error_no_range(tmp_path: Path) ->
             pass
 
     class MockSession:
-        async def __aenter__(self) -> 'MockSession':
+        async def __aenter__(self) -> "MockSession":
             return self
 
         async def __aexit__(self, exc_type: Any, exc: Any, tb: Any) -> None:
@@ -304,9 +319,12 @@ async def test_async_parallel_download_runtime_error_download(tmp_path: Path) ->
     class MockHeadResponse:
         def __init__(self) -> None:
             self.status: int = 200
-            self.headers: dict[str, str] = {"Content-Length": str(file_size), "Accept-Ranges": "bytes"}
+            self.headers: dict[str, str] = {
+                "Content-Length": str(file_size),
+                "Accept-Ranges": "bytes",
+            }
 
-        async def __aenter__(self) -> 'MockHeadResponse':
+        async def __aenter__(self) -> "MockHeadResponse":
             return self
 
         async def __aexit__(self, exc_type: Any, exc: Any, tb: Any) -> None:
@@ -316,7 +334,7 @@ async def test_async_parallel_download_runtime_error_download(tmp_path: Path) ->
             pass
 
     class MockSession:
-        async def __aenter__(self) -> 'MockSession':
+        async def __aenter__(self) -> "MockSession":
             return self
 
         async def __aexit__(self, exc_type: Any, exc: Any, tb: Any) -> None:

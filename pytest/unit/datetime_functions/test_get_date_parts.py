@@ -96,7 +96,6 @@ def test_get_date_parts_all_keys_present() -> None:
     assert set(result.keys()) == expected_keys
 
 
-
 def test_get_date_parts_invalid_input_type() -> None:
     """
     Test case 8: get_date_parts raises TypeError for invalid input types.

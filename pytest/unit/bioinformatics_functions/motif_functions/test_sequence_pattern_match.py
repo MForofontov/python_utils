@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.motif_functions.sequence_pattern_match import sequence_pattern_match
+from bioinformatics_functions.motif_functions.sequence_pattern_match import (
+    sequence_pattern_match,
+)
 
 
 def test_sequence_pattern_match_literal() -> None:
@@ -52,7 +54,9 @@ def test_sequence_pattern_match_empty_pattern() -> None:
 
 def test_sequence_pattern_match_pattern_longer() -> None:
     """Test case 8: Test ValueError for pattern longer than sequence."""
-    with pytest.raises(ValueError, match="Pattern length .* cannot be greater than sequence length"):
+    with pytest.raises(
+        ValueError, match="Pattern length .* cannot be greater than sequence length"
+    ):
         sequence_pattern_match("ATG", "ATGCATGC")
 
 

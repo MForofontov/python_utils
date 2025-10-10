@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 def compare_dates(date1: datetime, date2: datetime) -> int:
     """
     Compare two datetime objects.

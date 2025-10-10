@@ -1,7 +1,6 @@
 import asyncio
 
 import pytest
-
 from asyncio_functions.async_cancellable_task import async_cancellable_task
 
 

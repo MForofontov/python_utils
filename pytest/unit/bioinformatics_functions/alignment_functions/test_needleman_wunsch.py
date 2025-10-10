@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.alignment_functions.needleman_wunsch import needleman_wunsch
+from bioinformatics_functions.alignment_functions.needleman_wunsch import (
+    needleman_wunsch,
+)
 
 
 def test_needleman_wunsch_identical() -> None:
@@ -14,7 +16,7 @@ def test_needleman_wunsch_one_gap() -> None:
     """Test case 2: Test alignment with one gap."""
     score, aligned1, aligned2 = needleman_wunsch("ACGT", "ACT")
     assert score == 2
-    assert '-' in aligned1 or '-' in aligned2
+    assert "-" in aligned1 or "-" in aligned2
     assert len(aligned1) == len(aligned2)
 
 
@@ -22,7 +24,7 @@ def test_needleman_wunsch_insertion() -> None:
     """Test case 3: Test alignment with insertion."""
     score, aligned1, aligned2 = needleman_wunsch("GAT", "GAAT")
     assert len(aligned1) == len(aligned2)
-    assert '-' in aligned1
+    assert "-" in aligned1
 
 
 def test_needleman_wunsch_custom_scores() -> None:

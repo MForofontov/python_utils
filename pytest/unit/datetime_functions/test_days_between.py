@@ -58,8 +58,9 @@ def test_days_between_cross_month() -> None:
     assert isinstance(result, int)
     assert result == 3
 
-
     # Removed: covered by test_days_between_type_error_on_non_datetime
+
+
 def test_days_between_type_error_on_non_datetime() -> None:
     """
     Test case 6: days_between raises TypeError if either argument is not datetime.

@@ -89,7 +89,9 @@ def enforce_types(
                         return all(_is_instance(v, args[0]) for v in value)
                     if len(args) != len(value):
                         return False
-                    return all(_is_instance(v, t) for v, t in zip(value, args, strict=False))
+                    return all(
+                        _is_instance(v, t) for v, t in zip(value, args, strict=False)
+                    )
                 if origin is dict:
                     if not isinstance(value, dict):
                         return False

@@ -94,6 +94,8 @@ def test_set_symmetric_difference_single_element() -> None:
     result = set_symmetric_difference(set1, set2)
     expected = {1, 2}
     assert result == expected
+
+
 def test_set_symmetric_difference_type_error() -> None:
     """
     Test case 9: TypeError for non-set arguments.

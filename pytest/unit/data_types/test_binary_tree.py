@@ -1,5 +1,6 @@
-import pytest
 from data_types.binary_tree import BinaryTree
+
+import pytest
 
 
 def test_insert_single_node() -> None:

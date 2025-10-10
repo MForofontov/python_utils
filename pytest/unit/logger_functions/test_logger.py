@@ -1,5 +1,6 @@
-import pytest
 import logging
+
+import pytest
 from logger_functions.logger import get_logger, validate_logger
 
 

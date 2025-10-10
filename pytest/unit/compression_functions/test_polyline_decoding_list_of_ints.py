@@ -1,6 +1,6 @@
 """Unit tests for polyline_decoding_list_of_ints function."""
-import pytest
 
+import pytest
 from compression_functions.polyline_decoding_list_of_ints import (
     polyline_decoding_list_of_ints,
 )
@@ -119,6 +119,8 @@ def test_polyline_decoding_list_of_ints_round_trip() -> None:
     # Values should be close after round-trip (accounting for precision)
     for i, orig in enumerate(original_values):
         assert abs(decoded[i] - orig) <= 1.0  # Allow some precision loss
+
+
 def test_polyline_decoding_list_of_ints_empty_string_error() -> None:
     """
     Test case 8: ValueError when encoded text is empty.

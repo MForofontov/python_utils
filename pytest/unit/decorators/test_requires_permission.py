@@ -113,7 +113,9 @@ def test_requires_permission_permission_not_list() -> None:
         sample_function("admin")
 
 
-def test_requires_permission_permission_not_list_with_logger(caplog: pytest.LogCaptureFixture) -> None:
+def test_requires_permission_permission_not_list_with_logger(
+    caplog: pytest.LogCaptureFixture,
+) -> None:
     """
     Test case 9: Logger functionality when type error occurs
     """

@@ -117,6 +117,8 @@ def test_partition_set_into_n_parts_equal_distribution() -> None:
     # Should be [4, 3, 3] or similar distribution
     assert sum(sizes) == 10
     assert max(sizes) - min(sizes) <= 1
+
+
 def test_partition_set_into_n_parts_type_error_input_set() -> None:
     """
     Test case 9: TypeError for invalid input_set type.

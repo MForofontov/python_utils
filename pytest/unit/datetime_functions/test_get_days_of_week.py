@@ -55,10 +55,10 @@ def test_get_days_of_week_invalid_abbreviated_type() -> None:
     Test case 5: Test get_days_of_week function with invalid abbreviated type raises TypeError.
     """
     with pytest.raises(TypeError):
-           get_days_of_week(short_names="true")
+        get_days_of_week(short_names="true")
 
     with pytest.raises(TypeError):
-           get_days_of_week(short_names=1)
+        get_days_of_week(short_names=1)
 
     with pytest.raises(TypeError):
-           get_days_of_week(short_names=None)
+        get_days_of_week(short_names=None)

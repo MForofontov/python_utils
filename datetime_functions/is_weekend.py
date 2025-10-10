@@ -1,6 +1,5 @@
 """Check if a date is a weekend."""
 
-
 from datetime import datetime
 
 

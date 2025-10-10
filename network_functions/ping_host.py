@@ -39,12 +39,15 @@ def ping_host(host: str, count: int = 1, timeout: int = 2) -> bool:
         raise TypeError(f"count must be an integer, got {type(count).__name__}")
     if not isinstance(timeout, int):
         raise TypeError(f"timeout must be an integer, got {type(timeout).__name__}")
-    
+
     cmd = ["ping", "-c", str(count), "-W", str(timeout), host]
     try:
-        result = subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        result = subprocess.run(
+            cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+        )
         return result.returncode == 0
     except Exception:
         return False
+
 
 __all__ = ["ping_host"]

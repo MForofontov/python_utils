@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.motif_functions.generate_consensus_sequence import generate_consensus_sequence
+from bioinformatics_functions.motif_functions.generate_consensus_sequence import (
+    generate_consensus_sequence,
+)
 
 
 def test_generate_consensus_sequence_identical() -> None:

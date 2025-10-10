@@ -1,6 +1,6 @@
-from typing import Dict
 
-def amino_acid_composition(seq: str) -> Dict[str, float]:
+
+def amino_acid_composition(seq: str) -> dict[str, float]:
     """
     Calculate amino acid composition (percentage of each amino acid).
 
@@ -36,23 +36,24 @@ def amino_acid_composition(seq: str) -> Dict[str, float]:
     """
     if not isinstance(seq, str):
         raise TypeError(f"seq must be str, got {type(seq).__name__}")
-    
+
     seq = seq.upper()
-    
-    valid_amino_acids = 'ACDEFGHIKLMNPQRSTVWY'
-    
+
+    valid_amino_acids = "ACDEFGHIKLMNPQRSTVWY"
+
     if not seq:
         raise ValueError("Sequence cannot be empty")
-    
+
     if not all(aa in valid_amino_acids for aa in seq):
         raise ValueError("Sequence contains invalid amino acid codes")
-    
-    aa_counts: Dict[str, int] = {}
+
+    aa_counts: dict[str, int] = {}
     total = len(seq)
-    
+
     for aa in seq:
         aa_counts[aa] = aa_counts.get(aa, 0) + 1
-    
+
     return {aa: round((count / total) * 100, 2) for aa, count in aa_counts.items()}
+
 
 __all__ = ["amino_acid_composition"]

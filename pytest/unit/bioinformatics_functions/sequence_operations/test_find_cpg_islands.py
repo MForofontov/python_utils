@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.sequence_operations.find_cpg_islands import find_cpg_islands
+from bioinformatics_functions.sequence_operations.find_cpg_islands import (
+    find_cpg_islands,
+)
 
 
 def test_find_cpg_islands_high_cpg_content() -> None:
@@ -9,10 +11,10 @@ def test_find_cpg_islands_high_cpg_content() -> None:
     # Arrange
     seq = "GCGCGCGCGC" * 20  # High CpG content
     window = 50
-    
+
     # Act
     result = find_cpg_islands(seq, window=window)
-    
+
     # Assert
     assert len(result) > 0
     assert all(isinstance(island, tuple) for island in result)
@@ -26,10 +28,10 @@ def test_find_cpg_islands_no_islands() -> None:
     # Arrange
     seq = "AAATTTTAAAA" * 20  # Low GC content
     window = 50
-    
+
     # Act
     result = find_cpg_islands(seq, window=window)
-    
+
     # Assert
     assert result == []
 
@@ -40,10 +42,10 @@ def test_find_cpg_islands_default_parameters() -> None:
     """
     # Arrange
     seq = "GCGCGCGC" * 50  # High CpG, 400 bases
-    
+
     # Act
     result = find_cpg_islands(seq)
-    
+
     # Assert
     assert isinstance(result, list)
     assert all(isinstance(island, tuple) for island in result)
@@ -56,10 +58,10 @@ def test_find_cpg_islands_custom_window() -> None:
     # Arrange
     seq = "GCGCGCGC" * 30
     window = 100
-    
+
     # Act
     result = find_cpg_islands(seq, window=window)
-    
+
     # Assert
     assert isinstance(result, list)
     if result:
@@ -74,10 +76,10 @@ def test_find_cpg_islands_custom_gc_threshold() -> None:
     # Arrange
     seq = "GCGCGCGC" * 30
     min_gc = 0.7  # Higher threshold
-    
+
     # Act
     result = find_cpg_islands(seq, min_gc=min_gc)
-    
+
     # Assert
     assert isinstance(result, list)
 
@@ -89,10 +91,10 @@ def test_find_cpg_islands_custom_obs_exp() -> None:
     # Arrange
     seq = "GCGCGCGC" * 30
     min_obs_exp = 0.8  # Higher threshold
-    
+
     # Act
     result = find_cpg_islands(seq, min_obs_exp=min_obs_exp)
-    
+
     # Assert
     assert isinstance(result, list)
 
@@ -104,10 +106,10 @@ def test_find_cpg_islands_lowercase_input() -> None:
     # Arrange
     seq = "gcgcgcgcgc" * 20
     window = 50
-    
+
     # Act
     result = find_cpg_islands(seq, window=window)
-    
+
     # Assert
     assert isinstance(result, list)
 
@@ -119,10 +121,10 @@ def test_find_cpg_islands_short_sequence() -> None:
     # Arrange
     seq = "GCGCGCGC"  # 8 bases
     window = 8
-    
+
     # Act
     result = find_cpg_islands(seq, window=window)
-    
+
     # Assert
     assert isinstance(result, list)
 
@@ -134,7 +136,7 @@ def test_find_cpg_islands_type_error_seq_not_string() -> None:
     # Arrange
     invalid_seq = 12345  # type: ignore
     expected_message = "seq must be str, got int"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         find_cpg_islands(invalid_seq)  # type: ignore
@@ -148,7 +150,7 @@ def test_find_cpg_islands_type_error_window_not_int() -> None:
     seq = "GCGCGCGC" * 30
     invalid_window = "50"  # type: ignore
     expected_message = "window must be int, got str"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         find_cpg_islands(seq, window=invalid_window)  # type: ignore
@@ -162,7 +164,7 @@ def test_find_cpg_islands_type_error_min_gc_not_number() -> None:
     seq = "GCGCGCGC" * 30
     invalid_min_gc = "0.5"  # type: ignore
     expected_message = "min_gc must be a number, got str"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         find_cpg_islands(seq, min_gc=invalid_min_gc)  # type: ignore
@@ -176,7 +178,7 @@ def test_find_cpg_islands_type_error_min_obs_exp_not_number() -> None:
     seq = "GCGCGCGC" * 30
     invalid_obs_exp = "0.6"  # type: ignore
     expected_message = "min_obs_exp must be a number, got str"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         find_cpg_islands(seq, min_obs_exp=invalid_obs_exp)  # type: ignore
@@ -189,7 +191,7 @@ def test_find_cpg_islands_value_error_invalid_bases() -> None:
     # Arrange
     invalid_seq = "GCGCXYZ"
     expected_message = "Sequence contains invalid DNA bases"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         find_cpg_islands(invalid_seq)
@@ -203,7 +205,7 @@ def test_find_cpg_islands_value_error_window_zero() -> None:
     seq = "GCGCGCGC" * 30
     invalid_window = 0
     expected_message = "window must be positive"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         find_cpg_islands(seq, window=invalid_window)
@@ -217,7 +219,7 @@ def test_find_cpg_islands_value_error_window_negative() -> None:
     seq = "GCGCGCGC" * 30
     invalid_window = -10
     expected_message = "window must be positive"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         find_cpg_islands(seq, window=invalid_window)
@@ -231,7 +233,7 @@ def test_find_cpg_islands_value_error_window_too_large() -> None:
     seq = "GCGCGCGC"  # 8 bases
     invalid_window = 100
     expected_message = "window must be positive and <= sequence length"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         find_cpg_islands(seq, window=invalid_window)
@@ -245,7 +247,7 @@ def test_find_cpg_islands_value_error_min_gc_negative() -> None:
     seq = "GCGCGCGC" * 30
     invalid_gc = -0.5
     expected_message = "min_gc must be between 0 and 1"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         find_cpg_islands(seq, min_gc=invalid_gc)
@@ -259,7 +261,7 @@ def test_find_cpg_islands_value_error_min_gc_greater_than_one() -> None:
     seq = "GCGCGCGC" * 30
     invalid_gc = 1.5
     expected_message = "min_gc must be between 0 and 1"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         find_cpg_islands(seq, min_gc=invalid_gc)
@@ -273,7 +275,7 @@ def test_find_cpg_islands_value_error_min_obs_exp_negative() -> None:
     seq = "GCGCGCGC" * 30
     invalid_obs_exp = -0.5
     expected_message = "min_obs_exp must be non-negative"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         find_cpg_islands(seq, min_obs_exp=invalid_obs_exp)

@@ -29,4 +29,5 @@ def is_internet_available(timeout: float = 2.0) -> bool:
     except Exception:
         return False
 
+
 __all__ = ["is_internet_available"]

@@ -1,6 +1,6 @@
-from typing import Dict
 
-def codon_usage_frequency(seq: str) -> Dict[str, float]:
+
+def codon_usage_frequency(seq: str) -> dict[str, float]:
     """
     Calculate codon usage frequency from a DNA sequence.
 
@@ -38,21 +38,22 @@ def codon_usage_frequency(seq: str) -> Dict[str, float]:
     """
     if not isinstance(seq, str):
         raise TypeError(f"seq must be str, got {type(seq).__name__}")
-    
+
     seq = seq.upper()
-    if not all(base in 'ATCG' for base in seq):
+    if not all(base in "ATCG" for base in seq):
         raise ValueError("Sequence contains invalid DNA bases")
-    
+
     if len(seq) % 3 != 0:
         raise ValueError("Sequence length must be a multiple of 3")
-    
-    codon_counts: Dict[str, int] = {}
+
+    codon_counts: dict[str, int] = {}
     total_codons = len(seq) // 3
-    
+
     for i in range(0, len(seq), 3):
-        codon = seq[i:i+3]
+        codon = seq[i : i + 3]
         codon_counts[codon] = codon_counts.get(codon, 0) + 1
-    
+
     return {codon: count / total_codons for codon, count in codon_counts.items()}
+
 
 __all__ = ["codon_usage_frequency"]

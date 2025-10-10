@@ -1,6 +1,7 @@
-from typing import Sequence, Tuple
+from collections.abc import Sequence
 
-def write_fasta(records: Sequence[Tuple[str, str]]) -> str:
+
+def write_fasta(records: Sequence[tuple[str, str]]) -> str:
     """
     Write (header, sequence) pairs to a FASTA-formatted string.
 
@@ -26,11 +27,16 @@ def write_fasta(records: Sequence[Tuple[str, str]]) -> str:
     """
     lines = []
     for rec in records:
-        if not (isinstance(rec, tuple) and len(rec) == 2 and all(isinstance(x, str) for x in rec)):
+        if not (
+            isinstance(rec, tuple)
+            and len(rec) == 2
+            and all(isinstance(x, str) for x in rec)
+        ):
             raise TypeError("Each record must be a (str, str) tuple")
         header, seq = rec
         lines.append(f">{header}")
         lines.append(seq)
-    return '\n'.join(lines) + '\n'
+    return "\n".join(lines) + "\n"
+
 
 __all__ = ["write_fasta"]

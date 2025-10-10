@@ -1,5 +1,7 @@
-from typing import Iterator, Tuple
+from collections.abc import Iterator
+
 from .fasta_parser import parse_fasta
+
 
 def fasta_split(fasta_str: str) -> Iterator[str]:
     """
@@ -22,5 +24,6 @@ def fasta_split(fasta_str: str) -> Iterator[str]:
     """
     for header, seq in parse_fasta(fasta_str):
         yield f">{header}\n{seq}"
+
 
 __all__ = ["fasta_split"]

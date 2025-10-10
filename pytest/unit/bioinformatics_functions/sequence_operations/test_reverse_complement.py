@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.sequence_operations.reverse_complement import reverse_complement
+from bioinformatics_functions.sequence_operations.reverse_complement import (
+    reverse_complement,
+)
 
 
 def test_reverse_complement_basic() -> None:

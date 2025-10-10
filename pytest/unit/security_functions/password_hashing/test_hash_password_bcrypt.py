@@ -171,6 +171,8 @@ def test_hash_password_bcrypt_case_12_performance_high_rounds() -> None:
     assert f"$2b${rounds:02d}$" in hashed
     # Should complete within reasonable time (bcrypt with 15 rounds)
     assert elapsed_time < 5.0  # Should complete within 5 seconds
+
+
 def test_hash_password_bcrypt_case_5_type_validation() -> None:
     """
     Test case 11: Type validation for all parameters.

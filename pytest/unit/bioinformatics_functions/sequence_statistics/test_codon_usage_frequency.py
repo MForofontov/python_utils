@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.sequence_statistics.codon_usage_frequency import codon_usage_frequency
+from bioinformatics_functions.sequence_statistics.codon_usage_frequency import (
+    codon_usage_frequency,
+)
 
 
 def test_codon_usage_frequency_basic() -> None:

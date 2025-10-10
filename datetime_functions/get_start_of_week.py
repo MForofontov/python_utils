@@ -1,6 +1,6 @@
 """Get the start of week for a given date."""
 
-from datetime import date, datetime, timedelta
+from datetime import datetime, timedelta
 
 
 def get_start_of_week(date_obj: datetime, start_of_week: int = 0) -> datetime:
@@ -42,4 +42,6 @@ def get_start_of_week(date_obj: datetime, start_of_week: int = 0) -> datetime:
     else:
         days_to_subtract = current_weekday + (7 - start_of_week)
     result_date = date_obj - timedelta(days=days_to_subtract)
-    return date_obj.replace(year=result_date.year, month=result_date.month, day=result_date.day)
+    return date_obj.replace(
+        year=result_date.year, month=result_date.month, day=result_date.day
+    )

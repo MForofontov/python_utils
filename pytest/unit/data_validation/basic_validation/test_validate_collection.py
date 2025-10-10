@@ -163,6 +163,8 @@ def test_validate_collection_case_14_performance_large_collections() -> None:
     validate_collection(medium_list, list, element_type=int)
     elapsed_time = time.time() - start_time
     assert elapsed_time < 1.0  # Should complete within 1 second
+
+
 def test_validate_collection_case_8_type_error_wrong_collection_type() -> None:
     """
     Test case 10: TypeError for wrong collection type.

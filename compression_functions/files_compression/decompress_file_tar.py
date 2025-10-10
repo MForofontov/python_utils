@@ -68,9 +68,7 @@ def decompress_file_tar(input_tar: str, output_dir: str) -> None:
         ) from exc
     except OSError as exc:
         # Raise an IOError if an I/O error occurs during decompression
-        raise OSError(
-            f"An I/O error occurred during decompression: {exc}"
-        ) from exc
+        raise OSError(f"An I/O error occurred during decompression: {exc}") from exc
 
 
 __all__ = ["decompress_file_tar"]

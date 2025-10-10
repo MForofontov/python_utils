@@ -48,9 +48,7 @@ def compress_file_gzip(input_file: str, output_file: str) -> None:
     except FileNotFoundError:
         raise
     except (PermissionError, OSError) as exc:
-        raise OSError(
-            f"An I/O error occurred during compression: {exc}"
-        ) from exc
+        raise OSError(f"An I/O error occurred during compression: {exc}") from exc
 
 
 __all__ = ["compress_file_gzip"]

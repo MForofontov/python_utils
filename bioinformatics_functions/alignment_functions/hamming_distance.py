@@ -42,10 +42,11 @@ def hamming_distance(seq1: str, seq2: str) -> int:
         raise TypeError(f"seq1 must be str, got {type(seq1).__name__}")
     if not isinstance(seq2, str):
         raise TypeError(f"seq2 must be str, got {type(seq2).__name__}")
-    
+
     if len(seq1) != len(seq2):
         raise ValueError("Sequences must be the same length")
-    
-    return sum(a != b for a, b in zip(seq1, seq2))
+
+    return sum(a != b for a, b in zip(seq1, seq2, strict=False))
+
 
 __all__ = ["hamming_distance"]
