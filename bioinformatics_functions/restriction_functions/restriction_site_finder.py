@@ -3,7 +3,7 @@ from collections.abc import Sequence
 
 def restriction_site_finder(
     sequence: str, sites: Sequence[str]
-) -> list[tuple[int, str]]:
+) -> dict[str, list[int]]:
     """
     Locate restriction enzyme recognition sites in a sequence.
 
@@ -16,8 +16,8 @@ def restriction_site_finder(
 
     Returns
     -------
-    list[tuple[int, str]]
-        List of (position, site) for each match.
+    dict[str, list[int]]
+        Dictionary mapping each site to list of positions where it was found.
 
     Raises
     ------
@@ -27,7 +27,7 @@ def restriction_site_finder(
     Examples
     --------
     >>> restriction_site_finder("ATGCGAATTC", ["GAATTC"])
-    [(4, 'GAATTC')]
+    {'GAATTC': [4]}
 
     Complexity
     ----------
@@ -35,15 +35,23 @@ def restriction_site_finder(
     """
     if not sites:
         raise ValueError("sites cannot be empty")
-    results = []
+    
+    # Convert sequence and sites to uppercase for case-insensitive matching
+    sequence_upper = sequence.upper()
+    
+    results: dict[str, list[int]] = {}
     for site in sites:
+        site_upper = site.upper()
+        positions: list[int] = []
         start = 0
         while True:
-            idx = sequence.find(site, start)
+            idx = sequence_upper.find(site_upper, start)
             if idx == -1:
                 break
-            results.append((idx, site))
+            positions.append(idx)
             start = idx + 1
+        results[site_upper] = positions
+    
     return results
 
 

@@ -286,7 +286,7 @@ def test_validate_email_case_14_mx_checking_failure() -> None:
     Test case 17: MX record validation using dnspython (failure).
     """
     # Patch dns.resolver.resolve to simulate MX record not found
-    with patch("dns.resolver.resolve", side_effect=Exception("No MX")) as mock_resolve:
+    with patch("dns.resolver.resolve", side_effect=Exception("No MX")):
         with pytest.raises(
             ValueError,
             match="email domain does not exist|email domain does not have valid MX record",

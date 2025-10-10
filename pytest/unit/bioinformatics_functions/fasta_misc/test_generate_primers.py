@@ -265,7 +265,7 @@ def test_generate_primers_value_error_gc_min_negative() -> None:
     Test case 18: ValueError when gc_min is negative.
     """
     # Arrange
-    seq = "ATGCATGC"
+    seq = "ATGCATGCATGCATGCATGC"  # 20 chars to match default length
     invalid_gc = -0.5
     expected_message = "gc_min must be between 0 and 1"
 
@@ -279,7 +279,7 @@ def test_generate_primers_value_error_gc_min_greater_than_one() -> None:
     Test case 19: ValueError when gc_min is greater than 1.
     """
     # Arrange
-    seq = "ATGCATGC"
+    seq = "ATGCATGCATGCATGCATGC"  # 20 chars to match default length
     invalid_gc = 1.5
     expected_message = "gc_min must be between 0 and 1"
 
@@ -293,7 +293,7 @@ def test_generate_primers_value_error_gc_max_negative() -> None:
     Test case 20: ValueError when gc_max is negative.
     """
     # Arrange
-    seq = "ATGCATGC"
+    seq = "ATGCATGCATGCATGCATGC"  # 20 chars to match default length
     invalid_gc = -0.5
     expected_message = "gc_max must be between 0 and 1"
 
@@ -307,7 +307,7 @@ def test_generate_primers_value_error_gc_max_greater_than_one() -> None:
     Test case 21: ValueError when gc_max is greater than 1.
     """
     # Arrange
-    seq = "ATGCATGC"
+    seq = "ATGCATGCATGCATGCATGC"  # 20 chars to match default length
     invalid_gc = 1.5
     expected_message = "gc_max must be between 0 and 1"
 
@@ -321,7 +321,7 @@ def test_generate_primers_value_error_gc_min_greater_than_gc_max() -> None:
     Test case 22: ValueError when gc_min is greater than gc_max.
     """
     # Arrange
-    seq = "ATGCATGC"
+    seq = "ATGCATGCATGCATGCATGC"  # 20 chars to match default length
     invalid_min = 0.8
     invalid_max = 0.4
     expected_message = "gc_min cannot be greater than gc_max"

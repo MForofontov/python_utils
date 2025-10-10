@@ -38,7 +38,7 @@ def test_multicast_receive_type_error_group() -> None:
     """
     Test case 3: TypeError for non-string group (simulate error).
     """
-    with pytest.raises(Exception):
+    with pytest.raises((TypeError, OSError)):
         multicast_receive(123, 5007)
 
 
@@ -46,5 +46,5 @@ def test_multicast_receive_type_error_port() -> None:
     """
     Test case 4: TypeError for non-integer port (simulate error).
     """
-    with pytest.raises(Exception):
+    with pytest.raises(TypeError):
         multicast_receive("224.0.0.1", "not_an_int")

@@ -180,8 +180,8 @@ def validate_email(
                         ) from socket_error
             except ImportError:
                 socket.gethostbyname(domain_part)
-        except Exception:
-            raise ValueError(f"{param_name} domain does not exist")
+        except Exception as e:
+            raise ValueError(f"{param_name} domain does not exist") from e
 
 
 __all__ = ["validate_email"]

@@ -56,7 +56,7 @@ def sort_annotations(
     try:
         return sorted(annotations, key=lambda x: x[by], reverse=reverse)
     except KeyError as e:
-        raise KeyError(f"Sort key missing in record: {e}")
+        raise KeyError(f"Sort key missing in record: {e}") from e
 
 
 __all__ = ["sort_annotations"]

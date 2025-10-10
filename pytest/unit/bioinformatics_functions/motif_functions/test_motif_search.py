@@ -73,7 +73,7 @@ def test_motif_search_ambiguous_r() -> None:
     # Arrange
     seq = "ATGCGTAG"
     motif = "R"
-    expected = [0, 2, 4, 6]  # Positions with A or G
+    expected = [0, 2, 4, 6, 7]  # Positions with A or G (A at 0, G at 2, G at 4, A at 6, G at 7)
 
     # Act
     result = motif_search(seq, motif)
@@ -137,7 +137,7 @@ def test_motif_search_single_character_motif() -> None:
     # Arrange
     seq = "ATGCGTAG"
     motif = "G"
-    expected = [2, 4, 6]
+    expected = [2, 4, 7]  # G appears at positions 2, 4, and 7
 
     # Act
     result = motif_search(seq, motif)

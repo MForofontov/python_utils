@@ -57,8 +57,8 @@ def parse_gff(gff_file: str) -> Iterator[dict[str, Any]]:
                     "phase": parts[7],
                     "attributes": attr_dict,
                 }
-    except FileNotFoundError:
-        raise FileNotFoundError(f"File not found: {gff_file}")
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"File not found: {gff_file}") from e
 
 
 __all__ = ["parse_gff"]

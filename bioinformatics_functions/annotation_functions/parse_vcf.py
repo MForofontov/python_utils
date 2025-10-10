@@ -58,8 +58,8 @@ def parse_vcf(vcf_file: str) -> Iterator[dict[str, Any]]:
                     "info": parts[7],
                 }
                 yield record
-    except FileNotFoundError:
-        raise FileNotFoundError(f"File not found: {vcf_file}")
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"File not found: {vcf_file}") from e
 
 
 __all__ = ["parse_vcf"]

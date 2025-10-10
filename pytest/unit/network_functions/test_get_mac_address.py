@@ -45,5 +45,5 @@ def test_get_mac_address_type_error() -> None:
     Test case 5: TypeError if uuid.getnode returns non-int (simulate error).
     """
     with patch("uuid.getnode", return_value="not_an_int"):
-        with pytest.raises(Exception):
+        with pytest.raises(TypeError):
             get_mac_address()

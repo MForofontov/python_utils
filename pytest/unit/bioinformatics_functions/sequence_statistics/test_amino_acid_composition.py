@@ -16,7 +16,7 @@ def test_amino_acid_composition_balanced_composition() -> None:
 
     # Assert
     assert len(result) == 7
-    for aa, percentage in result.items():
+    for _aa, percentage in result.items():
         assert abs(percentage - 14.29) < 0.01  # Each is ~14.29%
 
 

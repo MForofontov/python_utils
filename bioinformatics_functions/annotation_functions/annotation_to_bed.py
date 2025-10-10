@@ -50,7 +50,7 @@ def annotation_to_bed(annotations: Sequence[dict[str, Any]]) -> list[str]:
             name = record.get("feature", ".")
             bed_lines.append(f"{chrom}\t{start}\t{end}\t{name}")
         except KeyError as e:
-            raise KeyError(f"Missing required key in record: {e}")
+            raise KeyError(f"Missing required key in record: {e}") from e
     return bed_lines
 
 

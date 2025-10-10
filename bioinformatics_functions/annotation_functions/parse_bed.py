@@ -49,8 +49,8 @@ def parse_bed(bed_file: str) -> Iterator[dict[str, Any]]:
                 if len(parts) > 3:
                     ann["name"] = parts[3]
                 yield ann
-    except FileNotFoundError:
-        raise FileNotFoundError(f"File not found: {bed_file}")
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"File not found: {bed_file}") from e
 
 
 __all__ = ["parse_bed"]

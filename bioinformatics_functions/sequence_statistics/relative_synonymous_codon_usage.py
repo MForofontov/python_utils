@@ -101,7 +101,7 @@ def relative_synonymous_codon_usage(seq: str) -> dict[str, float]:
     # Calculate RSCU for each codon
     rscu: dict[str, float] = {}
 
-    for aa, codons in aa_to_codons.items():
+    for _aa, codons in aa_to_codons.items():
         # Count total usage of this amino acid
         total_aa_usage = sum(codon_counts.get(codon, 0) for codon in codons)
 

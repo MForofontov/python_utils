@@ -33,8 +33,7 @@ def fasta_subsample(fasta_str: str, n: int) -> Iterator[tuple[str, str]]:
     records = list(parse_fasta(fasta_str))
     if n < 0 or n > len(records):
         raise ValueError("n must be between 0 and number of sequences")
-    for rec in random.sample(records, n):
-        yield rec
+    yield from random.sample(records, n)
 
 
 __all__ = ["fasta_subsample"]

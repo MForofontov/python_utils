@@ -59,8 +59,8 @@ def parse_gtf(gtf_file: str) -> Iterator[dict[str, Any]]:
                     "attribute": parts[8],
                 }
                 yield record
-    except FileNotFoundError:
-        raise FileNotFoundError(f"File not found: {gtf_file}")
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"File not found: {gtf_file}") from e
 
 
 __all__ = ["parse_gtf"]

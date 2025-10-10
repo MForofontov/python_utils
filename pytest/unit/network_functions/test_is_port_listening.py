@@ -1,5 +1,7 @@
 from unittest.mock import MagicMock, patch
 
+import psutil
+
 import pytest
 from network_functions.is_port_listening import is_port_listening
 
@@ -38,5 +40,5 @@ def test_is_port_listening_type_error() -> None:
     """
     Test case 4: TypeError for non-integer port (simulate error).
     """
-    with pytest.raises(Exception):
+    with pytest.raises((TypeError, AttributeError, psutil.AccessDenied)):
         is_port_listening("not_an_int")

@@ -57,5 +57,5 @@ def test_get_network_interfaces_type_error() -> None:
     Test case 5: TypeError if psutil.net_if_addrs returns wrong type.
     """
     with patch("psutil.net_if_addrs", return_value="not_a_dict"):
-        with pytest.raises(Exception):
+        with pytest.raises(AttributeError):
             get_network_interfaces()

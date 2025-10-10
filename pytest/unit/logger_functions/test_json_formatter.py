@@ -33,7 +33,7 @@ def test_json_formatter_basic() -> None:
     assert parsed["logger"] == "test_logger"
     assert parsed["message"] == "Test message"
     assert parsed["module"] == "test"
-    assert parsed["function"] == None
+    assert parsed["function"] is None
     assert parsed["line"] == 10
     assert "timestamp" in parsed
     assert isinstance(parsed["process"], int)

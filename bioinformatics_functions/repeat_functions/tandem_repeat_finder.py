@@ -40,14 +40,14 @@ def tandem_repeat_finder(
         raise ValueError("min_length must be > 0")
     n = len(sequence)
     results = []
-    for l in range(min_length, n // min_repeat + 1):
-        for i in range(n - l * min_repeat + 1):
-            unit = sequence[i : i + l]
+    for length in range(min_length, n // min_repeat + 1):
+        for i in range(n - length * min_repeat + 1):
+            unit = sequence[i : i + length]
             count = 1
-            while sequence[i + count * l : i + (count + 1) * l] == unit:
+            while sequence[i + count * length : i + (count + 1) * length] == unit:
                 count += 1
             if count >= min_repeat:
-                results.append((i, i + count * l, unit))
+                results.append((i, i + count * length, unit))
     return results
 
 

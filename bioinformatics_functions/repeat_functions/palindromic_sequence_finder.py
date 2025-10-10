@@ -36,11 +36,11 @@ def palindromic_sequence_finder(
         raise ValueError("min_length must be > 0")
     n = len(sequence)
     results = []
-    for l in range(min_length, n + 1):
-        for i in range(n - l + 1):
-            substr = sequence[i : i + l]
+    for length in range(min_length, n + 1):
+        for i in range(n - length + 1):
+            substr = sequence[i : i + length]
             if substr == substr[::-1]:
-                results.append((i, i + l, substr))
+                results.append((i, i + length, substr))
     return results
 
 
