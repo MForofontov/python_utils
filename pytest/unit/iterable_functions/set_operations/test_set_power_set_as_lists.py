@@ -77,17 +77,9 @@ def test_set_power_set_as_lists_mixed_types() -> None:
     assert result in expected_variants
 
 
-def test_set_power_set_as_lists_type_error() -> None:
-    """
-    Test case 7: TypeError for invalid input type.
-    """
-    with pytest.raises(TypeError, match="input_set must be a set"):
-        set_power_set_as_lists("not a set")
-
-
 def test_set_power_set_as_lists_large_set() -> None:
     """
-    Test case 8: Test with larger set.
+    Test case 7: Test with larger set.
     """
     input_set = {1, 2, 3, 4}
     result = set_power_set_as_lists(input_set)
@@ -101,7 +93,7 @@ def test_set_power_set_as_lists_large_set() -> None:
 
 def test_set_power_set_as_lists_ordering() -> None:
     """
-    Test case 9: Test that ordering is correct.
+    Test case 8: Test that ordering is correct.
     """
     input_set = {3, 1, 2}
     result = set_power_set_as_lists(input_set)
@@ -117,3 +109,9 @@ def test_set_power_set_as_lists_ordering() -> None:
         [1, 2, 3],  # length 3
     ]
     assert result == expected
+def test_set_power_set_as_lists_type_error() -> None:
+    """
+    Test case 9: TypeError for invalid input type.
+    """
+    with pytest.raises(TypeError, match="input_set must be a set"):
+        set_power_set_as_lists("not a set")

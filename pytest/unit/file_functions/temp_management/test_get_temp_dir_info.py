@@ -138,9 +138,24 @@ def test_get_temp_dir_info_case_7_non_existent_directory() -> None:
         assert info["total_size_bytes"] == 0
 
 
+def test_get_temp_dir_info_case_9_statvfs_not_available() -> None:
+    """
+    Test case 8: Handle systems where statvfs is not available.
+    """
+    # Arrange
+    with tempfile.TemporaryDirectory() as controlled_temp:
+        with patch("os.statvfs", side_effect=AttributeError("statvfs not available")):
+            with patch("tempfile.gettempdir", return_value=controlled_temp):
+                # Act
+                info = get_temp_dir_info()
+
+                # Assert
+                assert info["available_space_bytes"] == 0
+
+
 def test_get_temp_dir_info_case_8_file_access_error_handling() -> None:
     """
-    Test case 8: Graceful handling of file access errors.
+    Test case 9: Graceful handling of file access errors.
     """
     # Arrange
     with tempfile.TemporaryDirectory() as controlled_temp:
@@ -161,21 +176,6 @@ def test_get_temp_dir_info_case_8_file_access_error_handling() -> None:
                 # Act & Assert
                 with pytest.raises(OSError, match="Error accessing temporary directory: Permission denied"):
                     get_temp_dir_info()
-
-
-def test_get_temp_dir_info_case_9_statvfs_not_available() -> None:
-    """
-    Test case 9: Handle systems where statvfs is not available.
-    """
-    # Arrange
-    with tempfile.TemporaryDirectory() as controlled_temp:
-        with patch("os.statvfs", side_effect=AttributeError("statvfs not available")):
-            with patch("tempfile.gettempdir", return_value=controlled_temp):
-                # Act
-                info = get_temp_dir_info()
-
-                # Assert
-                assert info["available_space_bytes"] == 0
 
 
 def test_get_temp_dir_info_case_10_directory_access_error() -> None:

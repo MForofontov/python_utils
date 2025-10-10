@@ -96,11 +96,24 @@ def test_multi_decorator_with_variable_length_arguments(
     )
 
 
+def test_multi_decorator_no_logger() -> None:
+    """
+    Test case 5: Multi decorator without logger
+    """
+
+    @multi_decorator([decorator1, decorator2])
+    def sample_function_no_logger(a: int, b: int) -> int:
+        return a + b
+
+    result = sample_function_no_logger(1, 2)
+    assert result == "decorator1(decorator2(3))"
+
+
 def test_multi_decorator_function_raises_error(
     caplog: pytest.LogCaptureFixture,
 ) -> None:
     """
-    Test case 5: Multi decorator when the wrapped function raises an error
+    Test case 6: Multi decorator when the wrapped function raises an error
     """
     with caplog.at_level(logging.ERROR):
         with pytest.raises(ValueError, match="An error occurred"):
@@ -109,7 +122,7 @@ def test_multi_decorator_function_raises_error(
 
 def test_multi_decorator_invalid_decorator(caplog: pytest.LogCaptureFixture) -> None:
     """
-    Test case 6: Invalid decorator type
+    Test case 7: Invalid decorator type
     """
     with caplog.at_level(logging.ERROR):
         with pytest.raises(TypeError, match="Decorator 123 is not callable"):
@@ -121,7 +134,7 @@ def test_multi_decorator_invalid_decorator(caplog: pytest.LogCaptureFixture) -> 
 
 def test_multi_decorator_invalid_logger() -> None:
     """
-    Test case 7: Invalid logger type
+    Test case 8: Invalid logger type
     """
     with pytest.raises(
         TypeError, match="logger must be an instance of logging.Logger or None"
@@ -130,19 +143,6 @@ def test_multi_decorator_invalid_logger() -> None:
         @multi_decorator([decorator1, decorator2], logger="invalid_logger")
         def sample_function_invalid_logger(a: int, b: int) -> int:
             return a + b
-
-
-def test_multi_decorator_no_logger() -> None:
-    """
-    Test case 8: Multi decorator without logger
-    """
-
-    @multi_decorator([decorator1, decorator2])
-    def sample_function_no_logger(a: int, b: int) -> int:
-        return a + b
-
-    result = sample_function_no_logger(1, 2)
-    assert result == "decorator1(decorator2(3))"
 
 
 def test_multi_decorator_invalid_decorator_no_logger() -> None:

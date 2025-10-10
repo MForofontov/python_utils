@@ -30,25 +30,9 @@ def test_ssh_execute_command_case_2_edge_case_empty_command() -> None:
         assert result == {"stdout": "", "stderr": "", "exit_code": 0}
 
 
-def test_ssh_execute_command_case_3_type_error_host() -> None:
-    """
-    Test case 3: TypeError for invalid host type.
-    """
-    with pytest.raises(TypeError, match="host must be a string"):
-        ssh_execute_command(123, "ls")
-
-
-def test_ssh_execute_command_case_4_value_error_port() -> None:
-    """
-    Test case 4: ValueError for invalid port value.
-    """
-    with pytest.raises(ValueError, match="port must be in 1-65535"):
-        ssh_execute_command("host", "ls", port=70000)
-
-
 def test_ssh_execute_command_case_5_boundary_conditions() -> None:
     """
-    Test case 5: Boundary conditions for port.
+    Test case 3: Boundary conditions for port.
     """
     with patch("subprocess.run") as mock_run:
         mock_run.return_value.stdout = "ok"
@@ -58,6 +42,22 @@ def test_ssh_execute_command_case_5_boundary_conditions() -> None:
         result_max = ssh_execute_command("host", "ls", port=65535)
         assert result_min["exit_code"] == 0
         assert result_max["exit_code"] == 0
+
+
+def test_ssh_execute_command_case_3_type_error_host() -> None:
+    """
+    Test case 4: TypeError for invalid host type.
+    """
+    with pytest.raises(TypeError, match="host must be a string"):
+        ssh_execute_command(123, "ls")
+
+
+def test_ssh_execute_command_case_4_value_error_port() -> None:
+    """
+    Test case 5: ValueError for invalid port value.
+    """
+    with pytest.raises(ValueError, match="port must be in 1-65535"):
+        ssh_execute_command("host", "ls", port=70000)
 
 
 def test_ssh_execute_command_case_6_timeout_error() -> None:

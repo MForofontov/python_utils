@@ -123,22 +123,9 @@ def test_height_update_after_operations() -> None:
     assert tree.root.height == 2
 
 
-def test_delete_non_existing_key() -> None:
-    """
-    Test case 10: Test deleting a non-existing key from the AVL tree.
-    """
-    tree = AVLTree[int]()
-    tree.insert(10)
-    tree.insert(20)
-    with pytest.raises(ValueError):
-        tree.delete(30)
-    assert tree.root.key == 10
-    assert tree.root.right.key == 20
-
-
 def test_insert_duplicate_key() -> None:
     """
-    Test case 11: Test inserting a duplicate key into the AVL tree.
+    Test case 10: Test inserting a duplicate key into the AVL tree.
     """
     tree = AVLTree[int]()
     tree.insert(10)
@@ -151,7 +138,7 @@ def test_insert_duplicate_key() -> None:
 
 def test_delete_root_node() -> None:
     """
-    Test case 12: Test deleting the root node of the AVL tree.
+    Test case 11: Test deleting the root node of the AVL tree.
     """
     tree = AVLTree[int]()
     tree.insert(10)
@@ -164,7 +151,7 @@ def test_delete_root_node() -> None:
 
 def test_large_tree_balance() -> None:
     """
-    Test case 13: Test the balance of a large AVL tree after multiple insertions.
+    Test case 12: Test the balance of a large AVL tree after multiple insertions.
     """
     tree = AVLTree[int]()
     for i in range(1, 101):
@@ -175,7 +162,7 @@ def test_large_tree_balance() -> None:
 
 def test_delete_all_nodes() -> None:
     """
-    Test case 14: Test deleting all nodes from the AVL tree.
+    Test case 13: Test deleting all nodes from the AVL tree.
     """
     tree = AVLTree[int]()
     tree.insert(10)
@@ -189,7 +176,7 @@ def test_delete_all_nodes() -> None:
 
 def test_search_in_empty_tree() -> None:
     """
-    Test case 15: Test searching for a key in an empty AVL tree.
+    Test case 14: Test searching for a key in an empty AVL tree.
     """
     tree = AVLTree[int]()
     node = tree.search(10)
@@ -198,7 +185,7 @@ def test_search_in_empty_tree() -> None:
 
 def test_height_of_empty_tree() -> None:
     """
-    Test case 16: Test the height of an empty AVL tree.
+    Test case 15: Test the height of an empty AVL tree.
     """
     tree = AVLTree[int]()
     assert tree._get_height(tree.root) == 0
@@ -206,7 +193,18 @@ def test_height_of_empty_tree() -> None:
 
 def test_balance_of_empty_tree() -> None:
     """
-    Test case 17: Test the balance factor of an empty AVL tree.
+    Test case 16: Test the balance factor of an empty AVL tree.
     """
     tree = AVLTree[int]()
     assert tree._get_balance(tree.root) == 0
+def test_delete_non_existing_key() -> None:
+    """
+    Test case 17: Test deleting a non-existing key from the AVL tree.
+    """
+    tree = AVLTree[int]()
+    tree.insert(10)
+    tree.insert(20)
+    with pytest.raises(ValueError):
+        tree.delete(30)
+    assert tree.root.key == 10
+    assert tree.root.right.key == 20

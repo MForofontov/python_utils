@@ -151,104 +151,9 @@ def test_validate_pydantic_schema_allow_extra_fields() -> None:
     assert result.email == "eve@example.com"
 
 
-def test_validate_pydantic_schema_type_error_invalid_schema() -> None:
-    """
-    Test case 7: TypeError for invalid schema model.
-    """
-    data = {"name": "Test", "age": 25}
-
-    # Test with non-BaseModel class
-    class NotAModel:
-        pass
-
-    with pytest.raises(
-        TypeError, match="schema_model must be a Pydantic BaseModel class"
-    ):
-        validate_pydantic_schema(data, NotAModel)
-
-    # Test with non-class object
-    with pytest.raises(
-        TypeError, match="schema_model must be a Pydantic BaseModel class"
-    ):
-        validate_pydantic_schema(data, "not a class")
-
-
-def test_validate_pydantic_schema_type_error_invalid_parameters() -> None:
-    """
-    Test case 8: TypeError for invalid parameter types.
-    """
-    data = {"name": "Test", "age": 25, "email": "test@example.com"}
-
-    with pytest.raises(TypeError, match="strict must be bool, got str"):
-        validate_pydantic_schema(data, SimpleUserSchema, strict="true")
-
-    with pytest.raises(TypeError, match="allow_extra must be bool, got int"):
-        validate_pydantic_schema(data, SimpleUserSchema, allow_extra=1)
-
-    with pytest.raises(TypeError, match="param_name must be str, got int"):
-        validate_pydantic_schema(data, SimpleUserSchema, param_name=123)
-
-
-def test_validate_pydantic_schema_value_error_validation_failure() -> None:
-    """
-    Test case 9: ValueError for validation failures.
-    """
-    # Test missing required field
-    data = {"name": "Test", "age": 25}  # Missing email
-
-    with pytest.raises(ValueError, match="data validation failed"):
-        validate_pydantic_schema(data, SimpleUserSchema)
-
-    # Test wrong type
-    data = {"name": "Test", "age": "not a number", "email": "test@example.com"}
-
-    with pytest.raises(ValueError, match="data validation failed"):
-        validate_pydantic_schema(data, SimpleUserSchema)
-
-
-def test_validate_pydantic_schema_value_error_extra_fields_forbidden() -> None:
-    """
-    Test case 10: ValueError when extra fields are forbidden.
-    """
-    data = {
-        "name": "Test",
-        "age": 25,
-        "email": "test@example.com",
-        "extra_field": "not allowed",
-    }
-
-    with pytest.raises(ValueError, match="data validation failed"):
-        validate_pydantic_schema(data, SimpleUserSchema, allow_extra=False)
-
-
-def test_validate_pydantic_schema_value_error_strict_mode() -> None:
-    """
-    Test case 11: ValueError in strict mode with type coercion.
-    """
-    # Test strict mode rejecting type coercion
-    data = {"name": "Test", "age": "25", "email": "test@example.com"}  # age as string
-
-    with pytest.raises(ValueError, match="data validation failed"):
-        validate_pydantic_schema(data, SimpleUserSchema, strict=True)
-
-
-def test_validate_pydantic_schema_value_error_nested_validation() -> None:
-    """
-    Test case 12: ValueError for nested object validation failures.
-    """
-    # Test invalid nested object
-    data = {
-        "user": {"name": "Test", "age": "invalid"},  # Invalid age in nested object
-        "created_at": "2023-01-01",
-    }
-
-    with pytest.raises(ValueError, match="data validation failed"):
-        validate_pydantic_schema(data, NestedSchema)
-
-
 def test_validate_pydantic_schema_edge_cases() -> None:
     """
-    Test case 13: Edge cases and boundary conditions.
+    Test case 7: Edge cases and boundary conditions.
     """
     # Test with empty dict for schema with defaults
     data = {}
@@ -267,19 +172,9 @@ def test_validate_pydantic_schema_edge_cases() -> None:
     assert result.email is None
 
 
-def test_validate_pydantic_schema_custom_param_name() -> None:
-    """
-    Test case 14: Custom parameter name in error messages.
-    """
-    data = {"name": "Test", "age": "invalid"}  # Missing email, invalid age
-
-    with pytest.raises(ValueError, match="user_data validation failed"):
-        validate_pydantic_schema(data, SimpleUserSchema, param_name="user_data")
-
-
 def test_validate_pydantic_schema_complex_schemas() -> None:
     """
-    Test case 15: Complex schemas with various field types.
+    Test case 8: Complex schemas with various field types.
     """
 
     class ComplexSchema(BaseModel):
@@ -308,7 +203,7 @@ def test_validate_pydantic_schema_complex_schemas() -> None:
 
 def test_validate_pydantic_schema_performance_large_data() -> None:
     """
-    Test case 16: Performance with large data structures.
+    Test case 9: Performance with large data structures.
     """
     # Test with large list of objects
     large_data = {"name": "Performance Test", "age": 30, "email": "perf@example.com"}
@@ -327,6 +222,111 @@ def test_validate_pydantic_schema_performance_large_data() -> None:
     not PYDANTIC_AVAILABLE or not hasattr(__import__("pydantic"), "v1"),
     reason="Pydantic v1 compatibility layer not available",
 )
+def test_validate_pydantic_schema_type_error_invalid_schema() -> None:
+    """
+    Test case 10: TypeError for invalid schema model.
+    """
+    data = {"name": "Test", "age": 25}
+
+    # Test with non-BaseModel class
+    class NotAModel:
+        pass
+
+    with pytest.raises(
+        TypeError, match="schema_model must be a Pydantic BaseModel class"
+    ):
+        validate_pydantic_schema(data, NotAModel)
+
+    # Test with non-class object
+    with pytest.raises(
+        TypeError, match="schema_model must be a Pydantic BaseModel class"
+    ):
+        validate_pydantic_schema(data, "not a class")
+
+
+def test_validate_pydantic_schema_type_error_invalid_parameters() -> None:
+    """
+    Test case 11: TypeError for invalid parameter types.
+    """
+    data = {"name": "Test", "age": 25, "email": "test@example.com"}
+
+    with pytest.raises(TypeError, match="strict must be bool, got str"):
+        validate_pydantic_schema(data, SimpleUserSchema, strict="true")
+
+    with pytest.raises(TypeError, match="allow_extra must be bool, got int"):
+        validate_pydantic_schema(data, SimpleUserSchema, allow_extra=1)
+
+    with pytest.raises(TypeError, match="param_name must be str, got int"):
+        validate_pydantic_schema(data, SimpleUserSchema, param_name=123)
+
+
+def test_validate_pydantic_schema_value_error_validation_failure() -> None:
+    """
+    Test case 12: ValueError for validation failures.
+    """
+    # Test missing required field
+    data = {"name": "Test", "age": 25}  # Missing email
+
+    with pytest.raises(ValueError, match="data validation failed"):
+        validate_pydantic_schema(data, SimpleUserSchema)
+
+    # Test wrong type
+    data = {"name": "Test", "age": "not a number", "email": "test@example.com"}
+
+    with pytest.raises(ValueError, match="data validation failed"):
+        validate_pydantic_schema(data, SimpleUserSchema)
+
+
+def test_validate_pydantic_schema_value_error_extra_fields_forbidden() -> None:
+    """
+    Test case 13: ValueError when extra fields are forbidden.
+    """
+    data = {
+        "name": "Test",
+        "age": 25,
+        "email": "test@example.com",
+        "extra_field": "not allowed",
+    }
+
+    with pytest.raises(ValueError, match="data validation failed"):
+        validate_pydantic_schema(data, SimpleUserSchema, allow_extra=False)
+
+
+def test_validate_pydantic_schema_value_error_strict_mode() -> None:
+    """
+    Test case 14: ValueError in strict mode with type coercion.
+    """
+    # Test strict mode rejecting type coercion
+    data = {"name": "Test", "age": "25", "email": "test@example.com"}  # age as string
+
+    with pytest.raises(ValueError, match="data validation failed"):
+        validate_pydantic_schema(data, SimpleUserSchema, strict=True)
+
+
+def test_validate_pydantic_schema_value_error_nested_validation() -> None:
+    """
+    Test case 15: ValueError for nested object validation failures.
+    """
+    # Test invalid nested object
+    data = {
+        "user": {"name": "Test", "age": "invalid"},  # Invalid age in nested object
+        "created_at": "2023-01-01",
+    }
+
+    with pytest.raises(ValueError, match="data validation failed"):
+        validate_pydantic_schema(data, NestedSchema)
+
+
+def test_validate_pydantic_schema_custom_param_name() -> None:
+    """
+    Test case 16: Custom parameter name in error messages.
+    """
+    data = {"name": "Test", "age": "invalid"}  # Missing email, invalid age
+
+    with pytest.raises(ValueError, match="user_data validation failed"):
+        validate_pydantic_schema(data, SimpleUserSchema, param_name="user_data")
+
+
 def test_validate_pydantic_schema_pydantic_v1_branch(monkeypatch: pytest.MonkeyPatch) -> None:
     """Test case 17: Ensure the legacy branch configures Config.extra and Config.allow_mutation."""
 

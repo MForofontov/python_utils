@@ -166,40 +166,9 @@ def test_group_by_complex_objects() -> None:
     assert all(p.age == 30 for p in result[30])
 
 
-def test_group_by_invalid_items_type_error() -> None:
-    """
-    Test case 9: TypeError for invalid items type.
-    """
-    # Arrange
-    invalid_items: str = "not a list"
-
-    def key_function(x):
-        return x
-
-    expected_message: str = "items must be a list, got str"
-
-    # Act & Assert
-    with pytest.raises(TypeError, match=expected_message):
-        group_by(invalid_items, key_function)  # type: ignore
-
-
-def test_group_by_invalid_key_func_type_error() -> None:
-    """
-    Test case 10: TypeError for invalid key_func type.
-    """
-    # Arrange
-    input_items: list[str] = ["a", "b", "c"]
-    invalid_key_func: str = "not callable"
-    expected_message: str = "key_func must be callable or None, got str"
-
-    # Act & Assert
-    with pytest.raises(TypeError, match=expected_message):
-        group_by(input_items, invalid_key_func)  # type: ignore
-
-
 def test_group_by_preserves_order() -> None:
     """
-    Test case 11: Preserve original order within groups.
+    Test case 9: Preserve original order within groups.
     """
     # Arrange
     input_items: list[str] = ["first", "second", "third", "fourth", "fifth"]
@@ -221,7 +190,7 @@ def test_group_by_preserves_order() -> None:
 
 def test_group_by_none_values() -> None:
     """
-    Test case 12: Group None values.
+    Test case 10: Group None values.
     """
     # Arrange
     input_items: list[Any] = [None, "a", None, "b"]
@@ -236,3 +205,32 @@ def test_group_by_none_values() -> None:
 
     # Assert
     assert result == expected_output
+def test_group_by_invalid_items_type_error() -> None:
+    """
+    Test case 11: TypeError for invalid items type.
+    """
+    # Arrange
+    invalid_items: str = "not a list"
+
+    def key_function(x):
+        return x
+
+    expected_message: str = "items must be a list, got str"
+
+    # Act & Assert
+    with pytest.raises(TypeError, match=expected_message):
+        group_by(invalid_items, key_function)  # type: ignore
+
+
+def test_group_by_invalid_key_func_type_error() -> None:
+    """
+    Test case 12: TypeError for invalid key_func type.
+    """
+    # Arrange
+    input_items: list[str] = ["a", "b", "c"]
+    invalid_key_func: str = "not callable"
+    expected_message: str = "key_func must be callable or None, got str"
+
+    # Act & Assert
+    with pytest.raises(TypeError, match=expected_message):
+        group_by(input_items, invalid_key_func)  # type: ignore

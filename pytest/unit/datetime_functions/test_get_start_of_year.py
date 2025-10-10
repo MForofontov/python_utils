@@ -95,30 +95,9 @@ def test_get_start_of_year_preserves_time() -> None:
     assert result.second == 36
 
 
-def test_get_start_of_year_type_error_non_datetime() -> None:
-    """
-    Test case 6: TypeError when input is not a datetime object.
-    """
-    # Arrange
-    invalid_input = "2023-01-01"
-
-    # Act & Assert
-    with pytest.raises(TypeError, match="date_obj must be a datetime object"):
-        get_start_of_year(invalid_input)  # type: ignore
-
-
-def test_get_start_of_year_type_error_none() -> None:
-    """
-    Test case 7: TypeError when input is None.
-    """
-    # Act & Assert
-    with pytest.raises(TypeError, match="date_obj must be a datetime object"):
-        get_start_of_year(None)  # type: ignore
-
-
 def test_get_start_of_year_different_years() -> None:
     """
-    Test case 8: Get start of year for different years.
+    Test case 6: Get start of year for different years.
     """
     # Arrange
     dates = [
@@ -133,3 +112,22 @@ def test_get_start_of_year_different_years() -> None:
         assert result.year == date.year
         assert result.month == 1
         assert result.day == 1
+def test_get_start_of_year_type_error_non_datetime() -> None:
+    """
+    Test case 7: TypeError when input is not a datetime object.
+    """
+    # Arrange
+    invalid_input = "2023-01-01"
+
+    # Act & Assert
+    with pytest.raises(TypeError, match="date_obj must be a datetime object"):
+        get_start_of_year(invalid_input)  # type: ignore
+
+
+def test_get_start_of_year_type_error_none() -> None:
+    """
+    Test case 8: TypeError when input is None.
+    """
+    # Act & Assert
+    with pytest.raises(TypeError, match="date_obj must be a datetime object"):
+        get_start_of_year(None)  # type: ignore

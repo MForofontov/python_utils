@@ -54,21 +54,9 @@ def test_log_signature_greet(caplog):
         )
 
 
-def test_log_signature_raise_value_error(caplog):
-    """
-    Test case 3: Logging function signature for function that raises ValueError.
-    """
-    with caplog.at_level(logging.DEBUG):
-        with pytest.raises(ValueError, match="This is a ValueError"):
-            raise_value_error()
-        assert (
-            "Executing raise_value_error() with args: () and kwargs: {}" in caplog.text
-        )
-
-
 def test_log_signature_return_value(caplog):
     """
-    Test case 4: Logging function signature for return_value function.
+    Test case 3: Logging function signature for return_value function.
     """
     with caplog.at_level(logging.DEBUG):
         result = return_value(5)
@@ -81,7 +69,7 @@ def test_log_signature_return_value(caplog):
 
 def test_log_signature_with_kwargs(caplog):
     """
-    Test case 5: Logging function signature with keyword arguments.
+    Test case 4: Logging function signature with keyword arguments.
     """
 
     @log_signature(logger=test_logger)
@@ -99,7 +87,7 @@ def test_log_signature_with_kwargs(caplog):
 
 def test_log_signature_with_multiple_args(caplog):
     """
-    Test case 6: Logging function signature with multiple arguments.
+    Test case 5: Logging function signature with multiple arguments.
     """
 
     @log_signature(logger=test_logger)
@@ -112,6 +100,18 @@ def test_log_signature_with_multiple_args(caplog):
         assert (
             "Executing multiple_args(a, b, c) with args: (1, 2, 3) and kwargs: {}"
             in caplog.text
+        )
+
+
+def test_log_signature_raise_value_error(caplog):
+    """
+    Test case 6: Logging function signature for function that raises ValueError.
+    """
+    with caplog.at_level(logging.DEBUG):
+        with pytest.raises(ValueError, match="This is a ValueError"):
+            raise_value_error()
+        assert (
+            "Executing raise_value_error() with args: () and kwargs: {}" in caplog.text
         )
 
 

@@ -124,9 +124,48 @@ def test_validate_collection_case_7_complex_validation_combinations() -> None:
     )
 
 
+def test_validate_collection_case_13_edge_cases() -> None:
+    """
+    Test case 8: Edge cases and boundary conditions.
+    """
+    # Test single element collections
+    validate_collection([1], list, min_length=1, max_length=1, element_type=int)
+    validate_collection({"a": 1}, dict, min_length=1, max_length=1, element_type=int)
+
+    # Test large collections
+    large_list = list(range(10000))
+    validate_collection(large_list, list, element_type=int)
+
+    # Test nested collections (without element type checking)
+    nested_list = [[1, 2], [3, 4], [5, 6]]
+    validate_collection(nested_list, list)
+
+    # Test collections with None elements
+    validate_collection([1, None, 3], list, element_type=(int, type(None)))
+
+
+def test_validate_collection_case_14_performance_large_collections() -> None:
+    """
+    Test case 9: Performance with large collections.
+    """
+    # Test large collection without element validation (should be fast)
+    large_list = list(range(100000))
+    import time
+
+    start_time = time.time()
+    validate_collection(large_list, list, min_length=1000, max_length=200000)
+    elapsed_time = time.time() - start_time
+    assert elapsed_time < 0.1  # Should be very fast without element checking
+
+    # Test smaller collection with element validation
+    medium_list = list(range(10000))
+    start_time = time.time()
+    validate_collection(medium_list, list, element_type=int)
+    elapsed_time = time.time() - start_time
+    assert elapsed_time < 1.0  # Should complete within 1 second
 def test_validate_collection_case_8_type_error_wrong_collection_type() -> None:
     """
-    Test case 8: TypeError for wrong collection type.
+    Test case 10: TypeError for wrong collection type.
     """
     with pytest.raises(TypeError, match="collection must be list, got tuple"):
         validate_collection((1, 2, 3), list)
@@ -144,7 +183,7 @@ def test_validate_collection_case_8_type_error_wrong_collection_type() -> None:
 
 def test_validate_collection_case_9_value_error_empty_not_allowed() -> None:
     """
-    Test case 9: ValueError when empty collections are not allowed.
+    Test case 11: ValueError when empty collections are not allowed.
     """
     with pytest.raises(ValueError, match="collection cannot be empty"):
         validate_collection([], list, allow_empty=False)
@@ -162,7 +201,7 @@ def test_validate_collection_case_9_value_error_empty_not_allowed() -> None:
 
 def test_validate_collection_case_10_value_error_length_bounds() -> None:
     """
-    Test case 10: ValueError for length constraint violations.
+    Test case 12: ValueError for length constraint violations.
     """
     # Test below minimum length
     with pytest.raises(
@@ -187,7 +226,7 @@ def test_validate_collection_case_10_value_error_length_bounds() -> None:
 
 def test_validate_collection_case_11_type_error_element_validation() -> None:
     """
-    Test case 11: TypeError for wrong element types.
+    Test case 13: TypeError for wrong element types.
     """
     # Test wrong single element type
     with pytest.raises(
@@ -216,7 +255,7 @@ def test_validate_collection_case_11_type_error_element_validation() -> None:
 
 def test_validate_collection_case_12_type_error_invalid_parameters() -> None:
     """
-    Test case 12: TypeError for invalid parameter types.
+    Test case 14: TypeError for invalid parameter types.
     """
     # Test invalid expected_type
     with pytest.raises(TypeError, match="expected_type must be a type"):
@@ -246,44 +285,3 @@ def test_validate_collection_case_12_type_error_invalid_parameters() -> None:
         ValueError, match="min_length \\(5\\) cannot be greater than max_length \\(3\\)"
     ):
         validate_collection([1, 2, 3], list, min_length=5, max_length=3)
-
-
-def test_validate_collection_case_13_edge_cases() -> None:
-    """
-    Test case 13: Edge cases and boundary conditions.
-    """
-    # Test single element collections
-    validate_collection([1], list, min_length=1, max_length=1, element_type=int)
-    validate_collection({"a": 1}, dict, min_length=1, max_length=1, element_type=int)
-
-    # Test large collections
-    large_list = list(range(10000))
-    validate_collection(large_list, list, element_type=int)
-
-    # Test nested collections (without element type checking)
-    nested_list = [[1, 2], [3, 4], [5, 6]]
-    validate_collection(nested_list, list)
-
-    # Test collections with None elements
-    validate_collection([1, None, 3], list, element_type=(int, type(None)))
-
-
-def test_validate_collection_case_14_performance_large_collections() -> None:
-    """
-    Test case 14: Performance with large collections.
-    """
-    # Test large collection without element validation (should be fast)
-    large_list = list(range(100000))
-    import time
-
-    start_time = time.time()
-    validate_collection(large_list, list, min_length=1000, max_length=200000)
-    elapsed_time = time.time() - start_time
-    assert elapsed_time < 0.1  # Should be very fast without element checking
-
-    # Test smaller collection with element validation
-    medium_list = list(range(10000))
-    start_time = time.time()
-    validate_collection(medium_list, list, element_type=int)
-    elapsed_time = time.time() - start_time
-    assert elapsed_time < 1.0  # Should complete within 1 second

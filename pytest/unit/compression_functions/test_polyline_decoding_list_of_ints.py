@@ -37,21 +37,9 @@ def test_polyline_decoding_list_of_ints_single_value() -> None:
     assert len(result) >= 1
 
 
-def test_polyline_decoding_list_of_ints_empty_string_error() -> None:
-    """
-    Test case 3: ValueError when encoded text is empty.
-    """
-    # Arrange
-    empty_text = ""
-
-    # Act & Assert
-    with pytest.raises(ValueError, match="Encoded text cannot be empty"):
-        polyline_decoding_list_of_ints(empty_text)
-
-
 def test_polyline_decoding_list_of_ints_precision_handling() -> None:
     """
-    Test case 4: Verify precision is handled correctly.
+    Test case 3: Verify precision is handled correctly.
     """
     # Arrange
     encoded_text = "?AA"
@@ -66,7 +54,7 @@ def test_polyline_decoding_list_of_ints_precision_handling() -> None:
 
 def test_polyline_decoding_list_of_ints_multiple_values() -> None:
     """
-    Test case 5: Decode string with multiple values.
+    Test case 4: Decode string with multiple values.
     """
     # Arrange
     encoded_text = "AAAAA"
@@ -81,7 +69,7 @@ def test_polyline_decoding_list_of_ints_multiple_values() -> None:
 
 def test_polyline_decoding_list_of_ints_complex_encoding() -> None:
     """
-    Test case 6: Decode complex polyline encoded string.
+    Test case 5: Decode complex polyline encoded string.
     """
     # Arrange
     encoded_text = "B_ibE"
@@ -97,7 +85,7 @@ def test_polyline_decoding_list_of_ints_complex_encoding() -> None:
 
 def test_polyline_decoding_list_of_ints_returns_float_list() -> None:
     """
-    Test case 7: Verify return type is list of floats.
+    Test case 6: Verify return type is list of floats.
     """
     # Arrange
     encoded_text = "AAA"
@@ -113,7 +101,7 @@ def test_polyline_decoding_list_of_ints_returns_float_list() -> None:
 
 def test_polyline_decoding_list_of_ints_round_trip() -> None:
     """
-    Test case 8: Verify encoding and decoding are consistent.
+    Test case 7: Verify encoding and decoding are consistent.
     """
     # Arrange
     from compression_functions.polyline_encoding_list_of_ints import (
@@ -131,3 +119,13 @@ def test_polyline_decoding_list_of_ints_round_trip() -> None:
     # Values should be close after round-trip (accounting for precision)
     for i, orig in enumerate(original_values):
         assert abs(decoded[i] - orig) <= 1.0  # Allow some precision loss
+def test_polyline_decoding_list_of_ints_empty_string_error() -> None:
+    """
+    Test case 8: ValueError when encoded text is empty.
+    """
+    # Arrange
+    empty_text = ""
+
+    # Act & Assert
+    with pytest.raises(ValueError, match="Encoded text cannot be empty"):
+        polyline_decoding_list_of_ints(empty_text)

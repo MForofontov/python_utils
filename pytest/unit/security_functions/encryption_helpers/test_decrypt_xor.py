@@ -34,48 +34,9 @@ def test_decrypt_xor_case_2_custom_key_decryption() -> None:
     assert decrypted == original_data
 
 
-def test_decrypt_xor_case_3_type_validation() -> None:
-    """
-    Test case 3: Type validation for parameters.
-    """
-    # Test invalid encrypted_data type
-    with pytest.raises(TypeError, match="encrypted_data must be a string"):
-        decrypt_xor(123, "key")
-
-    # Test invalid key type
-    with pytest.raises(TypeError, match="key must be a string"):
-        decrypt_xor("encrypted", 123)
-
-
-def test_decrypt_xor_case_4_value_validation() -> None:
-    """
-    Test case 4: Value validation for parameters.
-    """
-    # Test empty encrypted_data
-    with pytest.raises(ValueError, match="encrypted_data cannot be empty"):
-        decrypt_xor("", "key")
-
-    # Test empty key
-    with pytest.raises(ValueError, match="key cannot be empty"):
-        decrypt_xor("encrypted", "")
-
-
-def test_decrypt_xor_case_5_invalid_hex_format() -> None:
-    """
-    Test case 5: Invalid hex format should raise ValueError.
-    """
-    # Test odd length hex
-    with pytest.raises(ValueError, match="encrypted_data must have even length"):
-        decrypt_xor("abc", "key")  # Odd length
-
-    # Test invalid hex characters
-    with pytest.raises(ValueError, match="encrypted_data must be valid hex string"):
-        decrypt_xor("gggg", "key")  # Invalid hex characters
-
-
 def test_decrypt_xor_case_6_wrong_key_different_result() -> None:
     """
-    Test case 6: Wrong key should produce different (incorrect) result.
+    Test case 3: Wrong key should produce different (incorrect) result.
     """
     # Arrange
     original_data = "Secret message"
@@ -94,7 +55,7 @@ def test_decrypt_xor_case_6_wrong_key_different_result() -> None:
 
 def test_decrypt_xor_case_7_unicode_data() -> None:
     """
-    Test case 7: Handle Unicode characters in data.
+    Test case 4: Handle Unicode characters in data.
     """
     # Arrange
     original_data = "Hello 世界! 🌍 ümläuts"
@@ -109,7 +70,7 @@ def test_decrypt_xor_case_7_unicode_data() -> None:
 
 def test_decrypt_xor_case_8_long_data() -> None:
     """
-    Test case 8: Decrypt long data string.
+    Test case 5: Decrypt long data string.
     """
     # Arrange
     original_data = (
@@ -128,7 +89,7 @@ def test_decrypt_xor_case_8_long_data() -> None:
 
 def test_decrypt_xor_case_9_special_characters() -> None:
     """
-    Test case 9: Handle special characters and symbols.
+    Test case 6: Handle special characters and symbols.
     """
     # Arrange
     original_data = "!@#$%^&*()_+-=[]{}|;':\",./<>?`~"
@@ -142,26 +103,9 @@ def test_decrypt_xor_case_9_special_characters() -> None:
     assert decrypted == original_data
 
 
-def test_decrypt_xor_case_10_empty_original_data() -> None:
-    """
-    Test case 10: Handle empty string encryption/decryption.
-    """
-    # Note: This test is for edge case documentation
-    # The encrypt_xor function doesn't allow empty data, so this tests
-    # the theoretical case where someone manually creates an empty hex string
-
-    # Arrange - manually create "encrypted" empty data
-    encrypted_empty = ""  # Empty hex string
-    key = "somekey"
-
-    # Act & Assert
-    with pytest.raises(ValueError, match="encrypted_data cannot be empty"):
-        decrypt_xor(encrypted_empty, key)
-
-
 def test_decrypt_xor_case_11_roundtrip_multiple_times() -> None:
     """
-    Test case 11: Multiple encrypt/decrypt roundtrips should be consistent.
+    Test case 7: Multiple encrypt/decrypt roundtrips should be consistent.
     """
     # Arrange
     original_data = "Roundtrip test data"
@@ -182,7 +126,7 @@ def test_decrypt_xor_case_11_roundtrip_multiple_times() -> None:
 
 def test_decrypt_xor_case_12_case_sensitive_hex() -> None:
     """
-    Test case 12: Hex decryption should handle both uppercase and lowercase.
+    Test case 8: Hex decryption should handle both uppercase and lowercase.
     """
     # Arrange
     original_data = "Case test"
@@ -199,3 +143,57 @@ def test_decrypt_xor_case_12_case_sensitive_hex() -> None:
     # Assert
     assert decrypted_lower == original_data
     assert decrypted_upper == original_data
+def test_decrypt_xor_case_3_type_validation() -> None:
+    """
+    Test case 9: Type validation for parameters.
+    """
+    # Test invalid encrypted_data type
+    with pytest.raises(TypeError, match="encrypted_data must be a string"):
+        decrypt_xor(123, "key")
+
+    # Test invalid key type
+    with pytest.raises(TypeError, match="key must be a string"):
+        decrypt_xor("encrypted", 123)
+
+
+def test_decrypt_xor_case_4_value_validation() -> None:
+    """
+    Test case 10: Value validation for parameters.
+    """
+    # Test empty encrypted_data
+    with pytest.raises(ValueError, match="encrypted_data cannot be empty"):
+        decrypt_xor("", "key")
+
+    # Test empty key
+    with pytest.raises(ValueError, match="key cannot be empty"):
+        decrypt_xor("encrypted", "")
+
+
+def test_decrypt_xor_case_5_invalid_hex_format() -> None:
+    """
+    Test case 11: Invalid hex format should raise ValueError.
+    """
+    # Test odd length hex
+    with pytest.raises(ValueError, match="encrypted_data must have even length"):
+        decrypt_xor("abc", "key")  # Odd length
+
+    # Test invalid hex characters
+    with pytest.raises(ValueError, match="encrypted_data must be valid hex string"):
+        decrypt_xor("gggg", "key")  # Invalid hex characters
+
+
+def test_decrypt_xor_case_10_empty_original_data() -> None:
+    """
+    Test case 12: Handle empty string encryption/decryption.
+    """
+    # Note: This test is for edge case documentation
+    # The encrypt_xor function doesn't allow empty data, so this tests
+    # the theoretical case where someone manually creates an empty hex string
+
+    # Arrange - manually create "encrypted" empty data
+    encrypted_empty = ""  # Empty hex string
+    key = "somekey"
+
+    # Act & Assert
+    with pytest.raises(ValueError, match="encrypted_data cannot be empty"):
+        decrypt_xor(encrypted_empty, key)

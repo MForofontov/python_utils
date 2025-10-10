@@ -72,60 +72,9 @@ def test_validate_type_custom_param_name() -> None:
     validate_type("test", str, param_name="username")
 
 
-def test_validate_type_type_error_single_type() -> None:
-    """
-    Test case 5: TypeError for wrong type with single expected type.
-    """
-    with pytest.raises(TypeError, match="value must be str, got int"):
-        validate_type(42, str)
-
-    with pytest.raises(TypeError, match="value must be int, got str"):
-        validate_type("hello", int)
-
-    with pytest.raises(TypeError, match="value must be list, got dict"):
-        validate_type({"key": "value"}, list)
-
-    # Test with custom param name
-    with pytest.raises(TypeError, match="user_id must be int, got str"):
-        validate_type("123", int, param_name="user_id")
-
-
-def test_validate_type_type_error_union_types() -> None:
-    """
-    Test case 6: TypeError for wrong type with union types.
-    """
-    with pytest.raises(TypeError, match="value must be int \\| str, got float"):
-        validate_type(3.14, (int, str))
-
-    with pytest.raises(TypeError, match="value must be list \\| tuple, got set"):
-        validate_type({1, 2, 3}, (list, tuple))
-
-    # Test with custom param name
-    with pytest.raises(TypeError, match="data must be dict \\| list, got str"):
-        validate_type("invalid", (dict, list), param_name="data")
-
-
-def test_validate_type_none_not_allowed() -> None:
-    """
-    Test case 7: TypeError when None is not allowed.
-    """
-    with pytest.raises(TypeError, match="value cannot be None, expected str"):
-        validate_type(None, str)
-
-    with pytest.raises(TypeError, match="value cannot be None, expected int"):
-        validate_type(None, int, allow_none=False)
-
-    with pytest.raises(TypeError, match="value cannot be None, expected int \\| str"):
-        validate_type(None, (int, str))
-
-    # Test with custom param name
-    with pytest.raises(TypeError, match="user_id cannot be None, expected int"):
-        validate_type(None, int, param_name="user_id")
-
-
 def test_validate_type_complex_collections() -> None:
     """
-    Test case 8: Validation with complex collection types.
+    Test case 5: Validation with complex collection types.
     """
     # Test nested structures
     validate_type({"users": [1, 2, 3]}, dict)
@@ -141,7 +90,7 @@ def test_validate_type_complex_collections() -> None:
 
 def test_validate_type_edge_cases() -> None:
     """
-    Test case 9: Edge cases and boundary conditions.
+    Test case 6: Edge cases and boundary conditions.
     """
     # Test with zero values
     validate_type(0, int)
@@ -160,7 +109,7 @@ def test_validate_type_edge_cases() -> None:
 
 def test_validate_type_performance_large_unions() -> None:
     """
-    Test case 10: Performance with large union types.
+    Test case 7: Performance with large union types.
     """
     # Test with many union types
     many_types = (int, str, float, bool, list, dict, set, tuple, bytes, bytearray)
@@ -178,3 +127,52 @@ def test_validate_type_performance_large_unions() -> None:
     elapsed_time = time.time() - start_time
 
     assert elapsed_time < 1.0  # Should complete within 1 second
+def test_validate_type_type_error_single_type() -> None:
+    """
+    Test case 8: TypeError for wrong type with single expected type.
+    """
+    with pytest.raises(TypeError, match="value must be str, got int"):
+        validate_type(42, str)
+
+    with pytest.raises(TypeError, match="value must be int, got str"):
+        validate_type("hello", int)
+
+    with pytest.raises(TypeError, match="value must be list, got dict"):
+        validate_type({"key": "value"}, list)
+
+    # Test with custom param name
+    with pytest.raises(TypeError, match="user_id must be int, got str"):
+        validate_type("123", int, param_name="user_id")
+
+
+def test_validate_type_type_error_union_types() -> None:
+    """
+    Test case 9: TypeError for wrong type with union types.
+    """
+    with pytest.raises(TypeError, match="value must be int \\| str, got float"):
+        validate_type(3.14, (int, str))
+
+    with pytest.raises(TypeError, match="value must be list \\| tuple, got set"):
+        validate_type({1, 2, 3}, (list, tuple))
+
+    # Test with custom param name
+    with pytest.raises(TypeError, match="data must be dict \\| list, got str"):
+        validate_type("invalid", (dict, list), param_name="data")
+
+
+def test_validate_type_none_not_allowed() -> None:
+    """
+    Test case 10: TypeError when None is not allowed.
+    """
+    with pytest.raises(TypeError, match="value cannot be None, expected str"):
+        validate_type(None, str)
+
+    with pytest.raises(TypeError, match="value cannot be None, expected int"):
+        validate_type(None, int, allow_none=False)
+
+    with pytest.raises(TypeError, match="value cannot be None, expected int \\| str"):
+        validate_type(None, (int, str))
+
+    # Test with custom param name
+    with pytest.raises(TypeError, match="user_id cannot be None, expected int"):
+        validate_type(None, int, param_name="user_id")

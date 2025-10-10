@@ -109,9 +109,44 @@ def test_validate_range_decimal_ranges() -> None:
     )
 
 
+def test_validate_range_case_11_boundary_conditions() -> None:
+    """
+    Test case 7: Edge cases and boundary conditions.
+    """
+    # Test zero boundaries
+    validate_range(0, min_value=0, max_value=0)
+
+    # Test very small ranges
+    validate_range(1, min_value=1, max_value=1)
+
+    # Test large numbers
+    large_num = 10**15
+    validate_range(large_num, min_value=0, max_value=10**16)
+
+    # Test very small floats
+    validate_range(1e-10, min_value=0.0, max_value=1e-9)
+
+
+def test_validate_range_case_12_performance_large_numbers() -> None:
+    """
+    Test case 8: Performance with large numbers and many validations.
+    """
+    # Test with very large numbers
+    large_value = 10**100
+    validate_range(large_value, min_value=0, max_value=10**101)
+
+    # Performance test
+    import time
+
+    start_time = time.time()
+    for i in range(10000):
+        validate_range(i, min_value=0, max_value=20000)
+    elapsed_time = time.time() - start_time
+
+    assert elapsed_time < 1.0  # Should complete within 1 second
 def test_validate_range_value_error_below_minimum() -> None:
     """
-    Test case 7: ValueError for values below minimum.
+    Test case 9: ValueError for values below minimum.
     """
     # Test inclusive minimum
     with pytest.raises(ValueError, match="value must be >= 0, got -1"):
@@ -131,7 +166,7 @@ def test_validate_range_value_error_below_minimum() -> None:
 
 def test_validate_range_value_error_above_maximum() -> None:
     """
-    Test case 8: ValueError for values above maximum.
+    Test case 10: ValueError for values above maximum.
     """
     # Test inclusive maximum
     with pytest.raises(ValueError, match="value must be <= 10, got 11"):
@@ -151,7 +186,7 @@ def test_validate_range_value_error_above_maximum() -> None:
 
 def test_validate_range_invalid_range_bounds() -> None:
     """
-    Test case 9: ValueError for invalid range bounds.
+    Test case 11: ValueError for invalid range bounds.
     """
     # Test min > max
     with pytest.raises(
@@ -175,7 +210,7 @@ def test_validate_range_invalid_range_bounds() -> None:
 
 def test_validate_range_case_10_type_errors() -> None:
     """
-    Test case 10: TypeError for invalid parameter types and incompatible comparisons.
+    Test case 12: TypeError for invalid parameter types and incompatible comparisons.
     """
     # Test invalid parameter types
     with pytest.raises(TypeError, match="min_inclusive must be bool, got str"):
@@ -197,40 +232,3 @@ def test_validate_range_case_10_type_errors() -> None:
         TypeError, match="Cannot compare value of type str with max_value of type int"
     ):
         validate_range("hello", max_value=10)
-
-
-def test_validate_range_case_11_boundary_conditions() -> None:
-    """
-    Test case 11: Edge cases and boundary conditions.
-    """
-    # Test zero boundaries
-    validate_range(0, min_value=0, max_value=0)
-
-    # Test very small ranges
-    validate_range(1, min_value=1, max_value=1)
-
-    # Test large numbers
-    large_num = 10**15
-    validate_range(large_num, min_value=0, max_value=10**16)
-
-    # Test very small floats
-    validate_range(1e-10, min_value=0.0, max_value=1e-9)
-
-
-def test_validate_range_case_12_performance_large_numbers() -> None:
-    """
-    Test case 12: Performance with large numbers and many validations.
-    """
-    # Test with very large numbers
-    large_value = 10**100
-    validate_range(large_value, min_value=0, max_value=10**101)
-
-    # Performance test
-    import time
-
-    start_time = time.time()
-    for i in range(10000):
-        validate_range(i, min_value=0, max_value=20000)
-    elapsed_time = time.time() - start_time
-
-    assert elapsed_time < 1.0  # Should complete within 1 second

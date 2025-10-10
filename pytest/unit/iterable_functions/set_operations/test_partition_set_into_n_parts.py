@@ -106,44 +106,9 @@ def test_partition_set_into_n_parts_strings() -> None:
     assert union == input_set
 
 
-def test_partition_set_into_n_parts_type_error_input_set() -> None:
-    """
-    Test case 8: TypeError for invalid input_set type.
-    """
-    with pytest.raises(TypeError, match="input_set must be a set"):
-        partition_set_into_n_parts("not a set", 2)
-
-
-def test_partition_set_into_n_parts_type_error_n() -> None:
-    """
-    Test case 9: TypeError for invalid n type.
-    """
-    input_set = {1, 2, 3}
-    with pytest.raises(TypeError, match="n must be an int"):
-        partition_set_into_n_parts(input_set, "not an int")
-
-
-def test_partition_set_into_n_parts_value_error_n_zero() -> None:
-    """
-    Test case 10: ValueError for n=0.
-    """
-    input_set = {1, 2, 3}
-    with pytest.raises(ValueError, match="n must be at least 1"):
-        partition_set_into_n_parts(input_set, 0)
-
-
-def test_partition_set_into_n_parts_value_error_n_negative() -> None:
-    """
-    Test case 11: ValueError for negative n.
-    """
-    input_set = {1, 2, 3}
-    with pytest.raises(ValueError, match="n must be at least 1"):
-        partition_set_into_n_parts(input_set, -1)
-
-
 def test_partition_set_into_n_parts_equal_distribution() -> None:
     """
-    Test case 12: Test that elements are distributed evenly.
+    Test case 8: Test that elements are distributed evenly.
     """
     input_set = set(range(10))  # 10 elements
     n = 3
@@ -152,3 +117,36 @@ def test_partition_set_into_n_parts_equal_distribution() -> None:
     # Should be [4, 3, 3] or similar distribution
     assert sum(sizes) == 10
     assert max(sizes) - min(sizes) <= 1
+def test_partition_set_into_n_parts_type_error_input_set() -> None:
+    """
+    Test case 9: TypeError for invalid input_set type.
+    """
+    with pytest.raises(TypeError, match="input_set must be a set"):
+        partition_set_into_n_parts("not a set", 2)
+
+
+def test_partition_set_into_n_parts_type_error_n() -> None:
+    """
+    Test case 10: TypeError for invalid n type.
+    """
+    input_set = {1, 2, 3}
+    with pytest.raises(TypeError, match="n must be an int"):
+        partition_set_into_n_parts(input_set, "not an int")
+
+
+def test_partition_set_into_n_parts_value_error_n_zero() -> None:
+    """
+    Test case 11: ValueError for n=0.
+    """
+    input_set = {1, 2, 3}
+    with pytest.raises(ValueError, match="n must be at least 1"):
+        partition_set_into_n_parts(input_set, 0)
+
+
+def test_partition_set_into_n_parts_value_error_n_negative() -> None:
+    """
+    Test case 12: ValueError for negative n.
+    """
+    input_set = {1, 2, 3}
+    with pytest.raises(ValueError, match="n must be at least 1"):
+        partition_set_into_n_parts(input_set, -1)

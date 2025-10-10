@@ -40,40 +40,9 @@ def test_encrypt_xor_case_2_custom_key() -> None:
     assert all(c in "0123456789abcdef" for c in encrypted)
 
 
-def test_encrypt_xor_case_3_empty_data_raises_error() -> None:
-    """
-    Test case 3: Empty data should raise ValueError.
-    """
-    # Act & Assert
-    with pytest.raises(ValueError, match="data cannot be empty"):
-        encrypt_xor("")
-
-
-def test_encrypt_xor_case_4_type_validation() -> None:
-    """
-    Test case 4: Type validation for parameters.
-    """
-    # Test invalid data type
-    with pytest.raises(TypeError, match="data must be a string"):
-        encrypt_xor(123)
-
-    # Test invalid key type
-    with pytest.raises(TypeError, match="key must be a string or None"):
-        encrypt_xor("data", key=123)
-
-
-def test_encrypt_xor_case_5_empty_key_raises_error() -> None:
-    """
-    Test case 5: Empty key should raise ValueError.
-    """
-    # Act & Assert
-    with pytest.raises(ValueError, match="key cannot be empty"):
-        encrypt_xor("data", key="")
-
-
 def test_encrypt_xor_case_6_different_keys_different_results() -> None:
     """
-    Test case 6: Different keys should produce different encrypted results.
+    Test case 3: Different keys should produce different encrypted results.
     """
     # Arrange
     data = "Same data"
@@ -90,7 +59,7 @@ def test_encrypt_xor_case_6_different_keys_different_results() -> None:
 
 def test_encrypt_xor_case_7_random_key_generation() -> None:
     """
-    Test case 7: Random key generation produces different keys.
+    Test case 4: Random key generation produces different keys.
     """
     # Arrange
     data = "Test data"
@@ -107,7 +76,7 @@ def test_encrypt_xor_case_7_random_key_generation() -> None:
 
 def test_encrypt_xor_case_8_unicode_data() -> None:
     """
-    Test case 8: Handle Unicode characters in data.
+    Test case 5: Handle Unicode characters in data.
     """
     # Arrange
     data = "Hello 世界! 🌍 ümläuts"
@@ -124,7 +93,7 @@ def test_encrypt_xor_case_8_unicode_data() -> None:
 
 def test_encrypt_xor_case_9_long_data() -> None:
     """
-    Test case 9: Encrypt long data string.
+    Test case 6: Encrypt long data string.
     """
     # Arrange
     data = (
@@ -147,7 +116,7 @@ def test_encrypt_xor_case_9_long_data() -> None:
 
 def test_encrypt_xor_case_10_key_length_adaptation() -> None:
     """
-    Test case 10: Verify key length adaptation based on data size.
+    Test case 7: Verify key length adaptation based on data size.
     """
     # Arrange
     short_data = "Hi"
@@ -166,7 +135,7 @@ def test_encrypt_xor_case_10_key_length_adaptation() -> None:
 
 def test_encrypt_xor_case_11_deterministic_with_same_key() -> None:
     """
-    Test case 11: Same data and key should produce same encrypted result.
+    Test case 8: Same data and key should produce same encrypted result.
     """
     # Arrange
     data = "Consistent data"
@@ -182,7 +151,7 @@ def test_encrypt_xor_case_11_deterministic_with_same_key() -> None:
 
 def test_encrypt_xor_case_12_special_characters() -> None:
     """
-    Test case 12: Handle special characters and symbols.
+    Test case 9: Handle special characters and symbols.
     """
     # Arrange
     data = "!@#$%^&*()_+-=[]{}|;':\",./<>?`~"
@@ -196,3 +165,32 @@ def test_encrypt_xor_case_12_special_characters() -> None:
     assert returned_key == key
     assert len(encrypted) > 0
     assert all(c in "0123456789abcdef" for c in encrypted)
+def test_encrypt_xor_case_3_empty_data_raises_error() -> None:
+    """
+    Test case 10: Empty data should raise ValueError.
+    """
+    # Act & Assert
+    with pytest.raises(ValueError, match="data cannot be empty"):
+        encrypt_xor("")
+
+
+def test_encrypt_xor_case_4_type_validation() -> None:
+    """
+    Test case 11: Type validation for parameters.
+    """
+    # Test invalid data type
+    with pytest.raises(TypeError, match="data must be a string"):
+        encrypt_xor(123)
+
+    # Test invalid key type
+    with pytest.raises(TypeError, match="key must be a string or None"):
+        encrypt_xor("data", key=123)
+
+
+def test_encrypt_xor_case_5_empty_key_raises_error() -> None:
+    """
+    Test case 12: Empty key should raise ValueError.
+    """
+    # Act & Assert
+    with pytest.raises(ValueError, match="key cannot be empty"):
+        encrypt_xor("data", key="")

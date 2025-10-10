@@ -115,57 +115,9 @@ def test_find_files_by_size_case_5_recursive_search() -> None:
         assert "file2.txt" in file_names
 
 
-def test_find_files_by_size_case_6_invalid_directory_error() -> None:
-    """
-    Test case 6: ValueError for non-existent directory.
-    """
-    # Arrange
-    non_existent_dir = "/path/that/does/not/exist"
-
-    # Act & Assert
-    with pytest.raises(ValueError, match="Directory does not exist"):
-        find_files_by_size(non_existent_dir)
-
-
-def test_find_files_by_size_case_7_invalid_type_errors() -> None:
-    """
-    Test case 7: TypeError for invalid parameter types.
-    """
-    # Test invalid directory type
-    with pytest.raises(TypeError, match="directory must be a string or Path"):
-        find_files_by_size(123)
-
-    # Test invalid min_size type
-    with pytest.raises(TypeError, match="min_size must be an integer"):
-        find_files_by_size("/tmp", min_size="not_int")
-
-    # Test invalid max_size type
-    with pytest.raises(TypeError, match="max_size must be an integer or None"):
-        find_files_by_size("/tmp", max_size="not_int")
-
-
-def test_find_files_by_size_case_8_invalid_size_values() -> None:
-    """
-    Test case 8: ValueError for invalid size values.
-    """
-    # Arrange
-    with tempfile.TemporaryDirectory() as temp_dir:
-        # Test negative min_size
-        with pytest.raises(ValueError, match="min_size must be non-negative"):
-            find_files_by_size(temp_dir, min_size=-1)
-
-        # Test negative max_size
-        with pytest.raises(ValueError, match="max_size must be non-negative"):
-            find_files_by_size(temp_dir, max_size=-1)
-
-        # Test max_size < min_size
-        with pytest.raises(ValueError, match="max_size .* must be >= min_size"):
-            find_files_by_size(temp_dir, min_size=100, max_size=50)
-
-
 def test_find_files_by_size_case_9_path_object_input() -> None:
     """
-    Test case 9: Function works with Path object input.
+    Test case 6: Function works with Path object input.
     """
     # Arrange
     with tempfile.TemporaryDirectory() as temp_dir:
@@ -184,7 +136,7 @@ def test_find_files_by_size_case_9_path_object_input() -> None:
 
 def test_find_files_by_size_case_10_file_access_error_handling() -> None:
     """
-    Test case 10: Graceful handling of file access errors.
+    Test case 7: Graceful handling of file access errors.
     """
     # Arrange
     with tempfile.TemporaryDirectory() as temp_dir:
@@ -206,3 +158,49 @@ def test_find_files_by_size_case_10_file_access_error_handling() -> None:
 
             # Assert - should skip the problematic file
             assert result == []
+def test_find_files_by_size_case_6_invalid_directory_error() -> None:
+    """
+    Test case 8: ValueError for non-existent directory.
+    """
+    # Arrange
+    non_existent_dir = "/path/that/does/not/exist"
+
+    # Act & Assert
+    with pytest.raises(ValueError, match="Directory does not exist"):
+        find_files_by_size(non_existent_dir)
+
+
+def test_find_files_by_size_case_7_invalid_type_errors() -> None:
+    """
+    Test case 9: TypeError for invalid parameter types.
+    """
+    # Test invalid directory type
+    with pytest.raises(TypeError, match="directory must be a string or Path"):
+        find_files_by_size(123)
+
+    # Test invalid min_size type
+    with pytest.raises(TypeError, match="min_size must be an integer"):
+        find_files_by_size("/tmp", min_size="not_int")
+
+    # Test invalid max_size type
+    with pytest.raises(TypeError, match="max_size must be an integer or None"):
+        find_files_by_size("/tmp", max_size="not_int")
+
+
+def test_find_files_by_size_case_8_invalid_size_values() -> None:
+    """
+    Test case 10: ValueError for invalid size values.
+    """
+    # Arrange
+    with tempfile.TemporaryDirectory() as temp_dir:
+        # Test negative min_size
+        with pytest.raises(ValueError, match="min_size must be non-negative"):
+            find_files_by_size(temp_dir, min_size=-1)
+
+        # Test negative max_size
+        with pytest.raises(ValueError, match="max_size must be non-negative"):
+            find_files_by_size(temp_dir, max_size=-1)
+
+        # Test max_size < min_size
+        with pytest.raises(ValueError, match="max_size .* must be >= min_size"):
+            find_files_by_size(temp_dir, min_size=100, max_size=50)

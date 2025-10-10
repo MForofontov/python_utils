@@ -53,30 +53,9 @@ async def test_async_retry_with_backoff_succeeds_after_retries() -> None:
 
 
 @pytest.mark.asyncio
-async def test_async_retry_with_backoff_fails_all_retries() -> None:
-    """
-    Test case 3: Function fails on all retry attempts.
-    """
-    # Arrange
-    call_count = []
-
-    async def always_failing_task() -> int:
-        call_count.append(1)
-        raise ValueError("Permanent failure")
-
-    # Act & Assert
-    with pytest.raises(ValueError, match="Permanent failure"):
-        await async_retry_with_backoff(
-            always_failing_task, retries=3, initial_delay=0.01, backoff_factor=2
-        )
-
-    assert len(call_count) == 3
-
-
-@pytest.mark.asyncio
 async def test_async_retry_with_backoff_zero_retries() -> None:
     """
-    Test case 4: Zero retries means single attempt.
+    Test case 3: Zero retries means single attempt.
     """
     # Arrange
     call_count = []
@@ -96,9 +75,54 @@ async def test_async_retry_with_backoff_zero_retries() -> None:
 
 
 @pytest.mark.asyncio
+async def test_async_retry_with_backoff_different_exceptions() -> None:
+    """
+    Test case 4: Different exception types are handled.
+    """
+    # Arrange
+    call_count = []
+
+    async def task_with_different_errors() -> str:
+        call_count.append(1)
+        if len(call_count) == 1:
+            raise ValueError("First error")
+        elif len(call_count) == 2:
+            raise RuntimeError("Second error")
+        return "recovered"
+
+    # Act
+    result = await async_retry_with_backoff(
+        task_with_different_errors, retries=5, initial_delay=0.01, backoff_factor=2
+    )
+
+    # Assert
+    assert result == "recovered"
+    assert len(call_count) == 3
+@pytest.mark.asyncio
+async def test_async_retry_with_backoff_fails_all_retries() -> None:
+    """
+    Test case 5: Function fails on all retry attempts.
+    """
+    # Arrange
+    call_count = []
+
+    async def always_failing_task() -> int:
+        call_count.append(1)
+        raise ValueError("Permanent failure")
+
+    # Act & Assert
+    with pytest.raises(ValueError, match="Permanent failure"):
+        await async_retry_with_backoff(
+            always_failing_task, retries=3, initial_delay=0.01, backoff_factor=2
+        )
+
+    assert len(call_count) == 3
+
+
+@pytest.mark.asyncio
 async def test_async_retry_with_backoff_exponential_backoff() -> None:
     """
-    Test case 5: Verify exponential backoff delays are applied.
+    Test case 6: Verify exponential backoff delays are applied.
     """
     # Arrange
     call_times = []
@@ -124,29 +148,3 @@ async def test_async_retry_with_backoff_exponential_backoff() -> None:
         # Second delay should be ~0.1 (0.05 * 2)
         delay2 = call_times[2] - call_times[1]
         assert 0.08 <= delay2 <= 0.12
-
-
-@pytest.mark.asyncio
-async def test_async_retry_with_backoff_different_exceptions() -> None:
-    """
-    Test case 6: Different exception types are handled.
-    """
-    # Arrange
-    call_count = []
-
-    async def task_with_different_errors() -> str:
-        call_count.append(1)
-        if len(call_count) == 1:
-            raise ValueError("First error")
-        elif len(call_count) == 2:
-            raise RuntimeError("Second error")
-        return "recovered"
-
-    # Act
-    result = await async_retry_with_backoff(
-        task_with_different_errors, retries=5, initial_delay=0.01, backoff_factor=2
-    )
-
-    # Assert
-    assert result == "recovered"
-    assert len(call_count) == 3

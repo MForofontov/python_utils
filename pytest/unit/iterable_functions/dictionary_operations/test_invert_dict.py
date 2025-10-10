@@ -34,22 +34,9 @@ def test_invert_dict_allow_duplicates() -> None:
     assert result == expected_output
 
 
-def test_invert_dict_duplicates_not_allowed_error() -> None:
-    """
-    Test case 3: ValueError for duplicate values when not allowed.
-    """
-    # Arrange
-    input_data: dict[str, Any] = {"a": 1, "b": 1}
-    expected_message: str = "Duplicate values found: \\[1\\]"
-
-    # Act & Assert
-    with pytest.raises(ValueError, match=expected_message):
-        invert_dict(input_data, allow_duplicates=False)
-
-
 def test_invert_dict_empty_dictionary() -> None:
     """
-    Test case 4: Edge case with empty dictionary.
+    Test case 3: Edge case with empty dictionary.
     """
     # Arrange
     input_data: dict[str, Any] = {}
@@ -64,7 +51,7 @@ def test_invert_dict_empty_dictionary() -> None:
 
 def test_invert_dict_mixed_value_types() -> None:
     """
-    Test case 5: Normal operation with mixed value types.
+    Test case 4: Normal operation with mixed value types.
     """
     # Arrange
     input_data: dict[str, Any] = {"a": 1, "b": "hello", "c": (1, 2)}
@@ -77,22 +64,9 @@ def test_invert_dict_mixed_value_types() -> None:
     assert result == expected_output
 
 
-def test_invert_dict_invalid_type_error() -> None:
-    """
-    Test case 6: TypeError for invalid input type.
-    """
-    # Arrange
-    invalid_input: str = "not a dict"
-    expected_message: str = "d must be a dictionary, got str"
-
-    # Act & Assert
-    with pytest.raises(TypeError, match=expected_message):
-        invert_dict(invalid_input)
-
-
 def test_invert_dict_multiple_duplicates() -> None:
     """
-    Test case 7: Normal operation with multiple duplicates.
+    Test case 5: Normal operation with multiple duplicates.
     """
     # Arrange
     input_data: dict[str, Any] = {"a": 1, "b": 1, "c": 2, "d": 1}
@@ -107,7 +81,7 @@ def test_invert_dict_multiple_duplicates() -> None:
 
 def test_invert_dict_single_item() -> None:
     """
-    Test case 8: Edge case with single item dictionary.
+    Test case 6: Edge case with single item dictionary.
     """
     # Arrange
     input_data: dict[str, Any] = {"a": 1}
@@ -122,7 +96,7 @@ def test_invert_dict_single_item() -> None:
 
 def test_invert_dict_no_modification_original() -> None:
     """
-    Test case 9: Verify original dictionary is not modified.
+    Test case 7: Verify original dictionary is not modified.
     """
     # Arrange
     input_data: dict[str, Any] = {"a": 1, "b": 2}
@@ -137,7 +111,7 @@ def test_invert_dict_no_modification_original() -> None:
 
 def test_invert_dict_no_duplicates_with_allow_true() -> None:
     """
-    Test case 10: Normal operation with no duplicates but allow_duplicates=True.
+    Test case 8: Normal operation with no duplicates but allow_duplicates=True.
     """
     # Arrange
     input_data: dict[str, Any] = {"a": 1, "b": 2}
@@ -148,3 +122,27 @@ def test_invert_dict_no_duplicates_with_allow_true() -> None:
 
     # Assert
     assert result == expected_output
+def test_invert_dict_duplicates_not_allowed_error() -> None:
+    """
+    Test case 9: ValueError for duplicate values when not allowed.
+    """
+    # Arrange
+    input_data: dict[str, Any] = {"a": 1, "b": 1}
+    expected_message: str = "Duplicate values found: \\[1\\]"
+
+    # Act & Assert
+    with pytest.raises(ValueError, match=expected_message):
+        invert_dict(input_data, allow_duplicates=False)
+
+
+def test_invert_dict_invalid_type_error() -> None:
+    """
+    Test case 10: TypeError for invalid input type.
+    """
+    # Arrange
+    invalid_input: str = "not a dict"
+    expected_message: str = "d must be a dictionary, got str"
+
+    # Act & Assert
+    with pytest.raises(TypeError, match=expected_message):
+        invert_dict(invalid_input)

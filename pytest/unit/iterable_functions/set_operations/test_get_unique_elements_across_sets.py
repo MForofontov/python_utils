@@ -76,25 +76,9 @@ def test_get_unique_elements_across_sets_mixed_types() -> None:
     assert set(result) == set(expected)
 
 
-def test_get_unique_elements_across_sets_type_error() -> None:
-    """
-    Test case 7: TypeError for non-set arguments.
-    """
-    with pytest.raises(TypeError, match="All arguments must be sets"):
-        get_unique_elements_across_sets({1, 2}, "not a set")
-
-
-def test_get_unique_elements_across_sets_value_error() -> None:
-    """
-    Test case 8: ValueError for fewer than 2 sets.
-    """
-    with pytest.raises(ValueError, match="At least 2 sets must be provided"):
-        get_unique_elements_across_sets({1, 2})
-
-
 def test_set_symmetric_difference_two_sets() -> None:
     """
-    Test case 9: Symmetric difference of two sets.
+    Test case 7: Symmetric difference of two sets.
     """
     set1 = {1, 2, 3}
     set2 = {2, 3, 4}
@@ -105,7 +89,7 @@ def test_set_symmetric_difference_two_sets() -> None:
 
 def test_set_symmetric_difference_three_sets() -> None:
     """
-    Test case 10: Symmetric difference of three sets.
+    Test case 8: Symmetric difference of three sets.
     """
     set1 = {1, 2, 3}
     set2 = {2, 3, 4}
@@ -117,7 +101,7 @@ def test_set_symmetric_difference_three_sets() -> None:
 
 def test_set_symmetric_difference_identical_sets() -> None:
     """
-    Test case 11: Symmetric difference of identical sets.
+    Test case 9: Symmetric difference of identical sets.
     """
     set1 = {1, 2, 3}
     set2 = {1, 2, 3}
@@ -129,12 +113,28 @@ def test_set_symmetric_difference_identical_sets() -> None:
 
 def test_set_symmetric_difference_empty_sets() -> None:
     """
-    Test case 12: Symmetric difference including empty sets.
+    Test case 10: Symmetric difference including empty sets.
     """
     set1 = {1, 2, 3}
     set2 = set()
     result = set_symmetric_difference(set1, set2)
     assert result == {1, 2, 3}
+
+
+def test_get_unique_elements_across_sets_type_error() -> None:
+    """
+    Test case 11: TypeError for non-set arguments.
+    """
+    with pytest.raises(TypeError, match="All arguments must be sets"):
+        get_unique_elements_across_sets({1, 2}, "not a set")
+
+
+def test_get_unique_elements_across_sets_value_error() -> None:
+    """
+    Test case 12: ValueError for fewer than 2 sets.
+    """
+    with pytest.raises(ValueError, match="At least 2 sets must be provided"):
+        get_unique_elements_across_sets({1, 2})
 
 
 def test_set_symmetric_difference_type_error() -> None:

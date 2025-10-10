@@ -66,9 +66,19 @@ def test_serialize_output_with_var_args():
     )
 
 
+def test_serialize_invalid_logger():
+    """
+    Test case 5: Invalid logger
+    """
+
+    @serialize_output("json", logger="invalid_logger")
+    def invalid_logger_function() -> None:
+        pass
+
+
 def test_serialize_output_with_logger(caplog):
     """
-    Test case 5: Logger functionality when an error occurs
+    Test case 6: Logger functionality when an error occurs
     """
     logger = logging.getLogger("serialize_output_logger")
     logger.setLevel(logging.ERROR)
@@ -81,16 +91,6 @@ def test_serialize_output_with_logger(caplog):
         with pytest.raises(ValueError):
             error_function()
         assert "Error serializing output in error_function: Sample error" in caplog.text
-
-
-def test_serialize_invalid_logger():
-    """
-    Test case 6: Invalid logger
-    """
-
-    @serialize_output("json", logger="invalid_logger")
-    def invalid_logger_function() -> None:
-        pass
 
 
 def test_invalid_format_type():

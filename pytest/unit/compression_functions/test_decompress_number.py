@@ -68,35 +68,9 @@ def test_decompress_number_multi_character() -> None:
     assert isinstance(result, int)
 
 
-def test_decompress_number_type_error_non_string_text() -> None:
-    """
-    Test case 5: TypeError when text is not a string.
-    """
-    # Arrange
-    invalid_text = 123
-    index = 0
-
-    # Act & Assert
-    with pytest.raises(TypeError, match="text must be a string"):
-        decompress_number(invalid_text, index)  # type: ignore
-
-
-def test_decompress_number_type_error_non_integer_index() -> None:
-    """
-    Test case 6: TypeError when index is not an integer.
-    """
-    # Arrange
-    text = "?"
-    invalid_index = "0"
-
-    # Act & Assert
-    with pytest.raises(TypeError, match="index must be an integer"):
-        decompress_number(text, invalid_index)  # type: ignore
-
-
 def test_decompress_number_start_at_different_index() -> None:
     """
-    Test case 7: Start decompressing from a different index.
+    Test case 5: Start decompressing from a different index.
     """
     # Arrange
     text = "??A"
@@ -112,7 +86,7 @@ def test_decompress_number_start_at_different_index() -> None:
 
 def test_decompress_number_complex_encoding() -> None:
     """
-    Test case 8: Decompress complex encoded number.
+    Test case 6: Decompress complex encoded number.
     """
     # Arrange
     text = "_ibE"
@@ -124,3 +98,27 @@ def test_decompress_number_complex_encoding() -> None:
     # Assert
     assert new_index <= len(text)
     assert isinstance(result, int)
+def test_decompress_number_type_error_non_string_text() -> None:
+    """
+    Test case 7: TypeError when text is not a string.
+    """
+    # Arrange
+    invalid_text = 123
+    index = 0
+
+    # Act & Assert
+    with pytest.raises(TypeError, match="text must be a string"):
+        decompress_number(invalid_text, index)  # type: ignore
+
+
+def test_decompress_number_type_error_non_integer_index() -> None:
+    """
+    Test case 8: TypeError when index is not an integer.
+    """
+    # Arrange
+    text = "?"
+    invalid_index = "0"
+
+    # Act & Assert
+    with pytest.raises(TypeError, match="index must be an integer"):
+        decompress_number(text, invalid_index)  # type: ignore

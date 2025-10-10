@@ -125,9 +125,17 @@ def test_custom_value_type() -> None:
     assert hash_table.get(2).value == 200
 
 
+def test_in_operator() -> None:
+    """
+    Test case 10: Test using the ``in`` operator with :class:`HashTable`.
+    """
+    hash_table = HashTable[int, str]()
+    hash_table.insert(1, "one")
+    assert (1 in hash_table) is True
+    assert (2 in hash_table) is False
 def test_empty_hash_table() -> None:
     """
-    Test case 10: Test operations on an empty hash table.
+    Test case 11: Test operations on an empty hash table.
     """
     hash_table = HashTable[int, str]()
     assert not hash_table.contains(1)
@@ -137,7 +145,7 @@ def test_empty_hash_table() -> None:
 
 def test_get_nonexistent_key() -> None:
     """
-    Test case 11: Test retrieving a value for a nonexistent key.
+    Test case 12: Test retrieving a value for a nonexistent key.
     """
     hash_table = HashTable[int, str]()
     with pytest.raises(KeyError, match="Key 1 not found in the hash table"):
@@ -146,18 +154,8 @@ def test_get_nonexistent_key() -> None:
 
 def test_remove_nonexistent_key() -> None:
     """
-    Test case 12: Test removing a nonexistent key.
+    Test case 13: Test removing a nonexistent key.
     """
     hash_table = HashTable[int, str]()
     with pytest.raises(KeyError, match="Key 1 not found in the hash table"):
         hash_table.remove(1)
-
-
-def test_in_operator() -> None:
-    """
-    Test case 13: Test using the ``in`` operator with :class:`HashTable`.
-    """
-    hash_table = HashTable[int, str]()
-    hash_table.insert(1, "one")
-    assert (1 in hash_table) is True
-    assert (2 in hash_table) is False

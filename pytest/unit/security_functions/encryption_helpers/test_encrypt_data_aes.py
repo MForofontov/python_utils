@@ -64,48 +64,9 @@ def test_encrypt_data_aes_case_3_string_data_custom_key() -> None:
     assert len(encrypted) > 0
 
 
-def test_encrypt_data_aes_case_4_type_validation() -> None:
-    """
-    Test case 4: Type validation for parameters.
-    """
-    # Test invalid data type
-    with pytest.raises(TypeError, match="data must be str or bytes"):
-        encrypt_data_aes(123)
-
-    # Test invalid key type
-    with pytest.raises(TypeError, match="key must be str, bytes, or None"):
-        encrypt_data_aes("data", key=123)
-
-
-def test_encrypt_data_aes_case_5_value_validation() -> None:
-    """
-    Test case 5: Value validation for parameters.
-    """
-    # Test empty string data
-    with pytest.raises(ValueError, match="data cannot be empty"):
-        encrypt_data_aes("")
-
-    # Test empty bytes data
-    with pytest.raises(ValueError, match="data cannot be empty"):
-        encrypt_data_aes(b"")
-
-
-def test_encrypt_data_aes_case_6_invalid_key_format() -> None:
-    """
-    Test case 6: Invalid key format should raise ValueError.
-    """
-    # Test invalid key format
-    with pytest.raises(ValueError, match="invalid key format"):
-        encrypt_data_aes("data", key="invalid_key")
-
-    # Test key with wrong length
-    with pytest.raises(ValueError, match="key must be 32 bytes when decoded"):
-        encrypt_data_aes("data", key=base64.urlsafe_b64encode(b"short").decode("utf-8"))
-
-
 def test_encrypt_data_aes_case_7_unicode_data() -> None:
     """
-    Test case 7: Handle Unicode characters in data.
+    Test case 4: Handle Unicode characters in data.
     """
     # Arrange
     data = "Hello 世界! 🌍 ümläuts"
@@ -121,7 +82,7 @@ def test_encrypt_data_aes_case_7_unicode_data() -> None:
 
 def test_encrypt_data_aes_case_8_long_data() -> None:
     """
-    Test case 8: Encrypt long data string.
+    Test case 5: Encrypt long data string.
     """
     # Arrange
     data = "This is a very long message that spans multiple lines. " * 100
@@ -137,7 +98,7 @@ def test_encrypt_data_aes_case_8_long_data() -> None:
 
 def test_encrypt_data_aes_case_9_different_data_different_results() -> None:
     """
-    Test case 9: Different data should produce different encrypted results.
+    Test case 6: Different data should produce different encrypted results.
     """
     # Arrange
     data1 = "Message 1"
@@ -156,7 +117,7 @@ def test_encrypt_data_aes_case_9_different_data_different_results() -> None:
 
 def test_encrypt_data_aes_case_10_same_data_different_keys() -> None:
     """
-    Test case 10: Same data with different keys should produce different results.
+    Test case 7: Same data with different keys should produce different results.
     """
     # Arrange
     data = "Same data"
@@ -175,7 +136,7 @@ def test_encrypt_data_aes_case_10_same_data_different_keys() -> None:
 
 def test_encrypt_data_aes_case_11_bytes_key_handling() -> None:
     """
-    Test case 11: Handle bytes key input.
+    Test case 8: Handle bytes key input.
     """
     # Arrange
     data = "Test message"
@@ -194,7 +155,7 @@ def test_encrypt_data_aes_case_11_bytes_key_handling() -> None:
 
 def test_encrypt_data_aes_case_12_special_characters() -> None:
     """
-    Test case 12: Handle special characters and symbols.
+    Test case 9: Handle special characters and symbols.
     """
     # Arrange
     data = "!@#$%^&*()_+-=[]{}|;':\",./<>?`~"
@@ -206,3 +167,40 @@ def test_encrypt_data_aes_case_12_special_characters() -> None:
     assert isinstance(encrypted, str)
     assert isinstance(key, str)
     assert len(encrypted) > 0
+def test_encrypt_data_aes_case_4_type_validation() -> None:
+    """
+    Test case 10: Type validation for parameters.
+    """
+    # Test invalid data type
+    with pytest.raises(TypeError, match="data must be str or bytes"):
+        encrypt_data_aes(123)
+
+    # Test invalid key type
+    with pytest.raises(TypeError, match="key must be str, bytes, or None"):
+        encrypt_data_aes("data", key=123)
+
+
+def test_encrypt_data_aes_case_5_value_validation() -> None:
+    """
+    Test case 11: Value validation for parameters.
+    """
+    # Test empty string data
+    with pytest.raises(ValueError, match="data cannot be empty"):
+        encrypt_data_aes("")
+
+    # Test empty bytes data
+    with pytest.raises(ValueError, match="data cannot be empty"):
+        encrypt_data_aes(b"")
+
+
+def test_encrypt_data_aes_case_6_invalid_key_format() -> None:
+    """
+    Test case 12: Invalid key format should raise ValueError.
+    """
+    # Test invalid key format
+    with pytest.raises(ValueError, match="invalid key format"):
+        encrypt_data_aes("data", key="invalid_key")
+
+    # Test key with wrong length
+    with pytest.raises(ValueError, match="key must be 32 bytes when decoded"):
+        encrypt_data_aes("data", key=base64.urlsafe_b64encode(b"short").decode("utf-8"))

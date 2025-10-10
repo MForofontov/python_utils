@@ -123,9 +123,25 @@ def test_create_temp_file_case_7_path_object_directory() -> None:
             assert Path(temp_path).exists()
 
 
+def test_create_temp_file_case_10_cleanup_error_handling() -> None:
+    """
+    Test case 8: Graceful handling of cleanup errors.
+    """
+    temp_path_holder = []
+
+    # Act
+    with create_temp_file() as temp_path:
+        temp_path_holder.append(temp_path)
+        assert Path(temp_path).exists()
+
+        # Manually delete the file to simulate cleanup error
+        Path(temp_path).unlink()
+
+    # Assert - should not raise error even if file was already deleted
+    assert not Path(temp_path_holder[0]).exists()
 def test_create_temp_file_case_8_invalid_type_errors() -> None:
     """
-    Test case 8: TypeError for invalid parameter types.
+    Test case 9: TypeError for invalid parameter types.
     """
     # Test invalid suffix type
     with pytest.raises(TypeError, match="suffix must be a string"):
@@ -155,7 +171,7 @@ def test_create_temp_file_case_8_invalid_type_errors() -> None:
 
 def test_create_temp_file_case_9_file_creation_error() -> None:
     """
-    Test case 9: OSError handling during file creation.
+    Test case 10: OSError handling during file creation.
     """
     # Mock NamedTemporaryFile to raise OSError
     with patch("tempfile.NamedTemporaryFile", side_effect=OSError("Disk full")):
@@ -163,21 +179,3 @@ def test_create_temp_file_case_9_file_creation_error() -> None:
         with pytest.raises(OSError, match="Error creating temporary file"):
             with create_temp_file():
                 pass
-
-
-def test_create_temp_file_case_10_cleanup_error_handling() -> None:
-    """
-    Test case 10: Graceful handling of cleanup errors.
-    """
-    temp_path_holder = []
-
-    # Act
-    with create_temp_file() as temp_path:
-        temp_path_holder.append(temp_path)
-        assert Path(temp_path).exists()
-
-        # Manually delete the file to simulate cleanup error
-        Path(temp_path).unlink()
-
-    # Assert - should not raise error even if file was already deleted
-    assert not Path(temp_path_holder[0]).exists()

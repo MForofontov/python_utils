@@ -42,19 +42,18 @@ def test_get_end_of_month_december() -> None:
     result = get_end_of_month(dt)
     assert result == datetime(2023, 12, 31, 15, 45)
 
+def test_get_end_of_month_first_day() -> None:
+    """
+    Test case 6: get_end_of_month returns last day for a date on the first of the month.
+    """
+    dt = datetime(2023, 5, 1, 6, 0)
+    result = get_end_of_month(dt)
+    assert result == datetime(2023, 5, 31, 6, 0)
 def test_get_end_of_month_type_error() -> None:
     """
-    Test case 6: get_end_of_month raises TypeError for invalid input types.
+    Test case 7: get_end_of_month raises TypeError for invalid input types.
     """
     with pytest.raises(TypeError, match="date_obj must be a datetime"):
         get_end_of_month("2023-02-15")
     with pytest.raises(TypeError, match="date_obj must be a datetime"):
         get_end_of_month(123)
-
-def test_get_end_of_month_first_day() -> None:
-    """
-    Test case 7: get_end_of_month returns last day for a date on the first of the month.
-    """
-    dt = datetime(2023, 5, 1, 6, 0)
-    result = get_end_of_month(dt)
-    assert result == datetime(2023, 5, 31, 6, 0)

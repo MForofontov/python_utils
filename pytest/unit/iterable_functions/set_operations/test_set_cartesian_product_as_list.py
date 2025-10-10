@@ -81,33 +81,9 @@ def test_set_cartesian_product_as_list_mixed_types() -> None:
     assert result == sorted(result)
 
 
-def test_set_cartesian_product_as_list_no_sets() -> None:
-    """
-    Test case 7: ValueError when no sets provided.
-    """
-    with pytest.raises(ValueError, match="At least one set must be provided"):
-        set_cartesian_product_as_list()
-
-
-def test_set_cartesian_product_as_list_type_error() -> None:
-    """
-    Test case 8: TypeError for non-set arguments.
-    """
-    with pytest.raises(TypeError, match="All arguments must be sets"):
-        set_cartesian_product_as_list({1, 2}, "not a set")
-
-
-def test_set_cartesian_product_as_list_type_error_position() -> None:
-    """
-    Test case 9: TypeError with position information.
-    """
-    with pytest.raises(TypeError, match="got list at position 1"):
-        set_cartesian_product_as_list({1, 2}, [3, 4])
-
-
 def test_set_cartesian_product_as_list_large_sets() -> None:
     """
-    Test case 10: Test with larger sets.
+    Test case 7: Test with larger sets.
     """
     set1 = {1, 2, 3}
     set2 = {"a", "b", "c"}
@@ -117,3 +93,25 @@ def test_set_cartesian_product_as_list_large_sets() -> None:
     assert isinstance(result, list)
     # Check that result is sorted
     assert result == sorted(result)
+def test_set_cartesian_product_as_list_no_sets() -> None:
+    """
+    Test case 8: ValueError when no sets provided.
+    """
+    with pytest.raises(ValueError, match="At least one set must be provided"):
+        set_cartesian_product_as_list()
+
+
+def test_set_cartesian_product_as_list_type_error() -> None:
+    """
+    Test case 9: TypeError for non-set arguments.
+    """
+    with pytest.raises(TypeError, match="All arguments must be sets"):
+        set_cartesian_product_as_list({1, 2}, "not a set")
+
+
+def test_set_cartesian_product_as_list_type_error_position() -> None:
+    """
+    Test case 10: TypeError with position information.
+    """
+    with pytest.raises(TypeError, match="got list at position 1"):
+        set_cartesian_product_as_list({1, 2}, [3, 4])

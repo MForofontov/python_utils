@@ -143,9 +143,23 @@ def test_filter_dict_by_keys_no_keys_no_pattern() -> None:
     assert result == expected_output
 
 
+def test_filter_dict_by_keys_no_modification_original() -> None:
+    """
+    Test case 9: Verify original dictionary is not modified.
+    """
+    # Arrange
+    input_data: dict[str, Any] = {"a": 1, "b": 2, "c": 3}
+    original_data: dict[str, Any] = input_data.copy()
+    filter_keys: list[str] = ["a"]
+
+    # Act
+    filter_dict_by_keys(input_data, filter_keys)
+
+    # Assert
+    assert input_data == original_data
 def test_filter_dict_by_keys_invalid_dict_type_error() -> None:
     """
-    Test case 9: TypeError for invalid dictionary input.
+    Test case 10: TypeError for invalid dictionary input.
     """
     # Arrange
     invalid_input: str = "not a dict"
@@ -159,7 +173,7 @@ def test_filter_dict_by_keys_invalid_dict_type_error() -> None:
 
 def test_filter_dict_by_keys_invalid_keys_type_error() -> None:
     """
-    Test case 10: TypeError for invalid keys type.
+    Test case 11: TypeError for invalid keys type.
     """
     # Arrange
     input_data: dict[str, Any] = {"a": 1, "b": 2}
@@ -169,19 +183,3 @@ def test_filter_dict_by_keys_invalid_keys_type_error() -> None:
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         filter_dict_by_keys(input_data, invalid_keys)
-
-
-def test_filter_dict_by_keys_no_modification_original() -> None:
-    """
-    Test case 11: Verify original dictionary is not modified.
-    """
-    # Arrange
-    input_data: dict[str, Any] = {"a": 1, "b": 2, "c": 3}
-    original_data: dict[str, Any] = input_data.copy()
-    filter_keys: list[str] = ["a"]
-
-    # Act
-    filter_dict_by_keys(input_data, filter_keys)
-
-    # Assert
-    assert input_data == original_data

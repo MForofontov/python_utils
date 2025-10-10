@@ -139,20 +139,9 @@ def test_handle_error_with_custom_exception(capfd):
     assert "An error occurred: This is a CustomException" in out
 
 
-def test_handle_invalid_logger():
-    """
-    Test case 9: Invalid logger.
-    """
-    with pytest.raises(TypeError):
-
-        @handle_error("An error occurred", logger="test_logger")
-        def raise_value_error_invalid_logger():
-            raise ValueError("This is a ValueError")
-
-
 def test_handle_error_value_error_with_logging(caplog):
     """
-    Test case 10: Handling ValueError with logging.
+    Test case 9: Handling ValueError with logging.
     """
     with caplog.at_level(logging.ERROR):
         result = raise_value_error_with_logging()
@@ -162,9 +151,18 @@ def test_handle_error_value_error_with_logging(caplog):
 
 def test_handle_error_type_error_with_logging(caplog):
     """
-    Test case 11: Handling TypeError with logging.
+    Test case 10: Handling TypeError with logging.
     """
     with caplog.at_level(logging.ERROR):
         result = raise_type_error_with_logging()
         assert result is None
         assert "An error occurred: This is a TypeError" in caplog.text
+def test_handle_invalid_logger():
+    """
+    Test case 11: Invalid logger.
+    """
+    with pytest.raises(TypeError):
+
+        @handle_error("An error occurred", logger="test_logger")
+        def raise_value_error_invalid_logger():
+            raise ValueError("This is a ValueError")

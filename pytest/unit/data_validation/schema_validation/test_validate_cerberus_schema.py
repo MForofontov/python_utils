@@ -164,9 +164,59 @@ def test_validate_cerberus_schema_case_8_without_normalization() -> None:
     assert "count" not in result  # Default not applied without normalization
 
 
+def test_validate_cerberus_schema_case_17_edge_cases() -> None:
+    """
+    Test case 9: Edge cases and boundary conditions.
+    """
+    # Test empty schema
+    result = validate_cerberus_schema({}, {})
+    assert result == {}
+
+    # Test empty data with optional schema
+    schema = {"name": {"type": "string", "default": "Anonymous"}}
+    result = validate_cerberus_schema({}, schema, normalize=True)
+    assert result["name"] == "Anonymous"
+
+    # Test boundary values
+    schema = {"score": {"type": "integer", "min": 0, "max": 100}}
+
+    # Test minimum boundary
+    result = validate_cerberus_schema({"score": 0}, schema)
+    assert result["score"] == 0
+
+    # Test maximum boundary
+    result = validate_cerberus_schema({"score": 100}, schema)
+    assert result["score"] == 100
+
+
+def test_validate_cerberus_schema_case_19_performance_large_data() -> None:
+    """
+    Test case 10: Performance with large data structures.
+    """
+    schema = {
+        "items": {
+            "type": "list",
+            "schema": {
+                "type": "dict",
+                "schema": {"id": {"type": "integer"}, "name": {"type": "string"}},
+            },
+        }
+    }
+
+    # Create large dataset
+    large_data = {"items": [{"id": i, "name": f"item_{i}"} for i in range(1000)]}
+
+    import time
+
+    start_time = time.time()
+    result = validate_cerberus_schema(large_data, schema)
+    elapsed_time = time.time() - start_time
+
+    assert len(result["items"]) == 1000
+    assert elapsed_time < 2.0  # Should complete within 2 seconds
 def test_validate_cerberus_schema_case_9_type_error_invalid_data() -> None:
     """
-    Test case 9: TypeError for invalid data type.
+    Test case 11: TypeError for invalid data type.
     """
     schema = {"name": {"type": "string"}}
 
@@ -183,7 +233,7 @@ def test_validate_cerberus_schema_case_9_type_error_invalid_data() -> None:
 
 def test_validate_cerberus_schema_case_10_type_error_invalid_schema() -> None:
     """
-    Test case 10: TypeError for invalid schema type.
+    Test case 12: TypeError for invalid schema type.
     """
     data = {"name": "Test"}
 
@@ -196,7 +246,7 @@ def test_validate_cerberus_schema_case_10_type_error_invalid_schema() -> None:
 
 def test_validate_cerberus_schema_case_11_type_error_invalid_parameters() -> None:
     """
-    Test case 11: TypeError for invalid parameter types.
+    Test case 13: TypeError for invalid parameter types.
     """
     data = {"name": "Test"}
     schema = {"name": {"type": "string"}}
@@ -213,7 +263,7 @@ def test_validate_cerberus_schema_case_11_type_error_invalid_parameters() -> Non
 
 def test_validate_cerberus_schema_case_12_value_error_missing_required() -> None:
     """
-    Test case 12: ValueError for missing required fields.
+    Test case 14: ValueError for missing required fields.
     """
     schema = {
         "name": {"type": "string", "required": True},
@@ -228,7 +278,7 @@ def test_validate_cerberus_schema_case_12_value_error_missing_required() -> None
 
 def test_validate_cerberus_schema_case_13_value_error_type_mismatch() -> None:
     """
-    Test case 13: ValueError for type mismatches.
+    Test case 15: ValueError for type mismatches.
     """
     schema = {"age": {"type": "integer"}, "active": {"type": "boolean"}}
 
@@ -240,7 +290,7 @@ def test_validate_cerberus_schema_case_13_value_error_type_mismatch() -> None:
 
 def test_validate_cerberus_schema_case_14_value_error_constraint_violations() -> None:
     """
-    Test case 14: ValueError for constraint violations.
+    Test case 16: ValueError for constraint violations.
     """
     schema = {
         "age": {"type": "integer", "min": 0, "max": 150},
@@ -266,7 +316,7 @@ def test_validate_cerberus_schema_case_14_value_error_constraint_violations() ->
 
 def test_validate_cerberus_schema_case_15_value_error_unknown_fields() -> None:
     """
-    Test case 15: ValueError for unknown fields when not allowed.
+    Test case 17: ValueError for unknown fields when not allowed.
     """
     schema = {"name": {"type": "string", "required": True}}
 
@@ -278,7 +328,7 @@ def test_validate_cerberus_schema_case_15_value_error_unknown_fields() -> None:
 
 def test_validate_cerberus_schema_case_16_value_error_nested_validation() -> None:
     """
-    Test case 16: ValueError for nested validation failures.
+    Test case 18: ValueError for nested validation failures.
     """
     schema = {
         "user": {
@@ -301,64 +351,12 @@ def test_validate_cerberus_schema_case_16_value_error_nested_validation() -> Non
         validate_cerberus_schema(data, schema)
 
 
-def test_validate_cerberus_schema_case_17_edge_cases() -> None:
-    """
-    Test case 17: Edge cases and boundary conditions.
-    """
-    # Test empty schema
-    result = validate_cerberus_schema({}, {})
-    assert result == {}
-
-    # Test empty data with optional schema
-    schema = {"name": {"type": "string", "default": "Anonymous"}}
-    result = validate_cerberus_schema({}, schema, normalize=True)
-    assert result["name"] == "Anonymous"
-
-    # Test boundary values
-    schema = {"score": {"type": "integer", "min": 0, "max": 100}}
-
-    # Test minimum boundary
-    result = validate_cerberus_schema({"score": 0}, schema)
-    assert result["score"] == 0
-
-    # Test maximum boundary
-    result = validate_cerberus_schema({"score": 100}, schema)
-    assert result["score"] == 100
-
-
 def test_validate_cerberus_schema_case_18_custom_param_name() -> None:
     """
-    Test case 18: Custom parameter name in error messages.
+    Test case 19: Custom parameter name in error messages.
     """
     schema = {"name": {"type": "string", "required": True}}
     data = {}  # Missing required field
 
     with pytest.raises(ValueError, match="config_data validation failed"):
         validate_cerberus_schema(data, schema, param_name="config_data")
-
-
-def test_validate_cerberus_schema_case_19_performance_large_data() -> None:
-    """
-    Test case 19: Performance with large data structures.
-    """
-    schema = {
-        "items": {
-            "type": "list",
-            "schema": {
-                "type": "dict",
-                "schema": {"id": {"type": "integer"}, "name": {"type": "string"}},
-            },
-        }
-    }
-
-    # Create large dataset
-    large_data = {"items": [{"id": i, "name": f"item_{i}"} for i in range(1000)]}
-
-    import time
-
-    start_time = time.time()
-    result = validate_cerberus_schema(large_data, schema)
-    elapsed_time = time.time() - start_time
-
-    assert len(result["items"]) == 1000
-    assert elapsed_time < 2.0  # Should complete within 2 seconds

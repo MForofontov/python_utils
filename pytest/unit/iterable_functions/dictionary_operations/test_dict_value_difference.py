@@ -111,49 +111,9 @@ def test_dict_value_difference_nested_values() -> None:
     assert result == {"b": {"x": 2}}
 
 
-def test_dict_value_difference_type_error_non_dict_dict1() -> None:
-    """
-    Test case 8: TypeError when dict1 is not a dictionary.
-    """
-    # Arrange
-    invalid_dict1 = "not a dict"
-    dict2 = {"a": 1}
-
-    # Act & Assert
-    with pytest.raises(TypeError, match="dict1 must be a dictionary"):
-        dict_value_difference(invalid_dict1, dict2)  # type: ignore
-
-
-def test_dict_value_difference_type_error_non_dict_dict2() -> None:
-    """
-    Test case 9: TypeError when dict2 is not a dictionary.
-    """
-    # Arrange
-    dict1 = {"a": 1}
-    invalid_dict2 = [1, 2, 3]
-
-    # Act & Assert
-    with pytest.raises(TypeError, match="dict2 must be a dictionary"):
-        dict_value_difference(dict1, invalid_dict2)  # type: ignore
-
-
-def test_dict_value_difference_type_error_non_bool_ignore_missing() -> None:
-    """
-    Test case 10: TypeError when ignore_missing is not a boolean.
-    """
-    # Arrange
-    dict1 = {"a": 1}
-    dict2 = {"b": 2}
-    invalid_ignore = "yes"
-
-    # Act & Assert
-    with pytest.raises(TypeError, match="ignore_missing must be a boolean"):
-        dict_value_difference(dict1, dict2, ignore_missing=invalid_ignore)  # type: ignore
-
-
 def test_dict_value_difference_different_value_types() -> None:
     """
-    Test case 11: Values change types between dictionaries.
+    Test case 8: Values change types between dictionaries.
     """
     # Arrange
     dict1 = {"a": 1, "b": "text", "c": True}
@@ -168,7 +128,7 @@ def test_dict_value_difference_different_value_types() -> None:
 
 def test_dict_value_difference_none_values() -> None:
     """
-    Test case 12: Dictionaries with None values.
+    Test case 9: Dictionaries with None values.
     """
     # Arrange
     dict1 = {"a": 1, "b": None}
@@ -179,3 +139,41 @@ def test_dict_value_difference_none_values() -> None:
 
     # Assert
     assert result == {"a": None}
+def test_dict_value_difference_type_error_non_dict_dict1() -> None:
+    """
+    Test case 10: TypeError when dict1 is not a dictionary.
+    """
+    # Arrange
+    invalid_dict1 = "not a dict"
+    dict2 = {"a": 1}
+
+    # Act & Assert
+    with pytest.raises(TypeError, match="dict1 must be a dictionary"):
+        dict_value_difference(invalid_dict1, dict2)  # type: ignore
+
+
+def test_dict_value_difference_type_error_non_dict_dict2() -> None:
+    """
+    Test case 11: TypeError when dict2 is not a dictionary.
+    """
+    # Arrange
+    dict1 = {"a": 1}
+    invalid_dict2 = [1, 2, 3]
+
+    # Act & Assert
+    with pytest.raises(TypeError, match="dict2 must be a dictionary"):
+        dict_value_difference(dict1, invalid_dict2)  # type: ignore
+
+
+def test_dict_value_difference_type_error_non_bool_ignore_missing() -> None:
+    """
+    Test case 12: TypeError when ignore_missing is not a boolean.
+    """
+    # Arrange
+    dict1 = {"a": 1}
+    dict2 = {"b": 2}
+    invalid_ignore = "yes"
+
+    # Act & Assert
+    with pytest.raises(TypeError, match="ignore_missing must be a boolean"):
+        dict_value_difference(dict1, dict2, ignore_missing=invalid_ignore)  # type: ignore

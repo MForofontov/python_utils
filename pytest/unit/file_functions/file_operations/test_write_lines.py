@@ -64,43 +64,9 @@ def test_write_lines_case_3_append_mode() -> None:
         assert content == "initial\nappended1\nappended2\n"
 
 
-def test_write_lines_case_4_type_validation() -> None:
-    """
-    Test case 4: Type validation for parameters.
-    """
-    # Test invalid lines type
-    with pytest.raises(TypeError, match="lines must be a list"):
-        write_lines("not_a_list", "output.txt")
-
-    # Test invalid file_path type
-    with pytest.raises(TypeError, match="file_path must be a string"):
-        write_lines(["line1"], 123)
-
-    # Test invalid joiner type
-    with pytest.raises(TypeError, match="joiner must be a string"):
-        write_lines(["line1"], "output.txt", joiner=123)
-
-    # Test invalid write_mode type
-    with pytest.raises(TypeError, match="write_mode must be a string"):
-        write_lines(["line1"], "output.txt", write_mode=123)
-
-
-def test_write_lines_case_5_value_validation() -> None:
-    """
-    Test case 5: Value validation for parameters.
-    """
-    # Test empty file_path
-    with pytest.raises(ValueError, match="file_path cannot be empty"):
-        write_lines(["line1"], "")
-
-    # Test invalid write_mode
-    with pytest.raises(ValueError, match="write_mode must be 'w' or 'a'"):
-        write_lines(["line1"], "output.txt", write_mode="invalid")
-
-
 def test_write_lines_case_6_empty_list() -> None:
     """
-    Test case 6: Write empty list of lines.
+    Test case 4: Write empty list of lines.
     """
     # Arrange
     with tempfile.TemporaryDirectory() as tmp_dir:
@@ -118,7 +84,7 @@ def test_write_lines_case_6_empty_list() -> None:
 
 def test_write_lines_case_7_lines_with_non_strings() -> None:
     """
-    Test case 7: Handle non-string items in lines list.
+    Test case 5: Handle non-string items in lines list.
     """
     # Arrange
     with tempfile.TemporaryDirectory() as tmp_dir:
@@ -136,7 +102,7 @@ def test_write_lines_case_7_lines_with_non_strings() -> None:
 
 def test_write_lines_case_8_unicode_content() -> None:
     """
-    Test case 8: Handle Unicode characters in lines.
+    Test case 6: Handle Unicode characters in lines.
     """
     # Arrange
     with tempfile.TemporaryDirectory() as tmp_dir:
@@ -154,7 +120,7 @@ def test_write_lines_case_8_unicode_content() -> None:
 
 def test_write_lines_case_9_overwrite_mode() -> None:
     """
-    Test case 9: Write lines in overwrite mode (default).
+    Test case 7: Write lines in overwrite mode (default).
     """
     # Arrange
     with tempfile.TemporaryDirectory() as tmp_dir:
@@ -177,7 +143,7 @@ def test_write_lines_case_9_overwrite_mode() -> None:
 
 def test_write_lines_case_10_custom_joiner_no_spaces() -> None:
     """
-    Test case 10: Write lines with custom joiner without spaces.
+    Test case 8: Write lines with custom joiner without spaces.
     """
     # Arrange
     with tempfile.TemporaryDirectory() as tmp_dir:
@@ -191,3 +157,35 @@ def test_write_lines_case_10_custom_joiner_no_spaces() -> None:
         with open(output_file) as f:
             content = f.read()
         assert content == "a|b|c|d\n"
+def test_write_lines_case_4_type_validation() -> None:
+    """
+    Test case 9: Type validation for parameters.
+    """
+    # Test invalid lines type
+    with pytest.raises(TypeError, match="lines must be a list"):
+        write_lines("not_a_list", "output.txt")
+
+    # Test invalid file_path type
+    with pytest.raises(TypeError, match="file_path must be a string"):
+        write_lines(["line1"], 123)
+
+    # Test invalid joiner type
+    with pytest.raises(TypeError, match="joiner must be a string"):
+        write_lines(["line1"], "output.txt", joiner=123)
+
+    # Test invalid write_mode type
+    with pytest.raises(TypeError, match="write_mode must be a string"):
+        write_lines(["line1"], "output.txt", write_mode=123)
+
+
+def test_write_lines_case_5_value_validation() -> None:
+    """
+    Test case 10: Value validation for parameters.
+    """
+    # Test empty file_path
+    with pytest.raises(ValueError, match="file_path cannot be empty"):
+        write_lines(["line1"], "")
+
+    # Test invalid write_mode
+    with pytest.raises(ValueError, match="write_mode must be 'w' or 'a'"):
+        write_lines(["line1"], "output.txt", write_mode="invalid")

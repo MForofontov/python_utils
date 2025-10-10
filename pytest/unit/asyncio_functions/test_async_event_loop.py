@@ -69,23 +69,9 @@ def test_async_event_loop_immediate_return() -> None:
     assert result == "immediate"
 
 
-def test_async_event_loop_exception_propagation() -> None:
-    """
-    Test case 5: Exceptions are properly propagated.
-    """
-    # Arrange
-    async def failing_task() -> None:
-        await asyncio.sleep(0.001)
-        raise ValueError("Task failed")
-
-    # Act & Assert
-    with pytest.raises(ValueError, match="Task failed"):
-        async_event_loop(failing_task)
-
-
 def test_async_event_loop_complex_computation() -> None:
     """
-    Test case 6: Complex computation with multiple awaits.
+    Test case 5: Complex computation with multiple awaits.
     """
     # Arrange
     async def complex_task() -> int:
@@ -101,3 +87,15 @@ def test_async_event_loop_complex_computation() -> None:
 
     # Assert
     assert result == 10  # 0+1+2+3+4
+def test_async_event_loop_exception_propagation() -> None:
+    """
+    Test case 6: Exceptions are properly propagated.
+    """
+    # Arrange
+    async def failing_task() -> None:
+        await asyncio.sleep(0.001)
+        raise ValueError("Task failed")
+
+    # Act & Assert
+    with pytest.raises(ValueError, match="Task failed"):
+        async_event_loop(failing_task)

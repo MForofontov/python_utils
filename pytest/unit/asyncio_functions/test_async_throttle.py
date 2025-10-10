@@ -71,24 +71,9 @@ async def test_async_throttle_single_item() -> None:
 
 
 @pytest.mark.asyncio
-async def test_async_throttle_type_error_invalid_delay() -> None:
-    """
-    Test case 4: TypeError for non-numeric delay.
-    """
-    # Arrange
-    async def generate_items() -> AsyncGenerator[int, None]:
-        yield 1
-
-    # Act & Assert
-    with pytest.raises(TypeError, match="delay must be a float"):
-        async for _ in async_throttle(generate_items(), delay="invalid"):  # type: ignore
-            pass
-
-
-@pytest.mark.asyncio
 async def test_async_throttle_different_data_types() -> None:
     """
-    Test case 5: Throttle generators with different data types.
+    Test case 4: Throttle generators with different data types.
     """
     # Arrange
     async def string_generator() -> AsyncGenerator[str, None]:
@@ -108,7 +93,7 @@ async def test_async_throttle_different_data_types() -> None:
 @pytest.mark.asyncio
 async def test_async_throttle_verify_timing() -> None:
     """
-    Test case 6: Verify timing accuracy of throttling.
+    Test case 5: Verify timing accuracy of throttling.
     """
     # Arrange
     async def generate_items() -> AsyncGenerator[int, None]:
@@ -127,3 +112,16 @@ async def test_async_throttle_verify_timing() -> None:
     for i in range(1, len(timestamps)):
         delay = timestamps[i] - timestamps[i - 1]
         assert 0.015 <= delay <= 0.03  # Allow some tolerance
+@pytest.mark.asyncio
+async def test_async_throttle_type_error_invalid_delay() -> None:
+    """
+    Test case 6: TypeError for non-numeric delay.
+    """
+    # Arrange
+    async def generate_items() -> AsyncGenerator[int, None]:
+        yield 1
+
+    # Act & Assert
+    with pytest.raises(TypeError, match="delay must be a float"):
+        async for _ in async_throttle(generate_items(), delay="invalid"):  # type: ignore
+            pass

@@ -80,9 +80,70 @@ def test_generate_secure_token_case_5_with_symbols() -> None:
     assert has_letter or has_digit
 
 
+def test_generate_secure_token_case_8_randomness() -> None:
+    """
+    Test case 6: Generated tokens should be different (randomness).
+    """
+    # Act
+    token1 = generate_secure_token()
+    token2 = generate_secure_token()
+    token3 = generate_secure_token()
+
+    # Assert
+    assert token1 != token2
+    assert token2 != token3
+    assert token1 != token3
+
+
+def test_generate_secure_token_case_9_symbols_only() -> None:
+    """
+    Test case 7: Generate token with symbols only.
+    """
+    # Act
+    token = generate_secure_token(
+        length=20, include_letters=False, include_digits=False, include_symbols=True
+    )
+
+    # Assert
+    assert isinstance(token, str)
+    assert len(token) == 20
+    assert all(c in "!@#$%^&*-_=+[]{}|;:,.<>?" for c in token)
+
+
+def test_generate_secure_token_case_10_boundary_lengths() -> None:
+    """
+    Test case 8: Test boundary values for length.
+    """
+    # Test minimum length
+    token_min = generate_secure_token(length=1)
+    assert len(token_min) == 1
+
+    # Test large length
+    token_large = generate_secure_token(length=1000)
+    assert len(token_large) == 1000
+
+
+def test_generate_secure_token_case_11_all_character_types() -> None:
+    """
+    Test case 9: Generate token with all character types enabled.
+    """
+    # Act
+    token = generate_secure_token(
+        length=100,  # Larger length to increase chance of all types appearing
+        include_letters=True,
+        include_digits=True,
+        include_symbols=True,
+    )
+
+    # Assert
+    assert isinstance(token, str)
+    assert len(token) == 100
+    # Check character set validity
+    valid_chars = string.ascii_letters + string.digits + "!@#$%^&*-_=+[]{}|;:,.<>?"
+    assert all(c in valid_chars for c in token)
 def test_generate_secure_token_case_6_type_validation() -> None:
     """
-    Test case 6: Type validation for all parameters.
+    Test case 10: Type validation for all parameters.
     """
     # Test invalid length type
     with pytest.raises(TypeError, match="length must be an integer"):
@@ -103,7 +164,7 @@ def test_generate_secure_token_case_6_type_validation() -> None:
 
 def test_generate_secure_token_case_7_value_validation() -> None:
     """
-    Test case 7: Value validation for parameters.
+    Test case 11: Value validation for parameters.
     """
     # Test length less than 1
     with pytest.raises(ValueError, match="length must be at least 1"):
@@ -116,66 +177,3 @@ def test_generate_secure_token_case_7_value_validation() -> None:
         generate_secure_token(
             include_letters=False, include_digits=False, include_symbols=False
         )
-
-
-def test_generate_secure_token_case_8_randomness() -> None:
-    """
-    Test case 8: Generated tokens should be different (randomness).
-    """
-    # Act
-    token1 = generate_secure_token()
-    token2 = generate_secure_token()
-    token3 = generate_secure_token()
-
-    # Assert
-    assert token1 != token2
-    assert token2 != token3
-    assert token1 != token3
-
-
-def test_generate_secure_token_case_9_symbols_only() -> None:
-    """
-    Test case 9: Generate token with symbols only.
-    """
-    # Act
-    token = generate_secure_token(
-        length=20, include_letters=False, include_digits=False, include_symbols=True
-    )
-
-    # Assert
-    assert isinstance(token, str)
-    assert len(token) == 20
-    assert all(c in "!@#$%^&*-_=+[]{}|;:,.<>?" for c in token)
-
-
-def test_generate_secure_token_case_10_boundary_lengths() -> None:
-    """
-    Test case 10: Test boundary values for length.
-    """
-    # Test minimum length
-    token_min = generate_secure_token(length=1)
-    assert len(token_min) == 1
-
-    # Test large length
-    token_large = generate_secure_token(length=1000)
-    assert len(token_large) == 1000
-
-
-def test_generate_secure_token_case_11_all_character_types() -> None:
-    """
-    Test case 11: Generate token with all character types enabled.
-    """
-    # Act
-    token = generate_secure_token(
-        length=100,  # Larger length to increase chance of all types appearing
-        include_letters=True,
-        include_digits=True,
-        include_symbols=True,
-    )
-
-    # Assert
-    assert isinstance(token, str)
-    assert len(token) == 100
-    # Check character set validity
-    valid_chars = string.ascii_letters + string.digits + "!@#$%^&*-_=+[]{}|;:,.<>?"
-    assert all(c in valid_chars for c in token)

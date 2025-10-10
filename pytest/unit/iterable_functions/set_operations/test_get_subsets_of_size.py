@@ -91,9 +91,18 @@ def test_get_subsets_of_size_mixed_types() -> None:
     assert all(len(subset) == 2 for subset in result)
 
 
+def test_get_subsets_of_size_boundary_size_1() -> None:
+    """
+    Test case 9: Boundary test with size=1.
+    """
+    input_set = {1, 2, 3}
+    size = 1
+    result = get_subsets_of_size(input_set, size)
+    expected = [[1], [2], [3]]
+    assert result == expected
 def test_get_subsets_of_size_type_error_input_set() -> None:
     """
-    Test case 9: TypeError for invalid input_set type.
+    Test case 10: TypeError for invalid input_set type.
     """
     with pytest.raises(TypeError, match="input_set must be a set"):
         get_subsets_of_size("not a set", 2)
@@ -101,7 +110,7 @@ def test_get_subsets_of_size_type_error_input_set() -> None:
 
 def test_get_subsets_of_size_type_error_size() -> None:
     """
-    Test case 10: TypeError for invalid size type.
+    Test case 11: TypeError for invalid size type.
     """
     input_set = {1, 2, 3}
     with pytest.raises(TypeError, match="size must be an int"):
@@ -110,7 +119,7 @@ def test_get_subsets_of_size_type_error_size() -> None:
 
 def test_get_subsets_of_size_value_error_negative_size() -> None:
     """
-    Test case 11: ValueError for negative size.
+    Test case 12: ValueError for negative size.
     """
     input_set = {1, 2, 3}
     with pytest.raises(ValueError, match="size must be non-negative"):
@@ -119,19 +128,8 @@ def test_get_subsets_of_size_value_error_negative_size() -> None:
 
 def test_get_subsets_of_size_value_error_size_too_large() -> None:
     """
-    Test case 12: ValueError for size larger than set size.
+    Test case 13: ValueError for size larger than set size.
     """
     input_set = {1, 2, 3}
     with pytest.raises(ValueError, match="size cannot be larger than set size 3"):
         get_subsets_of_size(input_set, 4)
-
-
-def test_get_subsets_of_size_boundary_size_1() -> None:
-    """
-    Test case 13: Boundary test with size=1.
-    """
-    input_set = {1, 2, 3}
-    size = 1
-    result = get_subsets_of_size(input_set, size)
-    expected = [[1], [2], [3]]
-    assert result == expected

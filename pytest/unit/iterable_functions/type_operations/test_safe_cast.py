@@ -193,18 +193,9 @@ def test_safe_cast_string_with_decimal_to_int() -> None:
     assert isinstance(result, int)
 
 
-def test_safe_cast_type_error_non_type() -> None:
-    """
-    Test case 17: TypeError when target_type is not a type.
-    """
-    # Act & Assert
-    with pytest.raises(TypeError, match="target_type must be a type"):
-        safe_cast("123", "not a type")  # type: ignore
-
-
 def test_is_numeric_with_int() -> None:
     """
-    Test case 18: is_numeric returns True for integers.
+    Test case 17: is_numeric returns True for integers.
     """
     # Act
     result = is_numeric(42)
@@ -215,7 +206,7 @@ def test_is_numeric_with_int() -> None:
 
 def test_is_numeric_with_float() -> None:
     """
-    Test case 19: is_numeric returns True for floats.
+    Test case 18: is_numeric returns True for floats.
     """
     # Act
     result = is_numeric(3.14)
@@ -226,7 +217,7 @@ def test_is_numeric_with_float() -> None:
 
 def test_is_numeric_with_complex() -> None:
     """
-    Test case 20: is_numeric returns True for complex numbers.
+    Test case 19: is_numeric returns True for complex numbers.
     """
     # Act
     result = is_numeric(1 + 2j)
@@ -237,7 +228,7 @@ def test_is_numeric_with_complex() -> None:
 
 def test_is_numeric_with_string() -> None:
     """
-    Test case 21: is_numeric returns False for strings.
+    Test case 20: is_numeric returns False for strings.
     """
     # Act
     result = is_numeric("123")
@@ -248,7 +239,7 @@ def test_is_numeric_with_string() -> None:
 
 def test_is_numeric_with_none() -> None:
     """
-    Test case 22: is_numeric returns False for None.
+    Test case 21: is_numeric returns False for None.
     """
     # Act
     result = is_numeric(None)
@@ -259,7 +250,7 @@ def test_is_numeric_with_none() -> None:
 
 def test_is_numeric_with_bool() -> None:
     """
-    Test case 23: is_numeric returns False for booleans.
+    Test case 22: is_numeric returns False for booleans.
     """
     # Act
     result = is_numeric(True)
@@ -270,7 +261,7 @@ def test_is_numeric_with_bool() -> None:
 
 def test_safe_cast_empty_string_to_int() -> None:
     """
-    Test case 24: Empty string to int with default.
+    Test case 23: Empty string to int with default.
     """
     # Act
     result = safe_cast("", int, 0)
@@ -281,7 +272,7 @@ def test_safe_cast_empty_string_to_int() -> None:
 
 def test_safe_cast_preserves_original_on_failure() -> None:
     """
-    Test case 25: Failed cast without default preserves original value.
+    Test case 24: Failed cast without default preserves original value.
     """
     # Arrange
     original = {"key": "value"}
@@ -292,3 +283,10 @@ def test_safe_cast_preserves_original_on_failure() -> None:
     # Assert
     assert result == original
     assert result is original
+def test_safe_cast_type_error_non_type() -> None:
+    """
+    Test case 25: TypeError when target_type is not a type.
+    """
+    # Act & Assert
+    with pytest.raises(TypeError, match="target_type must be a type"):
+        safe_cast("123", "not a type")  # type: ignore

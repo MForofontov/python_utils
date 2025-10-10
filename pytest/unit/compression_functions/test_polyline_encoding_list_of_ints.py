@@ -66,21 +66,9 @@ def test_polyline_encoding_list_of_ints_mixed_values() -> None:
     assert len(result) > 0
 
 
-def test_polyline_encoding_list_of_ints_empty_list_error() -> None:
-    """
-    Test case 5: ValueError when input list is empty.
-    """
-    # Arrange
-    empty_list: list[int] = []
-
-    # Act & Assert
-    with pytest.raises(ValueError, match="Input list cannot be empty"):
-        polyline_encoding_list_of_ints(empty_list)
-
-
 def test_polyline_encoding_list_of_ints_large_values() -> None:
     """
-    Test case 6: Encode list with large values.
+    Test case 5: Encode list with large values.
     """
     # Arrange
     list_of_ints = [1000, 2000, 3000]
@@ -95,7 +83,7 @@ def test_polyline_encoding_list_of_ints_large_values() -> None:
 
 def test_polyline_encoding_list_of_ints_sequential_values() -> None:
     """
-    Test case 7: Encode sequential values.
+    Test case 6: Encode sequential values.
     """
     # Arrange
     list_of_ints = list(range(0, 10))
@@ -110,7 +98,7 @@ def test_polyline_encoding_list_of_ints_sequential_values() -> None:
 
 def test_polyline_encoding_list_of_ints_zero_values() -> None:
     """
-    Test case 8: Encode list with zeros.
+    Test case 7: Encode list with zeros.
     """
     # Arrange
     list_of_ints = [0, 0, 0]
@@ -121,3 +109,13 @@ def test_polyline_encoding_list_of_ints_zero_values() -> None:
     # Assert
     assert isinstance(result, str)
     assert len(result) > 0
+def test_polyline_encoding_list_of_ints_empty_list_error() -> None:
+    """
+    Test case 8: ValueError when input list is empty.
+    """
+    # Arrange
+    empty_list: list[int] = []
+
+    # Act & Assert
+    with pytest.raises(ValueError, match="Input list cannot be empty"):
+        polyline_encoding_list_of_ints(empty_list)

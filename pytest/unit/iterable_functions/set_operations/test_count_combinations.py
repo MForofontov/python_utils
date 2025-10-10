@@ -79,9 +79,19 @@ def test_count_combinations_large_set() -> None:
     assert result == expected
 
 
+def test_count_combinations_boundary_values() -> None:
+    """
+    Test case 8: Test boundary values.
+    """
+    # Test C(4,1) = 4
+    assert count_combinations({1, 2, 3, 4}, 1) == 4
+    # Test C(4,4) = 1
+    assert count_combinations({1, 2, 3, 4}, 4) == 1
+    # Test C(4,0) = 1
+    assert count_combinations({1, 2, 3, 4}, 0) == 1
 def test_count_combinations_type_error_input_set() -> None:
     """
-    Test case 8: TypeError for invalid input_set type.
+    Test case 9: TypeError for invalid input_set type.
     """
     with pytest.raises(TypeError, match="input_set must be a set"):
         count_combinations("not a set", 2)
@@ -89,7 +99,7 @@ def test_count_combinations_type_error_input_set() -> None:
 
 def test_count_combinations_type_error_r() -> None:
     """
-    Test case 9: TypeError for invalid r type.
+    Test case 10: TypeError for invalid r type.
     """
     input_set = {1, 2, 3}
     with pytest.raises(TypeError, match="r must be an int"):
@@ -98,7 +108,7 @@ def test_count_combinations_type_error_r() -> None:
 
 def test_count_combinations_value_error_negative_r() -> None:
     """
-    Test case 10: ValueError for negative r.
+    Test case 11: ValueError for negative r.
     """
     input_set = {1, 2, 3}
     with pytest.raises(ValueError, match="r must be non-negative"):
@@ -107,20 +117,8 @@ def test_count_combinations_value_error_negative_r() -> None:
 
 def test_count_combinations_value_error_r_too_large() -> None:
     """
-    Test case 11: ValueError for r larger than set size.
+    Test case 12: ValueError for r larger than set size.
     """
     input_set = {1, 2, 3}
     with pytest.raises(ValueError, match="r cannot be larger than set size 3"):
         count_combinations(input_set, 4)
-
-
-def test_count_combinations_boundary_values() -> None:
-    """
-    Test case 12: Test boundary values.
-    """
-    # Test C(4,1) = 4
-    assert count_combinations({1, 2, 3, 4}, 1) == 4
-    # Test C(4,4) = 1
-    assert count_combinations({1, 2, 3, 4}, 4) == 1
-    # Test C(4,0) = 1
-    assert count_combinations({1, 2, 3, 4}, 0) == 1

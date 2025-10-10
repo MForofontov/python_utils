@@ -32,28 +32,9 @@ async def test_gather_with_timeout_all_complete_before_timeout() -> None:
 
 
 @pytest.mark.asyncio
-async def test_gather_with_timeout_timeout_reached() -> None:
-    """
-    Test case 2: Timeout is reached before tasks complete.
-    """
-    # Arrange
-    async def slow_task() -> int:
-        await asyncio.sleep(1.0)
-        return 1
-
-    async def fast_task() -> int:
-        await asyncio.sleep(0.01)
-        return 2
-
-    # Act & Assert
-    with pytest.raises(asyncio.TimeoutError):
-        await gather_with_timeout([slow_task(), fast_task()], timeout=0.05)
-
-
-@pytest.mark.asyncio
 async def test_gather_with_timeout_empty_list() -> None:
     """
-    Test case 3: Empty list of awaitables.
+    Test case 2: Empty list of awaitables.
     """
     # Arrange
     awaitables: list[asyncio.Future[int]] = []
@@ -68,7 +49,7 @@ async def test_gather_with_timeout_empty_list() -> None:
 @pytest.mark.asyncio
 async def test_gather_with_timeout_single_awaitable() -> None:
     """
-    Test case 4: Single awaitable completes successfully.
+    Test case 3: Single awaitable completes successfully.
     """
     # Arrange
     async def single_task() -> str:
@@ -83,24 +64,9 @@ async def test_gather_with_timeout_single_awaitable() -> None:
 
 
 @pytest.mark.asyncio
-async def test_gather_with_timeout_very_short_timeout() -> None:
-    """
-    Test case 5: Very short timeout causes timeout error.
-    """
-    # Arrange
-    async def task() -> int:
-        await asyncio.sleep(0.1)
-        return 42
-
-    # Act & Assert
-    with pytest.raises(asyncio.TimeoutError):
-        await gather_with_timeout([task()], timeout=0.001)
-
-
-@pytest.mark.asyncio
 async def test_gather_with_timeout_mixed_completion_times() -> None:
     """
-    Test case 6: Mixed task completion times, all within timeout.
+    Test case 4: Mixed task completion times, all within timeout.
     """
     # Arrange
     async def instant_task() -> int:
@@ -121,3 +87,35 @@ async def test_gather_with_timeout_mixed_completion_times() -> None:
 
     # Assert
     assert results == [1, 2, 3]
+@pytest.mark.asyncio
+async def test_gather_with_timeout_timeout_reached() -> None:
+    """
+    Test case 5: Timeout is reached before tasks complete.
+    """
+    # Arrange
+    async def slow_task() -> int:
+        await asyncio.sleep(1.0)
+        return 1
+
+    async def fast_task() -> int:
+        await asyncio.sleep(0.01)
+        return 2
+
+    # Act & Assert
+    with pytest.raises(asyncio.TimeoutError):
+        await gather_with_timeout([slow_task(), fast_task()], timeout=0.05)
+
+
+@pytest.mark.asyncio
+async def test_gather_with_timeout_very_short_timeout() -> None:
+    """
+    Test case 6: Very short timeout causes timeout error.
+    """
+    # Arrange
+    async def task() -> int:
+        await asyncio.sleep(0.1)
+        return 42
+
+    # Act & Assert
+    with pytest.raises(asyncio.TimeoutError):
+        await gather_with_timeout([task()], timeout=0.001)

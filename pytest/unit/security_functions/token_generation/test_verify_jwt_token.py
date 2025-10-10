@@ -26,9 +26,72 @@ def test_verify_jwt_token_case_1_valid_token() -> None:
     assert "exp" in decoded_payload
 
 
+def test_verify_jwt_token_case_11_complex_payload() -> None:
+    """
+    Test case 2: Verify token with complex payload structure.
+    """
+    # Arrange
+    payload = {
+        "user_id": 456,
+        "roles": ["admin", "user"],
+        "permissions": {"read": True, "write": False},
+        "metadata": {"login_count": 5},
+    }
+    secret = "complex_secret"
+    token = generate_jwt_token(payload, secret)
+
+    # Act
+    decoded_payload = verify_jwt_token(token, secret)
+
+    # Assert
+    assert decoded_payload["user_id"] == 456
+    assert decoded_payload["roles"] == ["admin", "user"]
+    assert decoded_payload["permissions"]["read"] is True
+    assert decoded_payload["metadata"]["login_count"] == 5
+
+
+def test_verify_jwt_token_case_12_token_without_expiration() -> None:
+    """
+    Test case 3: Token without expiration should verify successfully.
+    """
+    # Create token without exp claim manually
+    header = {"alg": "HS256", "typ": "JWT"}
+    payload = {
+        "test": "data",
+        "iat": int(datetime.now(timezone.utc).timestamp()),
+        # No exp claim
+    }
+
+    def encode_part(data):
+        json_str = json.dumps(data, separators=(",", ":"))
+        encoded = base64.urlsafe_b64encode(json_str.encode("utf-8"))
+        return encoded.decode("utf-8").rstrip("=")
+
+    encoded_header = encode_part(header)
+    encoded_payload = encode_part(payload)
+
+    # Create proper signature
+    import hashlib
+    import hmac
+
+    message = f"{encoded_header}.{encoded_payload}"
+    secret = "test_secret"
+    signature = hmac.new(
+        secret.encode("utf-8"), message.encode("utf-8"), hashlib.sha256
+    ).digest()
+    encoded_signature = base64.urlsafe_b64encode(signature).decode("utf-8").rstrip("=")
+
+    token_no_exp = f"{encoded_header}.{encoded_payload}.{encoded_signature}"
+
+    # Act
+    decoded_payload = verify_jwt_token(token_no_exp, secret)
+
+    # Assert
+    assert decoded_payload["test"] == "data"
+    assert "exp" not in decoded_payload
 def test_verify_jwt_token_case_2_wrong_secret() -> None:
     """
-    Test case 2: Wrong secret should raise ValueError.
+    Test case 4: Wrong secret should raise ValueError.
     """
     # Arrange
     payload = {"user_id": 123}
@@ -43,7 +106,7 @@ def test_verify_jwt_token_case_2_wrong_secret() -> None:
 
 def test_verify_jwt_token_case_3_malformed_token() -> None:
     """
-    Test case 3: Malformed token should raise ValueError.
+    Test case 5: Malformed token should raise ValueError.
     """
     # Test token with wrong number of parts
     with pytest.raises(ValueError, match="invalid JWT format"):
@@ -60,7 +123,7 @@ def test_verify_jwt_token_case_3_malformed_token() -> None:
 
 def test_verify_jwt_token_case_4_type_validation() -> None:
     """
-    Test case 4: Type validation for all parameters.
+    Test case 6: Type validation for all parameters.
     """
     token = generate_jwt_token({"test": "data"}, "secret")
 
@@ -75,7 +138,7 @@ def test_verify_jwt_token_case_4_type_validation() -> None:
 
 def test_verify_jwt_token_case_5_value_validation() -> None:
     """
-    Test case 5: Value validation for parameters.
+    Test case 7: Value validation for parameters.
     """
     # Test empty token
     with pytest.raises(ValueError, match="token cannot be empty"):
@@ -89,7 +152,7 @@ def test_verify_jwt_token_case_5_value_validation() -> None:
 
 def test_verify_jwt_token_case_6_invalid_base64() -> None:
     """
-    Test case 6: Invalid base64 encoding should raise ValueError.
+    Test case 8: Invalid base64 encoding should raise ValueError.
     """
     # Create token with invalid base64
     invalid_token = "invalid_base64.invalid_base64.invalid_base64"
@@ -101,7 +164,7 @@ def test_verify_jwt_token_case_6_invalid_base64() -> None:
 
 def test_verify_jwt_token_case_7_invalid_json() -> None:
     """
-    Test case 7: Invalid JSON in token should raise ValueError.
+    Test case 9: Invalid JSON in token should raise ValueError.
     """
     # Create token with invalid JSON (but valid base64)
     invalid_json = base64.urlsafe_b64encode(b"not_json").decode("utf-8").rstrip("=")
@@ -114,7 +177,7 @@ def test_verify_jwt_token_case_7_invalid_json() -> None:
 
 def test_verify_jwt_token_case_8_unsupported_algorithm() -> None:
     """
-    Test case 8: Unsupported algorithm should raise ValueError.
+    Test case 10: Unsupported algorithm should raise ValueError.
     """
     # Create token with different algorithm manually
     header = {"alg": "RS256", "typ": "JWT"}  # Different algorithm
@@ -138,7 +201,7 @@ def test_verify_jwt_token_case_8_unsupported_algorithm() -> None:
 
 def test_verify_jwt_token_case_9_expired_token() -> None:
     """
-    Test case 9: Expired token should raise ValueError.
+    Test case 11: Expired token should raise ValueError.
     """
     # Create an expired token manually
     header = {"alg": "HS256", "typ": "JWT"}
@@ -177,7 +240,7 @@ def test_verify_jwt_token_case_9_expired_token() -> None:
 
 def test_verify_jwt_token_case_10_invalid_expiration_format() -> None:
     """
-    Test case 10: Invalid expiration time format should raise ValueError.
+    Test case 12: Invalid expiration time format should raise ValueError.
     """
     # Create token with invalid exp format manually
     header = {"alg": "HS256", "typ": "JWT"}
@@ -207,68 +270,3 @@ def test_verify_jwt_token_case_10_invalid_expiration_format() -> None:
     # Act & Assert
     with pytest.raises(ValueError, match="invalid expiration time format"):
         verify_jwt_token(invalid_token, secret)
-
-
-def test_verify_jwt_token_case_11_complex_payload() -> None:
-    """
-    Test case 11: Verify token with complex payload structure.
-    """
-    # Arrange
-    payload = {
-        "user_id": 456,
-        "roles": ["admin", "user"],
-        "permissions": {"read": True, "write": False},
-        "metadata": {"login_count": 5},
-    }
-    secret = "complex_secret"
-    token = generate_jwt_token(payload, secret)
-
-    # Act
-    decoded_payload = verify_jwt_token(token, secret)
-
-    # Assert
-    assert decoded_payload["user_id"] == 456
-    assert decoded_payload["roles"] == ["admin", "user"]
-    assert decoded_payload["permissions"]["read"] is True
-    assert decoded_payload["metadata"]["login_count"] == 5
-
-
-def test_verify_jwt_token_case_12_token_without_expiration() -> None:
-    """
-    Test case 12: Token without expiration should verify successfully.
-    """
-    # Create token without exp claim manually
-    header = {"alg": "HS256", "typ": "JWT"}
-    payload = {
-        "test": "data",
-        "iat": int(datetime.now(timezone.utc).timestamp()),
-        # No exp claim
-    }
-
-    def encode_part(data):
-        json_str = json.dumps(data, separators=(",", ":"))
-        encoded = base64.urlsafe_b64encode(json_str.encode("utf-8"))
-        return encoded.decode("utf-8").rstrip("=")
-
-    encoded_header = encode_part(header)
-    encoded_payload = encode_part(payload)
-
-    # Create proper signature
-    import hashlib
-    import hmac
-
-    message = f"{encoded_header}.{encoded_payload}"
-    secret = "test_secret"
-    signature = hmac.new(
-        secret.encode("utf-8"), message.encode("utf-8"), hashlib.sha256
-    ).digest()
-    encoded_signature = base64.urlsafe_b64encode(signature).decode("utf-8").rstrip("=")
-
-    token_no_exp = f"{encoded_header}.{encoded_payload}.{encoded_signature}"
-
-    # Act
-    decoded_payload = verify_jwt_token(token_no_exp, secret)
-
-    # Assert
-    assert decoded_payload["test"] == "data"
-    assert "exp" not in decoded_payload
