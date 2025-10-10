@@ -23,7 +23,7 @@ def test_compress_tar_basic_file_compression(tmp_path) -> None:
 
     # Extract the tar file to verify
     with tarfile.open(output_tar, "r:gz") as tar:
-        tar.extractall(path=tmp_path)
+        tar.extractall(path=tmp_path, filter="data")
 
     extracted_file = tmp_path / "input.txt"
     with open(extracted_file, "rb") as f:
@@ -48,7 +48,7 @@ def test_compress_tar_empty_directory_compression(tmp_path) -> None:
 
     # Extract the tar file to verify
     with tarfile.open(output_tar, "r:gz") as tar:
-        tar.extractall(path=tmp_path)
+        tar.extractall(path=tmp_path, filter="data")
 
     extracted_dir = tmp_path / "empty_dir"
     assert extracted_dir.exists() and extracted_dir.is_dir(), (
@@ -80,7 +80,7 @@ def test_compress_tar_directory_with_files_compression(tmp_path) -> None:
 
     # Extract the tar file to verify
     with tarfile.open(output_tar, "r:gz") as tar:
-        tar.extractall(path=tmp_path)
+        tar.extractall(path=tmp_path, filter="data")
 
     extracted_file1 = tmp_path / "dir_with_files" / "file1.txt"
     extracted_file2 = tmp_path / "dir_with_files" / "file2.txt"
