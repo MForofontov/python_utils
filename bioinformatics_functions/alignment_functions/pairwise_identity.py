@@ -44,11 +44,11 @@ def pairwise_identity(seq1: str, seq2: str, aligned: bool = False) -> float:
     When aligned=True:
     - Gaps ('-') in either sequence are not counted in the comparison
     - Only positions where both sequences have non-gap characters are compared
-    
+
     When aligned=False:
     - Sequences must be of equal length
     - Simple character-by-character comparison
-    
+
     Complexity
     ----------
     Time: O(n), Space: O(1) where n is sequence length
@@ -60,40 +60,44 @@ def pairwise_identity(seq1: str, seq2: str, aligned: bool = False) -> float:
         raise TypeError(f"seq2 must be a string, got {type(seq2).__name__}")
     if not isinstance(aligned, bool):
         raise TypeError(f"aligned must be a boolean, got {type(aligned).__name__}")
-    
+
     if len(seq1) == 0:
         raise ValueError("seq1 cannot be empty")
     if len(seq2) == 0:
         raise ValueError("seq2 cannot be empty")
-    
+
     if not aligned and len(seq1) != len(seq2):
-        raise ValueError(f"Sequences must have equal length when aligned=False, got {len(seq1)} and {len(seq2)}")
-    
+        raise ValueError(
+            f"Sequences must have equal length when aligned=False, got {len(seq1)} and {len(seq2)}"
+        )
+
     if aligned:
         # For aligned sequences, count only non-gap positions
         if len(seq1) != len(seq2):
-            raise ValueError(f"Aligned sequences must have equal length, got {len(seq1)} and {len(seq2)}")
-        
+            raise ValueError(
+                f"Aligned sequences must have equal length, got {len(seq1)} and {len(seq2)}"
+            )
+
         matches = 0
         compared_positions = 0
-        
+
         for i in range(len(seq1)):
             # Skip positions where either sequence has a gap
-            if seq1[i] != '-' and seq2[i] != '-':
+            if seq1[i] != "-" and seq2[i] != "-":
                 compared_positions += 1
                 if seq1[i] == seq2[i]:
                     matches += 1
-        
+
         if compared_positions == 0:
             return 0.0
-        
+
         identity = (matches / compared_positions) * 100.0
     else:
         # For unaligned sequences, simple character comparison
         matches = sum(1 for i in range(len(seq1)) if seq1[i] == seq2[i])
         identity = (matches / len(seq1)) * 100.0
-    
+
     return round(identity, 2)
 
 
-__all__ = ['pairwise_identity']
+__all__ = ["pairwise_identity"]

@@ -64,9 +64,7 @@ def compress_file_bz2(input_file: str, output_file: str) -> None:
         raise
     except (PermissionError, OSError) as exc:
         # Wrap all other I/O related errors in a generic OSError message.
-        raise OSError(
-            f"An I/O error occurred during compression: {exc}"
-        ) from exc
+        raise OSError(f"An I/O error occurred during compression: {exc}") from exc
 
 
 __all__ = ["compress_file_bz2"]

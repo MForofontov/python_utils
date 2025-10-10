@@ -1,9 +1,9 @@
 """Unit tests for async_throttle function."""
+
 import asyncio
 from collections.abc import AsyncGenerator
 
 import pytest
-
 from asyncio_functions.async_throttle import async_throttle
 
 
@@ -12,6 +12,7 @@ async def test_async_throttle_normal_throttling() -> None:
     """
     Test case 1: Normal throttling with delay between items.
     """
+
     # Arrange
     async def generate_items() -> AsyncGenerator[int, None]:
         for i in range(3):
@@ -36,6 +37,7 @@ async def test_async_throttle_empty_generator() -> None:
     """
     Test case 2: Empty generator yields nothing.
     """
+
     # Arrange
     async def empty_generator() -> AsyncGenerator[int, None]:
         return
@@ -56,6 +58,7 @@ async def test_async_throttle_single_item() -> None:
     """
     Test case 3: Single item generator.
     """
+
     # Arrange
     async def single_item_generator() -> AsyncGenerator[str, None]:
         yield "only_one"
@@ -75,6 +78,7 @@ async def test_async_throttle_different_data_types() -> None:
     """
     Test case 4: Throttle generators with different data types.
     """
+
     # Arrange
     async def string_generator() -> AsyncGenerator[str, None]:
         for s in ["a", "b", "c"]:
@@ -95,6 +99,7 @@ async def test_async_throttle_verify_timing() -> None:
     """
     Test case 5: Verify timing accuracy of throttling.
     """
+
     # Arrange
     async def generate_items() -> AsyncGenerator[int, None]:
         for i in range(4):
@@ -112,11 +117,14 @@ async def test_async_throttle_verify_timing() -> None:
     for i in range(1, len(timestamps)):
         delay = timestamps[i] - timestamps[i - 1]
         assert 0.015 <= delay <= 0.03  # Allow some tolerance
+
+
 @pytest.mark.asyncio
 async def test_async_throttle_type_error_invalid_delay() -> None:
     """
     Test case 6: TypeError for non-numeric delay.
     """
+
     # Arrange
     async def generate_items() -> AsyncGenerator[int, None]:
         yield 1

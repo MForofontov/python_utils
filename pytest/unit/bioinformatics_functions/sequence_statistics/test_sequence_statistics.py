@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.sequence_statistics.sequence_statistics import sequence_statistics
+from bioinformatics_functions.sequence_statistics.sequence_statistics import (
+    sequence_statistics,
+)
 
 
 def test_sequence_statistics_basic() -> None:

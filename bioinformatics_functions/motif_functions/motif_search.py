@@ -1,6 +1,6 @@
-from typing import List
 
-def motif_search(seq: str, motif: str) -> List[int]:
+
+def motif_search(seq: str, motif: str) -> list[int]:
     """
     Find all positions of a motif (pattern) in a sequence, supporting ambiguous bases.
 
@@ -31,10 +31,21 @@ def motif_search(seq: str, motif: str) -> List[int]:
     [0, 3, 6]
     """
     iupac = {
-        'A': {'A'}, 'C': {'C'}, 'G': {'G'}, 'T': {'T'},
-        'R': {'A', 'G'}, 'Y': {'C', 'T'}, 'S': {'G', 'C'}, 'W': {'A', 'T'},
-        'K': {'G', 'T'}, 'M': {'A', 'C'}, 'B': {'C', 'G', 'T'}, 'D': {'A', 'G', 'T'},
-        'H': {'A', 'C', 'T'}, 'V': {'A', 'C', 'G'}, 'N': {'A', 'C', 'G', 'T'}
+        "A": {"A"},
+        "C": {"C"},
+        "G": {"G"},
+        "T": {"T"},
+        "R": {"A", "G"},
+        "Y": {"C", "T"},
+        "S": {"G", "C"},
+        "W": {"A", "T"},
+        "K": {"G", "T"},
+        "M": {"A", "C"},
+        "B": {"C", "G", "T"},
+        "D": {"A", "G", "T"},
+        "H": {"A", "C", "T"},
+        "V": {"A", "C", "G"},
+        "N": {"A", "C", "G", "T"},
     }
     if not isinstance(seq, str) or not isinstance(motif, str):
         raise TypeError("seq and motif must be strings")
@@ -46,8 +57,9 @@ def motif_search(seq: str, motif: str) -> List[int]:
         raise ValueError("motif contains invalid IUPAC codes")
     positions = []
     for i in range(len(seq) - len(motif) + 1):
-        if all(seq[i+j] in iupac[motif[j]] for j in range(len(motif))):
+        if all(seq[i + j] in iupac[motif[j]] for j in range(len(motif))):
             positions.append(i)
     return positions
+
 
 __all__ = ["motif_search"]

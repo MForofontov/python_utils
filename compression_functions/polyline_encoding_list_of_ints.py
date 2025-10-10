@@ -1,4 +1,6 @@
-def polyline_encoding_list_of_ints(list_of_ints: list[int]) -> str:
+def polyline_encoding_list_of_ints(
+    list_of_ints: list[int], precision: int = 0
+) -> str:
     """
     Encode a list of integers using polyline encoding.
 
@@ -6,6 +8,8 @@ def polyline_encoding_list_of_ints(list_of_ints: list[int]) -> str:
     ----------
     list_of_ints : list[int]
         List of integers to be encoded.
+    precision : int, optional
+        Number of decimal places for precision encoding (default: 0).
 
     Returns
     -------
@@ -15,17 +19,20 @@ def polyline_encoding_list_of_ints(list_of_ints: list[int]) -> str:
     Raises
     ------
     ValueError
-        If the input list is empty.
+        If the input list is empty or precision is negative.
 
     Examples
     --------
     >>> polyline_encoding_list_of_ints([1, 2])
-    'AAA'
+    '?AA'
     """
     if not list_of_ints:
         raise ValueError("Input list cannot be empty.")
+    if precision < 0:
+        raise ValueError("Precision must be non-negative.")
 
-    encoded_text: str = ""
+    # Start with precision encoded as first character
+    encoded_text: str = chr(precision + 63)
     last_number: int = 0
 
     for number in list_of_ints:

@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.alignment_functions.levenshtein_distance import levenshtein_distance
+from bioinformatics_functions.alignment_functions.levenshtein_distance import (
+    levenshtein_distance,
+)
 
 
 def test_levenshtein_distance_identical() -> None:

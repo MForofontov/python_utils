@@ -143,6 +143,8 @@ def test_decrypt_xor_case_12_case_sensitive_hex() -> None:
     # Assert
     assert decrypted_lower == original_data
     assert decrypted_upper == original_data
+
+
 def test_decrypt_xor_case_3_type_validation() -> None:
     """
     Test case 9: Type validation for parameters.

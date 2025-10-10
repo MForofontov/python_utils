@@ -1,7 +1,8 @@
-from typing import Dict
+
 from .fasta_parser import parse_fasta
 
-def fasta_to_dict(fasta_str: str) -> Dict[str, str]:
+
+def fasta_to_dict(fasta_str: str) -> dict[str, str]:
     """
     Convert FASTA string to a dictionary {header: sequence}.
 
@@ -31,5 +32,6 @@ def fasta_to_dict(fasta_str: str) -> Dict[str, str]:
             raise ValueError(f"Duplicate header found: {header}")
         result[header] = seq
     return result
+
 
 __all__ = ["fasta_to_dict"]

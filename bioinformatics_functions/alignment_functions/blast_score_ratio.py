@@ -1,4 +1,4 @@
-from typing import Sequence
+
 
 def blast_score_ratio(reference_score: float, target_score: float) -> float:
     """
@@ -31,11 +31,16 @@ def blast_score_ratio(reference_score: float, target_score: float) -> float:
     1.0
     """
     if not isinstance(reference_score, (int, float)):
-        raise TypeError(f"reference_score must be a number, got {type(reference_score).__name__}")
+        raise TypeError(
+            f"reference_score must be a number, got {type(reference_score).__name__}"
+        )
     if not isinstance(target_score, (int, float)):
-        raise TypeError(f"target_score must be a number, got {type(target_score).__name__}")
+        raise TypeError(
+            f"target_score must be a number, got {type(target_score).__name__}"
+        )
     if reference_score <= 0:
         raise ValueError("reference_score must be positive and non-zero")
     return target_score / reference_score
+
 
 __all__ = ["blast_score_ratio"]

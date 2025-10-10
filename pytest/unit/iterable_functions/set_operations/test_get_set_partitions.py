@@ -97,6 +97,8 @@ def test_get_set_partitions_no_duplicates() -> None:
         partition_hash = frozenset(frozenset(s) for s in partition)
         assert partition_hash not in unique_check
         unique_check.add(partition_hash)
+
+
 def test_get_set_partitions_empty_set() -> None:
     """
     Test case 7: Partition empty set.

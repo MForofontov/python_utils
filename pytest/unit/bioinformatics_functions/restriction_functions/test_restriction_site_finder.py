@@ -12,10 +12,10 @@ def test_restriction_site_finder_single_site() -> None:
     seq = "ATGCGAATTCATGC"
     sites = ["GAATTC"]  # EcoRI recognition site
     expected = {"GAATTC": [4]}
-    
+
     # Act
     result = restriction_site_finder(seq, sites)
-    
+
     # Assert
     assert result == expected
 
@@ -28,10 +28,10 @@ def test_restriction_site_finder_multiple_occurrences() -> None:
     seq = "GAATTCATGAATTC"
     sites = ["GAATTC"]
     expected = {"GAATTC": [0, 8]}
-    
+
     # Act
     result = restriction_site_finder(seq, sites)
-    
+
     # Assert
     assert result == expected
 
@@ -44,10 +44,10 @@ def test_restriction_site_finder_multiple_sites() -> None:
     seq = "GAATTCATGCGGATCCATGC"
     sites = ["GAATTC", "GGATCC"]  # EcoRI and BamHI
     expected = {"GAATTC": [0], "GGATCC": [10]}
-    
+
     # Act
     result = restriction_site_finder(seq, sites)
-    
+
     # Assert
     assert result == expected
 
@@ -60,10 +60,10 @@ def test_restriction_site_finder_no_matches() -> None:
     seq = "ATGCATGCATGC"
     sites = ["GAATTC"]
     expected: dict[str, list[int]] = {"GAATTC": []}
-    
+
     # Act
     result = restriction_site_finder(seq, sites)
-    
+
     # Assert
     assert result == expected
 
@@ -76,10 +76,10 @@ def test_restriction_site_finder_overlapping_sites() -> None:
     seq = "GAATTC"
     sites = ["GAATTC", "AATTC"]
     expected = {"GAATTC": [0], "AATTC": [1]}
-    
+
     # Act
     result = restriction_site_finder(seq, sites)
-    
+
     # Assert
     assert result == expected
 
@@ -92,10 +92,10 @@ def test_restriction_site_finder_site_at_start() -> None:
     seq = "GAATTCATGC"
     sites = ["GAATTC"]
     expected = {"GAATTC": [0]}
-    
+
     # Act
     result = restriction_site_finder(seq, sites)
-    
+
     # Assert
     assert result == expected
 
@@ -108,10 +108,10 @@ def test_restriction_site_finder_site_at_end() -> None:
     seq = "ATGCGAATTC"
     sites = ["GAATTC"]
     expected = {"GAATTC": [4]}
-    
+
     # Act
     result = restriction_site_finder(seq, sites)
-    
+
     # Assert
     assert result == expected
 
@@ -124,10 +124,10 @@ def test_restriction_site_finder_lowercase_input() -> None:
     seq = "atgcgaattcatgc"
     sites = ["gaattc"]
     expected = {"GAATTC": [4]}
-    
+
     # Act
     result = restriction_site_finder(seq, sites)
-    
+
     # Assert
     assert result == expected
 
@@ -140,10 +140,10 @@ def test_restriction_site_finder_mixed_case() -> None:
     seq = "AtGcGaAtTcAtGc"
     sites = ["GaAtTc"]
     expected = {"GAATTC": [4]}
-    
+
     # Act
     result = restriction_site_finder(seq, sites)
-    
+
     # Assert
     assert result == expected
 
@@ -156,10 +156,10 @@ def test_restriction_site_finder_short_sites() -> None:
     seq = "ATGCATGCATGC"
     sites = ["ATGC"]
     expected = {"ATGC": [0, 4, 8]}
-    
+
     # Act
     result = restriction_site_finder(seq, sites)
-    
+
     # Assert
     assert result == expected
 
@@ -172,10 +172,10 @@ def test_restriction_site_finder_long_site() -> None:
     seq = "ATGCGCGGCCGCATGC"
     sites = ["GCGGCCGC"]  # NotI
     expected = {"GCGGCCGC": [4]}
-    
+
     # Act
     result = restriction_site_finder(seq, sites)
-    
+
     # Assert
     assert result == expected
 
@@ -188,10 +188,10 @@ def test_restriction_site_finder_site_longer_than_sequence() -> None:
     seq = "ATGC"
     sites = ["GAATTCATGC"]
     expected: dict[str, list[int]] = {"GAATTCATGC": []}
-    
+
     # Act
     result = restriction_site_finder(seq, sites)
-    
+
     # Assert
     assert result == expected
 
@@ -204,10 +204,10 @@ def test_restriction_site_finder_many_sites() -> None:
     seq = "GAATTCGGATCCAAGCTT"
     sites = ["GAATTC", "GGATCC", "AAGCTT"]  # EcoRI, BamHI, HindIII
     expected = {"GAATTC": [0], "GGATCC": [6], "AAGCTT": [12]}
-    
+
     # Act
     result = restriction_site_finder(seq, sites)
-    
+
     # Assert
     assert result == expected
 
@@ -220,7 +220,7 @@ def test_restriction_site_finder_value_error_empty_sites() -> None:
     seq = "ATGCATGC"
     empty_sites: list[str] = []
     expected_message = "sites cannot be empty"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         restriction_site_finder(seq, empty_sites)

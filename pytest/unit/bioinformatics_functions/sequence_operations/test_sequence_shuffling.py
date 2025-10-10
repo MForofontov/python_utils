@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.sequence_operations.sequence_shuffling import sequence_shuffling
+from bioinformatics_functions.sequence_operations.sequence_shuffling import (
+    sequence_shuffling,
+)
 
 
 def test_sequence_shuffling_basic() -> None:

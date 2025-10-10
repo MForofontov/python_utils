@@ -1,8 +1,7 @@
 import urllib.error
-from unittest.mock import Mock, mock_open, patch
+from unittest.mock import MagicMock, Mock, mock_open, patch
 
 import pytest
-from unittest.mock import MagicMock
 from http_functions.upload_file import upload_file
 
 
@@ -268,7 +267,9 @@ def test_upload_file_not_found(mock_exists: MagicMock) -> None:
 
 @patch("pathlib.Path.exists", return_value=True)
 @patch("pathlib.Path.is_file", return_value=False)
-def test_upload_file_not_a_file(mock_is_file: MagicMock, mock_exists: MagicMock) -> None:
+def test_upload_file_not_a_file(
+    mock_is_file: MagicMock, mock_exists: MagicMock
+) -> None:
     """Test case 15: Test upload_file function when path is not a file raises ValueError."""
     with pytest.raises(ValueError, match="Path is not a file"):
         upload_file("https://example.com/upload", "/tmp/directory")
@@ -288,6 +289,7 @@ def test_upload_file_http_error(
 ) -> None:
     """Test case 16: Test file upload with HTTP error response returns error details."""
     from email.message import Message
+
     hdrs = Message()
     hdrs["Content-Type"] = "application/json"
     fp_mock = Mock()

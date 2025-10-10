@@ -1,4 +1,4 @@
-from typing import Sequence
+
 
 def sequence_complexity(sequence: str, window: int = 10) -> float:
     """
@@ -40,7 +40,8 @@ def sequence_complexity(sequence: str, window: int = 10) -> float:
     for w in range(1, window + 1):
         possible += max(n - w + 1, 0)
         for i in range(n - w + 1):
-            observed.add(sequence[i:i + w])
+            observed.add(sequence[i : i + w])
     return len(observed) / possible if possible > 0 else 0.0
 
-__all__ = ['sequence_complexity']
+
+__all__ = ["sequence_complexity"]

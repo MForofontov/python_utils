@@ -1,8 +1,8 @@
 """Unit tests for async_stream_processor function."""
+
 from collections.abc import AsyncIterator
 
 import pytest
-
 from asyncio_functions.async_stream_processor import async_stream_processor
 
 
@@ -113,6 +113,8 @@ async def test_async_stream_processor_large_stream() -> None:
 
     # Assert
     assert len(count) == 100
+
+
 @pytest.mark.asyncio
 async def test_async_stream_processor_exception_in_processor() -> None:
     """

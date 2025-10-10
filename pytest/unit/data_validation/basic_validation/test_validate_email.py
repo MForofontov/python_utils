@@ -1,7 +1,7 @@
+import socket
 from unittest.mock import patch
 
 import pytest
-import socket
 from data_validation import validate_email
 
 
@@ -74,7 +74,9 @@ def test_validate_email_case_13_mx_checking_success() -> None:
 
 @patch("dns.resolver.resolve", side_effect=Exception("No MX"))
 @patch("socket.gethostbyname")
-def test_validate_email_case_15_mx_checking_socket_fallback_success(mock_gethostbyname, mock_resolve) -> None:
+def test_validate_email_case_15_mx_checking_socket_fallback_success(
+    mock_gethostbyname, mock_resolve
+) -> None:
     """
     Test case 6: MX record validation fallback to A record (success).
     """
@@ -124,6 +126,8 @@ def test_validate_email_case_18_performance_complex_emails() -> None:
     elapsed_time = time.time() - start_time
 
     assert elapsed_time < 1.0  # Should complete within 1 second
+
+
 def test_validate_email_case_5_type_error_invalid_input() -> None:
     """
     Test case 9: TypeError for non-string input.
@@ -282,14 +286,19 @@ def test_validate_email_case_14_mx_checking_failure() -> None:
     Test case 17: MX record validation using dnspython (failure).
     """
     # Patch dns.resolver.resolve to simulate MX record not found
-    with patch("dns.resolver.resolve", side_effect=Exception("No MX")) as mock_resolve:
-        with pytest.raises(ValueError, match="email domain does not exist|email domain does not have valid MX record"):
+    with patch("dns.resolver.resolve", side_effect=Exception("No MX")):
+        with pytest.raises(
+            ValueError,
+            match="email domain does not exist|email domain does not have valid MX record",
+        ):
             validate_email("user@nonexistent.com", check_mx=True)
 
 
 @patch("dns.resolver.resolve", side_effect=Exception("No MX"))
 @patch("socket.gethostbyname")
-def test_validate_email_case_16_mx_checking_socket_fallback_failure(mock_gethostbyname, mock_resolve) -> None:
+def test_validate_email_case_16_mx_checking_socket_fallback_failure(
+    mock_gethostbyname, mock_resolve
+) -> None:
     """
     Test case 18: MX record validation fallback to A record (failure).
     """

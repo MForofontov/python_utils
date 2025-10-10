@@ -1,7 +1,8 @@
+import socket
+from unittest.mock import patch
+
 import pytest
 from network_functions.resolve_hostname import resolve_hostname
-from unittest.mock import patch
-import socket
 
 
 def test_resolve_hostname_success() -> None:
@@ -21,6 +22,8 @@ def test_resolve_hostname_performance() -> None:
         for _ in range(10):
             ip = resolve_hostname("example.com")
             assert ip == "1.2.3.4"
+
+
 def test_resolve_hostname_type_error() -> None:
     """
     Test case 3: TypeError for non-string hostname.

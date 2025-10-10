@@ -1,5 +1,5 @@
-import re
 import logging
+import re
 import time
 
 from logger_functions.performance_formatter import performance_formatter

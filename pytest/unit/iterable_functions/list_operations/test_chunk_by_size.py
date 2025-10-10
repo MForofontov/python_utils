@@ -1,6 +1,6 @@
 """Unit tests for chunk_by_size function."""
-import pytest
 
+import pytest
 from iterable_functions.list_operations.chunk_by_size import chunk_by_size
 
 
@@ -122,6 +122,8 @@ def test_chunk_by_size_mixed_types() -> None:
 
     # Assert
     assert result == [[1, "two"], [3.0, True], [None]]
+
+
 def test_chunk_by_size_type_error_non_list() -> None:
     """
     Test case 9: TypeError when items is not a list.

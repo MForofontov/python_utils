@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.sequence_statistics.nucleotide_frequency import nucleotide_frequency
+from bioinformatics_functions.sequence_statistics.nucleotide_frequency import (
+    nucleotide_frequency,
+)
 
 
 def test_nucleotide_frequency_balanced_sequence() -> None:
@@ -8,11 +10,11 @@ def test_nucleotide_frequency_balanced_sequence() -> None:
     """
     # Arrange
     seq = "ATGC"
-    expected = {'A': 1, 'T': 1, 'G': 1, 'C': 1}
-    
+    expected = {"A": 1, "T": 1, "G": 1, "C": 1}
+
     # Act
     result = nucleotide_frequency(seq)
-    
+
     # Assert
     assert result == expected
 
@@ -23,11 +25,11 @@ def test_nucleotide_frequency_unbalanced_sequence() -> None:
     """
     # Arrange
     seq = "AAATTTGGGCCC"
-    expected = {'A': 3, 'T': 3, 'G': 3, 'C': 3}
-    
+    expected = {"A": 3, "T": 3, "G": 3, "C": 3}
+
     # Act
     result = nucleotide_frequency(seq)
-    
+
     # Assert
     assert result == expected
 
@@ -38,11 +40,11 @@ def test_nucleotide_frequency_single_base_type() -> None:
     """
     # Arrange
     seq = "AAAA"
-    expected = {'A': 4, 'T': 0, 'G': 0, 'C': 0}
-    
+    expected = {"A": 4, "T": 0, "G": 0, "C": 0}
+
     # Act
     result = nucleotide_frequency(seq)
-    
+
     # Assert
     assert result == expected
 
@@ -53,11 +55,11 @@ def test_nucleotide_frequency_lowercase_input() -> None:
     """
     # Arrange
     seq = "atgc"
-    expected = {'A': 1, 'T': 1, 'G': 1, 'C': 1}
-    
+    expected = {"A": 1, "T": 1, "G": 1, "C": 1}
+
     # Act
     result = nucleotide_frequency(seq)
-    
+
     # Assert
     assert result == expected
 
@@ -68,11 +70,11 @@ def test_nucleotide_frequency_mixed_case() -> None:
     """
     # Arrange
     seq = "AaTtGgCc"
-    expected = {'A': 2, 'T': 2, 'G': 2, 'C': 2}
-    
+    expected = {"A": 2, "T": 2, "G": 2, "C": 2}
+
     # Act
     result = nucleotide_frequency(seq)
-    
+
     # Assert
     assert result == expected
 
@@ -83,11 +85,11 @@ def test_nucleotide_frequency_empty_sequence() -> None:
     """
     # Arrange
     seq = ""
-    expected = {'A': 0, 'T': 0, 'G': 0, 'C': 0}
-    
+    expected = {"A": 0, "T": 0, "G": 0, "C": 0}
+
     # Act
     result = nucleotide_frequency(seq)
-    
+
     # Assert
     assert result == expected
 
@@ -98,11 +100,11 @@ def test_nucleotide_frequency_long_sequence() -> None:
     """
     # Arrange
     seq = "ATGC" * 250  # 1000 bases
-    expected = {'A': 250, 'T': 250, 'G': 250, 'C': 250}
-    
+    expected = {"A": 250, "T": 250, "G": 250, "C": 250}
+
     # Act
     result = nucleotide_frequency(seq)
-    
+
     # Assert
     assert result == expected
 
@@ -113,17 +115,17 @@ def test_nucleotide_frequency_all_keys_present() -> None:
     """
     # Arrange
     seq = "AAA"
-    
+
     # Act
     result = nucleotide_frequency(seq)
-    
+
     # Assert
-    assert 'A' in result
-    assert 'T' in result
-    assert 'G' in result
-    assert 'C' in result
-    assert result['A'] == 3
-    assert result['T'] == 0
+    assert "A" in result
+    assert "T" in result
+    assert "G" in result
+    assert "C" in result
+    assert result["A"] == 3
+    assert result["T"] == 0
 
 
 def test_nucleotide_frequency_type_error_not_string() -> None:
@@ -133,7 +135,7 @@ def test_nucleotide_frequency_type_error_not_string() -> None:
     # Arrange
     invalid_input = 12345  # type: ignore
     expected_message = "seq must be a string, got int"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         nucleotide_frequency(invalid_input)  # type: ignore
@@ -146,7 +148,7 @@ def test_nucleotide_frequency_type_error_list() -> None:
     # Arrange
     invalid_input = ["A", "T", "G", "C"]  # type: ignore
     expected_message = "seq must be a string, got list"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         nucleotide_frequency(invalid_input)  # type: ignore
@@ -159,7 +161,7 @@ def test_nucleotide_frequency_value_error_invalid_base() -> None:
     # Arrange
     invalid_seq = "ATGCX"
     expected_message = "Invalid DNA bases found: X"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         nucleotide_frequency(invalid_seq)
@@ -172,7 +174,7 @@ def test_nucleotide_frequency_value_error_rna_base() -> None:
     # Arrange
     invalid_seq = "AUGC"
     expected_message = "Invalid DNA bases found: U"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         nucleotide_frequency(invalid_seq)
@@ -185,7 +187,7 @@ def test_nucleotide_frequency_value_error_numbers() -> None:
     # Arrange
     invalid_seq = "ATG123"
     expected_message = "Invalid DNA bases found:"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         nucleotide_frequency(invalid_seq)
@@ -198,7 +200,7 @@ def test_nucleotide_frequency_value_error_special_chars() -> None:
     # Arrange
     invalid_seq = "ATG-C"
     expected_message = "Invalid DNA bases found:"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         nucleotide_frequency(invalid_seq)

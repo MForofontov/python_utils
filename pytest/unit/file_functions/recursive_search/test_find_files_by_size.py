@@ -1,5 +1,5 @@
-import tempfile
 import os
+import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
@@ -158,6 +158,8 @@ def test_find_files_by_size_case_10_file_access_error_handling() -> None:
 
             # Assert - should skip the problematic file
             assert result == []
+
+
 def test_find_files_by_size_case_6_invalid_directory_error() -> None:
     """
     Test case 8: ValueError for non-existent directory.

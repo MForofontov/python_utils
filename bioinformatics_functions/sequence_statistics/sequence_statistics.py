@@ -1,6 +1,6 @@
-from typing import Dict
 
-def sequence_statistics(seq: str) -> Dict[str, float]:
+
+def sequence_statistics(seq: str) -> dict[str, float]:
     """
     Calculate basic statistics for a nucleotide sequence: length, GC content, AT content.
 
@@ -29,13 +29,14 @@ def sequence_statistics(seq: str) -> Dict[str, float]:
     if not isinstance(seq, str):
         raise TypeError(f"seq must be str, got {type(seq).__name__}")
     seq = seq.upper()
-    if not all(base in 'ATCG' for base in seq):
+    if not all(base in "ATCG" for base in seq):
         raise ValueError("Sequence contains invalid DNA bases")
     length = len(seq)
-    gc = seq.count('G') + seq.count('C')
-    at = seq.count('A') + seq.count('T')
+    gc = seq.count("G") + seq.count("C")
+    at = seq.count("A") + seq.count("T")
     gc_content = (gc / length) * 100 if length else 0.0
     at_content = (at / length) * 100 if length else 0.0
-    return {'length': float(length), 'gc_content': gc_content, 'at_content': at_content}
+    return {"length": float(length), "gc_content": gc_content, "at_content": at_content}
+
 
 __all__ = ["sequence_statistics"]

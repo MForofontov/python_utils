@@ -1,8 +1,8 @@
 """Unit tests for gather_with_timeout function."""
+
 import asyncio
 
 import pytest
-
 from asyncio_functions.gather_with_timeout import gather_with_timeout
 
 
@@ -11,6 +11,7 @@ async def test_gather_with_timeout_all_complete_before_timeout() -> None:
     """
     Test case 1: All awaitables complete before timeout.
     """
+
     # Arrange
     async def task1() -> int:
         await asyncio.sleep(0.01)
@@ -51,6 +52,7 @@ async def test_gather_with_timeout_single_awaitable() -> None:
     """
     Test case 3: Single awaitable completes successfully.
     """
+
     # Arrange
     async def single_task() -> str:
         await asyncio.sleep(0.01)
@@ -68,6 +70,7 @@ async def test_gather_with_timeout_mixed_completion_times() -> None:
     """
     Test case 4: Mixed task completion times, all within timeout.
     """
+
     # Arrange
     async def instant_task() -> int:
         return 1
@@ -87,11 +90,14 @@ async def test_gather_with_timeout_mixed_completion_times() -> None:
 
     # Assert
     assert results == [1, 2, 3]
+
+
 @pytest.mark.asyncio
 async def test_gather_with_timeout_timeout_reached() -> None:
     """
     Test case 5: Timeout is reached before tasks complete.
     """
+
     # Arrange
     async def slow_task() -> int:
         await asyncio.sleep(1.0)
@@ -111,6 +117,7 @@ async def test_gather_with_timeout_very_short_timeout() -> None:
     """
     Test case 6: Very short timeout causes timeout error.
     """
+
     # Arrange
     async def task() -> int:
         await asyncio.sleep(0.1)

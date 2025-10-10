@@ -53,14 +53,10 @@ def decompress_file_gzip(input_gzip: str, output_file: str) -> None:
                 shutil.copyfileobj(f_in, f_out)
     except FileNotFoundError as exc:
         # Raise a FileNotFoundError if the input file does not exist
-        raise FileNotFoundError(
-            f"The input file {input_gzip} does not exist."
-        ) from exc
+        raise FileNotFoundError(f"The input file {input_gzip} does not exist.") from exc
     except OSError as exc:
         # Raise an IOError if an I/O error occurs during decompression
-        raise OSError(
-            f"An I/O error occurred during decompression: {exc}"
-        ) from exc
+        raise OSError(f"An I/O error occurred during decompression: {exc}") from exc
 
 
 __all__ = ["decompress_file_gzip"]

@@ -155,6 +155,8 @@ def test_generate_url_safe_token_case_12_base64_properties() -> None:
     # Should not contain characters that need URL encoding
     forbidden_chars = set("+/=")  # Standard base64 chars that are not URL-safe
     assert not any(char in forbidden_chars for char in token)
+
+
 def test_generate_url_safe_token_case_5_type_validation() -> None:
     """
     Test case 11: Type validation for length parameter.

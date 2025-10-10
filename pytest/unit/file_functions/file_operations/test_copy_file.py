@@ -1,10 +1,9 @@
 """Unit tests for copy_file function."""
-import os
+
 import tempfile
 from pathlib import Path
 
 import pytest
-
 from file_functions.file_operations.copy_file import copy_file
 
 
@@ -115,6 +114,8 @@ def test_copy_file_different_extension() -> None:
         # Assert
         assert destination.exists()
         assert destination.read_text() == "content"
+
+
 def test_copy_file_type_error_non_string_source() -> None:
     """
     Test case 7: TypeError when source is not a string.

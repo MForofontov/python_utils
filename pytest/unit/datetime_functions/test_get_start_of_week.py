@@ -1,6 +1,8 @@
-import pytest
 from datetime import datetime
+
+import pytest
 from datetime_functions.get_start_of_week import get_start_of_week
+
 
 def test_get_start_of_week_default() -> None:
     """
@@ -10,6 +12,7 @@ def test_get_start_of_week_default() -> None:
     result = get_start_of_week(dt)
     assert result == datetime(2023, 6, 5, 14, 30, 45)
 
+
 def test_get_start_of_week_custom_start() -> None:
     """
     Test case 2: get_start_of_week returns correct start of week for custom start (Sunday).
@@ -17,6 +20,7 @@ def test_get_start_of_week_custom_start() -> None:
     dt = datetime(2023, 6, 7, 14, 30, 45)
     result = get_start_of_week(dt, start_of_week=6)
     assert result == datetime(2023, 6, 4, 14, 30, 45)
+
 
 def test_get_start_of_week_month_boundary() -> None:
     """
@@ -26,6 +30,7 @@ def test_get_start_of_week_month_boundary() -> None:
     result = get_start_of_week(dt)
     assert result == datetime(2023, 5, 1, 8, 0)
 
+
 def test_get_start_of_week_year_boundary() -> None:
     """
     Test case 4: get_start_of_week handles year boundary correctly.
@@ -33,6 +38,7 @@ def test_get_start_of_week_year_boundary() -> None:
     dt = datetime(2023, 1, 1, 0, 0)
     result = get_start_of_week(dt)
     assert result == datetime(2022, 12, 26, 0, 0)
+
 
 def test_get_start_of_week_type_error() -> None:
     """
@@ -43,10 +49,13 @@ def test_get_start_of_week_type_error() -> None:
     with pytest.raises(TypeError, match="date_obj must be a datetime"):
         get_start_of_week(123)
 
+
 def test_get_start_of_week_value_error() -> None:
     """
     Test case 6: get_start_of_week raises ValueError for invalid start_of_week argument.
     """
     dt = datetime(2023, 6, 7, 14, 30, 45)
-    with pytest.raises(ValueError, match="start_of_week must be an integer between 0 and 6"):
+    with pytest.raises(
+        ValueError, match="start_of_week must be an integer between 0 and 6"
+    ):
         get_start_of_week(dt, start_of_week=7)

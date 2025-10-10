@@ -1,10 +1,12 @@
-from typing import Iterator, Dict, Any, Sequence
+from collections.abc import Iterator, Sequence
+from typing import Any
+
 
 def filter_annotations(
-    annotations: Sequence[Dict[str, Any]],
+    annotations: Sequence[dict[str, Any]],
     feature_type: str | None = None,
     chrom: str | None = None,
-) -> Iterator[Dict[str, Any]]:
+) -> Iterator[dict[str, Any]]:
     """
     Filter annotation records by feature type and/or chromosome.
 
@@ -42,16 +44,21 @@ def filter_annotations(
     Time: O(n), Space: O(1)
     """
     if not isinstance(annotations, (list, tuple)):
-        raise TypeError(f"annotations must be a list or tuple, got {type(annotations).__name__}")
+        raise TypeError(
+            f"annotations must be a list or tuple, got {type(annotations).__name__}"
+        )
     if feature_type is not None and not isinstance(feature_type, str):
-        raise TypeError(f"feature_type must be str or None, got {type(feature_type).__name__}")
+        raise TypeError(
+            f"feature_type must be str or None, got {type(feature_type).__name__}"
+        )
     if chrom is not None and not isinstance(chrom, str):
         raise TypeError(f"chrom must be str or None, got {type(chrom).__name__}")
     for record in annotations:
-        if feature_type and record.get('feature') != feature_type:
+        if feature_type and record.get("feature") != feature_type:
             continue
-        if chrom and (record.get('seqname') or record.get('chrom')) != chrom:
+        if chrom and (record.get("seqname") or record.get("chrom")) != chrom:
             continue
         yield record
 
-__all__ = ['filter_annotations']
+
+__all__ = ["filter_annotations"]

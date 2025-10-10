@@ -237,6 +237,8 @@ def test_generate_jwt_token_case_10_timestamp_validation() -> None:
     assert before_time <= iat <= after_time
     # exp should be approximately 1 hour after iat
     assert abs((exp - iat) - 3600) < 10  # Allow 10 second tolerance
+
+
 def test_generate_jwt_token_case_4_type_validation() -> None:
     """
     Test case 9: Type validation for all parameters.

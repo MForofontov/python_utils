@@ -1,4 +1,4 @@
-from typing import Sequence
+
 
 def phylogenetic_distance(seq1: str, seq2: str) -> float:
     """
@@ -34,7 +34,8 @@ def phylogenetic_distance(seq1: str, seq2: str) -> float:
         raise ValueError("Sequences must be the same length")
     if len(seq1) == 0:
         raise ValueError("Sequences must not be empty")
-    differences = sum(a != b for a, b in zip(seq1, seq2))
+    differences = sum(a != b for a, b in zip(seq1, seq2, strict=False))
     return differences / len(seq1)
 
-__all__ = ['phylogenetic_distance']
+
+__all__ = ["phylogenetic_distance"]

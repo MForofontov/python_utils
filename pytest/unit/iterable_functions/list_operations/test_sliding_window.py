@@ -61,6 +61,8 @@ def test_sliding_window_large_list() -> None:
     assert len(result) == 991  # 1000 - 10 + 1
     assert result[0] == list(range(10))
     assert result[-1] == list(range(990, 1000))
+
+
 def test_sliding_window_type_error_items() -> None:
     """
     Test case 7: TypeError for non-list items.

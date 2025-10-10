@@ -157,6 +157,8 @@ def test_write_lines_case_10_custom_joiner_no_spaces() -> None:
         with open(output_file) as f:
             content = f.read()
         assert content == "a|b|c|d\n"
+
+
 def test_write_lines_case_4_type_validation() -> None:
     """
     Test case 9: Type validation for parameters.

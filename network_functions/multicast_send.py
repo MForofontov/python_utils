@@ -27,4 +27,5 @@ def multicast_send(message: str, group: str, port: int) -> None:
     sock.sendto(message.encode(), (group, port))
     sock.close()
 
+
 __all__ = ["multicast_send"]

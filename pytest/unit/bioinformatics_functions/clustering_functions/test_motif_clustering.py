@@ -1,6 +1,9 @@
-import pytest
 import numpy as np
-from bioinformatics_functions.clustering_functions.motif_clustering import motif_clustering
+
+import pytest
+from bioinformatics_functions.clustering_functions.motif_clustering import (
+    motif_clustering,
+)
 
 
 def test_motif_clustering_two_clusters() -> None:
@@ -10,10 +13,10 @@ def test_motif_clustering_two_clusters() -> None:
     # Arrange
     motifs = ["ATGC", "ATGT", "GTGC"]
     n_clusters = 2
-    
+
     # Act
     result = motif_clustering(motifs, n_clusters=n_clusters)
-    
+
     # Assert
     assert len(result) == 3
     assert all(isinstance(label, (int, np.integer)) for label in result)
@@ -27,10 +30,10 @@ def test_motif_clustering_single_cluster() -> None:
     # Arrange
     motifs = ["ATGC", "ATGT", "GTGC"]
     n_clusters = 1
-    
+
     # Act
     result = motif_clustering(motifs, n_clusters=n_clusters)
-    
+
     # Assert
     assert len(result) == 3
     assert all(label == 0 for label in result)
@@ -43,10 +46,10 @@ def test_motif_clustering_many_clusters() -> None:
     # Arrange
     motifs = ["AAAA", "TTTT", "GGGG", "CCCC"]
     n_clusters = 4
-    
+
     # Act
     result = motif_clustering(motifs, n_clusters=n_clusters)
-    
+
     # Assert
     assert len(result) == 4
     assert len(set(result)) <= n_clusters
@@ -59,10 +62,10 @@ def test_motif_clustering_identical_motifs() -> None:
     # Arrange
     motifs = ["ATGC", "ATGC", "ATGC"]
     n_clusters = 2
-    
+
     # Act
     result = motif_clustering(motifs, n_clusters=n_clusters)
-    
+
     # Assert
     assert len(result) == 3
     # All should be in same cluster since they're identical
@@ -75,10 +78,10 @@ def test_motif_clustering_default_clusters() -> None:
     """
     # Arrange
     motifs = ["ATGC", "ATGT", "GTGC", "GGGG"]
-    
+
     # Act
     result = motif_clustering(motifs)
-    
+
     # Assert
     assert len(result) == 4
     assert len(set(result)) <= 2
@@ -91,10 +94,10 @@ def test_motif_clustering_long_motifs() -> None:
     # Arrange
     motifs = ["ATGCATGCATGC", "ATGCATGCATGT", "GTGCGTGCGTGC"]
     n_clusters = 2
-    
+
     # Act
     result = motif_clustering(motifs, n_clusters=n_clusters)
-    
+
     # Assert
     assert len(result) == 3
     assert all(isinstance(label, (int, np.integer)) for label in result)
@@ -107,10 +110,10 @@ def test_motif_clustering_many_motifs() -> None:
     # Arrange
     motifs = ["ATGC", "ATGT", "GTGC", "GGGG", "AAAA", "TTTT", "CCCC", "AGCT"]
     n_clusters = 3
-    
+
     # Act
     result = motif_clustering(motifs, n_clusters=n_clusters)
-    
+
     # Assert
     assert len(result) == 8
     assert len(set(result)) <= n_clusters
@@ -123,7 +126,7 @@ def test_motif_clustering_value_error_empty_motifs() -> None:
     # Arrange
     empty_motifs = []  # type: ignore
     expected_message = "motifs cannot be empty"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         motif_clustering(empty_motifs)
@@ -136,7 +139,7 @@ def test_motif_clustering_value_error_unequal_length() -> None:
     # Arrange
     unequal_motifs = ["ATGC", "ATG", "ATGCG"]
     expected_message = "All motifs must be the same length"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         motif_clustering(unequal_motifs)
@@ -149,7 +152,7 @@ def test_motif_clustering_value_error_single_short_motif() -> None:
     # Arrange
     mixed_motifs = ["ATGC", "A", "ATGC"]
     expected_message = "All motifs must be the same length"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         motif_clustering(mixed_motifs)

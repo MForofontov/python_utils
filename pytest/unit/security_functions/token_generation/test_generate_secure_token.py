@@ -141,6 +141,8 @@ def test_generate_secure_token_case_11_all_character_types() -> None:
     # Check character set validity
     valid_chars = string.ascii_letters + string.digits + "!@#$%^&*-_=+[]{}|;:,.<>?"
     assert all(c in valid_chars for c in token)
+
+
 def test_generate_secure_token_case_6_type_validation() -> None:
     """
     Test case 10: Type validation for all parameters.

@@ -1,6 +1,6 @@
 """Unit tests for dict_value_difference function."""
-import pytest
 
+import pytest
 from iterable_functions.dictionary_operations.dict_value_difference import (
     dict_value_difference,
 )
@@ -139,6 +139,8 @@ def test_dict_value_difference_none_values() -> None:
 
     # Assert
     assert result == {"a": None}
+
+
 def test_dict_value_difference_type_error_non_dict_dict1() -> None:
     """
     Test case 10: TypeError when dict1 is not a dictionary.

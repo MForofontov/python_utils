@@ -51,26 +51,28 @@ def copy_file(source: str, destination: str) -> None:
     if not isinstance(source, str):
         raise TypeError(f"source must be a string, got {type(source).__name__}")
     if not isinstance(destination, str):
-        raise TypeError(f"destination must be a string, got {type(destination).__name__}")
-    
+        raise TypeError(
+            f"destination must be a string, got {type(destination).__name__}"
+        )
+
     # Value validation
     if not source:
         raise ValueError("source path cannot be empty")
     if not destination:
         raise ValueError("destination path cannot be empty")
-    
+
     # Check if source file exists
     if not os.path.exists(source):
         raise FileNotFoundError(f"Source file not found: {source}")
-    
+
     if not os.path.isfile(source):
         raise ValueError(f"Source is not a file: {source}")
-    
+
     # Create destination directory if it doesn't exist
     dest_dir = os.path.dirname(destination)
     if dest_dir and not os.path.exists(dest_dir):
         os.makedirs(dest_dir)
-    
+
     # Copy the file
     shutil.copy2(source, destination)
 

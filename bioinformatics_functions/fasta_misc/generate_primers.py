@@ -1,7 +1,8 @@
-from typing import List
 
-def generate_primers(seq: str, length: int = 20, gc_min: float = 0.4, 
-                     gc_max: float = 0.6) -> List[str]:
+
+def generate_primers(
+    seq: str, length: int = 20, gc_min: float = 0.4, gc_max: float = 0.6
+) -> list[str]:
     """
     Generate potential PCR primers from a DNA sequence based on GC content.
 
@@ -49,11 +50,11 @@ def generate_primers(seq: str, length: int = 20, gc_min: float = 0.4,
         raise TypeError(f"gc_min must be a number, got {type(gc_min).__name__}")
     if not isinstance(gc_max, (int, float)):
         raise TypeError(f"gc_max must be a number, got {type(gc_max).__name__}")
-    
+
     seq = seq.upper()
-    if not all(base in 'ATCG' for base in seq):
+    if not all(base in "ATCG" for base in seq):
         raise ValueError("Sequence contains invalid DNA bases")
-    
+
     if length <= 0 or length > len(seq):
         raise ValueError("length must be positive and <= sequence length")
     if not 0 <= gc_min <= 1:
@@ -62,22 +63,23 @@ def generate_primers(seq: str, length: int = 20, gc_min: float = 0.4,
         raise ValueError("gc_max must be between 0 and 1")
     if gc_min > gc_max:
         raise ValueError("gc_min cannot be greater than gc_max")
-    
-    primers: List[str] = []
-    
+
+    primers: list[str] = []
+
     for i in range(len(seq) - length + 1):
-        primer = seq[i:i+length]
-        
+        primer = seq[i : i + length]
+
         # Calculate GC content
-        gc_count = primer.count('G') + primer.count('C')
+        gc_count = primer.count("G") + primer.count("C")
         gc_content = gc_count / length
-        
+
         # Check GC content range
         if gc_min <= gc_content <= gc_max:
             # Additional check: avoid primers ending in G or C runs
-            if not (primer.endswith('GGG') or primer.endswith('CCC')):
+            if not (primer.endswith("GGG") or primer.endswith("CCC")):
                 primers.append(primer)
-    
+
     return primers
+
 
 __all__ = ["generate_primers"]

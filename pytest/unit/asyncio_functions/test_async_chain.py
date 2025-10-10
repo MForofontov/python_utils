@@ -1,8 +1,8 @@
 """Unit tests for async_chain function."""
+
 import asyncio
 
 import pytest
-
 from asyncio_functions.async_chain import async_chain
 
 
@@ -11,6 +11,7 @@ async def test_async_chain_normal_chaining() -> None:
     """
     Test case 1: Normal chaining of multiple async functions.
     """
+
     # Arrange
     async def add_one(x: int) -> int:
         await asyncio.sleep(0.001)
@@ -37,6 +38,7 @@ async def test_async_chain_single_function() -> None:
     """
     Test case 2: Chain with a single function.
     """
+
     # Arrange
     async def double(x: int) -> int:
         return x * 2
@@ -68,6 +70,7 @@ async def test_async_chain_string_operations() -> None:
     """
     Test case 4: Chain string transformation functions.
     """
+
     # Arrange
     async def add_prefix(s: str) -> str:
         await asyncio.sleep(0.001)
@@ -92,6 +95,7 @@ async def test_async_chain_type_preservation() -> None:
     """
     Test case 5: Type is preserved through the chain.
     """
+
     # Arrange
     async def increment(x: float) -> float:
         return x + 1.5
@@ -111,6 +115,7 @@ async def test_async_chain_complex_transformations() -> None:
     """
     Test case 6: Complex transformations with multiple operations.
     """
+
     # Arrange
     async def square(x: int) -> int:
         await asyncio.sleep(0.001)

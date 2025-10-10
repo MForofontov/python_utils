@@ -1,6 +1,6 @@
 """Unit tests for decompress_number function."""
-import pytest
 
+import pytest
 from compression_functions.decompress_number import decompress_number
 
 
@@ -98,6 +98,8 @@ def test_decompress_number_complex_encoding() -> None:
     # Assert
     assert new_index <= len(text)
     assert isinstance(result, int)
+
+
 def test_decompress_number_type_error_non_string_text() -> None:
     """
     Test case 7: TypeError when text is not a string.

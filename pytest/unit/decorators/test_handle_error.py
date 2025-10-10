@@ -157,6 +157,8 @@ def test_handle_error_type_error_with_logging(caplog):
         result = raise_type_error_with_logging()
         assert result is None
         assert "An error occurred: This is a TypeError" in caplog.text
+
+
 def test_handle_invalid_logger():
     """
     Test case 11: Invalid logger.

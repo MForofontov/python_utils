@@ -155,6 +155,8 @@ def test_find_files_by_mtime_case_10_file_access_error_handling() -> None:
 
             # Assert - should skip the problematic file
             assert result == []
+
+
 def test_find_files_by_mtime_case_5_no_criteria_error() -> None:
     """
     Test case 6: ValueError when no time criteria specified.

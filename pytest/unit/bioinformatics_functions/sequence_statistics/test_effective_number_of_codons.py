@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.sequence_statistics.effective_number_of_codons import effective_number_of_codons
+from bioinformatics_functions.sequence_statistics.effective_number_of_codons import (
+    effective_number_of_codons,
+)
 
 
 def test_effective_number_of_codons_extreme_bias() -> None:

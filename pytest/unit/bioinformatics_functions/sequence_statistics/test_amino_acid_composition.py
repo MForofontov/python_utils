@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.sequence_statistics.amino_acid_composition import amino_acid_composition
+from bioinformatics_functions.sequence_statistics.amino_acid_composition import (
+    amino_acid_composition,
+)
 
 
 def test_amino_acid_composition_balanced_composition() -> None:
@@ -8,13 +10,13 @@ def test_amino_acid_composition_balanced_composition() -> None:
     """
     # Arrange
     seq = "ACDEFGH"
-    
+
     # Act
     result = amino_acid_composition(seq)
-    
+
     # Assert
     assert len(result) == 7
-    for aa, percentage in result.items():
+    for _aa, percentage in result.items():
         assert abs(percentage - 14.29) < 0.01  # Each is ~14.29%
 
 
@@ -24,11 +26,11 @@ def test_amino_acid_composition_single_amino_acid() -> None:
     """
     # Arrange
     seq = "AAAA"
-    expected = {'A': 100.0}
-    
+    expected = {"A": 100.0}
+
     # Act
     result = amino_acid_composition(seq)
-    
+
     # Assert
     assert result == expected
 
@@ -39,13 +41,13 @@ def test_amino_acid_composition_multiple_same() -> None:
     """
     # Arrange
     seq = "AAAACCCC"  # 50% A, 50% C
-    
+
     # Act
     result = amino_acid_composition(seq)
-    
+
     # Assert
-    assert result['A'] == 50.0
-    assert result['C'] == 50.0
+    assert result["A"] == 50.0
+    assert result["C"] == 50.0
     assert len(result) == 2
 
 
@@ -55,10 +57,10 @@ def test_amino_acid_composition_lowercase_input() -> None:
     """
     # Arrange
     seq = "acdefgh"
-    
+
     # Act
     result = amino_acid_composition(seq)
-    
+
     # Assert
     assert len(result) == 7
     assert all(isinstance(v, float) for v in result.values())
@@ -70,15 +72,15 @@ def test_amino_acid_composition_mixed_case() -> None:
     """
     # Arrange
     seq = "AaCcDdEe"
-    
+
     # Act
     result = amino_acid_composition(seq)
-    
+
     # Assert
-    assert result['A'] == 25.0
-    assert result['C'] == 25.0
-    assert result['D'] == 25.0
-    assert result['E'] == 25.0
+    assert result["A"] == 25.0
+    assert result["C"] == 25.0
+    assert result["D"] == 25.0
+    assert result["E"] == 25.0
 
 
 def test_amino_acid_composition_all_amino_acids() -> None:
@@ -87,10 +89,10 @@ def test_amino_acid_composition_all_amino_acids() -> None:
     """
     # Arrange
     seq = "ACDEFGHIKLMNPQRSTVWY"
-    
+
     # Act
     result = amino_acid_composition(seq)
-    
+
     # Assert
     assert len(result) == 20
     for percentage in result.values():
@@ -103,10 +105,10 @@ def test_amino_acid_composition_long_sequence() -> None:
     """
     # Arrange
     seq = "ACDEFGHIKLMNPQRSTVWY" * 10  # 200 amino acids
-    
+
     # Act
     result = amino_acid_composition(seq)
-    
+
     # Assert
     assert len(result) == 20
     for percentage in result.values():
@@ -120,7 +122,7 @@ def test_amino_acid_composition_type_error_not_string() -> None:
     # Arrange
     invalid_input = 12345  # type: ignore
     expected_message = "seq must be str, got int"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         amino_acid_composition(invalid_input)  # type: ignore
@@ -133,7 +135,7 @@ def test_amino_acid_composition_type_error_list() -> None:
     # Arrange
     invalid_input = ["A", "C", "D"]  # type: ignore
     expected_message = "seq must be str, got list"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         amino_acid_composition(invalid_input)  # type: ignore
@@ -146,7 +148,7 @@ def test_amino_acid_composition_value_error_empty_sequence() -> None:
     # Arrange
     invalid_seq = ""
     expected_message = "Sequence cannot be empty"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         amino_acid_composition(invalid_seq)
@@ -159,7 +161,7 @@ def test_amino_acid_composition_value_error_invalid_amino_acid() -> None:
     # Arrange
     invalid_seq = "ACDEFGHXYZ"
     expected_message = "Sequence contains invalid amino acid codes"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         amino_acid_composition(invalid_seq)
@@ -172,7 +174,7 @@ def test_amino_acid_composition_value_error_numbers() -> None:
     # Arrange
     invalid_seq = "ACD123"
     expected_message = "Sequence contains invalid amino acid codes"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         amino_acid_composition(invalid_seq)
@@ -185,7 +187,7 @@ def test_amino_acid_composition_value_error_special_chars() -> None:
     # Arrange
     invalid_seq = "ACD-EF"
     expected_message = "Sequence contains invalid amino acid codes"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         amino_acid_composition(invalid_seq)

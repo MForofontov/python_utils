@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.repeat_functions.palindromic_sequence_finder import palindromic_sequence_finder
+from bioinformatics_functions.repeat_functions.palindromic_sequence_finder import (
+    palindromic_sequence_finder,
+)
 
 
 def test_palindromic_sequence_finder_basic() -> None:

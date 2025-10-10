@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.alignment_functions.phylogenetic_distance import phylogenetic_distance
+from bioinformatics_functions.alignment_functions.phylogenetic_distance import (
+    phylogenetic_distance,
+)
 
 
 def test_phylogenetic_distance_typical() -> None:

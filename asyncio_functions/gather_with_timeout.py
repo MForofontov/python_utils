@@ -23,7 +23,7 @@ async def gather_with_timeout(
     Returns
     -------
     list[T]
-        The results of the awaitables that completed before the timeout.
+        The results of all awaitables that completed successfully.
 
     Raises
     ------
@@ -35,15 +35,19 @@ async def gather_with_timeout(
     >>> async def long_task(i: int) -> int:
     >>>     await asyncio.sleep(i)
     >>>     return i
-    >>> coros = [long_task(1), long_task(2), long_task(3)]
-    >>> asyncio.run(gather_with_timeout(coros, timeout=2))
+    >>> coros = [long_task(0.1), long_task(0.2)]
+    >>> asyncio.run(gather_with_timeout(coros, timeout=1.0))
     [1, 2]
     """
     tasks = [asyncio.create_task(aw) for aw in awaitables]
     try:
         return await asyncio.wait_for(asyncio.gather(*tasks), timeout=timeout)
     except asyncio.TimeoutError:
-        return await asyncio.gather(*[t for t in tasks if not t.cancelled()])
+        # Cancel all running tasks before re-raising
+        for task in tasks:
+            if not task.done():
+                task.cancel()
+        raise
 
 
 __all__ = ["gather_with_timeout"]

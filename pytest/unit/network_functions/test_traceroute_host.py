@@ -1,7 +1,7 @@
+from unittest.mock import MagicMock, patch
+
 import pytest
 from network_functions.traceroute_host import traceroute_host
-from unittest.mock import patch, MagicMock
-
 
 
 def test_traceroute_host_normal() -> None:
@@ -14,6 +14,7 @@ def test_traceroute_host_normal() -> None:
         hops = traceroute_host("google.com", max_hops=2)
         assert hops == ["10.0.0.1"]
 
+
 def test_traceroute_host_error() -> None:
     """
     Test case 2: Exception in subprocess returns empty list.
@@ -22,12 +23,14 @@ def test_traceroute_host_error() -> None:
         hops = traceroute_host("google.com", max_hops=2)
         assert hops == []
 
+
 def test_traceroute_host_type_error_host() -> None:
     """
     Test case 3: TypeError for non-string host.
     """
     with pytest.raises(TypeError, match="host must be a string"):
         traceroute_host(123)
+
 
 def test_traceroute_host_value_error_empty() -> None:
     """

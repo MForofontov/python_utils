@@ -32,7 +32,7 @@ def rna_to_dna(seq: str) -> str:
     -----
     Case-insensitive input - returns uppercase output.
     Validates that input contains only valid RNA bases (A, U, G, C).
-    
+
     Complexity
     ----------
     Time: O(n), Space: O(n) where n is sequence length
@@ -40,21 +40,21 @@ def rna_to_dna(seq: str) -> str:
     # Input validation
     if not isinstance(seq, str):
         raise TypeError(f"seq must be a string, got {type(seq).__name__}")
-    
+
     # Convert to uppercase for consistency
     seq_upper = seq.upper()
-    
+
     # Validate that all characters are valid RNA bases
-    valid_bases = set('AUGC')
+    valid_bases = set("AUGC")
     seq_bases = set(seq_upper)
     invalid_bases = seq_bases - valid_bases
     if invalid_bases:
         raise ValueError(f"Invalid RNA bases found: {', '.join(sorted(invalid_bases))}")
-    
+
     # Convert U to T
-    dna_seq = seq_upper.replace('U', 'T')
-    
+    dna_seq = seq_upper.replace("U", "T")
+
     return dna_seq
 
 
-__all__ = ['rna_to_dna']
+__all__ = ["rna_to_dna"]

@@ -1,11 +1,7 @@
-
-
 from datetime import datetime
 
 
-def time_until(
-    future_date: datetime, reference_date: datetime | None = None
-) -> str:
+def time_until(future_date: datetime, reference_date: datetime | None = None) -> str:
     """
     Get a human-readable description of how long until a future date.
 
@@ -45,7 +41,11 @@ def time_until(
     if not isinstance(future_date, datetime):
         raise TypeError("future_date must be a datetime object")
     if reference_date is None:
-        reference_date = datetime.now(tz=future_date.tzinfo) if future_date.tzinfo else datetime.now()
+        reference_date = (
+            datetime.now(tz=future_date.tzinfo)
+            if future_date.tzinfo
+            else datetime.now()
+        )
     if not isinstance(reference_date, datetime):
         raise TypeError("reference_date must be a datetime object")
     if future_date < reference_date:

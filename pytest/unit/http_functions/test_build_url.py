@@ -134,6 +134,8 @@ def test_build_url_special_characters_in_query():
 
     assert "hello+world" in result or "hello%20world" in result
     assert "%21%40%23%24" in result or "!@#$" in result
+
+
 def test_build_url_with_empty_scheme():
     """Test case 20: Test build_url function with empty scheme raises ValueError."""
     with pytest.raises(ValueError, match="Scheme must be a non-empty string"):
@@ -168,5 +170,3 @@ def test_build_url_with_none_hostname():
     """Test case 25: Test build_url function with None hostname raises TypeError."""
     with pytest.raises(TypeError):
         build_url("https", None)
-
-

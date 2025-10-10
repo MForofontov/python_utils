@@ -1,7 +1,6 @@
-import pytest
-from network_functions.get_dns_servers import get_dns_servers
 from unittest.mock import mock_open, patch
 
+from network_functions.get_dns_servers import get_dns_servers
 
 
 def test_get_dns_servers_normal() -> None:
@@ -13,6 +12,7 @@ def test_get_dns_servers_normal() -> None:
         servers = get_dns_servers()
         assert servers == ["8.8.8.8", "1.1.1.1"]
 
+
 def test_get_dns_servers_empty() -> None:
     """
     Test case 2: No nameserver lines returns empty list.
@@ -22,12 +22,14 @@ def test_get_dns_servers_empty() -> None:
         servers = get_dns_servers()
         assert servers == []
 
+
 def test_get_dns_servers_type() -> None:
     """
     Test case 3: Return type is always list.
     """
     servers = get_dns_servers()
     assert isinstance(servers, list)
+
 
 def test_get_dns_servers_edge_case() -> None:
     """
@@ -37,6 +39,7 @@ def test_get_dns_servers_edge_case() -> None:
     with patch("builtins.open", m):
         servers = get_dns_servers()
         assert servers == ["not_an_ip"]
+
 
 def test_get_dns_servers_file_error() -> None:
     """

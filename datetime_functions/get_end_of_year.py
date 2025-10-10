@@ -1,6 +1,5 @@
 """Get the end of year for a given date."""
 
-
 from datetime import datetime
 
 

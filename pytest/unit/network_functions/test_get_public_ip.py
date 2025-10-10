@@ -1,7 +1,6 @@
-import pytest
-from network_functions.get_public_ip import get_public_ip
 from unittest.mock import patch
 
+from network_functions.get_public_ip import get_public_ip
 
 
 def test_get_public_ip_type() -> None:
@@ -10,6 +9,7 @@ def test_get_public_ip_type() -> None:
     """
     ip = get_public_ip()
     assert isinstance(ip, str)
+
 
 def test_get_public_ip_format() -> None:
     """
@@ -20,32 +20,41 @@ def test_get_public_ip_format() -> None:
     assert len(parts) == 4
     assert all(part.isdigit() and 0 <= int(part) <= 255 for part in parts)
 
+
 def test_get_public_ip_mocked() -> None:
     """
     Test case 3: Mock requests.get returns expected IP.
     """
+
     class MockResponse:
         def __init__(self, text: str) -> None:
             self.text = text
+
         def raise_for_status(self) -> None:
             pass
+
     with patch("requests.get", return_value=MockResponse("8.8.8.8")):
         ip = get_public_ip()
         assert ip == "8.8.8.8"
+
 
 def test_get_public_ip_network_error() -> None:
     """
     Test case 4: Network error raises exception.
     """
+
     class MockResponse:
         def raise_for_status(self) -> None:
             raise Exception("Network error")
+
         @property
         def text(self) -> str:
             return ""
+
     with patch("requests.get", return_value=MockResponse()):
         ip = get_public_ip()
         assert ip == ""
+
 
 def test_get_public_ip_type_error() -> None:
     """

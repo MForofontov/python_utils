@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.translation_functions.transcribe_dna_to_rna import transcribe_dna_to_rna
+from bioinformatics_functions.translation_functions.transcribe_dna_to_rna import (
+    transcribe_dna_to_rna,
+)
 
 
 def test_transcribe_dna_to_rna_basic() -> None:

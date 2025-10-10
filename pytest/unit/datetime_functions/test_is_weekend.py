@@ -1,6 +1,8 @@
 from datetime import datetime
+
 import pytest
 from datetime_functions.is_weekend import is_weekend
+
 
 def test_is_weekend_monday() -> None:
     """
@@ -11,6 +13,7 @@ def test_is_weekend_monday() -> None:
     assert isinstance(result, bool)
     assert result is False
 
+
 def test_is_weekend_tuesday() -> None:
     """
     Test case 2: is_weekend returns False for a Tuesday datetime.
@@ -20,6 +23,7 @@ def test_is_weekend_tuesday() -> None:
     assert isinstance(result, bool)
     assert result is False
 
+
 def test_is_weekend_wednesday() -> None:
     """
     Test case 3: is_weekend returns False for a Wednesday datetime.
@@ -28,6 +32,7 @@ def test_is_weekend_wednesday() -> None:
     result = is_weekend(test_datetime)
     assert isinstance(result, bool)
     assert result is False
+
 
 def test_is_weekend_thursday() -> None:
     """
@@ -39,7 +44,6 @@ def test_is_weekend_thursday() -> None:
     assert result is False
 
 
-
 def test_is_weekend_friday() -> None:
     """
     Test case 5: is_weekend returns False for a Friday datetime.
@@ -48,6 +52,7 @@ def test_is_weekend_friday() -> None:
     result = is_weekend(test_datetime)
     assert isinstance(result, bool)
     assert result is False
+
 
 def test_is_weekend_saturday() -> None:
     """
@@ -58,6 +63,7 @@ def test_is_weekend_saturday() -> None:
     assert isinstance(result, bool)
     assert result is True
 
+
 def test_is_weekend_sunday() -> None:
     """
     Test case 7: is_weekend returns True for a Sunday datetime.
@@ -66,6 +72,7 @@ def test_is_weekend_sunday() -> None:
     result = is_weekend(test_datetime)
     assert isinstance(result, bool)
     assert result is True
+
 
 def test_is_weekend_invalid_type() -> None:
     """

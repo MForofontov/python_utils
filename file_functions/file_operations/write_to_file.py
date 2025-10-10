@@ -6,7 +6,9 @@ and options for end characters.
 """
 
 
-def write_to_file(data: str, file_path: str, mode: str = "w", end_char: str = "") -> None:
+def write_to_file(
+    data: str, file_path: str, mode: str = "w", end_char: str = ""
+) -> None:
     """
     Write string data to a file.
 
@@ -59,13 +61,13 @@ def write_to_file(data: str, file_path: str, mode: str = "w", end_char: str = ""
         raise TypeError(f"mode must be a string, got {type(mode).__name__}")
     if not isinstance(end_char, str):
         raise TypeError(f"end_char must be a string, got {type(end_char).__name__}")
-    
+
     # Value validation
     if not file_path:
         raise ValueError("file_path cannot be empty")
     if mode not in ("w", "a", "x"):
         raise ValueError("mode must be 'w', 'a', or 'x'")
-    
+
     # Write data to file
     with open(file_path, mode, encoding="utf-8") as file:
         file.write(data + end_char)

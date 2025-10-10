@@ -1,5 +1,7 @@
-from typing import Sequence
+from collections.abc import Sequence
+
 import numpy as np
+
 
 def sequence_logo_matrix(sequences: Sequence[str]) -> np.ndarray:
     """
@@ -37,7 +39,7 @@ def sequence_logo_matrix(sequences: Sequence[str]) -> np.ndarray:
     length = len(sequences[0])
     if any(len(seq) != length for seq in sequences):
         raise ValueError("All sequences must be the same length")
-    alphabet = sorted(set(''.join(sequences)))
+    alphabet = sorted(set("".join(sequences)))
     matrix = np.zeros((length, len(alphabet)), dtype=int)
     char_to_idx = {c: i for i, c in enumerate(alphabet)}
     for seq in sequences:
@@ -45,4 +47,5 @@ def sequence_logo_matrix(sequences: Sequence[str]) -> np.ndarray:
             matrix[i, char_to_idx[char]] += 1
     return matrix
 
-__all__ = ['sequence_logo_matrix']
+
+__all__ = ["sequence_logo_matrix"]

@@ -1,5 +1,5 @@
 """Unit tests for get_hostname function."""
-from typing import Any
+
 from unittest.mock import MagicMock, patch
 
 from network_functions.get_hostname import get_hostname

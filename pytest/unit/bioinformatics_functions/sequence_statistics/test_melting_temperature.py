@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.sequence_statistics.melting_temperature import melting_temperature
+from bioinformatics_functions.sequence_statistics.melting_temperature import (
+    melting_temperature,
+)
 
 
 def test_melting_temperature_basic() -> None:

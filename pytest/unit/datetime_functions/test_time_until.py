@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import datetime
 
 import pytest
 from datetime_functions.time_until import time_until

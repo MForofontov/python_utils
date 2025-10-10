@@ -1,6 +1,8 @@
-from typing import Iterator, Dict, Any
+from collections.abc import Iterator
+from typing import Any
 
-def parse_gff(gff_file: str) -> Iterator[Dict[str, Any]]:
+
+def parse_gff(gff_file: str) -> Iterator[dict[str, Any]]:
     """
     Parse a GFF formatted file and yield annotation dictionaries.
 
@@ -34,28 +36,29 @@ def parse_gff(gff_file: str) -> Iterator[Dict[str, Any]]:
     try:
         with open(gff_file) as f:
             for line in f:
-                if not line or line.startswith('#'):
+                if not line or line.startswith("#"):
                     continue
-                parts = line.strip().split('\t')
+                parts = line.strip().split("\t")
                 if len(parts) != 9:
                     raise ValueError("Invalid GFF line: " + line)
                 attr_dict = {}
-                for attr in parts[8].split(';'):
-                    if '=' in attr:
-                        k, v = attr.split('=', 1)
+                for attr in parts[8].split(";"):
+                    if "=" in attr:
+                        k, v = attr.split("=", 1)
                         attr_dict[k] = v
                 yield {
-                    'seqid': parts[0],
-                    'source': parts[1],
-                    'type': parts[2],
-                    'start': int(parts[3]),
-                    'end': int(parts[4]),
-                    'score': parts[5],
-                    'strand': parts[6],
-                    'phase': parts[7],
-                    'attributes': attr_dict,
+                    "seqid": parts[0],
+                    "source": parts[1],
+                    "type": parts[2],
+                    "start": int(parts[3]),
+                    "end": int(parts[4]),
+                    "score": parts[5],
+                    "strand": parts[6],
+                    "phase": parts[7],
+                    "attributes": attr_dict,
                 }
-    except FileNotFoundError:
-        raise FileNotFoundError(f"File not found: {gff_file}")
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"File not found: {gff_file}") from e
+
 
 __all__ = ["parse_gff"]

@@ -1,7 +1,9 @@
 import socket
 
 
-def scan_open_ports(host: str, start_port: int = 1, end_port: int = 1024, timeout: float = 0.5) -> list[int]:
+def scan_open_ports(
+    host: str, start_port: int = 1, end_port: int = 1024, timeout: float = 0.5
+) -> list[int]:
     """
     Scan a range of ports on a host and return a list of open ports.
 
@@ -32,7 +34,9 @@ def scan_open_ports(host: str, start_port: int = 1, end_port: int = 1024, timeou
     if not host:
         raise ValueError("host cannot be empty")
     if not isinstance(start_port, int):
-        raise TypeError(f"start_port must be an integer, got {type(start_port).__name__}")
+        raise TypeError(
+            f"start_port must be an integer, got {type(start_port).__name__}"
+        )
     if not isinstance(end_port, int):
         raise TypeError(f"end_port must be an integer, got {type(end_port).__name__}")
     if not (0 < start_port < 65536):
@@ -56,5 +60,6 @@ def scan_open_ports(host: str, start_port: int = 1, end_port: int = 1024, timeou
             except Exception:
                 continue
     return open_ports
+
 
 __all__ = ["scan_open_ports"]

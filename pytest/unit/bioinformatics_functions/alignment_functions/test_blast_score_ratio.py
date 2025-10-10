@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.alignment_functions.blast_score_ratio import blast_score_ratio
+from bioinformatics_functions.alignment_functions.blast_score_ratio import (
+    blast_score_ratio,
+)
 
 
 def test_blast_score_ratio_typical() -> None:

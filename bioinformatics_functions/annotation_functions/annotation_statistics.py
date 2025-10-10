@@ -1,8 +1,8 @@
-from typing import Sequence, Dict, Any
+from collections.abc import Sequence
+from typing import Any
 
-def annotation_statistics(
-    annotations: Sequence[Dict[str, Any]]
-) -> Dict[str, Any]:
+
+def annotation_statistics(annotations: Sequence[dict[str, Any]]) -> dict[str, Any]:
     """
     Compute statistics from annotation records (counts, coverage, etc.).
 
@@ -36,19 +36,22 @@ def annotation_statistics(
     Time: O(n), Space: O(k) where k is number of unique features
     """
     if not isinstance(annotations, (list, tuple)):
-        raise TypeError(f"annotations must be a list or tuple, got {type(annotations).__name__}")
+        raise TypeError(
+            f"annotations must be a list or tuple, got {type(annotations).__name__}"
+        )
     feature_counts: dict[str, int] = {}
     total_coverage = 0
     for record in annotations:
-        feature = record.get('feature', '.')
+        feature = record.get("feature", ".")
         feature_counts[feature] = feature_counts.get(feature, 0) + 1
-        start = record.get('start')
-        end = record.get('end')
+        start = record.get("start")
+        end = record.get("end")
         if isinstance(start, int) and isinstance(end, int):
             total_coverage += end - start + 1
     return {
-        'feature_counts': feature_counts,
-        'total_coverage': total_coverage,
+        "feature_counts": feature_counts,
+        "total_coverage": total_coverage,
     }
 
-__all__ = ['annotation_statistics']
+
+__all__ = ["annotation_statistics"]

@@ -1,7 +1,11 @@
 import logging
-from typing import Any
+
 import pytest
-from logger_functions.contextual_logger import LogContext, contextual_logger, ContextualLogger
+from logger_functions.contextual_logger import (
+    ContextualLogger,
+    LogContext,
+    contextual_logger,
+)
 
 
 def test_contextual_logger_creation() -> None:
@@ -70,7 +74,9 @@ def test_contextual_logger_logging(caplog: pytest.LogCaptureFixture) -> None:
     assert caplog.records[0].name == "test_logger"
 
 
-def test_contextual_logger_with_context_logging(caplog: pytest.LogCaptureFixture) -> None:
+def test_contextual_logger_with_context_logging(
+    caplog: pytest.LogCaptureFixture,
+) -> None:
     """Test case 7: Test logging with context information."""
     context = LogContext(user_id="123", operation="test_op")
     logger = contextual_logger("test_logger", context)
@@ -84,7 +90,7 @@ def test_contextual_logger_with_context_logging(caplog: pytest.LogCaptureFixture
     # Check that context is included in log record
     assert hasattr(record, "user_id")
     assert record.user_id == "123"
-    assert getattr(record, "operation") == "test_op"
+    assert record.operation == "test_op"
 
 
 def test_contextual_logger_different_levels(caplog: pytest.LogCaptureFixture) -> None:

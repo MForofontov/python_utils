@@ -76,5 +76,3 @@ def test_format_date_empty_format_string() -> None:
         format_date(test_datetime, "")
     with pytest.raises(ValueError):
         format_date(test_datetime, "   ")
-
-

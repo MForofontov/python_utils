@@ -174,7 +174,10 @@ def test_get_temp_dir_info_case_8_file_access_error_handling() -> None:
         with patch("tempfile.gettempdir", return_value=controlled_temp):
             with patch.object(Path, "stat", mock_stat):
                 # Act & Assert
-                with pytest.raises(OSError, match="Error accessing temporary directory: Permission denied"):
+                with pytest.raises(
+                    OSError,
+                    match="Error accessing temporary directory: Permission denied",
+                ):
                     get_temp_dir_info()
 
 
@@ -186,9 +189,10 @@ def test_get_temp_dir_info_case_10_directory_access_error() -> None:
     with tempfile.TemporaryDirectory() as controlled_temp:
         # Mock rglob to raise OSError
         with patch("tempfile.gettempdir", return_value=controlled_temp):
-                def mock_stat(self, *args, **kwargs):
-                    # Act & Assert
-                    with pytest.raises(
-                        OSError, match="Error accessing temporary directory"
-                    ):
-                        get_temp_dir_info()
+
+            def mock_stat(self, *args, **kwargs):
+                # Act & Assert
+                with pytest.raises(
+                    OSError, match="Error accessing temporary directory"
+                ):
+                    get_temp_dir_info()

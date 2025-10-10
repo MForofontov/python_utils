@@ -1,12 +1,14 @@
 import pytest
-from bioinformatics_functions.sequence_statistics.relative_synonymous_codon_usage import relative_synonymous_codon_usage
+from bioinformatics_functions.sequence_statistics.relative_synonymous_codon_usage import (
+    relative_synonymous_codon_usage,
+)
 
 
 def test_relative_synonymous_codon_usage_single_codon() -> None:
     """Test case 1: Test RSCU with single codon repeated."""
     result = relative_synonymous_codon_usage("ATGATGATG")
     # ATG (Met) has only one codon, so RSCU = 1.0
-    assert result['ATG'] == 1.0
+    assert result["ATG"] == 1.0
 
 
 def test_relative_synonymous_codon_usage_synonymous() -> None:
@@ -16,8 +18,8 @@ def test_relative_synonymous_codon_usage_synonymous() -> None:
     result = relative_synonymous_codon_usage("TTTTTTTTCTTT")
     # TTT: observed = 3/4 = 0.75, expected = 1/2 = 0.5, RSCU = 0.75 / 0.5 = 1.5
     # TTC: observed = 1/4 = 0.25, expected = 1/2 = 0.5, RSCU = 0.25 / 0.5 = 0.5
-    assert abs(result['TTT'] - 1.5) < 0.01
-    assert abs(result['TTC'] - 0.5) < 0.01
+    assert abs(result["TTT"] - 1.5) < 0.01
+    assert abs(result["TTC"] - 0.5) < 0.01
 
 
 def test_relative_synonymous_codon_usage_equal_usage() -> None:
@@ -25,8 +27,8 @@ def test_relative_synonymous_codon_usage_equal_usage() -> None:
     # TTT and TTC used equally
     result = relative_synonymous_codon_usage("TTTTTTTTCTTC")
     # Each used 2 times, RSCU should be 1.0 for both
-    assert abs(result['TTT'] - 1.0) < 0.01
-    assert abs(result['TTC'] - 1.0) < 0.01
+    assert abs(result["TTT"] - 1.0) < 0.01
+    assert abs(result["TTC"] - 1.0) < 0.01
 
 
 def test_relative_synonymous_codon_usage_multiple_aa() -> None:
@@ -34,15 +36,15 @@ def test_relative_synonymous_codon_usage_multiple_aa() -> None:
     # Mix of codons for different amino acids
     seq = "ATGATGATG" + "TTTTTT" + "GCAGCA"  # Met + Phe + Ala
     result = relative_synonymous_codon_usage(seq)
-    assert 'ATG' in result
-    assert 'TTT' in result
-    assert 'GCA' in result
+    assert "ATG" in result
+    assert "TTT" in result
+    assert "GCA" in result
 
 
 def test_relative_synonymous_codon_usage_lowercase() -> None:
     """Test case 5: Test RSCU with lowercase sequence."""
     result = relative_synonymous_codon_usage("atgatgatg")
-    assert result['ATG'] == 1.0
+    assert result["ATG"] == 1.0
 
 
 def test_relative_synonymous_codon_usage_not_multiple_of_3() -> None:

@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 def days_between(date1: datetime, date2: datetime) -> int:
     """
     Calculate the number of days between two datetimes.

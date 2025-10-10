@@ -1,8 +1,8 @@
-from typing import Sequence, Dict, Any
+from collections.abc import Sequence
+from typing import Any
 
-def annotation_to_gtf(
-    annotations: Sequence[Dict[str, Any]]
-) -> list[str]:
+
+def annotation_to_gtf(annotations: Sequence[dict[str, Any]]) -> list[str]:
     """
     Convert annotation records to GTF format strings.
 
@@ -31,12 +31,24 @@ def annotation_to_gtf(
     ['chr1\t.\texon\t1\t100\t.\t+\t.\tgene_id "gene1";']
     """
     if not isinstance(annotations, (list, tuple)):
-        raise TypeError(f"annotations must be a list or tuple, got {type(annotations).__name__}")
+        raise TypeError(
+            f"annotations must be a list or tuple, got {type(annotations).__name__}"
+        )
     result = []
     for record in annotations:
         if not isinstance(record, dict):
             raise TypeError("record must be a dict")
-        for key in ("seqid", "source", "feature", "start", "end", "score", "strand", "frame", "attribute"):
+        for key in (
+            "seqid",
+            "source",
+            "feature",
+            "start",
+            "end",
+            "score",
+            "strand",
+            "frame",
+            "attribute",
+        ):
             if key not in record:
                 raise KeyError(f"Missing required GTF key: {key}")
         result.append(
@@ -45,4 +57,5 @@ def annotation_to_gtf(
         )
     return result
 
-__all__ = ['annotation_to_gtf']
+
+__all__ = ["annotation_to_gtf"]

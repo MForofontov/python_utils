@@ -1,8 +1,8 @@
 """Unit tests for async_event_loop function."""
+
 import asyncio
 
 import pytest
-
 from asyncio_functions.async_event_loop import async_event_loop
 
 
@@ -10,6 +10,7 @@ def test_async_event_loop_simple_async_function() -> None:
     """
     Test case 1: Run a simple async function.
     """
+
     # Arrange
     async def simple_task() -> str:
         await asyncio.sleep(0.001)
@@ -26,6 +27,7 @@ def test_async_event_loop_return_integer() -> None:
     """
     Test case 2: Return integer value from async function.
     """
+
     # Arrange
     async def number_task() -> int:
         await asyncio.sleep(0.001)
@@ -42,6 +44,7 @@ def test_async_event_loop_return_list() -> None:
     """
     Test case 3: Return list from async function.
     """
+
     # Arrange
     async def list_task() -> list[int]:
         await asyncio.sleep(0.001)
@@ -58,6 +61,7 @@ def test_async_event_loop_immediate_return() -> None:
     """
     Test case 4: Immediate return without await.
     """
+
     # Arrange
     async def immediate_task() -> str:
         return "immediate"
@@ -73,6 +77,7 @@ def test_async_event_loop_complex_computation() -> None:
     """
     Test case 5: Complex computation with multiple awaits.
     """
+
     # Arrange
     async def complex_task() -> int:
         await asyncio.sleep(0.001)
@@ -87,10 +92,13 @@ def test_async_event_loop_complex_computation() -> None:
 
     # Assert
     assert result == 10  # 0+1+2+3+4
+
+
 def test_async_event_loop_exception_propagation() -> None:
     """
     Test case 6: Exceptions are properly propagated.
     """
+
     # Arrange
     async def failing_task() -> None:
         await asyncio.sleep(0.001)

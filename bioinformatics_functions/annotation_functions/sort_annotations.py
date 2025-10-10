@@ -1,10 +1,12 @@
-from typing import Sequence, Dict, Any
+from collections.abc import Sequence
+from typing import Any
+
 
 def sort_annotations(
-    annotations: Sequence[Dict[str, Any]],
-    by: str = 'start',
+    annotations: Sequence[dict[str, Any]],
+    by: str = "start",
     reverse: bool = False,
-) -> list[Dict[str, Any]]:
+) -> list[dict[str, Any]]:
     """
     Sort annotation records by a specified key (default: 'start').
 
@@ -44,7 +46,9 @@ def sort_annotations(
     Time: O(n log n), Space: O(n)
     """
     if not isinstance(annotations, (list, tuple)):
-        raise TypeError(f"annotations must be a list or tuple, got {type(annotations).__name__}")
+        raise TypeError(
+            f"annotations must be a list or tuple, got {type(annotations).__name__}"
+        )
     if not isinstance(by, str):
         raise TypeError(f"by must be a string, got {type(by).__name__}")
     if not isinstance(reverse, bool):
@@ -52,6 +56,7 @@ def sort_annotations(
     try:
         return sorted(annotations, key=lambda x: x[by], reverse=reverse)
     except KeyError as e:
-        raise KeyError(f"Sort key missing in record: {e}")
+        raise KeyError(f"Sort key missing in record: {e}") from e
 
-__all__ = ['sort_annotations']
+
+__all__ = ["sort_annotations"]

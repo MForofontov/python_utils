@@ -6,12 +6,14 @@ from typing import TypeVar
 T = TypeVar("T")
 R = TypeVar("R")
 
+
 def _wrapper(args: tuple[Callable[[T], R], T]) -> tuple[R | None, Exception | None]:
     func, item = args
     try:
         return func(item), None
     except Exception as e:
         return None, e
+
 
 def parallel_gather_errors(
     func: Callable[[T], R], data: list[T], num_processes: int | None = None

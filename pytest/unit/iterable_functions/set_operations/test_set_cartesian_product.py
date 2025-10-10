@@ -85,6 +85,8 @@ def test_set_cartesian_product_large_sets() -> None:
     set3 = {"x", "y"}
     result = set_cartesian_product(set1, set2, set3)
     assert len(result) == 18  # 3 * 3 * 2 = 18
+
+
 def test_set_cartesian_product_no_sets() -> None:
     """
     Test case 8: ValueError when no sets provided.

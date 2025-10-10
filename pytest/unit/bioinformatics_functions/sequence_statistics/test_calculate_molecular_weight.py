@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.sequence_statistics.calculate_molecular_weight import calculate_molecular_weight
+from bioinformatics_functions.sequence_statistics.calculate_molecular_weight import (
+    calculate_molecular_weight,
+)
 
 
 def test_calculate_molecular_weight_dna_sequence() -> None:
@@ -8,10 +10,10 @@ def test_calculate_molecular_weight_dna_sequence() -> None:
     """
     # Arrange
     dna_seq = "ATGC"
-    
+
     # Act
-    result = calculate_molecular_weight(dna_seq, 'dna')
-    
+    result = calculate_molecular_weight(dna_seq, "dna")
+
     # Assert
     assert isinstance(result, float)
     assert result > 0
@@ -23,10 +25,10 @@ def test_calculate_molecular_weight_rna_sequence() -> None:
     """
     # Arrange
     rna_seq = "AUGC"
-    
+
     # Act
-    result = calculate_molecular_weight(rna_seq, 'rna')
-    
+    result = calculate_molecular_weight(rna_seq, "rna")
+
     # Assert
     assert isinstance(result, float)
     assert result > 0
@@ -38,10 +40,10 @@ def test_calculate_molecular_weight_protein_sequence() -> None:
     """
     # Arrange
     protein_seq = "ACDEFGH"
-    
+
     # Act
-    result = calculate_molecular_weight(protein_seq, 'protein')
-    
+    result = calculate_molecular_weight(protein_seq, "protein")
+
     # Assert
     assert isinstance(result, float)
     assert result > 0
@@ -53,10 +55,10 @@ def test_calculate_molecular_weight_default_type() -> None:
     """
     # Arrange
     dna_seq = "ATGC"
-    
+
     # Act
     result = calculate_molecular_weight(dna_seq)
-    
+
     # Assert
     assert isinstance(result, float)
     assert result > 0
@@ -68,10 +70,10 @@ def test_calculate_molecular_weight_lowercase_input() -> None:
     """
     # Arrange
     dna_seq = "atgc"
-    
+
     # Act
-    result = calculate_molecular_weight(dna_seq, 'dna')
-    
+    result = calculate_molecular_weight(dna_seq, "dna")
+
     # Assert
     assert isinstance(result, float)
     assert result > 0
@@ -83,10 +85,10 @@ def test_calculate_molecular_weight_mixed_case() -> None:
     """
     # Arrange
     dna_seq = "AtGc"
-    
+
     # Act
-    result = calculate_molecular_weight(dna_seq, 'dna')
-    
+    result = calculate_molecular_weight(dna_seq, "dna")
+
     # Assert
     assert isinstance(result, float)
     assert result > 0
@@ -98,10 +100,10 @@ def test_calculate_molecular_weight_long_sequence() -> None:
     """
     # Arrange
     dna_seq = "ATGC" * 100
-    
+
     # Act
-    result = calculate_molecular_weight(dna_seq, 'dna')
-    
+    result = calculate_molecular_weight(dna_seq, "dna")
+
     # Assert
     assert isinstance(result, float)
     assert result > 0
@@ -113,10 +115,10 @@ def test_calculate_molecular_weight_empty_sequence() -> None:
     """
     # Arrange
     empty_seq = ""
-    
+
     # Act
-    result = calculate_molecular_weight(empty_seq, 'dna')
-    
+    result = calculate_molecular_weight(empty_seq, "dna")
+
     # Assert
     assert result == 0.0
 
@@ -128,10 +130,10 @@ def test_calculate_molecular_weight_type_error_seq_not_string() -> None:
     # Arrange
     invalid_seq = 12345  # type: ignore
     expected_message = "seq must be str, got int"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
-        calculate_molecular_weight(invalid_seq, 'dna')  # type: ignore
+        calculate_molecular_weight(invalid_seq, "dna")  # type: ignore
 
 
 def test_calculate_molecular_weight_type_error_seq_type_not_string() -> None:
@@ -142,7 +144,7 @@ def test_calculate_molecular_weight_type_error_seq_type_not_string() -> None:
     seq = "ATGC"
     invalid_type = 123  # type: ignore
     expected_message = "seq_type must be str, got int"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         calculate_molecular_weight(seq, invalid_type)  # type: ignore
@@ -156,7 +158,7 @@ def test_calculate_molecular_weight_value_error_invalid_seq_type() -> None:
     seq = "ATGC"
     invalid_type = "invalid"
     expected_message = "seq_type must be 'dna', 'rna', or 'protein'"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         calculate_molecular_weight(seq, invalid_type)
@@ -169,10 +171,10 @@ def test_calculate_molecular_weight_value_error_invalid_dna_characters() -> None
     # Arrange
     invalid_seq = "ATGCXYZ"
     expected_message = "Sequence contains invalid dna characters"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
-        calculate_molecular_weight(invalid_seq, 'dna')
+        calculate_molecular_weight(invalid_seq, "dna")
 
 
 def test_calculate_molecular_weight_value_error_invalid_rna_characters() -> None:
@@ -182,10 +184,10 @@ def test_calculate_molecular_weight_value_error_invalid_rna_characters() -> None
     # Arrange
     invalid_seq = "AUGCXYZ"
     expected_message = "Sequence contains invalid rna characters"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
-        calculate_molecular_weight(invalid_seq, 'rna')
+        calculate_molecular_weight(invalid_seq, "rna")
 
 
 def test_calculate_molecular_weight_value_error_invalid_protein_characters() -> None:
@@ -195,7 +197,7 @@ def test_calculate_molecular_weight_value_error_invalid_protein_characters() -> 
     # Arrange
     invalid_seq = "ACDEFXYZ"
     expected_message = "Sequence contains invalid protein characters"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
-        calculate_molecular_weight(invalid_seq, 'protein')
+        calculate_molecular_weight(invalid_seq, "protein")

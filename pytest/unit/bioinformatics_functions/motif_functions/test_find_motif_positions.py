@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.motif_functions.find_motif_positions import find_motif_positions
+from bioinformatics_functions.motif_functions.find_motif_positions import (
+    find_motif_positions,
+)
 
 
 def test_find_motif_positions_basic() -> None:
@@ -41,7 +43,9 @@ def test_find_motif_positions_empty_motif() -> None:
 
 def test_find_motif_positions_motif_longer_than_seq() -> None:
     """Test case 7: Test ValueError for motif longer than sequence."""
-    with pytest.raises(ValueError, match="Motif length .* cannot be greater than sequence length"):
+    with pytest.raises(
+        ValueError, match="Motif length .* cannot be greater than sequence length"
+    ):
         find_motif_positions("ATG", "ATGCATGC")
 
 

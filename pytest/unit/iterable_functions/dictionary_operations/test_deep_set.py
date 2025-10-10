@@ -178,6 +178,8 @@ def test_deep_set_numeric_keys_in_path() -> None:
 
     # Assert
     assert input_data == expected_output
+
+
 def test_deep_set_invalid_type_error() -> None:
     """
     Test case 11: TypeError for invalid input type.

@@ -1,4 +1,5 @@
-from typing import Sequence
+from collections.abc import Sequence
+
 
 def fasta_concat(fasta_strs: Sequence[str]) -> str:
     """
@@ -26,6 +27,7 @@ def fasta_concat(fasta_strs: Sequence[str]) -> str:
     """
     if not all(isinstance(s, str) for s in fasta_strs):
         raise TypeError("All elements must be strings")
-    return '\n'.join(s.strip() for s in fasta_strs if s.strip())
+    return "\n".join(s.strip() for s in fasta_strs if s.strip())
+
 
 __all__ = ["fasta_concat"]

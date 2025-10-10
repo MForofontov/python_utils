@@ -35,9 +35,7 @@ def compress_zlib(data: bytes) -> bytes:
         return encoded
     except Exception as exc:
         # Raise a ValueError if an error occurs during compression
-        raise ValueError(
-            f"An error occurred during compression: {exc}"
-        ) from exc
+        raise ValueError(f"An error occurred during compression: {exc}") from exc
 
 
 __all__ = ["compress_zlib"]

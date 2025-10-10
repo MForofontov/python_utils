@@ -171,6 +171,8 @@ def test_deep_get_empty_string_in_path() -> None:
 
     # Assert
     assert result == expected_output
+
+
 def test_deep_get_invalid_type_error() -> None:
     """
     Test case 11: TypeError for invalid input type.

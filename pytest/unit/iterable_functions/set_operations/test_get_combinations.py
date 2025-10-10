@@ -90,6 +90,8 @@ def test_get_combinations_large_set() -> None:
     assert len(result) == 120
     # Each combination should have exactly 3 elements
     assert all(len(comb) == 3 for comb in result)
+
+
 def test_get_combinations_empty_set() -> None:
     """
     Test case 9: Test with empty set.

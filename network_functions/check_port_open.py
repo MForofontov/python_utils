@@ -43,7 +43,7 @@ def check_port_open(host: str, port: int, timeout: float = 2.0) -> bool:
         raise TypeError(f"timeout must be a number, got {type(timeout).__name__}")
     if timeout <= 0:
         raise ValueError("timeout must be positive")
-    
+
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         sock.settimeout(timeout)
         try:
@@ -51,5 +51,6 @@ def check_port_open(host: str, port: int, timeout: float = 2.0) -> bool:
             return True
         except Exception:
             return False
+
 
 __all__ = ["check_port_open"]

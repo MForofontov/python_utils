@@ -70,6 +70,8 @@ def test_find_duplicates_large_list() -> None:
     result = find_duplicates(items)
     assert 999 in result
     assert result[999] == 6
+
+
 def test_find_duplicates_type_error() -> None:
     """
     Test case 8: TypeError for non-list input.

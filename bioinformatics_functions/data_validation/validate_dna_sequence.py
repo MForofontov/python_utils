@@ -43,7 +43,7 @@ def validate_dna_sequence(seq: str, allow_ambiguous: bool = False) -> dict[str, 
     -----
     Standard DNA bases: A, T, G, C
     IUPAC ambiguous codes: R, Y, S, W, K, M, B, D, H, V, N
-    
+
     Complexity
     ----------
     Time: O(n), Space: O(k) where n is sequence length, k is unique invalid chars
@@ -52,42 +52,44 @@ def validate_dna_sequence(seq: str, allow_ambiguous: bool = False) -> dict[str, 
     if not isinstance(seq, str):
         raise TypeError(f"seq must be a string, got {type(seq).__name__}")
     if not isinstance(allow_ambiguous, bool):
-        raise TypeError(f"allow_ambiguous must be a boolean, got {type(allow_ambiguous).__name__}")
-    
+        raise TypeError(
+            f"allow_ambiguous must be a boolean, got {type(allow_ambiguous).__name__}"
+        )
+
     # Define valid bases
-    valid_bases = set('ATGC')
+    valid_bases = set("ATGC")
     if allow_ambiguous:
         # IUPAC ambiguous nucleotide codes
-        valid_bases.update('RYSWKMBDHVN')
-    
+        valid_bases.update("RYSWKMBDHVN")
+
     # Check for lowercase
     has_lowercase = seq != seq.upper()
-    
+
     # Convert to uppercase for validation
     seq_upper = seq.upper()
-    
+
     # Find invalid characters
     seq_bases = set(seq_upper)
     invalid_chars = sorted(seq_bases - valid_bases)
-    
+
     # Determine if valid
     is_valid = len(invalid_chars) == 0
-    
+
     # Calculate GC content (only count standard bases)
-    gc_count = sum(1 for base in seq_upper if base in 'GC')
-    total_standard = sum(1 for base in seq_upper if base in 'ATGC')
+    gc_count = sum(1 for base in seq_upper if base in "GC")
+    total_standard = sum(1 for base in seq_upper if base in "ATGC")
     gc_content = (gc_count / total_standard * 100.0) if total_standard > 0 else 0.0
-    
+
     # Build report
     report: dict[str, Any] = {
-        'is_valid': is_valid,
-        'length': len(seq),
-        'invalid_chars': invalid_chars,
-        'has_lowercase': has_lowercase,
-        'gc_content': round(gc_content, 2)
+        "is_valid": is_valid,
+        "length": len(seq),
+        "invalid_chars": invalid_chars,
+        "has_lowercase": has_lowercase,
+        "gc_content": round(gc_content, 2),
     }
-    
+
     return report
 
 
-__all__ = ['validate_dna_sequence']
+__all__ = ["validate_dna_sequence"]

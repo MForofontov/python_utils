@@ -1,6 +1,5 @@
 """Get the start of year for a given date."""
 
-
 from datetime import datetime
 
 

@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.fasta_misc.degenerate_primer_generator import degenerate_primer_generator
+from bioinformatics_functions.fasta_misc.degenerate_primer_generator import (
+    degenerate_primer_generator,
+)
 
 
 def test_degenerate_primer_generator_basic() -> None:

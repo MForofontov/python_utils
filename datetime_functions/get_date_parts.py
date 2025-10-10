@@ -1,5 +1,6 @@
 from datetime import datetime
-from datetime import datetime
+
+
 def get_date_parts(date_obj: datetime) -> dict[str, int]:
     """
     Return key date attributes in a dictionary from a datetime object.

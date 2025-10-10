@@ -1,4 +1,6 @@
-def needleman_wunsch(seq1: str, seq2: str, match: int = 1, mismatch: int = -1, gap: int = -1) -> tuple[int, str, str]:
+def needleman_wunsch(
+    seq1: str, seq2: str, match: int = 1, mismatch: int = -1, gap: int = -1
+) -> tuple[int, str, str]:
     """
     Perform global sequence alignment using Needleman-Wunsch algorithm.
 
@@ -45,7 +47,7 @@ def needleman_wunsch(seq1: str, seq2: str, match: int = 1, mismatch: int = -1, g
     This is a simplified implementation for educational purposes.
     For production use, consider using established bioinformatics libraries.
     Algorithm uses dynamic programming with O(n*m) time and space complexity.
-    
+
     Complexity
     ----------
     Time: O(n*m), Space: O(n*m) where n, m are sequence lengths
@@ -61,22 +63,22 @@ def needleman_wunsch(seq1: str, seq2: str, match: int = 1, mismatch: int = -1, g
         raise TypeError(f"mismatch must be an integer, got {type(mismatch).__name__}")
     if not isinstance(gap, int):
         raise TypeError(f"gap must be an integer, got {type(gap).__name__}")
-    
+
     if len(seq1) == 0:
         raise ValueError("seq1 cannot be empty")
     if len(seq2) == 0:
         raise ValueError("seq2 cannot be empty")
-    
+
     # Initialize scoring matrix
     n, m = len(seq1), len(seq2)
     score_matrix = [[0 for _ in range(m + 1)] for _ in range(n + 1)]
-    
+
     # Initialize first row and column with gap penalties
     for i in range(n + 1):
         score_matrix[i][0] = i * gap
     for j in range(m + 1):
         score_matrix[0][j] = j * gap
-    
+
     # Fill the scoring matrix
     for i in range(1, n + 1):
         for j in range(1, m + 1):
@@ -84,17 +86,17 @@ def needleman_wunsch(seq1: str, seq2: str, match: int = 1, mismatch: int = -1, g
                 diagonal = score_matrix[i - 1][j - 1] + match
             else:
                 diagonal = score_matrix[i - 1][j - 1] + mismatch
-            
+
             up = score_matrix[i - 1][j] + gap
             left = score_matrix[i][j - 1] + gap
-            
+
             score_matrix[i][j] = max(diagonal, up, left)
-    
+
     # Traceback to get alignment
     aligned_seq1 = []
     aligned_seq2 = []
     i, j = n, m
-    
+
     while i > 0 or j > 0:
         if i > 0 and j > 0:
             current_score = score_matrix[i][j]
@@ -102,7 +104,7 @@ def needleman_wunsch(seq1: str, seq2: str, match: int = 1, mismatch: int = -1, g
                 diagonal_score = score_matrix[i - 1][j - 1] + match
             else:
                 diagonal_score = score_matrix[i - 1][j - 1] + mismatch
-            
+
             if current_score == diagonal_score:
                 aligned_seq1.append(seq1[i - 1])
                 aligned_seq2.append(seq2[j - 1])
@@ -110,28 +112,28 @@ def needleman_wunsch(seq1: str, seq2: str, match: int = 1, mismatch: int = -1, g
                 j -= 1
             elif i > 0 and current_score == score_matrix[i - 1][j] + gap:
                 aligned_seq1.append(seq1[i - 1])
-                aligned_seq2.append('-')
+                aligned_seq2.append("-")
                 i -= 1
             else:
-                aligned_seq1.append('-')
+                aligned_seq1.append("-")
                 aligned_seq2.append(seq2[j - 1])
                 j -= 1
         elif i > 0:
             aligned_seq1.append(seq1[i - 1])
-            aligned_seq2.append('-')
+            aligned_seq2.append("-")
             i -= 1
         else:
-            aligned_seq1.append('-')
+            aligned_seq1.append("-")
             aligned_seq2.append(seq2[j - 1])
             j -= 1
-    
+
     # Reverse alignments (built backwards during traceback)
-    aligned_seq1_str = ''.join(reversed(aligned_seq1))
-    aligned_seq2_str = ''.join(reversed(aligned_seq2))
-    
+    aligned_seq1_str = "".join(reversed(aligned_seq1))
+    aligned_seq2_str = "".join(reversed(aligned_seq2))
+
     alignment_score = score_matrix[n][m]
-    
+
     return alignment_score, aligned_seq1_str, aligned_seq2_str
 
 
-__all__ = ['needleman_wunsch']
+__all__ = ["needleman_wunsch"]

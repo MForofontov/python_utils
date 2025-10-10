@@ -1,7 +1,11 @@
-from typing import Iterator, Tuple, Callable
+from collections.abc import Callable, Iterator
+
 from .fasta_parser import parse_fasta
 
-def fasta_filter(fasta_str: str, predicate: Callable[[str, str], bool]) -> Iterator[Tuple[str, str]]:
+
+def fasta_filter(
+    fasta_str: str, predicate: Callable[[str, str], bool]
+) -> Iterator[tuple[str, str]]:
     """
     Filter FASTA records by a predicate function.
 
@@ -25,5 +29,6 @@ def fasta_filter(fasta_str: str, predicate: Callable[[str, str], bool]) -> Itera
     for header, seq in parse_fasta(fasta_str):
         if predicate(header, seq):
             yield (header, seq)
+
 
 __all__ = ["fasta_filter"]

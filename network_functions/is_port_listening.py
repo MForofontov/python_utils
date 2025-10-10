@@ -21,8 +21,9 @@ def is_port_listening(port: int) -> bool:
     True
     """
     for conn in psutil.net_connections():
-        if conn.laddr and conn.laddr.port == port and conn.status == 'LISTEN':
+        if conn.laddr and conn.laddr.port == port and conn.status == "LISTEN":
             return True
     return False
+
 
 __all__ = ["is_port_listening"]

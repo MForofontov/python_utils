@@ -54,9 +54,9 @@ def sequence_pattern_match(seq: str, pattern: str, use_iupac: bool = True) -> li
     - H = A, C, or T (not G)
     - V = A, C, or G (not T)
     - N = A, C, G, or T (any)
-    
+
     Case-insensitive matching.
-    
+
     Complexity
     ----------
     Time: O(n*m), Space: O(k) where n is sequence length, m is pattern length, k is matches
@@ -68,43 +68,50 @@ def sequence_pattern_match(seq: str, pattern: str, use_iupac: bool = True) -> li
         raise TypeError(f"pattern must be a string, got {type(pattern).__name__}")
     if not isinstance(use_iupac, bool):
         raise TypeError(f"use_iupac must be a boolean, got {type(use_iupac).__name__}")
-    
+
     if len(pattern) == 0:
         raise ValueError("Pattern cannot be empty")
     if len(pattern) > len(seq):
-        raise ValueError(f"Pattern length ({len(pattern)}) cannot be greater than sequence length ({len(seq)})")
-    
+        raise ValueError(
+            f"Pattern length ({len(pattern)}) cannot be greater than sequence length ({len(seq)})"
+        )
+
     # Convert to uppercase
     seq_upper = seq.upper()
     pattern_upper = pattern.upper()
-    
+
     if use_iupac:
         # IUPAC ambiguity code mappings
         iupac_codes = {
-            'A': 'A', 'T': 'T', 'G': 'G', 'C': 'C',
-            'R': '[AG]',    # purine
-            'Y': '[CT]',    # pyrimidine
-            'S': '[GC]',    # strong
-            'W': '[AT]',    # weak
-            'K': '[GT]',    # keto
-            'M': '[AC]',    # amino
-            'B': '[CGT]',   # not A
-            'D': '[AGT]',   # not C
-            'H': '[ACT]',   # not G
-            'V': '[ACG]',   # not T
-            'N': '[ACGT]'   # any
+            "A": "A",
+            "T": "T",
+            "G": "G",
+            "C": "C",
+            "R": "[AG]",  # purine
+            "Y": "[CT]",  # pyrimidine
+            "S": "[GC]",  # strong
+            "W": "[AT]",  # weak
+            "K": "[GT]",  # keto
+            "M": "[AC]",  # amino
+            "B": "[CGT]",  # not A
+            "D": "[AGT]",  # not C
+            "H": "[ACT]",  # not G
+            "V": "[ACG]",  # not T
+            "N": "[ACGT]",  # any
         }
-        
+
         # Validate pattern contains only valid IUPAC codes
         valid_codes = set(iupac_codes.keys())
         pattern_codes = set(pattern_upper)
         invalid_codes = pattern_codes - valid_codes
         if invalid_codes:
-            raise ValueError(f"Invalid IUPAC codes in pattern: {', '.join(sorted(invalid_codes))}")
-        
+            raise ValueError(
+                f"Invalid IUPAC codes in pattern: {', '.join(sorted(invalid_codes))}"
+            )
+
         # Convert pattern to regex
-        regex_pattern = ''.join(iupac_codes[base] for base in pattern_upper)
-        
+        regex_pattern = "".join(iupac_codes[base] for base in pattern_upper)
+
         # Find all matches
         positions = []
         for match in re.finditer(regex_pattern, seq_upper):
@@ -119,8 +126,8 @@ def sequence_pattern_match(seq: str, pattern: str, use_iupac: bool = True) -> li
                 break
             positions.append(pos)
             start = pos + 1
-    
+
     return positions
 
 
-__all__ = ['sequence_pattern_match']
+__all__ = ["sequence_pattern_match"]

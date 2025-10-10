@@ -1,5 +1,6 @@
 import random
 
+
 def sequence_shuffling(sequence: str) -> str:
     """
     Randomly shuffle a sequence while preserving composition.
@@ -32,6 +33,7 @@ def sequence_shuffling(sequence: str) -> str:
         raise TypeError("sequence must be a string")
     seq_list = list(sequence)
     random.shuffle(seq_list)
-    return ''.join(seq_list)
+    return "".join(seq_list)
 
-__all__ = ['sequence_shuffling']
+
+__all__ = ["sequence_shuffling"]

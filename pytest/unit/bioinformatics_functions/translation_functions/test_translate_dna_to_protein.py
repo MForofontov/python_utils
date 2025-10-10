@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.translation_functions.translate_dna_to_protein import translate_dna_to_protein
+from bioinformatics_functions.translation_functions.translate_dna_to_protein import (
+    translate_dna_to_protein,
+)
 
 
 def test_translate_dna_to_protein_basic() -> None:

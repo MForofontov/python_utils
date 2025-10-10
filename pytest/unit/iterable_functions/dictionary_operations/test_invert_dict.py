@@ -122,6 +122,8 @@ def test_invert_dict_no_duplicates_with_allow_true() -> None:
 
     # Assert
     assert result == expected_output
+
+
 def test_invert_dict_duplicates_not_allowed_error() -> None:
     """
     Test case 9: ValueError for duplicate values when not allowed.

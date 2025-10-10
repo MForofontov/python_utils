@@ -78,6 +78,8 @@ def test_get_permutations_large_set() -> None:
     assert len(result) == 12
     # Each permutation should have exactly 2 elements
     assert all(len(perm) == 2 for perm in result)
+
+
 def test_get_permutations_empty_set() -> None:
     """
     Test case 8: Test with empty set.

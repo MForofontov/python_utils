@@ -1,7 +1,9 @@
-from typing import Iterator, Tuple
+from collections.abc import Iterator
+
 from .fasta_parser import parse_fasta
 
-def fasta_reverse_complement(fasta_str: str) -> Iterator[Tuple[str, str]]:
+
+def fasta_reverse_complement(fasta_str: str) -> Iterator[tuple[str, str]]:
     """
     Generate reverse complement for all DNA sequences in a FASTA string.
 
@@ -20,9 +22,10 @@ def fasta_reverse_complement(fasta_str: str) -> Iterator[Tuple[str, str]]:
     >>> list(fasta_reverse_complement('>seq1\nATGC'))
     [('seq1', 'GCAT')]
     """
-    complement = str.maketrans('ACGTacgt', 'TGCAtgca')
+    complement = str.maketrans("ACGTacgt", "TGCAtgca")
     for header, seq in parse_fasta(fasta_str):
         rc_seq = seq.translate(complement)[::-1]
         yield (header, rc_seq)
+
 
 __all__ = ["fasta_reverse_complement"]

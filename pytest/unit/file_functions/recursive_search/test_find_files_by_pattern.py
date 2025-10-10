@@ -62,7 +62,9 @@ def test_find_files_by_pattern_case_3_case_sensitive() -> None:
         (Path(temp_dir) / "testfile.txt").touch()
 
         # Act - case sensitive
-        result_sensitive = find_files_by_pattern(temp_dir, "TestFile*", case_sensitive=True)
+        result_sensitive = find_files_by_pattern(
+            temp_dir, "TestFile*", case_sensitive=True
+        )
         # Act - case insensitive
         result_insensitive = find_files_by_pattern(
             temp_dir, "TestFile*", case_sensitive=False

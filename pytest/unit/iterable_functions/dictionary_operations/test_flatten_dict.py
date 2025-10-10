@@ -147,6 +147,8 @@ def test_flatten_dict_complex_separator() -> None:
 
     # Assert
     assert result == expected_output
+
+
 def test_flatten_dict_invalid_type_error() -> None:
     """
     Test case 10: TypeError for invalid input type.

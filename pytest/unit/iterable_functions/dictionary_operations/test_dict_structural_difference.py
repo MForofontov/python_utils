@@ -1,8 +1,9 @@
 from typing import Any
 
-from iterable_functions.dictionary_operations.dict_structural_difference import dict_structural_difference
-
 import pytest
+from iterable_functions.dictionary_operations.dict_structural_difference import (
+    dict_structural_difference,
+)
 
 
 def test_dict_structural_difference_identical_dicts() -> None:
@@ -244,6 +245,8 @@ def test_dict_structural_difference_no_changes_deeply_nested() -> None:
 
     # Assert
     assert result == expected_output
+
+
 def test_dict_structural_difference_type_error_invalid_input() -> None:
     """
     Test case 12: TypeError for invalid input types.

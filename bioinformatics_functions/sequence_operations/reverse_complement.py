@@ -26,9 +26,10 @@ def reverse_complement(seq: str) -> str:
     """
     if not isinstance(seq, str):
         raise TypeError(f"seq must be str, got {type(seq).__name__}")
-    if not all(base in 'ATCG' for base in seq.upper()):
+    if not all(base in "ATCG" for base in seq.upper()):
         raise ValueError("Sequence contains invalid DNA bases")
-    complement = str.maketrans('ATCGatcg', 'TAGCtagc')
+    complement = str.maketrans("ATCGatcg", "TAGCtagc")
     return seq.translate(complement)[::-1]
+
 
 __all__ = ["reverse_complement"]

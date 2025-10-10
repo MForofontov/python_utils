@@ -37,56 +37,57 @@ def calculate_isoelectric_point(seq: str) -> float:
     """
     if not isinstance(seq, str):
         raise TypeError(f"seq must be str, got {type(seq).__name__}")
-    
+
     seq = seq.upper()
-    
-    valid_amino_acids = 'ACDEFGHIKLMNPQRSTVWY'
-    
+
+    valid_amino_acids = "ACDEFGHIKLMNPQRSTVWY"
+
     if not seq:
         raise ValueError("Sequence cannot be empty")
-    
+
     if not all(aa in valid_amino_acids for aa in seq):
         raise ValueError("Sequence contains invalid amino acid codes")
-    
+
     # pKa values for ionizable groups
     pka_nterm = 9.69
     pka_cterm = 2.34
-    
+
     pka_side_chains = {
-        'C': 8.33,  # Cysteine
-        'D': 3.86,  # Aspartic acid
-        'E': 4.25,  # Glutamic acid
-        'H': 6.00,  # Histidine
-        'K': 10.53, # Lysine
-        'R': 12.48, # Arginine
-        'Y': 10.07  # Tyrosine
+        "C": 8.33,  # Cysteine
+        "D": 3.86,  # Aspartic acid
+        "E": 4.25,  # Glutamic acid
+        "H": 6.00,  # Histidine
+        "K": 10.53,  # Lysine
+        "R": 12.48,  # Arginine
+        "Y": 10.07,  # Tyrosine
     }
-    
+
     # Count ionizable residues
-    positive_charges = seq.count('K') + seq.count('R') + seq.count('H')
-    negative_charges = seq.count('D') + seq.count('E')
-    
+    positive_charges = seq.count("K") + seq.count("R") + seq.count("H")
+    negative_charges = seq.count("D") + seq.count("E")
+
     # Simplified pI calculation using average of pKa values
     # This is an approximation; more accurate methods use iterative pH calculations
-    
+
     if positive_charges > negative_charges:
         # Basic protein - estimate from positive pKa values
         pka_values = [pka_nterm]
         for aa in seq:
-            if aa in ['K', 'R', 'H']:
+            if aa in ["K", "R", "H"]:
                 pka_values.append(pka_side_chains[aa])
         pi = sum(pka_values) / len(pka_values) if pka_values else 7.0
     elif negative_charges > positive_charges:
         # Acidic protein - estimate from negative pKa values
         pka_values = [pka_cterm]
         for aa in seq:
-            if aa in ['D', 'E']:
+            if aa in ["D", "E"]:
                 pka_values.append(pka_side_chains[aa])
         pi = sum(pka_values) / len(pka_values) if pka_values else 7.0
     else:
         # Neutral protein
         pi = 7.0
-    
+
     return round(pi, 2)
+
 
 __all__ = ["calculate_isoelectric_point"]

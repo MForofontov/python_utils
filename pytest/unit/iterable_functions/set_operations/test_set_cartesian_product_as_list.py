@@ -93,6 +93,8 @@ def test_set_cartesian_product_as_list_large_sets() -> None:
     assert isinstance(result, list)
     # Check that result is sorted
     assert result == sorted(result)
+
+
 def test_set_cartesian_product_as_list_no_sets() -> None:
     """
     Test case 8: ValueError when no sets provided.

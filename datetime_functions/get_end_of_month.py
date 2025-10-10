@@ -1,7 +1,7 @@
 """Get the end of month for a given date."""
 
 from calendar import monthrange
-from datetime import date, datetime
+from datetime import datetime
 
 
 def get_end_of_month(date_obj: datetime) -> datetime:

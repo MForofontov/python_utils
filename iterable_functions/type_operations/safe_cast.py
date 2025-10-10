@@ -154,7 +154,7 @@ def is_numeric(value: Any) -> bool:
     ----------
     Time: O(1)
     """
-    return isinstance(value, (int, float, complex))
+    return isinstance(value, (int, float, complex)) and not isinstance(value, bool)
 
 
 __all__ = ["safe_cast", "is_numeric"]

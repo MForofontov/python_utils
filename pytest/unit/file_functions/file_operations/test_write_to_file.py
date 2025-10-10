@@ -163,6 +163,8 @@ def test_write_to_file_case_12_special_characters() -> None:
         # Assert
         with open(output_file) as f:
             assert f.read() == content
+
+
 def test_write_to_file_case_5_type_validation() -> None:
     """
     Test case 10: Type validation for parameters.

@@ -10,10 +10,10 @@ def test_motif_search_exact_match() -> None:
     seq = "ATGCGTAG"
     motif = "GCG"
     expected = [2]
-    
+
     # Act
     result = motif_search(seq, motif)
-    
+
     # Assert
     assert result == expected
 
@@ -26,10 +26,10 @@ def test_motif_search_multiple_matches() -> None:
     seq = "ATGATGATG"
     motif = "ATG"
     expected = [0, 3, 6]
-    
+
     # Act
     result = motif_search(seq, motif)
-    
+
     # Assert
     assert result == expected
 
@@ -42,10 +42,10 @@ def test_motif_search_no_matches() -> None:
     seq = "AAAAAAA"
     motif = "GGG"
     expected = []
-    
+
     # Act
     result = motif_search(seq, motif)
-    
+
     # Assert
     assert result == expected
 
@@ -58,10 +58,10 @@ def test_motif_search_ambiguous_n() -> None:
     seq = "ATGCGTAG"
     motif = "N"
     expected = [0, 1, 2, 3, 4, 5, 6, 7]
-    
+
     # Act
     result = motif_search(seq, motif)
-    
+
     # Assert
     assert result == expected
 
@@ -73,11 +73,11 @@ def test_motif_search_ambiguous_r() -> None:
     # Arrange
     seq = "ATGCGTAG"
     motif = "R"
-    expected = [0, 2, 4, 6]  # Positions with A or G
-    
+    expected = [0, 2, 4, 6, 7]  # Positions with A or G (A at 0, G at 2, G at 4, A at 6, G at 7)
+
     # Act
     result = motif_search(seq, motif)
-    
+
     # Assert
     assert result == expected
 
@@ -90,10 +90,10 @@ def test_motif_search_ambiguous_pattern() -> None:
     seq = "ATGCATGC"
     motif = "NTG"
     expected = [0, 4]
-    
+
     # Act
     result = motif_search(seq, motif)
-    
+
     # Assert
     assert result == expected
 
@@ -106,10 +106,10 @@ def test_motif_search_lowercase_input() -> None:
     seq = "atgcgtag"
     motif = "gcg"
     expected = [2]
-    
+
     # Act
     result = motif_search(seq, motif)
-    
+
     # Assert
     assert result == expected
 
@@ -122,10 +122,10 @@ def test_motif_search_mixed_case() -> None:
     seq = "AtGcGtAg"
     motif = "GcG"
     expected = [2]
-    
+
     # Act
     result = motif_search(seq, motif)
-    
+
     # Assert
     assert result == expected
 
@@ -137,11 +137,11 @@ def test_motif_search_single_character_motif() -> None:
     # Arrange
     seq = "ATGCGTAG"
     motif = "G"
-    expected = [2, 4, 6]
-    
+    expected = [2, 4, 7]  # G appears at positions 2, 4, and 7
+
     # Act
     result = motif_search(seq, motif)
-    
+
     # Assert
     assert result == expected
 
@@ -154,10 +154,10 @@ def test_motif_search_motif_longer_than_seq() -> None:
     seq = "ATG"
     motif = "ATGCGTAG"
     expected = []
-    
+
     # Act
     result = motif_search(seq, motif)
-    
+
     # Assert
     assert result == expected
 
@@ -170,7 +170,7 @@ def test_motif_search_type_error_seq_not_string() -> None:
     invalid_seq = 12345  # type: ignore
     motif = "ATG"
     expected_message = "seq and motif must be strings"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         motif_search(invalid_seq, motif)  # type: ignore
@@ -184,7 +184,7 @@ def test_motif_search_type_error_motif_not_string() -> None:
     seq = "ATGCGTAG"
     invalid_motif = 123  # type: ignore
     expected_message = "seq and motif must be strings"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         motif_search(seq, invalid_motif)  # type: ignore
@@ -198,7 +198,7 @@ def test_motif_search_value_error_empty_motif() -> None:
     seq = "ATGCGTAG"
     empty_motif = ""
     expected_message = "motif must not be empty"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         motif_search(seq, empty_motif)
@@ -212,7 +212,7 @@ def test_motif_search_value_error_invalid_iupac() -> None:
     seq = "ATGCGTAG"
     invalid_motif = "ATX"
     expected_message = "motif contains invalid IUPAC codes"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         motif_search(seq, invalid_motif)

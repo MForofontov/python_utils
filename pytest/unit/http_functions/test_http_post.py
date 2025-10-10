@@ -170,6 +170,8 @@ def test_http_post_complex_nested_data(mock_urlopen):
     request = call_args[0]
     sent_data = json.loads(request.data.decode("utf-8"))
     assert sent_data == data
+
+
 def test_http_post_with_empty_url():
     """Test case 9: Test http_post function with empty URL raises ValueError."""
     with pytest.raises(ValueError, match="URL must be a non-empty string"):
@@ -186,5 +188,3 @@ def test_http_post_with_none_url():
     """Test case 11: Test http_post function with None URL raises TypeError."""
     with pytest.raises(TypeError):
         http_post(None)
-
-

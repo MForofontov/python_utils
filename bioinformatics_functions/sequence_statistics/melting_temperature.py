@@ -37,26 +37,27 @@ def melting_temperature(seq: str) -> float:
     """
     if not isinstance(seq, str):
         raise TypeError(f"seq must be str, got {type(seq).__name__}")
-    
+
     seq = seq.upper()
-    if not all(base in 'ATCG' for base in seq):
+    if not all(base in "ATCG" for base in seq):
         raise ValueError("Sequence contains invalid DNA bases")
-    
+
     if len(seq) < 2:
         raise ValueError("Sequence must be at least 2 bases long")
-    
+
     # Wallace rule for short sequences
     if len(seq) < 14:
-        at_count = seq.count('A') + seq.count('T')
-        gc_count = seq.count('G') + seq.count('C')
+        at_count = seq.count("A") + seq.count("T")
+        gc_count = seq.count("G") + seq.count("C")
         return float(2 * at_count + 4 * gc_count)
-    
+
     # For longer sequences, use basic salt-adjusted formula
-    gc_count = seq.count('G') + seq.count('C')
+    gc_count = seq.count("G") + seq.count("C")
     gc_percent = (gc_count / len(seq)) * 100
-    
+
     # Basic Tm formula: 81.5 + 0.41(%GC) - 675/length
     tm = 81.5 + 0.41 * gc_percent - (675.0 / len(seq))
     return tm
+
 
 __all__ = ["melting_temperature"]

@@ -1,7 +1,8 @@
-from typing import Tuple
+
 from .fasta_parser import parse_fasta
 
-def fasta_stats(fasta_str: str) -> Tuple[int, float, float]:
+
+def fasta_stats(fasta_str: str) -> tuple[int, float, float]:
     """
     Compute statistics for a FASTA string: (num_sequences, avg_length, avg_gc_content).
 
@@ -26,9 +27,10 @@ def fasta_stats(fasta_str: str) -> Tuple[int, float, float]:
     for _, seq in parse_fasta(fasta_str):
         num += 1
         total_len += len(seq)
-        total_gc += (seq.count('G') + seq.count('C')) / len(seq) if seq else 0
+        total_gc += (seq.count("G") + seq.count("C")) / len(seq) if seq else 0
     avg_len = total_len / num if num else 0.0
     avg_gc = total_gc / num if num else 0.0
     return num, avg_len, avg_gc
+
 
 __all__ = ["fasta_stats"]

@@ -27,4 +27,5 @@ def get_public_ip(timeout: float = 5.0) -> str:
     except Exception:
         return ""
 
+
 __all__ = ["get_public_ip"]

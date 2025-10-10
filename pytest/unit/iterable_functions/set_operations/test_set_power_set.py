@@ -86,6 +86,8 @@ def test_set_power_set_large_set() -> None:
     assert frozenset() in result
     assert frozenset({1, 2, 3, 4}) in result
     assert frozenset({1, 2}) in result
+
+
 def test_set_power_set_type_error() -> None:
     """
     Test case 8: TypeError for invalid input type.

@@ -206,6 +206,8 @@ def test_get_query_params_preserves_order():
 
     # The order should be preserved
     assert result["priority"] == ["high", "medium", "low"]
+
+
 def test_get_query_params_with_empty_string():
     """Test case 25: Test get_query_params function with empty string raises ValueError."""
     with pytest.raises(ValueError, match="URL must be a non-empty string"):
@@ -222,5 +224,3 @@ def test_get_query_params_with_none():
     """Test case 27: Test get_query_params function with None raises TypeError."""
     with pytest.raises(TypeError):
         get_query_params(None)
-
-

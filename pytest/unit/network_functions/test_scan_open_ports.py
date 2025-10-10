@@ -1,8 +1,7 @@
+from unittest.mock import MagicMock, patch
+
 import pytest
 from network_functions.scan_open_ports import scan_open_ports
-from unittest.mock import patch, MagicMock
-import socket
-
 
 
 def test_scan_open_ports_normal() -> None:
@@ -17,6 +16,7 @@ def test_scan_open_ports_normal() -> None:
             assert isinstance(open_ports, list)
             assert all(isinstance(port, int) for port in open_ports)
 
+
 def test_scan_open_ports_closed() -> None:
     """
     Test case 2: All ports closed (mocked socket).
@@ -29,12 +29,14 @@ def test_scan_open_ports_closed() -> None:
             open_ports = scan_open_ports("localhost", 22, 25, timeout=0.1)
             assert open_ports == []
 
+
 def test_scan_open_ports_type_error_host() -> None:
     """
     Test case 3: TypeError for non-string host (simulate error).
     """
     with pytest.raises(TypeError, match="host must be a string"):
         scan_open_ports(123, 22, 25)
+
 
 def test_scan_open_ports_type_error_port() -> None:
     """

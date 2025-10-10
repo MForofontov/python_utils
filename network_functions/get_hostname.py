@@ -17,4 +17,5 @@ def get_hostname() -> str:
     """
     return socket.gethostname()
 
+
 __all__ = ["get_hostname"]

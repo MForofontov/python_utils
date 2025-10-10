@@ -1,6 +1,9 @@
-import pytest
 import numpy as np
-from bioinformatics_functions.sequence_statistics.sequence_logo import sequence_logo_matrix
+
+import pytest
+from bioinformatics_functions.sequence_statistics.sequence_logo import (
+    sequence_logo_matrix,
+)
 
 
 def test_sequence_logo_matrix_basic() -> None:

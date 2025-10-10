@@ -1,5 +1,5 @@
-from typing import Sequence
-import numpy as np
+from collections.abc import Sequence
+
 
 def sequence_conservation(sequences: Sequence[str]) -> list[float]:
     """
@@ -42,4 +42,5 @@ def sequence_conservation(sequences: Sequence[str]) -> list[float]:
         scores.append(score)
     return scores
 
-__all__ = ['sequence_conservation']
+
+__all__ = ["sequence_conservation"]

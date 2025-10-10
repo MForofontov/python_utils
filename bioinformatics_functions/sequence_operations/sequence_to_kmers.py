@@ -1,6 +1,6 @@
-from typing import List
 
-def sequence_to_kmers(seq: str, k: int) -> List[str]:
+
+def sequence_to_kmers(seq: str, k: int) -> list[str]:
     """
     Split a sequence into k-mers of length k.
 
@@ -36,6 +36,7 @@ def sequence_to_kmers(seq: str, k: int) -> List[str]:
         raise ValueError("k must be positive")
     if k > len(seq):
         raise ValueError("k cannot be longer than sequence")
-    return [seq[i:i+k] for i in range(len(seq) - k + 1)]
+    return [seq[i : i + k] for i in range(len(seq) - k + 1)]
+
 
 __all__ = ["sequence_to_kmers"]

@@ -1,6 +1,6 @@
-
 from calendar import monthrange
 from datetime import datetime
+
 
 def get_days_in_month(date_obj: datetime) -> int:
     """

@@ -138,6 +138,8 @@ def test_hash_password_pbkdf2_case_10_boundary_iterations() -> None:
     # Test high iterations
     hashed_high, salt_high = hash_password_pbkdf2(password, iterations=200000)
     assert len(hashed_high) == 64
+
+
 def test_hash_password_pbkdf2_case_4_type_validation() -> None:
     """
     Test case 9: Type validation for all parameters.

@@ -1,8 +1,8 @@
 """Unit tests for async_retry_with_backoff function."""
+
 import asyncio
 
 import pytest
-
 from asyncio_functions.async_retry_with_backoff import async_retry_with_backoff
 
 
@@ -98,6 +98,8 @@ async def test_async_retry_with_backoff_different_exceptions() -> None:
     # Assert
     assert result == "recovered"
     assert len(call_count) == 3
+
+
 @pytest.mark.asyncio
 async def test_async_retry_with_backoff_fails_all_retries() -> None:
     """

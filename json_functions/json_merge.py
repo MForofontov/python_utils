@@ -33,7 +33,7 @@ def json_merge(a: Any, b: Any, deep: bool = True) -> Any:
     >>> json_merge([1, 2], [3, 4])
     [1, 2, 3, 4]
     """
-     # Input validation for 'deep' parameter
+    # Input validation for 'deep' parameter
     if not isinstance(deep, bool):
         raise TypeError(f"deep must be a bool, got {type(deep).__name__}")
 

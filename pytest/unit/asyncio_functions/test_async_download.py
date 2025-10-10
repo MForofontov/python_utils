@@ -1,6 +1,6 @@
-from unittest.mock import MagicMock, patch
-from typing import Any
 from pathlib import Path
+from typing import Any
+from unittest.mock import MagicMock, patch
 
 import pytest
 from asyncio_functions.async_download import async_download
@@ -24,7 +24,7 @@ async def test_async_download_normal_operation(tmp_path: Path) -> None:
         async def _iter_chunked(self, size: int) -> Any:
             yield content
 
-        async def __aenter__(self) -> 'MockResponse':
+        async def __aenter__(self) -> "MockResponse":
             return self
 
         async def __aexit__(self, exc_type: Any, exc: Any, tb: Any) -> None:
@@ -34,7 +34,7 @@ async def test_async_download_normal_operation(tmp_path: Path) -> None:
             pass
 
     class MockSession:
-        async def __aenter__(self) -> 'MockSession':
+        async def __aenter__(self) -> "MockSession":
             return self
 
         async def __aexit__(self, exc_type: Any, exc: Any, tb: Any) -> None:
@@ -107,14 +107,14 @@ async def test_async_download_runtime_error(tmp_path: Path) -> None:
     dest = tmp_path / "file.txt"
 
     class MockResponse:
-        async def __aenter__(self) -> 'MockResponse':
+        async def __aenter__(self) -> "MockResponse":
             raise Exception("network error")
 
         async def __aexit__(self, exc_type: Any, exc: Any, tb: Any) -> None:
             pass
 
     class MockSession:
-        async def __aenter__(self) -> 'MockSession':
+        async def __aenter__(self) -> "MockSession":
             return self
 
         async def __aexit__(self, exc_type: Any, exc: Any, tb: Any) -> None:

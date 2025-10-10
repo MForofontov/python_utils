@@ -1,8 +1,8 @@
 """Unit tests for get_start_of_year function."""
+
 from datetime import datetime
 
 import pytest
-
 from datetime_functions.get_start_of_year import get_start_of_year
 
 
@@ -112,6 +112,8 @@ def test_get_start_of_year_different_years() -> None:
         assert result.year == date.year
         assert result.month == 1
         assert result.day == 1
+
+
 def test_get_start_of_year_type_error_non_datetime() -> None:
     """
     Test case 7: TypeError when input is not a datetime object.

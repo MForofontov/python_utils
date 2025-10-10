@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.sequence_statistics.codon_adaptation_index import codon_adaptation_index
+from bioinformatics_functions.sequence_statistics.codon_adaptation_index import (
+    codon_adaptation_index,
+)
 
 
 def test_codon_adaptation_index_uniform() -> None:

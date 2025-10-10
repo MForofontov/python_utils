@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.sequence_operations.sequence_complement import sequence_complement
+from bioinformatics_functions.sequence_operations.sequence_complement import (
+    sequence_complement,
+)
 
 
 def test_sequence_complement_normal_sequence() -> None:
@@ -9,10 +11,10 @@ def test_sequence_complement_normal_sequence() -> None:
     # Arrange
     seq = "ATGC"
     expected = "TACG"
-    
+
     # Act
     result = sequence_complement(seq)
-    
+
     # Assert
     assert result == expected
 
@@ -24,10 +26,10 @@ def test_sequence_complement_all_adenine() -> None:
     # Arrange
     seq = "AAAA"
     expected = "TTTT"
-    
+
     # Act
     result = sequence_complement(seq)
-    
+
     # Assert
     assert result == expected
 
@@ -39,10 +41,10 @@ def test_sequence_complement_all_thymine() -> None:
     # Arrange
     seq = "TTTT"
     expected = "AAAA"
-    
+
     # Act
     result = sequence_complement(seq)
-    
+
     # Assert
     assert result == expected
 
@@ -54,10 +56,10 @@ def test_sequence_complement_lowercase_input() -> None:
     # Arrange
     seq = "atgc"
     expected = "TACG"
-    
+
     # Act
     result = sequence_complement(seq)
-    
+
     # Assert
     assert result == expected
 
@@ -69,10 +71,10 @@ def test_sequence_complement_mixed_case() -> None:
     # Arrange
     seq = "AtGc"
     expected = "TACG"
-    
+
     # Act
     result = sequence_complement(seq)
-    
+
     # Assert
     assert result == expected
 
@@ -84,10 +86,10 @@ def test_sequence_complement_empty_sequence() -> None:
     # Arrange
     seq = ""
     expected = ""
-    
+
     # Act
     result = sequence_complement(seq)
-    
+
     # Assert
     assert result == expected
 
@@ -99,10 +101,10 @@ def test_sequence_complement_long_sequence() -> None:
     # Arrange
     seq = "ATGCATGC" * 100
     expected = "TACGTACG" * 100
-    
+
     # Act
     result = sequence_complement(seq)
-    
+
     # Assert
     assert result == expected
     assert len(result) == len(seq)
@@ -115,10 +117,10 @@ def test_sequence_complement_palindrome() -> None:
     # Arrange
     seq = "GAATTC"  # EcoRI recognition site
     complement = "CTTAAG"
-    
+
     # Act
     result = sequence_complement(seq)
-    
+
     # Assert
     assert result == complement
     assert result[::-1] == seq  # Palindromic property
@@ -131,7 +133,7 @@ def test_sequence_complement_type_error_not_string() -> None:
     # Arrange
     invalid_input = 12345  # type: ignore
     expected_message = "seq must be a string, got int"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         sequence_complement(invalid_input)  # type: ignore
@@ -144,7 +146,7 @@ def test_sequence_complement_type_error_list() -> None:
     # Arrange
     invalid_input = ["A", "T", "G", "C"]  # type: ignore
     expected_message = "seq must be a string, got list"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         sequence_complement(invalid_input)  # type: ignore
@@ -157,7 +159,7 @@ def test_sequence_complement_value_error_invalid_base() -> None:
     # Arrange
     invalid_seq = "ATGCX"
     expected_message = "Invalid DNA bases found: X"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         sequence_complement(invalid_seq)
@@ -170,7 +172,7 @@ def test_sequence_complement_value_error_rna_base() -> None:
     # Arrange
     invalid_seq = "AUGC"
     expected_message = "Invalid DNA bases found: U"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         sequence_complement(invalid_seq)
@@ -183,7 +185,7 @@ def test_sequence_complement_value_error_numbers() -> None:
     # Arrange
     invalid_seq = "ATG123"
     expected_message = "Invalid DNA bases found:"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         sequence_complement(invalid_seq)
@@ -196,7 +198,7 @@ def test_sequence_complement_value_error_special_chars() -> None:
     # Arrange
     invalid_seq = "ATG-C"
     expected_message = "Invalid DNA bases found:"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         sequence_complement(invalid_seq)

@@ -38,4 +38,5 @@ def traceroute_host(host: str, max_hops: int = 30) -> list[str]:
     except Exception:
         return []
 
+
 __all__ = ["traceroute_host"]

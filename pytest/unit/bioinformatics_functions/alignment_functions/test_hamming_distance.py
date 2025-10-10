@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.alignment_functions.hamming_distance import hamming_distance
+from bioinformatics_functions.alignment_functions.hamming_distance import (
+    hamming_distance,
+)
 
 
 def test_hamming_distance_no_difference() -> None:

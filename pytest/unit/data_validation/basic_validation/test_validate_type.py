@@ -127,6 +127,8 @@ def test_validate_type_performance_large_unions() -> None:
     elapsed_time = time.time() - start_time
 
     assert elapsed_time < 1.0  # Should complete within 1 second
+
+
 def test_validate_type_type_error_single_type() -> None:
     """
     Test case 8: TypeError for wrong type with single expected type.

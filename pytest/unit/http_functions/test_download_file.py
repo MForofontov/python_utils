@@ -1,6 +1,6 @@
 import urllib.error
 from pathlib import Path
-from unittest.mock import Mock, mock_open, patch, MagicMock
+from unittest.mock import MagicMock, Mock, mock_open, patch
 
 import pytest
 from http_functions.download_file import download_file
@@ -230,7 +230,11 @@ def test_download_file_request_failure(
 @patch("pathlib.Path.exists", return_value=True)
 @patch("pathlib.Path.unlink")
 def test_download_file_write_failure_cleanup(
-    mock_unlink: MagicMock, mock_exists: MagicMock, mock_mkdir: MagicMock, mock_file_open: MagicMock, mock_urlopen: MagicMock
+    mock_unlink: MagicMock,
+    mock_exists: MagicMock,
+    mock_mkdir: MagicMock,
+    mock_file_open: MagicMock,
+    mock_urlopen: MagicMock,
 ) -> None:
     """Test case 14: Test file download when file write fails performs cleanup."""
     mock_response = Mock()

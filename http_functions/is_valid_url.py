@@ -2,6 +2,7 @@
 
 from urllib.parse import urlparse
 
+
 def is_valid_url(url: str, allowed_schemes: list[str] | None = None) -> bool:
     """
     Validate if a string is a valid URL.
@@ -47,9 +48,8 @@ def is_valid_url(url: str, allowed_schemes: list[str] | None = None) -> bool:
         if hostname is None:
             return False
         # Hostname must not be empty, must not contain spaces, and must not start with a dot
-        if hostname.strip() == "" or " " in hostname or hostname.startswith('.'):
+        if hostname.strip() == "" or " " in hostname or hostname.startswith("."):
             return False
         return True
     except Exception:
         return False
-

@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.gc_functions.sequence_gc_profile import sequence_gc_profile
+from bioinformatics_functions.gc_functions.sequence_gc_profile import (
+    sequence_gc_profile,
+)
 
 
 def test_sequence_gc_profile_basic() -> None:

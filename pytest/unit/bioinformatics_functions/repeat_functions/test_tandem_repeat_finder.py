@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.repeat_functions.tandem_repeat_finder import tandem_repeat_finder
+from bioinformatics_functions.repeat_functions.tandem_repeat_finder import (
+    tandem_repeat_finder,
+)
 
 
 def test_tandem_repeat_finder_basic() -> None:

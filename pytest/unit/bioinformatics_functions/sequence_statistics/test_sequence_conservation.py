@@ -1,5 +1,7 @@
 import pytest
-from bioinformatics_functions.sequence_statistics.sequence_conservation import sequence_conservation
+from bioinformatics_functions.sequence_statistics.sequence_conservation import (
+    sequence_conservation,
+)
 
 
 def test_sequence_conservation_basic() -> None:

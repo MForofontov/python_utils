@@ -84,9 +84,7 @@ def ssh_copy_file(
             "exit_code": proc.returncode,
         }
     except subprocess.TimeoutExpired as exc:
-        raise RuntimeError(
-            f"SCP command timed out after {timeout} seconds"
-        ) from exc
+        raise RuntimeError(f"SCP command timed out after {timeout} seconds") from exc
     except Exception as exc:
         raise RuntimeError(f"SCP command failed: {exc}") from exc
 

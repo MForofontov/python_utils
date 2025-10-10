@@ -9,10 +9,10 @@ def test_rna_to_dna_normal_conversion() -> None:
     # Arrange
     rna_seq = "AUGC"
     expected = "ATGC"
-    
+
     # Act
     result = rna_to_dna(rna_seq)
-    
+
     # Assert
     assert result == expected
 
@@ -24,10 +24,10 @@ def test_rna_to_dna_all_uracil() -> None:
     # Arrange
     rna_seq = "UUUUAAAA"
     expected = "TTTTAAAA"
-    
+
     # Act
     result = rna_to_dna(rna_seq)
-    
+
     # Assert
     assert result == expected
 
@@ -39,10 +39,10 @@ def test_rna_to_dna_lowercase_input() -> None:
     # Arrange
     rna_seq = "augc"
     expected = "ATGC"
-    
+
     # Act
     result = rna_to_dna(rna_seq)
-    
+
     # Assert
     assert result == expected
 
@@ -54,10 +54,10 @@ def test_rna_to_dna_mixed_case_input() -> None:
     # Arrange
     rna_seq = "AuGcUaGc"
     expected = "ATGCTAGC"
-    
+
     # Act
     result = rna_to_dna(rna_seq)
-    
+
     # Assert
     assert result == expected
 
@@ -69,10 +69,10 @@ def test_rna_to_dna_empty_sequence() -> None:
     # Arrange
     rna_seq = ""
     expected = ""
-    
+
     # Act
     result = rna_to_dna(rna_seq)
-    
+
     # Assert
     assert result == expected
 
@@ -84,10 +84,10 @@ def test_rna_to_dna_long_sequence() -> None:
     # Arrange
     rna_seq = "AUGCAUGCUUUUAAAAGGGCCCUUU" * 100
     expected = "ATGCATGCTTTTAAAAGGGCCCTTT" * 100
-    
+
     # Act
     result = rna_to_dna(rna_seq)
-    
+
     # Assert
     assert result == expected
     assert len(result) == len(rna_seq)
@@ -100,7 +100,7 @@ def test_rna_to_dna_type_error_not_string() -> None:
     # Arrange
     invalid_input = 12345  # type: ignore
     expected_message = "seq must be a string, got int"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         rna_to_dna(invalid_input)  # type: ignore
@@ -113,7 +113,7 @@ def test_rna_to_dna_type_error_list() -> None:
     # Arrange
     invalid_input = ["A", "U", "G", "C"]  # type: ignore
     expected_message = "seq must be a string, got list"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         rna_to_dna(invalid_input)  # type: ignore
@@ -126,7 +126,7 @@ def test_rna_to_dna_value_error_invalid_bases() -> None:
     # Arrange
     invalid_seq = "ATGC"  # Contains T which is DNA, not RNA
     expected_message = "Invalid RNA bases found: T"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         rna_to_dna(invalid_seq)
@@ -139,7 +139,7 @@ def test_rna_to_dna_value_error_multiple_invalid_bases() -> None:
     # Arrange
     invalid_seq = "AUGCXYZ"
     expected_message = "Invalid RNA bases found:"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         rna_to_dna(invalid_seq)
@@ -152,7 +152,7 @@ def test_rna_to_dna_value_error_numbers() -> None:
     # Arrange
     invalid_seq = "AUG123"
     expected_message = "Invalid RNA bases found:"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         rna_to_dna(invalid_seq)
@@ -165,7 +165,7 @@ def test_rna_to_dna_value_error_special_chars() -> None:
     # Arrange
     invalid_seq = "AUG-C"
     expected_message = "Invalid RNA bases found:"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         rna_to_dna(invalid_seq)

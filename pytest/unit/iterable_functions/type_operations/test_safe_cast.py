@@ -1,6 +1,6 @@
 """Unit tests for safe_cast and is_numeric functions."""
-import pytest
 
+import pytest
 from iterable_functions.type_operations.safe_cast import is_numeric, safe_cast
 
 
@@ -283,6 +283,8 @@ def test_safe_cast_preserves_original_on_failure() -> None:
     # Assert
     assert result == original
     assert result is original
+
+
 def test_safe_cast_type_error_non_type() -> None:
     """
     Test case 25: TypeError when target_type is not a type.

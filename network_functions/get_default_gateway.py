@@ -7,7 +7,7 @@ import os
 import socket
 import struct
 import subprocess
-from typing import Callable, Iterable, List, Tuple
+from collections.abc import Callable, Iterable
 
 
 def get_default_gateway() -> str:
@@ -42,7 +42,7 @@ def _gateway_from_proc() -> str:
         return ""
 
     try:
-        with open(path, "r", encoding="utf-8", errors="ignore") as route_file:
+        with open(path, encoding="utf-8", errors="ignore") as route_file:
             lines = [line.strip() for line in route_file.readlines() if line.strip()]
     except OSError:
         return ""
@@ -174,7 +174,7 @@ def _normalize_ipv4(value: str) -> str:
     return str(ip)
 
 
-_COMMANDS: List[Tuple[List[str], Callable[[str], str]]] = [
+_COMMANDS: list[tuple[list[str], Callable[[str], str]]] = [
     (["ip", "route"], _parse_ip_route),
     (["route", "-n", "get", "default"], _parse_route_get_default),
     (["netstat", "-rn"], _parse_netstat_rn),

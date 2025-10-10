@@ -1,6 +1,7 @@
-from typing import Iterator, Tuple
+from collections.abc import Iterator
 
-def find_orfs(seq: str) -> Iterator[Tuple[int, int, str]]:
+
+def find_orfs(seq: str) -> Iterator[tuple[int, int, str]]:
     """
     Find open reading frames (ORFs) in a DNA sequence.
 
@@ -29,22 +30,23 @@ def find_orfs(seq: str) -> Iterator[Tuple[int, int, str]]:
     if not isinstance(seq, str):
         raise TypeError(f"seq must be str, got {type(seq).__name__}")
     seq = seq.upper()
-    if not all(base in 'ATCG' for base in seq):
+    if not all(base in "ATCG" for base in seq):
         raise ValueError("Sequence contains invalid DNA bases")
-    start_codon = 'ATG'
-    stop_codons = {'TAA', 'TAG', 'TGA'}
+    start_codon = "ATG"
+    stop_codons = {"TAA", "TAG", "TGA"}
     i = 0
     while i < len(seq) - 2:
-        if seq[i:i+3] == start_codon:
-            for j in range(i+3, len(seq)-2, 3):
-                codon = seq[j:j+3]
+        if seq[i : i + 3] == start_codon:
+            for j in range(i + 3, len(seq) - 2, 3):
+                codon = seq[j : j + 3]
                 if codon in stop_codons:
-                    yield (i, j+3, seq[i:j+3])
+                    yield (i, j + 3, seq[i : j + 3])
                     i = j + 3
                     break
             else:
                 i += 3
         else:
             i += 1
+
 
 __all__ = ["find_orfs"]

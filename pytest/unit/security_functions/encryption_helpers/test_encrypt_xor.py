@@ -165,6 +165,8 @@ def test_encrypt_xor_case_12_special_characters() -> None:
     assert returned_key == key
     assert len(encrypted) > 0
     assert all(c in "0123456789abcdef" for c in encrypted)
+
+
 def test_encrypt_xor_case_3_empty_data_raises_error() -> None:
     """
     Test case 10: Empty data should raise ValueError.
