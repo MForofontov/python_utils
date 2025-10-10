@@ -42,17 +42,9 @@ def test_find_duplicates_strings() -> None:
     assert result == expected
 
 
-def test_find_duplicates_type_error() -> None:
-    """
-    Test case 5: TypeError for non-list input.
-    """
-    with pytest.raises(TypeError, match="items must be a list"):
-        find_duplicates("not a list")
-
-
 def test_find_duplicates_boundary_single_element() -> None:
     """
-    Test case 6: Single element (no duplicates).
+    Test case 5: Single element (no duplicates).
     """
     items = [42]
     expected = {}
@@ -62,7 +54,7 @@ def test_find_duplicates_boundary_single_element() -> None:
 
 def test_find_duplicates_boundary_all_duplicates() -> None:
     """
-    Test case 7: All elements are duplicates.
+    Test case 6: All elements are duplicates.
     """
     items = [1, 1, 1, 1]
     expected = {1: 4}
@@ -72,9 +64,15 @@ def test_find_duplicates_boundary_all_duplicates() -> None:
 
 def test_find_duplicates_large_list() -> None:
     """
-    Test case 8: Performance test with large list.
+    Test case 7: Performance test with large list.
     """
     items = list(range(1000)) + [999] * 5  # 999 appears 6 times total
     result = find_duplicates(items)
     assert 999 in result
     assert result[999] == 6
+def test_find_duplicates_type_error() -> None:
+    """
+    Test case 8: TypeError for non-list input.
+    """
+    with pytest.raises(TypeError, match="items must be a list"):
+        find_duplicates("not a list")

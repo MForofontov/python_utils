@@ -111,34 +111,9 @@ def test_partition_set_by_predicate_single_element_false() -> None:
     assert false_set == {-5}
 
 
-def test_partition_set_by_predicate_type_error_non_set() -> None:
-    """
-    Test case 8: TypeError when input_set is not a set.
-    """
-    # Arrange
-    invalid_input = [1, 2, 3, 4]
-
-    # Act & Assert
-    with pytest.raises(TypeError, match="input_set must be a set"):
-        partition_set_by_predicate(invalid_input, lambda x: x % 2 == 0)  # type: ignore
-
-
-def test_partition_set_by_predicate_type_error_non_callable() -> None:
-    """
-    Test case 9: TypeError when predicate is not callable.
-    """
-    # Arrange
-    numbers = {1, 2, 3}
-    invalid_predicate = "not callable"
-
-    # Act & Assert
-    with pytest.raises(TypeError, match="predicate must be callable"):
-        partition_set_by_predicate(numbers, invalid_predicate)  # type: ignore
-
-
 def test_partition_set_by_predicate_complex_predicate() -> None:
     """
-    Test case 10: Complex predicate with multiple conditions.
+    Test case 8: Complex predicate with multiple conditions.
     """
     # Arrange
     numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
@@ -155,7 +130,7 @@ def test_partition_set_by_predicate_complex_predicate() -> None:
 
 def test_partition_set_by_predicate_preserves_union() -> None:
     """
-    Test case 11: Union of partitions equals original set.
+    Test case 9: Union of partitions equals original set.
     """
     # Arrange
     original_set = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
@@ -172,7 +147,7 @@ def test_partition_set_by_predicate_preserves_union() -> None:
 
 def test_partition_set_by_predicate_mixed_types() -> None:
     """
-    Test case 12: Partition set with mixed types.
+    Test case 10: Partition set with mixed types.
     """
     # Arrange
     mixed_set = {1, "a", 2.5, True, None}
@@ -188,3 +163,26 @@ def test_partition_set_by_predicate_mixed_types() -> None:
     assert "a" in false_set
     assert True in false_set
     assert None in false_set
+def test_partition_set_by_predicate_type_error_non_set() -> None:
+    """
+    Test case 11: TypeError when input_set is not a set.
+    """
+    # Arrange
+    invalid_input = [1, 2, 3, 4]
+
+    # Act & Assert
+    with pytest.raises(TypeError, match="input_set must be a set"):
+        partition_set_by_predicate(invalid_input, lambda x: x % 2 == 0)  # type: ignore
+
+
+def test_partition_set_by_predicate_type_error_non_callable() -> None:
+    """
+    Test case 12: TypeError when predicate is not callable.
+    """
+    # Arrange
+    numbers = {1, 2, 3}
+    invalid_predicate = "not callable"
+
+    # Act & Assert
+    with pytest.raises(TypeError, match="predicate must be callable"):
+        partition_set_by_predicate(numbers, invalid_predicate)  # type: ignore

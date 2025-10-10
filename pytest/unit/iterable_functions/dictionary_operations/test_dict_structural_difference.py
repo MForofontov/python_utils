@@ -194,23 +194,9 @@ def test_dict_structural_difference_one_empty_dict() -> None:
     assert result == expected_output
 
 
-def test_dict_structural_difference_type_error_invalid_input() -> None:
-    """
-    Test case 10: TypeError for invalid input types.
-    """
-    # Arrange
-    dict1: dict[str, Any] = {"a": 1}
-    invalid_dict2: str = "not a dict"
-    expected_message: str = "Both dict1 and dict2 must be dictionaries"
-
-    # Act & Assert
-    with pytest.raises(TypeError, match=expected_message):
-        dict_structural_difference(dict1, invalid_dict2)
-
-
 def test_dict_structural_difference_complex_nested_structure() -> None:
     """
-    Test case 11: Normal operation with complex nested structure.
+    Test case 10: Normal operation with complex nested structure.
     """
     # Arrange
     dict1: dict[str, Any] = {
@@ -241,7 +227,7 @@ def test_dict_structural_difference_complex_nested_structure() -> None:
 
 def test_dict_structural_difference_no_changes_deeply_nested() -> None:
     """
-    Test case 12: Edge case with no changes in deeply nested structure.
+    Test case 11: Edge case with no changes in deeply nested structure.
     """
     # Arrange
     dict1: dict[str, Any] = {"a": {"b": {"c": 1}}}
@@ -258,3 +244,15 @@ def test_dict_structural_difference_no_changes_deeply_nested() -> None:
 
     # Assert
     assert result == expected_output
+def test_dict_structural_difference_type_error_invalid_input() -> None:
+    """
+    Test case 12: TypeError for invalid input types.
+    """
+    # Arrange
+    dict1: dict[str, Any] = {"a": 1}
+    invalid_dict2: str = "not a dict"
+    expected_message: str = "Both dict1 and dict2 must be dictionaries"
+
+    # Act & Assert
+    with pytest.raises(TypeError, match=expected_message):
+        dict_structural_difference(dict1, invalid_dict2)

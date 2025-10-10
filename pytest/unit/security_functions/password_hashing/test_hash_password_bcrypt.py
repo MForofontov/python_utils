@@ -71,39 +71,9 @@ def test_hash_password_bcrypt_case_4_maximum_rounds() -> None:
     assert "$2b$15$" in hashed
 
 
-def test_hash_password_bcrypt_case_5_type_validation() -> None:
-    """
-    Test case 5: Type validation for all parameters.
-    """
-    # Test invalid password type
-    with pytest.raises(TypeError, match="password must be a string"):
-        hash_password_bcrypt(123)
-
-    # Test invalid rounds type
-    with pytest.raises(TypeError, match="rounds must be an integer"):
-        hash_password_bcrypt("password", rounds="invalid")
-
-
-def test_hash_password_bcrypt_case_6_value_validation() -> None:
-    """
-    Test case 6: Value validation for parameters.
-    """
-    # Test empty password
-    with pytest.raises(ValueError, match="password cannot be empty"):
-        hash_password_bcrypt("")
-
-    # Test rounds too low
-    with pytest.raises(ValueError, match="rounds must be between 4 and 31"):
-        hash_password_bcrypt("password", rounds=3)
-
-    # Test rounds too high
-    with pytest.raises(ValueError, match="rounds must be between 4 and 31"):
-        hash_password_bcrypt("password", rounds=32)
-
-
 def test_hash_password_bcrypt_case_7_different_passwords_different_hashes() -> None:
     """
-    Test case 7: Different passwords should produce different hashes.
+    Test case 5: Different passwords should produce different hashes.
     """
     # Arrange
     password1 = "password1"
@@ -119,7 +89,7 @@ def test_hash_password_bcrypt_case_7_different_passwords_different_hashes() -> N
 
 def test_hash_password_bcrypt_case_8_same_password_different_hashes() -> None:
     """
-    Test case 8: Same password should produce different hashes due to salt.
+    Test case 6: Same password should produce different hashes due to salt.
     """
     # Arrange
     password = "same_password"
@@ -134,7 +104,7 @@ def test_hash_password_bcrypt_case_8_same_password_different_hashes() -> None:
 
 def test_hash_password_bcrypt_case_9_unicode_password() -> None:
     """
-    Test case 9: Handle Unicode characters in password.
+    Test case 7: Handle Unicode characters in password.
     """
     # Arrange
     password = "pássw0rd_with_ümläuts_🔐"
@@ -150,7 +120,7 @@ def test_hash_password_bcrypt_case_9_unicode_password() -> None:
 
 def test_hash_password_bcrypt_case_10_long_password() -> None:
     """
-    Test case 10: Handle very long password.
+    Test case 8: Handle very long password.
     """
     # Arrange
     password = "a" * 1000  # Very long password
@@ -166,7 +136,7 @@ def test_hash_password_bcrypt_case_10_long_password() -> None:
 
 def test_hash_password_bcrypt_case_11_special_characters() -> None:
     """
-    Test case 11: Handle special characters and symbols.
+    Test case 9: Handle special characters and symbols.
     """
     # Arrange
     password = "!@#$%^&*()_+-=[]{}|;':\",./<>?`~"
@@ -182,7 +152,7 @@ def test_hash_password_bcrypt_case_11_special_characters() -> None:
 
 def test_hash_password_bcrypt_case_12_performance_high_rounds() -> None:
     """
-    Test case 12: Verify that higher rounds work (may be slower).
+    Test case 10: Verify that higher rounds work (may be slower).
     """
     # Arrange
     password = "performance_test"
@@ -201,3 +171,31 @@ def test_hash_password_bcrypt_case_12_performance_high_rounds() -> None:
     assert f"$2b${rounds:02d}$" in hashed
     # Should complete within reasonable time (bcrypt with 15 rounds)
     assert elapsed_time < 5.0  # Should complete within 5 seconds
+def test_hash_password_bcrypt_case_5_type_validation() -> None:
+    """
+    Test case 11: Type validation for all parameters.
+    """
+    # Test invalid password type
+    with pytest.raises(TypeError, match="password must be a string"):
+        hash_password_bcrypt(123)
+
+    # Test invalid rounds type
+    with pytest.raises(TypeError, match="rounds must be an integer"):
+        hash_password_bcrypt("password", rounds="invalid")
+
+
+def test_hash_password_bcrypt_case_6_value_validation() -> None:
+    """
+    Test case 12: Value validation for parameters.
+    """
+    # Test empty password
+    with pytest.raises(ValueError, match="password cannot be empty"):
+        hash_password_bcrypt("")
+
+    # Test rounds too low
+    with pytest.raises(ValueError, match="rounds must be between 4 and 31"):
+        hash_password_bcrypt("password", rounds=3)
+
+    # Test rounds too high
+    with pytest.raises(ValueError, match="rounds must be between 4 and 31"):
+        hash_password_bcrypt("password", rounds=32)

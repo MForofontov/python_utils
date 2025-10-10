@@ -109,9 +109,22 @@ def test_chunk_by_size_large_chunk_size() -> None:
     assert result == [[1, 2, 3]]
 
 
+def test_chunk_by_size_mixed_types() -> None:
+    """
+    Test case 8: Chunk list with mixed types.
+    """
+    # Arrange
+    items = [1, "two", 3.0, True, None]
+    chunk_size = 2
+
+    # Act
+    result = chunk_by_size(items, chunk_size)
+
+    # Assert
+    assert result == [[1, "two"], [3.0, True], [None]]
 def test_chunk_by_size_type_error_non_list() -> None:
     """
-    Test case 8: TypeError when items is not a list.
+    Test case 9: TypeError when items is not a list.
     """
     # Arrange
     invalid_items = "not a list"
@@ -124,7 +137,7 @@ def test_chunk_by_size_type_error_non_list() -> None:
 
 def test_chunk_by_size_type_error_non_integer_chunk_size() -> None:
     """
-    Test case 9: TypeError when chunk_size is not an integer.
+    Test case 10: TypeError when chunk_size is not an integer.
     """
     # Arrange
     items = [1, 2, 3]
@@ -137,7 +150,7 @@ def test_chunk_by_size_type_error_non_integer_chunk_size() -> None:
 
 def test_chunk_by_size_value_error_zero_chunk_size() -> None:
     """
-    Test case 10: ValueError when chunk_size is 0.
+    Test case 11: ValueError when chunk_size is 0.
     """
     # Arrange
     items = [1, 2, 3]
@@ -150,7 +163,7 @@ def test_chunk_by_size_value_error_zero_chunk_size() -> None:
 
 def test_chunk_by_size_value_error_negative_chunk_size() -> None:
     """
-    Test case 11: ValueError when chunk_size is negative.
+    Test case 12: ValueError when chunk_size is negative.
     """
     # Arrange
     items = [1, 2, 3]
@@ -159,18 +172,3 @@ def test_chunk_by_size_value_error_negative_chunk_size() -> None:
     # Act & Assert
     with pytest.raises(ValueError, match="chunk_size must be positive"):
         chunk_by_size(items, chunk_size)
-
-
-def test_chunk_by_size_mixed_types() -> None:
-    """
-    Test case 12: Chunk list with mixed types.
-    """
-    # Arrange
-    items = [1, "two", 3.0, True, None]
-    chunk_size = 2
-
-    # Act
-    result = chunk_by_size(items, chunk_size)
-
-    # Assert
-    assert result == [[1, "two"], [3.0, True], [None]]

@@ -101,42 +101,9 @@ def test_generate_jwt_token_case_3_complex_payload() -> None:
     assert decoded_payload["metadata"]["login_count"] == 5
 
 
-def test_generate_jwt_token_case_4_type_validation() -> None:
-    """
-    Test case 4: Type validation for all parameters.
-    """
-    # Test invalid payload type
-    with pytest.raises(TypeError, match="payload must be a dictionary"):
-        generate_jwt_token("invalid", "secret")
-
-    # Test invalid secret_key type
-    with pytest.raises(TypeError, match="secret_key must be a string"):
-        generate_jwt_token({}, 123)
-
-    # Test invalid expires_in_hours type
-    with pytest.raises(TypeError, match="expires_in_hours must be an integer"):
-        generate_jwt_token({}, "secret", "invalid")
-
-
-def test_generate_jwt_token_case_5_value_validation() -> None:
-    """
-    Test case 5: Value validation for parameters.
-    """
-    # Test empty secret_key
-    with pytest.raises(ValueError, match="secret_key cannot be empty"):
-        generate_jwt_token({"data": "test"}, "")
-
-    # Test non-positive expires_in_hours
-    with pytest.raises(ValueError, match="expires_in_hours must be positive"):
-        generate_jwt_token({"data": "test"}, "secret", 0)
-
-    with pytest.raises(ValueError, match="expires_in_hours must be positive"):
-        generate_jwt_token({"data": "test"}, "secret", -1)
-
-
 def test_generate_jwt_token_case_6_header_verification() -> None:
     """
-    Test case 6: Verify JWT header is correct.
+    Test case 4: Verify JWT header is correct.
     """
     # Arrange
     payload = {"test": "data"}
@@ -161,7 +128,7 @@ def test_generate_jwt_token_case_6_header_verification() -> None:
 
 def test_generate_jwt_token_case_7_empty_payload() -> None:
     """
-    Test case 7: Generate JWT token with empty payload.
+    Test case 5: Generate JWT token with empty payload.
     """
     # Arrange
     payload = {}
@@ -188,7 +155,7 @@ def test_generate_jwt_token_case_7_empty_payload() -> None:
 
 def test_generate_jwt_token_case_8_different_secrets_different_signatures() -> None:
     """
-    Test case 8: Different secrets should produce different signatures.
+    Test case 6: Different secrets should produce different signatures.
     """
     # Arrange
     payload = {"data": "same"}
@@ -211,7 +178,7 @@ def test_generate_jwt_token_case_8_different_secrets_different_signatures() -> N
 
 def test_generate_jwt_token_case_9_unicode_payload() -> None:
     """
-    Test case 9: Handle Unicode characters in payload.
+    Test case 7: Handle Unicode characters in payload.
     """
     # Arrange
     payload = {
@@ -243,7 +210,7 @@ def test_generate_jwt_token_case_9_unicode_payload() -> None:
 
 def test_generate_jwt_token_case_10_timestamp_validation() -> None:
     """
-    Test case 10: Verify iat and exp timestamps are reasonable.
+    Test case 8: Verify iat and exp timestamps are reasonable.
     """
     # Arrange
     payload = {"test": "timestamps"}
@@ -270,3 +237,34 @@ def test_generate_jwt_token_case_10_timestamp_validation() -> None:
     assert before_time <= iat <= after_time
     # exp should be approximately 1 hour after iat
     assert abs((exp - iat) - 3600) < 10  # Allow 10 second tolerance
+def test_generate_jwt_token_case_4_type_validation() -> None:
+    """
+    Test case 9: Type validation for all parameters.
+    """
+    # Test invalid payload type
+    with pytest.raises(TypeError, match="payload must be a dictionary"):
+        generate_jwt_token("invalid", "secret")
+
+    # Test invalid secret_key type
+    with pytest.raises(TypeError, match="secret_key must be a string"):
+        generate_jwt_token({}, 123)
+
+    # Test invalid expires_in_hours type
+    with pytest.raises(TypeError, match="expires_in_hours must be an integer"):
+        generate_jwt_token({}, "secret", "invalid")
+
+
+def test_generate_jwt_token_case_5_value_validation() -> None:
+    """
+    Test case 10: Value validation for parameters.
+    """
+    # Test empty secret_key
+    with pytest.raises(ValueError, match="secret_key cannot be empty"):
+        generate_jwt_token({"data": "test"}, "")
+
+    # Test non-positive expires_in_hours
+    with pytest.raises(ValueError, match="expires_in_hours must be positive"):
+        generate_jwt_token({"data": "test"}, "secret", 0)
+
+    with pytest.raises(ValueError, match="expires_in_hours must be positive"):
+        generate_jwt_token({"data": "test"}, "secret", -1)

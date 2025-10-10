@@ -28,9 +28,51 @@ def test_timeout_success():
     assert result == "Function executed"
 
 
+def test_timeout_with_args():
+    """
+    Test case 2: Function with positional arguments
+    """
+
+    @timeout(seconds=2)
+    def function_with_args(a: int, b: int) -> int:
+        time.sleep(1)
+        return a + b
+
+    result = function_with_args(1, 2)
+    assert result == 3
+
+
+def test_timeout_with_kwargs():
+    """
+    Test case 3: Function with keyword arguments
+    """
+
+    @timeout(seconds=2)
+    def function_with_kwargs(a: int, b: int = 0) -> int:
+        time.sleep(1)
+        return a + b
+
+    result = function_with_kwargs(1, b=2)
+    assert result == 3
+
+
+def test_timeout_with_var_args():
+    """
+    Test case 4: Function with variable length arguments (*args and **kwargs)
+    """
+
+    @timeout(seconds=2)
+    def function_with_var_args(a: int, *args: str, **kwargs: float) -> str:
+        time.sleep(1)
+        return f"{a} - {args} - {kwargs}"
+
+    result = function_with_var_args(1, "arg1", "arg2", kwarg1=1.0, kwarg2=2.0)
+    assert result == "1 - ('arg1', 'arg2') - {'kwarg1': 1.0, 'kwarg2': 2.0}"
+
+
 def test_timeout_exceeded():
     """
-    Test case 2: Function exceeds the timeout period and raises TimeoutException
+    Test case 5: Function exceeds the timeout period and raises TimeoutException
     """
 
     @timeout(seconds=1)
@@ -46,7 +88,7 @@ def test_timeout_exceeded():
 
 def test_timeout_with_logger(caplog):
     """
-    Test case 3: Function exceeds the timeout period and logs the timeout message
+    Test case 6: Function exceeds the timeout period and logs the timeout message
     """
 
     @timeout(seconds=1, logger=test_logger)
@@ -60,48 +102,6 @@ def test_timeout_with_logger(caplog):
             "Function long_running_function_with_logger timed out after 1 seconds"
             in caplog.text
         )
-
-
-def test_timeout_with_args():
-    """
-    Test case 4: Function with positional arguments
-    """
-
-    @timeout(seconds=2)
-    def function_with_args(a: int, b: int) -> int:
-        time.sleep(1)
-        return a + b
-
-    result = function_with_args(1, 2)
-    assert result == 3
-
-
-def test_timeout_with_kwargs():
-    """
-    Test case 5: Function with keyword arguments
-    """
-
-    @timeout(seconds=2)
-    def function_with_kwargs(a: int, b: int = 0) -> int:
-        time.sleep(1)
-        return a + b
-
-    result = function_with_kwargs(1, b=2)
-    assert result == 3
-
-
-def test_timeout_with_var_args():
-    """
-    Test case 6: Function with variable length arguments (*args and **kwargs)
-    """
-
-    @timeout(seconds=2)
-    def function_with_var_args(a: int, *args: str, **kwargs: float) -> str:
-        time.sleep(1)
-        return f"{a} - {args} - {kwargs}"
-
-    result = function_with_var_args(1, "arg1", "arg2", kwarg1=1.0, kwarg2=2.0)
-    assert result == "1 - ('arg1', 'arg2') - {'kwarg1': 1.0, 'kwarg2': 2.0}"
 
 
 def test_invalid_logger_type():

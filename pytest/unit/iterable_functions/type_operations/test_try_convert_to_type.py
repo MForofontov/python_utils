@@ -28,22 +28,8 @@ def test_try_convert_to_type_success_str() -> None:
     assert try_convert_to_type(value, target_type) == expected_output
 
 
-def test_try_convert_to_type_invalid_conversion() -> None:
-    """Test case 4: Test the try_convert_to_type function with an invalid conversion."""
-    value = "abc"
-    target_type = int
-    with pytest.raises(ValueError):
-        try_convert_to_type(value, target_type)
-
-
-def test_try_convert_to_type_type_error() -> None:
-    """Test case 5: Test the try_convert_to_type function with invalid type for target_type."""
-    with pytest.raises(TypeError):
-        try_convert_to_type("123", "not a type")
-
-
 def test_try_convert_to_type_success_list() -> None:
-    """Test case 6: Test the try_convert_to_type function with list conversion."""
+    """Test case 4: Test the try_convert_to_type function with list conversion."""
     value = (1, 2, 3)
     target_type = list
     expected_output = [1, 2, 3]
@@ -51,7 +37,7 @@ def test_try_convert_to_type_success_list() -> None:
 
 
 def test_try_convert_to_type_success_bool() -> None:
-    """Test case 7: Test the try_convert_to_type function with bool conversion."""
+    """Test case 5: Test the try_convert_to_type function with bool conversion."""
     value = 0
     target_type = bool
     expected_output = False
@@ -59,7 +45,7 @@ def test_try_convert_to_type_success_bool() -> None:
 
 
 def test_try_convert_to_type_custom_class() -> None:
-    """Test case 8: Test the try_convert_to_type function with a custom class."""
+    """Test case 6: Test the try_convert_to_type function with a custom class."""
 
     class Custom:
         def __init__(self, val: Any) -> None:
@@ -72,6 +58,20 @@ def test_try_convert_to_type_custom_class() -> None:
     target_type = Custom
     expected_output = Custom(5)
     assert try_convert_to_type(value, target_type) == expected_output
+
+
+def test_try_convert_to_type_invalid_conversion() -> None:
+    """Test case 7: Test the try_convert_to_type function with an invalid conversion."""
+    value = "abc"
+    target_type = int
+    with pytest.raises(ValueError):
+        try_convert_to_type(value, target_type)
+
+
+def test_try_convert_to_type_type_error() -> None:
+    """Test case 8: Test the try_convert_to_type function with invalid type for target_type."""
+    with pytest.raises(TypeError):
+        try_convert_to_type("123", "not a type")
 
 
 def test_try_convert_to_type_invalid_list_conversion() -> None:

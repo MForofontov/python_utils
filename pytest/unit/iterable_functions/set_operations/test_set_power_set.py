@@ -74,17 +74,9 @@ def test_set_power_set_mixed_types() -> None:
     assert frozenset({1, "a", 3.14}) in result
 
 
-def test_set_power_set_type_error() -> None:
-    """
-    Test case 7: TypeError for invalid input type.
-    """
-    with pytest.raises(TypeError, match="input_set must be a set"):
-        set_power_set("not a set")
-
-
 def test_set_power_set_large_set() -> None:
     """
-    Test case 8: Test with larger set (but not too large to avoid exponential time).
+    Test case 7: Test with larger set (but not too large to avoid exponential time).
     """
     input_set = {1, 2, 3, 4}
     result = set_power_set(input_set)
@@ -94,3 +86,9 @@ def test_set_power_set_large_set() -> None:
     assert frozenset() in result
     assert frozenset({1, 2, 3, 4}) in result
     assert frozenset({1, 2}) in result
+def test_set_power_set_type_error() -> None:
+    """
+    Test case 8: TypeError for invalid input type.
+    """
+    with pytest.raises(TypeError, match="input_set must be a set"):
+        set_power_set("not a set")

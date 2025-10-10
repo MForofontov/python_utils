@@ -95,9 +95,23 @@ async def test_sync_function_with_no_args():
     assert result == "success"
 
 
+@pytest.mark.asyncio
+async def test_sync_function_with_logger(caplog):
+    """
+    Test case 6: Synchronous function that logs an exception with logging enabled.
+    """
+    with caplog.at_level(logging.ERROR):
+        result = await sample_function_with_logger(1, 2)
+        assert result is None
+        assert (
+            "An error occurred in sample_function_with_logger: Test exception"
+            in caplog.text
+        )
+
+
 def test_async_function():
     """
-    Test case 6: Asynchronous function that raises an TypeError.
+    Test case 7: Asynchronous function that raises an TypeError.
     """
     with pytest.raises(
         TypeError, match="The function to be wrapped must be synchronous"
@@ -111,7 +125,7 @@ def test_async_function():
 @pytest.mark.asyncio
 async def test_sync_function_with_logger_raises_value_error():
     """
-    Test case 7: Synchronous function that raises a ValueError.
+    Test case 8: Synchronous function that raises a ValueError.
     """
     with pytest.raises(ValueError, match="Test exception"):
         await sample_function_exception(1, 2)
@@ -119,7 +133,7 @@ async def test_sync_function_with_logger_raises_value_error():
 
 def test_async_function_with_logger(caplog):
     """
-    Test case 8: Asynchronous function that logs an TypeError with logging enabled.
+    Test case 9: Asynchronous function that logs an TypeError with logging enabled.
     """
     with pytest.raises(
         TypeError, match="The function to be wrapped must be synchronous"
@@ -134,20 +148,6 @@ def test_async_function_with_logger(caplog):
                 "An error occurred in sample_function: The function to be wrapped must be synchronous"
                 in caplog.text
             )
-
-
-@pytest.mark.asyncio
-async def test_sync_function_with_logger(caplog):
-    """
-    Test case 9: Synchronous function that logs an exception with logging enabled.
-    """
-    with caplog.at_level(logging.ERROR):
-        result = await sample_function_with_logger(1, 2)
-        assert result is None
-        assert (
-            "An error occurred in sample_function_with_logger: Test exception"
-            in caplog.text
-        )
 
 
 @pytest.mark.asyncio

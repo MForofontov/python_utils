@@ -130,83 +130,9 @@ def test_find_files_by_mtime_case_4_combined_filters() -> None:
         assert Path(file_path).name == "middle.txt"
 
 
-def test_find_files_by_mtime_case_5_no_criteria_error() -> None:
-    """
-    Test case 5: ValueError when no time criteria specified.
-    """
-    # Arrange
-    with tempfile.TemporaryDirectory() as temp_dir:
-        # Act & Assert
-        with pytest.raises(
-            ValueError, match="At least one time criterion must be specified"
-        ):
-            find_files_by_mtime(temp_dir)
-
-
-def test_find_files_by_mtime_case_6_invalid_directory_error() -> None:
-    """
-    Test case 6: ValueError for non-existent directory.
-    """
-    # Arrange
-    non_existent_dir = "/path/that/does/not/exist"
-    cutoff = datetime.now()
-
-    # Act & Assert
-    with pytest.raises(ValueError, match="Directory does not exist"):
-        find_files_by_mtime(non_existent_dir, newer_than=cutoff)
-
-
-def test_find_files_by_mtime_case_7_invalid_type_errors() -> None:
-    """
-    Test case 7: TypeError for invalid parameter types.
-    """
-    cutoff = datetime.now()
-
-    # Test invalid directory type
-    with pytest.raises(TypeError, match="directory must be a string or Path"):
-        find_files_by_mtime(123, newer_than=cutoff)
-
-    # Test invalid days_old type
-    with pytest.raises(TypeError, match="days_old must be an integer or None"):
-        find_files_by_mtime("/tmp", days_old="not_int")
-
-    # Test invalid newer_than type
-    with pytest.raises(TypeError, match="newer_than must be a datetime or None"):
-        find_files_by_mtime("/tmp", newer_than="not_datetime")
-
-    # Test invalid older_than type
-    with pytest.raises(TypeError, match="older_than must be a datetime or None"):
-        find_files_by_mtime("/tmp", older_than="not_datetime")
-
-
-def test_find_files_by_mtime_case_8_invalid_time_range() -> None:
-    """
-    Test case 8: ValueError for invalid time range.
-    """
-    # Arrange
-    with tempfile.TemporaryDirectory() as temp_dir:
-        newer_than = datetime.now() - timedelta(days=1)
-        older_than = datetime.now() - timedelta(days=2)  # older than newer_than
-
-        # Act & Assert
-        with pytest.raises(ValueError, match="newer_than must be before older_than"):
-            find_files_by_mtime(temp_dir, newer_than=newer_than, older_than=older_than)
-
-
-def test_find_files_by_mtime_case_9_negative_days_old_error() -> None:
-    """
-    Test case 9: ValueError for negative days_old.
-    """
-    # Arrange
-    with tempfile.TemporaryDirectory() as temp_dir:
-        # Act & Assert
-        with pytest.raises(ValueError, match="days_old must be non-negative"):
-            find_files_by_mtime(temp_dir, days_old=-1)
-
-
 def test_find_files_by_mtime_case_10_file_access_error_handling() -> None:
     """
-    Test case 10: Graceful handling of file access errors.
+    Test case 5: Graceful handling of file access errors.
     """
     # Arrange
     with tempfile.TemporaryDirectory() as temp_dir:
@@ -229,3 +155,75 @@ def test_find_files_by_mtime_case_10_file_access_error_handling() -> None:
 
             # Assert - should skip the problematic file
             assert result == []
+def test_find_files_by_mtime_case_5_no_criteria_error() -> None:
+    """
+    Test case 6: ValueError when no time criteria specified.
+    """
+    # Arrange
+    with tempfile.TemporaryDirectory() as temp_dir:
+        # Act & Assert
+        with pytest.raises(
+            ValueError, match="At least one time criterion must be specified"
+        ):
+            find_files_by_mtime(temp_dir)
+
+
+def test_find_files_by_mtime_case_6_invalid_directory_error() -> None:
+    """
+    Test case 7: ValueError for non-existent directory.
+    """
+    # Arrange
+    non_existent_dir = "/path/that/does/not/exist"
+    cutoff = datetime.now()
+
+    # Act & Assert
+    with pytest.raises(ValueError, match="Directory does not exist"):
+        find_files_by_mtime(non_existent_dir, newer_than=cutoff)
+
+
+def test_find_files_by_mtime_case_7_invalid_type_errors() -> None:
+    """
+    Test case 8: TypeError for invalid parameter types.
+    """
+    cutoff = datetime.now()
+
+    # Test invalid directory type
+    with pytest.raises(TypeError, match="directory must be a string or Path"):
+        find_files_by_mtime(123, newer_than=cutoff)
+
+    # Test invalid days_old type
+    with pytest.raises(TypeError, match="days_old must be an integer or None"):
+        find_files_by_mtime("/tmp", days_old="not_int")
+
+    # Test invalid newer_than type
+    with pytest.raises(TypeError, match="newer_than must be a datetime or None"):
+        find_files_by_mtime("/tmp", newer_than="not_datetime")
+
+    # Test invalid older_than type
+    with pytest.raises(TypeError, match="older_than must be a datetime or None"):
+        find_files_by_mtime("/tmp", older_than="not_datetime")
+
+
+def test_find_files_by_mtime_case_8_invalid_time_range() -> None:
+    """
+    Test case 9: ValueError for invalid time range.
+    """
+    # Arrange
+    with tempfile.TemporaryDirectory() as temp_dir:
+        newer_than = datetime.now() - timedelta(days=1)
+        older_than = datetime.now() - timedelta(days=2)  # older than newer_than
+
+        # Act & Assert
+        with pytest.raises(ValueError, match="newer_than must be before older_than"):
+            find_files_by_mtime(temp_dir, newer_than=newer_than, older_than=older_than)
+
+
+def test_find_files_by_mtime_case_9_negative_days_old_error() -> None:
+    """
+    Test case 10: ValueError for negative days_old.
+    """
+    # Arrange
+    with tempfile.TemporaryDirectory() as temp_dir:
+        # Act & Assert
+        with pytest.raises(ValueError, match="days_old must be non-negative"):
+            find_files_by_mtime(temp_dir, days_old=-1)

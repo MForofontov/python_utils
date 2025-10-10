@@ -119,22 +119,9 @@ def test_flatten_dict_empty_dictionary() -> None:
     assert result == expected_output
 
 
-def test_flatten_dict_invalid_type_error() -> None:
-    """
-    Test case 8: TypeError for invalid input type.
-    """
-    # Arrange
-    invalid_input: str = "not a dict"
-    expected_message: str = "d must be a dictionary, got str"
-
-    # Act & Assert
-    with pytest.raises(TypeError, match=expected_message):
-        flatten_dict(invalid_input)
-
-
 def test_flatten_dict_no_modification_original() -> None:
     """
-    Test case 9: Verify original dictionary is not modified.
+    Test case 8: Verify original dictionary is not modified.
     """
     # Arrange
     input_data: dict[str, Any] = {"a": {"b": 1}}
@@ -149,7 +136,7 @@ def test_flatten_dict_no_modification_original() -> None:
 
 def test_flatten_dict_complex_separator() -> None:
     """
-    Test case 10: Normal operation with complex separator.
+    Test case 9: Normal operation with complex separator.
     """
     # Arrange
     input_data: dict[str, Any] = {"a": {"b": {"c": 1}}}
@@ -160,3 +147,14 @@ def test_flatten_dict_complex_separator() -> None:
 
     # Assert
     assert result == expected_output
+def test_flatten_dict_invalid_type_error() -> None:
+    """
+    Test case 10: TypeError for invalid input type.
+    """
+    # Arrange
+    invalid_input: str = "not a dict"
+    expected_message: str = "d must be a dictionary, got str"
+
+    # Act & Assert
+    with pytest.raises(TypeError, match=expected_message):
+        flatten_dict(invalid_input)

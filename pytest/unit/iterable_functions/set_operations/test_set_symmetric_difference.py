@@ -71,25 +71,9 @@ def test_set_symmetric_difference_mixed_types() -> None:
     assert result == expected
 
 
-def test_set_symmetric_difference_type_error() -> None:
-    """
-    Test case 7: TypeError for non-set arguments.
-    """
-    with pytest.raises(TypeError, match="All arguments must be sets"):
-        set_symmetric_difference({1, 2}, "not a set")
-
-
-def test_set_symmetric_difference_value_error() -> None:
-    """
-    Test case 8: ValueError for fewer than 2 sets.
-    """
-    with pytest.raises(ValueError, match="At least 2 sets must be provided"):
-        set_symmetric_difference({1, 2})
-
-
 def test_set_symmetric_difference_four_sets() -> None:
     """
-    Test case 9: Symmetric difference of four sets.
+    Test case 7: Symmetric difference of four sets.
     """
     set1 = {1, 2, 3, 4}
     set2 = {2, 3, 4, 5}
@@ -103,10 +87,24 @@ def test_set_symmetric_difference_four_sets() -> None:
 
 def test_set_symmetric_difference_single_element() -> None:
     """
-    Test case 10: Symmetric difference with single elements.
+    Test case 8: Symmetric difference with single elements.
     """
     set1 = {1}
     set2 = {2}
     result = set_symmetric_difference(set1, set2)
     expected = {1, 2}
     assert result == expected
+def test_set_symmetric_difference_type_error() -> None:
+    """
+    Test case 9: TypeError for non-set arguments.
+    """
+    with pytest.raises(TypeError, match="All arguments must be sets"):
+        set_symmetric_difference({1, 2}, "not a set")
+
+
+def test_set_symmetric_difference_value_error() -> None:
+    """
+    Test case 10: ValueError for fewer than 2 sets.
+    """
+    with pytest.raises(ValueError, match="At least 2 sets must be provided"):
+        set_symmetric_difference({1, 2})

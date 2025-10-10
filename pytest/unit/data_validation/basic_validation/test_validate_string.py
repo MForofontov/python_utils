@@ -137,9 +137,29 @@ def test_validate_string_combined_validations() -> None:
     )
 
 
+def test_validate_string_performance_large_strings() -> None:
+    """
+    Test case 9: Performance with large strings and complex patterns.
+    """
+    # Test large string validation
+    large_string = "a" * 100000
+
+    import time
+
+    start_time = time.time()
+    validate_string(large_string, min_length=50000, max_length=200000)
+    elapsed_time = time.time() - start_time
+    assert elapsed_time < 0.1  # Should be fast for basic validation
+
+    # Test pattern matching performance
+    medium_string = "a" * 10000
+    start_time = time.time()
+    validate_string(medium_string, pattern=r"^a+$")
+    elapsed_time = time.time() - start_time
+    assert elapsed_time < 1.0  # Should complete within 1 second
 def test_validate_string_type_error_invalid_input() -> None:
     """
-    Test case 9: TypeError for non-string input.
+    Test case 10: TypeError for non-string input.
     """
     with pytest.raises(TypeError, match="value must be str, got int"):
         validate_string(123)
@@ -157,7 +177,7 @@ def test_validate_string_type_error_invalid_input() -> None:
 
 def test_validate_string_type_error_invalid_parameters() -> None:
     """
-    Test case 10: TypeError for invalid parameter types.
+    Test case 11: TypeError for invalid parameter types.
     """
     # Test invalid min_length
     with pytest.raises(TypeError, match="min_length must be int or None, got str"):
@@ -187,7 +207,7 @@ def test_validate_string_type_error_invalid_parameters() -> None:
 
 def test_validate_string_value_error_empty_not_allowed() -> None:
     """
-    Test case 11: ValueError when empty strings are not allowed.
+    Test case 12: ValueError when empty strings are not allowed.
     """
     with pytest.raises(ValueError, match="value cannot be empty"):
         validate_string("", allow_empty=False)
@@ -203,7 +223,7 @@ def test_validate_string_value_error_empty_not_allowed() -> None:
 
 def test_validate_string_value_error_length_violations() -> None:
     """
-    Test case 12: ValueError for length constraint violations.
+    Test case 13: ValueError for length constraint violations.
     """
     # Test below minimum length
     with pytest.raises(
@@ -227,7 +247,7 @@ def test_validate_string_value_error_length_violations() -> None:
 
 def test_validate_string_value_error_pattern_mismatch() -> None:
     """
-    Test case 13: ValueError for pattern matching failures.
+    Test case 14: ValueError for pattern matching failures.
     """
     # Test pattern mismatch
     with pytest.raises(
@@ -250,7 +270,7 @@ def test_validate_string_value_error_pattern_mismatch() -> None:
 
 def test_validate_string_value_error_character_violations() -> None:
     """
-    Test case 14: ValueError for character restriction violations.
+    Test case 15: ValueError for character restriction violations.
     """
     # Test disallowed characters
     with pytest.raises(ValueError, match="value contains disallowed character: x"):
@@ -266,7 +286,7 @@ def test_validate_string_value_error_character_violations() -> None:
 
 def test_validate_string_edge_cases() -> None:
     """
-    Test case 15: Edge cases and boundary conditions.
+    Test case 16: Edge cases and boundary conditions.
     """
     # Test single character strings
     validate_string("a", min_length=1, max_length=1)
@@ -288,25 +308,3 @@ def test_validate_string_edge_cases() -> None:
         match="min_length \\(10\\) cannot be greater than max_length \\(5\\)",
     ):
         validate_string("hello", min_length=10, max_length=5)
-
-
-def test_validate_string_performance_large_strings() -> None:
-    """
-    Test case 16: Performance with large strings and complex patterns.
-    """
-    # Test large string validation
-    large_string = "a" * 100000
-
-    import time
-
-    start_time = time.time()
-    validate_string(large_string, min_length=50000, max_length=200000)
-    elapsed_time = time.time() - start_time
-    assert elapsed_time < 0.1  # Should be fast for basic validation
-
-    # Test pattern matching performance
-    medium_string = "a" * 10000
-    start_time = time.time()
-    validate_string(medium_string, pattern=r"^a+$")
-    elapsed_time = time.time() - start_time
-    assert elapsed_time < 1.0  # Should complete within 1 second

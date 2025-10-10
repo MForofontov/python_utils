@@ -59,22 +59,9 @@ def test_calculate_age_with_datetime_objects() -> None:
     assert result == 33
 
 
-def test_calculate_age_type_error_on_non_datetime() -> None:
-    """
-    Test case 6: calculate_age raises TypeError if either argument is not datetime.
-    """
-    reference_date = datetime(2023, 1, 15, 12, 0, 0)
-    with pytest.raises(TypeError):
-        calculate_age("1990-01-15", reference_date)
-    with pytest.raises(TypeError):
-        calculate_age(123, reference_date)
-    with pytest.raises(TypeError):
-        calculate_age(None, reference_date)
-
-
 def test_calculate_age_default_reference() -> None:
     """
-    Test case 7: calculate_age uses current date as default reference.
+    Test case 6: calculate_age uses current date as default reference.
     """
     birth_date = datetime(2020, 1, 1, 0, 0, 0)
     result = calculate_age(birth_date)
@@ -83,6 +70,19 @@ def test_calculate_age_default_reference() -> None:
 
 
     # Removed: covered by test_calculate_age_type_error_on_non_datetime
+
+
+def test_calculate_age_type_error_on_non_datetime() -> None:
+    """
+    Test case 7: calculate_age raises TypeError if either argument is not datetime.
+    """
+    reference_date = datetime(2023, 1, 15, 12, 0, 0)
+    with pytest.raises(TypeError):
+        calculate_age("1990-01-15", reference_date)
+    with pytest.raises(TypeError):
+        calculate_age(123, reference_date)
+    with pytest.raises(TypeError):
+        calculate_age(None, reference_date)
 
 
 def test_calculate_age_future_birth_date() -> None:

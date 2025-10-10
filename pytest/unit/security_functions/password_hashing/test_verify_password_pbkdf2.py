@@ -54,9 +54,73 @@ def test_verify_password_pbkdf2_case_3_custom_iterations() -> None:
     assert result is True
 
 
+def test_verify_password_pbkdf2_case_7_different_iterations() -> None:
+    """
+    Test case 4: Verification fails with different iteration count.
+    """
+    # Arrange
+    password = "test_password"
+    hashed, salt = hash_password_pbkdf2(password, iterations=10000)
+
+    # Act
+    result = verify_password_pbkdf2(password, hashed, salt, iterations=20000)
+
+    # Assert
+    assert result is False
+
+
+def test_verify_password_pbkdf2_case_8_unicode_password() -> None:
+    """
+    Test case 5: Handle Unicode characters in password verification.
+    """
+    # Arrange
+    password = "pássw0rd_with_ümläuts_🔐"
+    hashed, salt = hash_password_pbkdf2(password)
+
+    # Act
+    result = verify_password_pbkdf2(password, hashed, salt)
+
+    # Assert
+    assert result is True
+
+
+def test_verify_password_pbkdf2_case_9_case_sensitive() -> None:
+    """
+    Test case 6: Password verification is case sensitive.
+    """
+    # Arrange
+    password = "CaseSensitivePassword"
+    hashed, salt = hash_password_pbkdf2(password)
+    wrong_case = "casesensitivepassword"
+
+    # Act
+    result_correct = verify_password_pbkdf2(password, hashed, salt)
+    result_wrong_case = verify_password_pbkdf2(wrong_case, hashed, salt)
+
+    # Assert
+    assert result_correct is True
+    assert result_wrong_case is False
+
+
+def test_verify_password_pbkdf2_case_10_edge_case_similar_passwords() -> None:
+    """
+    Test case 7: Verification with very similar but different passwords.
+    """
+    # Arrange
+    password1 = "password123"
+    password2 = "password124"  # Only last character different
+    hashed, salt = hash_password_pbkdf2(password1)
+
+    # Act
+    result1 = verify_password_pbkdf2(password1, hashed, salt)
+    result2 = verify_password_pbkdf2(password2, hashed, salt)
+
+    # Assert
+    assert result1 is True
+    assert result2 is False
 def test_verify_password_pbkdf2_case_4_type_validation() -> None:
     """
-    Test case 4: Type validation for all parameters.
+    Test case 8: Type validation for all parameters.
     """
     # Arrange
     hashed, salt = hash_password_pbkdf2("password")
@@ -80,7 +144,7 @@ def test_verify_password_pbkdf2_case_4_type_validation() -> None:
 
 def test_verify_password_pbkdf2_case_5_value_validation() -> None:
     """
-    Test case 5: Value validation for parameters.
+    Test case 9: Value validation for parameters.
     """
     # Arrange
     hashed, salt = hash_password_pbkdf2("password")
@@ -104,7 +168,7 @@ def test_verify_password_pbkdf2_case_5_value_validation() -> None:
 
 def test_verify_password_pbkdf2_case_6_invalid_hex_format() -> None:
     """
-    Test case 6: Invalid hex format in hashed_password.
+    Test case 10: Invalid hex format in hashed_password.
     """
     # Arrange
     password = "test_password"
@@ -114,69 +178,3 @@ def test_verify_password_pbkdf2_case_6_invalid_hex_format() -> None:
     # Act & Assert
     with pytest.raises(ValueError, match="hashed_password must be a valid hex string"):
         verify_password_pbkdf2(password, invalid_hex, salt)
-
-
-def test_verify_password_pbkdf2_case_7_different_iterations() -> None:
-    """
-    Test case 7: Verification fails with different iteration count.
-    """
-    # Arrange
-    password = "test_password"
-    hashed, salt = hash_password_pbkdf2(password, iterations=10000)
-
-    # Act
-    result = verify_password_pbkdf2(password, hashed, salt, iterations=20000)
-
-    # Assert
-    assert result is False
-
-
-def test_verify_password_pbkdf2_case_8_unicode_password() -> None:
-    """
-    Test case 8: Handle Unicode characters in password verification.
-    """
-    # Arrange
-    password = "pássw0rd_with_ümläuts_🔐"
-    hashed, salt = hash_password_pbkdf2(password)
-
-    # Act
-    result = verify_password_pbkdf2(password, hashed, salt)
-
-    # Assert
-    assert result is True
-
-
-def test_verify_password_pbkdf2_case_9_case_sensitive() -> None:
-    """
-    Test case 9: Password verification is case sensitive.
-    """
-    # Arrange
-    password = "CaseSensitivePassword"
-    hashed, salt = hash_password_pbkdf2(password)
-    wrong_case = "casesensitivepassword"
-
-    # Act
-    result_correct = verify_password_pbkdf2(password, hashed, salt)
-    result_wrong_case = verify_password_pbkdf2(wrong_case, hashed, salt)
-
-    # Assert
-    assert result_correct is True
-    assert result_wrong_case is False
-
-
-def test_verify_password_pbkdf2_case_10_edge_case_similar_passwords() -> None:
-    """
-    Test case 10: Verification with very similar but different passwords.
-    """
-    # Arrange
-    password1 = "password123"
-    password2 = "password124"  # Only last character different
-    hashed, salt = hash_password_pbkdf2(password1)
-
-    # Act
-    result1 = verify_password_pbkdf2(password1, hashed, salt)
-    result2 = verify_password_pbkdf2(password2, hashed, salt)
-
-    # Assert
-    assert result1 is True
-    assert result2 is False

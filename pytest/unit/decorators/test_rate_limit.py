@@ -18,9 +18,21 @@ def sample_function() -> str:
     return "Function executed"
 
 
+def test_rate_limit_single_call():
+    """
+    Test case 1: Single call within the rate limit period
+    """
+
+    @rate_limit(max_calls=1, period=5)
+    def single_call_function() -> str:
+        return "Function executed"
+
+    assert single_call_function() == "Function executed"
+
+
 def test_rate_limit_basic():
     """
-    Test case 1: Basic functionality of rate limiting
+    Test case 2: Basic functionality of rate limiting
     """
     assert sample_function() == "Function executed"
     assert sample_function() == "Function executed"
@@ -30,7 +42,7 @@ def test_rate_limit_basic():
 
 def test_rate_limit_custom_message():
     """
-    Test case 2: Custom exception message when rate limit is exceeded
+    Test case 3: Custom exception message when rate limit is exceeded
     """
 
     @rate_limit(max_calls=1, period=5, exception_message="Custom rate limit message")
@@ -44,7 +56,7 @@ def test_rate_limit_custom_message():
 
 def test_rate_limit_with_logger(caplog):
     """
-    Test case 3: Logger functionality when rate limit is exceeded
+    Test case 4: Logger functionality when rate limit is exceeded
     """
     logger = logging.getLogger("rate_limit_logger")
     logger.setLevel(logging.WARNING)
@@ -64,7 +76,7 @@ def test_rate_limit_with_logger(caplog):
 
 def test_rate_limit_with_args():
     """
-    Test case 4: Function with positional arguments
+    Test case 5: Function with positional arguments
     """
 
     @rate_limit(max_calls=2, period=5)
@@ -79,7 +91,7 @@ def test_rate_limit_with_args():
 
 def test_rate_limit_with_kwargs():
     """
-    Test case 5: Function with keyword arguments
+    Test case 6: Function with keyword arguments
     """
 
     @rate_limit(max_calls=2, period=5)
@@ -94,7 +106,7 @@ def test_rate_limit_with_kwargs():
 
 def test_rate_limit_with_variable_length_args():
     """
-    Test case 6: Function with variable length arguments (*args and **kwargs)
+    Test case 7: Function with variable length arguments (*args and **kwargs)
     """
 
     @rate_limit(max_calls=2, period=5)
@@ -115,7 +127,7 @@ def test_rate_limit_with_variable_length_args():
 
 def test_rate_limit_exceeding_calls():
     """
-    Test case 7: Exceeding function call within the rate limit period
+    Test case 8: Exceeding function call within the rate limit period
     """
 
     @rate_limit(max_calls=1, period=5)
@@ -125,18 +137,6 @@ def test_rate_limit_exceeding_calls():
     assert exceeding_function_call() == "Function executed"
     with pytest.raises(RateLimitExceededException):
         exceeding_function_call()
-
-
-def test_rate_limit_single_call():
-    """
-    Test case 8: Single call within the rate limit period
-    """
-
-    @rate_limit(max_calls=1, period=5)
-    def single_call_function() -> str:
-        return "Function executed"
-
-    assert single_call_function() == "Function executed"
 
 
 def test_rate_limit_with_multiple_calls():

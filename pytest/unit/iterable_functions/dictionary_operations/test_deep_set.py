@@ -129,24 +129,9 @@ def test_deep_set_mixed_data_types() -> None:
     assert input_data == expected_output
 
 
-def test_deep_set_invalid_type_error() -> None:
-    """
-    Test case 8: TypeError for invalid input type.
-    """
-    # Arrange
-    invalid_input: str = "not a dict"
-    key_path: str = "key"
-    value: str = "value"
-    expected_message: str = "d must be a dictionary, got str"
-
-    # Act & Assert
-    with pytest.raises(TypeError, match=expected_message):
-        deep_set(invalid_input, key_path, value)
-
-
 def test_deep_set_empty_string_in_path() -> None:
     """
-    Test case 9: Edge case with empty string in path.
+    Test case 8: Edge case with empty string in path.
     """
     # Arrange
     input_data: dict[str, Any] = {}
@@ -163,7 +148,7 @@ def test_deep_set_empty_string_in_path() -> None:
 
 def test_deep_set_single_key() -> None:
     """
-    Test case 10: Edge case with single key.
+    Test case 9: Edge case with single key.
     """
     # Arrange
     input_data: dict[str, Any] = {}
@@ -180,7 +165,7 @@ def test_deep_set_single_key() -> None:
 
 def test_deep_set_numeric_keys_in_path() -> None:
     """
-    Test case 11: Normal operation with numeric keys in path.
+    Test case 10: Normal operation with numeric keys in path.
     """
     # Arrange
     input_data: dict[str, Any] = {}
@@ -193,3 +178,16 @@ def test_deep_set_numeric_keys_in_path() -> None:
 
     # Assert
     assert input_data == expected_output
+def test_deep_set_invalid_type_error() -> None:
+    """
+    Test case 11: TypeError for invalid input type.
+    """
+    # Arrange
+    invalid_input: str = "not a dict"
+    key_path: str = "key"
+    value: str = "value"
+    expected_message: str = "d must be a dictionary, got str"
+
+    # Act & Assert
+    with pytest.raises(TypeError, match=expected_message):
+        deep_set(invalid_input, key_path, value)

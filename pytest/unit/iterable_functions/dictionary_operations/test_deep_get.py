@@ -117,23 +117,9 @@ def test_deep_get_root_level_key() -> None:
     assert result == expected_output
 
 
-def test_deep_get_invalid_type_error() -> None:
-    """
-    Test case 8: TypeError for invalid input type.
-    """
-    # Arrange
-    invalid_input: str = "not a dict"
-    key_path: str = "key"
-    expected_message: str = "d must be a dictionary, got str"
-
-    # Act & Assert
-    with pytest.raises(TypeError, match=expected_message):
-        deep_get(invalid_input, key_path)
-
-
 def test_deep_get_deeply_nested_structure() -> None:
     """
-    Test case 9: Normal operation with deeply nested structure.
+    Test case 8: Normal operation with deeply nested structure.
     """
     # Arrange
     input_data: dict[str, Any] = {"level1": {"level2": {"level3": {"level4": "value"}}}}
@@ -149,7 +135,7 @@ def test_deep_get_deeply_nested_structure() -> None:
 
 def test_deep_get_mixed_data_types() -> None:
     """
-    Test case 10: Normal operation with mixed data types.
+    Test case 9: Normal operation with mixed data types.
     """
     # Arrange
     input_data: dict[str, Any] = {
@@ -173,7 +159,7 @@ def test_deep_get_mixed_data_types() -> None:
 
 def test_deep_get_empty_string_in_path() -> None:
     """
-    Test case 11: Edge case with empty string in path.
+    Test case 10: Edge case with empty string in path.
     """
     # Arrange
     input_data: dict[str, Any] = {"": {"nested": "value"}}
@@ -185,3 +171,15 @@ def test_deep_get_empty_string_in_path() -> None:
 
     # Assert
     assert result == expected_output
+def test_deep_get_invalid_type_error() -> None:
+    """
+    Test case 11: TypeError for invalid input type.
+    """
+    # Arrange
+    invalid_input: str = "not a dict"
+    key_path: str = "key"
+    expected_message: str = "d must be a dictionary, got str"
+
+    # Act & Assert
+    with pytest.raises(TypeError, match=expected_message):
+        deep_get(invalid_input, key_path)

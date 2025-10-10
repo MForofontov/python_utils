@@ -95,38 +95,9 @@ async def test_sync_function_with_no_args():
     assert result == "success"
 
 
-def test_non_async_function():
-    """
-    Test case 6: Synchronous function that raises an error.
-    """
-    with pytest.raises(
-        TypeError, match="The function to be wrapped must be asynchronous"
-    ):
-
-        @async_handle_error()
-        def sample_function(x: int, y: int) -> int:
-            return x + y
-
-
-@pytest.mark.asyncio
-async def test_async_function_exception(caplog, capsys):
-    """
-    Test case 7: Asynchronous function that raises an exception. The error
-    should be logged via the default logger and no output should be printed.
-    """
-    with caplog.at_level(logging.ERROR):
-        with pytest.raises(ValueError, match="Test exception"):
-            await sample_function_exception(1, 2)
-    assert (
-        "An error occurred in sample_function_exception: Test exception" in caplog.text
-    )
-    captured = capsys.readouterr()
-    assert captured.out == ""
-
-
 def test_non_async_function_with_logger(caplog):
     """
-    Test case 8: Synchronous function that logs an error with logging enabled.
+    Test case 6: Synchronous function that logs an error with logging enabled.
     """
     with caplog.at_level(logging.ERROR):
 
@@ -143,7 +114,7 @@ def test_non_async_function_with_logger(caplog):
 @pytest.mark.asyncio
 async def test_async_function_with_logger(caplog):
     """
-    Test case 9: Asynchronous function that logs an exception with logging enabled.
+    Test case 7: Asynchronous function that logs an exception with logging enabled.
     """
     with caplog.at_level(logging.ERROR):
         result = await sample_function_with_logger(1, 2)
@@ -152,6 +123,35 @@ async def test_async_function_with_logger(caplog):
             "An error occurred in sample_function_with_logger: Test exception"
             in caplog.text
         )
+
+
+def test_non_async_function():
+    """
+    Test case 8: Synchronous function that raises an error.
+    """
+    with pytest.raises(
+        TypeError, match="The function to be wrapped must be asynchronous"
+    ):
+
+        @async_handle_error()
+        def sample_function(x: int, y: int) -> int:
+            return x + y
+
+
+@pytest.mark.asyncio
+async def test_async_function_exception(caplog, capsys):
+    """
+    Test case 9: Asynchronous function that raises an exception. The error
+    should be logged via the default logger and no output should be printed.
+    """
+    with caplog.at_level(logging.ERROR):
+        with pytest.raises(ValueError, match="Test exception"):
+            await sample_function_exception(1, 2)
+    assert (
+        "An error occurred in sample_function_exception: Test exception" in caplog.text
+    )
+    captured = capsys.readouterr()
+    assert captured.out == ""
 
 
 @pytest.mark.asyncio

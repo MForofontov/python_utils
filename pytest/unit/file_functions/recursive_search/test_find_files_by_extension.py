@@ -87,9 +87,26 @@ def test_find_files_by_extension_case_4_empty_directory() -> None:
         assert result == []
 
 
+def test_find_files_by_extension_case_8_path_object_input() -> None:
+    """
+    Test case 5: Function works with Path object input.
+    """
+    # Arrange
+    with tempfile.TemporaryDirectory() as temp_dir:
+        temp_path = Path(temp_dir)
+        (temp_path / "test.py").touch()
+
+        # Act
+        result = find_files_by_extension(temp_path, ".py")
+
+        # Assert
+        assert len(result) == 1
+        assert Path(result[0]).name == "test.py"
+
+
 def test_find_files_by_extension_case_5_invalid_directory_error() -> None:
     """
-    Test case 5: ValueError for non-existent directory.
+    Test case 6: ValueError for non-existent directory.
     """
     # Arrange
     non_existent_dir = "/path/that/does/not/exist"
@@ -101,7 +118,7 @@ def test_find_files_by_extension_case_5_invalid_directory_error() -> None:
 
 def test_find_files_by_extension_case_6_invalid_type_errors() -> None:
     """
-    Test case 6: TypeError for invalid parameter types.
+    Test case 7: TypeError for invalid parameter types.
     """
     # Test invalid directory type
     with pytest.raises(TypeError, match="directory must be a string or Path"):
@@ -118,30 +135,13 @@ def test_find_files_by_extension_case_6_invalid_type_errors() -> None:
 
 def test_find_files_by_extension_case_7_empty_extension_error() -> None:
     """
-    Test case 7: ValueError for empty extension.
+    Test case 8: ValueError for empty extension.
     """
     # Arrange
     with tempfile.TemporaryDirectory() as temp_dir:
         # Act & Assert
         with pytest.raises(ValueError, match="Extension cannot be empty"):
             find_files_by_extension(temp_dir, "")
-
-
-def test_find_files_by_extension_case_8_path_object_input() -> None:
-    """
-    Test case 8: Function works with Path object input.
-    """
-    # Arrange
-    with tempfile.TemporaryDirectory() as temp_dir:
-        temp_path = Path(temp_dir)
-        (temp_path / "test.py").touch()
-
-        # Act
-        result = find_files_by_extension(temp_path, ".py")
-
-        # Assert
-        assert len(result) == 1
-        assert Path(result[0]).name == "test.py"
 
 
 def test_find_files_by_extension_case_9_file_path_not_directory_error() -> None:

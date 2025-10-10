@@ -94,9 +94,29 @@ async def test_async_stream_processor_transformation() -> None:
 
 
 @pytest.mark.asyncio
+async def test_async_stream_processor_large_stream() -> None:
+    """
+    Test case 5: Process a large stream efficiently.
+    """
+    # Arrange
+    count = []
+
+    async def generate_large_stream() -> AsyncIterator[str]:
+        for i in range(100):
+            yield f"data_{i}"
+
+    async def count_items(item: str) -> None:
+        count.append(1)
+
+    # Act
+    await async_stream_processor(generate_large_stream(), count_items)
+
+    # Assert
+    assert len(count) == 100
+@pytest.mark.asyncio
 async def test_async_stream_processor_exception_in_processor() -> None:
     """
-    Test case 5: Exception in processor stops processing.
+    Test case 6: Exception in processor stops processing.
     """
     # Arrange
     processed_items = []
@@ -115,25 +135,3 @@ async def test_async_stream_processor_exception_in_processor() -> None:
         await async_stream_processor(generate_data(), failing_processor)
 
     assert len(processed_items) == 3
-
-
-@pytest.mark.asyncio
-async def test_async_stream_processor_large_stream() -> None:
-    """
-    Test case 6: Process a large stream efficiently.
-    """
-    # Arrange
-    count = []
-
-    async def generate_large_stream() -> AsyncIterator[str]:
-        for i in range(100):
-            yield f"data_{i}"
-
-    async def count_items(item: str) -> None:
-        count.append(1)
-
-    # Act
-    await async_stream_processor(generate_large_stream(), count_items)
-
-    # Assert
-    assert len(count) == 100

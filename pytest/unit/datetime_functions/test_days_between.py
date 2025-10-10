@@ -48,9 +48,21 @@ def test_days_between_with_datetime_objects() -> None:
     assert result == 3
 
 
+def test_days_between_cross_month() -> None:
+    """
+    Test case 5: days_between across month boundaries.
+    """
+    dt1 = datetime(2023, 1, 30, 0, 0, 0)
+    dt2 = datetime(2023, 2, 2, 0, 0, 0)
+    result = days_between(dt1, dt2)
+    assert isinstance(result, int)
+    assert result == 3
+
+
+    # Removed: covered by test_days_between_type_error_on_non_datetime
 def test_days_between_type_error_on_non_datetime() -> None:
     """
-    Test case 5: days_between raises TypeError if either argument is not datetime.
+    Test case 6: days_between raises TypeError if either argument is not datetime.
     """
     dt2 = datetime(2023, 1, 20, 12, 0, 0)
     with pytest.raises(TypeError):
@@ -61,17 +73,3 @@ def test_days_between_type_error_on_non_datetime() -> None:
         days_between(123, dt2)
     with pytest.raises(TypeError):
         days_between(dt2, None)
-
-
-def test_days_between_cross_month() -> None:
-    """
-    Test case 6: days_between across month boundaries.
-    """
-    dt1 = datetime(2023, 1, 30, 0, 0, 0)
-    dt2 = datetime(2023, 2, 2, 0, 0, 0)
-    result = days_between(dt1, dt2)
-    assert isinstance(result, int)
-    assert result == 3
-
-
-    # Removed: covered by test_days_between_type_error_on_non_datetime

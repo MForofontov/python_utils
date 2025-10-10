@@ -30,34 +30,9 @@ def test_retry_success():
     assert sample_function_success() == "Function executed"
 
 
-def test_retry_failure():
-    """
-    Test case 2: Function fails after retries
-    """
-    with pytest.raises(Exception, match="Function failed"):
-        sample_function_failure()
-
-
-def test_retry_with_logger(caplog):
-    """
-    Test case 3: Logger functionality when function fails
-    """
-
-    @retry(3, logger=test_logger)
-    def logged_function() -> str:
-        raise Exception("Function failed")
-
-    with caplog.at_level(logging.WARNING):
-        with pytest.raises(Exception, match="Function failed"):
-            logged_function()
-        assert "Attempt 1 failed for logged_function: Function failed" in caplog.text
-        assert "Attempt 2 failed for logged_function: Function failed" in caplog.text
-        assert "Attempt 3 failed for logged_function: Function failed" in caplog.text
-
-
 def test_retry_with_args():
     """
-    Test case 4: Function with positional arguments
+    Test case 2: Function with positional arguments
     """
 
     @retry(3)
@@ -69,7 +44,7 @@ def test_retry_with_args():
 
 def test_retry_with_kwargs():
     """
-    Test case 5: Function with keyword arguments
+    Test case 3: Function with keyword arguments
     """
 
     @retry(3)
@@ -81,7 +56,7 @@ def test_retry_with_kwargs():
 
 def test_retry_with_var_args():
     """
-    Test case 6: Function with variable length arguments (*args and **kwargs)
+    Test case 4: Function with variable length arguments (*args and **kwargs)
     """
 
     @retry(3)
@@ -96,7 +71,7 @@ def test_retry_with_var_args():
 
 def test_retry_with_0_max_retries():
     """
-    Test case 7: Function with 0 max_retries
+    Test case 5: Function with 0 max_retries
     """
 
     @retry(0)
@@ -106,9 +81,46 @@ def test_retry_with_0_max_retries():
     assert function_with_0_max_retries() == "Function executed"
 
 
+def test_retry_with_0_delay():
+    """
+    Test case 6: Function with 0 delay
+    """
+
+    @retry(3, delay=0)
+    def function_with_0_delay() -> str:
+        return "Function executed"
+
+    assert function_with_0_delay() == "Function executed"
+
+
+def test_retry_failure():
+    """
+    Test case 7: Function fails after retries
+    """
+    with pytest.raises(Exception, match="Function failed"):
+        sample_function_failure()
+
+
+def test_retry_with_logger(caplog):
+    """
+    Test case 8: Logger functionality when function fails
+    """
+
+    @retry(3, logger=test_logger)
+    def logged_function() -> str:
+        raise Exception("Function failed")
+
+    with caplog.at_level(logging.WARNING):
+        with pytest.raises(Exception, match="Function failed"):
+            logged_function()
+        assert "Attempt 1 failed for logged_function: Function failed" in caplog.text
+        assert "Attempt 2 failed for logged_function: Function failed" in caplog.text
+        assert "Attempt 3 failed for logged_function: Function failed" in caplog.text
+
+
 def test_retry_with_negative_retries():
     """
-    Test case 8: Function with negative max_retries
+    Test case 9: Function with negative max_retries
     """
     with pytest.raises(Exception, match="max_retries must be an positive integer or 0"):
 
@@ -117,18 +129,6 @@ def test_retry_with_negative_retries():
             raise Exception("Function failed")
 
         function_with_negative_retries()
-
-
-def test_retry_with_0_delay():
-    """
-    Test case 9: Function with 0 delay
-    """
-
-    @retry(3, delay=0)
-    def function_with_0_delay() -> str:
-        return "Function executed"
-
-    assert function_with_0_delay() == "Function executed"
 
 
 def test_retry_with_negative_delay():

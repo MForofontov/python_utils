@@ -30,9 +30,23 @@ def test_annotation_to_gtf_empty_input() -> None:
     """
     assert annotation_to_gtf([]) == []
 
+def test_annotation_to_gtf_boundary_values() -> None:
+    """
+    Test case 3: Conversion with minimal and maximal field values.
+    """
+    annotations = [
+        {
+            'seqid': '', 'source': '', 'feature': '',
+            'start': 0, 'end': 999999, 'score': '', 'strand': '.',
+            'frame': '', 'attribute': ''
+        }
+    ]
+    expected = ['\t\t\t0\t999999\t\t.\t\t']
+    result = annotation_to_gtf(annotations)
+    assert result == expected
 def test_annotation_to_gtf_missing_required_key() -> None:
     """
-    Test case 3: Error raised when a required key is missing.
+    Test case 4: Error raised when a required key is missing.
     """
     annotations = [
         {
@@ -46,14 +60,14 @@ def test_annotation_to_gtf_missing_required_key() -> None:
 
 def test_annotation_to_gtf_invalid_input_type() -> None:
     """
-    Test case 4: Error raised when input is not a list or tuple.
+    Test case 5: Error raised when input is not a list or tuple.
     """
     with pytest.raises(TypeError, match=r"annotations must be a list or tuple"):
         annotation_to_gtf('not_a_list')  # type: ignore[arg-type]
 
 def test_annotation_to_gtf_invalid_record_type() -> None:
     """
-    Test case 5: Error raised when a record is not a dict.
+    Test case 6: Error raised when a record is not a dict.
     """
     annotations = ['not_a_dict']
     with pytest.raises(TypeError, match=r"record must be a dict"):
@@ -64,18 +78,3 @@ def test_annotation_to_gtf_invalid_record_type() -> None:
         except KeyError as e:
             # If KeyError is raised, fail the test with a message
             pytest.fail(f"Expected TypeError for non-dict record, got KeyError: {e}")
-
-def test_annotation_to_gtf_boundary_values() -> None:
-    """
-    Test case 6: Conversion with minimal and maximal field values.
-    """
-    annotations = [
-        {
-            'seqid': '', 'source': '', 'feature': '',
-            'start': 0, 'end': 999999, 'score': '', 'strand': '.',
-            'frame': '', 'attribute': ''
-        }
-    ]
-    expected = ['\t\t\t0\t999999\t\t.\t\t']
-    result = annotation_to_gtf(annotations)
-    assert result == expected

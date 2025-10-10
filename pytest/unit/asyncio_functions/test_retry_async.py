@@ -49,28 +49,9 @@ async def test_retry_async_succeeds_after_failures() -> None:
 
 
 @pytest.mark.asyncio
-async def test_retry_async_fails_all_retries() -> None:
-    """
-    Test case 3: Function fails on all retry attempts.
-    """
-    # Arrange
-    call_count = []
-
-    async def always_failing_task() -> int:
-        call_count.append(1)
-        raise ValueError("Permanent failure")
-
-    # Act & Assert
-    with pytest.raises(ValueError, match="Permanent failure"):
-        await retry_async(always_failing_task, retries=3, delay=0.01)
-
-    assert len(call_count) == 3
-
-
-@pytest.mark.asyncio
 async def test_retry_async_single_retry() -> None:
     """
-    Test case 4: Single retry attempt.
+    Test case 3: Single retry attempt.
     """
     # Arrange
     call_count = []
@@ -90,33 +71,9 @@ async def test_retry_async_single_retry() -> None:
 
 
 @pytest.mark.asyncio
-async def test_retry_async_delay_between_retries() -> None:
-    """
-    Test case 5: Verify delay is applied between retries.
-    """
-    # Arrange
-    call_times = []
-
-    async def failing_task() -> None:
-        call_times.append(asyncio.get_event_loop().time())
-        raise ValueError("Fail")
-
-    # Act & Assert
-    with pytest.raises(ValueError):
-        await retry_async(failing_task, retries=3, delay=0.05)
-
-    # Verify timing
-    assert len(call_times) == 3
-    if len(call_times) >= 2:
-        # Check delay between first and second call
-        delay = call_times[1] - call_times[0]
-        assert 0.04 <= delay <= 0.07
-
-
-@pytest.mark.asyncio
 async def test_retry_async_different_exception_types() -> None:
     """
-    Test case 6: Different exception types are handled.
+    Test case 4: Different exception types are handled.
     """
     # Arrange
     call_count = []
@@ -135,3 +92,44 @@ async def test_retry_async_different_exception_types() -> None:
     # Assert
     assert result == "recovered"
     assert len(call_count) == 3
+@pytest.mark.asyncio
+async def test_retry_async_fails_all_retries() -> None:
+    """
+    Test case 5: Function fails on all retry attempts.
+    """
+    # Arrange
+    call_count = []
+
+    async def always_failing_task() -> int:
+        call_count.append(1)
+        raise ValueError("Permanent failure")
+
+    # Act & Assert
+    with pytest.raises(ValueError, match="Permanent failure"):
+        await retry_async(always_failing_task, retries=3, delay=0.01)
+
+    assert len(call_count) == 3
+
+
+@pytest.mark.asyncio
+async def test_retry_async_delay_between_retries() -> None:
+    """
+    Test case 6: Verify delay is applied between retries.
+    """
+    # Arrange
+    call_times = []
+
+    async def failing_task() -> None:
+        call_times.append(asyncio.get_event_loop().time())
+        raise ValueError("Fail")
+
+    # Act & Assert
+    with pytest.raises(ValueError):
+        await retry_async(failing_task, retries=3, delay=0.05)
+
+    # Verify timing
+    assert len(call_times) == 3
+    if len(call_times) >= 2:
+        # Check delay between first and second call
+        delay = call_times[1] - call_times[0]
+        assert 0.04 <= delay <= 0.07

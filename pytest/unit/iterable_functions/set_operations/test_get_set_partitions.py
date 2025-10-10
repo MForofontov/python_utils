@@ -67,19 +67,9 @@ def test_get_set_partitions_single_element() -> None:
     assert result[0] == [{1}]
 
 
-def test_get_set_partitions_empty_set() -> None:
-    """
-    Test case 5: Partition empty set.
-    """
-    input_set = set()
-    k = 1
-    with pytest.raises(ValueError, match="k cannot be greater than set size 0"):
-        get_set_partitions(input_set, k)
-
-
 def test_get_set_partitions_strings() -> None:
     """
-    Test case 6: Partition set with string elements.
+    Test case 5: Partition set with string elements.
     """
     input_set = {"a", "b"}
     k = 2
@@ -94,53 +84,9 @@ def test_get_set_partitions_strings() -> None:
         assert union == input_set
 
 
-def test_get_set_partitions_type_error_input_set() -> None:
-    """
-    Test case 7: TypeError for invalid input_set type.
-    """
-    with pytest.raises(TypeError, match="input_set must be a set"):
-        get_set_partitions("not a set", 2)
-
-
-def test_get_set_partitions_type_error_k() -> None:
-    """
-    Test case 8: TypeError for invalid k type.
-    """
-    input_set = {1, 2, 3}
-    with pytest.raises(TypeError, match="k must be an int"):
-        get_set_partitions(input_set, "not an int")
-
-
-def test_get_set_partitions_value_error_k_zero() -> None:
-    """
-    Test case 9: ValueError for k=0.
-    """
-    input_set = {1, 2, 3}
-    with pytest.raises(ValueError, match="k must be at least 1"):
-        get_set_partitions(input_set, 0)
-
-
-def test_get_set_partitions_value_error_k_negative() -> None:
-    """
-    Test case 10: ValueError for negative k.
-    """
-    input_set = {1, 2, 3}
-    with pytest.raises(ValueError, match="k must be at least 1"):
-        get_set_partitions(input_set, -1)
-
-
-def test_get_set_partitions_value_error_k_too_large() -> None:
-    """
-    Test case 11: ValueError for k larger than set size.
-    """
-    input_set = {1, 2, 3}
-    with pytest.raises(ValueError, match="k cannot be greater than set size 3"):
-        get_set_partitions(input_set, 4)
-
-
 def test_get_set_partitions_no_duplicates() -> None:
     """
-    Test case 12: Ensure no duplicate partitions are returned.
+    Test case 6: Ensure no duplicate partitions are returned.
     """
     input_set = {1, 2, 3, 4}
     k = 2
@@ -151,3 +97,55 @@ def test_get_set_partitions_no_duplicates() -> None:
         partition_hash = frozenset(frozenset(s) for s in partition)
         assert partition_hash not in unique_check
         unique_check.add(partition_hash)
+def test_get_set_partitions_empty_set() -> None:
+    """
+    Test case 7: Partition empty set.
+    """
+    input_set = set()
+    k = 1
+    with pytest.raises(ValueError, match="k cannot be greater than set size 0"):
+        get_set_partitions(input_set, k)
+
+
+def test_get_set_partitions_type_error_input_set() -> None:
+    """
+    Test case 8: TypeError for invalid input_set type.
+    """
+    with pytest.raises(TypeError, match="input_set must be a set"):
+        get_set_partitions("not a set", 2)
+
+
+def test_get_set_partitions_type_error_k() -> None:
+    """
+    Test case 9: TypeError for invalid k type.
+    """
+    input_set = {1, 2, 3}
+    with pytest.raises(TypeError, match="k must be an int"):
+        get_set_partitions(input_set, "not an int")
+
+
+def test_get_set_partitions_value_error_k_zero() -> None:
+    """
+    Test case 10: ValueError for k=0.
+    """
+    input_set = {1, 2, 3}
+    with pytest.raises(ValueError, match="k must be at least 1"):
+        get_set_partitions(input_set, 0)
+
+
+def test_get_set_partitions_value_error_k_negative() -> None:
+    """
+    Test case 11: ValueError for negative k.
+    """
+    input_set = {1, 2, 3}
+    with pytest.raises(ValueError, match="k must be at least 1"):
+        get_set_partitions(input_set, -1)
+
+
+def test_get_set_partitions_value_error_k_too_large() -> None:
+    """
+    Test case 12: ValueError for k larger than set size.
+    """
+    input_set = {1, 2, 3}
+    with pytest.raises(ValueError, match="k cannot be greater than set size 3"):
+        get_set_partitions(input_set, 4)

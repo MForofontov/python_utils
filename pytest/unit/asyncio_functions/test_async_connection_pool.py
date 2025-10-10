@@ -64,23 +64,9 @@ async def test_async_connection_pool_multiple_connections() -> None:
 
 
 @pytest.mark.asyncio
-async def test_async_connection_pool_full_error() -> None:
-    """
-    Test case 4: RuntimeError when adding to a full pool.
-    """
-    # Arrange
-    pool: AsyncConnectionPool[str] = AsyncConnectionPool(max_connections=1)
-    await pool.add_connection("conn1")
-
-    # Act & Assert
-    with pytest.raises(RuntimeError, match="Connection pool is full"):
-        await pool.add_connection("conn2")
-
-
-@pytest.mark.asyncio
 async def test_use_connection_function() -> None:
     """
-    Test case 5: Use use_connection helper function.
+    Test case 4: Use use_connection helper function.
     """
     # Arrange
     pool: AsyncConnectionPool[str] = AsyncConnectionPool(max_connections=1)
@@ -99,7 +85,7 @@ async def test_use_connection_function() -> None:
 @pytest.mark.asyncio
 async def test_use_connection_reuse() -> None:
     """
-    Test case 6: Connection is properly reused after release.
+    Test case 5: Connection is properly reused after release.
     """
     # Arrange
     pool: AsyncConnectionPool[str] = AsyncConnectionPool(max_connections=1)
@@ -123,7 +109,7 @@ async def test_use_connection_reuse() -> None:
 @pytest.mark.asyncio
 async def test_use_connection_concurrent_access() -> None:
     """
-    Test case 7: Concurrent tasks use different connections.
+    Test case 6: Concurrent tasks use different connections.
     """
     # Arrange
     pool: AsyncConnectionPool[int] = AsyncConnectionPool(max_connections=2)
@@ -142,6 +128,20 @@ async def test_use_connection_concurrent_access() -> None:
 
     # Assert
     assert set(results) == {10, 20}
+
+
+@pytest.mark.asyncio
+async def test_async_connection_pool_full_error() -> None:
+    """
+    Test case 7: RuntimeError when adding to a full pool.
+    """
+    # Arrange
+    pool: AsyncConnectionPool[str] = AsyncConnectionPool(max_connections=1)
+    await pool.add_connection("conn1")
+
+    # Act & Assert
+    with pytest.raises(RuntimeError, match="Connection pool is full"):
+        await pool.add_connection("conn2")
 
 
 @pytest.mark.asyncio

@@ -125,9 +125,25 @@ def test_create_temp_directory_case_7_path_object_directory() -> None:
             assert Path(temp_dir).exists()
 
 
+def test_create_temp_directory_case_10_cleanup_error_handling() -> None:
+    """
+    Test case 8: Graceful handling of cleanup errors.
+    """
+    temp_dir_holder = []
+
+    # Act
+    with create_temp_directory() as temp_dir:
+        temp_dir_holder.append(temp_dir)
+        assert Path(temp_dir).exists()
+
+        # Manually delete the directory to simulate cleanup error
+        shutil.rmtree(temp_dir)
+
+    # Assert - should not raise error even if directory was already deleted
+    assert not Path(temp_dir_holder[0]).exists()
 def test_create_temp_directory_case_8_invalid_type_errors() -> None:
     """
-    Test case 8: TypeError for invalid parameter types.
+    Test case 9: TypeError for invalid parameter types.
     """
     # Test invalid suffix type
     with pytest.raises(TypeError, match="suffix must be a string"):
@@ -152,7 +168,7 @@ def test_create_temp_directory_case_8_invalid_type_errors() -> None:
 
 def test_create_temp_directory_case_9_directory_creation_error() -> None:
     """
-    Test case 9: OSError handling during directory creation.
+    Test case 10: OSError handling during directory creation.
     """
     # Mock mkdtemp to raise OSError
     with patch("tempfile.mkdtemp", side_effect=OSError("Permission denied")):
@@ -160,21 +176,3 @@ def test_create_temp_directory_case_9_directory_creation_error() -> None:
         with pytest.raises(OSError, match="Error creating temporary directory"):
             with create_temp_directory():
                 pass
-
-
-def test_create_temp_directory_case_10_cleanup_error_handling() -> None:
-    """
-    Test case 10: Graceful handling of cleanup errors.
-    """
-    temp_dir_holder = []
-
-    # Act
-    with create_temp_directory() as temp_dir:
-        temp_dir_holder.append(temp_dir)
-        assert Path(temp_dir).exists()
-
-        # Manually delete the directory to simulate cleanup error
-        shutil.rmtree(temp_dir)
-
-    # Assert - should not raise error even if directory was already deleted
-    assert not Path(temp_dir_holder[0]).exists()

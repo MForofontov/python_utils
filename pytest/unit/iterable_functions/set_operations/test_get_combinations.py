@@ -46,19 +46,9 @@ def test_get_combinations_r_equals_n() -> None:
     assert result == expected
 
 
-def test_get_combinations_empty_set() -> None:
-    """
-    Test case 5: Test with empty set.
-    """
-    input_set = set()
-    r = 2
-    with pytest.raises(ValueError, match="r cannot be larger than set size 0"):
-        get_combinations(input_set, r)
-
-
 def test_get_combinations_single_element() -> None:
     """
-    Test case 6: Test with single element set.
+    Test case 5: Test with single element set.
     """
     input_set = {1}
     r = 1
@@ -69,7 +59,7 @@ def test_get_combinations_single_element() -> None:
 
 def test_get_combinations_strings() -> None:
     """
-    Test case 7: Test with string elements.
+    Test case 6: Test with string elements.
     """
     input_set = {"a", "b", "c"}
     r = 2
@@ -78,44 +68,9 @@ def test_get_combinations_strings() -> None:
     assert result == expected
 
 
-def test_get_combinations_type_error_input_set() -> None:
-    """
-    Test case 8: TypeError for invalid input_set type.
-    """
-    with pytest.raises(TypeError, match="input_set must be a set"):
-        get_combinations("not a set", 2)
-
-
-def test_get_combinations_type_error_r() -> None:
-    """
-    Test case 9: TypeError for invalid r type.
-    """
-    input_set = {1, 2, 3}
-    with pytest.raises(TypeError, match="r must be an int"):
-        get_combinations(input_set, "not an int")
-
-
-def test_get_combinations_value_error_negative_r() -> None:
-    """
-    Test case 10: ValueError for negative r.
-    """
-    input_set = {1, 2, 3}
-    with pytest.raises(ValueError, match="r must be non-negative"):
-        get_combinations(input_set, -1)
-
-
-def test_get_combinations_value_error_r_too_large() -> None:
-    """
-    Test case 11: ValueError for r larger than set size.
-    """
-    input_set = {1, 2, 3}
-    with pytest.raises(ValueError, match="r cannot be larger than set size 3"):
-        get_combinations(input_set, 4)
-
-
 def test_get_combinations_boundary_r_equals_1() -> None:
     """
-    Test case 12: Boundary test with r=1.
+    Test case 7: Boundary test with r=1.
     """
     input_set = {1, 2, 3}
     r = 1
@@ -126,7 +81,7 @@ def test_get_combinations_boundary_r_equals_1() -> None:
 
 def test_get_combinations_large_set() -> None:
     """
-    Test case 13: Performance test with larger set.
+    Test case 8: Performance test with larger set.
     """
     input_set = set(range(10))
     r = 3
@@ -135,3 +90,46 @@ def test_get_combinations_large_set() -> None:
     assert len(result) == 120
     # Each combination should have exactly 3 elements
     assert all(len(comb) == 3 for comb in result)
+def test_get_combinations_empty_set() -> None:
+    """
+    Test case 9: Test with empty set.
+    """
+    input_set = set()
+    r = 2
+    with pytest.raises(ValueError, match="r cannot be larger than set size 0"):
+        get_combinations(input_set, r)
+
+
+def test_get_combinations_type_error_input_set() -> None:
+    """
+    Test case 10: TypeError for invalid input_set type.
+    """
+    with pytest.raises(TypeError, match="input_set must be a set"):
+        get_combinations("not a set", 2)
+
+
+def test_get_combinations_type_error_r() -> None:
+    """
+    Test case 11: TypeError for invalid r type.
+    """
+    input_set = {1, 2, 3}
+    with pytest.raises(TypeError, match="r must be an int"):
+        get_combinations(input_set, "not an int")
+
+
+def test_get_combinations_value_error_negative_r() -> None:
+    """
+    Test case 12: ValueError for negative r.
+    """
+    input_set = {1, 2, 3}
+    with pytest.raises(ValueError, match="r must be non-negative"):
+        get_combinations(input_set, -1)
+
+
+def test_get_combinations_value_error_r_too_large() -> None:
+    """
+    Test case 13: ValueError for r larger than set size.
+    """
+    input_set = {1, 2, 3}
+    with pytest.raises(ValueError, match="r cannot be larger than set size 3"):
+        get_combinations(input_set, 4)
