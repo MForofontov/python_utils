@@ -121,3 +121,15 @@ def test_polyline_encoding_list_of_ints_empty_list_error() -> None:
     # Act & Assert
     with pytest.raises(ValueError, match="Input list cannot be empty"):
         polyline_encoding_list_of_ints(empty_list)
+
+
+def test_polyline_encoding_list_of_ints_negative_precision_error() -> None:
+    """
+    Test case 9: ValueError when precision is negative.
+    """
+    # Arrange
+    list_of_ints = [1, 2, 3]
+
+    # Act & Assert
+    with pytest.raises(ValueError, match="Precision must be non-negative"):
+        polyline_encoding_list_of_ints(list_of_ints, precision=-1)

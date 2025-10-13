@@ -90,5 +90,5 @@ def test_calculate_age_future_birth_date() -> None:
     """
     birth_date = datetime(2025, 1, 15, 0, 0, 0)
     reference_date = datetime(2023, 1, 15, 0, 0, 0)
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="birth_date cannot be in the future"):
         calculate_age(birth_date, reference_date)

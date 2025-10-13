@@ -97,3 +97,17 @@ def test_modify_days_invalid_days_type() -> None:
 
     with pytest.raises(TypeError):
         modify_days(test_date, None)
+
+
+def test_modify_days_overflow_error() -> None:
+    """
+    Test case 9: Test modify_days function with overflow days value.
+    """
+    test_date: date = date(2023, 1, 15)
+    
+    # Test with extremely large value that causes overflow
+    with pytest.raises(ValueError, match="Invalid days value"):
+        modify_days(test_date, 999999999)
+    
+    with pytest.raises(ValueError, match="Invalid days value"):
+        modify_days(test_date, -999999999)
