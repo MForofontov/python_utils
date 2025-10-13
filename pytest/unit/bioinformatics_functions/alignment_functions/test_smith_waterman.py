@@ -62,3 +62,21 @@ def test_smith_waterman_empty_seq2() -> None:
     """Test case 9: Test ValueError for empty seq2."""
     with pytest.raises(ValueError, match="seq2 cannot be empty"):
         smith_waterman("ACGT", "")
+
+
+def test_smith_waterman_match_type_error() -> None:
+    """Test case 10: Test TypeError for non-integer match parameter."""
+    with pytest.raises(TypeError, match="match must be an integer"):
+        smith_waterman("ACGT", "ACGT", match=2.5)  # type: ignore
+
+
+def test_smith_waterman_mismatch_type_error() -> None:
+    """Test case 11: Test TypeError for non-integer mismatch parameter."""
+    with pytest.raises(TypeError, match="mismatch must be an integer"):
+        smith_waterman("ACGT", "ACGT", mismatch=-1.5)  # type: ignore
+
+
+def test_smith_waterman_gap_type_error() -> None:
+    """Test case 12: Test TypeError for non-integer gap parameter."""
+    with pytest.raises(TypeError, match="gap must be an integer"):
+        smith_waterman("ACGT", "ACGT", gap=-1.5)  # type: ignore
