@@ -172,19 +172,30 @@ def test_http_post_complex_nested_data(mock_urlopen):
     assert sent_data == data
 
 
+@patch("urllib.request.urlopen")
+def test_http_post_url_error(mock_urlopen):
+    """Test case 9: Test HTTP POST request handles URLError correctly."""
+    from urllib.error import URLError
+    
+    mock_urlopen.side_effect = URLError("Connection refused")
+    
+    with pytest.raises(URLError, match="Failed to reach https://example.com: Connection refused"):
+        http_post("https://example.com", data={"test": "data"})
+
+
 def test_http_post_with_empty_url():
-    """Test case 9: Test http_post function with empty URL raises ValueError."""
+    """Test case 10: Test http_post function with empty URL raises ValueError."""
     with pytest.raises(ValueError, match="URL must be a non-empty string"):
         http_post("")
 
 
 def test_http_post_with_whitespace_url():
-    """Test case 10: Test http_post function with whitespace-only URL raises ValueError."""
+    """Test case 11: Test http_post function with whitespace-only URL raises ValueError."""
     with pytest.raises(ValueError, match="URL must be a non-empty string"):
         http_post("   ")
 
 
 def test_http_post_with_none_url():
-    """Test case 11: Test http_post function with None URL raises TypeError."""
+    """Test case 12: Test http_post function with None URL raises TypeError."""
     with pytest.raises(TypeError):
         http_post(None)

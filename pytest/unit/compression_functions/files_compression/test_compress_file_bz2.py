@@ -180,3 +180,27 @@ def test_compress_file_bz2_io_error_on_read_only_output_file(tmp_path) -> None:
     finally:
         # Restore permissions to delete the temporary file
         os.chmod(output_file, 0o600)
+
+
+def test_compress_file_bz2_read_only_output_directory(tmp_path) -> None:
+    """
+    Test case 10: Test the compress_file_bz2 function with read-only output directory.
+    """
+    input_file = tmp_path / "input.txt"
+    output_dir = tmp_path / "output_dir"
+    output_dir.mkdir()
+    output_file = output_dir / "output.bz2"
+    data = b"hello world"
+
+    with open(input_file, "wb") as f:
+        f.write(data)
+
+    # Make output directory read-only
+    os.chmod(output_dir, 0o444)
+
+    try:
+        with pytest.raises(OSError, match="Output location is not writable"):
+            compress_file_bz2(str(input_file), str(output_file))
+    finally:
+        # Restore permissions to delete the directory
+        os.chmod(output_dir, 0o755)

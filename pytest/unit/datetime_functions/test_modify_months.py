@@ -118,3 +118,13 @@ def test_modify_months_invalid_months_type() -> None:
 
     with pytest.raises(TypeError):
         modify_months(test_date, None)
+
+
+def test_modify_months_datetime_day_overflow() -> None:
+    """
+    Test case 11: modify_months handles day overflow with datetime objects.
+    """
+    test_datetime: datetime = datetime(2023, 1, 31, 10, 30, 45)
+    result = modify_months(test_datetime, 1)
+    assert isinstance(result, datetime)
+    assert result == datetime(2023, 2, 28, 10, 30, 45)  # Feb 31 doesn't exist

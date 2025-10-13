@@ -133,3 +133,29 @@ async def test_async_periodic_exception_stops_execution() -> None:
         await async_periodic(failing_task, interval=0.01, stop_after=0.1)
 
     assert len(call_count) == 2
+
+
+@pytest.mark.asyncio
+async def test_async_periodic_stop_event_during_wait() -> None:
+    """
+    Test case 7: Stop event is set during the interval wait period.
+    """
+    # Arrange
+    call_count = []
+    stop_event = asyncio.Event()
+
+    async def periodic_task() -> None:
+        call_count.append(1)
+
+    async def set_event_later() -> None:
+        await asyncio.sleep(0.05)  # Set event during the wait
+        stop_event.set()
+
+    # Act
+    setter = asyncio.create_task(set_event_later())
+    await async_periodic(periodic_task, interval=0.1, stop_event=stop_event)
+    await setter
+
+    # Assert
+    # Should execute once, then stop during the wait for next interval
+    assert len(call_count) >= 1

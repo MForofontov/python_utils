@@ -131,3 +131,17 @@ def test_polyline_decoding_list_of_ints_empty_string_error() -> None:
     # Act & Assert
     with pytest.raises(ValueError, match="Encoded text cannot be empty"):
         polyline_decoding_list_of_ints(empty_text)
+
+
+def test_polyline_decoding_list_of_ints_malformed_input_error() -> None:
+    """
+    Test case 9: ValueError when encoded text is malformed and causes decompression error.
+    """
+    # Arrange - Create a string that will cause an IndexError during decoding
+    # The string starts a multi-byte encoding but doesn't complete it
+    # A character >= 0x20+63 (i.e., 'c' or 99) indicates more bytes follow
+    malformed_text = "A" + chr(0x20 + 63)  # Precision + incomplete multi-byte number
+
+    # Act & Assert
+    with pytest.raises(ValueError, match="Error decompressing number"):
+        polyline_decoding_list_of_ints(malformed_text)

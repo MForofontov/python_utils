@@ -89,3 +89,11 @@ def test_zfill_string_invalid_width_type() -> None:
     """
     with pytest.raises(TypeError):
         zfill_string("42", "5")
+
+
+def test_zfill_string_negative_width() -> None:
+    """
+    Test case 12: Test ValueError when width is negative.
+    """
+    with pytest.raises(ValueError, match="The width must be non-negative"):
+        zfill_string("42", -5)

@@ -51,3 +51,17 @@ async def test_async_cancellable_task_timeout():
 
     with pytest.raises(asyncio.TimeoutError):
         await async_cancellable_task(long_task, cancel_event, timeout=0.01)
+
+
+@pytest.mark.asyncio
+async def test_async_cancellable_task_already_cancelled() -> None:
+    """Test case 4: Task is immediately cancelled if event is already set."""
+
+    cancel_event = asyncio.Event()
+    cancel_event.set()  # Set the event BEFORE calling the task
+
+    async def sample_task() -> str:
+        return "should not execute"
+
+    with pytest.raises(asyncio.CancelledError, match="Task was cancelled"):
+        await async_cancellable_task(sample_task, cancel_event)

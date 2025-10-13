@@ -67,3 +67,15 @@ def test_gc_content_windows_type_error() -> None:
     """Test case 9: Test TypeError for non-string seq."""
     with pytest.raises(TypeError, match="seq must be a string"):
         gc_content_windows(123)
+
+
+def test_gc_content_windows_window_size_type_error() -> None:
+    """Test case 10: Test TypeError for non-integer window_size."""
+    with pytest.raises(TypeError, match="window_size must be an integer"):
+        gc_content_windows("ATGCATGC", window_size="4")  # type: ignore
+
+
+def test_gc_content_windows_step_size_type_error() -> None:
+    """Test case 11: Test TypeError for non-integer step_size."""
+    with pytest.raises(TypeError, match="step_size must be an integer or None"):
+        gc_content_windows("ATGCATGC", window_size=4, step_size="2")  # type: ignore

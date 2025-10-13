@@ -1,6 +1,7 @@
 import pytest
 from iterable_functions.set_operations.set_symmetric_difference import (
     set_symmetric_difference,
+    get_unique_elements_across_sets,
 )
 
 
@@ -96,9 +97,27 @@ def test_set_symmetric_difference_single_element() -> None:
     assert result == expected
 
 
+def test_get_unique_elements_across_sets_basic() -> None:
+    """
+    Test case 9: Basic test for get_unique_elements_across_sets with two sets.
+    """
+    result = get_unique_elements_across_sets({1, 2, 3}, {2, 3, 4})
+    assert isinstance(result, list)
+    assert sorted(result) == [1, 4]
+
+
+def test_get_unique_elements_across_sets_three_sets() -> None:
+    """
+    Test case 10: Test get_unique_elements_across_sets with three sets.
+    """
+    result = get_unique_elements_across_sets({1, 2}, {2, 3}, {3, 4})
+    assert isinstance(result, list)
+    assert sorted(result) == [1, 4]
+
+
 def test_set_symmetric_difference_type_error() -> None:
     """
-    Test case 9: TypeError for non-set arguments.
+    Test case 11: TypeError for non-set arguments.
     """
     with pytest.raises(TypeError, match="All arguments must be sets"):
         set_symmetric_difference({1, 2}, "not a set")
@@ -106,7 +125,23 @@ def test_set_symmetric_difference_type_error() -> None:
 
 def test_set_symmetric_difference_value_error() -> None:
     """
-    Test case 10: ValueError for fewer than 2 sets.
+    Test case 12: ValueError for fewer than 2 sets.
     """
     with pytest.raises(ValueError, match="At least 2 sets must be provided"):
         set_symmetric_difference({1, 2})
+
+
+def test_get_unique_elements_across_sets_value_error() -> None:
+    """
+    Test case 13: ValueError when fewer than 2 sets provided.
+    """
+    with pytest.raises(ValueError, match="At least 2 sets must be provided"):
+        get_unique_elements_across_sets({1, 2})
+
+
+def test_get_unique_elements_across_sets_type_error() -> None:
+    """
+    Test case 14: TypeError when non-set argument provided.
+    """
+    with pytest.raises(TypeError, match="All arguments must be sets"):
+        get_unique_elements_across_sets({1, 2}, [3, 4])

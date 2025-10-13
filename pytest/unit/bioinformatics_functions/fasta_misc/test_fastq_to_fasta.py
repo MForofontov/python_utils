@@ -73,3 +73,22 @@ def test_fastq_to_fasta_quality_type_error() -> None:
     """Test case 11: Test TypeError for non-integer min_quality."""
     with pytest.raises(TypeError, match="min_quality must be an integer or None"):
         fastq_to_fasta("@SEQ1\nATGC\n+\nIIII\n", min_quality="20")
+
+
+def test_fastq_to_fasta_malformed_plus_line() -> None:
+    """Test case 12: Test ValueError for invalid plus line separator."""
+    with pytest.raises(ValueError, match="FASTQ separator must start with '\\+'"):
+        fastq_to_fasta("@SEQ1\nATGC\n-\nIIII\n")
+
+
+def test_fastq_to_fasta_sequence_quality_length_mismatch() -> None:
+    """Test case 13: Test ValueError when sequence and quality have different lengths."""
+    # This creates a proper 4-line format but with mismatched lengths
+    with pytest.raises(ValueError, match="Sequence and quality lengths must match"):
+        fastq_to_fasta("@SEQ1\nATGCTT\n+\nIII\n")
+
+
+def test_fastq_to_fasta_negative_min_quality() -> None:
+    """Test case 14: Test ValueError for negative min_quality."""
+    with pytest.raises(ValueError, match="min_quality must be non-negative"):
+        fastq_to_fasta("@SEQ1\nATGC\n+\nIIII\n", min_quality=-5)

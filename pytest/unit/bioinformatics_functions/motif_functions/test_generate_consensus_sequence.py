@@ -65,3 +65,9 @@ def test_generate_consensus_sequence_invalid_input_type() -> None:
     """Test case 9: TypeError for non-list input."""
     with pytest.raises(TypeError, match="sequences must be a list"):
         generate_consensus_sequence("ATGC")
+
+
+def test_generate_consensus_sequence_invalid_threshold_type() -> None:
+    """Test case 10: TypeError for non-numeric threshold."""
+    with pytest.raises(TypeError, match="threshold must be a number"):
+        generate_consensus_sequence(["ATGC"], threshold="high")  # type: ignore

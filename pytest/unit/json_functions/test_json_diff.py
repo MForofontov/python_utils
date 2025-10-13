@@ -38,3 +38,15 @@ def test_json_diff_type_change() -> None:
     b = [1]
     result = json_diff(a, b)
     assert ("", {"a": 1}, [1]) in result
+
+
+def test_json_diff_list_length_difference() -> None:
+    """Test case 5: Test json_diff with lists of different lengths."""
+    a = [1, 2, 3, 4, 5]
+    b = [1, 2]
+    result = json_diff(a, b)
+    # Should have differences for indices 2, 3, 4
+    assert ("[2]", 3, None) in result
+    assert ("[3]", 4, None) in result  
+    assert ("[4]", 5, None) in result
+

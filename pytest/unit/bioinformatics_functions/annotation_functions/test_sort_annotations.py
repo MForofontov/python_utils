@@ -46,3 +46,21 @@ def test_sort_annotations_key_error() -> None:
     annots: list[dict[str, object]] = [{"start": 1}, {}]
     with pytest.raises(KeyError):
         sort_annotations(annots)
+
+
+def test_sort_annotations_by_type_error() -> None:
+    """
+    Test case 6: TypeError for non-string 'by' parameter.
+    """
+    annots: list[dict[str, object]] = [{"start": 1}]
+    with pytest.raises(TypeError, match="by must be a string"):
+        sort_annotations(annots, by=123)  # type: ignore
+
+
+def test_sort_annotations_reverse_type_error() -> None:
+    """
+    Test case 7: TypeError for non-boolean 'reverse' parameter.
+    """
+    annots: list[dict[str, object]] = [{"start": 1}]
+    with pytest.raises(TypeError, match="reverse must be a boolean"):
+        sort_annotations(annots, reverse="yes")  # type: ignore

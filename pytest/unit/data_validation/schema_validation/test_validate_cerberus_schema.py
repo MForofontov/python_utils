@@ -1,4 +1,5 @@
 import pytest
+import sys
 
 # Try to import cerberus - tests will be skipped if not available
 try:
@@ -362,3 +363,53 @@ def test_validate_cerberus_schema_case_18_custom_param_name() -> None:
 
     with pytest.raises(ValueError, match="config_data validation failed"):
         validate_cerberus_schema(data, schema, param_name="config_data")
+
+
+def test_validate_cerberus_schema_case_20_cerberus_not_available() -> None:
+    """Test case 20: ImportError when Cerberus is not available."""
+    # Save the original module if it exists
+    original_module = sys.modules.get('data_validation.schema_validation.validate_cerberus_schema')
+    
+    try:
+        # Temporarily remove and reimport with CERBERUS_AVAILABLE = False
+        if 'data_validation.schema_validation.validate_cerberus_schema' in sys.modules:
+            del sys.modules['data_validation.schema_validation.validate_cerberus_schema']
+        
+        # Mock the module
+        import data_validation.schema_validation.validate_cerberus_schema as module
+        original_available = module.CERBERUS_AVAILABLE
+        module.CERBERUS_AVAILABLE = False
+        
+        with pytest.raises(ImportError, match="Cerberus is required for schema validation"):
+            module.validate_cerberus_schema({}, {})
+        
+        # Restore
+        module.CERBERUS_AVAILABLE = original_available
+    finally:
+        # Restore the original module
+        if original_module:
+            sys.modules['data_validation.schema_validation.validate_cerberus_schema'] = original_module
+
+
+def test_validate_cerberus_schema_case_21_normalize_type_error() -> None:
+    """Test case 21: TypeError for invalid normalize parameter."""
+    schema = {"name": {"type": "string"}}
+    data = {"name": "test"}
+    with pytest.raises(TypeError, match="normalize must be bool"):
+        validate_cerberus_schema(data, schema, normalize="yes")
+
+
+def test_validate_cerberus_schema_case_22_param_name_type_error() -> None:
+    """Test case 22: TypeError for invalid param_name parameter."""
+    schema = {"name": {"type": "string"}}
+    data = {"name": "test"}
+    with pytest.raises(TypeError, match="param_name must be str"):
+        validate_cerberus_schema(data, schema, param_name=123)
+
+
+def test_validate_cerberus_schema_case_23_allow_unknown_type_error() -> None:
+    """Test case 23: TypeError for invalid allow_unknown parameter."""
+    schema = {"name": {"type": "string"}}
+    data = {"name": "test"}
+    with pytest.raises(TypeError, match="allow_unknown must be bool"):
+        validate_cerberus_schema(data, schema, allow_unknown="yes")

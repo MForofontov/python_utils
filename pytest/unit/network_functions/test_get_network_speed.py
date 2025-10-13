@@ -43,3 +43,21 @@ def test_get_network_speed_type_error_url() -> None:
     """
     with pytest.raises(TypeError, match="test_url must be a string"):
         get_network_speed(123, timeout=1)
+
+
+def test_get_network_speed_value_error_empty_url() -> None:
+    """Test case 5: ValueError for empty test_url."""
+    with pytest.raises(ValueError, match="test_url cannot be empty"):
+        get_network_speed("", timeout=1)
+
+
+def test_get_network_speed_type_error_timeout() -> None:
+    """Test case 6: TypeError for non-numeric timeout."""
+    with pytest.raises(TypeError, match="timeout must be a number"):
+        get_network_speed("http://test", timeout="fast")  # type: ignore
+
+
+def test_get_network_speed_value_error_timeout() -> None:
+    """Test case 7: ValueError for non-positive timeout."""
+    with pytest.raises(ValueError, match="timeout must be positive"):
+        get_network_speed("http://test", timeout=0)

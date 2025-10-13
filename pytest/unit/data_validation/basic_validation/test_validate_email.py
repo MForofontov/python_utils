@@ -305,3 +305,35 @@ def test_validate_email_case_16_mx_checking_socket_fallback_failure(
     mock_gethostbyname.side_effect = socket.gaierror("Name resolution failed")
     with pytest.raises(ValueError, match="email domain does not exist"):
         validate_email("user@nonexistent-domain-12345.com", check_mx=True)
+
+
+def test_validate_email_case_19_local_part_too_long() -> None:
+    """Test case 19: ValueError for local part exceeding 64 characters."""
+    long_local = "a" * 65 + "@example.com"
+    with pytest.raises(ValueError, match="email local part exceeds maximum length"):
+        validate_email(long_local)
+
+
+def test_validate_email_case_20_non_ascii_unicode_disabled() -> None:
+    """Test case 20: ValueError for non-ASCII characters with allow_unicode=False."""
+    with pytest.raises(ValueError, match="contains non-ASCII characters but allow_unicode=False"):
+        validate_email("tëst@example.com", allow_unicode=False)
+
+
+def test_validate_email_case_21_domain_without_dot() -> None:
+    """Test case 21: ValueError for domain without a dot."""
+    with pytest.raises(ValueError, match="domain must contain at least one dot"):
+        validate_email("user@localhost")
+
+
+def test_validate_email_case_22_domain_with_consecutive_dots() -> None:
+    """Test case 22: ValueError for domain with consecutive dots."""
+    with pytest.raises(ValueError, match="domain cannot contain consecutive dots"):
+        validate_email("user@example..com")
+
+
+def test_validate_email_case_23_domain_too_long() -> None:
+    """Test case 23: ValueError for email exceeding maximum length."""
+    long_domain = "user@" + "a" * 254 + ".com"
+    with pytest.raises(ValueError, match="email exceeds maximum length"):
+        validate_email(long_domain)

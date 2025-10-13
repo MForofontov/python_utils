@@ -89,9 +89,35 @@ def test_modify_years_leap_to_leap() -> None:
     assert result_subtract == date(2020, 2, 29)  # 2020 is also leap year
 
 
+def test_modify_years_leap_year_datetime() -> None:
+    """
+    Test case 9: Test modify_years with datetime object on Feb 29 leap year.
+    """
+    test_datetime: datetime = datetime(2020, 2, 29, 15, 30, 45)
+    result = modify_years(test_datetime, 1)
+    assert isinstance(result, datetime)
+    assert result == datetime(2021, 2, 28, 15, 30, 45)  # Feb 29 adjusted to Feb 28
+
+
+def test_modify_years_leap_year_feb29_to_non_leap_datetime() -> None:
+    """
+    Test case 10: Test modify_years with datetime on Feb 29 to non-leap year (exception handling).
+    """
+    # Feb 29, 2020 (leap year) as datetime
+    test_datetime = datetime(2020, 2, 29, 15, 30, 45)
+    # Add 1 year to 2021 (non-leap year) - should adjust to Feb 28
+    result = modify_years(test_datetime, 1)
+    assert result.year == 2021
+    assert result.month == 2
+    assert result.day == 28
+    assert result.hour == 15
+    assert result.minute == 30
+    assert result.second == 45
+
+
 def test_modify_years_invalid_input_type() -> None:
     """
-    Test case 9: Test modify_years function with invalid input type raises TypeError.
+    Test case 11: Test modify_years function with invalid input type raises TypeError.
     """
     with pytest.raises(TypeError):
         modify_years("2023-01-15", 2)
@@ -105,7 +131,7 @@ def test_modify_years_invalid_input_type() -> None:
 
 def test_modify_years_invalid_years_type() -> None:
     """
-    Test case 10: Test modify_years function with invalid years type raises TypeError.
+    Test case 12: Test modify_years function with invalid years type raises TypeError.
     """
     test_date: date = date(2023, 1, 15)
 
@@ -117,3 +143,4 @@ def test_modify_years_invalid_years_type() -> None:
 
     with pytest.raises(TypeError):
         modify_years(test_date, None)
+

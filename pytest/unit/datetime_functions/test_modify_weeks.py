@@ -97,3 +97,17 @@ def test_modify_weeks_invalid_weeks_type() -> None:
 
     with pytest.raises(TypeError):
         modify_weeks(test_date, None)
+
+
+def test_modify_weeks_overflow_error() -> None:
+    """
+    Test case 9: Test modify_weeks function with overflow weeks value.
+    """
+    test_date: date = date(2023, 1, 15)
+    
+    # Test with extremely large value that causes overflow
+    with pytest.raises(ValueError, match="Invalid weeks value"):
+        modify_weeks(test_date, 999999999)
+    
+    with pytest.raises(ValueError, match="Invalid weeks value"):
+        modify_weeks(test_date, -999999999)

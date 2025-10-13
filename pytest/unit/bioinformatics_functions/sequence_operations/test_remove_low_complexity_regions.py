@@ -80,3 +80,27 @@ def test_remove_low_complexity_regions_type_error() -> None:
     """Test case 9: Test TypeError for non-string seq."""
     with pytest.raises(TypeError, match="seq must be a string"):
         remove_low_complexity_regions(123)
+
+
+def test_remove_low_complexity_regions_window_size_type_error() -> None:
+    """Test case 10: Test TypeError for non-integer window_size."""
+    with pytest.raises(TypeError, match="window_size must be an integer"):
+        remove_low_complexity_regions("ATGC", window_size=5.5)  # type: ignore
+
+
+def test_remove_low_complexity_regions_threshold_type_error() -> None:
+    """Test case 11: Test TypeError for non-numeric complexity_threshold."""
+    with pytest.raises(TypeError, match="complexity_threshold must be a number"):
+        remove_low_complexity_regions("ATGC", complexity_threshold="high")  # type: ignore
+
+
+def test_remove_low_complexity_regions_replace_with_type_error() -> None:
+    """Test case 12: Test TypeError for non-string replace_with."""
+    with pytest.raises(TypeError, match="replace_with must be a string"):
+        remove_low_complexity_regions("ATGC", replace_with=123)  # type: ignore
+
+
+def test_remove_low_complexity_regions_invalid_dna_bases() -> None:
+    """Test case 13: Test ValueError for invalid DNA bases."""
+    with pytest.raises(ValueError, match="Invalid DNA bases found"):
+        remove_low_complexity_regions("ATGCXYZ")

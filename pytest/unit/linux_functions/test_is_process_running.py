@@ -18,9 +18,30 @@ def test_is_process_running_nonexistent_process() -> None:
     assert not result
 
 
+def test_is_process_running_handles_psutil_exceptions() -> None:
+    """
+    Test case 3: Test is_process_running handles psutil exceptions gracefully.
+    """
+    from unittest.mock import patch, MagicMock
+    import psutil
+    
+    # Mock process_iter to raise exceptions during iteration
+    with patch('psutil.process_iter') as mock_iter:
+        # Create mock process that raises NoSuchProcess
+        mock_proc = MagicMock()
+        mock_proc.info = {"name": "test_process"}
+        mock_proc.__getitem__.side_effect = psutil.NoSuchProcess(pid=123)
+        
+        mock_iter.return_value = [mock_proc]
+        
+        # Should handle exception and continue, returning False
+        result = is_process_running("test_process")
+        assert isinstance(result, bool)
+
+
 def test_is_process_running_invalid_type() -> None:
     """
-    Test case 3: Test is_process_running function with invalid input type raises TypeError.
+    Test case 4: Test is_process_running function with invalid input type raises TypeError.
     """
     with pytest.raises(TypeError):
         is_process_running(123)

@@ -117,3 +117,13 @@ def test_time_until_past_date_error() -> None:
 
     with pytest.raises(ValueError):
         time_until(future_dt, past_dt)
+
+
+def test_time_until_invalid_reference_date_type() -> None:
+    """
+    Test case 11: time_until raises TypeError for invalid reference_date type.
+    """
+    future_dt: datetime = datetime(2023, 1, 20, 0, 0, 0)
+
+    with pytest.raises(TypeError, match="reference_date must be a datetime object"):
+        time_until(future_dt, "2023-01-15")  # type: ignore

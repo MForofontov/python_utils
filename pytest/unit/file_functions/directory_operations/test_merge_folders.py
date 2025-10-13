@@ -59,24 +59,37 @@ def test_merge_folders_nested_directories(tmp_path: Path) -> None:
     )
 
 
-def test_merge_folders_missing_input_folder(tmp_path: Path) -> None:
+def test_merge_folders_missing_folder1(tmp_path: Path) -> None:
     """
-    Test case 4: Missing input folders should raise FileNotFoundError.
+    Test case 4: Missing folder1 should raise FileNotFoundError.
+    """
+    missing_folder1: Path = tmp_path / "missing1"
+    folder2: Path = tmp_path / "folder2"
+    output: Path = tmp_path / "merged"
+    folder2.mkdir()
+    (folder2 / "file2.txt").write_text("b")
+    with pytest.raises(FileNotFoundError, match="Source folder not found"):
+        merge_folders(str(missing_folder1), str(folder2), str(output))
+
+
+def test_merge_folders_missing_folder2(tmp_path: Path) -> None:
+    """
+    Test case 5: Missing folder2 should raise FileNotFoundError.
     """
     folder1: Path = tmp_path / "folder1"
-    missing_folder: Path = tmp_path / "missing"
+    missing_folder2: Path = tmp_path / "missing2"
     output: Path = tmp_path / "merged"
     folder1.mkdir()
     (folder1 / "file1.txt").write_text("a")
-    with pytest.raises(FileNotFoundError):
-        merge_folders(str(folder1), str(missing_folder), str(output))
+    with pytest.raises(FileNotFoundError, match="Source folder not found"):
+        merge_folders(str(folder1), str(missing_folder2), str(output))
 
 
 def test_merge_folders_read_only_output_dir(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     """
-    Test case 5: A read-only output directory should raise PermissionError.
+    Test case 6: A read-only output directory should raise PermissionError.
     """
     folder1: Path = tmp_path / "folder1"
     folder2: Path = tmp_path / "folder2"

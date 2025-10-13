@@ -167,12 +167,27 @@ def test_find_files_by_mtime_case_5_no_criteria_error() -> None:
         with pytest.raises(
             ValueError, match="At least one time criterion must be specified"
         ):
-            find_files_by_mtime(temp_dir)
+                        find_files_by_mtime(temp_dir)
+
+
+def test_find_files_by_mtime_case_11_path_is_file_not_directory() -> None:
+    """
+    Test case 7: ValueError when path is a file, not a directory.
+    """
+    # Arrange
+    with tempfile.TemporaryDirectory() as temp_dir:
+        file_path = Path(temp_dir) / "test_file.txt"
+        file_path.write_text("test")
+        cutoff = datetime.now()
+
+        # Act & Assert
+        with pytest.raises(ValueError, match="Path is not a directory"):
+            find_files_by_mtime(str(file_path), newer_than=cutoff)
 
 
 def test_find_files_by_mtime_case_6_invalid_directory_error() -> None:
     """
-    Test case 7: ValueError for non-existent directory.
+    Test case 8: ValueError for non-existent directory.
     """
     # Arrange
     non_existent_dir = "/path/that/does/not/exist"
@@ -185,7 +200,7 @@ def test_find_files_by_mtime_case_6_invalid_directory_error() -> None:
 
 def test_find_files_by_mtime_case_7_invalid_type_errors() -> None:
     """
-    Test case 8: TypeError for invalid parameter types.
+    Test case 9: TypeError for invalid parameter types.
     """
     cutoff = datetime.now()
 
@@ -208,7 +223,7 @@ def test_find_files_by_mtime_case_7_invalid_type_errors() -> None:
 
 def test_find_files_by_mtime_case_8_invalid_time_range() -> None:
     """
-    Test case 9: ValueError for invalid time range.
+    Test case 10: ValueError for invalid time range.
     """
     # Arrange
     with tempfile.TemporaryDirectory() as temp_dir:
@@ -222,7 +237,7 @@ def test_find_files_by_mtime_case_8_invalid_time_range() -> None:
 
 def test_find_files_by_mtime_case_9_negative_days_old_error() -> None:
     """
-    Test case 10: ValueError for negative days_old.
+    Test case 11: ValueError for negative days_old.
     """
     # Arrange
     with tempfile.TemporaryDirectory() as temp_dir:

@@ -50,3 +50,9 @@ def test_get_subnet_mask_type_error() -> None:
     """
     with pytest.raises(TypeError, match="interface must be a string"):
         get_subnet_mask(123)
+
+
+def test_get_subnet_mask_value_error_empty() -> None:
+    """Test case 5: ValueError for empty interface string."""
+    with pytest.raises(ValueError, match="interface cannot be empty"):
+        get_subnet_mask("")

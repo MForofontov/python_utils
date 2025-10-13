@@ -160,9 +160,23 @@ def test_find_files_by_size_case_10_file_access_error_handling() -> None:
             assert result == []
 
 
+def test_find_files_by_size_case_11_path_is_file_not_directory() -> None:
+    """
+    Test case 8: ValueError when path is a file, not a directory.
+    """
+    # Arrange
+    with tempfile.TemporaryDirectory() as temp_dir:
+        file_path = Path(temp_dir) / "test_file.txt"
+        file_path.write_text("test")
+
+        # Act & Assert
+        with pytest.raises(ValueError, match="Path is not a directory"):
+            find_files_by_size(str(file_path))
+
+
 def test_find_files_by_size_case_6_invalid_directory_error() -> None:
     """
-    Test case 8: ValueError for non-existent directory.
+    Test case 9: ValueError for non-existent directory.
     """
     # Arrange
     non_existent_dir = "/path/that/does/not/exist"
@@ -174,7 +188,7 @@ def test_find_files_by_size_case_6_invalid_directory_error() -> None:
 
 def test_find_files_by_size_case_7_invalid_type_errors() -> None:
     """
-    Test case 9: TypeError for invalid parameter types.
+    Test case 10: TypeError for invalid parameter types.
     """
     # Test invalid directory type
     with pytest.raises(TypeError, match="directory must be a string or Path"):
@@ -191,7 +205,7 @@ def test_find_files_by_size_case_7_invalid_type_errors() -> None:
 
 def test_find_files_by_size_case_8_invalid_size_values() -> None:
     """
-    Test case 10: ValueError for invalid size values.
+    Test case 11: ValueError for invalid size values.
     """
     # Arrange
     with tempfile.TemporaryDirectory() as temp_dir:
