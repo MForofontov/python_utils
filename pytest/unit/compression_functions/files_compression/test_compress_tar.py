@@ -200,3 +200,47 @@ def test_compress_tar_io_error_on_read_only_output_file(tmp_path) -> None:
     finally:
         # Restore permissions to delete the temporary file
         os.chmod(output_tar, 0o600)
+
+
+def test_compress_tar_read_only_output_directory(tmp_path) -> None:
+    """
+    Test case 10: Test the compress_tar function with read-only output directory.
+    """
+    input_file = tmp_path / "input.txt"
+    output_dir = tmp_path / "output_dir"
+    output_dir.mkdir()
+    output_tar = output_dir / "output.tar.gz"
+    data = b"hello world"
+
+    with open(input_file, "wb") as f:
+        f.write(data)
+
+    # Make output directory read-only
+    os.chmod(output_dir, 0o444)
+
+    try:
+        with pytest.raises(OSError, match="Output location is not writable"):
+            compress_tar(str(input_file), str(output_tar))
+    finally:
+        # Restore permissions to delete the directory
+        os.chmod(output_dir, 0o755)
+
+
+def test_compress_tar_read_only_input_directory(tmp_path) -> None:
+    """
+    Test case 11: Test the compress_tar function with read-only input directory.
+    """
+    input_dir = tmp_path / "input_dir"
+    input_dir.mkdir()
+    (input_dir / "file.txt").write_text("test data")
+    output_tar = tmp_path / "output.tar.gz"
+
+    # Make input directory read-only
+    os.chmod(input_dir, 0o000)
+
+    try:
+        with pytest.raises(OSError, match="Input path is not readable"):
+            compress_tar(str(input_dir), str(output_tar))
+    finally:
+        # Restore permissions to delete the directory
+        os.chmod(input_dir, 0o755)

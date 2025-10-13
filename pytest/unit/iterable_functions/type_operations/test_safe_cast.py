@@ -285,9 +285,31 @@ def test_safe_cast_preserves_original_on_failure() -> None:
     assert result is original
 
 
+def test_safe_cast_iterable_to_list() -> None:
+    """Test case 25: Convert generic iterable to list."""
+    # Test with a generator (iterable but not list/tuple)
+    gen = (x for x in range(3))
+    result = safe_cast(gen, list)
+    assert result == [0, 1, 2]
+
+
+def test_safe_cast_iterable_to_tuple() -> None:
+    """Test case 26: Convert generic iterable to tuple."""
+    # Test with a set (iterable but not list/tuple)
+    s = {3, 1, 2}
+    result = safe_cast(s, tuple)
+    assert isinstance(result, tuple)
+    assert len(result) == 3
+
+
+def test_safe_cast_scalar_to_tuple() -> None:
+    """Test case 27: Convert scalar value to single-element tuple."""
+    result = safe_cast(42, tuple)
+    assert result == (42,)
+
 def test_safe_cast_type_error_non_type() -> None:
     """
-    Test case 25: TypeError when target_type is not a type.
+    Test case 28: TypeError when target_type is not a type.
     """
     # Act & Assert
     with pytest.raises(TypeError, match="target_type must be a type"):

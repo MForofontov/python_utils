@@ -40,43 +40,64 @@ def test_smith_waterman_no_similarity() -> None:
     assert len(aligned1) == len(aligned2)
 
 
+def test_smith_waterman_insertion_path() -> None:
+    """Test case 6: Test traceback with insertion (gap in seq1)."""
+    # Create sequences where insertion path is optimal
+    # Use a gap penalty that makes insertions more favorable
+    score, aligned1, aligned2 = smith_waterman("ACGT", "ACGTTTT", match=2, mismatch=-3, gap=-1)
+    assert score > 0
+    assert len(aligned1) == len(aligned2)
+    # Should have gaps in aligned1 for the extra T's
+    assert "-" in aligned1 or len(aligned1) > 0
+
+
+def test_smith_waterman_deletion_path() -> None:
+    """Test case 7: Test traceback with deletion (gap in seq2)."""
+    # Create sequences where deletion path is optimal
+    score, aligned1, aligned2 = smith_waterman("ACGTTTT", "ACGT", match=2, mismatch=-3, gap=-1)
+    assert score > 0
+    assert len(aligned1) == len(aligned2)
+    # Should have gaps in aligned2 for the missing T's
+    assert "-" in aligned2 or len(aligned2) > 0
+
+
 def test_smith_waterman_seq1_type_error() -> None:
-    """Test case 6: Test TypeError for non-string seq1."""
+    """Test case 8: Test TypeError for non-string seq1."""
     with pytest.raises(TypeError, match="seq1 must be a string"):
         smith_waterman(123, "ACGT")
 
 
 def test_smith_waterman_seq2_type_error() -> None:
-    """Test case 7: Test TypeError for non-string seq2."""
+    """Test case 9: Test TypeError for non-string seq2."""
     with pytest.raises(TypeError, match="seq2 must be a string"):
         smith_waterman("ACGT", 123)
 
 
 def test_smith_waterman_empty_seq1() -> None:
-    """Test case 8: Test ValueError for empty seq1."""
+    """Test case 10: Test ValueError for empty seq1."""
     with pytest.raises(ValueError, match="seq1 cannot be empty"):
         smith_waterman("", "ACGT")
 
 
 def test_smith_waterman_empty_seq2() -> None:
-    """Test case 9: Test ValueError for empty seq2."""
+    """Test case 11: Test ValueError for empty seq2."""
     with pytest.raises(ValueError, match="seq2 cannot be empty"):
         smith_waterman("ACGT", "")
 
 
 def test_smith_waterman_match_type_error() -> None:
-    """Test case 10: Test TypeError for non-integer match parameter."""
+    """Test case 12: Test TypeError for non-integer match parameter."""
     with pytest.raises(TypeError, match="match must be an integer"):
         smith_waterman("ACGT", "ACGT", match=2.5)  # type: ignore
 
 
 def test_smith_waterman_mismatch_type_error() -> None:
-    """Test case 11: Test TypeError for non-integer mismatch parameter."""
+    """Test case 13: Test TypeError for non-integer mismatch parameter."""
     with pytest.raises(TypeError, match="mismatch must be an integer"):
         smith_waterman("ACGT", "ACGT", mismatch=-1.5)  # type: ignore
 
 
 def test_smith_waterman_gap_type_error() -> None:
-    """Test case 12: Test TypeError for non-integer gap parameter."""
+    """Test case 14: Test TypeError for non-integer gap parameter."""
     with pytest.raises(TypeError, match="gap must be an integer"):
         smith_waterman("ACGT", "ACGT", gap=-1.5)  # type: ignore

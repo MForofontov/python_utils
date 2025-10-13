@@ -54,3 +54,11 @@ def test_ping_host_type_error_timeout() -> None:
     """
     with pytest.raises(TypeError, match="timeout must be an integer"):
         ping_host("8.8.8.8", timeout="not_an_int")
+
+
+def test_ping_host_exception_handling() -> None:
+    """
+    Test case 7: Exception during subprocess execution returns False.
+    """
+    with patch("subprocess.run", side_effect=Exception("Subprocess error")):
+        assert ping_host("8.8.8.8") is False

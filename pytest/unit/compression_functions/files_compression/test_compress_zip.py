@@ -200,3 +200,47 @@ def test_compress_zip_io_error_on_read_only_output_file(tmp_path) -> None:
     finally:
         # Restore permissions to delete the temporary file
         os.chmod(output_zip, 0o600)
+
+
+def test_compress_zip_read_only_output_directory(tmp_path) -> None:
+    """
+    Test case 10: Test the compress_zip function with read-only output directory.
+    """
+    input_file = tmp_path / "input.txt"
+    output_dir = tmp_path / "output_dir"
+    output_dir.mkdir()
+    output_zip = output_dir / "output.zip"
+    data = b"hello world"
+
+    with open(input_file, "wb") as f:
+        f.write(data)
+
+    # Make output directory read-only
+    os.chmod(output_dir, 0o444)
+
+    try:
+        with pytest.raises(OSError, match="Output location is not writable"):
+            compress_zip(str(input_file), str(output_zip))
+    finally:
+        # Restore permissions to delete the directory
+        os.chmod(output_dir, 0o755)
+
+
+def test_compress_zip_read_only_input_directory(tmp_path) -> None:
+    """
+    Test case 11: Test the compress_zip function with read-only input directory.
+    """
+    input_dir = tmp_path / "input_dir"
+    input_dir.mkdir()
+    (input_dir / "file.txt").write_text("test data")
+    output_zip = tmp_path / "output.zip"
+
+    # Make input directory read-only
+    os.chmod(input_dir, 0o000)
+
+    try:
+        with pytest.raises(OSError, match="Input path is not readable"):
+            compress_zip(str(input_dir), str(output_zip))
+    finally:
+        # Restore permissions to delete the directory
+        os.chmod(input_dir, 0o755)

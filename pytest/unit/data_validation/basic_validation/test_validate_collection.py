@@ -287,3 +287,33 @@ def test_validate_collection_case_12_type_error_invalid_parameters() -> None:
         ValueError, match="min_length \\(5\\) cannot be greater than max_length \\(3\\)"
     ):
         validate_collection([1, 2, 3], list, min_length=5, max_length=3)
+
+
+def test_validate_collection_case_15_allow_empty_type_error() -> None:
+    """Test case 15: Test TypeError for non-bool allow_empty parameter."""
+    with pytest.raises(TypeError, match="allow_empty must be bool"):
+        validate_collection([1, 2, 3], list, allow_empty=1)  # type: ignore
+
+
+def test_validate_collection_case_16_max_length_type_error() -> None:
+    """Test case 16: Test TypeError for non-integer max_length parameter."""
+    with pytest.raises(TypeError, match="max_length must be int or None"):
+        validate_collection([1, 2, 3], list, max_length="10")  # type: ignore
+
+
+def test_validate_collection_case_17_non_iterable_element_validation() -> None:
+    """Test case 17: Test TypeError for non-iterable with element_type validation."""
+    # Create a custom class that is Sized but not Iterable to trigger line 159
+    class SizedNotIterable:
+        def __len__(self) -> int:
+            return 5
+    
+    obj = SizedNotIterable()
+    with pytest.raises(TypeError, match="must be iterable for element type validation"):
+        validate_collection(obj, SizedNotIterable, element_type=int)  # type: ignore
+
+
+def test_validate_collection_case_18_dict_element_validation_failure() -> None:
+    """Test case 18: Test element type validation for dictionary values."""
+    with pytest.raises(TypeError, match="value for key 'b' must be int"):
+        validate_collection({"a": 1, "b": "two"}, dict, element_type=int)

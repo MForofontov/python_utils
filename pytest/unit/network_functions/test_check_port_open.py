@@ -57,3 +57,19 @@ def test_check_port_open_value_error_port() -> None:
         check_port_open("localhost", 0)
     with pytest.raises(ValueError, match="port must be between 1 and 65535"):
         check_port_open("localhost", 70000)
+
+
+def test_check_port_open_type_error_timeout() -> None:
+    """
+    Test case 7: TypeError for invalid timeout type.
+    """
+    with pytest.raises(TypeError, match="timeout must be a number"):
+        check_port_open("localhost", 80, timeout="invalid")
+
+
+def test_check_port_open_value_error_timeout() -> None:
+    """
+    Test case 8: ValueError for negative timeout.
+    """
+    with pytest.raises(ValueError, match="timeout must be positive"):
+        check_port_open("localhost", 80, timeout=-1)
