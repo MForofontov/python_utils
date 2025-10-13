@@ -239,3 +239,28 @@ def test_invalid_period_with_logger(caplog):
                 pass
 
             assert "period must be a positive integer" in caplog.text
+
+
+def test_invalid_exception_message_type():
+    """
+    Test case 16: Invalid exception_message parameter type
+    """
+    with pytest.raises(TypeError, match="exception_message must be a string or None"):
+
+        @rate_limit(max_calls=1, period=60, exception_message=123)
+        def invalid_message_function() -> None:
+            pass
+
+
+def test_invalid_exception_message_type_with_logger(caplog):
+    """
+    Test case 17: Invalid exception_message parameter type with logger
+    """
+    with pytest.raises(TypeError, match="exception_message must be a string or None"):
+        with caplog.at_level(logging.ERROR):
+
+            @rate_limit(max_calls=1, period=60, exception_message=["invalid"], logger=test_logger)
+            def invalid_message_with_logger_function() -> None:
+                pass
+
+            assert "exception_message must be a string or None" in caplog.text
