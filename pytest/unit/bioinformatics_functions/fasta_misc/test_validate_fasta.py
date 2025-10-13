@@ -55,9 +55,27 @@ def test_validate_fasta_empty_header() -> None:
     assert result is False
 
 
+def test_validate_fasta_invalid_sequence_characters() -> None:
+    """
+    Test case 7: Invalid characters in sequence returns False.
+    """
+    fasta_str = ">seq1\nATGC123"  # Numbers not allowed
+    result = validate_fasta(fasta_str)
+    assert result is False
+
+
+def test_validate_fasta_sequence_before_header() -> None:
+    """
+    Test case 8: Sequence lines before header returns False.
+    """
+    fasta_str = "ATGC\n>seq1\nGGCC"  # Sequence before header
+    result = validate_fasta(fasta_str)
+    assert result is False
+
+
 def test_validate_fasta_invalid_type_error() -> None:
     """
-    Test case 7: TypeError for invalid input type.
+    Test case 9: TypeError for invalid input type.
     """
     with pytest.raises(TypeError, match="fasta_str must be str"):
         validate_fasta(12345)
