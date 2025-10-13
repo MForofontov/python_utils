@@ -68,3 +68,33 @@ def test_sequence_quality_filter_param_type_error() -> None:
     """Test case 9: Test TypeError for non-numeric parameter."""
     with pytest.raises(TypeError, match="min_length must be a number or None"):
         sequence_quality_filter("ATGC", min_length="five")
+
+
+def test_sequence_quality_filter_negative_min_length() -> None:
+    """Test case 10: Test ValueError for negative min_length."""
+    with pytest.raises(ValueError, match="min_length must be non-negative"):
+        sequence_quality_filter("ATGC", min_length=-5)
+
+
+def test_sequence_quality_filter_negative_max_length() -> None:
+    """Test case 11: Test ValueError for negative max_length."""
+    with pytest.raises(ValueError, match="max_length must be non-negative"):
+        sequence_quality_filter("ATGC", max_length=-10)
+
+
+def test_sequence_quality_filter_gc_content_range() -> None:
+    """Test case 12: Test ValueError for GC content out of range."""
+    with pytest.raises(ValueError, match="min_gc must be between 0 and 100"):
+        sequence_quality_filter("ATGC", min_gc=150.0)
+
+
+def test_sequence_quality_filter_max_n_content_range() -> None:
+    """Test case 13: Test ValueError for max_n_content out of range."""
+    with pytest.raises(ValueError, match="max_n_content must be between 0 and 100"):
+        sequence_quality_filter("ATGC", max_n_content=200.0)
+
+
+def test_sequence_quality_filter_min_gc_greater_than_max_gc() -> None:
+    """Test case 14: Test ValueError when min_gc > max_gc."""
+    with pytest.raises(ValueError, match="min_gc .* cannot be greater than max_gc"):
+        sequence_quality_filter("ATGC", min_gc=60.0, max_gc=40.0)

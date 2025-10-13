@@ -90,5 +90,5 @@ def test_get_shared_elements_unhashable_elements() -> None:
     """
     Test case 9: Test the get_shared_elements function with unhashable elements in sublists.
     """
-    with pytest.raises(TypeError):
+    with pytest.raises(TypeError, match="unhashable type"):
         get_shared_elements({"list1": [1, 2], "list2": [{3: 4}, 5]})

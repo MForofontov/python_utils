@@ -298,6 +298,7 @@ def test_validate_string_edge_cases() -> None:
     validate_string(long_string, max_length=20000)
 
     # Test unicode strings
+    validate_string("こんにちは", min_length=1)
     validate_string("héllo wörld", pattern=r"^[\w\s]+$")
     validate_string("你好", allowed_chars="你好")
 
@@ -310,3 +311,28 @@ def test_validate_string_edge_cases() -> None:
         match="min_length \\(10\\) cannot be greater than max_length \\(5\\)",
     ):
         validate_string("hello", min_length=10, max_length=5)
+
+
+def test_validate_string_negative_min_length() -> None:
+    """Test case 17: ValueError for negative min_length."""
+    with pytest.raises(ValueError, match="min_length must be non-negative"):
+        validate_string("test", min_length=-5)
+
+
+def test_validate_string_negative_max_length() -> None:
+    """Test case 18: ValueError for negative max_length."""
+    with pytest.raises(ValueError, match="max_length must be non-negative"):
+        validate_string("test", max_length=-10)
+
+
+def test_validate_string_min_greater_than_max() -> None:
+    """Test case 19: ValueError when min_length > max_length."""
+    with pytest.raises(ValueError, match="min_length .* cannot be greater than max_length"):
+        validate_string("test", min_length=10, max_length=5)
+
+
+def test_validate_string_allowed_chars_type_error() -> None:
+    """Test case 20: TypeError for invalid allowed_chars type."""
+    with pytest.raises(TypeError, match="allowed_chars must be str or None"):
+        validate_string("test", allowed_chars=123)
+
