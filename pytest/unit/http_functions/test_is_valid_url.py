@@ -279,3 +279,15 @@ def test_is_valid_url_malformed_closing_bracket():
     Test case 39: Is_valid_url function with malformed closing bracket returns False.
     """
     assert is_valid_url("https://]invalid") is False
+
+
+def test_is_valid_url_hostname_none():
+    """
+    Test case 40: Is_valid_url function with URL resulting in None hostname returns False.
+    """
+    # Test with a URL that parses but has empty/None hostname after stripping
+    assert is_valid_url("http://") is False
+    assert is_valid_url("https://") is False
+    assert is_valid_url("ftp://") is False
+
+

@@ -81,16 +81,7 @@ async def test_async_rate_limited_multiple_sleeps() -> None:
 @pytest.mark.asyncio
 async def test_async_rate_limited_invalid_params() -> None:
     """Test case 6: Test invalid parameters raise ValueError."""
-    # Test that the second while loop after sleep (line 67) is executed
-    async def instant_func(value: int) -> int:
-        return value
-    
-    # Process 4 items with max_calls=2 and period=0.15
-    # This ensures we hit the rate limit and the cleanup loop after sleep
-    start = time.monotonic()
-    result = await async_rate_limited(instant_func, [1, 2, 3, 4], max_calls=2, period=0.15)
-    elapsed = time.monotonic() - start
-    
-    assert result == [1, 2, 3, 4]
-    # Should take at least 0.15 seconds (one sleep period minimum)
-    assert elapsed >= 0.15
+    with pytest.raises(ValueError):
+        await async_rate_limited(echo, [1], max_calls=0, period=0.1)
+    with pytest.raises(ValueError):
+        await async_rate_limited(echo, [1], max_calls=1, period=0)
