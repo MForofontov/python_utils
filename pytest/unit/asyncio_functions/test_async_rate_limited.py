@@ -51,3 +51,21 @@ async def test_async_rate_limited_invalid_params() -> None:
         await async_rate_limited(echo, [1], max_calls=0, period=0.1)
     with pytest.raises(ValueError):
         await async_rate_limited(echo, [1], max_calls=1, period=0)
+
+
+@pytest.mark.asyncio
+async def test_async_rate_limited_enforces_rate_limit() -> None:
+    """Test case 5: Test that rate limit sleep is enforced when limit is reached."""
+    # Use a very fast function and ensure we hit the rate limit
+    async def fast_func(value: int) -> int:
+        return value
+    
+    # Process 5 items with max_calls=2 and period=0.2
+    # This should trigger the sleep on items 3, 4, 5
+    start = time.monotonic()
+    result = await async_rate_limited(fast_func, [1, 2, 3, 4, 5], max_calls=2, period=0.2)
+    elapsed = time.monotonic() - start
+    
+    assert result == [1, 2, 3, 4, 5]
+    # Should take at least 0.4 seconds (2 rate limit sleeps)
+    assert elapsed >= 0.4

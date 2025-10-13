@@ -66,3 +66,14 @@ def test_find_orfs_invalid_base_error() -> None:
         list(find_orfs("ATGCX"))
     with pytest.raises(ValueError, match="Sequence contains invalid DNA bases"):
         list(find_orfs("ATGCU"))
+
+
+def test_find_orfs_no_stop_codon() -> None:
+    """
+    Test case 8: ORF starting but no stop codon (incomplete ORF).
+    """
+    # ATG followed by codons but no stop codon
+    seq = "ATGAAACCCTTT"
+    result = list(find_orfs(seq))
+    # Should return empty since no complete ORF (no stop codon)
+    assert result == []

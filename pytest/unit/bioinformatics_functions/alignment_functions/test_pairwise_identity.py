@@ -74,3 +74,16 @@ def test_pairwise_identity_seq2_type_error() -> None:
     """Test case 12: Test TypeError for non-string seq2."""
     with pytest.raises(TypeError, match="seq2 must be a string"):
         pairwise_identity("ACGT", 123)
+
+
+def test_pairwise_identity_aligned_type_error() -> None:
+    """Test case 13: Test TypeError for non-boolean aligned parameter."""
+    with pytest.raises(TypeError, match="aligned must be a boolean"):
+        pairwise_identity("ACGT", "ACGT", aligned="yes")  # type: ignore
+
+
+def test_pairwise_identity_all_gaps() -> None:
+    """Test case 14: Test 0% identity when all positions are gaps."""
+    # Both sequences have only gaps, no positions to compare
+    result = pairwise_identity("---", "---", aligned=True)
+    assert result == 0.0

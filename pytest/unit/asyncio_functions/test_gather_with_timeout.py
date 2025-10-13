@@ -126,3 +126,31 @@ async def test_gather_with_timeout_very_short_timeout() -> None:
     # Act & Assert
     with pytest.raises(asyncio.TimeoutError):
         await gather_with_timeout([task()], timeout=0.001)
+
+
+@pytest.mark.asyncio
+async def test_gather_with_timeout_cancels_pending_tasks() -> None:
+    """
+    Test case 7: Timeout cancels all pending tasks.
+    """
+    # Arrange
+    cancelled_tasks: list[bool] = []
+
+    async def cancellable_task(task_id: int) -> int:
+        try:
+            await asyncio.sleep(1.0)  # Long sleep to ensure timeout
+            return task_id
+        except asyncio.CancelledError:
+            cancelled_tasks.append(True)
+            raise
+
+    # Act & Assert
+    with pytest.raises(asyncio.TimeoutError):
+        await gather_with_timeout(
+            [cancellable_task(1), cancellable_task(2), cancellable_task(3)],
+            timeout=0.01
+        )
+    
+    # All tasks should have been cancelled
+    await asyncio.sleep(0.05)  # Give time for cancellation to propagate
+    assert len(cancelled_tasks) == 3

@@ -59,3 +59,9 @@ def test_find_motif_positions_motif_type_error() -> None:
     """Test case 9: Test TypeError for non-string motif."""
     with pytest.raises(TypeError, match="motif must be a string"):
         find_motif_positions("ATGC", 123)
+
+
+def test_find_motif_positions_allow_overlap_type_error() -> None:
+    """Test case 10: Test TypeError for non-boolean allow_overlap."""
+    with pytest.raises(TypeError, match="allow_overlap must be a boolean"):
+        find_motif_positions("ATGC", "ATG", allow_overlap="yes")  # type: ignore

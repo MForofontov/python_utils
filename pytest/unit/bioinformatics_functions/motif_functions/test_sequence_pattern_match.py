@@ -70,3 +70,9 @@ def test_sequence_pattern_match_invalid_sequence_type() -> None:
     """Test case 10: TypeError for non-string seq."""
     with pytest.raises(TypeError, match="seq must be a string"):
         sequence_pattern_match(123, "ATG")
+
+
+def test_sequence_pattern_match_invalid_use_iupac_type() -> None:
+    """Test case 11: TypeError for non-boolean use_iupac."""
+    with pytest.raises(TypeError, match="use_iupac must be a boolean"):
+        sequence_pattern_match("ATGC", "ATG", use_iupac="yes")  # type: ignore
