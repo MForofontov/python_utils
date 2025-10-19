@@ -1,5 +1,3 @@
-"""Unit tests for async_batch function."""
-
 import asyncio
 
 import pytest

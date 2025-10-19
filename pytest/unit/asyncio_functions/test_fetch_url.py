@@ -1,5 +1,3 @@
-"""Unit tests for fetch_url function."""
-
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest

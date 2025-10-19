@@ -1,5 +1,3 @@
-"""Unit tests for get_ipv6_addresses function."""
-
 from unittest.mock import MagicMock, patch
 
 from network_functions.get_ipv6_addresses import get_ipv6_addresses

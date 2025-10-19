@@ -1,5 +1,3 @@
-"""Unit tests for gather_with_timeout function."""
-
 import asyncio
 
 import pytest

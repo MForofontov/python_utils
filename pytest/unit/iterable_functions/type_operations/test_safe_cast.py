@@ -1,5 +1,3 @@
-"""Unit tests for safe_cast and is_numeric functions."""
-
 import pytest
 from iterable_functions.type_operations.safe_cast import is_numeric, safe_cast
 

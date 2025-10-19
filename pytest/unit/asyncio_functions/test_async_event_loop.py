@@ -1,5 +1,3 @@
-"""Unit tests for async_event_loop function."""
-
 import asyncio
 
 import pytest
