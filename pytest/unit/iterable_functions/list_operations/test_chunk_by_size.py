@@ -1,5 +1,3 @@
-"""Unit tests for chunk_by_size function."""
-
 import pytest
 from iterable_functions.list_operations.chunk_by_size import chunk_by_size
 

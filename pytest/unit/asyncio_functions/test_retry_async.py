@@ -1,5 +1,3 @@
-"""Unit tests for retry_async function."""
-
 import asyncio
 
 import pytest

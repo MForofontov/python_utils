@@ -1,5 +1,3 @@
-"""Unit tests for polyline_encoding_list_of_ints function."""
-
 import pytest
 from compression_functions.polyline_encoding_list_of_ints import (
     polyline_encoding_list_of_ints,

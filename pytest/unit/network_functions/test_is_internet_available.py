@@ -1,5 +1,3 @@
-"""Unit tests for is_internet_available function."""
-
 from unittest.mock import MagicMock, patch
 
 from network_functions.is_internet_available import is_internet_available

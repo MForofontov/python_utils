@@ -1,5 +1,3 @@
-"""Unit tests for get_start_of_year function."""
-
 from datetime import datetime
 
 import pytest

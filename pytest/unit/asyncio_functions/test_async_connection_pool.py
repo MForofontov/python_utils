@@ -1,5 +1,3 @@
-"""Unit tests for AsyncConnectionPool class and use_connection function."""
-
 import asyncio
 
 import pytest

@@ -1,5 +1,3 @@
-"""Unit tests for dict_value_difference function."""
-
 import pytest
 from iterable_functions.dictionary_operations.dict_value_difference import (
     dict_value_difference,

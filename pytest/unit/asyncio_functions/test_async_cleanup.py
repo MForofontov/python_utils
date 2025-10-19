@@ -1,5 +1,3 @@
-"""Unit tests for async_cleanup function."""
-
 import asyncio
 
 import pytest

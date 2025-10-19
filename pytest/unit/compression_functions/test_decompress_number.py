@@ -1,5 +1,3 @@
-"""Unit tests for decompress_number function."""
-
 import pytest
 from compression_functions.decompress_number import decompress_number
 
