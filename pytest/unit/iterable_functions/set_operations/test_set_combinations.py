@@ -1,5 +1,3 @@
-"""Unit tests for get_combinations function."""
-
 import pytest
 from iterable_functions.set_operations.get_combinations import get_combinations
 

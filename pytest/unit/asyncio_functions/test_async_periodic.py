@@ -1,5 +1,3 @@
-"""Unit tests for async_periodic function."""
-
 import asyncio
 
 import pytest

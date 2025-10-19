@@ -1,5 +1,3 @@
-"""Unit tests for async_await_with_error_handling function."""
-
 import pytest
 from asyncio_functions.async_await_with_error_handling import (
     async_await_with_error_handling,

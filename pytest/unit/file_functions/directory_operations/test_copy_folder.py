@@ -1,5 +1,3 @@
-"""Unit tests for copy_folder function."""
-
 import tempfile
 from pathlib import Path
 

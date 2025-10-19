@@ -1,5 +1,3 @@
-"""Unit tests for async_stream_processor function."""
-
 from collections.abc import AsyncIterator
 
 import pytest

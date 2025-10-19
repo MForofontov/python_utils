@@ -1,5 +1,3 @@
-"""Unit tests for async_throttle function."""
-
 import asyncio
 from collections.abc import AsyncGenerator
 

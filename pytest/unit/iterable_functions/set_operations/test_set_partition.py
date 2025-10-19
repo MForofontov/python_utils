@@ -1,5 +1,3 @@
-"""Unit tests for partition_set_by_predicate function."""
-
 import pytest
 from iterable_functions.set_operations.set_partition import partition_set_by_predicate
 
