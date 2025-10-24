@@ -83,16 +83,25 @@ def find_files_by_pattern(
         raise ValueError("Pattern cannot be empty")
 
     matching_files: list[str] = []
+    seen_casefolded_paths: set[str] = set()
 
     try:
         for root, _, files in os.walk(dir_path):
             for file in files:
                 # Apply case sensitivity
-                test_file = file if case_sensitive else file.lower()
-                test_pattern = pattern if case_sensitive else pattern.lower()
+                if case_sensitive:
+                    if fnmatch.fnmatch(file, pattern):
+                        matching_files.append(str(Path(root) / file))
+                else:
+                    test_file = file.casefold()
+                    test_pattern = pattern.casefold()
 
-                if fnmatch.fnmatch(test_file, test_pattern):
-                    matching_files.append(str(Path(root) / file))
+                    if fnmatch.fnmatch(test_file, test_pattern):
+                        full_path = Path(root) / file
+                        canonical_path = str(full_path).casefold()
+                        if canonical_path not in seen_casefolded_paths:
+                            seen_casefolded_paths.add(canonical_path)
+                            matching_files.append(str(full_path))
     except OSError as e:
         raise OSError(f"Error accessing directory {directory}: {e}") from e
 
