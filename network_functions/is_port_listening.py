@@ -20,6 +20,11 @@ def is_port_listening(port: int) -> bool:
     >>> is_port_listening(80)
     True
     """
+    if not isinstance(port, int):
+        raise TypeError(f"port must be an integer, got {type(port).__name__}")
+    if port < 0 or port > 65535:
+        raise ValueError("port must be between 0 and 65535")
+
     for conn in psutil.net_connections():
         if conn.laddr and conn.laddr.port == port and conn.status == "LISTEN":
             return True
