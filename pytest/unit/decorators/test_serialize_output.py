@@ -70,10 +70,11 @@ def test_serialize_invalid_logger():
     """
     Test case 5: Invalid logger
     """
+    with pytest.raises(TypeError, match="logger must be an instance of logging.Logger or None"):
 
-    @serialize_output("json", logger="invalid_logger")
-    def invalid_logger_function() -> None:
-        pass
+        @serialize_output("json", logger="invalid_logger")
+        def invalid_logger_function() -> None:
+            pass
 
 
 def test_serialize_output_with_logger(caplog):
