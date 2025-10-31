@@ -35,10 +35,7 @@ def serialize_output(
     TypeError
         If logger is not an instance of logging.Logger or None.
     """
-    try:
-        validate_logger(logger)
-    except TypeError:
-        logger = None
+    validate_logger(logger)
 
     if not isinstance(format, str):
         if logger:
