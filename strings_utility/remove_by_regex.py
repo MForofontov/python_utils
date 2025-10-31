@@ -39,10 +39,12 @@ def remove_by_regex(string: str, pattern: str) -> str:
     if pattern == "":
         return string
 
-    # Adjust the pattern to also match surrounding spaces
-    adjusted_pattern = r"\s*" + pattern + r"\s*"
-    result = re.sub(adjusted_pattern, " ", string).strip()
-    return re.sub(r"\s+", " ", result)
+    # Remove the pattern from the string and normalise surrounding whitespace.
+    # ``re.sub`` can leave repeated spaces when entire words are removed,
+    # so collapse runs of whitespace to a single space and trim the result.
+    result = re.sub(pattern, "", string)
+    result = re.sub(r"\s{2,}", " ", result)
+    return result.strip()
 
 
 __all__ = ["remove_by_regex"]
