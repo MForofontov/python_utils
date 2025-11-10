@@ -35,7 +35,7 @@ def divide_list_into_n_chunks(list_to_divide: list[Any], n: int) -> list[list[An
     """
     if not isinstance(list_to_divide, list):
         raise TypeError("list_to_divide must be a list")
-    if not isinstance(n, int):
+    if type(n) is not int:
         raise TypeError("n must be an integer")
     if n <= 0:
         raise ValueError("n must be greater than 0")
