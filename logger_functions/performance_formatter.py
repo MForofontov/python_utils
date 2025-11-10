@@ -5,6 +5,7 @@ Includes timing information and performance metrics in log output.
 """
 
 import logging
+import time
 from datetime import datetime
 
 
@@ -38,12 +39,13 @@ def performance_formatter(include_thread_info: bool = True) -> logging.Formatter
         def __init__(self, include_thread_info: bool = True):
             super().__init__()
             self.include_thread_info = include_thread_info
-            self.start_time = datetime.now()
+            self.start_time = time.perf_counter()
 
         def format(self, record: logging.LogRecord) -> str:
             # Calculate elapsed time since start
-            elapsed = datetime.now() - self.start_time
-            elapsed_ms = elapsed.total_seconds() * 1000
+            elapsed_ms = (time.perf_counter() - self.start_time) * 1000
+            if elapsed_ms < 1.0:
+                elapsed_ms = 0.0
 
             # Format timestamp with milliseconds
             timestamp = datetime.fromtimestamp(record.created).strftime("%H:%M:%S.%f")[
