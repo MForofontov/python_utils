@@ -62,7 +62,7 @@ def partition_set_into_n_parts(input_set: set[T], n: int) -> list[set[T]]:
     if not isinstance(input_set, set):
         raise TypeError(f"input_set must be a set, got {type(input_set).__name__}")
 
-    if not isinstance(n, int):
+    if type(n) is not int:
         raise TypeError(f"n must be an int, got {type(n).__name__}")
 
     if n < 1:
