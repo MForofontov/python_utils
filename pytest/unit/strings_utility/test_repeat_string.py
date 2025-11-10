@@ -126,3 +126,9 @@ def test_repeat_string_invalid_repeat_count_type() -> None:
     """
     with pytest.raises(TypeError):
         repeat_string("hello", "2")
+
+
+def test_repeat_string_bool_repeat_count() -> None:
+    """Ensure boolean repeat counts are rejected instead of treated as integers."""
+    with pytest.raises(TypeError):
+        repeat_string("hello", True)
