@@ -36,7 +36,7 @@ def repeat_string(s: str, n: int) -> str:
     """
     if not isinstance(s, str):
         raise TypeError("The input string must be a string.")
-    if not isinstance(n, int):
+    if type(n) is not int:
         raise TypeError("The number of times must be an integer.")
     if n < 0:
         raise ValueError("The number of times must be non-negative.")
