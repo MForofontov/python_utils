@@ -1,4 +1,5 @@
 import time
+from contextlib import closing
 
 import requests
 
@@ -37,11 +38,18 @@ def get_network_speed(
         raise ValueError("timeout must be positive")
 
     start = time.time()
-    response = requests.get(test_url, stream=True, timeout=timeout)
     total_bytes = 0
-    for chunk in response.iter_content(chunk_size=8192):
-        total_bytes += len(chunk)
+    with closing(requests.get(test_url, stream=True, timeout=timeout)) as response:
+        response.raise_for_status()
+        for chunk in response.iter_content(chunk_size=8192):
+            if not chunk:
+                continue
+            total_bytes += len(chunk)
+
     elapsed = time.time() - start
+    if elapsed <= 0 or total_bytes == 0:
+        return {"download_mbps": 0.0}
+
     mbps = (total_bytes * 8) / (elapsed * 1_000_000)
     return {"download_mbps": mbps}
 
