@@ -100,3 +100,22 @@ def test_verify_password_invalid_type() -> None:
     """
     with pytest.raises(TypeError):
         verify_password(12345)
+
+
+def test_verify_password_custom_checks_not_iterable() -> None:
+    """
+    Test case 12: Test the verify_password function with a non-iterable custom_checks argument.
+    """
+
+    with pytest.raises(TypeError, match="custom_checks must be an iterable of callables"):
+        verify_password("Password123!", custom_checks="not iterable")
+
+
+def test_verify_password_custom_checks_non_callable() -> None:
+    """
+    Test case 13: Test the verify_password function with custom checks containing a non-callable item.
+    """
+
+    with pytest.raises(TypeError, match="custom_checks must be an iterable of callables"):
+        verify_password("Password123!", custom_checks=[lambda _: True, "not callable"])
+
