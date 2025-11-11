@@ -57,3 +57,15 @@ def test_safe_json_load_custom_decoder():
     data = '{"a": 1}'
     result = safe_json_load(data, decoder=MyDecoder)
     assert result["custom"] is True
+
+
+def test_safe_json_load_type_error_input():
+    """
+    Test case 6: Non-string input triggers TypeError and returns the default value.
+    """
+    data = {"a": 1}
+    default_value = {"error": "type"}
+
+    result = safe_json_load(data, default=default_value)
+
+    assert result == default_value

@@ -53,3 +53,15 @@ def test_safe_json_dump_custom_encoder():
     obj = {"a": {1, 2, 3}}
     result = safe_json_dump(obj, encoder=MyEncoder)
     assert "1" in result and "2" in result and "3" in result
+
+
+def test_safe_json_dump_value_error_handling():
+    """
+    Test case 5: ValueError during serialization returns the provided default.
+    """
+    obj = float("nan")
+    default_value = "fallback"
+
+    result = safe_json_dump(obj, default=default_value, allow_nan=False)
+
+    assert result == default_value
