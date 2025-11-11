@@ -29,6 +29,8 @@ async def async_throttle(
     ------
     TypeError
         If ``delay`` is not a float.
+    ValueError
+        If ``delay`` is negative.
     Exception
         Propagates any exception raised by the underlying ``generator``.
 
@@ -49,12 +51,22 @@ async def async_throttle(
     if not isinstance(delay, (int, float)):
         raise TypeError("delay must be a float")
 
+    if delay < 0:
+        msg = "delay must be non-negative"
+        raise ValueError(msg)
+
     # Iterate over the items in the generator
+    first_item = True
     async for item in generator:
+        if not first_item and delay:
+            # Introduce a delay before yielding the next item. Sleeping before
+            # yielding ensures that the consumer observes the throttled spacing
+            # directly between consecutive values and avoids an unnecessary
+            # trailing sleep once the generator is exhausted.
+            await asyncio.sleep(delay)
+        first_item = False
         # Yield the current item
         yield item
-        # Introduce a delay before yielding the next item
-        await asyncio.sleep(delay)
 
 
 __all__ = ["async_throttle"]
