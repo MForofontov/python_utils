@@ -18,7 +18,9 @@ None
 Raises
 ------
 TypeError
-    If d is not a dictionary.
+    If d is not a dictionary or ``keys`` is neither a string nor a list of strings.
+ValueError
+    If ``keys`` is empty after normalization.
 
 Examples
 --------
@@ -52,7 +54,9 @@ def deep_set(d: dict[str, Any], keys: str | list[str], value: Any) -> None:
     Raises
     ------
     TypeError
-        If d is not a dictionary.
+        If d is not a dictionary or ``keys`` is neither a string nor a list of strings.
+    ValueError
+        If ``keys`` is empty after normalization.
 
     Examples
     --------
@@ -66,6 +70,11 @@ def deep_set(d: dict[str, Any], keys: str | list[str], value: Any) -> None:
 
     if isinstance(keys, str):
         keys = keys.split(".")
+    elif not isinstance(keys, list):
+        raise TypeError("keys must be a string or a list of strings")
+
+    if len(keys) == 0:
+        raise ValueError("keys must contain at least one key")
 
     current = d
     for key in keys[:-1]:

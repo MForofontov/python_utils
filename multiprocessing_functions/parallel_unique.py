@@ -26,6 +26,14 @@ def parallel_unique(
     chunk_size : int, optional
         The size of chunks to split the data into for parallel processing (default is 1).
 
+    Raises
+    ------
+    TypeError
+        If ``data`` is not a list.
+    ValueError
+        If ``chunk_size`` is not a positive integer or if ``num_processes`` is provided
+        and is not a positive integer.
+
     Returns
     -------
     list[T]
@@ -36,6 +44,19 @@ def parallel_unique(
     >>> parallel_unique([1, 2, 2, 3, 4, 4, 5])
     [1, 2, 3, 4, 5]
     """
+    if not isinstance(data, list):
+        raise TypeError("data must be a list")
+
+    if not isinstance(chunk_size, int) or chunk_size <= 0:
+        raise ValueError("chunk_size must be a positive integer")
+
+    if num_processes is not None:
+        if not isinstance(num_processes, int) or num_processes <= 0:
+            raise ValueError("num_processes must be a positive integer when provided")
+
+    if not data:
+        return []
+
     # If num_processes is not specified, use the number of available CPUs minus one
     if num_processes is None:
         num_processes = max(

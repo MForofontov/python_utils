@@ -193,3 +193,12 @@ def test_deep_set_invalid_type_error() -> None:
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         deep_set(invalid_input, key_path, value)
+
+
+def test_deep_set_empty_key_path_list() -> None:
+    """Test case 12: ValueError when key path list is empty."""
+
+    input_data: dict[str, Any] = {}
+
+    with pytest.raises(ValueError, match="keys must contain at least one key"):
+        deep_set(input_data, [], "value")
