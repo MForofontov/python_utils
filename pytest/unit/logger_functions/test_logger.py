@@ -50,3 +50,19 @@ def test_validate_logger_custom_message() -> None:
     """
     with pytest.raises(TypeError, match="Custom error"):
         validate_logger(123, allow_none=False, message="Custom error")
+
+
+def test_validate_logger_none_not_allowed() -> None:
+    """
+    Test case 7: validate_logger raises TypeError when None is not allowed.
+    """
+    with pytest.raises(TypeError, match=r"logger must be an instance of logging.Logger\."):
+        validate_logger(None, allow_none=False)
+
+
+def test_validate_logger_type_error_message_includes_none() -> None:
+    """
+    Test case 8: validate_logger default error message includes None when allowed.
+    """
+    with pytest.raises(TypeError, match=r"logging\.Logger or None\."):
+        validate_logger(123, allow_none=True)
