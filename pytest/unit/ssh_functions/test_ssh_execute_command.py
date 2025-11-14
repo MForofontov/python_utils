@@ -1,3 +1,4 @@
+import subprocess
 from unittest.mock import patch
 
 import pytest
@@ -67,3 +68,15 @@ def test_ssh_execute_command_case_6_timeout_error() -> None:
     with patch("subprocess.run", side_effect=Exception("fail")):
         with pytest.raises(RuntimeError, match="SSH command failed: fail"):
             ssh_execute_command("host", "ls")
+
+
+def test_ssh_execute_command_case_7_timeout_expired() -> None:
+    """
+    Test case 7: subprocess.TimeoutExpired raises RuntimeError with timeout-specific message.
+    """
+    with patch(
+        "subprocess.run",
+        side_effect=subprocess.TimeoutExpired(cmd=["ssh"], timeout=5),
+    ):
+        with pytest.raises(RuntimeError, match="SSH command timed out after 5 seconds"):
+            ssh_execute_command("host", "ls", timeout=5)
