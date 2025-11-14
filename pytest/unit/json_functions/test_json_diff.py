@@ -47,6 +47,16 @@ def test_json_diff_list_length_difference() -> None:
     result = json_diff(a, b)
     # Should have differences for indices 2, 3, 4
     assert ("[2]", 3, None) in result
-    assert ("[3]", 4, None) in result  
+    assert ("[3]", 4, None) in result
     assert ("[4]", 5, None) in result
+
+
+def test_json_diff_second_list_longer() -> None:
+    """Test case 6: Ensure json_diff captures additions when the second list is longer."""
+    a = ["alpha", "beta"]
+    b = ["alpha", "beta", "gamma", "delta"]
+    result = json_diff(a, b)
+
+    assert ("[2]", None, "gamma") in result
+    assert ("[3]", None, "delta") in result
 
