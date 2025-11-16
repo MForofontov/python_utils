@@ -70,3 +70,33 @@ def test_find_applies_path_compression():
     assert uf.find(30) == root_before
     # After calling find, parent of 30 should be the root due to path compression
     assert uf.parent[30] == root_before
+
+
+def test_connected_initializes_elements():
+    """
+    Test case 6: Connected initializes previously unseen elements as separate sets.
+    """
+    uf: UnionFind[int] = UnionFind()
+
+    assert not uf.connected(5, 6)
+    assert uf.parent[5] == 5
+    assert uf.parent[6] == 6
+    assert uf.rank[5] == 0
+    assert uf.rank[6] == 0
+
+
+def test_union_on_already_connected_elements_is_noop():
+    """
+    Test case 7: Repeated union on connected elements does not change the structure.
+    """
+    uf: UnionFind[int] = UnionFind()
+
+    uf.union(1, 2)
+    root = uf.find(1)
+    initial_rank = uf.rank[root]
+
+    uf.union(1, 2)
+
+    assert uf.find(1) == root
+    assert uf.find(2) == root
+    assert uf.rank[root] == initial_rank
