@@ -59,3 +59,15 @@ def test_parse_ini_config_file_not_found(tmp_path):
 
     with pytest.raises(FileNotFoundError):
         parse_ini_config(str(missing_file))
+
+
+def test_parse_ini_config_invalid_format(tmp_path):
+    """
+    Test case 5: Invalid INI content raises configparser.Error.
+    """
+
+    config_file = tmp_path / "config.ini"
+    config_file.write_text("key=value\n")
+
+    with pytest.raises(configparser.Error):
+        parse_ini_config(str(config_file))

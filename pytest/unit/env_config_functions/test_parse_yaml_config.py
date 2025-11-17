@@ -66,3 +66,14 @@ def test_parse_yaml_config_not_dict(tmp_path):
     write_yaml_file(data, config_file)
     with pytest.raises(ValueError, match="must be a dictionary"):
         parse_yaml_config(str(config_file))
+
+
+def test_parse_yaml_config_missing_file(tmp_path):
+    """
+    Test case 6: Missing YAML files raise FileNotFoundError
+    """
+
+    missing_file = tmp_path / "missing.yaml"
+
+    with pytest.raises(FileNotFoundError):
+        parse_yaml_config(str(missing_file))
