@@ -1,5 +1,7 @@
 from unittest.mock import patch
 
+import requests
+
 from network_functions.get_public_ip import get_public_ip
 
 
@@ -63,3 +65,40 @@ def test_get_public_ip_type_error() -> None:
     with patch("requests.get", return_value="not_a_response"):
         ip = get_public_ip()
         assert ip == ""
+
+
+def test_get_public_ip_invalid_response_uses_fallback() -> None:
+    """
+    Test case 6: Invalid response text triggers fallback public IP retrieval.
+    """
+
+    class MockResponse:
+        def __init__(self, text: str) -> None:
+            self.text = text
+
+        def raise_for_status(self) -> None:
+            pass
+
+    with patch("requests.get", return_value=MockResponse("invalid_ip")):
+        with patch(
+            "network_functions.get_public_ip._get_fallback_public_ip",
+            return_value="203.0.113.5",
+        ):
+            ip = get_public_ip()
+
+    assert ip == "203.0.113.5"
+
+
+def test_get_public_ip_request_exception_fallback_empty() -> None:
+    """
+    Test case 7: RequestException with empty fallback returns empty string.
+    """
+
+    with patch("requests.get", side_effect=requests.RequestException):
+        with patch(
+            "network_functions.get_public_ip._get_fallback_public_ip",
+            return_value="",
+        ):
+            ip = get_public_ip()
+
+    assert ip == ""
