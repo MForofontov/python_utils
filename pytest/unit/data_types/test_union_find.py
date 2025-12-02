@@ -100,3 +100,32 @@ def test_union_on_already_connected_elements_is_noop():
     assert uf.find(1) == root
     assert uf.find(2) == root
     assert uf.rank[root] == initial_rank
+
+
+def test_union_with_same_element_is_idempotent():
+    """
+    Test case 8: Unioning an element with itself should not alter rank or parents.
+    """
+    uf: UnionFind[int] = UnionFind()
+
+    uf.union(7, 7)
+
+    assert uf.find(7) == 7
+    assert uf.parent[7] == 7
+    assert uf.rank[7] == 0
+
+
+def test_union_by_rank_avoids_unnecessary_rank_increase():
+    """
+    Test case 9: Attaching a lower-ranked tree should not increment the higher-ranked root.
+    """
+    uf: UnionFind[int] = UnionFind()
+
+    uf.union(1, 2)
+    higher_rank_root = uf.find(1)
+    assert uf.rank[higher_rank_root] == 1
+
+    uf.union(1, 3)
+
+    assert uf.find(3) == higher_rank_root
+    assert uf.rank[higher_rank_root] == 1
