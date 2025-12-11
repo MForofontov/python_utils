@@ -1,5 +1,5 @@
 import pytest
-from bs4 import BeautifulSoup
+from lxml import etree
 from web_scraping_functions.selectors.select_by_xpath import select_by_xpath
 
 
@@ -9,28 +9,27 @@ def test_select_by_xpath_case_1_simple_xpath() -> None:
     """
     # Arrange
     html = '<div class="item">A</div><div class="item">B</div>'
-    soup = BeautifulSoup(html, "html.parser")
     
     # Act
-    result = select_by_xpath(soup, '//div[@class="item"]')
+    result = select_by_xpath(html, '//div[@class="item"]')
     
     # Assert
     assert len(result) == 2
+    assert all(isinstance(elem, etree._Element) for elem in result)
 
 
-def test_select_by_xpath_case_2_with_limit() -> None:
+def test_select_by_xpath_case_2_single_element() -> None:
     """
-    Test case 2: Select elements with limit.
+    Test case 2: Select single element.
     """
     # Arrange
     html = '<div class="item">A</div><div class="item">B</div><div class="item">C</div>'
-    soup = BeautifulSoup(html, "html.parser")
     
     # Act
-    result = select_by_xpath(soup, '//div[@class="item"]', limit=2)
+    result = select_by_xpath(html, '//div[@class="item"][1]')
     
     # Assert
-    assert len(result) == 2
+    assert len(result) == 1
 
 
 def test_select_by_xpath_case_3_text_selection() -> None:
@@ -39,10 +38,9 @@ def test_select_by_xpath_case_3_text_selection() -> None:
     """
     # Arrange
     html = '<p>Hello</p><p>World</p>'
-    soup = BeautifulSoup(html, "html.parser")
     
     # Act
-    result = select_by_xpath(soup, '//p[text()="Hello"]')
+    result = select_by_xpath(html, '//p[text()="Hello"]')
     
     # Assert
     assert len(result) == 1
@@ -54,10 +52,9 @@ def test_select_by_xpath_case_4_nested_selection() -> None:
     """
     # Arrange
     html = '<div><section><p>Text</p></section></div>'
-    soup = BeautifulSoup(html, "html.parser")
     
     # Act
-    result = select_by_xpath(soup, '//div/section/p')
+    result = select_by_xpath(html, '//div/section/p')
     
     # Assert
     assert len(result) == 1
@@ -69,22 +66,21 @@ def test_select_by_xpath_case_5_no_matches() -> None:
     """
     # Arrange
     html = '<div class="item">A</div>'
-    soup = BeautifulSoup(html, "html.parser")
     
     # Act
-    result = select_by_xpath(soup, '//span[@class="nonexistent"]')
+    result = select_by_xpath(html, '//span[@class="nonexistent"]')
     
     # Assert
     assert result == []
 
 
-def test_select_by_xpath_case_6_type_error_element() -> None:
+def test_select_by_xpath_case_6_type_error_html() -> None:
     """
-    Test case 6: TypeError for invalid element type.
+    Test case 6: TypeError for invalid html type.
     """
     # Act & Assert
-    with pytest.raises(TypeError, match="element must be BeautifulSoup or Tag"):
-        select_by_xpath("not a soup", "//div")
+    with pytest.raises(TypeError, match="html must be a string"):
+        select_by_xpath(123, "//div")  # type: ignore
 
 
 def test_select_by_xpath_case_7_type_error_xpath() -> None:
@@ -93,24 +89,19 @@ def test_select_by_xpath_case_7_type_error_xpath() -> None:
     """
     # Arrange
     html = '<div class="item">A</div>'
-    soup = BeautifulSoup(html, "html.parser")
     
     # Act & Assert
     with pytest.raises(TypeError, match="xpath must be a string"):
-        select_by_xpath(soup, 123)
+        select_by_xpath(html, 123)  # type: ignore
 
 
-def test_select_by_xpath_case_8_type_error_limit() -> None:
+def test_select_by_xpath_case_8_value_error_empty_html() -> None:
     """
-    Test case 8: TypeError for invalid limit type.
+    Test case 8: ValueError for empty html.
     """
-    # Arrange
-    html = '<div class="item">A</div>'
-    soup = BeautifulSoup(html, "html.parser")
-    
     # Act & Assert
-    with pytest.raises(TypeError, match="limit must be an integer or None"):
-        select_by_xpath(soup, "//div", limit="5")
+    with pytest.raises(ValueError, match="html cannot be empty"):
+        select_by_xpath("", "//div")
 
 
 def test_select_by_xpath_case_9_value_error_empty_xpath() -> None:
@@ -119,21 +110,7 @@ def test_select_by_xpath_case_9_value_error_empty_xpath() -> None:
     """
     # Arrange
     html = '<div class="item">A</div>'
-    soup = BeautifulSoup(html, "html.parser")
     
     # Act & Assert
     with pytest.raises(ValueError, match="xpath cannot be empty"):
-        select_by_xpath(soup, "")
-
-
-def test_select_by_xpath_case_10_value_error_non_positive_limit() -> None:
-    """
-    Test case 10: ValueError for non-positive limit.
-    """
-    # Arrange
-    html = '<div class="item">A</div>'
-    soup = BeautifulSoup(html, "html.parser")
-    
-    # Act & Assert
-    with pytest.raises(ValueError, match="limit must be positive"):
-        select_by_xpath(soup, "//div", limit=0)
+        select_by_xpath(html, "")

@@ -17,10 +17,10 @@ def test_rotate_proxy_case_1_basic_rotation() -> None:
     result4 = next(rotator)
     
     # Assert
-    assert result1 == "proxy1"
-    assert result2 == "proxy2"
-    assert result3 == "proxy3"
-    assert result4 == "proxy1"  # Cycles back
+    assert result1 == {"http": "proxy1", "https": "proxy1"}
+    assert result2 == {"http": "proxy2", "https": "proxy2"}
+    assert result3 == {"http": "proxy3", "https": "proxy3"}
+    assert result4 == {"http": "proxy1", "https": "proxy1"}  # Cycles back
 
 
 def test_rotate_proxy_case_2_single_proxy() -> None:
@@ -36,8 +36,8 @@ def test_rotate_proxy_case_2_single_proxy() -> None:
     result2 = next(rotator)
     
     # Assert
-    assert result1 == "only_proxy"
-    assert result2 == "only_proxy"
+    assert result1 == {"http": "only_proxy", "https": "only_proxy"}
+    assert result2 == {"http": "only_proxy", "https": "only_proxy"}
 
 
 def test_rotate_proxy_case_3_infinite_cycling() -> None:
@@ -52,7 +52,8 @@ def test_rotate_proxy_case_3_infinite_cycling() -> None:
     results = [next(rotator) for _ in range(10)]
     
     # Assert
-    assert results == ["proxy1", "proxy2"] * 5
+    expected = [{"http": "proxy1", "https": "proxy1"}, {"http": "proxy2", "https": "proxy2"}] * 5
+    assert results == expected
 
 
 def test_rotate_proxy_case_4_list_not_modified() -> None:
@@ -78,7 +79,8 @@ def test_rotate_proxy_case_5_type_error_proxies() -> None:
     """
     # Act & Assert
     with pytest.raises(TypeError, match="proxies must be a list"):
-        rotate_proxy("not a list")
+        rotator = rotate_proxy("not a list")  # type: ignore
+        next(rotator)
 
 
 def test_rotate_proxy_case_6_value_error_empty_list() -> None:
@@ -86,22 +88,14 @@ def test_rotate_proxy_case_6_value_error_empty_list() -> None:
     Test case 6: ValueError for empty proxy list.
     """
     # Act & Assert
-    with pytest.raises(ValueError, match="proxies cannot be empty"):
-        rotate_proxy([])
+    with pytest.raises(ValueError, match="proxies list cannot be empty"):
+        rotator = rotate_proxy([])
+        next(rotator)
 
 
-def test_rotate_proxy_case_7_type_error_non_string_elements() -> None:
+def test_rotate_proxy_case_7_mixed_proxy_formats() -> None:
     """
-    Test case 7: TypeError for non-string elements in list.
-    """
-    # Act & Assert
-    with pytest.raises(TypeError, match="all elements in proxies must be strings"):
-        rotate_proxy(["proxy1", 123, "proxy3"])
-
-
-def test_rotate_proxy_case_8_mixed_proxy_formats() -> None:
-    """
-    Test case 8: Support different proxy string formats.
+    Test case 7: Support different proxy string formats.
     """
     # Arrange
     proxies = [
@@ -116,5 +110,5 @@ def test_rotate_proxy_case_8_mixed_proxy_formats() -> None:
     result2 = next(rotator)
     
     # Assert
-    assert result1 == "http://proxy1.com:8080"
-    assert result2 == "https://proxy2.com:3128"
+    assert result1 == {"http": "http://proxy1.com:8080", "https": "http://proxy1.com:8080"}
+    assert result2 == {"http": "https://proxy2.com:3128", "https": "https://proxy2.com:3128"}

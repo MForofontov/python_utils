@@ -73,16 +73,16 @@ def test_create_rate_limiter_case_4_slow_rate() -> None:
     assert elapsed >= 1.0  # At least 1 second between calls
 
 
-def test_create_rate_limiter_case_5_rate_attribute() -> None:
+def test_create_rate_limiter_case_5_calls_per_second_attribute() -> None:
     """
-    Test case 5: Verify rate limiter has rate attribute.
+    Test case 5: Verify rate limiter has calls_per_second attribute.
     """
     # Arrange
     limiter = create_rate_limiter(calls_per_second=5)
     
     # Act & Assert
-    assert hasattr(limiter, 'rate')
-    assert limiter.rate == 5
+    assert hasattr(limiter, 'calls_per_second')
+    assert limiter.calls_per_second == 5
 
 
 def test_create_rate_limiter_case_6_type_error_calls_per_second() -> None:

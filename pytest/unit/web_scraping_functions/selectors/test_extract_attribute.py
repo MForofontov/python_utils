@@ -108,23 +108,9 @@ def test_extract_attribute_case_7_type_error_element() -> None:
         extract_attribute("not a tag", "href")
 
 
-def test_extract_attribute_case_8_type_error_attribute_name() -> None:
+def test_extract_attribute_case_8_type_error_attribute() -> None:
     """
-    Test case 8: TypeError for invalid attribute_name type.
-    """
-    # Arrange
-    html = '<div>Text</div>'
-    soup = BeautifulSoup(html, "html.parser")
-    element = soup.find('div')
-    
-    # Act & Assert
-    with pytest.raises(TypeError, match="attribute_name must be a string"):
-        extract_attribute(element, 123)
-
-
-def test_extract_attribute_case_9_value_error_empty_attribute_name() -> None:
-    """
-    Test case 9: ValueError for empty attribute_name.
+    Test case 8: TypeError for invalid attribute type.
     """
     # Arrange
     html = '<div>Text</div>'
@@ -132,13 +118,27 @@ def test_extract_attribute_case_9_value_error_empty_attribute_name() -> None:
     element = soup.find('div')
     
     # Act & Assert
-    with pytest.raises(ValueError, match="attribute_name cannot be empty"):
+    with pytest.raises(TypeError, match="attribute must be a string"):
+        extract_attribute(element, 123)  # type: ignore
+
+
+def test_extract_attribute_case_9_value_error_empty_attribute() -> None:
+    """
+    Test case 9: ValueError for empty attribute.
+    """
+    # Arrange
+    html = '<div>Text</div>'
+    soup = BeautifulSoup(html, "html.parser")
+    element = soup.find('div')
+    
+    # Act & Assert
+    with pytest.raises(ValueError, match="attribute cannot be empty"):
         extract_attribute(element, "")
 
 
-def test_extract_attribute_case_10_whitespace_attribute_name() -> None:
+def test_extract_attribute_case_10_whitespace_attribute() -> None:
     """
-    Test case 10: ValueError for whitespace-only attribute_name.
+    Test case 10: ValueError for whitespace-only attribute.
     """
     # Arrange
     html = '<div>Text</div>'
@@ -146,5 +146,5 @@ def test_extract_attribute_case_10_whitespace_attribute_name() -> None:
     element = soup.find('div')
     
     # Act & Assert
-    with pytest.raises(ValueError, match="attribute_name cannot be empty"):
+    with pytest.raises(ValueError, match="attribute cannot be empty"):
         extract_attribute(element, "   ")

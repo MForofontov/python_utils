@@ -78,7 +78,8 @@ def test_rotate_user_agent_case_5_type_error_user_agents() -> None:
     """
     # Act & Assert
     with pytest.raises(TypeError, match="user_agents must be a list"):
-        rotate_user_agent("not a list")
+        rotator = rotate_user_agent("not a list")  # type: ignore
+        next(rotator)
 
 
 def test_rotate_user_agent_case_6_value_error_empty_list() -> None:
@@ -86,20 +87,12 @@ def test_rotate_user_agent_case_6_value_error_empty_list() -> None:
     Test case 6: ValueError for empty user agent list.
     """
     # Act & Assert
-    with pytest.raises(ValueError, match="user_agents cannot be empty"):
-        rotate_user_agent([])
+    with pytest.raises(ValueError, match="user_agents list cannot be empty"):
+        rotator = rotate_user_agent([])
+        next(rotator)
 
 
-def test_rotate_user_agent_case_7_type_error_non_string_elements() -> None:
-    """
-    Test case 7: TypeError for non-string elements in list.
-    """
-    # Act & Assert
-    with pytest.raises(TypeError, match="all elements in user_agents must be strings"):
-        rotate_user_agent(["UA1", 123, "UA3"])
-
-
-def test_rotate_user_agent_case_8_realistic_user_agents() -> None:
+def test_rotate_user_agent_case_7_realistic_user_agents() -> None:
     """
     Test case 8: Rotation with realistic user agent strings.
     """

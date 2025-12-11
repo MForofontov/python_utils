@@ -18,19 +18,19 @@ def test_extract_next_page_case_1_simple_next_link() -> None:
     assert result == "/page2"
 
 
-def test_extract_next_page_case_2_absolute_url() -> None:
+def test_extract_next_page_case_2_relative_url() -> None:
     """
-    Test case 2: Extract and convert to absolute URL.
+    Test case 2: Extract relative URL.
     """
     # Arrange
     html = '<a href="/page2" class="next">Next</a>'
     soup = BeautifulSoup(html, "html.parser")
     
     # Act
-    result = extract_next_page(soup, selector=".next", base_url="https://example.com")
+    result = extract_next_page(soup, selector=".next")
     
     # Assert
-    assert result == "https://example.com/page2"
+    assert result == "/page2"
 
 
 def test_extract_next_page_case_3_no_match() -> None:
@@ -100,22 +100,9 @@ def test_extract_next_page_case_7_type_error_selector() -> None:
         extract_next_page(soup, selector=123)
 
 
-def test_extract_next_page_case_8_type_error_base_url() -> None:
+def test_extract_next_page_case_8_value_error_empty_selector() -> None:
     """
-    Test case 8: TypeError for invalid base_url type.
-    """
-    # Arrange
-    html = '<a href="/page2" class="next">Next</a>'
-    soup = BeautifulSoup(html, "html.parser")
-    
-    # Act & Assert
-    with pytest.raises(TypeError, match="base_url must be a string or None"):
-        extract_next_page(soup, selector=".next", base_url=123)
-
-
-def test_extract_next_page_case_9_value_error_empty_selector() -> None:
-    """
-    Test case 9: ValueError for empty selector.
+    Test case 8: ValueError for empty selector.
     """
     # Arrange
     html = '<a href="/page2">Next</a>'

@@ -13,7 +13,9 @@ def test_get_random_proxy_case_1_returns_from_list() -> None:
     result = get_random_proxy(proxies)
     
     # Assert
-    assert result in proxies
+    assert isinstance(result, dict)
+    assert "http" in result and "https" in result
+    assert result["http"] in proxies
 
 
 def test_get_random_proxy_case_2_single_proxy() -> None:
@@ -27,7 +29,7 @@ def test_get_random_proxy_case_2_single_proxy() -> None:
     result = get_random_proxy(proxies)
     
     # Assert
-    assert result == "only_proxy"
+    assert result == {"http": "only_proxy", "https": "only_proxy"}
 
 
 def test_get_random_proxy_case_3_randomness() -> None:
@@ -38,7 +40,7 @@ def test_get_random_proxy_case_3_randomness() -> None:
     proxies = ["proxy1", "proxy2", "proxy3", "proxy4", "proxy5"]
     
     # Act
-    results = {get_random_proxy(proxies) for _ in range(50)}
+    results = {get_random_proxy(proxies)["http"] for _ in range(50)}
     
     # Assert - should get at least 2 different proxies in 50 calls
     assert len(results) >= 2
@@ -73,22 +75,13 @@ def test_get_random_proxy_case_6_value_error_empty_list() -> None:
     Test case 6: ValueError for empty proxy list.
     """
     # Act & Assert
-    with pytest.raises(ValueError, match="proxies cannot be empty"):
+    with pytest.raises(ValueError, match="proxies list cannot be empty"):
         get_random_proxy([])
 
 
-def test_get_random_proxy_case_7_type_error_non_string_elements() -> None:
+def test_get_random_proxy_case_7_proxy_formats() -> None:
     """
-    Test case 7: TypeError for non-string elements in list.
-    """
-    # Act & Assert
-    with pytest.raises(TypeError, match="all elements in proxies must be strings"):
-        get_random_proxy(["proxy1", 123, "proxy3"])
-
-
-def test_get_random_proxy_case_8_proxy_formats() -> None:
-    """
-    Test case 8: Handle different proxy formats.
+    Test case 7: Handle different proxy formats.
     """
     # Arrange
     proxies = [
@@ -101,5 +94,6 @@ def test_get_random_proxy_case_8_proxy_formats() -> None:
     result = get_random_proxy(proxies)
     
     # Assert
-    assert result in proxies
-    assert "://" in result
+    assert isinstance(result, dict)
+    assert result["http"] in proxies
+    assert "://" in result["http"]

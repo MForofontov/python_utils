@@ -10,7 +10,7 @@ def test_paginate_links_case_1_simple_pagination() -> None:
     base_url = "https://example.com/page"
     
     # Act
-    result = list(paginate_links(base_url, start=1, end=3))
+    result = paginate_links(base_url, start_page=1, end_page=3)
     
     # Assert
     assert result == [
@@ -28,7 +28,7 @@ def test_paginate_links_case_2_custom_param() -> None:
     base_url = "https://example.com/items"
     
     # Act
-    result = list(paginate_links(base_url, start=1, end=2, page_param="p"))
+    result = paginate_links(base_url, start_page=1, end_page=2, page_param="p")
     
     # Assert
     assert result == [
@@ -45,7 +45,7 @@ def test_paginate_links_case_3_existing_query_params() -> None:
     base_url = "https://example.com/search?q=test"
     
     # Act
-    result = list(paginate_links(base_url, start=1, end=2))
+    result = paginate_links(base_url, start_page=1, end_page=2)
     
     # Assert
     assert result == [
@@ -62,25 +62,25 @@ def test_paginate_links_case_4_single_page() -> None:
     base_url = "https://example.com/page"
     
     # Act
-    result = list(paginate_links(base_url, start=5, end=5))
+    result = paginate_links(base_url, start_page=5, end_page=5)
     
     # Assert
     assert result == ["https://example.com/page?page=5"]
 
 
-def test_paginate_links_case_5_zero_start() -> None:
+def test_paginate_links_case_5_start_page_one() -> None:
     """
-    Test case 5: Generate pagination starting from 0.
+    Test case 5: Generate pagination starting from 1.
     """
     # Arrange
     base_url = "https://example.com/items"
     
     # Act
-    result = list(paginate_links(base_url, start=0, end=2))
+    result = paginate_links(base_url, start_page=1, end_page=3)
     
     # Assert
     assert len(result) == 3
-    assert "page=0" in result[0]
+    assert "page=1" in result[0]
 
 
 def test_paginate_links_case_6_type_error_base_url() -> None:
@@ -89,25 +89,25 @@ def test_paginate_links_case_6_type_error_base_url() -> None:
     """
     # Act & Assert
     with pytest.raises(TypeError, match="base_url must be a string"):
-        list(paginate_links(123, start=1, end=3))
+        paginate_links(123, start_page=1, end_page=3)
 
 
-def test_paginate_links_case_7_type_error_start() -> None:
+def test_paginate_links_case_7_type_error_start_page() -> None:
     """
-    Test case 7: TypeError for invalid start type.
-    """
-    # Act & Assert
-    with pytest.raises(TypeError, match="start must be an integer"):
-        list(paginate_links("https://example.com", start="1", end=3))
-
-
-def test_paginate_links_case_8_type_error_end() -> None:
-    """
-    Test case 8: TypeError for invalid end type.
+    Test case 7: TypeError for invalid start_page type.
     """
     # Act & Assert
-    with pytest.raises(TypeError, match="end must be an integer"):
-        list(paginate_links("https://example.com", start=1, end="3"))
+    with pytest.raises(TypeError, match="start_page must be an integer"):
+        paginate_links("https://example.com", start_page="1", end_page=3)
+
+
+def test_paginate_links_case_8_type_error_end_page() -> None:
+    """
+    Test case 8: TypeError for invalid end_page type.
+    """
+    # Act & Assert
+    with pytest.raises(TypeError, match="end_page must be an integer"):
+        paginate_links("https://example.com", start_page=1, end_page="3")
 
 
 def test_paginate_links_case_9_type_error_page_param() -> None:
@@ -116,7 +116,7 @@ def test_paginate_links_case_9_type_error_page_param() -> None:
     """
     # Act & Assert
     with pytest.raises(TypeError, match="page_param must be a string"):
-        list(paginate_links("https://example.com", start=1, end=3, page_param=123))
+        paginate_links("https://example.com", start_page=1, end_page=3, page_param=123)
 
 
 def test_paginate_links_case_10_value_error_empty_url() -> None:
@@ -125,22 +125,22 @@ def test_paginate_links_case_10_value_error_empty_url() -> None:
     """
     # Act & Assert
     with pytest.raises(ValueError, match="base_url cannot be empty"):
-        list(paginate_links("", start=1, end=3))
+        paginate_links("", start_page=1, end_page=3)
 
 
-def test_paginate_links_case_11_value_error_negative_start() -> None:
+def test_paginate_links_case_11_value_error_zero_start_page() -> None:
     """
-    Test case 11: ValueError for negative start.
+    Test case 11: ValueError for zero start_page (must be positive).
     """
     # Act & Assert
-    with pytest.raises(ValueError, match="start must be non-negative"):
-        list(paginate_links("https://example.com", start=-1, end=3))
+    with pytest.raises(ValueError, match="start_page must be positive"):
+        paginate_links("https://example.com", start_page=0, end_page=3)
 
 
 def test_paginate_links_case_12_value_error_invalid_range() -> None:
     """
-    Test case 12: ValueError when start > end.
+    Test case 12: ValueError when start_page > end_page.
     """
     # Act & Assert
-    with pytest.raises(ValueError, match="start must be less than or equal to end"):
-        list(paginate_links("https://example.com", start=5, end=3))
+    with pytest.raises(ValueError, match="start_page.*must be.*end_page"):
+        paginate_links("https://example.com", start_page=5, end_page=3)

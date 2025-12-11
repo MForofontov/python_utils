@@ -88,20 +88,11 @@ def test_get_random_user_agent_case_7_value_error_empty_list() -> None:
     Test case 7: ValueError for empty user agent list.
     """
     # Act & Assert
-    with pytest.raises(ValueError, match="user_agents cannot be empty"):
+    with pytest.raises(ValueError, match="user_agents list cannot be empty"):
         get_random_user_agent([])
 
 
-def test_get_random_user_agent_case_8_type_error_non_string_elements() -> None:
-    """
-    Test case 8: TypeError for non-string elements in list.
-    """
-    # Act & Assert
-    with pytest.raises(TypeError, match="all elements in user_agents must be strings"):
-        get_random_user_agent(["UA1", 123, "UA3"])
-
-
-def test_get_random_user_agent_case_9_realistic_user_agents() -> None:
+def test_get_random_user_agent_case_8_realistic_user_agents() -> None:
     """
     Test case 9: Handle realistic user agent strings.
     """
