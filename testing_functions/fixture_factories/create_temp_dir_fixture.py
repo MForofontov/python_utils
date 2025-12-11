@@ -3,10 +3,12 @@ Create temporary directory fixture for testing.
 """
 
 import tempfile
+from contextlib import contextmanager
 from pathlib import Path
 from collections.abc import Generator
 
 
+@contextmanager
 def create_temp_dir_fixture(
     files: dict[str, str] | None = None,
 ) -> Generator[Path, None, None]:

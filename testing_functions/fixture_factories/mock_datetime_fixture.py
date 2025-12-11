@@ -2,11 +2,13 @@
 Mock datetime fixture that freezes time.
 """
 
+from contextlib import contextmanager
 from datetime import datetime
 from unittest.mock import patch
 from collections.abc import Generator
 
 
+@contextmanager
 def mock_datetime_fixture(
     year: int = 2025,
     month: int = 1,
