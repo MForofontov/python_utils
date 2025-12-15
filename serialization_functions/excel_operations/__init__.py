@@ -13,6 +13,7 @@ from .merge_excel_sheets import merge_excel_sheets
 from .read_excel_range import read_excel_range
 from .read_excel_sheet import read_excel_sheet
 from .transpose_excel_data import transpose_excel_data
+from .validate_excel_structure import validate_excel_structure
 from .write_excel_range import write_excel_range
 from .write_excel_sheet import write_excel_sheet
 
@@ -24,6 +25,7 @@ __all__ = [
     'read_excel_range',
     'read_excel_sheet',
     'transpose_excel_data',
+    'validate_excel_structure',
     'write_excel_range',
     'write_excel_sheet',
 ]

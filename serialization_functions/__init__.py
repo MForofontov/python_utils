@@ -36,11 +36,15 @@ from .excel_operations import (
     read_excel_range,
     read_excel_sheet,
     transpose_excel_data,
+    validate_excel_structure,
     write_excel_range,
     write_excel_sheet,
 )
 from .format_converters import (
     csv_to_parquet,
+    excel_to_csv_batch,
+    excel_to_parquet,
+    parquet_to_csv,
     parquet_to_excel,
 )
 from .parquet_operations import (
@@ -70,6 +74,7 @@ __all__ = [
     'read_excel_range',
     'read_excel_sheet',
     'transpose_excel_data',
+    'validate_excel_structure',
     'write_excel_range',
     'write_excel_sheet',
     
@@ -85,6 +90,9 @@ __all__ = [
     
     # Format converters
     'csv_to_parquet',
+    'excel_to_csv_batch',
+    'excel_to_parquet',
+    'parquet_to_csv',
     'parquet_to_excel',
     
     # Avro operations
