@@ -11,9 +11,10 @@ This module complements existing serialization in the codebase:
 - file_functions/data_format_operations/ handles basic CSV/TSV operations
 
 The serialization_functions module adds:
-- CSV streaming for large files and custom dialect management
-- Excel file operations with range handling and multi-sheet support
-- Parquet operations with filtering, appending, and metadata extraction
+- CSV advanced: streaming, merging, validation, column transformations
+- Excel operations: range handling, multi-sheet merging, transposing, auto-formatting
+- Parquet operations: filtering, merging, partitioning, metadata extraction
+- Format converters: CSV to Parquet, Parquet to Excel with transformations
 - Avro schema validation with detailed error reporting
 """
 
@@ -21,46 +22,70 @@ from .avro_operations import (
     validate_avro_data,
 )
 from .csv_advanced import (
+    merge_csv_files,
     register_csv_dialect,
     stream_csv_chunks,
+    transform_csv_columns,
+    validate_csv_structure,
 )
 from .excel_operations import (
+    auto_format_excel_columns,
     create_excel_workbook,
     get_sheet_names,
+    merge_excel_sheets,
     read_excel_range,
     read_excel_sheet,
+    transpose_excel_data,
     write_excel_range,
     write_excel_sheet,
+)
+from .format_converters import (
+    csv_to_parquet,
+    parquet_to_excel,
 )
 from .parquet_operations import (
     append_parquet,
     filter_parquet,
     get_parquet_metadata,
     get_parquet_schema,
+    merge_parquet_files,
+    partition_parquet_by_column,
     read_parquet,
     write_parquet,
 )
 
 __all__ = [
     # CSV advanced operations
+    'merge_csv_files',
     'register_csv_dialect',
     'stream_csv_chunks',
+    'transform_csv_columns',
+    'validate_csv_structure',
     
     # Excel operations
-    'read_excel_sheet',
-    'write_excel_sheet',
-    'get_sheet_names',
+    'auto_format_excel_columns',
     'create_excel_workbook',
+    'get_sheet_names',
+    'merge_excel_sheets',
     'read_excel_range',
+    'read_excel_sheet',
+    'transpose_excel_data',
     'write_excel_range',
+    'write_excel_sheet',
     
     # Parquet operations
-    'write_parquet',
-    'read_parquet',
-    'get_parquet_metadata',
-    'get_parquet_schema',
     'append_parquet',
     'filter_parquet',
+    'get_parquet_metadata',
+    'get_parquet_schema',
+    'merge_parquet_files',
+    'partition_parquet_by_column',
+    'read_parquet',
+    'write_parquet',
+    
+    # Format converters
+    'csv_to_parquet',
+    'parquet_to_excel',
     
     # Avro operations
     'validate_avro_data',
