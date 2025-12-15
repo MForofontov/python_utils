@@ -301,6 +301,13 @@ from .multiprocessing_functions import (
     parallel_starmap,
     parallel_unique,
 )
+from .regex_functions import (
+    extract_emails,
+    extract_urls,
+    remove_html_tags,
+    remove_extra_whitespace,
+    sanitize_filename,
+)
 from .print_functions import (
     print_dependencies_info_in_terminal,
     print_message,
@@ -591,6 +598,11 @@ __all__ = [
     "parallel_sort",
     "parallel_starmap",
     "parallel_unique",
+    "extract_emails",
+    "extract_urls",
+    "remove_html_tags",
+    "remove_extra_whitespace",
+    "sanitize_filename",
     "print_dependencies_info_in_terminal",
     "print_message",
     "print_system_info_in_terminal",
