@@ -14,13 +14,9 @@ The serialization_functions module adds:
 - CSV advanced: streaming, merging, validation, column transformations
 - Excel operations: range handling, multi-sheet merging, transposing, auto-formatting
 - Parquet operations: filtering, merging, partitioning, metadata extraction
-- Format converters: CSV to Parquet, Parquet to Excel with transformations
-- Avro schema validation with detailed error reporting
+- Format converters: CSV ↔ Parquet ↔ Excel with transformations
 """
 
-from .avro_operations import (
-    validate_avro_data,
-)
 from .csv_advanced import (
     merge_csv_files,
     register_csv_dialect,
@@ -94,9 +90,6 @@ __all__ = [
     'excel_to_parquet',
     'parquet_to_csv',
     'parquet_to_excel',
-    
-    # Avro operations
-    'validate_avro_data',
 ]
 
 __version__ = '1.0.0'
