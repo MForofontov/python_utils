@@ -50,7 +50,7 @@ def test_pipeline_case_4_map_step() -> None:
     pipeline = Pipeline()
     pipeline.map_step(lambda x: x * 2)
 
-    result = pipeline.execute([1, 2, 3, 4])
+    result = list(pipeline.execute([1, 2, 3, 4]))
 
     assert result == [2, 4, 6, 8]
 
@@ -62,7 +62,7 @@ def test_pipeline_case_5_filter_step() -> None:
     pipeline = Pipeline()
     pipeline.filter_step(lambda x: x % 2 == 0)
 
-    result = pipeline.execute([1, 2, 3, 4, 5, 6])
+    result = list(pipeline.execute([1, 2, 3, 4, 5, 6]))
 
     assert result == [2, 4, 6]
 
@@ -121,7 +121,7 @@ def test_pipeline_case_9_flatten_step() -> None:
     pipeline = Pipeline()
     pipeline.add_flatten_step()
 
-    result = pipeline.execute([[1, 2], [3, 4], [5]])
+    result = list(pipeline.execute([[1, 2], [3, 4], [5]]))
 
     assert result == [1, 2, 3, 4, 5]
 
@@ -131,11 +131,11 @@ def test_pipeline_case_10_batch_step() -> None:
     Test case 10: Batch step grouping.
     """
     pipeline = Pipeline()
-    pipeline.add_batch_step(size=3)
+    pipeline.add_batch_step(batch_size=3)
 
-    result = pipeline.execute([1, 2, 3, 4, 5, 6, 7])
+    result = list(pipeline.execute([1, 2, 3, 4, 5]))
 
-    assert result == [[1, 2, 3], [4, 5, 6], [7]]
+    assert result == [[1, 2, 3], [4, 5]]
 
 
 def test_pipeline_case_11_distinct_step() -> None:
@@ -145,7 +145,7 @@ def test_pipeline_case_11_distinct_step() -> None:
     pipeline = Pipeline()
     pipeline.add_distinct_step()
 
-    result = pipeline.execute([1, 2, 2, 3, 1, 4, 3, 5])
+    result = list(pipeline.execute([1, 2, 2, 3, 1, 4, 3, 5]))
 
     assert result == [1, 2, 3, 4, 5]
 
@@ -157,7 +157,8 @@ def test_pipeline_case_12_group_by_step() -> None:
     pipeline = Pipeline()
     pipeline.group_by_step(lambda x: x % 2)
 
-    result = pipeline.execute([1, 2, 3, 4, 5, 6])
+    result_iter = pipeline.execute([1, 2, 3, 4, 5, 6])
+    result = {k: list(g) for k, g in result_iter}
 
     assert result == {0: [2, 4, 6], 1: [1, 3, 5]}
 
@@ -230,7 +231,7 @@ def test_pipeline_case_17_edge_case_empty_input_list() -> None:
     pipeline = Pipeline()
     pipeline.map_step(lambda x: x * 2)
 
-    result = pipeline.execute([])
+    result = list(pipeline.execute([]))
 
     assert result == []
 
@@ -254,7 +255,7 @@ def test_pipeline_case_19_edge_case_single_element_list() -> None:
     pipeline = Pipeline()
     pipeline.map_step(lambda x: x + 1)
 
-    result = pipeline.execute([42])
+    result = list(pipeline.execute([42]))
 
     assert result == [43]
 
@@ -264,11 +265,11 @@ def test_pipeline_case_20_edge_case_batch_with_remainder() -> None:
     Test case 20: Batch step with remainder elements.
     """
     pipeline = Pipeline()
-    pipeline.add_batch_step(size=3)
+    pipeline.add_batch_step(batch_size=3)
 
-    result = pipeline.execute([1, 2, 3, 4, 5])
+    result = list(pipeline.execute([1, 2, 3, 4, 5, 6, 7, 8]))
 
-    assert result == [[1, 2, 3], [4, 5]]
+    assert result == [[1, 2, 3], [4, 5, 6], [7, 8]]
 
 
 def test_pipeline_case_21_edge_case_flatten_empty_sublists() -> None:
@@ -278,7 +279,7 @@ def test_pipeline_case_21_edge_case_flatten_empty_sublists() -> None:
     pipeline = Pipeline()
     pipeline.add_flatten_step()
 
-    result = pipeline.execute([[1, 2], [], [3], []])
+    result = list(pipeline.execute([[1, 2], [], [3], []]))
 
     assert result == [1, 2, 3]
 
@@ -290,7 +291,7 @@ def test_pipeline_case_22_edge_case_distinct_all_unique() -> None:
     pipeline = Pipeline()
     pipeline.add_distinct_step()
 
-    result = pipeline.execute([1, 2, 3, 4, 5])
+    result = list(pipeline.execute([1, 2, 3, 4, 5]))
 
     assert result == [1, 2, 3, 4, 5]
 
@@ -302,7 +303,7 @@ def test_pipeline_case_23_edge_case_distinct_all_duplicates() -> None:
     pipeline = Pipeline()
     pipeline.add_distinct_step()
 
-    result = pipeline.execute([1, 1, 1, 1, 1])
+    result = list(pipeline.execute([1, 1, 1, 1, 1]))
 
     assert result == [1]
 
@@ -314,7 +315,8 @@ def test_pipeline_case_24_edge_case_group_by_empty_list() -> None:
     pipeline = Pipeline()
     pipeline.group_by_step(lambda x: x % 2)
 
-    result = pipeline.execute([])
+    result_iter = pipeline.execute([])
+    result = {k: list(g) for k, g in result_iter}
 
     assert result == {}
 
@@ -350,7 +352,7 @@ def test_pipeline_case_27_edge_case_filter_none_match() -> None:
     pipeline = Pipeline()
     pipeline.filter_step(lambda x: x > 100)
 
-    result = pipeline.execute([1, 2, 3, 4, 5])
+    result = list(pipeline.execute([1, 2, 3, 4, 5]))
 
     assert result == []
 
@@ -362,7 +364,7 @@ def test_pipeline_case_28_edge_case_filter_all_match() -> None:
     pipeline = Pipeline()
     pipeline.filter_step(lambda x: x > 0)
 
-    result = pipeline.execute([1, 2, 3, 4, 5])
+    result = list(pipeline.execute([1, 2, 3, 4, 5]))
 
     assert result == [1, 2, 3, 4, 5]
 
@@ -489,8 +491,8 @@ def test_pipeline_case_39_type_error_invalid_batch_size() -> None:
     """
     pipeline = Pipeline()
 
-    with pytest.raises(TypeError, match="size must be an integer"):
-        pipeline.add_batch_step(size="3")  # type: ignore[arg-type]
+    with pytest.raises(TypeError, match="batch_size must be an integer"):
+        pipeline.add_batch_step(batch_size="3")  # type: ignore[arg-type]
 
 
 def test_pipeline_case_40_value_error_zero_batch_size() -> None:
@@ -499,8 +501,8 @@ def test_pipeline_case_40_value_error_zero_batch_size() -> None:
     """
     pipeline = Pipeline()
 
-    with pytest.raises(ValueError, match="size must be at least 1"):
-        pipeline.add_batch_step(size=0)
+    with pytest.raises(ValueError, match="batch_size must be at least 1"):
+        pipeline.add_batch_step(batch_size=0)
 
 
 def test_pipeline_case_41_value_error_negative_batch_size() -> None:
@@ -509,8 +511,8 @@ def test_pipeline_case_41_value_error_negative_batch_size() -> None:
     """
     pipeline = Pipeline()
 
-    with pytest.raises(ValueError, match="size must be at least 1"):
-        pipeline.add_batch_step(size=-5)
+    with pytest.raises(ValueError, match="batch_size must be at least 1"):
+        pipeline.add_batch_step(batch_size=-5)
 
 
 def test_pipeline_case_42_type_error_non_callable_key_func() -> None:
@@ -519,8 +521,8 @@ def test_pipeline_case_42_type_error_non_callable_key_func() -> None:
     """
     pipeline = Pipeline()
 
-    with pytest.raises(TypeError, match="key_func must be callable"):
-        pipeline.group_by_step(key_func=42)  # type: ignore[arg-type]
+    with pytest.raises(TypeError, match="key must be callable"):
+        pipeline.group_by_step(key=42)  # type: ignore[arg-type]
 
 
 def test_pipeline_case_43_type_error_non_callable_error_handler() -> None:
@@ -539,5 +541,5 @@ def test_pipeline_case_44_type_error_combine_non_pipeline() -> None:
     """
     pipeline = Pipeline()
 
-    with pytest.raises(TypeError, match="other must be a Pipeline instance"):
+    with pytest.raises(TypeError, match="other must be a Pipeline"):
         pipeline.combine("not_a_pipeline")  # type: ignore[arg-type]
