@@ -25,6 +25,12 @@ from .asyncio_functions import (
     gather_with_timeout,
     retry_async,
 )
+from .batch_processing_functions import (
+    ChunkedProcessor,
+    StreamingAggregator,
+    chunked_processor,
+)
+
 from .bioinformatics_functions import (
     annotation_statistics,
     annotation_to_bed,
@@ -71,6 +77,13 @@ from .bioinformatics_functions import (
     translate_dna_to_protein,
     validate_fasta,
     write_fasta,
+)
+from .circuit_breaker_functions import (
+    AdaptiveTimeout,
+    Bulkhead,
+    CircuitBreaker,
+    FallbackChain,
+    fallback_chain,
 )
 from .compression_functions import (
     decompress_number,
@@ -296,6 +309,11 @@ from .multiprocessing_functions import (
     parallel_starmap,
     parallel_unique,
 )
+from .pipeline_functions import (
+    Pipeline,
+    pipeline_builder,
+)
+
 from .regex_functions import (
     extract_emails,
     extract_urls,
@@ -390,6 +408,14 @@ __all__ = [
     "fetch_url",
     "gather_with_timeout",
     "retry_async",
+    "ChunkedProcessor",
+    "StreamingAggregator",
+    "chunked_processor",
+    "AdaptiveTimeout",
+    "Bulkhead",
+    "CircuitBreaker",
+    "FallbackChain",
+    "fallback_chain",
     "decompress_number",
     "polyline_decoding_list_of_ints",
     "polyline_encoding_list_of_ints",
@@ -590,6 +616,8 @@ __all__ = [
     "parallel_sort",
     "parallel_starmap",
     "parallel_unique",
+    "Pipeline",
+    "pipeline_builder",
     "extract_emails",
     "extract_urls",
     "remove_html_tags",
