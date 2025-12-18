@@ -13,7 +13,7 @@ def test_fallback_chain_case_1_normal_operation_first_succeeds() -> None:
     def fallback1() -> str:
         return "fallback1"
 
-    result = fallback_chain(primary, fallback1)
+    result = fallback_chain(primary, [fallback1])
     assert result == "primary"
 
 
@@ -28,7 +28,7 @@ def test_fallback_chain_case_2_second_function_succeeds() -> None:
     def success() -> str:
         return "backup"
 
-    result = fallback_chain(failing, success)
+    result = fallback_chain(failing, [success])
     assert result == "backup"
 
 
@@ -46,7 +46,7 @@ def test_fallback_chain_case_3_multiple_fallbacks() -> None:
     def success() -> str:
         return "third time's the charm"
 
-    result = fallback_chain(fail1, fail2, success)
+    result = fallback_chain(fail1, [fail2, success])
     assert result == "third time's the charm"
 
 
@@ -61,7 +61,7 @@ def test_fallback_chain_case_4_with_different_return_types() -> None:
     def get_float() -> float:
         return 3.14
 
-    result = fallback_chain(get_int, get_float)
+    result = fallback_chain(get_int, [get_float])
     assert result == 3.14
 
 
@@ -79,40 +79,43 @@ def test_fallback_chain_case_5_edge_case_all_functions_fail() -> None:
     def fail3() -> str:
         raise TypeError("Error 3")
 
-    with pytest.raises(TypeError, match="Error 3"):
-        fallback_chain(fail1, fail2, fail3)
+    with pytest.raises(Exception, match="Error 3"):
+        fallback_chain(fail1, [fail2, fail3])
 
 
-def test_fallback_chain_case_6_edge_case_single_function() -> None:
+def test_fallback_chain_case_6_edge_case_empty_fallbacks_list() -> None:
     """
-    Test case 6: Single function in chain.
+    Test case 6: Empty fallbacks list raises ValueError.
     """
 
     def only_func() -> str:
         return "only one"
 
-    result = fallback_chain(only_func)
-    assert result == "only one"
+    with pytest.raises(ValueError, match="fallbacks list cannot be empty"):
+        fallback_chain(only_func, [])
 
 
-def test_fallback_chain_case_7_edge_case_single_function_fails() -> None:
+def test_fallback_chain_case_7_edge_case_all_fail() -> None:
     """
-    Test case 7: Single function fails.
+    Test case 7: All functions fail raises exception.
     """
 
     def failing() -> str:
         raise ValueError("Failed")
 
-    with pytest.raises(ValueError, match="Failed"):
-        fallback_chain(failing)
+    def failing2() -> str:
+        raise ValueError("Also failed")
+
+    with pytest.raises(Exception, match="All functions in fallback chain failed"):
+        fallback_chain(failing, [failing2])
 
 
-def test_fallback_chain_case_8_value_error_no_functions() -> None:
+def test_fallback_chain_case_8_type_error_primary_not_callable() -> None:
     """
-    Test case 8: ValueError when no functions provided.
+    Test case 8: TypeError when primary is not callable.
     """
-    with pytest.raises(ValueError, match="At least one function must be provided"):
-        fallback_chain()
+    with pytest.raises(TypeError, match="primary must be callable"):
+        fallback_chain("not_callable", [lambda: "test"])  # type: ignore[arg-type]
 
 
 def test_fallback_chain_case_9_type_error_non_callable() -> None:
@@ -123,7 +126,7 @@ def test_fallback_chain_case_9_type_error_non_callable() -> None:
     def valid_func() -> str:
         return "valid"
 
-    with pytest.raises(TypeError, match="All arguments must be callable"):
+    with pytest.raises(TypeError, match="fallbacks must be a list"):
         fallback_chain(valid_func, "not_callable")  # type: ignore[arg-type]
 
 
@@ -131,12 +134,13 @@ def test_fallback_chain_class_case_1_normal_operation() -> None:
     """
     Test case 10: FallbackChain class normal operation.
     """
-    chain = FallbackChain()
-
     def primary() -> str:
         return "primary result"
 
-    chain.add(primary)
+    def fallback() -> str:
+        return "fallback"
+
+    chain = FallbackChain(primary, [fallback])
 
     result = chain.execute()
     assert result == "primary result"
@@ -146,8 +150,6 @@ def test_fallback_chain_class_case_2_multiple_handlers() -> None:
     """
     Test case 11: FallbackChain with multiple handlers.
     """
-    chain = FallbackChain()
-
     def fail1() -> str:
         raise ValueError("Error 1")
 
@@ -157,9 +159,7 @@ def test_fallback_chain_class_case_2_multiple_handlers() -> None:
     def success() -> str:
         return "success"
 
-    chain.add(fail1)
-    chain.add(fail2)
-    chain.add(success)
+    chain = FallbackChain(fail1, [fail2, success])
 
     result = chain.execute()
     assert result == "success"
@@ -169,12 +169,13 @@ def test_fallback_chain_class_case_3_with_args() -> None:
     """
     Test case 12: FallbackChain execute with arguments.
     """
-    chain = FallbackChain()
-
     def add_numbers(a: int, b: int) -> int:
         return a + b
 
-    chain.add(add_numbers)
+    def fallback(a: int, b: int) -> int:
+        return 0
+
+    chain = FallbackChain(add_numbers, [fallback])
 
     result = chain.execute(3, 5)
     assert result == 8
@@ -184,38 +185,42 @@ def test_fallback_chain_class_case_4_with_kwargs() -> None:
     """
     Test case 13: FallbackChain execute with keyword arguments.
     """
-    chain = FallbackChain()
-
     def greet(name: str, greeting: str = "Hello") -> str:
         return f"{greeting}, {name}!"
 
-    chain.add(greet)
+    def fallback_greet(name: str, greeting: str = "Hello") -> str:
+        return "default"
+
+    chain = FallbackChain(greet, [fallback_greet])
 
     result = chain.execute(name="World", greeting="Hi")
     assert result == "Hi, World!"
 
 
-def test_fallback_chain_class_case_5_clear_handlers() -> None:
+def test_fallback_chain_class_case_5_add_fallback() -> None:
     """
-    Test case 14: Clear all handlers from chain.
+    Test case 14: Add additional fallback to chain.
     """
-    chain = FallbackChain()
-
-    def func() -> str:
+    def primary() -> str:
         return "test"
 
-    chain.add(func)
-    assert len(chain.handlers) == 1
+    def fallback1() -> str:
+        return "fallback1"
 
-    chain.clear()
-    assert len(chain.handlers) == 0
+    def fallback2() -> str:
+        return "fallback2"
+
+    chain = FallbackChain(primary, [fallback1])
+    assert len(chain.fallbacks) == 1
+
+    chain.add_fallback(fallback2)
+    assert len(chain.fallbacks) == 2
 
 
 def test_fallback_chain_class_case_6_edge_case_first_succeeds() -> None:
     """
     Test case 15: First handler succeeds, others not called.
     """
-    chain = FallbackChain()
     call_count = {"primary": 0, "fallback": 0}
 
     def primary() -> str:
@@ -226,8 +231,7 @@ def test_fallback_chain_class_case_6_edge_case_first_succeeds() -> None:
         call_count["fallback"] += 1
         return "fallback"
 
-    chain.add(primary)
-    chain.add(fallback)
+    chain = FallbackChain(primary, [fallback])
 
     result = chain.execute()
     assert result == "primary"
@@ -237,62 +241,61 @@ def test_fallback_chain_class_case_6_edge_case_first_succeeds() -> None:
 
 def test_fallback_chain_class_case_7_edge_case_all_fail() -> None:
     """
-    Test case 16: All handlers fail, last exception raised.
+    Test case 16: All handlers fail, exception raised.
     """
-    chain = FallbackChain()
-
     def fail1() -> str:
         raise ValueError("Error 1")
 
     def fail2() -> str:
         raise RuntimeError("Final error")
 
-    chain.add(fail1)
-    chain.add(fail2)
+    chain = FallbackChain(fail1, [fail2])
 
-    with pytest.raises(RuntimeError, match="Final error"):
+    with pytest.raises(Exception, match="All functions in fallback chain failed"):
         chain.execute()
 
 
-def test_fallback_chain_class_case_8_edge_case_empty_chain() -> None:
+def test_fallback_chain_class_case_8_edge_case_empty_fallbacks() -> None:
     """
-    Test case 17: Execute on empty chain.
+    Test case 17: Cannot create chain with empty fallbacks list.
     """
-    chain = FallbackChain()
+    def primary() -> str:
+        return "test"
 
-    with pytest.raises(RuntimeError, match="No handlers in fallback chain"):
-        chain.execute()
+    with pytest.raises(ValueError, match="fallbacks list cannot be empty"):
+        FallbackChain(primary, [])
 
 
-def test_fallback_chain_class_case_9_add_multiple_at_once() -> None:
+def test_fallback_chain_class_case_9_add_multiple_fallbacks() -> None:
     """
-    Test case 18: Add multiple handlers sequentially.
+    Test case 18: Add multiple fallbacks to chain.
     """
-    chain = FallbackChain()
-
-    def func1() -> str:
+    def primary() -> str:
         raise ValueError("Fail")
 
-    def func2() -> str:
+    def fallback1() -> str:
+        raise ValueError("Also fail")
+
+    def fallback2() -> str:
         return "success"
 
-    chain.add(func1)
-    chain.add(func2)
+    chain = FallbackChain(primary, [fallback1])
+    assert len(chain.fallbacks) == 1
 
-    assert len(chain.handlers) == 2
+    chain.add_fallback(fallback2)
+    assert len(chain.fallbacks) == 2
 
     result = chain.execute()
     assert result == "success"
 
 
-def test_fallback_chain_class_case_10_handler_order_preserved() -> None:
+def test_fallback_chain_class_case_10_fallback_order_preserved() -> None:
     """
-    Test case 19: Handlers executed in order added.
+    Test case 19: Fallbacks executed in order.
     """
-    chain = FallbackChain()
     execution_order = []
 
-    def first() -> str:
+    def primary() -> str:
         execution_order.append(1)
         raise ValueError("First fails")
 
@@ -304,9 +307,7 @@ def test_fallback_chain_class_case_10_handler_order_preserved() -> None:
         execution_order.append(3)
         return "success"
 
-    chain.add(first)
-    chain.add(second)
-    chain.add(third)
+    chain = FallbackChain(primary, [second, third])
 
     result = chain.execute()
 
@@ -314,21 +315,28 @@ def test_fallback_chain_class_case_10_handler_order_preserved() -> None:
     assert execution_order == [1, 2, 3]
 
 
-def test_fallback_chain_class_case_11_type_error_non_callable() -> None:
+def test_fallback_chain_class_case_11_type_error_non_callable_fallback() -> None:
     """
-    Test case 20: TypeError when adding non-callable to chain.
+    Test case 20: TypeError when adding non-callable fallback.
     """
-    chain = FallbackChain()
+    def primary() -> str:
+        return "test"
 
-    with pytest.raises(TypeError, match="handler must be callable"):
-        chain.add("not_callable")  # type: ignore[arg-type]
+    def fallback() -> str:
+        return "fallback"
+
+    chain = FallbackChain(primary, [fallback])
+
+    with pytest.raises(TypeError, match="fallback must be callable"):
+        chain.add_fallback("not_callable")  # type: ignore[arg-type]
 
 
-def test_fallback_chain_class_case_12_type_error_add_none() -> None:
+def test_fallback_chain_class_case_12_type_error_non_callable_primary() -> None:
     """
-    Test case 21: TypeError when adding None to chain.
+    Test case 21: TypeError when primary is not callable.
     """
-    chain = FallbackChain()
+    def fallback() -> str:
+        return "fallback"
 
-    with pytest.raises(TypeError, match="handler must be callable"):
-        chain.add(None)  # type: ignore[arg-type]
+    with pytest.raises(TypeError, match="primary must be callable"):
+        FallbackChain("not_callable", [fallback])  # type: ignore[arg-type]

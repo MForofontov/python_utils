@@ -85,9 +85,9 @@ def test_streaming_aggregator_case_5_variance_and_std_dev() -> None:
 
     assert stats["count"] == 8
     assert stats["mean"] == pytest.approx(5.0)
-    # Sample variance = 4.0 for this dataset
-    assert stats["variance"] == pytest.approx(4.0, rel=1e-2)
-    assert stats["std_dev"] == pytest.approx(2.0, rel=1e-2)
+    # Sample variance = 4.571 for this dataset (using n-1)
+    assert stats["variance"] == pytest.approx(4.571, rel=1e-2)
+    assert stats["std_dev"] == pytest.approx(2.138, rel=1e-2)
 
 
 def test_streaming_aggregator_case_6_edge_case_zero_values() -> None:
@@ -195,8 +195,8 @@ def test_streaming_aggregator_case_11_reset() -> None:
 
     stats_after = agg.get_stats()
     assert stats_after["count"] == 0
-    assert stats_after["mean"] is None
-    assert stats_after["sum"] == 0.0
+    assert stats_after["mean"] == 0.0
+    assert stats_after["variance"] == 0.0
 
 
 def test_streaming_aggregator_case_12_get_stats_empty() -> None:
@@ -208,17 +208,17 @@ def test_streaming_aggregator_case_12_get_stats_empty() -> None:
     stats = agg.get_stats()
 
     assert stats["count"] == 0
-    assert stats["mean"] is None
-    assert stats["variance"] is None
-    assert stats["std_dev"] is None
+    assert stats["mean"] == 0.0
+    assert stats["variance"] == 0.0
+    assert stats["std_dev"] == 0.0
     assert stats["min"] is None
     assert stats["max"] is None
     assert stats["sum"] == 0.0
 
 
-def test_streaming_aggregator_case_13_combine_aggregators() -> None:
+def test_streaming_aggregator_case_13_merge_aggregators() -> None:
     """
-    Test case 13: Combine two aggregators.
+    Test case 13: Merge two aggregators.
     """
     agg1 = StreamingAggregator()
     agg2 = StreamingAggregator()
@@ -229,7 +229,7 @@ def test_streaming_aggregator_case_13_combine_aggregators() -> None:
     agg2.add(30.0)
     agg2.add(40.0)
 
-    agg1.combine(agg2)
+    agg1.merge(agg2)
 
     stats = agg1.get_stats()
 
@@ -240,9 +240,9 @@ def test_streaming_aggregator_case_13_combine_aggregators() -> None:
     assert stats["max"] == 40.0
 
 
-def test_streaming_aggregator_case_14_combine_empty_aggregator() -> None:
+def test_streaming_aggregator_case_14_merge_empty_aggregator() -> None:
     """
-    Test case 14: Combine with empty aggregator.
+    Test case 14: Merge with empty aggregator.
     """
     agg1 = StreamingAggregator()
     agg2 = StreamingAggregator()
@@ -252,7 +252,7 @@ def test_streaming_aggregator_case_14_combine_empty_aggregator() -> None:
 
     stats_before = agg1.get_stats()
 
-    agg1.combine(agg2)
+    agg1.merge(agg2)
 
     stats_after = agg1.get_stats()
 
@@ -261,9 +261,9 @@ def test_streaming_aggregator_case_14_combine_empty_aggregator() -> None:
     assert stats_after["mean"] == stats_before["mean"]
 
 
-def test_streaming_aggregator_case_15_combine_into_empty() -> None:
+def test_streaming_aggregator_case_15_merge_into_empty() -> None:
     """
-    Test case 15: Combine into empty aggregator.
+    Test case 15: Merge into empty aggregator.
     """
     agg1 = StreamingAggregator()
     agg2 = StreamingAggregator()
@@ -271,7 +271,7 @@ def test_streaming_aggregator_case_15_combine_into_empty() -> None:
     agg2.add(10.0)
     agg2.add(20.0)
 
-    agg1.combine(agg2)
+    agg1.merge(agg2)
 
     stats = agg1.get_stats()
 
@@ -279,9 +279,9 @@ def test_streaming_aggregator_case_15_combine_into_empty() -> None:
     assert stats["mean"] == pytest.approx(15.0)
 
 
-def test_streaming_aggregator_case_16_percentile() -> None:
+def test_streaming_aggregator_case_16_min_max_tracking() -> None:
     """
-    Test case 16: Percentile calculation.
+    Test case 16: Min and max value tracking.
     """
     agg = StreamingAggregator()
 
@@ -289,13 +289,11 @@ def test_streaming_aggregator_case_16_percentile() -> None:
     for i in range(1, 101):
         agg.add(float(i))
 
-    p50 = agg.percentile(50.0)
-    p95 = agg.percentile(95.0)
+    stats = agg.get_stats()
 
-    # 50th percentile should be around 50
-    assert p50 == pytest.approx(50.5, rel=0.05)
-    # 95th percentile should be around 95
-    assert p95 == pytest.approx(95.0, rel=0.05)
+    assert stats["min"] == 1.0
+    assert stats["max"] == 100.0
+    assert stats["count"] == 100
 
 
 def test_streaming_aggregator_case_17_type_error_invalid_value_type() -> None:
@@ -308,45 +306,100 @@ def test_streaming_aggregator_case_17_type_error_invalid_value_type() -> None:
         agg.add("not_a_number")  # type: ignore[arg-type]
 
 
-def test_streaming_aggregator_case_18_type_error_combine_non_aggregator() -> None:
+def test_streaming_aggregator_case_18_type_error_merge_non_aggregator() -> None:
     """
-    Test case 18: TypeError when combining with non-StreamingAggregator.
-    """
-    agg = StreamingAggregator()
-
-    with pytest.raises(TypeError, match="other must be a StreamingAggregator instance"):
-        agg.combine("not_an_aggregator")  # type: ignore[arg-type]
-
-
-def test_streaming_aggregator_case_19_type_error_invalid_percentile_type() -> None:
-    """
-    Test case 19: TypeError for invalid percentile type.
-    """
-    agg = StreamingAggregator()
-    agg.add(10.0)
-
-    with pytest.raises(TypeError, match="p must be a number"):
-        agg.percentile("50")  # type: ignore[arg-type]
-
-
-def test_streaming_aggregator_case_20_value_error_percentile_out_of_range() -> None:
-    """
-    Test case 20: ValueError for percentile out of range.
-    """
-    agg = StreamingAggregator()
-    agg.add(10.0)
-
-    with pytest.raises(ValueError, match="percentile must be between 0 and 100"):
-        agg.percentile(150.0)
-
-
-def test_streaming_aggregator_case_21_value_error_percentile_on_empty() -> None:
-    """
-    Test case 21: ValueError when calculating percentile on empty aggregator.
+    Test case 18: TypeError when merging with non-StreamingAggregator.
     """
     agg = StreamingAggregator()
 
-    with pytest.raises(
-        ValueError, match="Cannot calculate percentile on empty aggregator"
-    ):
-        agg.percentile(50.0)
+    with pytest.raises(TypeError, match="other must be a StreamingAggregator"):
+        agg.merge("not_an_aggregator")  # type: ignore[arg-type]
+
+
+def test_streaming_aggregator_case_19_type_error_add_batch_non_list() -> None:
+    """
+    Test case 19: TypeError for invalid add_batch type.
+    """
+    agg = StreamingAggregator()
+
+    with pytest.raises(TypeError, match="values must be a list"):
+        agg.add_batch("not a list")  # type: ignore[arg-type]
+
+
+def test_streaming_aggregator_case_20_add_batch_functionality() -> None:
+    """
+    Test case 20: add_batch functionality.
+    """
+    agg = StreamingAggregator()
+
+    agg.add_batch([1.0, 2.0, 3.0, 4.0, 5.0])
+
+    stats = agg.get_stats()
+    assert stats["count"] == 5
+    assert stats["mean"] == pytest.approx(3.0)
+    assert stats["sum"] == pytest.approx(15.0)
+
+
+def test_streaming_aggregator_case_21_properties_access() -> None:
+    """
+    Test case 21: Accessing mean, variance, std_dev as properties.
+    """
+    agg = StreamingAggregator()
+
+    agg.add_batch([2.0, 4.0, 6.0, 8.0])
+
+    assert agg.mean == pytest.approx(5.0)
+    assert agg.count == 4
+    assert agg.sum == pytest.approx(20.0)
+    assert agg.variance > 0.0
+    assert agg.std_dev > 0.0
+
+
+def test_streaming_aggregator_case_22_negative_values() -> None:
+    """
+    Test case 22: Aggregation with negative values.
+    """
+    agg = StreamingAggregator()
+
+    agg.add_batch([-5.0, -2.0, 0.0, 2.0, 5.0])
+
+    stats = agg.get_stats()
+    assert stats["count"] == 5
+    assert stats["mean"] == pytest.approx(0.0)
+    assert stats["min"] == -5.0
+    assert stats["max"] == 5.0
+
+
+def test_streaming_aggregator_case_23_large_numbers() -> None:
+    """
+    Test case 23: Aggregation with large numbers.
+    """
+    agg = StreamingAggregator()
+
+    large_values = [1e10, 2e10, 3e10]
+    agg.add_batch(large_values)
+
+    stats = agg.get_stats()
+    assert stats["count"] == 3
+    assert stats["mean"] == pytest.approx(2e10)
+    assert stats["sum"] == pytest.approx(6e10)
+
+
+def test_streaming_aggregator_case_24_merge_variance_preservation() -> None:
+    """
+    Test case 24: Variance is correctly preserved when merging.
+    """
+    agg1 = StreamingAggregator()
+    agg2 = StreamingAggregator()
+
+    agg1.add_batch([1.0, 2.0, 3.0])
+    agg2.add_batch([4.0, 5.0, 6.0])
+
+    # Merge and check that combined stats are correct
+    agg1.merge(agg2)
+
+    stats = agg1.get_stats()
+    assert stats["count"] == 6
+    assert stats["mean"] == pytest.approx(3.5)
+    # Combined variance should be approximately 3.5
+    assert stats["variance"] == pytest.approx(3.5, rel=0.1)

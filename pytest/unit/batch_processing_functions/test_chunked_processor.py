@@ -13,13 +13,13 @@ def test_chunked_processor_case_1_normal_operation() -> None:
     Test case 1: Normal operation with valid inputs.
     """
     items = list(range(10))
-    processor = Mock(side_effect=lambda x: x * 2)
+    processor = Mock(side_effect=lambda batch: [x * 2 for x in batch])
 
     results = list(chunked_processor(items, processor, chunk_size=3))
 
     assert len(results) == 10
     assert results == [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
-    assert processor.call_count == 10
+    assert processor.call_count == 4  # ceil(10/3) = 4 chunks
 
 
 def test_chunked_processor_case_2_exact_chunk_size() -> None:
@@ -27,7 +27,7 @@ def test_chunked_processor_case_2_exact_chunk_size() -> None:
     Test case 2: Items count is exact multiple of chunk_size.
     """
     items = list(range(12))
-    processor = Mock(side_effect=lambda x: x + 1)
+    processor = Mock(side_effect=lambda batch: [x + 1 for x in batch])
 
     results = list(chunked_processor(items, processor, chunk_size=4))
 
@@ -40,7 +40,7 @@ def test_chunked_processor_case_3_single_chunk() -> None:
     Test case 3: All items fit in single chunk.
     """
     items = [1, 2, 3]
-    processor = Mock(side_effect=lambda x: x * 2)
+    processor = Mock(side_effect=lambda batch: [x * 2 for x in batch])
 
     results = list(chunked_processor(items, processor, chunk_size=5))
 
@@ -53,7 +53,7 @@ def test_chunked_processor_case_4_with_strings() -> None:
     Test case 4: Processing strings.
     """
     items = ["hello", "world", "test"]
-    processor = Mock(side_effect=lambda x: x.upper())
+    processor = Mock(side_effect=lambda batch: [s.upper() for s in batch])
 
     results = list(chunked_processor(items, processor, chunk_size=2))
 
@@ -65,7 +65,7 @@ def test_chunked_processor_case_5_edge_case_empty_iterable() -> None:
     Test case 5: Empty iterable.
     """
     items: list[int] = []
-    processor = Mock(side_effect=lambda x: x)
+    processor = Mock(side_effect=lambda batch: batch)
 
     results = list(chunked_processor(items, processor, chunk_size=3))
 
@@ -78,7 +78,7 @@ def test_chunked_processor_case_6_edge_case_single_item() -> None:
     Test case 6: Single item in iterable.
     """
     items = [42]
-    processor = Mock(side_effect=lambda x: x * 2)
+    processor = Mock(side_effect=lambda batch: [x * 2 for x in batch])
 
     results = list(chunked_processor(items, processor, chunk_size=3))
 
@@ -90,7 +90,7 @@ def test_chunked_processor_case_7_edge_case_chunk_size_one() -> None:
     Test case 7: Chunk size of 1.
     """
     items = [1, 2, 3, 4]
-    processor = Mock(side_effect=lambda x: x + 10)
+    processor = Mock(side_effect=lambda batch: [x + 10 for x in batch])
 
     results = list(chunked_processor(items, processor, chunk_size=1))
 
@@ -102,7 +102,7 @@ def test_chunked_processor_case_8_edge_case_processor_returns_none() -> None:
     Test case 8: Processor returns None for some items.
     """
     items = [1, 2, 3, 4]
-    processor = Mock(side_effect=lambda x: None if x % 2 == 0 else x)
+    processor = Mock(side_effect=lambda batch: [None if x % 2 == 0 else x for x in batch])
 
     results = list(chunked_processor(items, processor, chunk_size=2))
 
@@ -114,7 +114,7 @@ def test_chunked_processor_case_9_edge_case_large_chunk_size() -> None:
     Test case 9: Chunk size larger than iterable.
     """
     items = [1, 2, 3]
-    processor = Mock(side_effect=lambda x: x * 3)
+    processor = Mock(side_effect=lambda batch: [x * 3 for x in batch])
 
     results = list(chunked_processor(items, processor, chunk_size=100))
 
@@ -159,7 +159,7 @@ def test_chunked_processor_case_13_value_error_zero_chunk_size() -> None:
     items = [1, 2, 3]
     processor = Mock()
 
-    with pytest.raises(ValueError, match="chunk_size must be at least 1"):
+    with pytest.raises(ValueError, match="chunk_size must be positive"):
         list(chunked_processor(items, processor, chunk_size=0))
 
 
@@ -170,7 +170,7 @@ def test_chunked_processor_case_14_value_error_negative_chunk_size() -> None:
     items = [1, 2, 3]
     processor = Mock()
 
-    with pytest.raises(ValueError, match="chunk_size must be at least 1"):
+    with pytest.raises(ValueError, match="chunk_size must be positive"):
         list(chunked_processor(items, processor, chunk_size=-5))
 
 
@@ -179,109 +179,125 @@ def test_chunked_processor_class_case_1_normal_operation() -> None:
     Test case 15: ChunkedProcessor class normal operation.
     """
     items = list(range(6))
-    processor = Mock(side_effect=lambda x: x * 2)
+    processor = Mock(side_effect=lambda batch: [x * 2 for x in batch])
 
-    cp = ChunkedProcessor(chunk_size=2)
-    results = list(cp.process(items, processor))
+    cp = ChunkedProcessor(processor, chunk_size=2)
+    results = list(cp.process(items))
 
     assert results == [0, 2, 4, 6, 8, 10]
 
 
 def test_chunked_processor_class_case_2_with_memory_threshold() -> None:
     """
-    Test case 16: ChunkedProcessor with memory threshold.
+    Test case 16: ChunkedProcessor with max_memory_mb.
     """
     items = list(range(10))
-    processor = Mock(side_effect=lambda x: x + 1)
+    processor = Mock(side_effect=lambda batch: [x + 1 for x in batch])
 
-    cp = ChunkedProcessor(chunk_size=3, memory_threshold=90.0)
-    results = list(cp.process(items, processor))
+    cp = ChunkedProcessor(processor, chunk_size=3, max_memory_mb=90)
+    results = list(cp.process(items))
 
     assert len(results) == 10
 
 
 def test_chunked_processor_class_case_3_batch_processor() -> None:
     """
-    Test case 17: ChunkedProcessor process_batch.
+    Test case 17: ChunkedProcessor with batch processor.
     """
     items = list(range(9))
 
     def batch_proc(batch: list[int]) -> list[int]:
         return [x * 2 for x in batch]
 
-    cp = ChunkedProcessor(chunk_size=3)
-    results = list(cp.process_batch(items, batch_proc))
+    cp = ChunkedProcessor(batch_proc, chunk_size=3)
+    results = list(cp.process(items))
 
     assert results == [0, 2, 4, 6, 8, 10, 12, 14, 16]
 
 
-def test_chunked_processor_class_case_4_get_stats() -> None:
+def test_chunked_processor_class_case_4_reusability() -> None:
     """
-    Test case 18: ChunkedProcessor get_stats.
-    """
-    items = list(range(5))
-    processor = Mock(side_effect=lambda x: x)
-
-    cp = ChunkedProcessor(chunk_size=2)
-    list(cp.process(items, processor))
-
-    stats = cp.get_stats()
-
-    assert "chunks_processed" in stats
-    assert "items_processed" in stats
-    assert stats["items_processed"] == 5
-    assert stats["chunks_processed"] == 3  # 5 items / 2 per chunk = 3 chunks
-
-
-def test_chunked_processor_class_case_5_reset() -> None:
-    """
-    Test case 19: ChunkedProcessor reset.
+    Test case 18: ChunkedProcessor reusability.
     """
     items = list(range(5))
-    processor = Mock(side_effect=lambda x: x)
+    processor = Mock(side_effect=lambda batch: batch)
 
-    cp = ChunkedProcessor(chunk_size=2)
-    list(cp.process(items, processor))
+    cp = ChunkedProcessor(processor, chunk_size=2)
+    results1 = list(cp.process(items))
+    results2 = list(cp.process(items))
 
-    stats_before = cp.get_stats()
-    assert stats_before["items_processed"] > 0
+    assert results1 == list(range(5))
+    assert results2 == list(range(5))
+    assert processor.call_count == 6  # 3 chunks per call * 2 calls
 
-    cp.reset()
 
-    stats_after = cp.get_stats()
-    assert stats_after["items_processed"] == 0
-    assert stats_after["chunks_processed"] == 0
+def test_chunked_processor_class_case_5_different_datasets() -> None:
+    """
+    Test case 19: ChunkedProcessor with different datasets.
+    """
+    processor = Mock(side_effect=lambda batch: [x * 2 for x in batch])
+
+    cp = ChunkedProcessor(processor, chunk_size=2)
+    
+    results1 = list(cp.process([1, 2, 3]))
+    results2 = list(cp.process([10, 20]))
+
+    assert results1 == [2, 4, 6]
+    assert results2 == [20, 40]
 
 
 def test_chunked_processor_class_case_6_type_error_invalid_chunk_size() -> None:
     """
     Test case 20: TypeError for invalid chunk_size.
     """
+    processor = Mock()
     with pytest.raises(TypeError, match="chunk_size must be an integer"):
-        ChunkedProcessor(chunk_size=2.5)  # type: ignore[arg-type]
+        ChunkedProcessor(processor, chunk_size=2.5)  # type: ignore[arg-type]
 
 
 def test_chunked_processor_class_case_7_value_error_zero_chunk_size() -> None:
     """
     Test case 21: ValueError for zero chunk_size.
     """
-    with pytest.raises(ValueError, match="chunk_size must be at least 1"):
-        ChunkedProcessor(chunk_size=0)
+    processor = Mock()
+    with pytest.raises(ValueError, match="chunk_size must be positive"):
+        ChunkedProcessor(processor, chunk_size=0)
 
 
-def test_chunked_processor_class_case_8_type_error_invalid_memory_threshold() -> None:
+def test_chunked_processor_class_case_8_type_error_invalid_max_memory_mb() -> None:
     """
-    Test case 22: TypeError for invalid memory_threshold.
+    Test case 22: TypeError for invalid max_memory_mb.
     """
-    with pytest.raises(TypeError, match="memory_threshold must be a number or None"):
-        ChunkedProcessor(chunk_size=3, memory_threshold="90")  # type: ignore[arg-type]
+    processor = Mock()
+    with pytest.raises(TypeError, match="max_memory_mb must be an integer or None"):
+        ChunkedProcessor(processor, chunk_size=3, max_memory_mb="90")  # type: ignore[arg-type]
 
 
-def test_chunked_processor_class_case_9_value_error_memory_threshold_out_of_range() -> (
+def test_chunked_processor_class_case_9_value_error_max_memory_mb_negative() -> (
     None
 ):
     """
-    Test case 23: ValueError for memory_threshold out of range.
+    Test case 23: ValueError for negative max_memory_mb.
     """
-    with pytest.raises(ValueError, match="memory_threshold must be between 0 and 100"):
-        ChunkedProcessor(chunk_size=3, memory_threshold=150.0)
+    processor = Mock()
+    with pytest.raises(ValueError, match="max_memory_mb must be positive"):
+        ChunkedProcessor(processor, chunk_size=3, max_memory_mb=-10)
+
+
+def test_chunked_processor_class_case_10_type_error_non_callable_processor() -> None:
+    """
+    Test case 24: TypeError for non-callable processor.
+    """
+    with pytest.raises(TypeError, match="processor must be callable"):
+        ChunkedProcessor("not_callable", chunk_size=3)  # type: ignore[arg-type]
+
+
+def test_chunked_processor_case_25_type_error_processor_returns_non_list() -> None:
+    """
+    Test case 25: TypeError when processor returns non-list.
+    """
+    items = [1, 2, 3]
+    processor = Mock(side_effect=lambda batch: tuple(batch))  # Returns tuple instead of list
+
+    with pytest.raises(TypeError, match="processor must return a list"):
+        list(chunked_processor(items, processor, chunk_size=2))

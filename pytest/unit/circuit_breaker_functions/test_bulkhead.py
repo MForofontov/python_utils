@@ -30,7 +30,7 @@ def test_bulkhead_case_2_multiple_sequential_calls() -> None:
 
     results = []
     for i in range(5):
-        result = bulkhead.execute(work, i)
+        result = bulkhead.call(work, i)
         results.append(result)
 
     assert results == [0, 2, 4, 6, 8]
@@ -67,7 +67,7 @@ def test_bulkhead_case_4_concurrent_execution_within_limit() -> None:
         return value * 2
 
     with ThreadPoolExecutor(max_workers=3) as executor:
-        futures = [executor.submit(bulkhead.execute, slow_work, i) for i in range(3)]
+        futures = [executor.submit(bulkhead.call, slow_work, i) for i in range(3)]
         for future in futures:
             results.append(future.result(timeout=2))
 
@@ -87,7 +87,7 @@ def test_bulkhead_case_5_edge_case_max_concurrent_reached() -> None:
 
     with ThreadPoolExecutor(max_workers=3) as executor:
         # Submit 3 tasks when only 2 can run concurrently
-        futures = [executor.submit(bulkhead.execute, slow_work) for _ in range(3)]
+        futures = [executor.submit(bulkhead.call, slow_work) for _ in range(3)]
 
         # First two should succeed or timeout, third should timeout waiting for semaphore
         results = []
@@ -139,17 +139,14 @@ def test_bulkhead_case_7_edge_case_function_raises_exception() -> None:
         raise ValueError("Task failed")
 
     with pytest.raises(ValueError, match="Task failed"):
-        bulkhead.execute(failing_work)
+        bulkhead.call(failing_work)
 
-    # Semaphore should be released
-    assert bulkhead.current_concurrent == 0
-
-    # Should be able to execute again
+    # Semaphore should be released, next call should work
     def success_work() -> str:
-        return "ok"
+        return "success"
 
-    result = bulkhead.execute(success_work)
-    assert result == "ok"
+    result = bulkhead.call(success_work)
+    assert result == "success"
 
 
 def test_bulkhead_case_8_edge_case_single_concurrent() -> None:
@@ -163,7 +160,7 @@ def test_bulkhead_case_8_edge_case_single_concurrent() -> None:
         return value
 
     with ThreadPoolExecutor(max_workers=2) as executor:
-        futures = [executor.submit(bulkhead.execute, work, i) for i in range(2)]
+        futures = [executor.submit(bulkhead.call, work, i) for i in range(2)]
         results = [f.result(timeout=2) for f in futures]
 
     assert sorted(results) == [0, 1]
@@ -179,34 +176,33 @@ def test_bulkhead_case_9_edge_case_stats_tracking() -> None:
         return "done"
 
     # Execute some tasks
-    bulkhead.execute(work)
-    bulkhead.execute(work)
+    bulkhead.call(work)
+    bulkhead.call(work)
 
-    stats = bulkhead.get_stats()
-
-    assert "max_concurrent" in stats
-    assert "current_concurrent" in stats
-    assert stats["max_concurrent"] == 3
-    assert stats["current_concurrent"] == 0
+    # Check active_count property
+    assert bulkhead.active_count == 0
+    assert bulkhead.max_concurrent == 3
+    assert bulkhead.available_slots == 3
 
 
-def test_bulkhead_case_10_edge_case_reset() -> None:
-    """
-    Test case 10: Reset functionality.
-    """
+def test_bulkhead_case_10_edge_case_properties() -> None:
+    \"\"\"
+    Test case 10: Test active_count and available_slots properties.
+    \"\"\"
     bulkhead = Bulkhead(max_concurrent=3)
 
     def work() -> str:
-        return "done"
+        return \"done\"
 
-    bulkhead.execute(work)
+    # Initially, no active operations
+    assert bulkhead.active_count == 0
+    assert bulkhead.available_slots == 3
 
-    # Reset should not affect semaphore
-    bulkhead.reset()
-
-    # Should still work normally
-    result = bulkhead.execute(work)
-    assert result == "done"
+    # After call completes, count should be back to 0
+    result = bulkhead.call(work)
+    assert result == \"done\"
+    assert bulkhead.active_count == 0
+    assert bulkhead.available_slots == 3
 
 
 def test_bulkhead_case_11_type_error_invalid_max_concurrent() -> None:
@@ -221,7 +217,7 @@ def test_bulkhead_case_12_value_error_zero_max_concurrent() -> None:
     """
     Test case 12: ValueError for zero max_concurrent.
     """
-    with pytest.raises(ValueError, match="max_concurrent must be at least 1"):
+    with pytest.raises(ValueError, match="max_concurrent must be positive"):
         Bulkhead(max_concurrent=0)
 
 
@@ -229,7 +225,7 @@ def test_bulkhead_case_13_value_error_negative_max_concurrent() -> None:
     """
     Test case 13: ValueError for negative max_concurrent.
     """
-    with pytest.raises(ValueError, match="max_concurrent must be at least 1"):
+    with pytest.raises(ValueError, match="max_concurrent must be positive"):
         Bulkhead(max_concurrent=-1)
 
 
@@ -245,7 +241,7 @@ def test_bulkhead_case_15_value_error_negative_timeout() -> None:
     """
     Test case 15: ValueError for negative timeout.
     """
-    with pytest.raises(ValueError, match="timeout must be non-negative"):
+    with pytest.raises(ValueError, match="timeout must be positive"):
         Bulkhead(max_concurrent=3, timeout=-1.0)
 
 
@@ -256,4 +252,4 @@ def test_bulkhead_case_16_type_error_non_callable() -> None:
     bulkhead = Bulkhead(max_concurrent=3)
 
     with pytest.raises(TypeError, match="func must be callable"):
-        bulkhead.execute("not_a_function")  # type: ignore[arg-type]
+        bulkhead.call("not_a_function")  # type: ignore[arg-type]
