@@ -1,19 +1,21 @@
 """
-Circuit breaker functions module: Resilience patterns for fault tolerance.
+Circuit Breaker functions module: Resilience and fault tolerance patterns.
 
-This module provides production-ready resilience patterns to prevent cascading
-failures in distributed systems and handle service degradation gracefully.
+This module provides utilities for implementing circuit breakers, bulkheads,
+adaptive timeouts, and fallback chains for robust distributed systems.
 """
 
-from .adaptive_timeout import adaptive_timeout
+from .adaptive_timeout import AdaptiveTimeout
 from .bulkhead import Bulkhead
-from .circuit_breaker import CircuitBreaker
-from .fallback_chain import fallback_chain
+from .circuit_breaker import CircuitBreaker, CircuitState
+from .fallback_chain import FallbackChain, fallback_chain
 
 __all__ = [
     "CircuitBreaker",
+    "CircuitState",
     "Bulkhead",
-    "adaptive_timeout",
+    "AdaptiveTimeout",
+    "FallbackChain",
     "fallback_chain",
 ]
 

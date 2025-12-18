@@ -1,15 +1,16 @@
 """
-Batch processing functions module: Memory-efficient batch processing patterns.
+Batch Processing functions module: Efficient batch data processing utilities.
 
-This module provides utilities for processing large datasets efficiently with
-backpressure control, streaming aggregation, and memory management.
+This module provides utilities for processing large datasets in chunks,
+streaming aggregation, and memory-aware batch operations.
 """
 
-from .chunked_processor import chunked_processor
+from .chunked_processor import ChunkedProcessor, chunked_processor
 from .streaming_aggregator import StreamingAggregator
 
 __all__ = [
     "chunked_processor",
+    "ChunkedProcessor",
     "StreamingAggregator",
 ]
 
