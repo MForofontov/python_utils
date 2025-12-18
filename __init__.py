@@ -77,11 +77,6 @@ from .compression_functions import (
     polyline_decoding_list_of_ints,
     polyline_encoding_list_of_ints,
 )
-from .data_types import (
-    CircularQueue,
-    Graph,
-    UnionFind,
-)
 from .data_validation import (
     validate_cerberus_schema,
     validate_collection,
@@ -398,9 +393,6 @@ __all__ = [
     "decompress_number",
     "polyline_decoding_list_of_ints",
     "polyline_encoding_list_of_ints",
-    "CircularQueue",
-    "Graph",
-    "UnionFind",
     "validate_cerberus_schema",
     "validate_collection",
     "validate_email",
