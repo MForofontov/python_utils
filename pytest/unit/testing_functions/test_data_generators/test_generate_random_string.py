@@ -6,7 +6,7 @@ from testing_functions.test_data_generators.generate_random_string import (
 )
 
 
-def test_generate_random_string_case_1_default_parameters() -> None:
+def test_generate_random_string_default_parameters() -> None:
     """
     Test case 1: Generate random string with default parameters.
     """
@@ -19,7 +19,7 @@ def test_generate_random_string_case_1_default_parameters() -> None:
     assert all(c in string.ascii_letters + string.digits for c in result)
 
 
-def test_generate_random_string_case_2_custom_length() -> None:
+def test_generate_random_string_custom_length() -> None:
     """
     Test case 2: Generate random string with custom length.
     """
@@ -33,7 +33,7 @@ def test_generate_random_string_case_2_custom_length() -> None:
     assert len(result) == 20
 
 
-def test_generate_random_string_case_3_custom_charset() -> None:
+def test_generate_random_string_custom_charset() -> None:
     """
     Test case 3: Generate random string with custom character set.
     """
@@ -47,7 +47,7 @@ def test_generate_random_string_case_3_custom_charset() -> None:
     assert all(c in charset for c in result)
 
 
-def test_generate_random_string_case_4_single_character() -> None:
+def test_generate_random_string_single_character() -> None:
     """
     Test case 4: Generate random string with length 1.
     """
@@ -58,7 +58,7 @@ def test_generate_random_string_case_4_single_character() -> None:
     assert len(result) == 1
 
 
-def test_generate_random_string_case_5_type_error_length() -> None:
+def test_generate_random_string_type_error_length() -> None:
     """
     Test case 5: TypeError for invalid length type.
     """
@@ -67,7 +67,7 @@ def test_generate_random_string_case_5_type_error_length() -> None:
         generate_random_string("10")
 
 
-def test_generate_random_string_case_6_type_error_charset() -> None:
+def test_generate_random_string_type_error_charset() -> None:
     """
     Test case 6: TypeError for invalid charset type.
     """
@@ -76,7 +76,7 @@ def test_generate_random_string_case_6_type_error_charset() -> None:
         generate_random_string(10, 123)
 
 
-def test_generate_random_string_case_7_value_error_negative_length() -> None:
+def test_generate_random_string_value_error_negative_length() -> None:
     """
     Test case 7: ValueError for negative length.
     """
@@ -85,7 +85,7 @@ def test_generate_random_string_case_7_value_error_negative_length() -> None:
         generate_random_string(-1)
 
 
-def test_generate_random_string_case_8_value_error_zero_length() -> None:
+def test_generate_random_string_value_error_zero_length() -> None:
     """
     Test case 8: ValueError for zero length.
     """
@@ -94,7 +94,7 @@ def test_generate_random_string_case_8_value_error_zero_length() -> None:
         generate_random_string(0)
 
 
-def test_generate_random_string_case_9_value_error_empty_charset() -> None:
+def test_generate_random_string_value_error_empty_charset() -> None:
     """
     Test case 9: ValueError for empty charset.
     """

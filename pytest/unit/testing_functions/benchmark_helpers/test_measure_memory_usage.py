@@ -4,7 +4,7 @@ from testing_functions.benchmark_helpers.measure_memory_usage import (
 )
 
 
-def test_measure_memory_usage_case_1_simple_function() -> None:
+def test_measure_memory_usage_simple_function() -> None:
     """
     Test case 1: Measure memory for simple function.
     """
@@ -22,7 +22,7 @@ def test_measure_memory_usage_case_1_simple_function() -> None:
     assert result['result'] == 42
 
 
-def test_measure_memory_usage_case_2_list_creation() -> None:
+def test_measure_memory_usage_list_creation() -> None:
     """
     Test case 2: Measure memory for list creation.
     """
@@ -38,7 +38,7 @@ def test_measure_memory_usage_case_2_list_creation() -> None:
     assert len(result['result']) == 1000
 
 
-def test_measure_memory_usage_case_3_dict_creation() -> None:
+def test_measure_memory_usage_dict_creation() -> None:
     """
     Test case 3: Measure memory for dict creation.
     """
@@ -54,7 +54,7 @@ def test_measure_memory_usage_case_3_dict_creation() -> None:
     assert len(result['result']) == 500
 
 
-def test_measure_memory_usage_case_4_with_args() -> None:
+def test_measure_memory_usage_with_args() -> None:
     """
     Test case 4: Measure memory with function args.
     """
@@ -70,7 +70,7 @@ def test_measure_memory_usage_case_4_with_args() -> None:
     assert result['peak_bytes'] >= 0
 
 
-def test_measure_memory_usage_case_5_with_kwargs() -> None:
+def test_measure_memory_usage_with_kwargs() -> None:
     """
     Test case 5: Measure memory with function kwargs.
     """
@@ -85,7 +85,7 @@ def test_measure_memory_usage_case_5_with_kwargs() -> None:
     assert len(result['result']) == 50
 
 
-def test_measure_memory_usage_case_6_type_error_func() -> None:
+def test_measure_memory_usage_type_error_func() -> None:
     """
     Test case 6: TypeError for non-callable func.
     """

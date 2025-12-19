@@ -6,7 +6,7 @@ from testing_functions.test_data_generators.generate_random_date import (
 )
 
 
-def test_generate_random_date_case_1_default_parameters() -> None:
+def test_generate_random_date_default_parameters() -> None:
     """
     Test case 1: Generate random date with default parameters.
     """
@@ -18,7 +18,7 @@ def test_generate_random_date_case_1_default_parameters() -> None:
     assert 2000 <= result.year <= 2025
 
 
-def test_generate_random_date_case_2_custom_year_range() -> None:
+def test_generate_random_date_custom_year_range() -> None:
     """
     Test case 2: Generate random date with custom year range.
     """
@@ -29,7 +29,7 @@ def test_generate_random_date_case_2_custom_year_range() -> None:
     assert 2020 <= result.year <= 2021
 
 
-def test_generate_random_date_case_3_same_start_end_year() -> None:
+def test_generate_random_date_same_start_end_year() -> None:
     """
     Test case 3: Generate random date when start_year equals end_year.
     """
@@ -40,7 +40,7 @@ def test_generate_random_date_case_3_same_start_end_year() -> None:
     assert result.year == 2022
 
 
-def test_generate_random_date_case_4_wide_range() -> None:
+def test_generate_random_date_wide_range() -> None:
     """
     Test case 4: Generate random date with wide year range.
     """
@@ -51,7 +51,7 @@ def test_generate_random_date_case_4_wide_range() -> None:
     assert 1900 <= result.year <= 2100
 
 
-def test_generate_random_date_case_5_type_error_start_year() -> None:
+def test_generate_random_date_type_error_start_year() -> None:
     """
     Test case 5: TypeError for invalid start_year type.
     """
@@ -60,7 +60,7 @@ def test_generate_random_date_case_5_type_error_start_year() -> None:
         generate_random_date("2000", 2025)
 
 
-def test_generate_random_date_case_6_type_error_end_year() -> None:
+def test_generate_random_date_type_error_end_year() -> None:
     """
     Test case 6: TypeError for invalid end_year type.
     """
@@ -69,7 +69,7 @@ def test_generate_random_date_case_6_type_error_end_year() -> None:
         generate_random_date(2000, "2025")
 
 
-def test_generate_random_date_case_7_value_error_start_greater_than_end() -> None:
+def test_generate_random_date_value_error_start_greater_than_end() -> None:
     """
     Test case 7: ValueError when start_year > end_year.
     """

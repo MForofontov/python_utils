@@ -5,7 +5,7 @@ import pytest
 from cli_functions.get_file_size import get_file_size
 
 
-def test_get_file_size_case_1_valid_file() -> None:
+def test_get_file_size_valid_file() -> None:
     """
     Test case 1: Test get_file_size function with a valid file returns correct size.
     """
@@ -23,7 +23,7 @@ def test_get_file_size_case_1_valid_file() -> None:
             os.unlink(temp_file.name)
 
 
-def test_get_file_size_case_2_empty_file() -> None:
+def test_get_file_size_empty_file() -> None:
     """
     Test case 2: Test get_file_size function with an empty file returns zero.
     """
@@ -35,7 +35,7 @@ def test_get_file_size_case_2_empty_file() -> None:
             os.unlink(temp_file.name)
 
 
-def test_get_file_size_case_3_nonexistent_file_error() -> None:
+def test_get_file_size_nonexistent_file_error() -> None:
     """
     Test case 3: Test get_file_size function with a nonexistent file raises FileNotFoundError.
     """
@@ -43,7 +43,7 @@ def test_get_file_size_case_3_nonexistent_file_error() -> None:
         get_file_size("/nonexistent/file.txt")
 
 
-def test_get_file_size_case_4_directory_error() -> None:
+def test_get_file_size_directory_error() -> None:
     """
     Test case 4: Test get_file_size function with a directory raises IsADirectoryError.
     """
@@ -52,7 +52,7 @@ def test_get_file_size_case_4_directory_error() -> None:
             get_file_size(temp_dir)
 
 
-def test_get_file_size_case_5_invalid_type_error() -> None:
+def test_get_file_size_invalid_type_error() -> None:
     """
     Test case 5: Test get_file_size function with invalid input type raises TypeError.
     """
@@ -63,7 +63,7 @@ def test_get_file_size_case_5_invalid_type_error() -> None:
         get_file_size(None)
 
 
-def test_get_file_size_case_6_large_file() -> None:
+def test_get_file_size_large_file() -> None:
     """
     Test case 6: Test get_file_size with larger file.
     """

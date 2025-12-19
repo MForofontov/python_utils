@@ -2,7 +2,7 @@ import pytest
 from web_scraping_functions.rotation.get_random_proxy import get_random_proxy
 
 
-def test_get_random_proxy_case_1_returns_from_list() -> None:
+def test_get_random_proxy_returns_from_list() -> None:
     """
     Test case 1: Return a proxy from the list.
     """
@@ -18,7 +18,7 @@ def test_get_random_proxy_case_1_returns_from_list() -> None:
     assert result["http"] in proxies
 
 
-def test_get_random_proxy_case_2_single_proxy() -> None:
+def test_get_random_proxy_single_proxy() -> None:
     """
     Test case 2: Return the only proxy from single-element list.
     """
@@ -32,7 +32,7 @@ def test_get_random_proxy_case_2_single_proxy() -> None:
     assert result == {"http": "only_proxy", "https": "only_proxy"}
 
 
-def test_get_random_proxy_case_3_randomness() -> None:
+def test_get_random_proxy_randomness() -> None:
     """
     Test case 3: Verify random selection over multiple calls.
     """
@@ -46,7 +46,7 @@ def test_get_random_proxy_case_3_randomness() -> None:
     assert len(results) >= 2
 
 
-def test_get_random_proxy_case_4_list_not_modified() -> None:
+def test_get_random_proxy_list_not_modified() -> None:
     """
     Test case 4: Original list is not modified.
     """
@@ -61,7 +61,7 @@ def test_get_random_proxy_case_4_list_not_modified() -> None:
     assert proxies == original_proxies
 
 
-def test_get_random_proxy_case_5_type_error_proxies() -> None:
+def test_get_random_proxy_type_error_proxies() -> None:
     """
     Test case 5: TypeError for invalid proxies type.
     """
@@ -70,7 +70,7 @@ def test_get_random_proxy_case_5_type_error_proxies() -> None:
         get_random_proxy("not a list")
 
 
-def test_get_random_proxy_case_6_value_error_empty_list() -> None:
+def test_get_random_proxy_value_error_empty_list() -> None:
     """
     Test case 6: ValueError for empty proxy list.
     """
@@ -79,7 +79,7 @@ def test_get_random_proxy_case_6_value_error_empty_list() -> None:
         get_random_proxy([])
 
 
-def test_get_random_proxy_case_7_proxy_formats() -> None:
+def test_get_random_proxy_proxy_formats() -> None:
     """
     Test case 7: Handle different proxy formats.
     """

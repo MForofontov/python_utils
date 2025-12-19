@@ -2,7 +2,7 @@ import pytest
 from web_scraping_functions.rotation.rotate_user_agent import rotate_user_agent
 
 
-def test_rotate_user_agent_case_1_basic_rotation() -> None:
+def test_rotate_user_agent_basic_rotation() -> None:
     """
     Test case 1: Basic user agent rotation.
     """
@@ -23,7 +23,7 @@ def test_rotate_user_agent_case_1_basic_rotation() -> None:
     assert result4 == "UA1"  # Cycles back
 
 
-def test_rotate_user_agent_case_2_single_user_agent() -> None:
+def test_rotate_user_agent_single_user_agent() -> None:
     """
     Test case 2: Rotation with single user agent.
     """
@@ -40,7 +40,7 @@ def test_rotate_user_agent_case_2_single_user_agent() -> None:
     assert result2 == "Mozilla/5.0"
 
 
-def test_rotate_user_agent_case_3_infinite_cycling() -> None:
+def test_rotate_user_agent_infinite_cycling() -> None:
     """
     Test case 3: Verify infinite cycling.
     """
@@ -55,7 +55,7 @@ def test_rotate_user_agent_case_3_infinite_cycling() -> None:
     assert results == ["UA1", "UA2"] * 4
 
 
-def test_rotate_user_agent_case_4_list_not_modified() -> None:
+def test_rotate_user_agent_list_not_modified() -> None:
     """
     Test case 4: Original list is not modified.
     """
@@ -72,7 +72,7 @@ def test_rotate_user_agent_case_4_list_not_modified() -> None:
     assert user_agents == original_uas
 
 
-def test_rotate_user_agent_case_5_type_error_user_agents() -> None:
+def test_rotate_user_agent_type_error_user_agents() -> None:
     """
     Test case 5: TypeError for invalid user_agents type.
     """
@@ -82,7 +82,7 @@ def test_rotate_user_agent_case_5_type_error_user_agents() -> None:
         next(rotator)
 
 
-def test_rotate_user_agent_case_6_value_error_empty_list() -> None:
+def test_rotate_user_agent_value_error_empty_list() -> None:
     """
     Test case 6: ValueError for empty user agent list.
     """
@@ -92,7 +92,7 @@ def test_rotate_user_agent_case_6_value_error_empty_list() -> None:
         next(rotator)
 
 
-def test_rotate_user_agent_case_7_realistic_user_agents() -> None:
+def test_rotate_user_agent_realistic_user_agents() -> None:
     """
     Test case 8: Rotation with realistic user agent strings.
     """

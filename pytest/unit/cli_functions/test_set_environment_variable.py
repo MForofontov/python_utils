@@ -4,7 +4,7 @@ import pytest
 from cli_functions.set_environment_variable import set_environment_variable
 
 
-def test_set_environment_variable_case_1_simple_set() -> None:
+def test_set_environment_variable_simple_set() -> None:
     """
     Test case 1: Set environment variable successfully.
     """
@@ -16,7 +16,7 @@ def test_set_environment_variable_case_1_simple_set() -> None:
             del os.environ['MY_VAR']
 
 
-def test_set_environment_variable_case_2_overwrite_existing() -> None:
+def test_set_environment_variable_overwrite_existing() -> None:
     """
     Test case 2: Overwrite existing environment variable.
     """
@@ -29,7 +29,7 @@ def test_set_environment_variable_case_2_overwrite_existing() -> None:
             del os.environ['MY_VAR']
 
 
-def test_set_environment_variable_case_3_empty_value() -> None:
+def test_set_environment_variable_empty_value() -> None:
     """
     Test case 3: Set environment variable to empty string.
     """
@@ -41,7 +41,7 @@ def test_set_environment_variable_case_3_empty_value() -> None:
             del os.environ['MY_VAR']
 
 
-def test_set_environment_variable_case_4_invalid_var_name_type() -> None:
+def test_set_environment_variable_invalid_var_name_type() -> None:
     """
     Test case 4: Invalid var_name type raises TypeError.
     """
@@ -52,7 +52,7 @@ def test_set_environment_variable_case_4_invalid_var_name_type() -> None:
         set_environment_variable(None, 'value')
 
 
-def test_set_environment_variable_case_5_invalid_value_type() -> None:
+def test_set_environment_variable_invalid_value_type() -> None:
     """
     Test case 5: Invalid value type raises TypeError.
     """
@@ -63,7 +63,7 @@ def test_set_environment_variable_case_5_invalid_value_type() -> None:
         set_environment_variable('MY_VAR', None)
 
 
-def test_set_environment_variable_case_6_empty_var_name_error() -> None:
+def test_set_environment_variable_empty_var_name_error() -> None:
     """
     Test case 6: Empty var_name raises ValueError.
     """

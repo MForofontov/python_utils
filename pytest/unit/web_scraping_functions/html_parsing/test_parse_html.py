@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from web_scraping_functions.html_parsing.parse_html import parse_html
 
 
-def test_parse_html_case_1_simple_html() -> None:
+def test_parse_html_simple_html() -> None:
     """
     Test case 1: Parse simple HTML content.
     """
@@ -18,7 +18,7 @@ def test_parse_html_case_1_simple_html() -> None:
     assert result.find('p').text == "Hello World"
 
 
-def test_parse_html_case_2_with_lxml_parser() -> None:
+def test_parse_html_with_lxml_parser() -> None:
     """
     Test case 2: Parse HTML with lxml parser.
     """
@@ -33,7 +33,7 @@ def test_parse_html_case_2_with_lxml_parser() -> None:
     assert result.find('div').text == "Content"
 
 
-def test_parse_html_case_3_complex_structure() -> None:
+def test_parse_html_complex_structure() -> None:
     """
     Test case 3: Parse HTML with complex structure.
     """
@@ -48,7 +48,7 @@ def test_parse_html_case_3_complex_structure() -> None:
     assert result.find('div', class_='main') is not None
 
 
-def test_parse_html_case_4_default_parser() -> None:
+def test_parse_html_default_parser() -> None:
     """
     Test case 4: Verify default parser is html.parser.
     """
@@ -62,7 +62,7 @@ def test_parse_html_case_4_default_parser() -> None:
     assert result.name == '[document]'
 
 
-def test_parse_html_case_5_type_error_html() -> None:
+def test_parse_html_type_error_html() -> None:
     """
     Test case 5: TypeError for invalid html type.
     """
@@ -71,7 +71,7 @@ def test_parse_html_case_5_type_error_html() -> None:
         parse_html(123)
 
 
-def test_parse_html_case_6_type_error_parser() -> None:
+def test_parse_html_type_error_parser() -> None:
     """
     Test case 6: TypeError for invalid parser type.
     """
@@ -83,7 +83,7 @@ def test_parse_html_case_6_type_error_parser() -> None:
         parse_html(html, parser=123)
 
 
-def test_parse_html_case_7_value_error_empty_html() -> None:
+def test_parse_html_value_error_empty_html() -> None:
     """
     Test case 7: ValueError for empty HTML.
     """
@@ -92,7 +92,7 @@ def test_parse_html_case_7_value_error_empty_html() -> None:
         parse_html("")
 
 
-def test_parse_html_case_8_value_error_whitespace_only() -> None:
+def test_parse_html_value_error_whitespace_only() -> None:
     """
     Test case 8: ValueError for whitespace-only HTML.
     """
@@ -101,7 +101,7 @@ def test_parse_html_case_8_value_error_whitespace_only() -> None:
         parse_html("   \n  \t  ")
 
 
-def test_parse_html_case_9_value_error_invalid_parser() -> None:
+def test_parse_html_value_error_invalid_parser() -> None:
     """
     Test case 9: ValueError for invalid parser name.
     """

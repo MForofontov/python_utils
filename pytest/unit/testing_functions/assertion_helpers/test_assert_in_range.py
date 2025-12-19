@@ -2,7 +2,7 @@ import pytest
 from testing_functions.assertion_helpers.assert_in_range import assert_in_range
 
 
-def test_assert_in_range_case_1_value_in_range() -> None:
+def test_assert_in_range_value_in_range() -> None:
     """
     Test case 1: Assert value within range.
     """
@@ -10,7 +10,7 @@ def test_assert_in_range_case_1_value_in_range() -> None:
     assert_in_range(5, 1, 10)
 
 
-def test_assert_in_range_case_2_value_at_min() -> None:
+def test_assert_in_range_value_at_min() -> None:
     """
     Test case 2: Assert value at minimum boundary.
     """
@@ -18,7 +18,7 @@ def test_assert_in_range_case_2_value_at_min() -> None:
     assert_in_range(1, 1, 10)
 
 
-def test_assert_in_range_case_3_value_at_max() -> None:
+def test_assert_in_range_value_at_max() -> None:
     """
     Test case 3: Assert value at maximum boundary.
     """
@@ -26,7 +26,7 @@ def test_assert_in_range_case_3_value_at_max() -> None:
     assert_in_range(10, 1, 10)
 
 
-def test_assert_in_range_case_4_same_min_max() -> None:
+def test_assert_in_range_same_min_max() -> None:
     """
     Test case 4: Assert value when min equals max.
     """
@@ -34,7 +34,7 @@ def test_assert_in_range_case_4_same_min_max() -> None:
     assert_in_range(5, 5, 5)
 
 
-def test_assert_in_range_case_5_negative_range() -> None:
+def test_assert_in_range_negative_range() -> None:
     """
     Test case 5: Assert value in negative range.
     """
@@ -42,7 +42,7 @@ def test_assert_in_range_case_5_negative_range() -> None:
     assert_in_range(-5, -10, -1)
 
 
-def test_assert_in_range_case_6_type_error_value() -> None:
+def test_assert_in_range_type_error_value() -> None:
     """
     Test case 6: TypeError for invalid value type.
     """
@@ -51,7 +51,7 @@ def test_assert_in_range_case_6_type_error_value() -> None:
         assert_in_range("5", 1, 10)
 
 
-def test_assert_in_range_case_7_type_error_min_value() -> None:
+def test_assert_in_range_type_error_min_value() -> None:
     """
     Test case 7: TypeError for invalid min_value type.
     """
@@ -60,7 +60,7 @@ def test_assert_in_range_case_7_type_error_min_value() -> None:
         assert_in_range(5, "1", 10)
 
 
-def test_assert_in_range_case_8_type_error_max_value() -> None:
+def test_assert_in_range_type_error_max_value() -> None:
     """
     Test case 8: TypeError for invalid max_value type.
     """
@@ -69,7 +69,7 @@ def test_assert_in_range_case_8_type_error_max_value() -> None:
         assert_in_range(5, 1, "10")
 
 
-def test_assert_in_range_case_9_value_error_min_greater_than_max() -> None:
+def test_assert_in_range_value_error_min_greater_than_max() -> None:
     """
     Test case 9: ValueError when min_value > max_value.
     """
@@ -78,7 +78,7 @@ def test_assert_in_range_case_9_value_error_min_greater_than_max() -> None:
         assert_in_range(5, 10, 1)
 
 
-def test_assert_in_range_case_10_assertion_error_below_range() -> None:
+def test_assert_in_range_assertion_error_below_range() -> None:
     """
     Test case 10: AssertionError when value below range.
     """
@@ -87,7 +87,7 @@ def test_assert_in_range_case_10_assertion_error_below_range() -> None:
         assert_in_range(0, 1, 10)
 
 
-def test_assert_in_range_case_11_assertion_error_above_range() -> None:
+def test_assert_in_range_assertion_error_above_range() -> None:
     """
     Test case 11: AssertionError when value above range.
     """

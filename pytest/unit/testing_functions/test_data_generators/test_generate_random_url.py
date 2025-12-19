@@ -4,7 +4,7 @@ from testing_functions.test_data_generators.generate_random_url import (
 )
 
 
-def test_generate_random_url_case_1_default_parameters() -> None:
+def test_generate_random_url_default_parameters() -> None:
     """
     Test case 1: Generate random URL with default parameters.
     """
@@ -17,7 +17,7 @@ def test_generate_random_url_case_1_default_parameters() -> None:
     assert result.count('/') >= 3
 
 
-def test_generate_random_url_case_2_custom_protocol() -> None:
+def test_generate_random_url_custom_protocol() -> None:
     """
     Test case 2: Generate random URL with custom protocol.
     """
@@ -28,7 +28,7 @@ def test_generate_random_url_case_2_custom_protocol() -> None:
     assert result.startswith('http://')
 
 
-def test_generate_random_url_case_3_custom_domain() -> None:
+def test_generate_random_url_custom_domain() -> None:
     """
     Test case 3: Generate random URL with custom domain.
     """
@@ -39,7 +39,7 @@ def test_generate_random_url_case_3_custom_domain() -> None:
     assert 'test.org' in result
 
 
-def test_generate_random_url_case_4_zero_path_length() -> None:
+def test_generate_random_url_zero_path_length() -> None:
     """
     Test case 4: Generate random URL with zero path segments.
     """
@@ -50,7 +50,7 @@ def test_generate_random_url_case_4_zero_path_length() -> None:
     assert result == "https://example.com"
 
 
-def test_generate_random_url_case_5_custom_path_length() -> None:
+def test_generate_random_url_custom_path_length() -> None:
     """
     Test case 5: Generate random URL with custom path length.
     """
@@ -62,7 +62,7 @@ def test_generate_random_url_case_5_custom_path_length() -> None:
     assert path.count('/') == 4  # 5 segments means 4 slashes
 
 
-def test_generate_random_url_case_6_type_error_protocol() -> None:
+def test_generate_random_url_type_error_protocol() -> None:
     """
     Test case 6: TypeError for invalid protocol type.
     """
@@ -71,7 +71,7 @@ def test_generate_random_url_case_6_type_error_protocol() -> None:
         generate_random_url(123)
 
 
-def test_generate_random_url_case_7_type_error_domain() -> None:
+def test_generate_random_url_type_error_domain() -> None:
     """
     Test case 7: TypeError for invalid domain type.
     """
@@ -80,7 +80,7 @@ def test_generate_random_url_case_7_type_error_domain() -> None:
         generate_random_url("https", 123)
 
 
-def test_generate_random_url_case_8_type_error_path_length() -> None:
+def test_generate_random_url_type_error_path_length() -> None:
     """
     Test case 8: TypeError for invalid path_length type.
     """
@@ -89,7 +89,7 @@ def test_generate_random_url_case_8_type_error_path_length() -> None:
         generate_random_url("https", "example.com", "3")
 
 
-def test_generate_random_url_case_9_value_error_empty_protocol() -> None:
+def test_generate_random_url_value_error_empty_protocol() -> None:
     """
     Test case 9: ValueError for empty protocol.
     """
@@ -98,7 +98,7 @@ def test_generate_random_url_case_9_value_error_empty_protocol() -> None:
         generate_random_url("")
 
 
-def test_generate_random_url_case_10_value_error_empty_domain() -> None:
+def test_generate_random_url_value_error_empty_domain() -> None:
     """
     Test case 10: ValueError for empty domain.
     """
@@ -107,7 +107,7 @@ def test_generate_random_url_case_10_value_error_empty_domain() -> None:
         generate_random_url("https", "")
 
 
-def test_generate_random_url_case_11_value_error_negative_path_length() -> None:
+def test_generate_random_url_value_error_negative_path_length() -> None:
     """
     Test case 11: ValueError for negative path_length.
     """

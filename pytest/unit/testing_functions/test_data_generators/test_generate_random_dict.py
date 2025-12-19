@@ -4,7 +4,7 @@ from testing_functions.test_data_generators.generate_random_dict import (
 )
 
 
-def test_generate_random_dict_case_1_default_parameters() -> None:
+def test_generate_random_dict_default_parameters() -> None:
     """
     Test case 1: Generate random dict with default parameters.
     """
@@ -18,7 +18,7 @@ def test_generate_random_dict_case_1_default_parameters() -> None:
     assert all(isinstance(v, int) for v in result.values())
 
 
-def test_generate_random_dict_case_2_custom_num_keys() -> None:
+def test_generate_random_dict_custom_num_keys() -> None:
     """
     Test case 2: Generate random dict with custom number of keys.
     """
@@ -29,7 +29,7 @@ def test_generate_random_dict_case_2_custom_num_keys() -> None:
     assert len(result) == 3
 
 
-def test_generate_random_dict_case_3_custom_key_prefix() -> None:
+def test_generate_random_dict_custom_key_prefix() -> None:
     """
     Test case 3: Generate random dict with custom key prefix.
     """
@@ -40,7 +40,7 @@ def test_generate_random_dict_case_3_custom_key_prefix() -> None:
     assert all(k.startswith("test_") for k in result.keys())
 
 
-def test_generate_random_dict_case_4_float_values() -> None:
+def test_generate_random_dict_float_values() -> None:
     """
     Test case 4: Generate random dict with float values.
     """
@@ -51,7 +51,7 @@ def test_generate_random_dict_case_4_float_values() -> None:
     assert all(isinstance(v, float) for v in result.values())
 
 
-def test_generate_random_dict_case_5_string_values() -> None:
+def test_generate_random_dict_string_values() -> None:
     """
     Test case 5: Generate random dict with string values.
     """
@@ -62,7 +62,7 @@ def test_generate_random_dict_case_5_string_values() -> None:
     assert all(isinstance(v, str) for v in result.values())
 
 
-def test_generate_random_dict_case_6_empty_dict() -> None:
+def test_generate_random_dict_empty_dict() -> None:
     """
     Test case 6: Generate empty dict.
     """
@@ -73,7 +73,7 @@ def test_generate_random_dict_case_6_empty_dict() -> None:
     assert result == {}
 
 
-def test_generate_random_dict_case_7_type_error_num_keys() -> None:
+def test_generate_random_dict_type_error_num_keys() -> None:
     """
     Test case 7: TypeError for invalid num_keys type.
     """
@@ -82,7 +82,7 @@ def test_generate_random_dict_case_7_type_error_num_keys() -> None:
         generate_random_dict("5")
 
 
-def test_generate_random_dict_case_8_type_error_key_prefix() -> None:
+def test_generate_random_dict_type_error_key_prefix() -> None:
     """
     Test case 8: TypeError for invalid key_prefix type.
     """
@@ -91,7 +91,7 @@ def test_generate_random_dict_case_8_type_error_key_prefix() -> None:
         generate_random_dict(5, 123)
 
 
-def test_generate_random_dict_case_9_type_error_value_type() -> None:
+def test_generate_random_dict_type_error_value_type() -> None:
     """
     Test case 9: TypeError for invalid value_type type.
     """
@@ -100,7 +100,7 @@ def test_generate_random_dict_case_9_type_error_value_type() -> None:
         generate_random_dict(5, "key", 123)
 
 
-def test_generate_random_dict_case_10_value_error_negative_num_keys() -> None:
+def test_generate_random_dict_value_error_negative_num_keys() -> None:
     """
     Test case 10: ValueError for negative num_keys.
     """
@@ -109,7 +109,7 @@ def test_generate_random_dict_case_10_value_error_negative_num_keys() -> None:
         generate_random_dict(-1)
 
 
-def test_generate_random_dict_case_11_value_error_invalid_value_type() -> None:
+def test_generate_random_dict_value_error_invalid_value_type() -> None:
     """
     Test case 11: ValueError for invalid value_type value.
     """

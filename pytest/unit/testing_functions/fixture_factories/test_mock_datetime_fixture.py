@@ -6,7 +6,7 @@ from testing_functions.fixture_factories.mock_datetime_fixture import (
 )
 
 
-def test_mock_datetime_fixture_case_1_default_parameters() -> None:
+def test_mock_datetime_fixture_default_parameters() -> None:
     """
     Test case 1: Mock datetime with default parameters.
     """
@@ -18,7 +18,7 @@ def test_mock_datetime_fixture_case_1_default_parameters() -> None:
         assert mock_dt.day == 1
 
 
-def test_mock_datetime_fixture_case_2_custom_date() -> None:
+def test_mock_datetime_fixture_custom_date() -> None:
     """
     Test case 2: Mock datetime with custom date.
     """
@@ -29,7 +29,7 @@ def test_mock_datetime_fixture_case_2_custom_date() -> None:
         assert mock_dt.day == 25
 
 
-def test_mock_datetime_fixture_case_3_custom_time() -> None:
+def test_mock_datetime_fixture_custom_time() -> None:
     """
     Test case 3: Mock datetime with custom time.
     """
@@ -40,7 +40,7 @@ def test_mock_datetime_fixture_case_3_custom_time() -> None:
         assert mock_dt.second == 45
 
 
-def test_mock_datetime_fixture_case_4_midnight() -> None:
+def test_mock_datetime_fixture_midnight() -> None:
     """
     Test case 4: Mock datetime at midnight.
     """
@@ -51,7 +51,7 @@ def test_mock_datetime_fixture_case_4_midnight() -> None:
         assert mock_dt.second == 0
 
 
-def test_mock_datetime_fixture_case_5_end_of_day() -> None:
+def test_mock_datetime_fixture_end_of_day() -> None:
     """
     Test case 5: Mock datetime at end of day.
     """
@@ -64,7 +64,7 @@ def test_mock_datetime_fixture_case_5_end_of_day() -> None:
         assert mock_dt.second == 59
 
 
-def test_mock_datetime_fixture_case_6_type_error_year() -> None:
+def test_mock_datetime_fixture_type_error_year() -> None:
     """
     Test case 6: TypeError for invalid year type.
     """
@@ -74,7 +74,7 @@ def test_mock_datetime_fixture_case_6_type_error_year() -> None:
             pass
 
 
-def test_mock_datetime_fixture_case_7_type_error_month() -> None:
+def test_mock_datetime_fixture_type_error_month() -> None:
     """
     Test case 7: TypeError for invalid month type.
     """
@@ -84,7 +84,7 @@ def test_mock_datetime_fixture_case_7_type_error_month() -> None:
             pass
 
 
-def test_mock_datetime_fixture_case_8_type_error_day() -> None:
+def test_mock_datetime_fixture_type_error_day() -> None:
     """
     Test case 8: TypeError for invalid day type.
     """
@@ -94,7 +94,7 @@ def test_mock_datetime_fixture_case_8_type_error_day() -> None:
             pass
 
 
-def test_mock_datetime_fixture_case_9_type_error_hour() -> None:
+def test_mock_datetime_fixture_type_error_hour() -> None:
     """
     Test case 9: TypeError for invalid hour type.
     """
@@ -104,7 +104,7 @@ def test_mock_datetime_fixture_case_9_type_error_hour() -> None:
             pass
 
 
-def test_mock_datetime_fixture_case_10_type_error_minute() -> None:
+def test_mock_datetime_fixture_type_error_minute() -> None:
     """
     Test case 10: TypeError for invalid minute type.
     """
@@ -114,7 +114,7 @@ def test_mock_datetime_fixture_case_10_type_error_minute() -> None:
             pass
 
 
-def test_mock_datetime_fixture_case_11_type_error_second() -> None:
+def test_mock_datetime_fixture_type_error_second() -> None:
     """
     Test case 11: TypeError for invalid second type.
     """

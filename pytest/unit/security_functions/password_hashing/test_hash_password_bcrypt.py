@@ -4,7 +4,7 @@ from security_functions.password_hashing.hash_password_bcrypt import (
 )
 
 
-def test_hash_password_bcrypt_case_1_normal_operation() -> None:
+def test_hash_password_bcrypt_normal_operation() -> None:
     """
     Test case 1: Normal operation with valid password.
     """
@@ -20,7 +20,7 @@ def test_hash_password_bcrypt_case_1_normal_operation() -> None:
     assert hashed.startswith("$2b$")  # bcrypt identifier
 
 
-def test_hash_password_bcrypt_case_2_custom_rounds() -> None:
+def test_hash_password_bcrypt_custom_rounds() -> None:
     """
     Test case 2: Using custom rounds parameter.
     """
@@ -37,7 +37,7 @@ def test_hash_password_bcrypt_case_2_custom_rounds() -> None:
     assert f"$2b${rounds:02d}$" in hashed  # Should contain the round number
 
 
-def test_hash_password_bcrypt_case_3_minimum_rounds() -> None:
+def test_hash_password_bcrypt_minimum_rounds() -> None:
     """
     Test case 3: Using minimum valid rounds.
     """
@@ -54,7 +54,7 @@ def test_hash_password_bcrypt_case_3_minimum_rounds() -> None:
     assert "$2b$04$" in hashed
 
 
-def test_hash_password_bcrypt_case_4_maximum_rounds() -> None:
+def test_hash_password_bcrypt_maximum_rounds() -> None:
     """
     Test case 4: Using maximum valid rounds (reduced for testing performance).
     """
@@ -71,7 +71,7 @@ def test_hash_password_bcrypt_case_4_maximum_rounds() -> None:
     assert "$2b$15$" in hashed
 
 
-def test_hash_password_bcrypt_case_7_different_passwords_different_hashes() -> None:
+def test_hash_password_bcrypt_different_passwords_different_hashes() -> None:
     """
     Test case 5: Different passwords should produce different hashes.
     """
@@ -87,7 +87,7 @@ def test_hash_password_bcrypt_case_7_different_passwords_different_hashes() -> N
     assert hashed1 != hashed2
 
 
-def test_hash_password_bcrypt_case_8_same_password_different_hashes() -> None:
+def test_hash_password_bcrypt_same_password_different_hashes() -> None:
     """
     Test case 6: Same password should produce different hashes due to salt.
     """
@@ -102,7 +102,7 @@ def test_hash_password_bcrypt_case_8_same_password_different_hashes() -> None:
     assert hashed1 != hashed2  # Different due to random salt
 
 
-def test_hash_password_bcrypt_case_9_unicode_password() -> None:
+def test_hash_password_bcrypt_unicode_password() -> None:
     """
     Test case 7: Handle Unicode characters in password.
     """
@@ -118,7 +118,7 @@ def test_hash_password_bcrypt_case_9_unicode_password() -> None:
     assert hashed.startswith("$2b$")
 
 
-def test_hash_password_bcrypt_case_10_long_password() -> None:
+def test_hash_password_bcrypt_long_password() -> None:
     """
     Test case 8: Handle very long password.
     """
@@ -134,7 +134,7 @@ def test_hash_password_bcrypt_case_10_long_password() -> None:
     assert hashed.startswith("$2b$")
 
 
-def test_hash_password_bcrypt_case_11_special_characters() -> None:
+def test_hash_password_bcrypt_special_characters() -> None:
     """
     Test case 9: Handle special characters and symbols.
     """
@@ -150,7 +150,7 @@ def test_hash_password_bcrypt_case_11_special_characters() -> None:
     assert hashed.startswith("$2b$")
 
 
-def test_hash_password_bcrypt_case_12_performance_high_rounds() -> None:
+def test_hash_password_bcrypt_performance_high_rounds() -> None:
     """
     Test case 10: Verify that higher rounds work (may be slower).
     """
@@ -173,7 +173,7 @@ def test_hash_password_bcrypt_case_12_performance_high_rounds() -> None:
     assert elapsed_time < 5.0  # Should complete within 5 seconds
 
 
-def test_hash_password_bcrypt_case_5_type_validation() -> None:
+def test_hash_password_bcrypt_type_validation() -> None:
     """
     Test case 11: Type validation for all parameters.
     """
@@ -186,7 +186,7 @@ def test_hash_password_bcrypt_case_5_type_validation() -> None:
         hash_password_bcrypt("password", rounds="invalid")
 
 
-def test_hash_password_bcrypt_case_6_value_validation() -> None:
+def test_hash_password_bcrypt_value_validation() -> None:
     """
     Test case 12: Value validation for parameters.
     """

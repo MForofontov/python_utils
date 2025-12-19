@@ -6,7 +6,7 @@ from testing_functions.fixture_factories.create_temp_file_fixture import (
 )
 
 
-def test_create_temp_file_fixture_case_1_default_parameters() -> None:
+def test_create_temp_file_fixture_default_parameters() -> None:
     """
     Test case 1: Create temp file with default parameters.
     """
@@ -20,7 +20,7 @@ def test_create_temp_file_fixture_case_1_default_parameters() -> None:
     assert not temp_file.exists()
 
 
-def test_create_temp_file_fixture_case_2_with_content() -> None:
+def test_create_temp_file_fixture_with_content() -> None:
     """
     Test case 2: Create temp file with content.
     """
@@ -32,7 +32,7 @@ def test_create_temp_file_fixture_case_2_with_content() -> None:
         assert temp_file.read_text() == content
 
 
-def test_create_temp_file_fixture_case_3_custom_suffix() -> None:
+def test_create_temp_file_fixture_custom_suffix() -> None:
     """
     Test case 3: Create temp file with custom suffix.
     """
@@ -41,7 +41,7 @@ def test_create_temp_file_fixture_case_3_custom_suffix() -> None:
         assert temp_file.suffix == ".py"
 
 
-def test_create_temp_file_fixture_case_4_multiline_content() -> None:
+def test_create_temp_file_fixture_multiline_content() -> None:
     """
     Test case 4: Create temp file with multiline content.
     """
@@ -55,7 +55,7 @@ def test_create_temp_file_fixture_case_4_multiline_content() -> None:
         assert len(lines) == 3
 
 
-def test_create_temp_file_fixture_case_5_file_cleanup() -> None:
+def test_create_temp_file_fixture_file_cleanup() -> None:
     """
     Test case 5: Verify file is deleted after context.
     """
@@ -71,7 +71,7 @@ def test_create_temp_file_fixture_case_5_file_cleanup() -> None:
     assert not file_path.exists()
 
 
-def test_create_temp_file_fixture_case_6_type_error_content() -> None:
+def test_create_temp_file_fixture_type_error_content() -> None:
     """
     Test case 6: TypeError for invalid content type.
     """
@@ -81,7 +81,7 @@ def test_create_temp_file_fixture_case_6_type_error_content() -> None:
             pass
 
 
-def test_create_temp_file_fixture_case_7_type_error_suffix() -> None:
+def test_create_temp_file_fixture_type_error_suffix() -> None:
     """
     Test case 7: TypeError for invalid suffix type.
     """

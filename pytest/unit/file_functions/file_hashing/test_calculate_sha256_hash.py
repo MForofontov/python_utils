@@ -7,7 +7,7 @@ import pytest
 from file_functions import calculate_sha256_hash
 
 
-def test_calculate_sha256_hash_case_1_normal_operation() -> None:
+def test_calculate_sha256_hash_normal_operation() -> None:
     """
     Test case 1: Normal operation with known content.
     """
@@ -27,7 +27,7 @@ def test_calculate_sha256_hash_case_1_normal_operation() -> None:
         Path(temp_file_path).unlink()
 
 
-def test_calculate_sha256_hash_case_2_empty_file() -> None:
+def test_calculate_sha256_hash_empty_file() -> None:
     """
     Test case 2: SHA256 hash of empty file.
     """
@@ -46,7 +46,7 @@ def test_calculate_sha256_hash_case_2_empty_file() -> None:
         Path(temp_file_path).unlink()
 
 
-def test_calculate_sha256_hash_case_3_custom_chunk_size() -> None:
+def test_calculate_sha256_hash_custom_chunk_size() -> None:
     """
     Test case 3: Function works with custom chunk size.
     """
@@ -66,7 +66,7 @@ def test_calculate_sha256_hash_case_3_custom_chunk_size() -> None:
         Path(temp_file_path).unlink()
 
 
-def test_calculate_sha256_hash_case_4_large_file() -> None:
+def test_calculate_sha256_hash_large_file() -> None:
     """
     Test case 4: Handle large file efficiently.
     """
@@ -87,7 +87,7 @@ def test_calculate_sha256_hash_case_4_large_file() -> None:
         Path(temp_file_path).unlink()
 
 
-def test_calculate_sha256_hash_case_5_path_object_input() -> None:
+def test_calculate_sha256_hash_path_object_input() -> None:
     """
     Test case 5: Function works with Path object input.
     """
@@ -107,7 +107,7 @@ def test_calculate_sha256_hash_case_5_path_object_input() -> None:
         temp_file_path.unlink()
 
 
-def test_calculate_sha256_hash_case_6_non_existent_file_error() -> None:
+def test_calculate_sha256_hash_non_existent_file_error() -> None:
     """
     Test case 6: ValueError for non-existent file.
     """
@@ -119,7 +119,7 @@ def test_calculate_sha256_hash_case_6_non_existent_file_error() -> None:
         calculate_sha256_hash(non_existent_file)
 
 
-def test_calculate_sha256_hash_case_7_invalid_type_errors() -> None:
+def test_calculate_sha256_hash_invalid_type_errors() -> None:
     """
     Test case 7: TypeError for invalid parameter types.
     """
@@ -132,7 +132,7 @@ def test_calculate_sha256_hash_case_7_invalid_type_errors() -> None:
         calculate_sha256_hash("/tmp/file.txt", chunk_size="not_int")
 
 
-def test_calculate_sha256_hash_case_8_directory_path_error() -> None:
+def test_calculate_sha256_hash_directory_path_error() -> None:
     """
     Test case 8: ValueError when path points to directory.
     """
@@ -143,7 +143,7 @@ def test_calculate_sha256_hash_case_8_directory_path_error() -> None:
             calculate_sha256_hash(temp_dir)
 
 
-def test_calculate_sha256_hash_case_9_invalid_chunk_size_error() -> None:
+def test_calculate_sha256_hash_invalid_chunk_size_error() -> None:
     """
     Test case 9: ValueError for invalid chunk size.
     """
@@ -157,7 +157,7 @@ def test_calculate_sha256_hash_case_9_invalid_chunk_size_error() -> None:
             calculate_sha256_hash(temp_file.name, chunk_size=-1)
 
 
-def test_calculate_sha256_hash_case_10_file_read_error() -> None:
+def test_calculate_sha256_hash_file_read_error() -> None:
     """
     Test case 10: OSError handling during file reading.
     """

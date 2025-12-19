@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from web_scraping_functions.pagination.extract_next_page import extract_next_page
 
 
-def test_extract_next_page_case_1_simple_next_link() -> None:
+def test_extract_next_page_simple_next_link() -> None:
     """
     Test case 1: Extract next page link.
     """
@@ -18,7 +18,7 @@ def test_extract_next_page_case_1_simple_next_link() -> None:
     assert result == "/page2"
 
 
-def test_extract_next_page_case_2_relative_url() -> None:
+def test_extract_next_page_relative_url() -> None:
     """
     Test case 2: Extract relative URL.
     """
@@ -33,7 +33,7 @@ def test_extract_next_page_case_2_relative_url() -> None:
     assert result == "/page2"
 
 
-def test_extract_next_page_case_3_no_match() -> None:
+def test_extract_next_page_no_match() -> None:
     """
     Test case 3: Return None when no match found.
     """
@@ -48,7 +48,7 @@ def test_extract_next_page_case_3_no_match() -> None:
     assert result is None
 
 
-def test_extract_next_page_case_4_no_href() -> None:
+def test_extract_next_page_no_href() -> None:
     """
     Test case 4: Return None when element has no href.
     """
@@ -63,7 +63,7 @@ def test_extract_next_page_case_4_no_href() -> None:
     assert result is None
 
 
-def test_extract_next_page_case_5_attribute_selector() -> None:
+def test_extract_next_page_attribute_selector() -> None:
     """
     Test case 5: Extract using attribute selector.
     """
@@ -78,7 +78,7 @@ def test_extract_next_page_case_5_attribute_selector() -> None:
     assert result == "/page2"
 
 
-def test_extract_next_page_case_6_type_error_element() -> None:
+def test_extract_next_page_type_error_element() -> None:
     """
     Test case 6: TypeError for invalid element type.
     """
@@ -87,7 +87,7 @@ def test_extract_next_page_case_6_type_error_element() -> None:
         extract_next_page("not a soup", selector=".next")
 
 
-def test_extract_next_page_case_7_type_error_selector() -> None:
+def test_extract_next_page_type_error_selector() -> None:
     """
     Test case 7: TypeError for invalid selector type.
     """
@@ -100,7 +100,7 @@ def test_extract_next_page_case_7_type_error_selector() -> None:
         extract_next_page(soup, selector=123)
 
 
-def test_extract_next_page_case_8_value_error_empty_selector() -> None:
+def test_extract_next_page_value_error_empty_selector() -> None:
     """
     Test case 8: ValueError for empty selector.
     """

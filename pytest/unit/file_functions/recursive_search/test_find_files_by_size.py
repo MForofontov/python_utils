@@ -7,7 +7,7 @@ import pytest
 from file_functions import find_files_by_size
 
 
-def test_find_files_by_size_case_1_normal_operation() -> None:
+def test_find_files_by_size_normal_operation() -> None:
     """
     Test case 1: Normal operation with size filtering.
     """
@@ -32,7 +32,7 @@ def test_find_files_by_size_case_1_normal_operation() -> None:
         assert file_size == 100
 
 
-def test_find_files_by_size_case_2_min_size_only() -> None:
+def test_find_files_by_size_min_size_only() -> None:
     """
     Test case 2: Filter with minimum size only.
     """
@@ -54,7 +54,7 @@ def test_find_files_by_size_case_2_min_size_only() -> None:
         assert file_size == 1000
 
 
-def test_find_files_by_size_case_3_max_size_only() -> None:
+def test_find_files_by_size_max_size_only() -> None:
     """
     Test case 3: Filter with maximum size only.
     """
@@ -76,7 +76,7 @@ def test_find_files_by_size_case_3_max_size_only() -> None:
         assert file_size == 1
 
 
-def test_find_files_by_size_case_4_empty_directory() -> None:
+def test_find_files_by_size_empty_directory() -> None:
     """
     Test case 4: Empty directory returns empty list.
     """
@@ -89,7 +89,7 @@ def test_find_files_by_size_case_4_empty_directory() -> None:
         assert result == []
 
 
-def test_find_files_by_size_case_5_recursive_search() -> None:
+def test_find_files_by_size_recursive_search() -> None:
     """
     Test case 5: Recursive search in subdirectories.
     """
@@ -115,7 +115,7 @@ def test_find_files_by_size_case_5_recursive_search() -> None:
         assert "file2.txt" in file_names
 
 
-def test_find_files_by_size_case_9_path_object_input() -> None:
+def test_find_files_by_size_path_object_input() -> None:
     """
     Test case 6: Function works with Path object input.
     """
@@ -134,7 +134,7 @@ def test_find_files_by_size_case_9_path_object_input() -> None:
         assert Path(file_path).name == "test.txt"
 
 
-def test_find_files_by_size_case_10_file_access_error_handling() -> None:
+def test_find_files_by_size_file_access_error_handling() -> None:
     """
     Test case 7: Graceful handling of file access errors.
     """
@@ -160,7 +160,7 @@ def test_find_files_by_size_case_10_file_access_error_handling() -> None:
             assert result == []
 
 
-def test_find_files_by_size_case_11_path_is_file_not_directory() -> None:
+def test_find_files_by_size_path_is_file_not_directory() -> None:
     """
     Test case 8: ValueError when path is a file, not a directory.
     """
@@ -174,7 +174,7 @@ def test_find_files_by_size_case_11_path_is_file_not_directory() -> None:
             find_files_by_size(str(file_path))
 
 
-def test_find_files_by_size_case_6_invalid_directory_error() -> None:
+def test_find_files_by_size_invalid_directory_error() -> None:
     """
     Test case 9: ValueError for non-existent directory.
     """
@@ -186,7 +186,7 @@ def test_find_files_by_size_case_6_invalid_directory_error() -> None:
         find_files_by_size(non_existent_dir)
 
 
-def test_find_files_by_size_case_7_invalid_type_errors() -> None:
+def test_find_files_by_size_invalid_type_errors() -> None:
     """
     Test case 10: TypeError for invalid parameter types.
     """
@@ -203,7 +203,7 @@ def test_find_files_by_size_case_7_invalid_type_errors() -> None:
         find_files_by_size("/tmp", max_size="not_int")
 
 
-def test_find_files_by_size_case_8_invalid_size_values() -> None:
+def test_find_files_by_size_invalid_size_values() -> None:
     """
     Test case 11: ValueError for invalid size values.
     """
