@@ -73,7 +73,7 @@ def test_adaptive_timeout_timeout_adjustment() -> None:
     assert at.avg_latency > 0
 
 
-def test_adaptive_timeout_edge_case_function_timeout() -> None:
+def test_adaptive_timeout_function_timeout() -> None:
     """
     Test case 5: Function exceeds timeout.
     """
@@ -87,7 +87,7 @@ def test_adaptive_timeout_edge_case_function_timeout() -> None:
         at.call(slow_work)
 
 
-def test_adaptive_timeout_edge_case_min_timeout_enforcement() -> None:
+def test_adaptive_timeout_min_timeout_enforcement() -> None:
     """
     Test case 6: Timeout never goes below min_timeout.
     """
@@ -105,7 +105,7 @@ def test_adaptive_timeout_edge_case_min_timeout_enforcement() -> None:
     assert at.current_timeout >= 0.5
 
 
-def test_adaptive_timeout_edge_case_max_timeout_enforcement() -> None:
+def test_adaptive_timeout_max_timeout_enforcement() -> None:
     """
     Test case 7: Timeout never exceeds max_timeout.
     """
@@ -123,7 +123,7 @@ def test_adaptive_timeout_edge_case_max_timeout_enforcement() -> None:
     assert at.current_timeout <= 1.0
 
 
-def test_adaptive_timeout_edge_case_percentile_calculation() -> None:
+def test_adaptive_timeout_percentile_calculation() -> None:
     """
     Test case 8: Different percentile values affect timeout calculation.
     """
@@ -144,7 +144,7 @@ def test_adaptive_timeout_edge_case_percentile_calculation() -> None:
     assert at99.current_timeout > 0
 
 
-def test_adaptive_timeout_edge_case_reset() -> None:
+def test_adaptive_timeout_reset() -> None:
     """
     Test case 9: Reset functionality restores initial state.
     """
@@ -168,7 +168,7 @@ def test_adaptive_timeout_edge_case_reset() -> None:
     assert at.current_timeout == 1.0  # Back to min_timeout
 
 
-def test_adaptive_timeout_edge_case_function_raises_exception() -> None:
+def test_adaptive_timeout_function_raises_exception() -> None:
     """
     Test case 10: Exception in function is propagated.
     """
@@ -181,7 +181,7 @@ def test_adaptive_timeout_edge_case_function_raises_exception() -> None:
         at.call(failing_work)
 
 
-def test_adaptive_timeout_edge_case_insufficient_samples() -> None:
+def test_adaptive_timeout_insufficient_samples() -> None:
     """
     Test case 11: Timeout adjusts even with small samples.
     """
