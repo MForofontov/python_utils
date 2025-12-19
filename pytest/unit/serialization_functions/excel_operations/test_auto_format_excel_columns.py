@@ -8,7 +8,9 @@ import tempfile
 import pytest
 import openpyxl
 from openpyxl.styles import Font, PatternFill
-from serialization_functions.excel_operations.auto_format_excel_columns import auto_format_excel_columns
+from serialization_functions.excel_operations.auto_format_excel_columns import (
+    auto_format_excel_columns,
+)
 
 
 def test_auto_format_excel_columns_basic() -> None:
@@ -17,24 +19,24 @@ def test_auto_format_excel_columns_basic() -> None:
     """
     with tempfile.TemporaryDirectory() as tmpdir:
         file_path = Path(tmpdir) / "data.xlsx"
-        
+
         wb = openpyxl.Workbook()
         ws = wb.active
-        ws.append(['Name', 'Age', 'Email'])
-        ws.append(['Alice', 30, 'alice@example.com'])
-        ws.append(['Bob', 25, 'bob@example.com'])
-        
+        ws.append(["Name", "Age", "Email"])
+        ws.append(["Alice", 30, "alice@example.com"])
+        ws.append(["Bob", 25, "bob@example.com"])
+
         wb.save(file_path)
-        
+
         auto_format_excel_columns(file_path)
-        
+
         # Verify formatting
         wb = openpyxl.load_workbook(file_path)
         ws = wb.active
-        
+
         # Check frozen panes
-        assert ws.freeze_panes == 'A2'
-        
+        assert ws.freeze_panes == "A2"
+
         # Check bold header
         assert ws.cell(1, 1).font.bold is True
 
@@ -45,42 +47,44 @@ def test_auto_format_excel_columns_custom_header_color() -> None:
     """
     with tempfile.TemporaryDirectory() as tmpdir:
         file_path = Path(tmpdir) / "data.xlsx"
-        
+
         wb = openpyxl.Workbook()
         ws = wb.active
-        ws.append(['ID', 'Name'])
-        ws.append([1, 'Alice'])
-        
+        ws.append(["ID", "Name"])
+        ws.append([1, "Alice"])
+
         wb.save(file_path)
         wb.close()
-        
-        auto_format_excel_columns(file_path, header_fill_color='4472C4')
-        
+
+        auto_format_excel_columns(file_path, header_fill_color="4472C4")
+
         wb = openpyxl.load_workbook(file_path)
         ws = wb.active
-        
+
         # Check header fill color (openpyxl adds '00' prefix for RGB)
-        assert ws.cell(1, 1).fill.start_color.rgb == '004472C4'
+        assert ws.cell(1, 1).fill.start_color.rgb == "004472C4"
+
+
 def test_auto_format_excel_columns_center_alignment() -> None:
     """
     Test center text alignment.
     """
     with tempfile.TemporaryDirectory() as tmpdir:
         file_path = Path(tmpdir) / "data.xlsx"
-        
+
         wb = openpyxl.Workbook()
         ws = wb.active
-        ws.append(['ID'])
+        ws.append(["ID"])
         ws.append([1])
-        
+
         wb.save(file_path)
-        
-        auto_format_excel_columns(file_path, align_text='center')
-        
+
+        auto_format_excel_columns(file_path, align_text="center")
+
         wb = openpyxl.load_workbook(file_path)
         ws = wb.active
-        
-        assert ws.cell(1, 1).alignment.horizontal == 'center'
+
+        assert ws.cell(1, 1).alignment.horizontal == "center"
 
 
 def test_auto_format_excel_columns_no_freeze() -> None:
@@ -89,18 +93,18 @@ def test_auto_format_excel_columns_no_freeze() -> None:
     """
     with tempfile.TemporaryDirectory() as tmpdir:
         file_path = Path(tmpdir) / "data.xlsx"
-        
+
         wb = openpyxl.Workbook()
         ws = wb.active
-        ws.append(['ID'])
-        
+        ws.append(["ID"])
+
         wb.save(file_path)
-        
+
         auto_format_excel_columns(file_path, freeze_header=False)
-        
+
         wb = openpyxl.load_workbook(file_path)
         ws = wb.active
-        
+
         assert ws.freeze_panes is None
 
 
@@ -110,18 +114,18 @@ def test_auto_format_excel_columns_no_bold() -> None:
     """
     with tempfile.TemporaryDirectory() as tmpdir:
         file_path = Path(tmpdir) / "data.xlsx"
-        
+
         wb = openpyxl.Workbook()
         ws = wb.active
-        ws.append(['ID'])
-        
+        ws.append(["ID"])
+
         wb.save(file_path)
-        
+
         auto_format_excel_columns(file_path, bold_header=False)
-        
+
         wb = openpyxl.load_workbook(file_path)
         ws = wb.active
-        
+
         # Default font is not bold
         assert ws.cell(1, 1).font.bold is not True
 
@@ -132,20 +136,20 @@ def test_auto_format_excel_columns_specific_sheet() -> None:
     """
     with tempfile.TemporaryDirectory() as tmpdir:
         file_path = Path(tmpdir) / "data.xlsx"
-        
+
         wb = openpyxl.Workbook()
         ws1 = wb.active
         ws1.title = "Data"
-        ws1.append(['ID'])
-        
+        ws1.append(["ID"])
+
         wb.save(file_path)
-        
+
         auto_format_excel_columns(file_path, sheet_name="Data")
-        
+
         wb = openpyxl.load_workbook(file_path)
         ws = wb["Data"]
-        
-        assert ws.freeze_panes == 'A2'
+
+        assert ws.freeze_panes == "A2"
 
 
 def test_auto_format_excel_columns_invalid_type_file_path() -> None:
@@ -162,12 +166,12 @@ def test_auto_format_excel_columns_invalid_align_text() -> None:
     """
     with tempfile.TemporaryDirectory() as tmpdir:
         file_path = Path(tmpdir) / "data.xlsx"
-        
+
         wb = openpyxl.Workbook()
         wb.save(file_path)
-        
+
         with pytest.raises(ValueError, match="align_text must be"):
-            auto_format_excel_columns(file_path, align_text='invalid')
+            auto_format_excel_columns(file_path, align_text="invalid")
 
 
 def test_auto_format_excel_columns_file_not_found() -> None:
@@ -184,9 +188,9 @@ def test_auto_format_excel_columns_invalid_sheet_name() -> None:
     """
     with tempfile.TemporaryDirectory() as tmpdir:
         file_path = Path(tmpdir) / "data.xlsx"
-        
+
         wb = openpyxl.Workbook()
         wb.save(file_path)
-        
+
         with pytest.raises(ValueError, match="Sheet .* not found"):
             auto_format_excel_columns(file_path, sheet_name="NonExistent")

@@ -23,6 +23,12 @@ from .project_validation.validate_project_structure import (
     ValidationResult,
     ValidationIssue,
 )
+from .project_validation.find_missing_tests import (
+    find_missing_tests,
+    format_coverage_report,
+    MissingTest,
+    TestCoverageReport,
+)
 
 __all__ = [
     # Submodules
@@ -41,11 +47,15 @@ __all__ = [
     # Project validation functions
     "validate_project_structure",
     "format_validation_result",
+    "find_missing_tests",
+    "format_coverage_report",
     # Data classes
     "CodeLineCount",
     "CodeStatistics",
     "ValidationResult",
     "ValidationIssue",
+    "MissingTest",
+    "TestCoverageReport",
     "LicenseType",
 ]
 

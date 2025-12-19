@@ -108,10 +108,14 @@ from .dev_utilities import (
     get_code_statistics,
     save_license_file,
     validate_project_structure,
+    find_missing_tests,
+    format_coverage_report,
     CodeLineCount,
     CodeStatistics,
     ValidationIssue,
     ValidationResult,
+    MissingTest,
+    TestCoverageReport,
 )
 from .datetime_functions import (
     calculate_age,

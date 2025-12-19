@@ -9,5 +9,19 @@ from .validate_project_structure import (
     ValidationResult,
     ValidationIssue,
 )
+from .find_missing_tests import (
+    find_missing_tests,
+    format_coverage_report,
+    MissingTest,
+    TestCoverageReport,
+)
 
-__all__ = ["validate_project_structure", "ValidationResult", "ValidationIssue"]
+__all__ = [
+    "validate_project_structure",
+    "ValidationResult",
+    "ValidationIssue",
+    "find_missing_tests",
+    "format_coverage_report",
+    "MissingTest",
+    "TestCoverageReport",
+]

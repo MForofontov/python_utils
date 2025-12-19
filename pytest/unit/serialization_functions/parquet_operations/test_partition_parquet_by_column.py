@@ -8,7 +8,9 @@ import tempfile
 import pytest
 import pyarrow as pa
 import pyarrow.parquet as pq
-from serialization_functions.parquet_operations.partition_parquet_by_column import partition_parquet_by_column
+from serialization_functions.parquet_operations.partition_parquet_by_column import (
+    partition_parquet_by_column,
+)
 
 
 def test_partition_parquet_by_column_basic() -> None:
@@ -18,24 +20,24 @@ def test_partition_parquet_by_column_basic() -> None:
     with tempfile.TemporaryDirectory() as tmpdir:
         input_file = Path(tmpdir) / "data.parquet"
         output_dir = Path(tmpdir) / "partitioned"
-        
+
         data = [
-            {'id': 1, 'category': 'A', 'value': 100},
-            {'id': 2, 'category': 'B', 'value': 200},
-            {'id': 3, 'category': 'A', 'value': 150},
-            {'id': 4, 'category': 'C', 'value': 300},
+            {"id": 1, "category": "A", "value": 100},
+            {"id": 2, "category": "B", "value": 200},
+            {"id": 3, "category": "A", "value": 150},
+            {"id": 4, "category": "C", "value": 300},
         ]
-        
+
         table = pa.Table.from_pylist(data)
         pq.write_table(table, input_file)
-        
-        counts = partition_parquet_by_column(input_file, output_dir, 'category')
-        
+
+        counts = partition_parquet_by_column(input_file, output_dir, "category")
+
         assert len(counts) == 3
-        assert counts['A'] == 2
-        assert counts['B'] == 1
-        assert counts['C'] == 1
-        
+        assert counts["A"] == 2
+        assert counts["B"] == 1
+        assert counts["C"] == 1
+
         # Verify partition files
         assert (output_dir / "A.parquet").exists()
         assert (output_dir / "B.parquet").exists()
@@ -49,19 +51,16 @@ def test_partition_parquet_by_column_custom_compression() -> None:
     with tempfile.TemporaryDirectory() as tmpdir:
         input_file = Path(tmpdir) / "data.parquet"
         output_dir = Path(tmpdir) / "partitioned"
-        
-        data = [{'id': 1, 'type': 'X'}, {'id': 2, 'type': 'Y'}]
-        
+
+        data = [{"id": 1, "type": "X"}, {"id": 2, "type": "Y"}]
+
         table = pa.Table.from_pylist(data)
         pq.write_table(table, input_file)
-        
+
         counts = partition_parquet_by_column(
-            input_file,
-            output_dir,
-            'type',
-            compression='gzip'
+            input_file, output_dir, "type", compression="gzip"
         )
-        
+
         assert len(counts) == 2
 
 
@@ -72,18 +71,18 @@ def test_partition_parquet_by_column_numeric_values() -> None:
     with tempfile.TemporaryDirectory() as tmpdir:
         input_file = Path(tmpdir) / "data.parquet"
         output_dir = Path(tmpdir) / "partitioned"
-        
+
         data = [
-            {'id': 1, 'year': 2020},
-            {'id': 2, 'year': 2021},
-            {'id': 3, 'year': 2020},
+            {"id": 1, "year": 2020},
+            {"id": 2, "year": 2021},
+            {"id": 3, "year": 2020},
         ]
-        
+
         table = pa.Table.from_pylist(data)
         pq.write_table(table, input_file)
-        
-        counts = partition_parquet_by_column(input_file, output_dir, 'year')
-        
+
+        counts = partition_parquet_by_column(input_file, output_dir, "year")
+
         assert counts[2020] == 2
         assert counts[2021] == 1
 
@@ -95,13 +94,13 @@ def test_partition_parquet_by_column_creates_output_dir() -> None:
     with tempfile.TemporaryDirectory() as tmpdir:
         input_file = Path(tmpdir) / "data.parquet"
         output_dir = Path(tmpdir) / "new" / "partitioned"
-        
-        data = [{'id': 1, 'cat': 'A'}]
+
+        data = [{"id": 1, "cat": "A"}]
         table = pa.Table.from_pylist(data)
         pq.write_table(table, input_file)
-        
-        partition_parquet_by_column(input_file, output_dir, 'cat')
-        
+
+        partition_parquet_by_column(input_file, output_dir, "cat")
+
         assert output_dir.exists()
 
 
@@ -112,17 +111,17 @@ def test_partition_parquet_by_column_safe_filenames() -> None:
     with tempfile.TemporaryDirectory() as tmpdir:
         input_file = Path(tmpdir) / "data.parquet"
         output_dir = Path(tmpdir) / "partitioned"
-        
+
         data = [
-            {'id': 1, 'path': '/usr/local'},
-            {'id': 2, 'path': 'C:\\Windows'},
+            {"id": 1, "path": "/usr/local"},
+            {"id": 2, "path": "C:\\Windows"},
         ]
-        
+
         table = pa.Table.from_pylist(data)
         pq.write_table(table, input_file)
-        
-        counts = partition_parquet_by_column(input_file, output_dir, 'path')
-        
+
+        counts = partition_parquet_by_column(input_file, output_dir, "path")
+
         # Check that files were created with safe names
         files = list(output_dir.glob("*.parquet"))
         assert len(files) == 2
@@ -143,13 +142,15 @@ def test_partition_parquet_by_column_invalid_compression() -> None:
     with tempfile.TemporaryDirectory() as tmpdir:
         input_file = Path(tmpdir) / "data.parquet"
         output_dir = Path(tmpdir) / "partitioned"
-        
-        data = [{'id': 1, 'cat': 'A'}]
+
+        data = [{"id": 1, "cat": "A"}]
         table = pa.Table.from_pylist(data)
         pq.write_table(table, input_file)
-        
+
         with pytest.raises(ValueError, match="compression must be one of"):
-            partition_parquet_by_column(input_file, output_dir, 'cat', compression='invalid')
+            partition_parquet_by_column(
+                input_file, output_dir, "cat", compression="invalid"
+            )
 
 
 def test_partition_parquet_by_column_file_not_found() -> None:
@@ -158,9 +159,11 @@ def test_partition_parquet_by_column_file_not_found() -> None:
     """
     with tempfile.TemporaryDirectory() as tmpdir:
         output_dir = Path(tmpdir) / "partitioned"
-        
+
         with pytest.raises(FileNotFoundError, match="Input file not found"):
-            partition_parquet_by_column("/nonexistent/file.parquet", output_dir, "column")
+            partition_parquet_by_column(
+                "/nonexistent/file.parquet", output_dir, "column"
+            )
 
 
 def test_partition_parquet_by_column_invalid_column() -> None:
@@ -170,13 +173,13 @@ def test_partition_parquet_by_column_invalid_column() -> None:
     with tempfile.TemporaryDirectory() as tmpdir:
         input_file = Path(tmpdir) / "data.parquet"
         output_dir = Path(tmpdir) / "partitioned"
-        
-        data = [{'id': 1, 'name': 'Alice'}]
+
+        data = [{"id": 1, "name": "Alice"}]
         table = pa.Table.from_pylist(data)
         pq.write_table(table, input_file)
-        
+
         with pytest.raises(ValueError, match="Partition column .* not found"):
-            partition_parquet_by_column(input_file, output_dir, 'nonexistent')
+            partition_parquet_by_column(input_file, output_dir, "nonexistent")
 
 
 def test_partition_parquet_by_column_exceeds_max_partitions() -> None:
@@ -186,10 +189,10 @@ def test_partition_parquet_by_column_exceeds_max_partitions() -> None:
     with tempfile.TemporaryDirectory() as tmpdir:
         input_file = Path(tmpdir) / "data.parquet"
         output_dir = Path(tmpdir) / "partitioned"
-        
-        data = [{'id': i, 'cat': f'cat{i}'} for i in range(10)]
+
+        data = [{"id": i, "cat": f"cat{i}"} for i in range(10)]
         table = pa.Table.from_pylist(data)
         pq.write_table(table, input_file)
-        
+
         with pytest.raises(ValueError, match="exceeds max_partitions"):
-            partition_parquet_by_column(input_file, output_dir, 'cat', max_partitions=5)
+            partition_parquet_by_column(input_file, output_dir, "cat", max_partitions=5)

@@ -19,18 +19,18 @@ def test_csv_to_parquet_basic() -> None:
     with tempfile.TemporaryDirectory() as tmpdir:
         csv_file = Path(tmpdir) / "data.csv"
         parquet_file = Path(tmpdir) / "data.parquet"
-        
-        with open(csv_file, 'w', newline='') as f:
+
+        with open(csv_file, "w", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(['id', 'name', 'age'])
-            writer.writerow(['1', 'Alice', '30'])
-            writer.writerow(['2', 'Bob', '25'])
-        
+            writer.writerow(["id", "name", "age"])
+            writer.writerow(["1", "Alice", "30"])
+            writer.writerow(["2", "Bob", "25"])
+
         rows = csv_to_parquet(csv_file, parquet_file)
-        
+
         assert rows == 2
         assert parquet_file.exists()
-        
+
         # Verify Parquet data
         table = pq.read_table(parquet_file)
         assert len(table) == 2
@@ -43,25 +43,21 @@ def test_csv_to_parquet_with_transformers() -> None:
     with tempfile.TemporaryDirectory() as tmpdir:
         csv_file = Path(tmpdir) / "data.csv"
         parquet_file = Path(tmpdir) / "data.parquet"
-        
-        with open(csv_file, 'w', newline='') as f:
+
+        with open(csv_file, "w", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(['id', 'age', 'email'])
-            writer.writerow(['1', '30', 'ALICE@EXAMPLE.COM'])
-        
-        transformers = {
-            'id': int,
-            'age': int,
-            'email': str.lower
-        }
-        
+            writer.writerow(["id", "age", "email"])
+            writer.writerow(["1", "30", "ALICE@EXAMPLE.COM"])
+
+        transformers = {"id": int, "age": int, "email": str.lower}
+
         rows = csv_to_parquet(csv_file, parquet_file, transformers=transformers)
-        
+
         assert rows == 1
-        
+
         table = pq.read_table(parquet_file)
         data = table.to_pylist()
-        assert data[0]['email'] == 'alice@example.com'
+        assert data[0]["email"] == "alice@example.com"
 
 
 def test_csv_to_parquet_custom_compression() -> None:
@@ -71,14 +67,14 @@ def test_csv_to_parquet_custom_compression() -> None:
     with tempfile.TemporaryDirectory() as tmpdir:
         csv_file = Path(tmpdir) / "data.csv"
         parquet_file = Path(tmpdir) / "data.parquet"
-        
-        with open(csv_file, 'w', newline='') as f:
+
+        with open(csv_file, "w", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(['id'])
-            writer.writerow(['1'])
-        
-        csv_to_parquet(csv_file, parquet_file, compression='gzip')
-        
+            writer.writerow(["id"])
+            writer.writerow(["1"])
+
+        csv_to_parquet(csv_file, parquet_file, compression="gzip")
+
         assert parquet_file.exists()
 
 
@@ -89,17 +85,17 @@ def test_csv_to_parquet_with_schema() -> None:
     with tempfile.TemporaryDirectory() as tmpdir:
         csv_file = Path(tmpdir) / "data.csv"
         parquet_file = Path(tmpdir) / "data.parquet"
-        
-        with open(csv_file, 'w', newline='') as f:
+
+        with open(csv_file, "w", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(['id', 'name'])
-            writer.writerow(['1', 'Alice'])
-        
-        schema = pa.schema([('id', pa.int64()), ('name', pa.string())])
-        
-        transformers = {'id': int}
+            writer.writerow(["id", "name"])
+            writer.writerow(["1", "Alice"])
+
+        schema = pa.schema([("id", pa.int64()), ("name", pa.string())])
+
+        transformers = {"id": int}
         csv_to_parquet(csv_file, parquet_file, schema=schema, transformers=transformers)
-        
+
         table = pq.read_table(parquet_file)
         assert table.schema.equals(schema)
 
@@ -111,15 +107,15 @@ def test_csv_to_parquet_large_file_chunking() -> None:
     with tempfile.TemporaryDirectory() as tmpdir:
         csv_file = Path(tmpdir) / "data.csv"
         parquet_file = Path(tmpdir) / "data.parquet"
-        
-        with open(csv_file, 'w', newline='') as f:
+
+        with open(csv_file, "w", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(['id', 'value'])
+            writer.writerow(["id", "value"])
             for i in range(100):
-                writer.writerow([str(i), f'value{i}'])
-        
+                writer.writerow([str(i), f"value{i}"])
+
         rows = csv_to_parquet(csv_file, parquet_file, chunk_size=25)
-        
+
         assert rows == 100
 
 
@@ -130,16 +126,16 @@ def test_csv_to_parquet_no_type_inference() -> None:
     with tempfile.TemporaryDirectory() as tmpdir:
         csv_file = Path(tmpdir) / "data.csv"
         parquet_file = Path(tmpdir) / "data.parquet"
-        
-        with open(csv_file, 'w', newline='') as f:
+
+        with open(csv_file, "w", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(['id', 'value'])
-            writer.writerow(['1', '100'])
-        
+            writer.writerow(["id", "value"])
+            writer.writerow(["1", "100"])
+
         csv_to_parquet(csv_file, parquet_file, type_inference=False)
-        
+
         table = pq.read_table(parquet_file)
-        assert table.schema.field('id').type == pa.string()
+        assert table.schema.field("id").type == pa.string()
 
 
 def test_csv_to_parquet_invalid_type_input() -> None:
@@ -158,7 +154,7 @@ def test_csv_to_parquet_invalid_chunk_size() -> None:
         csv_file = Path(tmpdir) / "data.csv"
         parquet_file = Path(tmpdir) / "data.parquet"
         csv_file.touch()
-        
+
         with pytest.raises(ValueError, match="chunk_size must be positive"):
             csv_to_parquet(csv_file, parquet_file, chunk_size=0)
 
@@ -169,7 +165,7 @@ def test_csv_to_parquet_file_not_found() -> None:
     """
     with tempfile.TemporaryDirectory() as tmpdir:
         parquet_file = Path(tmpdir) / "output.parquet"
-        
+
         with pytest.raises(FileNotFoundError, match="Input file not found"):
             csv_to_parquet("/nonexistent/file.csv", parquet_file)
 
@@ -181,11 +177,11 @@ def test_csv_to_parquet_invalid_compression() -> None:
     with tempfile.TemporaryDirectory() as tmpdir:
         csv_file = Path(tmpdir) / "data.csv"
         parquet_file = Path(tmpdir) / "data.parquet"
-        
-        with open(csv_file, 'w', newline='') as f:
+
+        with open(csv_file, "w", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(['id'])
-            writer.writerow(['1'])
-        
+            writer.writerow(["id"])
+            writer.writerow(["1"])
+
         with pytest.raises(ValueError, match="compression must be one of"):
-            csv_to_parquet(csv_file, parquet_file, compression='invalid')
+            csv_to_parquet(csv_file, parquet_file, compression="invalid")
