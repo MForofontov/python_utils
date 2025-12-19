@@ -5,6 +5,10 @@ Write data to specific Excel range.
 from typing import Any
 from pathlib import Path
 
+from openpyxl import Workbook, load_workbook
+from openpyxl.utils import get_column_letter, column_index_from_string
+from openpyxl.utils.cell import coordinate_from_string
+
 
 def write_excel_range(
     data: list[list[Any]],
@@ -58,13 +62,6 @@ def write_excel_range(
     ----------
     Time: O(n*m), Space: O(n*m), where n is rows, m is columns
     """
-    try:
-        from openpyxl import Workbook, load_workbook
-        from openpyxl.utils import get_column_letter, column_index_from_string
-        from openpyxl.utils.cell import coordinate_from_string
-    except ImportError as e:
-        raise ImportError("openpyxl is required. Install with: pip install openpyxl") from e
-    
     if not isinstance(data, list):
         raise TypeError(f"data must be a list, got {type(data).__name__}")
     
@@ -103,7 +100,10 @@ def write_excel_range(
     # Load or create workbook
     if mode == 'a' and Path(file_path).exists():
         wb = load_workbook(file_path)
-        if sheet_name in wb.sheetnames:
+        # If sheet_name is default "Sheet1" and it doesn't exist, use active sheet
+        if sheet_name == "Sheet1" and sheet_name not in wb.sheetnames:
+            ws = wb.active
+        elif sheet_name in wb.sheetnames:
             ws = wb[sheet_name]
         else:
             ws = wb.create_sheet(sheet_name)

@@ -4,6 +4,8 @@ Read Parquet file into list of dictionaries.
 
 from typing import Any
 
+import pyarrow.parquet as pq
+
 
 def read_parquet(
     file_path: str,
@@ -52,11 +54,6 @@ def read_parquet(
     ----------
     Time: O(n*m), Space: O(n*m), where n is rows, m is columns
     """
-    try:
-        import pyarrow.parquet as pq
-    except ImportError as e:
-        raise ImportError("pyarrow is required. Install with: pip install pyarrow") from e
-    
     if not isinstance(file_path, str):
         raise TypeError(f"file_path must be a string, got {type(file_path).__name__}")
     

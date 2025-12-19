@@ -4,6 +4,8 @@ Read data from Excel sheet.
 
 from typing import Any
 
+from openpyxl import load_workbook
+
 
 def read_excel_sheet(
     file_path: str,
@@ -69,11 +71,6 @@ def read_excel_sheet(
     ----------
     Time: O(n*m), Space: O(n*m), where n is rows, m is columns
     """
-    try:
-        from openpyxl import load_workbook
-    except ImportError as e:
-        raise ImportError("openpyxl is required. Install with: pip install openpyxl") from e
-    
     if not isinstance(file_path, str):
         raise TypeError(f"file_path must be a string, got {type(file_path).__name__}")
     

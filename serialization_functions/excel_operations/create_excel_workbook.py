@@ -5,6 +5,8 @@ Create new Excel workbook with multiple sheets.
 from typing import Any
 from pathlib import Path
 
+from openpyxl import Workbook
+
 
 def create_excel_workbook(
     file_path: str,
@@ -51,13 +53,8 @@ def create_excel_workbook(
 
     Complexity
     ----------
-    Time: O(n*m*s), Space: O(n*m*s), where s is sheets, n is rows, m is columns
+    Time: O(n*m*k), Space: O(n*m*k), where n is sheets, m is rows, k is columns
     """
-    try:
-        from openpyxl import Workbook
-    except ImportError as e:
-        raise ImportError("openpyxl is required. Install with: pip install openpyxl") from e
-    
     if not isinstance(file_path, str):
         raise TypeError(f"file_path must be a string, got {type(file_path).__name__}")
     
