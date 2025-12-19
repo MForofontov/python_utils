@@ -4,7 +4,6 @@ from unittest.mock import Mock
 import pytest
 from pipeline_functions.pipeline_builder import Pipeline, pipeline_builder
 
-
 def test_pipeline_case_1_normal_operation() -> None:
     """
     Test case 1: Basic pipeline with single step.
@@ -213,6 +212,116 @@ def test_pipeline_case_15_complex_pipeline() -> None:
     assert result == 24
 
 
+def test_pipeline_case_45_repr_method_normal_operation() -> None:
+    """
+    Test case 45: Normal operation - __repr__ returns correct representation.
+    """
+    pipeline = Pipeline()
+    pipeline.add_step(lambda x: x * 2)
+    pipeline.add_step(lambda x: x + 1)
+
+    result = repr(pipeline)
+
+    assert result == "Pipeline(steps=2)"
+
+
+def test_pipeline_case_46_str_method_normal_operation() -> None:
+    """
+    Test case 46: Normal operation - __str__ shows all steps with numbering.
+    """
+    pipeline = Pipeline()
+    pipeline.add_step(lambda x: x * 2)
+    pipeline.add_step(str.upper)
+
+    result = str(pipeline)
+
+    assert "Pipeline (2 steps):" in result
+    assert "1. <lambda>" in result
+    assert "2. upper" in result
+
+
+def test_pipeline_case_47_len_method_normal_operation() -> None:
+    """
+    Test case 47: Normal operation - __len__ returns correct step count.
+    """
+    pipeline = Pipeline()
+    assert len(pipeline) == 0
+
+    pipeline.add_step(lambda x: x * 2)
+    assert len(pipeline) == 1
+
+    pipeline.add_step(lambda x: x + 1)
+    assert len(pipeline) == 2
+
+
+def test_pipeline_case_48_show_steps_normal_operation() -> None:
+    """
+    Test case 48: Normal operation - show_steps returns detailed step information.
+    """
+    pipeline = Pipeline()
+    pipeline.add_step(lambda x: x * 2)
+    pipeline.add_step(str.upper)
+
+    steps = pipeline.show_steps()
+
+    assert len(steps) == 2
+    assert steps[0]['index'] == 0
+    assert steps[0]['name'] == '<lambda>'
+    assert steps[0]['type'] == 'function'
+    assert callable(steps[0]['callable'])
+    
+    assert steps[1]['index'] == 1
+    assert steps[1]['name'] == 'upper'
+    assert callable(steps[1]['callable'])
+
+
+def test_pipeline_case_49_get_step_normal_operation() -> None:
+    """
+    Test case 49: Normal operation - get_step retrieves correct step by index.
+    """
+    pipeline = Pipeline()
+    func1 = lambda x: x * 2
+    func2 = lambda x: x + 1
+    pipeline.add_step(func1)
+    pipeline.add_step(func2)
+
+    step = pipeline.get_step(0)
+
+    assert step(5) == 10
+
+
+def test_pipeline_case_50_remove_step_normal_operation() -> None:
+    """
+    Test case 50: Normal operation - remove_step removes step and maintains order.
+    """
+    pipeline = Pipeline()
+    pipeline.add_step(lambda x: x * 2)
+    pipeline.add_step(lambda x: x + 10)
+    pipeline.add_step(lambda x: x - 5)
+
+    assert len(pipeline) == 3
+    pipeline.remove_step(1)
+    assert len(pipeline) == 2
+    
+    # Verify correct step was removed (x * 2) then (x - 5)
+    result = pipeline.execute(5)
+    assert result == 5  # (5 * 2) - 5 = 5
+
+
+def test_pipeline_case_51_clear_normal_operation() -> None:
+    """
+    Test case 51: Normal operation - clear removes all steps.
+    """
+    pipeline = Pipeline()
+    pipeline.add_step(lambda x: x * 2)
+    pipeline.add_step(lambda x: x + 1)
+    pipeline.add_step(lambda x: x - 3)
+
+    assert len(pipeline) == 3
+    pipeline.clear()
+    assert len(pipeline) == 0
+
+
 def test_pipeline_case_16_edge_case_empty_pipeline() -> None:
     """
     Test case 16: Execute empty pipeline.
@@ -395,6 +504,87 @@ def test_pipeline_case_30_pipeline_builder_function() -> None:
     assert result == 21
 
 
+def test_pipeline_case_52_edge_case_str_empty_pipeline() -> None:
+    """
+    Test case 52: Edge case - __str__ for empty pipeline.
+    """
+    pipeline = Pipeline()
+
+    result = str(pipeline)
+
+    assert result == "Pipeline: [empty]"
+
+
+def test_pipeline_case_53_edge_case_show_steps_empty_pipeline() -> None:
+    """
+    Test case 53: Edge case - show_steps returns empty list for empty pipeline.
+    """
+    pipeline = Pipeline()
+
+    steps = pipeline.show_steps()
+
+    assert steps == []
+
+
+def test_pipeline_case_54_edge_case_show_steps_various_callables() -> None:
+    """
+    Test case 54: Edge case - show_steps handles various callable types.
+    """
+    def named_function(x):
+        return x * 2
+
+    class CallableClass:
+        def __call__(self, x):
+            return x + 1
+
+    pipeline = Pipeline()
+    pipeline.add_step(named_function)
+    pipeline.add_step(CallableClass())
+    pipeline.add_step(str.split)
+
+    steps = pipeline.show_steps()
+
+    assert steps[0]['name'] == 'named_function'
+    assert 'CallableClass' in steps[1]['name']  # Instance repr varies
+    assert steps[2]['name'] == 'split'
+
+
+def test_pipeline_case_55_edge_case_remove_step_method_chaining() -> None:
+    """
+    Test case 55: Edge case - remove_step supports method chaining.
+    """
+    pipeline = Pipeline()
+    pipeline.add_step(lambda x: x * 2)
+    pipeline.add_step(lambda x: x + 1)
+
+    result = pipeline.remove_step(0).execute(5)
+
+    assert result == 6  # Only second step remains
+
+
+def test_pipeline_case_56_edge_case_clear_empty_pipeline() -> None:
+    """
+    Test case 56: Edge case - clear on empty pipeline does nothing.
+    """
+    pipeline = Pipeline()
+
+    assert len(pipeline) == 0
+    pipeline.clear()
+    assert len(pipeline) == 0
+
+
+def test_pipeline_case_57_edge_case_clear_method_chaining() -> None:
+    """
+    Test case 57: Edge case - clear supports method chaining.
+    """
+    pipeline = Pipeline()
+    pipeline.add_step(lambda x: x * 2)
+
+    result = pipeline.clear().add_step(lambda x: x + 5).execute(10)
+
+    assert result == 15
+
+
 def test_pipeline_case_31_type_error_non_callable_step() -> None:
     """
     Test case 31: TypeError for non-callable step.
@@ -543,3 +733,58 @@ def test_pipeline_case_44_type_error_combine_non_pipeline() -> None:
 
     with pytest.raises(TypeError, match="other must be a Pipeline"):
         pipeline.combine("not_a_pipeline")  # type: ignore[arg-type]
+
+
+def test_pipeline_case_58_type_error_get_step_non_integer() -> None:
+    """
+    Test case 58: TypeError - get_step raises TypeError for non-integer index.
+    """
+    pipeline = Pipeline()
+    pipeline.add_step(lambda x: x * 2)
+
+    with pytest.raises(TypeError, match="index must be an integer"):
+        pipeline.get_step("0")  # type: ignore[arg-type]
+
+
+def test_pipeline_case_59_index_error_get_step_out_of_range() -> None:
+    """
+    Test case 59: IndexError - get_step raises IndexError for out of range index.
+    """
+    pipeline = Pipeline()
+    pipeline.add_step(lambda x: x * 2)
+
+    with pytest.raises(IndexError, match="index 5 out of range"):
+        pipeline.get_step(5)
+
+
+def test_pipeline_case_60_index_error_get_step_negative_out_of_range() -> None:
+    """
+    Test case 60: IndexError - get_step raises IndexError for negative out of range index.
+    """
+    pipeline = Pipeline()
+    pipeline.add_step(lambda x: x * 2)
+
+    with pytest.raises(IndexError, match="index -1 out of range"):
+        pipeline.get_step(-1)
+
+
+def test_pipeline_case_61_type_error_remove_step_non_integer() -> None:
+    """
+    Test case 61: TypeError - remove_step raises TypeError for non-integer index.
+    """
+    pipeline = Pipeline()
+    pipeline.add_step(lambda x: x * 2)
+
+    with pytest.raises(TypeError, match="index must be an integer"):
+        pipeline.remove_step(1.5)  # type: ignore[arg-type]
+
+
+def test_pipeline_case_62_index_error_remove_step_out_of_range() -> None:
+    """
+    Test case 62: IndexError - remove_step raises IndexError for out of range index.
+    """
+    pipeline = Pipeline()
+    pipeline.add_step(lambda x: x * 2)
+
+    with pytest.raises(IndexError, match="index 10 out of range"):
+        pipeline.remove_step(10)
