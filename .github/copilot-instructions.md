@@ -364,7 +364,7 @@ from unittest.mock import Mock, patch
 from module_name.function_name import function_name
 
 
-def test_function_name_case_1_normal_operation() -> None:
+def test_function_name_normal_operation() -> None:
     """
     Test case 1: Normal operation with valid inputs.
     """
@@ -379,7 +379,7 @@ def test_function_name_case_1_normal_operation() -> None:
     assert result == expected
 
 
-def test_function_name_case_2_edge_case_empty_input() -> None:
+def test_function_name_empty_input() -> None:
     """
     Test case 2: Edge case with empty input.
     """
@@ -394,7 +394,7 @@ def test_function_name_case_2_edge_case_empty_input() -> None:
     assert result == expected
 
 
-def test_function_name_case_3_invalid_type_error() -> None:
+def test_function_name_invalid_type_raises_error() -> None:
     """
     Test case 3: TypeError for invalid input type.
     """
@@ -407,7 +407,7 @@ def test_function_name_case_3_invalid_type_error() -> None:
         function_name(invalid_input)
 
 
-def test_function_name_case_4_invalid_value_error() -> None:
+def test_function_name_negative_value_raises_error() -> None:
     """
     Test case 4: ValueError for invalid input value.
     """
@@ -420,7 +420,7 @@ def test_function_name_case_4_invalid_value_error() -> None:
         function_name(invalid_input)
 
 
-def test_function_name_case_5_boundary_conditions() -> None:
+def test_function_name_boundary_conditions() -> None:
     """
     Test case 5: Boundary conditions testing.
     """
@@ -433,7 +433,7 @@ def test_function_name_case_5_boundary_conditions() -> None:
     assert result_max == expected_max_result
 
 
-def test_function_name_case_6_performance_large_input() -> None:
+def test_function_name_performance_large_input() -> None:
     """
     Test case 6: Performance with large input data.
     """
@@ -452,7 +452,7 @@ def test_function_name_case_6_performance_large_input() -> None:
 
 
 @pytest.mark.asyncio
-async def test_async_function_case_1_normal_operation() -> None:
+async def test_async_function_normal_operation() -> None:
     """
     Test case 1: Normal async operation.
     """
@@ -476,8 +476,12 @@ async def test_async_function_case_1_normal_operation() -> None:
   5. Boundary conditions
   6. Performance considerations
 
-- **Naming Convention**: `test_function_name_case_X_description`
-- **Docstrings**: Every test function must have a descriptive docstring
+- **Naming Convention**: `test_function_name_descriptive_scenario`
+  - ✅ GOOD: `test_parse_json_empty_string`, `test_calculate_sum_negative_numbers`, `test_validate_email_invalid_format`
+  - ❌ BAD: `test_function_case_1`, `test_parse_json_case_3_edge_case`
+  - **Use descriptive names that clearly indicate what scenario is being tested**
+  - **Do NOT include case_1, case_2, etc. in function names - be specific and self-documenting**
+- **Docstrings**: Every test function must have a descriptive docstring that includes "Test case N:" for tracking
 - **Arrange-Act-Assert**: Structure tests clearly with these sections
 - **Error Testing**: Use `pytest.raises()` with specific error message matching
 
