@@ -6,7 +6,7 @@ import pytest
 from file_functions import create_temp_file
 
 
-def test_create_temp_file_case_1_normal_operation() -> None:
+def test_create_temp_file_normal_operation() -> None:
     """
     Test case 1: Normal operation with default parameters.
     """
@@ -30,7 +30,7 @@ def test_create_temp_file_case_1_normal_operation() -> None:
     assert not Path(temp_path).exists()
 
 
-def test_create_temp_file_case_2_custom_suffix() -> None:
+def test_create_temp_file_custom_suffix() -> None:
     """
     Test case 2: Create temp file with custom suffix.
     """
@@ -41,7 +41,7 @@ def test_create_temp_file_case_2_custom_suffix() -> None:
         assert Path(temp_path).exists()
 
 
-def test_create_temp_file_case_3_custom_prefix() -> None:
+def test_create_temp_file_custom_prefix() -> None:
     """
     Test case 3: Create temp file with custom prefix.
     """
@@ -53,7 +53,7 @@ def test_create_temp_file_case_3_custom_prefix() -> None:
         assert Path(temp_path).exists()
 
 
-def test_create_temp_file_case_4_custom_directory() -> None:
+def test_create_temp_file_custom_directory() -> None:
     """
     Test case 4: Create temp file in custom directory.
     """
@@ -66,7 +66,7 @@ def test_create_temp_file_case_4_custom_directory() -> None:
             assert Path(temp_path).exists()
 
 
-def test_create_temp_file_case_5_no_delete() -> None:
+def test_create_temp_file_no_delete() -> None:
     """
     Test case 5: Create persistent temp file (delete=False).
     """
@@ -89,7 +89,7 @@ def test_create_temp_file_case_5_no_delete() -> None:
         pass
 
 
-def test_create_temp_file_case_6_binary_mode() -> None:
+def test_create_temp_file_binary_mode() -> None:
     """
     Test case 6: Create temp file in binary mode.
     """
@@ -108,7 +108,7 @@ def test_create_temp_file_case_6_binary_mode() -> None:
         assert content == b"binary content"
 
 
-def test_create_temp_file_case_7_path_object_directory() -> None:
+def test_create_temp_file_path_object_directory() -> None:
     """
     Test case 7: Function works with Path object for directory.
     """
@@ -123,7 +123,7 @@ def test_create_temp_file_case_7_path_object_directory() -> None:
             assert Path(temp_path).exists()
 
 
-def test_create_temp_file_case_10_cleanup_error_handling() -> None:
+def test_create_temp_file_cleanup_error_handling() -> None:
     """
     Test case 8: Graceful handling of cleanup errors.
     """
@@ -141,7 +141,7 @@ def test_create_temp_file_case_10_cleanup_error_handling() -> None:
     assert not Path(temp_path_holder[0]).exists()
 
 
-def test_create_temp_file_case_8_invalid_type_errors() -> None:
+def test_create_temp_file_invalid_type_errors() -> None:
     """
     Test case 9: TypeError for invalid parameter types.
     """
@@ -171,7 +171,7 @@ def test_create_temp_file_case_8_invalid_type_errors() -> None:
             pass
 
 
-def test_create_temp_file_case_9_file_creation_error() -> None:
+def test_create_temp_file_file_creation_error() -> None:
     """
     Test case 10: OSError handling during file creation.
     """

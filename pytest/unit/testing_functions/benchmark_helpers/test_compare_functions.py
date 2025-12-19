@@ -2,7 +2,7 @@ import pytest
 from testing_functions.benchmark_helpers.compare_functions import compare_functions
 
 
-def test_compare_functions_case_1_equal_functions() -> None:
+def test_compare_functions_equal_functions() -> None:
     """
     Test case 1: Compare two similar functions.
     """
@@ -24,7 +24,7 @@ def test_compare_functions_case_1_equal_functions() -> None:
     assert result['faster_function'] in ['func1', 'func2']
 
 
-def test_compare_functions_case_2_different_args() -> None:
+def test_compare_functions_different_args() -> None:
     """
     Test case 2: Compare functions with different arguments.
     """
@@ -43,7 +43,7 @@ def test_compare_functions_case_2_different_args() -> None:
     assert result['func2_avg_time'] >= 0
 
 
-def test_compare_functions_case_3_speedup_calculation() -> None:
+def test_compare_functions_speedup_calculation() -> None:
     """
     Test case 3: Verify speedup calculation.
     """
@@ -62,7 +62,7 @@ def test_compare_functions_case_3_speedup_calculation() -> None:
     assert result['speedup'] > 0
 
 
-def test_compare_functions_case_4_single_iteration() -> None:
+def test_compare_functions_single_iteration() -> None:
     """
     Test case 4: Compare with single iteration.
     """
@@ -81,7 +81,7 @@ def test_compare_functions_case_4_single_iteration() -> None:
     assert result['func2_total_time'] == result['func2_avg_time']
 
 
-def test_compare_functions_case_5_type_error_func1() -> None:
+def test_compare_functions_type_error_func1() -> None:
     """
     Test case 5: TypeError for non-callable func1.
     """
@@ -94,7 +94,7 @@ def test_compare_functions_case_5_type_error_func1() -> None:
         compare_functions("not callable", func2)
 
 
-def test_compare_functions_case_6_type_error_func2() -> None:
+def test_compare_functions_type_error_func2() -> None:
     """
     Test case 6: TypeError for non-callable func2.
     """
@@ -107,7 +107,7 @@ def test_compare_functions_case_6_type_error_func2() -> None:
         compare_functions(func1, "not callable")
 
 
-def test_compare_functions_case_7_type_error_args1() -> None:
+def test_compare_functions_type_error_args1() -> None:
     """
     Test case 7: TypeError for invalid args1 type.
     """
@@ -123,7 +123,7 @@ def test_compare_functions_case_7_type_error_args1() -> None:
         compare_functions(func1, func2, [1, 2], ())
 
 
-def test_compare_functions_case_8_type_error_args2() -> None:
+def test_compare_functions_type_error_args2() -> None:
     """
     Test case 8: TypeError for invalid args2 type.
     """
@@ -139,7 +139,7 @@ def test_compare_functions_case_8_type_error_args2() -> None:
         compare_functions(func1, func2, (), [1, 2])
 
 
-def test_compare_functions_case_9_type_error_iterations() -> None:
+def test_compare_functions_type_error_iterations() -> None:
     """
     Test case 9: TypeError for invalid iterations type.
     """
@@ -155,7 +155,7 @@ def test_compare_functions_case_9_type_error_iterations() -> None:
         compare_functions(func1, func2, (), (), iterations="10")
 
 
-def test_compare_functions_case_10_value_error_iterations() -> None:
+def test_compare_functions_value_error_iterations() -> None:
     """
     Test case 10: ValueError for invalid iterations value.
     """

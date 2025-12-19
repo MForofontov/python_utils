@@ -2,7 +2,7 @@ import pytest
 from cli_functions.get_uptime import get_uptime
 
 
-def test_get_uptime_case_1_returns_positive_float() -> None:
+def test_get_uptime_returns_positive_float() -> None:
     """
     Test case 1: Test the get_uptime function returns a positive float value.
     """
@@ -13,7 +13,7 @@ def test_get_uptime_case_1_returns_positive_float() -> None:
     assert uptime > 0
 
 
-def test_get_uptime_case_2_reasonable_value() -> None:
+def test_get_uptime_reasonable_value() -> None:
     """
     Test case 2: Verify uptime is within reasonable bounds.
     """
@@ -25,7 +25,7 @@ def test_get_uptime_case_2_reasonable_value() -> None:
     assert uptime > 0.001
 
 
-def test_get_uptime_case_3_consistency() -> None:
+def test_get_uptime_consistency() -> None:
     """
     Test case 3: Verify uptime increases over time.
     """
@@ -41,7 +41,7 @@ def test_get_uptime_case_3_consistency() -> None:
     assert 0.05 < (uptime2 - uptime1) < 0.5
 
 
-def test_get_uptime_case_4_return_type() -> None:
+def test_get_uptime_return_type() -> None:
     """
     Test case 4: Verify return type is consistently float.
     """
@@ -49,7 +49,7 @@ def test_get_uptime_case_4_return_type() -> None:
     assert type(uptime) is float
 
 
-def test_get_uptime_case_5_multiple_calls() -> None:
+def test_get_uptime_multiple_calls() -> None:
     """
     Test case 5: Verify multiple calls work correctly.
     """
@@ -61,7 +61,7 @@ def test_get_uptime_case_5_multiple_calls() -> None:
         assert isinstance(uptime, float)
 
 
-def test_get_uptime_case_6_monotonic_increase() -> None:
+def test_get_uptime_monotonic_increase() -> None:
     """
     Test case 6: Verify uptime is monotonically increasing.
     """

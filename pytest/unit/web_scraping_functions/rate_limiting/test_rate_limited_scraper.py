@@ -6,7 +6,7 @@ from web_scraping_functions.rate_limiting.rate_limited_scraper import (
 )
 
 
-def test_rate_limited_scraper_case_1_basic_rate_limiting() -> None:
+def test_rate_limited_scraper_basic_rate_limiting() -> None:
     """
     Test case 1: Apply basic rate limiting to function.
     """
@@ -27,7 +27,7 @@ def test_rate_limited_scraper_case_1_basic_rate_limiting() -> None:
     assert elapsed >= 0.1  # At least 0.1 seconds between calls (1/10)
 
 
-def test_rate_limited_scraper_case_2_preserves_function_signature() -> None:
+def test_rate_limited_scraper_preserves_function_signature() -> None:
     """
     Test case 2: Decorator preserves function metadata.
     """
@@ -42,7 +42,7 @@ def test_rate_limited_scraper_case_2_preserves_function_signature() -> None:
     assert "Scrape a URL" in my_scraper.__doc__
 
 
-def test_rate_limited_scraper_case_3_different_rates() -> None:
+def test_rate_limited_scraper_different_rates() -> None:
     """
     Test case 3: Apply different rate limits.
     """
@@ -61,7 +61,7 @@ def test_rate_limited_scraper_case_3_different_rates() -> None:
     assert elapsed >= 0.5  # At least 0.5 seconds between calls (1/2)
 
 
-def test_rate_limited_scraper_case_4_with_kwargs() -> None:
+def test_rate_limited_scraper_with_kwargs() -> None:
     """
     Test case 4: Function with keyword arguments.
     """
@@ -77,7 +77,7 @@ def test_rate_limited_scraper_case_4_with_kwargs() -> None:
     assert result == "https://example.com-60"
 
 
-def test_rate_limited_scraper_case_5_type_error_calls_per_second() -> None:
+def test_rate_limited_scraper_type_error_calls_per_second() -> None:
     """
     Test case 5: TypeError for invalid calls_per_second type.
     """
@@ -88,7 +88,7 @@ def test_rate_limited_scraper_case_5_type_error_calls_per_second() -> None:
             return url
 
 
-def test_rate_limited_scraper_case_6_value_error_non_positive_rate() -> None:
+def test_rate_limited_scraper_value_error_non_positive_rate() -> None:
     """
     Test case 6: ValueError for non-positive calls_per_second.
     """
@@ -99,7 +99,7 @@ def test_rate_limited_scraper_case_6_value_error_non_positive_rate() -> None:
             return url
 
 
-def test_rate_limited_scraper_case_7_value_error_negative_rate() -> None:
+def test_rate_limited_scraper_value_error_negative_rate() -> None:
     """
     Test case 7: ValueError for negative calls_per_second.
     """
@@ -110,7 +110,7 @@ def test_rate_limited_scraper_case_7_value_error_negative_rate() -> None:
             return url
 
 
-def test_rate_limited_scraper_case_8_exception_propagation() -> None:
+def test_rate_limited_scraper_exception_propagation() -> None:
     """
     Test case 8: Exceptions from wrapped function are propagated.
     """

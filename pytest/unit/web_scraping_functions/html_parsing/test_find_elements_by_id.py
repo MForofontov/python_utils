@@ -5,7 +5,7 @@ from web_scraping_functions.html_parsing.find_elements_by_id import (
 )
 
 
-def test_find_elements_by_id_case_1_simple_id() -> None:
+def test_find_elements_by_id_simple_id() -> None:
     """
     Test case 1: Find element by ID.
     """
@@ -21,7 +21,7 @@ def test_find_elements_by_id_case_1_simple_id() -> None:
     assert result.text == "Content"
 
 
-def test_find_elements_by_id_case_2_no_match() -> None:
+def test_find_elements_by_id_no_match() -> None:
     """
     Test case 2: Return None when ID not found.
     """
@@ -36,7 +36,7 @@ def test_find_elements_by_id_case_2_no_match() -> None:
     assert result is None
 
 
-def test_find_elements_by_id_case_3_nested_element() -> None:
+def test_find_elements_by_id_nested_element() -> None:
     """
     Test case 3: Find nested element by ID.
     """
@@ -52,7 +52,7 @@ def test_find_elements_by_id_case_3_nested_element() -> None:
     assert result.text == "Text"
 
 
-def test_find_elements_by_id_case_4_first_match() -> None:
+def test_find_elements_by_id_first_match() -> None:
     """
     Test case 4: Return first element when duplicate IDs exist (invalid HTML).
     """
@@ -68,7 +68,7 @@ def test_find_elements_by_id_case_4_first_match() -> None:
     assert result.text == "First"
 
 
-def test_find_elements_by_id_case_5_type_error_element() -> None:
+def test_find_elements_by_id_type_error_element() -> None:
     """
     Test case 5: TypeError for invalid element type.
     """
@@ -77,7 +77,7 @@ def test_find_elements_by_id_case_5_type_error_element() -> None:
         find_elements_by_id("not a soup", "main")
 
 
-def test_find_elements_by_id_case_6_type_error_element_id() -> None:
+def test_find_elements_by_id_type_error_element_id() -> None:
     """
     Test case 6: TypeError for invalid element_id type.
     """
@@ -90,7 +90,7 @@ def test_find_elements_by_id_case_6_type_error_element_id() -> None:
         find_elements_by_id(soup, 123)
 
 
-def test_find_elements_by_id_case_7_value_error_empty_id() -> None:
+def test_find_elements_by_id_value_error_empty_id() -> None:
     """
     Test case 7: ValueError for empty element_id.
     """
@@ -103,7 +103,7 @@ def test_find_elements_by_id_case_7_value_error_empty_id() -> None:
         find_elements_by_id(soup, "")
 
 
-def test_find_elements_by_id_case_8_value_error_whitespace_id() -> None:
+def test_find_elements_by_id_value_error_whitespace_id() -> None:
     """
     Test case 8: ValueError for whitespace-only element_id.
     """

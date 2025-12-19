@@ -4,7 +4,7 @@ import pytest
 from cli_functions.get_environment_variable import get_environment_variable
 
 
-def test_get_environment_variable_case_1_existing_variable() -> None:
+def test_get_environment_variable_existing_variable() -> None:
     """
     Test case 1: Get existing environment variable.
     """
@@ -16,7 +16,7 @@ def test_get_environment_variable_case_1_existing_variable() -> None:
         del os.environ['TEST_VAR']
 
 
-def test_get_environment_variable_case_2_nonexistent_with_default() -> None:
+def test_get_environment_variable_nonexistent_with_default() -> None:
     """
     Test case 2: Get nonexistent variable with default value.
     """
@@ -24,7 +24,7 @@ def test_get_environment_variable_case_2_nonexistent_with_default() -> None:
     assert result == 'default_value'
 
 
-def test_get_environment_variable_case_3_nonexistent_without_default() -> None:
+def test_get_environment_variable_nonexistent_without_default() -> None:
     """
     Test case 3: Get nonexistent variable without default returns None.
     """
@@ -32,7 +32,7 @@ def test_get_environment_variable_case_3_nonexistent_without_default() -> None:
     assert result is None
 
 
-def test_get_environment_variable_case_4_required_missing_error() -> None:
+def test_get_environment_variable_required_missing_error() -> None:
     """
     Test case 4: Required variable that is missing raises ValueError.
     """
@@ -40,7 +40,7 @@ def test_get_environment_variable_case_4_required_missing_error() -> None:
         get_environment_variable('NONEXISTENT_REQUIRED_VAR', required=True)
 
 
-def test_get_environment_variable_case_5_invalid_type_error() -> None:
+def test_get_environment_variable_invalid_type_error() -> None:
     """
     Test case 5: Invalid var_name type raises TypeError.
     """
@@ -51,7 +51,7 @@ def test_get_environment_variable_case_5_invalid_type_error() -> None:
         get_environment_variable(None)
 
 
-def test_get_environment_variable_case_6_required_existing() -> None:
+def test_get_environment_variable_required_existing() -> None:
     """
     Test case 6: Required variable that exists returns value.
     """

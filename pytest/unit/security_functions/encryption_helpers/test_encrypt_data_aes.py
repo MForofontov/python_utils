@@ -4,7 +4,7 @@ import pytest
 from security_functions.encryption_helpers.encrypt_data_aes import encrypt_data_aes
 
 
-def test_encrypt_data_aes_case_1_string_data_auto_key() -> None:
+def test_encrypt_data_aes_string_data_auto_key() -> None:
     """
     Test case 1: Encrypt string data with auto-generated key.
     """
@@ -27,7 +27,7 @@ def test_encrypt_data_aes_case_1_string_data_auto_key() -> None:
         pytest.fail("Encrypted data should be valid base64")
 
 
-def test_encrypt_data_aes_case_2_bytes_data_auto_key() -> None:
+def test_encrypt_data_aes_bytes_data_auto_key() -> None:
     """
     Test case 2: Encrypt bytes data with auto-generated key.
     """
@@ -44,7 +44,7 @@ def test_encrypt_data_aes_case_2_bytes_data_auto_key() -> None:
     assert len(key) > 0
 
 
-def test_encrypt_data_aes_case_3_string_data_custom_key() -> None:
+def test_encrypt_data_aes_string_data_custom_key() -> None:
     """
     Test case 3: Encrypt string data with custom key.
     """
@@ -64,7 +64,7 @@ def test_encrypt_data_aes_case_3_string_data_custom_key() -> None:
     assert len(encrypted) > 0
 
 
-def test_encrypt_data_aes_case_7_unicode_data() -> None:
+def test_encrypt_data_aes_unicode_data() -> None:
     """
     Test case 4: Handle Unicode characters in data.
     """
@@ -80,7 +80,7 @@ def test_encrypt_data_aes_case_7_unicode_data() -> None:
     assert len(encrypted) > 0
 
 
-def test_encrypt_data_aes_case_8_long_data() -> None:
+def test_encrypt_data_aes_long_data() -> None:
     """
     Test case 5: Encrypt long data string.
     """
@@ -96,7 +96,7 @@ def test_encrypt_data_aes_case_8_long_data() -> None:
     assert len(encrypted) > 0
 
 
-def test_encrypt_data_aes_case_9_different_data_different_results() -> None:
+def test_encrypt_data_aes_different_data_different_results() -> None:
     """
     Test case 6: Different data should produce different encrypted results.
     """
@@ -115,7 +115,7 @@ def test_encrypt_data_aes_case_9_different_data_different_results() -> None:
     assert encrypted1 != encrypted2
 
 
-def test_encrypt_data_aes_case_10_same_data_different_keys() -> None:
+def test_encrypt_data_aes_same_data_different_keys() -> None:
     """
     Test case 7: Same data with different keys should produce different results.
     """
@@ -134,7 +134,7 @@ def test_encrypt_data_aes_case_10_same_data_different_keys() -> None:
     assert encrypted1 != encrypted2
 
 
-def test_encrypt_data_aes_case_11_bytes_key_handling() -> None:
+def test_encrypt_data_aes_bytes_key_handling() -> None:
     """
     Test case 8: Handle bytes key input.
     """
@@ -153,7 +153,7 @@ def test_encrypt_data_aes_case_11_bytes_key_handling() -> None:
     assert len(encrypted) > 0
 
 
-def test_encrypt_data_aes_case_12_special_characters() -> None:
+def test_encrypt_data_aes_special_characters() -> None:
     """
     Test case 9: Handle special characters and symbols.
     """
@@ -169,7 +169,7 @@ def test_encrypt_data_aes_case_12_special_characters() -> None:
     assert len(encrypted) > 0
 
 
-def test_encrypt_data_aes_case_4_type_validation() -> None:
+def test_encrypt_data_aes_type_validation() -> None:
     """
     Test case 10: Type validation for parameters.
     """
@@ -182,7 +182,7 @@ def test_encrypt_data_aes_case_4_type_validation() -> None:
         encrypt_data_aes("data", key=123)
 
 
-def test_encrypt_data_aes_case_5_value_validation() -> None:
+def test_encrypt_data_aes_value_validation() -> None:
     """
     Test case 11: Value validation for parameters.
     """
@@ -195,7 +195,7 @@ def test_encrypt_data_aes_case_5_value_validation() -> None:
         encrypt_data_aes(b"")
 
 
-def test_encrypt_data_aes_case_6_invalid_key_format() -> None:
+def test_encrypt_data_aes_invalid_key_format() -> None:
     """
     Test case 12: Invalid key format should raise ValueError.
     """

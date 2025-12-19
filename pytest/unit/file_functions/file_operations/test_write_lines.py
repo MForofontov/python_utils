@@ -5,7 +5,7 @@ import pytest
 from file_functions import write_lines
 
 
-def test_write_lines_case_1_default_joiner() -> None:
+def test_write_lines_default_joiner() -> None:
     """
     Test case 1: Write lines with default newline joiner.
     """
@@ -23,7 +23,7 @@ def test_write_lines_case_1_default_joiner() -> None:
         assert content == "line1\nline2\nline3\n"
 
 
-def test_write_lines_case_2_custom_joiner() -> None:
+def test_write_lines_custom_joiner() -> None:
     """
     Test case 2: Write lines with custom joiner.
     """
@@ -41,7 +41,7 @@ def test_write_lines_case_2_custom_joiner() -> None:
         assert content == "apple, banana, cherry\n"
 
 
-def test_write_lines_case_3_append_mode() -> None:
+def test_write_lines_append_mode() -> None:
     """
     Test case 3: Write lines in append mode.
     """
@@ -64,7 +64,7 @@ def test_write_lines_case_3_append_mode() -> None:
         assert content == "initial\nappended1\nappended2\n"
 
 
-def test_write_lines_case_6_empty_list() -> None:
+def test_write_lines_empty_list() -> None:
     """
     Test case 4: Write empty list of lines.
     """
@@ -82,7 +82,7 @@ def test_write_lines_case_6_empty_list() -> None:
         assert content == "\n"  # Just the final newline
 
 
-def test_write_lines_case_7_lines_with_non_strings() -> None:
+def test_write_lines_lines_with_non_strings() -> None:
     """
     Test case 5: Handle non-string items in lines list.
     """
@@ -100,7 +100,7 @@ def test_write_lines_case_7_lines_with_non_strings() -> None:
         assert content == "string\n123\nTrue\nNone\n"
 
 
-def test_write_lines_case_8_unicode_content() -> None:
+def test_write_lines_unicode_content() -> None:
     """
     Test case 6: Handle Unicode characters in lines.
     """
@@ -118,7 +118,7 @@ def test_write_lines_case_8_unicode_content() -> None:
         assert content == "Hello 世界\nümläuts\némojis 🎉\n"
 
 
-def test_write_lines_case_9_overwrite_mode() -> None:
+def test_write_lines_overwrite_mode() -> None:
     """
     Test case 7: Write lines in overwrite mode (default).
     """
@@ -141,7 +141,7 @@ def test_write_lines_case_9_overwrite_mode() -> None:
         assert content == "new\ncontent\n"
 
 
-def test_write_lines_case_10_custom_joiner_no_spaces() -> None:
+def test_write_lines_custom_joiner_no_spaces() -> None:
     """
     Test case 8: Write lines with custom joiner without spaces.
     """
@@ -159,7 +159,7 @@ def test_write_lines_case_10_custom_joiner_no_spaces() -> None:
         assert content == "a|b|c|d\n"
 
 
-def test_write_lines_case_4_type_validation() -> None:
+def test_write_lines_type_validation() -> None:
     """
     Test case 9: Type validation for parameters.
     """
@@ -180,7 +180,7 @@ def test_write_lines_case_4_type_validation() -> None:
         write_lines(["line1"], "output.txt", write_mode=123)
 
 
-def test_write_lines_case_5_value_validation() -> None:
+def test_write_lines_value_validation() -> None:
     """
     Test case 10: Value validation for parameters.
     """

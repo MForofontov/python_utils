@@ -4,7 +4,7 @@ import pytest
 from testing_functions.benchmark_helpers.benchmark_function import benchmark_function
 
 
-def test_benchmark_function_case_1_simple_function() -> None:
+def test_benchmark_function_simple_function() -> None:
     """
     Test case 1: Benchmark simple function.
     """
@@ -24,7 +24,7 @@ def test_benchmark_function_case_1_simple_function() -> None:
     assert result['avg_time'] >= 0
 
 
-def test_benchmark_function_case_2_with_sleep() -> None:
+def test_benchmark_function_with_sleep() -> None:
     """
     Test case 2: Benchmark function with sleep.
     """
@@ -40,7 +40,7 @@ def test_benchmark_function_case_2_with_sleep() -> None:
     assert result['avg_time'] >= 0.01
 
 
-def test_benchmark_function_case_3_single_iteration() -> None:
+def test_benchmark_function_single_iteration() -> None:
     """
     Test case 3: Benchmark with single iteration.
     """
@@ -56,7 +56,7 @@ def test_benchmark_function_case_3_single_iteration() -> None:
     assert result['avg_time'] == result['total_time']
 
 
-def test_benchmark_function_case_4_with_args() -> None:
+def test_benchmark_function_with_args() -> None:
     """
     Test case 4: Benchmark function with arguments.
     """
@@ -71,7 +71,7 @@ def test_benchmark_function_case_4_with_args() -> None:
     assert result['avg_time'] >= 0
 
 
-def test_benchmark_function_case_5_with_kwargs() -> None:
+def test_benchmark_function_with_kwargs() -> None:
     """
     Test case 5: Benchmark function with kwargs.
     """
@@ -86,7 +86,7 @@ def test_benchmark_function_case_5_with_kwargs() -> None:
     assert result['avg_time'] >= 0
 
 
-def test_benchmark_function_case_6_type_error_func() -> None:
+def test_benchmark_function_type_error_func() -> None:
     """
     Test case 6: TypeError for non-callable func.
     """
@@ -95,7 +95,7 @@ def test_benchmark_function_case_6_type_error_func() -> None:
         benchmark_function("not callable", iterations=10)
 
 
-def test_benchmark_function_case_7_type_error_iterations() -> None:
+def test_benchmark_function_type_error_iterations() -> None:
     """
     Test case 7: TypeError for invalid iterations type.
     """
@@ -108,7 +108,7 @@ def test_benchmark_function_case_7_type_error_iterations() -> None:
         benchmark_function(test_func, iterations="10")
 
 
-def test_benchmark_function_case_8_value_error_zero_iterations() -> None:
+def test_benchmark_function_value_error_zero_iterations() -> None:
     """
     Test case 8: ValueError for zero iterations.
     """
@@ -121,7 +121,7 @@ def test_benchmark_function_case_8_value_error_zero_iterations() -> None:
         benchmark_function(test_func, iterations=0)
 
 
-def test_benchmark_function_case_9_value_error_negative_iterations() -> None:
+def test_benchmark_function_value_error_negative_iterations() -> None:
     """
     Test case 9: ValueError for negative iterations.
     """

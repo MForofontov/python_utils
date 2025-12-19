@@ -5,7 +5,7 @@ import pytest
 from cli_functions.list_files import list_files
 
 
-def test_list_files_case_1_valid_directory() -> None:
+def test_list_files_valid_directory() -> None:
     """
     Test case 1: Test list_files function with a valid directory returns correct file list.
     """
@@ -33,7 +33,7 @@ def test_list_files_case_1_valid_directory() -> None:
         assert len(files_with_hidden) == 3
 
 
-def test_list_files_case_2_empty_directory() -> None:
+def test_list_files_empty_directory() -> None:
     """
     Test case 2: Test list_files function with an empty directory returns empty list.
     """
@@ -43,7 +43,7 @@ def test_list_files_case_2_empty_directory() -> None:
         assert len(files) == 0
 
 
-def test_list_files_case_3_with_subdirectories() -> None:
+def test_list_files_with_subdirectories() -> None:
     """
     Test case 3: Test list_files function ignores subdirectories and only returns files.
     """
@@ -62,7 +62,7 @@ def test_list_files_case_3_with_subdirectories() -> None:
         assert len(files) == 1
 
 
-def test_list_files_case_4_nonexistent_directory_error() -> None:
+def test_list_files_nonexistent_directory_error() -> None:
     """
     Test case 4: Test list_files function with a nonexistent directory raises FileNotFoundError.
     """
@@ -70,7 +70,7 @@ def test_list_files_case_4_nonexistent_directory_error() -> None:
         list_files("/nonexistent/directory")
 
 
-def test_list_files_case_5_not_a_directory_error() -> None:
+def test_list_files_not_a_directory_error() -> None:
     """
     Test case 5: Test list_files function with a file instead of directory raises NotADirectoryError.
     """
@@ -82,7 +82,7 @@ def test_list_files_case_5_not_a_directory_error() -> None:
             os.unlink(temp_file.name)
 
 
-def test_list_files_case_6_invalid_type_error() -> None:
+def test_list_files_invalid_type_error() -> None:
     """
     Test case 6: Test list_files function with invalid input type raises TypeError.
     """

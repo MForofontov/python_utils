@@ -4,7 +4,7 @@ from testing_functions.assertion_helpers.assert_almost_equal import (
 )
 
 
-def test_assert_almost_equal_case_1_exactly_equal() -> None:
+def test_assert_almost_equal_exactly_equal() -> None:
     """
     Test case 1: Assert exactly equal values.
     """
@@ -12,7 +12,7 @@ def test_assert_almost_equal_case_1_exactly_equal() -> None:
     assert_almost_equal(1.0, 1.0)
 
 
-def test_assert_almost_equal_case_2_within_tolerance() -> None:
+def test_assert_almost_equal_within_tolerance() -> None:
     """
     Test case 2: Assert values within tolerance.
     """
@@ -20,7 +20,7 @@ def test_assert_almost_equal_case_2_within_tolerance() -> None:
     assert_almost_equal(0.1 + 0.2, 0.3, 1e-9)
 
 
-def test_assert_almost_equal_case_3_custom_tolerance() -> None:
+def test_assert_almost_equal_custom_tolerance() -> None:
     """
     Test case 4: Assert values with custom tolerance.
     """
@@ -28,7 +28,7 @@ def test_assert_almost_equal_case_3_custom_tolerance() -> None:
     assert_almost_equal(1.001, 1.002, 0.01)
 
 
-def test_assert_almost_equal_case_4_integers() -> None:
+def test_assert_almost_equal_integers() -> None:
     """
     Test case 5: Assert with integer values.
     """
@@ -36,7 +36,7 @@ def test_assert_almost_equal_case_4_integers() -> None:
     assert_almost_equal(5, 5)
 
 
-def test_assert_almost_equal_case_5_type_error_actual() -> None:
+def test_assert_almost_equal_type_error_actual() -> None:
     """
     Test case 6: TypeError for invalid actual type.
     """
@@ -45,7 +45,7 @@ def test_assert_almost_equal_case_5_type_error_actual() -> None:
         assert_almost_equal("1.0", 1.0)
 
 
-def test_assert_almost_equal_case_6_type_error_expected() -> None:
+def test_assert_almost_equal_type_error_expected() -> None:
     """
     Test case 7: TypeError for invalid expected type.
     """
@@ -54,7 +54,7 @@ def test_assert_almost_equal_case_6_type_error_expected() -> None:
         assert_almost_equal(1.0, "1.0")
 
 
-def test_assert_almost_equal_case_7_type_error_tolerance() -> None:
+def test_assert_almost_equal_type_error_tolerance() -> None:
     """
     Test case 8: TypeError for invalid tolerance type.
     """
@@ -63,7 +63,7 @@ def test_assert_almost_equal_case_7_type_error_tolerance() -> None:
         assert_almost_equal(1.0, 1.0, "0.1")
 
 
-def test_assert_almost_equal_case_8_value_error_negative_tolerance() -> None:
+def test_assert_almost_equal_value_error_negative_tolerance() -> None:
     """
     Test case 9: ValueError for negative tolerance.
     """
@@ -72,7 +72,7 @@ def test_assert_almost_equal_case_8_value_error_negative_tolerance() -> None:
         assert_almost_equal(1.0, 1.0, -0.1)
 
 
-def test_assert_almost_equal_case_9_assertion_error_exceeds_tolerance() -> None:
+def test_assert_almost_equal_assertion_error_exceeds_tolerance() -> None:
     """
     Test case 10: AssertionError when difference exceeds tolerance.
     """

@@ -4,7 +4,7 @@ from testing_functions.assertion_helpers.assert_raises_with_message import (
 )
 
 
-def test_assert_raises_with_message_case_1_correct_exception_and_message() -> None:
+def test_assert_raises_with_message_correct_exception_and_message() -> None:
     """
     Test case 1: Assert correct exception and message.
     """
@@ -16,7 +16,7 @@ def test_assert_raises_with_message_case_1_correct_exception_and_message() -> No
     assert_raises_with_message(failing_func, ValueError, "Invalid")
 
 
-def test_assert_raises_with_message_case_2_full_message_match() -> None:
+def test_assert_raises_with_message_full_message_match() -> None:
     """
     Test case 2: Assert with full message match.
     """
@@ -28,7 +28,7 @@ def test_assert_raises_with_message_case_2_full_message_match() -> None:
     assert_raises_with_message(failing_func, TypeError, "Expected int, got str")
 
 
-def test_assert_raises_with_message_case_3_with_args() -> None:
+def test_assert_raises_with_message_with_args() -> None:
     """
     Test case 3: Assert exception with function args.
     """
@@ -40,7 +40,7 @@ def test_assert_raises_with_message_case_3_with_args() -> None:
     assert_raises_with_message(failing_func, ValueError, "Sum", 1, 2)
 
 
-def test_assert_raises_with_message_case_4_with_kwargs() -> None:
+def test_assert_raises_with_message_with_kwargs() -> None:
     """
     Test case 4: Assert exception with function kwargs.
     """
@@ -52,7 +52,7 @@ def test_assert_raises_with_message_case_4_with_kwargs() -> None:
     assert_raises_with_message(failing_func, RuntimeError, "not allowed", value=42)
 
 
-def test_assert_raises_with_message_case_5_type_error_func() -> None:
+def test_assert_raises_with_message_type_error_func() -> None:
     """
     Test case 5: TypeError for non-callable func.
     """
@@ -61,7 +61,7 @@ def test_assert_raises_with_message_case_5_type_error_func() -> None:
         assert_raises_with_message("not callable", ValueError, "message")
 
 
-def test_assert_raises_with_message_case_6_type_error_exception_type() -> None:
+def test_assert_raises_with_message_type_error_exception_type() -> None:
     """
     Test case 6: TypeError for invalid exception_type.
     """
@@ -74,7 +74,7 @@ def test_assert_raises_with_message_case_6_type_error_exception_type() -> None:
         assert_raises_with_message(dummy_func, "ValueError", "message")
 
 
-def test_assert_raises_with_message_case_7_type_error_message_pattern() -> None:
+def test_assert_raises_with_message_type_error_message_pattern() -> None:
     """
     Test case 7: TypeError for invalid message_pattern type.
     """
@@ -87,7 +87,7 @@ def test_assert_raises_with_message_case_7_type_error_message_pattern() -> None:
         assert_raises_with_message(dummy_func, ValueError, 123)
 
 
-def test_assert_raises_with_message_case_8_assertion_error_no_exception() -> None:
+def test_assert_raises_with_message_assertion_error_no_exception() -> None:
     """
     Test case 8: AssertionError when no exception raised.
     """
@@ -100,7 +100,7 @@ def test_assert_raises_with_message_case_8_assertion_error_no_exception() -> Non
         assert_raises_with_message(passing_func, ValueError, "message")
 
 
-def test_assert_raises_with_message_case_9_assertion_error_wrong_exception() -> None:
+def test_assert_raises_with_message_assertion_error_wrong_exception() -> None:
     """
     Test case 9: AssertionError when wrong exception type raised.
     """
@@ -113,7 +113,7 @@ def test_assert_raises_with_message_case_9_assertion_error_wrong_exception() -> 
         assert_raises_with_message(failing_func, ValueError, "message")
 
 
-def test_assert_raises_with_message_case_10_assertion_error_message_mismatch() -> None:
+def test_assert_raises_with_message_assertion_error_message_mismatch() -> None:
     """
     Test case 10: AssertionError when message doesn't match.
     """

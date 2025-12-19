@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from web_scraping_functions.html_parsing.extract_text import extract_text
 
 
-def test_extract_text_case_1_simple_text() -> None:
+def test_extract_text_simple_text() -> None:
     """
     Test case 1: Extract text from simple element.
     """
@@ -18,7 +18,7 @@ def test_extract_text_case_1_simple_text() -> None:
     assert result == "Hello World"
 
 
-def test_extract_text_case_2_nested_elements() -> None:
+def test_extract_text_nested_elements() -> None:
     """
     Test case 2: Extract text from nested elements.
     """
@@ -33,7 +33,7 @@ def test_extract_text_case_2_nested_elements() -> None:
     assert result == "Hello Beautiful World"
 
 
-def test_extract_text_case_3_with_whitespace() -> None:
+def test_extract_text_with_whitespace() -> None:
     """
     Test case 3: Extract text with whitespace handling.
     """
@@ -48,7 +48,7 @@ def test_extract_text_case_3_with_whitespace() -> None:
     assert result == "Hello World"
 
 
-def test_extract_text_case_4_no_strip() -> None:
+def test_extract_text_no_strip() -> None:
     """
     Test case 4: Extract text without stripping.
     """
@@ -63,7 +63,7 @@ def test_extract_text_case_4_no_strip() -> None:
     assert "  Hello  " in result
 
 
-def test_extract_text_case_5_custom_separator() -> None:
+def test_extract_text_custom_separator() -> None:
     """
     Test case 5: Extract text with custom separator.
     """
@@ -78,7 +78,7 @@ def test_extract_text_case_5_custom_separator() -> None:
     assert "Hello" in result and "World" in result
 
 
-def test_extract_text_case_6_type_error_element() -> None:
+def test_extract_text_type_error_element() -> None:
     """
     Test case 6: TypeError for invalid element type.
     """
@@ -87,7 +87,7 @@ def test_extract_text_case_6_type_error_element() -> None:
         extract_text("not a soup object")
 
 
-def test_extract_text_case_7_type_error_strip() -> None:
+def test_extract_text_type_error_strip() -> None:
     """
     Test case 7: TypeError for invalid strip type.
     """
@@ -100,7 +100,7 @@ def test_extract_text_case_7_type_error_strip() -> None:
         extract_text(soup, strip="yes")
 
 
-def test_extract_text_case_8_type_error_separator() -> None:
+def test_extract_text_type_error_separator() -> None:
     """
     Test case 8: TypeError for invalid separator type.
     """

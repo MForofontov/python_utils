@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from web_scraping_functions.html_parsing.extract_tables import extract_tables
 
 
-def test_extract_tables_case_1_simple_table() -> None:
+def test_extract_tables_simple_table() -> None:
     """
     Test case 1: Extract simple table.
     """
@@ -22,7 +22,7 @@ def test_extract_tables_case_1_simple_table() -> None:
     assert result[0] == [['Name', 'Age'], ['Alice', '30']]
 
 
-def test_extract_tables_case_2_multiple_tables() -> None:
+def test_extract_tables_multiple_tables() -> None:
     """
     Test case 2: Extract multiple tables.
     """
@@ -42,7 +42,7 @@ def test_extract_tables_case_2_multiple_tables() -> None:
     assert result[1] == [['B']]
 
 
-def test_extract_tables_case_3_mixed_th_td() -> None:
+def test_extract_tables_mixed_th_td() -> None:
     """
     Test case 3: Extract table with mixed th and td.
     """
@@ -61,7 +61,7 @@ def test_extract_tables_case_3_mixed_th_td() -> None:
     assert result[0][1] == ['Data1', 'Data2']
 
 
-def test_extract_tables_case_4_empty_cells() -> None:
+def test_extract_tables_empty_cells() -> None:
     """
     Test case 4: Extract table with empty cells.
     """
@@ -80,7 +80,7 @@ def test_extract_tables_case_4_empty_cells() -> None:
     assert result[0][1] == ['', 'B']
 
 
-def test_extract_tables_case_5_no_tables() -> None:
+def test_extract_tables_no_tables() -> None:
     """
     Test case 5: Extract from HTML with no tables.
     """
@@ -95,7 +95,7 @@ def test_extract_tables_case_5_no_tables() -> None:
     assert result == []
 
 
-def test_extract_tables_case_6_whitespace_handling() -> None:
+def test_extract_tables_whitespace_handling() -> None:
     """
     Test case 6: Verify whitespace is stripped from cells.
     """
@@ -112,7 +112,7 @@ def test_extract_tables_case_6_whitespace_handling() -> None:
     assert result[0][0] == ['Padded', 'Text']
 
 
-def test_extract_tables_case_7_type_error_element() -> None:
+def test_extract_tables_type_error_element() -> None:
     """
     Test case 7: TypeError for invalid element type.
     """
@@ -121,7 +121,7 @@ def test_extract_tables_case_7_type_error_element() -> None:
         extract_tables("not a soup")
 
 
-def test_extract_tables_case_8_type_error_header_row() -> None:
+def test_extract_tables_type_error_header_row() -> None:
     """
     Test case 8: TypeError for invalid header_row type.
     """

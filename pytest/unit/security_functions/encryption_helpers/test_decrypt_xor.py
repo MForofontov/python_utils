@@ -3,7 +3,7 @@ from security_functions.encryption_helpers.decrypt_xor import decrypt_xor
 from security_functions.encryption_helpers.encrypt_xor import encrypt_xor
 
 
-def test_decrypt_xor_case_1_basic_decryption() -> None:
+def test_decrypt_xor_basic_decryption() -> None:
     """
     Test case 1: Basic XOR decryption should recover original data.
     """
@@ -18,7 +18,7 @@ def test_decrypt_xor_case_1_basic_decryption() -> None:
     assert decrypted == original_data
 
 
-def test_decrypt_xor_case_2_custom_key_decryption() -> None:
+def test_decrypt_xor_custom_key_decryption() -> None:
     """
     Test case 2: Decrypt data encrypted with custom key.
     """
@@ -34,7 +34,7 @@ def test_decrypt_xor_case_2_custom_key_decryption() -> None:
     assert decrypted == original_data
 
 
-def test_decrypt_xor_case_6_wrong_key_different_result() -> None:
+def test_decrypt_xor_wrong_key_different_result() -> None:
     """
     Test case 3: Wrong key should produce different (incorrect) result.
     """
@@ -53,7 +53,7 @@ def test_decrypt_xor_case_6_wrong_key_different_result() -> None:
     assert wrong_decrypted != original_data
 
 
-def test_decrypt_xor_case_7_unicode_data() -> None:
+def test_decrypt_xor_unicode_data() -> None:
     """
     Test case 4: Handle Unicode characters in data.
     """
@@ -68,7 +68,7 @@ def test_decrypt_xor_case_7_unicode_data() -> None:
     assert decrypted == original_data
 
 
-def test_decrypt_xor_case_8_long_data() -> None:
+def test_decrypt_xor_long_data() -> None:
     """
     Test case 5: Decrypt long data string.
     """
@@ -87,7 +87,7 @@ def test_decrypt_xor_case_8_long_data() -> None:
     assert decrypted == original_data
 
 
-def test_decrypt_xor_case_9_special_characters() -> None:
+def test_decrypt_xor_special_characters() -> None:
     """
     Test case 6: Handle special characters and symbols.
     """
@@ -103,7 +103,7 @@ def test_decrypt_xor_case_9_special_characters() -> None:
     assert decrypted == original_data
 
 
-def test_decrypt_xor_case_11_roundtrip_multiple_times() -> None:
+def test_decrypt_xor_roundtrip_multiple_times() -> None:
     """
     Test case 7: Multiple encrypt/decrypt roundtrips should be consistent.
     """
@@ -124,7 +124,7 @@ def test_decrypt_xor_case_11_roundtrip_multiple_times() -> None:
     assert encrypted1 == encrypted2  # Should be deterministic
 
 
-def test_decrypt_xor_case_12_case_sensitive_hex() -> None:
+def test_decrypt_xor_case_sensitive_hex() -> None:
     """
     Test case 8: Hex decryption should handle both uppercase and lowercase.
     """
@@ -145,7 +145,7 @@ def test_decrypt_xor_case_12_case_sensitive_hex() -> None:
     assert decrypted_upper == original_data
 
 
-def test_decrypt_xor_case_3_type_validation() -> None:
+def test_decrypt_xor_type_validation() -> None:
     """
     Test case 9: Type validation for parameters.
     """
@@ -158,7 +158,7 @@ def test_decrypt_xor_case_3_type_validation() -> None:
         decrypt_xor("encrypted", 123)
 
 
-def test_decrypt_xor_case_4_value_validation() -> None:
+def test_decrypt_xor_value_validation() -> None:
     """
     Test case 10: Value validation for parameters.
     """
@@ -171,7 +171,7 @@ def test_decrypt_xor_case_4_value_validation() -> None:
         decrypt_xor("encrypted", "")
 
 
-def test_decrypt_xor_case_5_invalid_hex_format() -> None:
+def test_decrypt_xor_invalid_hex_format() -> None:
     """
     Test case 11: Invalid hex format should raise ValueError.
     """
@@ -184,7 +184,7 @@ def test_decrypt_xor_case_5_invalid_hex_format() -> None:
         decrypt_xor("gggg", "key")  # Invalid hex characters
 
 
-def test_decrypt_xor_case_10_empty_original_data() -> None:
+def test_decrypt_xor_empty_original_data() -> None:
     """
     Test case 12: Handle empty string encryption/decryption.
     """

@@ -2,7 +2,7 @@ import pytest
 from testing_functions.mock_helpers.mock_file_system import mock_file_system
 
 
-def test_mock_file_system_case_1_single_file() -> None:
+def test_mock_file_system_single_file() -> None:
     """
     Test case 1: Create mock filesystem with single file.
     """
@@ -17,7 +17,7 @@ def test_mock_file_system_case_1_single_file() -> None:
     assert fs.exists("/test.txt") is True
 
 
-def test_mock_file_system_case_2_multiple_files() -> None:
+def test_mock_file_system_multiple_files() -> None:
     """
     Test case 2: Create mock filesystem with multiple files.
     """
@@ -37,7 +37,7 @@ def test_mock_file_system_case_2_multiple_files() -> None:
     assert fs.read("/dir/file3.txt") == "content3"
 
 
-def test_mock_file_system_case_3_file_exists() -> None:
+def test_mock_file_system_file_exists() -> None:
     """
     Test case 3: Test exists method.
     """
@@ -52,7 +52,7 @@ def test_mock_file_system_case_3_file_exists() -> None:
     assert fs.exists("/nonexisting.txt") is False
 
 
-def test_mock_file_system_case_4_listdir() -> None:
+def test_mock_file_system_listdir() -> None:
     """
     Test case 4: Test listdir method.
     """
@@ -73,7 +73,7 @@ def test_mock_file_system_case_4_listdir() -> None:
     assert "/dir/file2.txt" in result
 
 
-def test_mock_file_system_case_5_empty_filesystem() -> None:
+def test_mock_file_system_empty_filesystem() -> None:
     """
     Test case 5: Create empty mock filesystem.
     """
@@ -87,7 +87,7 @@ def test_mock_file_system_case_5_empty_filesystem() -> None:
     assert fs.exists("/any.txt") is False
 
 
-def test_mock_file_system_case_6_files_attribute() -> None:
+def test_mock_file_system_files_attribute() -> None:
     """
     Test case 6: Access files attribute.
     """
@@ -101,7 +101,7 @@ def test_mock_file_system_case_6_files_attribute() -> None:
     assert fs.files == files
 
 
-def test_mock_file_system_case_7_read_nonexistent_file() -> None:
+def test_mock_file_system_read_nonexistent_file() -> None:
     """
     Test case 7: FileNotFoundError when reading nonexistent file.
     """
@@ -116,7 +116,7 @@ def test_mock_file_system_case_7_read_nonexistent_file() -> None:
         fs.read("/nonexistent.txt")
 
 
-def test_mock_file_system_case_8_type_error_files() -> None:
+def test_mock_file_system_type_error_files() -> None:
     """
     Test case 8: TypeError for invalid files type.
     """

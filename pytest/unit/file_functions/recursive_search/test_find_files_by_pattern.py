@@ -6,7 +6,7 @@ import pytest
 from file_functions import find_files_by_pattern
 
 
-def test_find_files_by_pattern_case_1_wildcard_pattern() -> None:
+def test_find_files_by_pattern_wildcard_pattern() -> None:
     """
     Test case 1: Normal operation with wildcard pattern.
     """
@@ -30,7 +30,7 @@ def test_find_files_by_pattern_case_1_wildcard_pattern() -> None:
         assert "test_utils.py" in file_names
 
 
-def test_find_files_by_pattern_case_2_question_mark_pattern() -> None:
+def test_find_files_by_pattern_question_mark_pattern() -> None:
     """
     Test case 2: Pattern with question mark wildcard.
     """
@@ -51,7 +51,7 @@ def test_find_files_by_pattern_case_2_question_mark_pattern() -> None:
         assert "file10.txt" not in file_names
 
 
-def test_find_files_by_pattern_case_3_case_sensitive() -> None:
+def test_find_files_by_pattern_case_sensitive() -> None:
     """
     Test case 3: Case sensitive pattern matching.
     """
@@ -75,7 +75,7 @@ def test_find_files_by_pattern_case_3_case_sensitive() -> None:
     assert len(result_insensitive) == 1
 
 
-def test_find_files_by_pattern_case_4_bracket_pattern() -> None:
+def test_find_files_by_pattern_bracket_pattern() -> None:
     """
     Test case 4: Pattern with character class brackets.
     """
@@ -98,7 +98,7 @@ def test_find_files_by_pattern_case_4_bracket_pattern() -> None:
         assert "file9.txt" not in file_names
 
 
-def test_find_files_by_pattern_case_5_empty_directory() -> None:
+def test_find_files_by_pattern_empty_directory() -> None:
     """
     Test case 5: Empty directory returns empty list.
     """
@@ -111,7 +111,7 @@ def test_find_files_by_pattern_case_5_empty_directory() -> None:
         assert result == []
 
 
-def test_find_files_by_pattern_case_9_path_object_input() -> None:
+def test_find_files_by_pattern_path_object_input() -> None:
     """
     Test case 6: Function works with Path object input.
     """
@@ -128,7 +128,7 @@ def test_find_files_by_pattern_case_9_path_object_input() -> None:
         assert Path(result[0]).name == "test.py"
 
 
-def test_find_files_by_pattern_case_6_invalid_directory_error() -> None:
+def test_find_files_by_pattern_invalid_directory_error() -> None:
     """
     Test case 7: ValueError for non-existent directory.
     """
@@ -140,7 +140,7 @@ def test_find_files_by_pattern_case_6_invalid_directory_error() -> None:
         find_files_by_pattern(non_existent_dir, "*")
 
 
-def test_find_files_by_pattern_case_7_invalid_type_errors() -> None:
+def test_find_files_by_pattern_invalid_type_errors() -> None:
     """
     Test case 8: TypeError for invalid parameter types.
     """
@@ -157,7 +157,7 @@ def test_find_files_by_pattern_case_7_invalid_type_errors() -> None:
         find_files_by_pattern("/tmp", "*", "not_bool")
 
 
-def test_find_files_by_pattern_case_8_empty_pattern_error() -> None:
+def test_find_files_by_pattern_empty_pattern_error() -> None:
     """
     Test case 9: ValueError for empty pattern.
     """
@@ -168,7 +168,7 @@ def test_find_files_by_pattern_case_8_empty_pattern_error() -> None:
             find_files_by_pattern(temp_dir, "")
 
 
-def test_find_files_by_pattern_case_10_os_error_handling() -> None:
+def test_find_files_by_pattern_os_error_handling() -> None:
     """
     Test case 10: OSError handling during directory walk.
     """
