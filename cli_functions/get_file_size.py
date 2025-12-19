@@ -45,3 +45,6 @@ def get_file_size(file_path: str) -> int:
         raise IsADirectoryError(f"Path is a directory, not a file: {file_path}")
 
     return os.path.getsize(file_path)
+
+
+__all__ = ['get_file_size']

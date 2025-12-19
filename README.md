@@ -193,18 +193,34 @@ JSON data manipulation and validation utilities:
 - **Transformation**: JSON-to-object and object-to-JSON conversion
 - **Merging**: Deep merge operations for complex JSON structures
 
-### 🐧 Linux Functions (`linux_functions/`)
-System monitoring and process management for Linux environments:
+### 💻 CLI Functions (`cli_functions/`)
+Cross-platform command-line interface and system utilities:
 
-#### Process Monitoring
-- **CPU Usage**: Real-time CPU utilization tracking
-- **Memory Usage**: RAM and swap memory monitoring
-- **Process Information**: PID, command line, and status retrieval
+#### Command Execution
+- **execute_command**: Execute shell commands with timeout and error handling
+- **check_command_exists**: Verify command availability in system PATH
+
+#### Environment Management
+- **get_environment_variable**: Retrieve environment variables with validation
+- **set_environment_variable**: Set environment variables safely
 
 #### System Information
-- **Hardware**: CPU count, architecture, and specifications
-- **Network**: Interface statistics and connection monitoring
-- **Disk**: Storage usage and I/O statistics
+- **get_cpu_info**: CPU statistics and usage monitoring
+- **get_memory_info**: Memory usage and statistics
+- **get_disk_usage**: Disk space and usage information
+- **get_network_info**: Network interface details
+- **get_uptime**: System uptime tracking
+- **get_current_user**: Current system user information
+- **get_hostname**: System hostname retrieval
+
+#### Process Management
+- **is_process_running**: Check if process is running by name
+- **kill_process**: Terminate process by PID
+
+#### File Operations
+- **get_file_size**: Get file size in bytes
+- **list_files**: List files in directory
+- **list_directories**: List subdirectories
 
 ### 🔧 Logger Functions (`logger_functions/`)
 Advanced logging configuration and management:

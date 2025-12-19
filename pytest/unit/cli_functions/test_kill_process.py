@@ -1,21 +1,20 @@
 import pytest
-from linux_functions.kill_process import kill_process
+from cli_functions.kill_process import kill_process
 
 
-def test_kill_process_nonexistent_pid() -> None:
+def test_kill_process_case_1_nonexistent_pid() -> None:
     """
     Test case 1: Test kill_process function with a nonexistent PID returns False.
     """
-    result: bool = kill_process(999999)
+    result = kill_process(999999)
     assert not result
 
 
-def test_kill_process_handles_os_errors() -> None:
+def test_kill_process_case_2_handles_os_errors() -> None:
     """
     Test case 2: Test kill_process handles OSError and PermissionError gracefully.
     """
     from unittest.mock import patch
-    import os
     
     # Test OSError handling
     with patch('os.kill', side_effect=OSError("Operation not permitted")):
@@ -30,11 +29,11 @@ def test_kill_process_handles_os_errors() -> None:
             assert result is False
 
 
-def test_kill_process_invalid_type() -> None:
+def test_kill_process_case_3_invalid_type_error() -> None:
     """
     Test case 3: Test kill_process function with invalid input types raises TypeError.
     """
-    with pytest.raises(TypeError):
+    with pytest.raises(TypeError, match="pid must be an integer"):
         kill_process("123")
 
     with pytest.raises(TypeError):
@@ -44,11 +43,11 @@ def test_kill_process_invalid_type() -> None:
         kill_process(12.5)
 
 
-def test_kill_process_invalid_pid() -> None:
+def test_kill_process_case_4_invalid_pid_error() -> None:
     """
     Test case 4: Test kill_process function with invalid PID values raises ValueError.
     """
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="pid must be positive"):
         kill_process(0)
 
     with pytest.raises(ValueError):
@@ -56,3 +55,29 @@ def test_kill_process_invalid_pid() -> None:
 
     with pytest.raises(ValueError):
         kill_process(-999)
+
+
+def test_kill_process_case_5_with_different_signals() -> None:
+    """
+    Test case 5: Test kill_process with different signal types.
+    """
+    import signal
+    
+    # These should all return False for non-existent PID without raising
+    result1 = kill_process(999999, signal.SIGTERM)
+    result2 = kill_process(999999, signal.SIGKILL)
+    
+    assert result1 is False
+    assert result2 is False
+
+
+def test_kill_process_case_6_process_lookup_error() -> None:
+    """
+    Test case 6: Test kill_process handles ProcessLookupError.
+    """
+    from unittest.mock import patch
+    
+    with patch('os.kill', side_effect=ProcessLookupError("No such process")):
+        with patch('psutil.pid_exists', return_value=True):
+            result = kill_process(12345)
+            assert result is False

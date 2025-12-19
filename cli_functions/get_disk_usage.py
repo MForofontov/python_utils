@@ -49,3 +49,6 @@ def get_disk_usage(path: str = "/") -> dict[str, int | float]:
         "free": usage.free,
         "percent_used": (usage.used / usage.total) * 100 if usage.total > 0 else 0,
     }
+
+
+__all__ = ['get_disk_usage']

@@ -39,7 +39,7 @@ python-utils/
 ├── http_functions/                 # HTTP client utilities
 ├── iterable_functions/             # Iterator and list operations
 ├── json_functions/                 # JSON manipulation
-├── linux_functions/                # System monitoring
+├── cli_functions/                  # CLI and system utilities
 ├── logger_functions/               # Logging utilities
 ├── mathematical_functions/         # Mathematical operations
 ├── multiprocessing_functions/      # Parallel processing

@@ -1,24 +1,24 @@
 import pytest
-from linux_functions.is_process_running import is_process_running
+from cli_functions.is_process_running import is_process_running
 
 
-def test_is_process_running_valid_process() -> None:
+def test_is_process_running_case_1_valid_process() -> None:
     """
     Test case 1: Test is_process_running function with a process that should exist.
     """
-    result: bool = is_process_running("init")
+    result = is_process_running("init")
     assert isinstance(result, bool)
 
 
-def test_is_process_running_nonexistent_process() -> None:
+def test_is_process_running_case_2_nonexistent_process() -> None:
     """
     Test case 2: Test is_process_running function with a nonexistent process.
     """
-    result: bool = is_process_running("nonexistent_process_12345")
+    result = is_process_running("nonexistent_process_12345")
     assert not result
 
 
-def test_is_process_running_handles_psutil_exceptions() -> None:
+def test_is_process_running_case_3_handles_psutil_exceptions() -> None:
     """
     Test case 3: Test is_process_running handles psutil exceptions gracefully.
     """
@@ -39,11 +39,11 @@ def test_is_process_running_handles_psutil_exceptions() -> None:
         assert isinstance(result, bool)
 
 
-def test_is_process_running_invalid_type() -> None:
+def test_is_process_running_case_4_invalid_type_error() -> None:
     """
     Test case 4: Test is_process_running function with invalid input type raises TypeError.
     """
-    with pytest.raises(TypeError):
+    with pytest.raises(TypeError, match="process_name must be a string"):
         is_process_running(123)
 
     with pytest.raises(TypeError):
@@ -51,3 +51,29 @@ def test_is_process_running_invalid_type() -> None:
 
     with pytest.raises(TypeError):
         is_process_running(["process_name"])
+
+
+def test_is_process_running_case_5_empty_string() -> None:
+    """
+    Test case 5: Test is_process_running with empty string returns False.
+    """
+    result = is_process_running("")
+    assert result is False
+
+
+def test_is_process_running_case_6_current_process() -> None:
+    """
+    Test case 6: Test is_process_running can find python process.
+    """
+    import os
+    import psutil
+    
+    # Get current process name
+    current_proc = psutil.Process(os.getpid())
+    current_name = current_proc.name()
+    
+    # Should find a process with the same name
+    result = is_process_running(current_name)
+    assert isinstance(result, bool)
+    # Should be True since current process is running
+    assert result is True

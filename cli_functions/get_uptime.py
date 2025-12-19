@@ -23,3 +23,6 @@ def get_uptime() -> float:
     True
     """
     return time.time() - psutil.boot_time()
+
+
+__all__ = ['get_uptime']
