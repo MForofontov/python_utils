@@ -5,7 +5,7 @@ import pytest
 from file_functions import write_to_file
 
 
-def test_write_to_file_case_1_basic_write() -> None:
+def test_write_to_file_basic_write() -> None:
     """
     Test case 1: Basic file write operation.
     """
@@ -22,7 +22,7 @@ def test_write_to_file_case_1_basic_write() -> None:
             assert f.read() == content
 
 
-def test_write_to_file_case_2_write_mode() -> None:
+def test_write_to_file_write_mode() -> None:
     """
     Test case 2: Write with explicit write mode.
     """
@@ -39,7 +39,7 @@ def test_write_to_file_case_2_write_mode() -> None:
             assert f.read() == content
 
 
-def test_write_to_file_case_3_append_mode() -> None:
+def test_write_to_file_append_mode() -> None:
     """
     Test case 3: Write in append mode.
     """
@@ -62,7 +62,7 @@ def test_write_to_file_case_3_append_mode() -> None:
             assert f.read() == initial_content + additional_content
 
 
-def test_write_to_file_case_4_custom_end_char() -> None:
+def test_write_to_file_custom_end_char() -> None:
     """
     Test case 4: Write with custom end character.
     """
@@ -80,7 +80,7 @@ def test_write_to_file_case_4_custom_end_char() -> None:
             assert f.read() == content + end_char
 
 
-def test_write_to_file_case_7_unicode_content() -> None:
+def test_write_to_file_unicode_content() -> None:
     """
     Test case 5: Handle Unicode characters in content.
     """
@@ -97,7 +97,7 @@ def test_write_to_file_case_7_unicode_content() -> None:
             assert f.read() == content
 
 
-def test_write_to_file_case_8_empty_content() -> None:
+def test_write_to_file_empty_content() -> None:
     """
     Test case 6: Write empty content.
     """
@@ -114,7 +114,7 @@ def test_write_to_file_case_8_empty_content() -> None:
             assert f.read() == content
 
 
-def test_write_to_file_case_9_exclusive_mode() -> None:
+def test_write_to_file_exclusive_mode() -> None:
     """
     Test case 7: Write in exclusive mode (file must not exist).
     """
@@ -131,7 +131,7 @@ def test_write_to_file_case_9_exclusive_mode() -> None:
             assert f.read() == content
 
 
-def test_write_to_file_case_11_multiline_content() -> None:
+def test_write_to_file_multiline_content() -> None:
     """
     Test case 8: Handle multiline content.
     """
@@ -148,7 +148,7 @@ def test_write_to_file_case_11_multiline_content() -> None:
             assert f.read() == content
 
 
-def test_write_to_file_case_12_special_characters() -> None:
+def test_write_to_file_special_characters() -> None:
     """
     Test case 9: Handle special characters in content.
     """
@@ -165,7 +165,7 @@ def test_write_to_file_case_12_special_characters() -> None:
             assert f.read() == content
 
 
-def test_write_to_file_case_5_type_validation() -> None:
+def test_write_to_file_type_validation() -> None:
     """
     Test case 10: Type validation for parameters.
     """
@@ -186,7 +186,7 @@ def test_write_to_file_case_5_type_validation() -> None:
         write_to_file("content", "output.txt", end_char=123)
 
 
-def test_write_to_file_case_6_value_validation() -> None:
+def test_write_to_file_value_validation() -> None:
     """
     Test case 11: Value validation for parameters.
     """
@@ -199,7 +199,7 @@ def test_write_to_file_case_6_value_validation() -> None:
         write_to_file("content", "output.txt", mode="invalid")
 
 
-def test_write_to_file_case_10_exclusive_mode_file_exists() -> None:
+def test_write_to_file_exclusive_mode_file_exists() -> None:
     """
     Test case 12: Exclusive mode should raise error if file exists.
     """

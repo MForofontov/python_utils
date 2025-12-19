@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from web_scraping_functions.selectors.select_by_css import select_by_css
 
 
-def test_select_by_css_case_1_simple_selector() -> None:
+def test_select_by_css_simple_selector() -> None:
     """
     Test case 1: Select elements with simple CSS selector.
     """
@@ -20,7 +20,7 @@ def test_select_by_css_case_1_simple_selector() -> None:
     assert result[1].text == "B"
 
 
-def test_select_by_css_case_2_with_limit() -> None:
+def test_select_by_css_with_limit() -> None:
     """
     Test case 2: Select elements with limit.
     """
@@ -35,7 +35,7 @@ def test_select_by_css_case_2_with_limit() -> None:
     assert len(result) == 2
 
 
-def test_select_by_css_case_3_complex_selector() -> None:
+def test_select_by_css_complex_selector() -> None:
     """
     Test case 3: Use complex CSS selector.
     """
@@ -51,7 +51,7 @@ def test_select_by_css_case_3_complex_selector() -> None:
     assert result[0].text == "Text"
 
 
-def test_select_by_css_case_4_attribute_selector() -> None:
+def test_select_by_css_attribute_selector() -> None:
     """
     Test case 4: Use attribute selector.
     """
@@ -67,7 +67,7 @@ def test_select_by_css_case_4_attribute_selector() -> None:
     assert result[0].text == "Link1"
 
 
-def test_select_by_css_case_5_no_matches() -> None:
+def test_select_by_css_no_matches() -> None:
     """
     Test case 5: Return empty list when no matches found.
     """
@@ -82,7 +82,7 @@ def test_select_by_css_case_5_no_matches() -> None:
     assert result == []
 
 
-def test_select_by_css_case_6_type_error_element() -> None:
+def test_select_by_css_type_error_element() -> None:
     """
     Test case 6: TypeError for invalid element type.
     """
@@ -91,7 +91,7 @@ def test_select_by_css_case_6_type_error_element() -> None:
         select_by_css("not a soup", ".item")
 
 
-def test_select_by_css_case_7_type_error_selector() -> None:
+def test_select_by_css_type_error_selector() -> None:
     """
     Test case 7: TypeError for invalid selector type.
     """
@@ -104,7 +104,7 @@ def test_select_by_css_case_7_type_error_selector() -> None:
         select_by_css(soup, 123)
 
 
-def test_select_by_css_case_8_type_error_limit() -> None:
+def test_select_by_css_type_error_limit() -> None:
     """
     Test case 8: TypeError for invalid limit type.
     """
@@ -117,7 +117,7 @@ def test_select_by_css_case_8_type_error_limit() -> None:
         select_by_css(soup, ".item", limit="5")
 
 
-def test_select_by_css_case_9_value_error_empty_selector() -> None:
+def test_select_by_css_value_error_empty_selector() -> None:
     """
     Test case 9: ValueError for empty selector.
     """
@@ -130,7 +130,7 @@ def test_select_by_css_case_9_value_error_empty_selector() -> None:
         select_by_css(soup, "")
 
 
-def test_select_by_css_case_10_value_error_non_positive_limit() -> None:
+def test_select_by_css_value_error_non_positive_limit() -> None:
     """
     Test case 10: ValueError for non-positive limit.
     """

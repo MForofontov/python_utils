@@ -52,3 +52,6 @@ def kill_process(pid: int, signal_type: int = signal.SIGTERM) -> bool:
         return True
     except (OSError, ProcessLookupError, PermissionError):
         return False
+
+
+__all__ = ['kill_process']

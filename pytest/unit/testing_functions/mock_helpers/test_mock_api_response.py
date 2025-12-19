@@ -2,7 +2,7 @@ import pytest
 from testing_functions.mock_helpers.mock_api_response import mock_api_response
 
 
-def test_mock_api_response_case_1_default_parameters() -> None:
+def test_mock_api_response_default_parameters() -> None:
     """
     Test case 1: Create mock API response with defaults.
     """
@@ -15,7 +15,7 @@ def test_mock_api_response_case_1_default_parameters() -> None:
     assert response.json() is None
 
 
-def test_mock_api_response_case_2_custom_status_code() -> None:
+def test_mock_api_response_custom_status_code() -> None:
     """
     Test case 2: Create mock with custom status code.
     """
@@ -26,7 +26,7 @@ def test_mock_api_response_case_2_custom_status_code() -> None:
     assert response.status_code == 404
 
 
-def test_mock_api_response_case_3_with_data() -> None:
+def test_mock_api_response_with_data() -> None:
     """
     Test case 3: Create mock with JSON data.
     """
@@ -41,7 +41,7 @@ def test_mock_api_response_case_3_with_data() -> None:
     assert "key" in response.json()
 
 
-def test_mock_api_response_case_4_with_headers() -> None:
+def test_mock_api_response_with_headers() -> None:
     """
     Test case 4: Create mock with custom headers.
     """
@@ -55,7 +55,7 @@ def test_mock_api_response_case_4_with_headers() -> None:
     assert response.headers == headers
 
 
-def test_mock_api_response_case_5_text_attribute() -> None:
+def test_mock_api_response_text_attribute() -> None:
     """
     Test case 5: Verify text attribute.
     """
@@ -69,7 +69,7 @@ def test_mock_api_response_case_5_text_attribute() -> None:
     assert "message" in response.text
 
 
-def test_mock_api_response_case_6_error_status_codes() -> None:
+def test_mock_api_response_error_status_codes() -> None:
     """
     Test case 6: Create mock with various error codes.
     """
@@ -82,7 +82,7 @@ def test_mock_api_response_case_6_error_status_codes() -> None:
     assert response_500.status_code == 500
 
 
-def test_mock_api_response_case_7_type_error_status_code() -> None:
+def test_mock_api_response_type_error_status_code() -> None:
     """
     Test case 7: TypeError for invalid status_code type.
     """
@@ -91,7 +91,7 @@ def test_mock_api_response_case_7_type_error_status_code() -> None:
         mock_api_response("200")
 
 
-def test_mock_api_response_case_8_type_error_headers() -> None:
+def test_mock_api_response_type_error_headers() -> None:
     """
     Test case 8: TypeError for invalid headers type.
     """
@@ -100,7 +100,7 @@ def test_mock_api_response_case_8_type_error_headers() -> None:
         mock_api_response(200, None, "headers")
 
 
-def test_mock_api_response_case_9_value_error_invalid_status_code() -> None:
+def test_mock_api_response_value_error_invalid_status_code() -> None:
     """
     Test case 9: ValueError for invalid status code.
     """
@@ -109,7 +109,7 @@ def test_mock_api_response_case_9_value_error_invalid_status_code() -> None:
         mock_api_response(99)
 
 
-def test_mock_api_response_case_10_value_error_status_code_too_high() -> None:
+def test_mock_api_response_value_error_status_code_too_high() -> None:
     """
     Test case 10: ValueError for status code too high.
     """

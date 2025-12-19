@@ -22,7 +22,7 @@ def find_missing_tests():
         "http_functions",
         "iterable_functions",
         "json_functions",
-        "linux_functions",
+        "cli_functions",
         "logger_functions",
         "mathematical_functions",
         "multiprocessing_functions",

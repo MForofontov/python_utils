@@ -42,3 +42,6 @@ def is_process_running(process_name: str) -> bool:
             continue
 
     return False
+
+
+__all__ = ['is_process_running']

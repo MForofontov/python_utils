@@ -7,7 +7,7 @@ from security_functions.token_generation.generate_jwt_token import generate_jwt_
 from security_functions.token_generation.verify_jwt_token import verify_jwt_token
 
 
-def test_verify_jwt_token_case_1_valid_token() -> None:
+def test_verify_jwt_token_valid_token() -> None:
     """
     Test case 1: Verify valid JWT token returns correct payload.
     """
@@ -26,7 +26,7 @@ def test_verify_jwt_token_case_1_valid_token() -> None:
     assert "exp" in decoded_payload
 
 
-def test_verify_jwt_token_case_11_complex_payload() -> None:
+def test_verify_jwt_token_complex_payload() -> None:
     """
     Test case 2: Verify token with complex payload structure.
     """
@@ -50,7 +50,7 @@ def test_verify_jwt_token_case_11_complex_payload() -> None:
     assert decoded_payload["metadata"]["login_count"] == 5
 
 
-def test_verify_jwt_token_case_12_token_without_expiration() -> None:
+def test_verify_jwt_token_token_without_expiration() -> None:
     """
     Test case 3: Token without expiration should verify successfully.
     """
@@ -91,7 +91,7 @@ def test_verify_jwt_token_case_12_token_without_expiration() -> None:
     assert "exp" not in decoded_payload
 
 
-def test_verify_jwt_token_case_2_wrong_secret() -> None:
+def test_verify_jwt_token_wrong_secret() -> None:
     """
     Test case 4: Wrong secret should raise ValueError.
     """
@@ -106,7 +106,7 @@ def test_verify_jwt_token_case_2_wrong_secret() -> None:
         verify_jwt_token(token, wrong_secret)
 
 
-def test_verify_jwt_token_case_3_malformed_token() -> None:
+def test_verify_jwt_token_malformed_token() -> None:
     """
     Test case 5: Malformed token should raise ValueError.
     """
@@ -123,7 +123,7 @@ def test_verify_jwt_token_case_3_malformed_token() -> None:
         verify_jwt_token("too.many.parts.here", "secret")
 
 
-def test_verify_jwt_token_case_4_type_validation() -> None:
+def test_verify_jwt_token_type_validation() -> None:
     """
     Test case 6: Type validation for all parameters.
     """
@@ -138,7 +138,7 @@ def test_verify_jwt_token_case_4_type_validation() -> None:
         verify_jwt_token(token, 123)
 
 
-def test_verify_jwt_token_case_5_value_validation() -> None:
+def test_verify_jwt_token_value_validation() -> None:
     """
     Test case 7: Value validation for parameters.
     """
@@ -152,7 +152,7 @@ def test_verify_jwt_token_case_5_value_validation() -> None:
         verify_jwt_token(valid_token, "")
 
 
-def test_verify_jwt_token_case_6_invalid_base64() -> None:
+def test_verify_jwt_token_invalid_base64() -> None:
     """
     Test case 8: Invalid base64 encoding should raise ValueError.
     """
@@ -164,7 +164,7 @@ def test_verify_jwt_token_case_6_invalid_base64() -> None:
         verify_jwt_token(invalid_token, "secret")
 
 
-def test_verify_jwt_token_case_7_invalid_json() -> None:
+def test_verify_jwt_token_invalid_json() -> None:
     """
     Test case 9: Invalid JSON in token should raise ValueError.
     """
@@ -177,7 +177,7 @@ def test_verify_jwt_token_case_7_invalid_json() -> None:
         verify_jwt_token(invalid_token, "secret")
 
 
-def test_verify_jwt_token_case_8_unsupported_algorithm() -> None:
+def test_verify_jwt_token_unsupported_algorithm() -> None:
     """
     Test case 10: Unsupported algorithm should raise ValueError.
     """
@@ -201,7 +201,7 @@ def test_verify_jwt_token_case_8_unsupported_algorithm() -> None:
         verify_jwt_token(invalid_token, "secret")
 
 
-def test_verify_jwt_token_case_9_expired_token() -> None:
+def test_verify_jwt_token_expired_token() -> None:
     """
     Test case 11: Expired token should raise ValueError.
     """
@@ -240,7 +240,7 @@ def test_verify_jwt_token_case_9_expired_token() -> None:
         verify_jwt_token(expired_token, secret)
 
 
-def test_verify_jwt_token_case_10_invalid_expiration_format() -> None:
+def test_verify_jwt_token_invalid_expiration_format() -> None:
     """
     Test case 12: Invalid expiration time format should raise ValueError.
     """

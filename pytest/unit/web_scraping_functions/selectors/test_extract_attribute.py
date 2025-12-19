@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from web_scraping_functions.selectors.extract_attribute import extract_attribute
 
 
-def test_extract_attribute_case_1_simple_attribute() -> None:
+def test_extract_attribute_simple_attribute() -> None:
     """
     Test case 1: Extract simple attribute from element.
     """
@@ -19,7 +19,7 @@ def test_extract_attribute_case_1_simple_attribute() -> None:
     assert result == "/page"
 
 
-def test_extract_attribute_case_2_class_attribute() -> None:
+def test_extract_attribute_class_attribute() -> None:
     """
     Test case 2: Extract class attribute.
     """
@@ -35,7 +35,7 @@ def test_extract_attribute_case_2_class_attribute() -> None:
     assert result == ["main", "content"]
 
 
-def test_extract_attribute_case_3_missing_attribute() -> None:
+def test_extract_attribute_missing_attribute() -> None:
     """
     Test case 3: Return None when attribute doesn't exist.
     """
@@ -51,7 +51,7 @@ def test_extract_attribute_case_3_missing_attribute() -> None:
     assert result is None
 
 
-def test_extract_attribute_case_4_default_value() -> None:
+def test_extract_attribute_default_value() -> None:
     """
     Test case 4: Return default value when attribute missing.
     """
@@ -67,7 +67,7 @@ def test_extract_attribute_case_4_default_value() -> None:
     assert result == "default_value"
 
 
-def test_extract_attribute_case_5_id_attribute() -> None:
+def test_extract_attribute_id_attribute() -> None:
     """
     Test case 5: Extract id attribute.
     """
@@ -83,7 +83,7 @@ def test_extract_attribute_case_5_id_attribute() -> None:
     assert result == "main"
 
 
-def test_extract_attribute_case_6_data_attribute() -> None:
+def test_extract_attribute_data_attribute() -> None:
     """
     Test case 6: Extract data-* attribute.
     """
@@ -99,7 +99,7 @@ def test_extract_attribute_case_6_data_attribute() -> None:
     assert result == "123"
 
 
-def test_extract_attribute_case_7_type_error_element() -> None:
+def test_extract_attribute_type_error_element() -> None:
     """
     Test case 7: TypeError for invalid element type.
     """
@@ -108,7 +108,7 @@ def test_extract_attribute_case_7_type_error_element() -> None:
         extract_attribute("not a tag", "href")
 
 
-def test_extract_attribute_case_8_type_error_attribute() -> None:
+def test_extract_attribute_type_error_attribute() -> None:
     """
     Test case 8: TypeError for invalid attribute type.
     """
@@ -122,7 +122,7 @@ def test_extract_attribute_case_8_type_error_attribute() -> None:
         extract_attribute(element, 123)  # type: ignore
 
 
-def test_extract_attribute_case_9_value_error_empty_attribute() -> None:
+def test_extract_attribute_value_error_empty_attribute() -> None:
     """
     Test case 9: ValueError for empty attribute.
     """
@@ -136,7 +136,7 @@ def test_extract_attribute_case_9_value_error_empty_attribute() -> None:
         extract_attribute(element, "")
 
 
-def test_extract_attribute_case_10_whitespace_attribute() -> None:
+def test_extract_attribute_whitespace_attribute() -> None:
     """
     Test case 10: ValueError for whitespace-only attribute.
     """

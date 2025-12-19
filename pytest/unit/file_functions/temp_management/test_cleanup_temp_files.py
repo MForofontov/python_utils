@@ -8,7 +8,7 @@ import pytest
 from file_functions import cleanup_temp_files
 
 
-def test_cleanup_temp_files_case_1_normal_operation() -> None:
+def test_cleanup_temp_files_normal_operation() -> None:
     """
     Test case 1: Normal operation cleaning old files.
     """
@@ -36,7 +36,7 @@ def test_cleanup_temp_files_case_1_normal_operation() -> None:
         assert new_file.exists()
 
 
-def test_cleanup_temp_files_case_2_pattern_filtering() -> None:
+def test_cleanup_temp_files_pattern_filtering() -> None:
     """
     Test case 2: Clean files matching specific pattern.
     """
@@ -64,7 +64,7 @@ def test_cleanup_temp_files_case_2_pattern_filtering() -> None:
         assert txt_file.exists()
 
 
-def test_cleanup_temp_files_case_3_dry_run() -> None:
+def test_cleanup_temp_files_dry_run() -> None:
     """
     Test case 3: Dry run mode lists files without deleting.
     """
@@ -86,7 +86,7 @@ def test_cleanup_temp_files_case_3_dry_run() -> None:
         assert old_file.exists()  # File should still exist
 
 
-def test_cleanup_temp_files_case_4_default_temp_directory() -> None:
+def test_cleanup_temp_files_default_temp_directory() -> None:
     """
     Test case 4: Use system temp directory when none specified.
     """
@@ -99,7 +99,7 @@ def test_cleanup_temp_files_case_4_default_temp_directory() -> None:
     assert isinstance(deleted_files, list)
 
 
-def test_cleanup_temp_files_case_5_empty_directory() -> None:
+def test_cleanup_temp_files_empty_directory() -> None:
     """
     Test case 5: Empty directory returns empty list.
     """
@@ -112,7 +112,7 @@ def test_cleanup_temp_files_case_5_empty_directory() -> None:
         assert deleted_files == []
 
 
-def test_cleanup_temp_files_case_6_no_old_files() -> None:
+def test_cleanup_temp_files_no_old_files() -> None:
     """
     Test case 6: No files older than threshold.
     """
@@ -129,7 +129,7 @@ def test_cleanup_temp_files_case_6_no_old_files() -> None:
         assert new_file.exists()
 
 
-def test_cleanup_temp_files_case_7_invalid_directory_error() -> None:
+def test_cleanup_temp_files_invalid_directory_error() -> None:
     """
     Test case 7: ValueError for non-existent directory.
     """
@@ -141,7 +141,7 @@ def test_cleanup_temp_files_case_7_invalid_directory_error() -> None:
         cleanup_temp_files(non_existent_dir, max_age_hours=1.0)
 
 
-def test_cleanup_temp_files_case_8_invalid_type_errors() -> None:
+def test_cleanup_temp_files_invalid_type_errors() -> None:
     """
     Test case 8: TypeError for invalid parameter types.
     """
@@ -162,7 +162,7 @@ def test_cleanup_temp_files_case_8_invalid_type_errors() -> None:
         cleanup_temp_files("/tmp", dry_run="not_bool")
 
 
-def test_cleanup_temp_files_case_9_invalid_max_age_hours() -> None:
+def test_cleanup_temp_files_invalid_max_age_hours() -> None:
     """
     Test case 9: ValueError for invalid max_age_hours value.
     """
@@ -176,7 +176,7 @@ def test_cleanup_temp_files_case_9_invalid_max_age_hours() -> None:
             cleanup_temp_files(temp_dir, max_age_hours=-1)
 
 
-def test_cleanup_temp_files_case_10_file_access_error_handling() -> None:
+def test_cleanup_temp_files_file_access_error_handling() -> None:
     """
     Test case 10: Graceful handling of file access errors.
     """

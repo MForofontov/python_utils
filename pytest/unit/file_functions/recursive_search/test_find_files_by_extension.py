@@ -6,7 +6,7 @@ import pytest
 from file_functions import find_files_by_extension
 
 
-def test_find_files_by_extension_case_1_normal_operation() -> None:
+def test_find_files_by_extension_normal_operation() -> None:
     """
     Test case 1: Normal operation with Python files.
     """
@@ -30,7 +30,7 @@ def test_find_files_by_extension_case_1_normal_operation() -> None:
         assert "utils.py" in py_files
 
 
-def test_find_files_by_extension_case_2_extension_without_dot() -> None:
+def test_find_files_by_extension_extension_without_dot() -> None:
     """
     Test case 2: Extension specified without leading dot.
     """
@@ -47,7 +47,7 @@ def test_find_files_by_extension_case_2_extension_without_dot() -> None:
         assert Path(result[0]).name == "file.txt"
 
 
-def test_find_files_by_extension_case_3_case_sensitive() -> None:
+def test_find_files_by_extension_case_sensitive() -> None:
     """
     Test case 3: Case sensitive search.
     """
@@ -74,7 +74,7 @@ def test_find_files_by_extension_case_3_case_sensitive() -> None:
         assert found_names == {"file1.TXT", "file2.txt"}
 
 
-def test_find_files_by_extension_case_4_empty_directory() -> None:
+def test_find_files_by_extension_empty_directory() -> None:
     """
     Test case 4: Empty directory returns empty list.
     """
@@ -87,7 +87,7 @@ def test_find_files_by_extension_case_4_empty_directory() -> None:
         assert result == []
 
 
-def test_find_files_by_extension_case_8_path_object_input() -> None:
+def test_find_files_by_extension_path_object_input() -> None:
     """
     Test case 5: Function works with Path object input.
     """
@@ -104,7 +104,7 @@ def test_find_files_by_extension_case_8_path_object_input() -> None:
         assert Path(result[0]).name == "test.py"
 
 
-def test_find_files_by_extension_case_5_invalid_directory_error() -> None:
+def test_find_files_by_extension_invalid_directory_error() -> None:
     """
     Test case 6: ValueError for non-existent directory.
     """
@@ -116,7 +116,7 @@ def test_find_files_by_extension_case_5_invalid_directory_error() -> None:
         find_files_by_extension(non_existent_dir, ".py")
 
 
-def test_find_files_by_extension_case_6_invalid_type_errors() -> None:
+def test_find_files_by_extension_invalid_type_errors() -> None:
     """
     Test case 7: TypeError for invalid parameter types.
     """
@@ -133,7 +133,7 @@ def test_find_files_by_extension_case_6_invalid_type_errors() -> None:
         find_files_by_extension("/tmp", ".py", "not_bool")
 
 
-def test_find_files_by_extension_case_7_empty_extension_error() -> None:
+def test_find_files_by_extension_empty_extension_error() -> None:
     """
     Test case 8: ValueError for empty extension.
     """
@@ -144,7 +144,7 @@ def test_find_files_by_extension_case_7_empty_extension_error() -> None:
             find_files_by_extension(temp_dir, "")
 
 
-def test_find_files_by_extension_case_9_file_path_not_directory_error() -> None:
+def test_find_files_by_extension_file_path_not_directory_error() -> None:
     """
     Test case 9: ValueError when path points to a file, not directory.
     """
@@ -155,7 +155,7 @@ def test_find_files_by_extension_case_9_file_path_not_directory_error() -> None:
             find_files_by_extension(temp_file.name, ".py")
 
 
-def test_find_files_by_extension_case_10_os_error_handling() -> None:
+def test_find_files_by_extension_os_error_handling() -> None:
     """
     Test case 10: OSError handling during directory walk.
     """

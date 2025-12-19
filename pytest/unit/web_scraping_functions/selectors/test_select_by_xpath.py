@@ -3,7 +3,7 @@ from lxml import etree
 from web_scraping_functions.selectors.select_by_xpath import select_by_xpath
 
 
-def test_select_by_xpath_case_1_simple_xpath() -> None:
+def test_select_by_xpath_simple_xpath() -> None:
     """
     Test case 1: Select elements with simple XPath.
     """
@@ -18,7 +18,7 @@ def test_select_by_xpath_case_1_simple_xpath() -> None:
     assert all(isinstance(elem, etree._Element) for elem in result)
 
 
-def test_select_by_xpath_case_2_single_element() -> None:
+def test_select_by_xpath_single_element() -> None:
     """
     Test case 2: Select single element.
     """
@@ -32,7 +32,7 @@ def test_select_by_xpath_case_2_single_element() -> None:
     assert len(result) == 1
 
 
-def test_select_by_xpath_case_3_text_selection() -> None:
+def test_select_by_xpath_text_selection() -> None:
     """
     Test case 3: Select elements by text content.
     """
@@ -46,7 +46,7 @@ def test_select_by_xpath_case_3_text_selection() -> None:
     assert len(result) == 1
 
 
-def test_select_by_xpath_case_4_nested_selection() -> None:
+def test_select_by_xpath_nested_selection() -> None:
     """
     Test case 4: Select nested elements.
     """
@@ -60,7 +60,7 @@ def test_select_by_xpath_case_4_nested_selection() -> None:
     assert len(result) == 1
 
 
-def test_select_by_xpath_case_5_no_matches() -> None:
+def test_select_by_xpath_no_matches() -> None:
     """
     Test case 5: Return empty list when no matches found.
     """
@@ -74,7 +74,7 @@ def test_select_by_xpath_case_5_no_matches() -> None:
     assert result == []
 
 
-def test_select_by_xpath_case_6_type_error_html() -> None:
+def test_select_by_xpath_type_error_html() -> None:
     """
     Test case 6: TypeError for invalid html type.
     """
@@ -83,7 +83,7 @@ def test_select_by_xpath_case_6_type_error_html() -> None:
         select_by_xpath(123, "//div")  # type: ignore
 
 
-def test_select_by_xpath_case_7_type_error_xpath() -> None:
+def test_select_by_xpath_type_error_xpath() -> None:
     """
     Test case 7: TypeError for invalid xpath type.
     """
@@ -95,7 +95,7 @@ def test_select_by_xpath_case_7_type_error_xpath() -> None:
         select_by_xpath(html, 123)  # type: ignore
 
 
-def test_select_by_xpath_case_8_value_error_empty_html() -> None:
+def test_select_by_xpath_value_error_empty_html() -> None:
     """
     Test case 8: ValueError for empty html.
     """
@@ -104,7 +104,7 @@ def test_select_by_xpath_case_8_value_error_empty_html() -> None:
         select_by_xpath("", "//div")
 
 
-def test_select_by_xpath_case_9_value_error_empty_xpath() -> None:
+def test_select_by_xpath_value_error_empty_xpath() -> None:
     """
     Test case 9: ValueError for empty xpath.
     """

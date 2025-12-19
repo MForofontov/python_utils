@@ -1,25 +1,25 @@
 """
-Module for listing directories.
+Module for listing files in a directory.
 """
 
 import os
 
 
-def list_directories(directory_path: str, include_hidden: bool = False) -> list[str]:
+def list_files(directory_path: str, include_hidden: bool = False) -> list[str]:
     """
-    List all directories in a given path.
+    List all files in a directory.
 
     Parameters
     ----------
     directory_path : str
-        Path to the parent directory.
+        Path to the directory.
     include_hidden : bool, optional
-        Include hidden directories (starting with .) (by default False).
+        Include hidden files (starting with .) (by default False).
 
     Returns
     -------
     list[str]
-        List of directory names.
+        List of file names in the directory.
 
     Raises
     ------
@@ -32,8 +32,8 @@ def list_directories(directory_path: str, include_hidden: bool = False) -> list[
 
     Examples
     --------
-    >>> dirs = list_directories('/tmp')
-    >>> isinstance(dirs, list)
+    >>> files = list_files('/tmp')
+    >>> isinstance(files, list)
     True
     """
     if not isinstance(directory_path, str):
@@ -45,11 +45,14 @@ def list_directories(directory_path: str, include_hidden: bool = False) -> list[
     if not os.path.isdir(directory_path):
         raise NotADirectoryError(f"Path is not a directory: {directory_path}")
 
-    directories = []
+    files = []
     for item in os.listdir(directory_path):
         item_path = os.path.join(directory_path, item)
-        if os.path.isdir(item_path):
+        if os.path.isfile(item_path):
             if include_hidden or not item.startswith("."):
-                directories.append(item)
+                files.append(item)
 
-    return sorted(directories)
+    return sorted(files)
+
+
+__all__ = ['list_files']

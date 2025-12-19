@@ -4,7 +4,7 @@ from testing_functions.test_data_generators.generate_random_list import (
 )
 
 
-def test_generate_random_list_case_1_default_parameters() -> None:
+def test_generate_random_list_default_parameters() -> None:
     """
     Test case 1: Generate random list with default parameters.
     """
@@ -17,7 +17,7 @@ def test_generate_random_list_case_1_default_parameters() -> None:
     assert all(isinstance(x, int) for x in result)
 
 
-def test_generate_random_list_case_2_custom_length() -> None:
+def test_generate_random_list_custom_length() -> None:
     """
     Test case 2: Generate random list with custom length.
     """
@@ -28,7 +28,7 @@ def test_generate_random_list_case_2_custom_length() -> None:
     assert len(result) == 5
 
 
-def test_generate_random_list_case_3_float_type() -> None:
+def test_generate_random_list_float_type() -> None:
     """
     Test case 3: Generate random list of floats.
     """
@@ -39,7 +39,7 @@ def test_generate_random_list_case_3_float_type() -> None:
     assert all(isinstance(x, float) for x in result)
 
 
-def test_generate_random_list_case_4_string_type() -> None:
+def test_generate_random_list_string_type() -> None:
     """
     Test case 4: Generate random list of strings.
     """
@@ -50,7 +50,7 @@ def test_generate_random_list_case_4_string_type() -> None:
     assert all(isinstance(x, str) for x in result)
 
 
-def test_generate_random_list_case_5_custom_range() -> None:
+def test_generate_random_list_custom_range() -> None:
     """
     Test case 5: Generate random list with custom value range.
     """
@@ -61,7 +61,7 @@ def test_generate_random_list_case_5_custom_range() -> None:
     assert all(1 <= x <= 10 for x in result)
 
 
-def test_generate_random_list_case_6_empty_list() -> None:
+def test_generate_random_list_empty_list() -> None:
     """
     Test case 6: Generate empty list.
     """
@@ -72,7 +72,7 @@ def test_generate_random_list_case_6_empty_list() -> None:
     assert result == []
 
 
-def test_generate_random_list_case_7_type_error_length() -> None:
+def test_generate_random_list_type_error_length() -> None:
     """
     Test case 7: TypeError for invalid length type.
     """
@@ -81,7 +81,7 @@ def test_generate_random_list_case_7_type_error_length() -> None:
         generate_random_list("10")
 
 
-def test_generate_random_list_case_8_type_error_element_type() -> None:
+def test_generate_random_list_type_error_element_type() -> None:
     """
     Test case 8: TypeError for invalid element_type.
     """
@@ -90,7 +90,7 @@ def test_generate_random_list_case_8_type_error_element_type() -> None:
         generate_random_list(10, 123)
 
 
-def test_generate_random_list_case_9_value_error_negative_length() -> None:
+def test_generate_random_list_value_error_negative_length() -> None:
     """
     Test case 9: ValueError for negative length.
     """
@@ -99,7 +99,7 @@ def test_generate_random_list_case_9_value_error_negative_length() -> None:
         generate_random_list(-1)
 
 
-def test_generate_random_list_case_10_value_error_invalid_element_type() -> None:
+def test_generate_random_list_value_error_invalid_element_type() -> None:
     """
     Test case 10: ValueError for invalid element_type value.
     """

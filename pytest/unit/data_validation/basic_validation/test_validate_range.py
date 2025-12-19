@@ -109,7 +109,7 @@ def test_validate_range_decimal_ranges() -> None:
     )
 
 
-def test_validate_range_case_11_boundary_conditions() -> None:
+def test_validate_range_boundary_conditions() -> None:
     """
     Test case 7: Edge cases and boundary conditions.
     """
@@ -127,7 +127,7 @@ def test_validate_range_case_11_boundary_conditions() -> None:
     validate_range(1e-10, min_value=0.0, max_value=1e-9)
 
 
-def test_validate_range_case_12_performance_large_numbers() -> None:
+def test_validate_range_performance_large_numbers() -> None:
     """
     Test case 8: Performance with large numbers and many validations.
     """
@@ -210,7 +210,7 @@ def test_validate_range_invalid_range_bounds() -> None:
         validate_range(5, min_value=5, max_value=5, max_inclusive=False)
 
 
-def test_validate_range_case_10_type_errors() -> None:
+def test_validate_range_type_errors() -> None:
     """
     Test case 12: TypeError for invalid parameter types and incompatible comparisons.
     """

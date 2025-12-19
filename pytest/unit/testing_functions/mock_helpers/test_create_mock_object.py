@@ -2,7 +2,7 @@ import pytest
 from testing_functions.mock_helpers.create_mock_object import create_mock_object
 
 
-def test_create_mock_object_case_1_single_attribute() -> None:
+def test_create_mock_object_single_attribute() -> None:
     """
     Test case 1: Create mock with single attribute.
     """
@@ -13,7 +13,7 @@ def test_create_mock_object_case_1_single_attribute() -> None:
     assert mock.name == "test"
 
 
-def test_create_mock_object_case_2_multiple_attributes() -> None:
+def test_create_mock_object_multiple_attributes() -> None:
     """
     Test case 2: Create mock with multiple attributes.
     """
@@ -26,7 +26,7 @@ def test_create_mock_object_case_2_multiple_attributes() -> None:
     assert mock.active is True
 
 
-def test_create_mock_object_case_3_complex_attributes() -> None:
+def test_create_mock_object_complex_attributes() -> None:
     """
     Test case 3: Create mock with complex attributes.
     """
@@ -43,7 +43,7 @@ def test_create_mock_object_case_3_complex_attributes() -> None:
     assert mock.callback(5) == 10
 
 
-def test_create_mock_object_case_4_no_attributes() -> None:
+def test_create_mock_object_no_attributes() -> None:
     """
     Test case 4: Create mock with no attributes.
     """
@@ -54,7 +54,7 @@ def test_create_mock_object_case_4_no_attributes() -> None:
     assert hasattr(mock, '_mock_name')  # Mock object exists
 
 
-def test_create_mock_object_case_5_nested_objects() -> None:
+def test_create_mock_object_nested_objects() -> None:
     """
     Test case 5: Create mock with nested object attributes.
     """
@@ -66,7 +66,7 @@ def test_create_mock_object_case_5_nested_objects() -> None:
     assert mock.nested.id == 1
 
 
-def test_create_mock_object_case_6_override_attribute() -> None:
+def test_create_mock_object_override_attribute() -> None:
     """
     Test case 6: Create mock and later modify attribute.
     """

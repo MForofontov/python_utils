@@ -6,7 +6,7 @@ from testing_functions.fixture_factories.create_temp_dir_fixture import (
 )
 
 
-def test_create_temp_dir_fixture_case_1_empty_directory() -> None:
+def test_create_temp_dir_fixture_empty_directory() -> None:
     """
     Test case 1: Create empty temp directory.
     """
@@ -20,7 +20,7 @@ def test_create_temp_dir_fixture_case_1_empty_directory() -> None:
     assert not temp_dir.exists()
 
 
-def test_create_temp_dir_fixture_case_2_with_single_file() -> None:
+def test_create_temp_dir_fixture_with_single_file() -> None:
     """
     Test case 2: Create temp directory with single file.
     """
@@ -34,7 +34,7 @@ def test_create_temp_dir_fixture_case_2_with_single_file() -> None:
         assert file_path.read_text() == "content"
 
 
-def test_create_temp_dir_fixture_case_3_with_multiple_files() -> None:
+def test_create_temp_dir_fixture_with_multiple_files() -> None:
     """
     Test case 3: Create temp directory with multiple files.
     """
@@ -52,7 +52,7 @@ def test_create_temp_dir_fixture_case_3_with_multiple_files() -> None:
         assert (temp_dir / "file3.txt").read_text() == "content3"
 
 
-def test_create_temp_dir_fixture_case_4_with_subdirectories() -> None:
+def test_create_temp_dir_fixture_with_subdirectories() -> None:
     """
     Test case 4: Create temp directory with subdirectories.
     """
@@ -68,7 +68,7 @@ def test_create_temp_dir_fixture_case_4_with_subdirectories() -> None:
         assert (temp_dir / "dir2" / "file2.txt").exists()
 
 
-def test_create_temp_dir_fixture_case_5_directory_cleanup() -> None:
+def test_create_temp_dir_fixture_directory_cleanup() -> None:
     """
     Test case 5: Verify directory is deleted after context.
     """
@@ -85,7 +85,7 @@ def test_create_temp_dir_fixture_case_5_directory_cleanup() -> None:
     assert not dir_path.exists()
 
 
-def test_create_temp_dir_fixture_case_6_nested_directories() -> None:
+def test_create_temp_dir_fixture_nested_directories() -> None:
     """
     Test case 6: Create temp directory with nested structure.
     """
@@ -101,7 +101,7 @@ def test_create_temp_dir_fixture_case_6_nested_directories() -> None:
         assert file_path.read_text() == "deep content"
 
 
-def test_create_temp_dir_fixture_case_7_type_error_files() -> None:
+def test_create_temp_dir_fixture_type_error_files() -> None:
     """
     Test case 7: TypeError for invalid files type.
     """

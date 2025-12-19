@@ -5,7 +5,7 @@ import pytest
 from data_validation import validate_email
 
 
-def test_validate_email_case_1_valid_emails() -> None:
+def test_validate_email_valid_emails() -> None:
     """
     Test case 1: Valid email address formats.
     """
@@ -21,7 +21,7 @@ def test_validate_email_case_1_valid_emails() -> None:
     validate_email("first.last+tag@subdomain.example.co.uk")
 
 
-def test_validate_email_case_2_subdomain_and_tld_variations() -> None:
+def test_validate_email_subdomain_and_tld_variations() -> None:
     """
     Test case 2: Valid emails with various subdomain and TLD combinations.
     """
@@ -36,7 +36,7 @@ def test_validate_email_case_2_subdomain_and_tld_variations() -> None:
     validate_email("user@example.travel")
 
 
-def test_validate_email_case_3_unicode_emails() -> None:
+def test_validate_email_unicode_emails() -> None:
     """
     Test case 3: Unicode email addresses when allowed.
     """
@@ -46,7 +46,7 @@ def test_validate_email_case_3_unicode_emails() -> None:
     validate_email("user@üñíçøðé.com", allow_unicode=True)
 
 
-def test_validate_email_case_4_edge_case_valid_emails() -> None:
+def test_validate_email_edge_case_valid_emails() -> None:
     """
     Test case 4: Edge cases that should be valid.
     """
@@ -62,7 +62,7 @@ def test_validate_email_case_4_edge_case_valid_emails() -> None:
     validate_email("user@sub-domain.example-site.org")
 
 
-def test_validate_email_case_13_mx_checking_success() -> None:
+def test_validate_email_mx_checking_success() -> None:
     """
     Test case 5: MX record validation using dnspython (success).
     """
@@ -74,7 +74,7 @@ def test_validate_email_case_13_mx_checking_success() -> None:
 
 @patch("dns.resolver.resolve", side_effect=Exception("No MX"))
 @patch("socket.gethostbyname")
-def test_validate_email_case_15_mx_checking_socket_fallback_success(
+def test_validate_email_mx_checking_socket_fallback_success(
     mock_gethostbyname, mock_resolve
 ) -> None:
     """
@@ -85,7 +85,7 @@ def test_validate_email_case_15_mx_checking_socket_fallback_success(
     mock_gethostbyname.assert_called_with("example.com")
 
 
-def test_validate_email_case_17_edge_cases() -> None:
+def test_validate_email_edge_cases() -> None:
     """
     Test case 7: Edge cases and boundary conditions.
     """
@@ -105,7 +105,7 @@ def test_validate_email_case_17_edge_cases() -> None:
     validate_email("user-name@domain-name.org")
 
 
-def test_validate_email_case_18_performance_complex_emails() -> None:
+def test_validate_email_performance_complex_emails() -> None:
     """
     Test case 8: Performance with complex email validation.
     """
@@ -128,7 +128,7 @@ def test_validate_email_case_18_performance_complex_emails() -> None:
     assert elapsed_time < 1.0  # Should complete within 1 second
 
 
-def test_validate_email_case_5_type_error_invalid_input() -> None:
+def test_validate_email_type_error_invalid_input() -> None:
     """
     Test case 9: TypeError for non-string input.
     """
@@ -146,7 +146,7 @@ def test_validate_email_case_5_type_error_invalid_input() -> None:
         validate_email(123, param_name="user_email")
 
 
-def test_validate_email_case_6_type_error_invalid_parameters() -> None:
+def test_validate_email_type_error_invalid_parameters() -> None:
     """
     Test case 10: TypeError for invalid parameter types.
     """
@@ -160,7 +160,7 @@ def test_validate_email_case_6_type_error_invalid_parameters() -> None:
         validate_email("user@example.com", param_name=123)
 
 
-def test_validate_email_case_7_value_error_empty_email() -> None:
+def test_validate_email_value_error_empty_email() -> None:
     """
     Test case 11: ValueError for empty email addresses.
     """
@@ -172,7 +172,7 @@ def test_validate_email_case_7_value_error_empty_email() -> None:
         validate_email("", param_name="user_email")
 
 
-def test_validate_email_case_8_value_error_length_violations() -> None:
+def test_validate_email_value_error_length_violations() -> None:
     """
     Test case 12: ValueError for length constraint violations.
     """
@@ -198,7 +198,7 @@ def test_validate_email_case_8_value_error_length_violations() -> None:
         validate_email(long_domain)
 
 
-def test_validate_email_case_9_value_error_invalid_structure() -> None:
+def test_validate_email_value_error_invalid_structure() -> None:
     """
     Test case 13: ValueError for invalid email structure.
     """
@@ -222,7 +222,7 @@ def test_validate_email_case_9_value_error_invalid_structure() -> None:
         validate_email("user@")
 
 
-def test_validate_email_case_10_value_error_invalid_format() -> None:
+def test_validate_email_value_error_invalid_format() -> None:
     """
     Test case 14: ValueError for invalid email format.
     """
@@ -249,7 +249,7 @@ def test_validate_email_case_10_value_error_invalid_format() -> None:
         validate_email("user@example..com")
 
 
-def test_validate_email_case_11_value_error_domain_requirements() -> None:
+def test_validate_email_value_error_domain_requirements() -> None:
     """
     Test case 15: ValueError for domain requirement violations.
     """
@@ -261,7 +261,7 @@ def test_validate_email_case_11_value_error_domain_requirements() -> None:
         validate_email("user@domain")
 
 
-def test_validate_email_case_12_value_error_unicode_not_allowed() -> None:
+def test_validate_email_value_error_unicode_not_allowed() -> None:
     """
     Test case 16: ValueError for Unicode characters when not allowed.
     """
@@ -281,7 +281,7 @@ def test_validate_email_case_12_value_error_unicode_not_allowed() -> None:
         validate_email("用户@example.com")  # default allow_unicode=False
 
 
-def test_validate_email_case_14_mx_checking_failure() -> None:
+def test_validate_email_mx_checking_failure() -> None:
     """
     Test case 17: MX record validation using dnspython (failure).
     """
@@ -296,7 +296,7 @@ def test_validate_email_case_14_mx_checking_failure() -> None:
 
 @patch("dns.resolver.resolve", side_effect=Exception("No MX"))
 @patch("socket.gethostbyname")
-def test_validate_email_case_16_mx_checking_socket_fallback_failure(
+def test_validate_email_mx_checking_socket_fallback_failure(
     mock_gethostbyname, mock_resolve
 ) -> None:
     """
@@ -307,32 +307,32 @@ def test_validate_email_case_16_mx_checking_socket_fallback_failure(
         validate_email("user@nonexistent-domain-12345.com", check_mx=True)
 
 
-def test_validate_email_case_19_local_part_too_long() -> None:
+def test_validate_email_local_part_too_long() -> None:
     """Test case 19: ValueError for local part exceeding 64 characters."""
     long_local = "a" * 65 + "@example.com"
     with pytest.raises(ValueError, match="email local part exceeds maximum length"):
         validate_email(long_local)
 
 
-def test_validate_email_case_20_non_ascii_unicode_disabled() -> None:
+def test_validate_email_non_ascii_unicode_disabled() -> None:
     """Test case 20: ValueError for non-ASCII characters with allow_unicode=False."""
     with pytest.raises(ValueError, match="contains non-ASCII characters but allow_unicode=False"):
         validate_email("tëst@example.com", allow_unicode=False)
 
 
-def test_validate_email_case_21_domain_without_dot() -> None:
+def test_validate_email_domain_without_dot() -> None:
     """Test case 21: ValueError for domain without a dot."""
     with pytest.raises(ValueError, match="domain must contain at least one dot"):
         validate_email("user@localhost")
 
 
-def test_validate_email_case_22_domain_with_consecutive_dots() -> None:
+def test_validate_email_domain_with_consecutive_dots() -> None:
     """Test case 22: ValueError for domain with consecutive dots."""
     with pytest.raises(ValueError, match="domain cannot contain consecutive dots"):
         validate_email("user@example..com")
 
 
-def test_validate_email_case_23_domain_too_long() -> None:
+def test_validate_email_domain_too_long() -> None:
     """Test case 23: ValueError for email exceeding maximum length."""
     long_domain = "user@" + "a" * 254 + ".com"
     with pytest.raises(ValueError, match="email exceeds maximum length"):

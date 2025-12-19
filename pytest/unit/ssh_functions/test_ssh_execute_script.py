@@ -4,7 +4,7 @@ import pytest
 from ssh_functions.ssh_execute_script import ssh_execute_script
 
 
-def test_ssh_execute_script_case_1_normal_operation() -> None:
+def test_ssh_execute_script_normal_operation() -> None:
     """
     Test case 1: Normal operation with valid inputs.
     """
@@ -20,7 +20,7 @@ def test_ssh_execute_script_case_1_normal_operation() -> None:
             assert result == {"stdout": "result", "stderr": "", "exit_code": 0}
 
 
-def test_ssh_execute_script_case_2_edge_case_empty_script() -> None:
+def test_ssh_execute_script_edge_case_empty_script() -> None:
     """
     Test case 2: Edge case with empty script file.
     """
@@ -34,7 +34,7 @@ def test_ssh_execute_script_case_2_edge_case_empty_script() -> None:
             assert result["exit_code"] == 0
 
 
-def test_ssh_execute_script_case_3_type_error_host() -> None:
+def test_ssh_execute_script_type_error_host() -> None:
     """
     Test case 3: TypeError for invalid host type.
     """
@@ -42,7 +42,7 @@ def test_ssh_execute_script_case_3_type_error_host() -> None:
         ssh_execute_script(123, "myscript.sh")
 
 
-def test_ssh_execute_script_case_4_value_error_port() -> None:
+def test_ssh_execute_script_value_error_port() -> None:
     """
     Test case 4: ValueError for invalid port value.
     """
@@ -50,7 +50,7 @@ def test_ssh_execute_script_case_4_value_error_port() -> None:
         ssh_execute_script("host", "myscript.sh", port=70000)
 
 
-def test_ssh_execute_script_case_5_file_not_found() -> None:
+def test_ssh_execute_script_file_not_found() -> None:
     """
     Test case 5: ValueError for missing script file.
     """
@@ -58,7 +58,7 @@ def test_ssh_execute_script_case_5_file_not_found() -> None:
         ssh_execute_script("host", "notfound.sh")
 
 
-def test_ssh_execute_script_case_6_timeout_error() -> None:
+def test_ssh_execute_script_timeout_error() -> None:
     """
     Test case 6: RuntimeError for timeout.
     """

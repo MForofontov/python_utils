@@ -5,7 +5,7 @@ from web_scraping_functions.html_parsing.find_elements_by_class import (
 )
 
 
-def test_find_elements_by_class_case_1_single_class() -> None:
+def test_find_elements_by_class_single_class() -> None:
     """
     Test case 1: Find elements by single class.
     """
@@ -22,7 +22,7 @@ def test_find_elements_by_class_case_1_single_class() -> None:
     assert result[1].text == "B"
 
 
-def test_find_elements_by_class_case_2_with_limit() -> None:
+def test_find_elements_by_class_with_limit() -> None:
     """
     Test case 2: Find elements with limit.
     """
@@ -37,7 +37,7 @@ def test_find_elements_by_class_case_2_with_limit() -> None:
     assert len(result) == 2
 
 
-def test_find_elements_by_class_case_3_no_matches() -> None:
+def test_find_elements_by_class_no_matches() -> None:
     """
     Test case 3: Find elements with no matches.
     """
@@ -52,7 +52,7 @@ def test_find_elements_by_class_case_3_no_matches() -> None:
     assert result == []
 
 
-def test_find_elements_by_class_case_4_nested_elements() -> None:
+def test_find_elements_by_class_nested_elements() -> None:
     """
     Test case 4: Find nested elements by class.
     """
@@ -68,7 +68,7 @@ def test_find_elements_by_class_case_4_nested_elements() -> None:
     assert result[0].text == "Content"
 
 
-def test_find_elements_by_class_case_5_multiple_classes() -> None:
+def test_find_elements_by_class_multiple_classes() -> None:
     """
     Test case 5: Find elements with multiple classes on same element.
     """
@@ -83,7 +83,7 @@ def test_find_elements_by_class_case_5_multiple_classes() -> None:
     assert len(result) == 2
 
 
-def test_find_elements_by_class_case_6_type_error_element() -> None:
+def test_find_elements_by_class_type_error_element() -> None:
     """
     Test case 6: TypeError for invalid element type.
     """
@@ -92,7 +92,7 @@ def test_find_elements_by_class_case_6_type_error_element() -> None:
         find_elements_by_class("not a soup", "item")
 
 
-def test_find_elements_by_class_case_7_type_error_class_name() -> None:
+def test_find_elements_by_class_type_error_class_name() -> None:
     """
     Test case 7: TypeError for invalid class_name type.
     """
@@ -105,7 +105,7 @@ def test_find_elements_by_class_case_7_type_error_class_name() -> None:
         find_elements_by_class(soup, 123)
 
 
-def test_find_elements_by_class_case_8_type_error_limit() -> None:
+def test_find_elements_by_class_type_error_limit() -> None:
     """
     Test case 8: TypeError for invalid limit type.
     """
@@ -118,7 +118,7 @@ def test_find_elements_by_class_case_8_type_error_limit() -> None:
         find_elements_by_class(soup, "item", limit="5")
 
 
-def test_find_elements_by_class_case_9_value_error_empty_class_name() -> None:
+def test_find_elements_by_class_value_error_empty_class_name() -> None:
     """
     Test case 9: ValueError for empty class_name.
     """
@@ -131,7 +131,7 @@ def test_find_elements_by_class_case_9_value_error_empty_class_name() -> None:
         find_elements_by_class(soup, "")
 
 
-def test_find_elements_by_class_case_10_value_error_negative_limit() -> None:
+def test_find_elements_by_class_value_error_negative_limit() -> None:
     """
     Test case 10: ValueError for non-positive limit.
     """

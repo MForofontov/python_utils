@@ -7,7 +7,7 @@ from security_functions.password_hashing.verify_password_pbkdf2 import (
 )
 
 
-def test_verify_password_pbkdf2_case_1_correct_password() -> None:
+def test_verify_password_pbkdf2_correct_password() -> None:
     """
     Test case 1: Verify correct password returns True.
     """
@@ -22,7 +22,7 @@ def test_verify_password_pbkdf2_case_1_correct_password() -> None:
     assert result is True
 
 
-def test_verify_password_pbkdf2_case_2_incorrect_password() -> None:
+def test_verify_password_pbkdf2_incorrect_password() -> None:
     """
     Test case 2: Verify incorrect password returns False.
     """
@@ -38,7 +38,7 @@ def test_verify_password_pbkdf2_case_2_incorrect_password() -> None:
     assert result is False
 
 
-def test_verify_password_pbkdf2_case_3_custom_iterations() -> None:
+def test_verify_password_pbkdf2_custom_iterations() -> None:
     """
     Test case 3: Verify with custom iteration count.
     """
@@ -54,7 +54,7 @@ def test_verify_password_pbkdf2_case_3_custom_iterations() -> None:
     assert result is True
 
 
-def test_verify_password_pbkdf2_case_7_different_iterations() -> None:
+def test_verify_password_pbkdf2_different_iterations() -> None:
     """
     Test case 4: Verification fails with different iteration count.
     """
@@ -69,7 +69,7 @@ def test_verify_password_pbkdf2_case_7_different_iterations() -> None:
     assert result is False
 
 
-def test_verify_password_pbkdf2_case_8_unicode_password() -> None:
+def test_verify_password_pbkdf2_unicode_password() -> None:
     """
     Test case 5: Handle Unicode characters in password verification.
     """
@@ -84,7 +84,7 @@ def test_verify_password_pbkdf2_case_8_unicode_password() -> None:
     assert result is True
 
 
-def test_verify_password_pbkdf2_case_9_case_sensitive() -> None:
+def test_verify_password_pbkdf2_case_sensitive() -> None:
     """
     Test case 6: Password verification is case sensitive.
     """
@@ -102,7 +102,7 @@ def test_verify_password_pbkdf2_case_9_case_sensitive() -> None:
     assert result_wrong_case is False
 
 
-def test_verify_password_pbkdf2_case_10_edge_case_similar_passwords() -> None:
+def test_verify_password_pbkdf2_edge_case_similar_passwords() -> None:
     """
     Test case 7: Verification with very similar but different passwords.
     """
@@ -120,7 +120,7 @@ def test_verify_password_pbkdf2_case_10_edge_case_similar_passwords() -> None:
     assert result2 is False
 
 
-def test_verify_password_pbkdf2_case_4_type_validation() -> None:
+def test_verify_password_pbkdf2_type_validation() -> None:
     """
     Test case 8: Type validation for all parameters.
     """
@@ -144,7 +144,7 @@ def test_verify_password_pbkdf2_case_4_type_validation() -> None:
         verify_password_pbkdf2("password", hashed, salt, iterations="invalid")
 
 
-def test_verify_password_pbkdf2_case_5_value_validation() -> None:
+def test_verify_password_pbkdf2_value_validation() -> None:
     """
     Test case 9: Value validation for parameters.
     """
@@ -168,7 +168,7 @@ def test_verify_password_pbkdf2_case_5_value_validation() -> None:
         verify_password_pbkdf2("password", hashed, salt, iterations=500)
 
 
-def test_verify_password_pbkdf2_case_6_invalid_hex_format() -> None:
+def test_verify_password_pbkdf2_invalid_hex_format() -> None:
     """
     Test case 10: Invalid hex format in hashed_password.
     """

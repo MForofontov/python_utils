@@ -4,7 +4,7 @@ from web_scraping_functions.pagination.paginate_with_callback import (
 )
 
 
-def test_paginate_with_callback_case_1_simple_pagination() -> None:
+def test_paginate_with_callback_simple_pagination() -> None:
     """
     Test case 1: Paginate with callback collecting results.
     """
@@ -30,7 +30,7 @@ def test_paginate_with_callback_case_1_simple_pagination() -> None:
     assert len(collected_data) == 3
 
 
-def test_paginate_with_callback_case_2_max_pages_limit() -> None:
+def test_paginate_with_callback_max_pages_limit() -> None:
     """
     Test case 2: Respect max_pages limit.
     """
@@ -52,7 +52,7 @@ def test_paginate_with_callback_case_2_max_pages_limit() -> None:
     assert len(results) == 3
 
 
-def test_paginate_with_callback_case_3_callback_stops_pagination() -> None:
+def test_paginate_with_callback_callback_stops_pagination() -> None:
     """
     Test case 3: Stop pagination when callback returns None.
     """
@@ -74,7 +74,7 @@ def test_paginate_with_callback_case_3_callback_stops_pagination() -> None:
     assert len(results) == 2
 
 
-def test_paginate_with_callback_case_4_collect_different_data() -> None:
+def test_paginate_with_callback_collect_different_data() -> None:
     """
     Test case 4: Collect different data types.
     """
@@ -97,7 +97,7 @@ def test_paginate_with_callback_case_4_collect_different_data() -> None:
     assert results[0] == ["item1"]
 
 
-def test_paginate_with_callback_case_5_type_error_start_url() -> None:
+def test_paginate_with_callback_type_error_start_url() -> None:
     """
     Test case 5: TypeError for invalid start_url type.
     """
@@ -110,7 +110,7 @@ def test_paginate_with_callback_case_5_type_error_start_url() -> None:
         paginate_with_callback(123, callback=callback)  # type: ignore
 
 
-def test_paginate_with_callback_case_6_type_error_callback() -> None:
+def test_paginate_with_callback_type_error_callback() -> None:
     """
     Test case 6: TypeError for invalid callback type.
     """
@@ -119,7 +119,7 @@ def test_paginate_with_callback_case_6_type_error_callback() -> None:
         paginate_with_callback("https://example.com", callback="not callable")  # type: ignore
 
 
-def test_paginate_with_callback_case_7_type_error_max_pages() -> None:
+def test_paginate_with_callback_type_error_max_pages() -> None:
     """
     Test case 7: TypeError for invalid max_pages type.
     """
@@ -136,7 +136,7 @@ def test_paginate_with_callback_case_7_type_error_max_pages() -> None:
         )
 
 
-def test_paginate_with_callback_case_8_value_error_empty_start_url() -> None:
+def test_paginate_with_callback_value_error_empty_start_url() -> None:
     """
     Test case 8: ValueError for empty start_url.
     """
@@ -149,7 +149,7 @@ def test_paginate_with_callback_case_8_value_error_empty_start_url() -> None:
         paginate_with_callback("", callback=callback)
 
 
-def test_paginate_with_callback_case_9_value_error_non_positive_max_pages() -> None:
+def test_paginate_with_callback_value_error_non_positive_max_pages() -> None:
     """
     Test case 9: ValueError for non-positive max_pages.
     """

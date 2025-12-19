@@ -40,3 +40,6 @@ def get_cpu_info(interval: float = 0.1) -> dict[str, int | float | list[float]]:
         "cpu_freq_max": freq.max if freq else None,
         "load_average": os.getloadavg() if hasattr(os, "getloadavg") else None,
     }
+
+
+__all__ = ['get_cpu_info']

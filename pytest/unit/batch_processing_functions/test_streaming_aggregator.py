@@ -2,7 +2,7 @@ import pytest
 from batch_processing_functions.streaming_aggregator import StreamingAggregator
 
 
-def test_streaming_aggregator_case_1_normal_operation() -> None:
+def test_streaming_aggregator_normal_operation() -> None:
     """
     Test case 1: Normal operation with numeric values.
     """
@@ -19,7 +19,7 @@ def test_streaming_aggregator_case_1_normal_operation() -> None:
     assert stats["sum"] == pytest.approx(60.0)
 
 
-def test_streaming_aggregator_case_2_single_value() -> None:
+def test_streaming_aggregator_single_value() -> None:
     """
     Test case 2: Single value aggregation.
     """
@@ -35,7 +35,7 @@ def test_streaming_aggregator_case_2_single_value() -> None:
     assert stats["std_dev"] == 0.0
 
 
-def test_streaming_aggregator_case_3_multiple_additions() -> None:
+def test_streaming_aggregator_multiple_additions() -> None:
     """
     Test case 3: Multiple sequential additions.
     """
@@ -54,7 +54,7 @@ def test_streaming_aggregator_case_3_multiple_additions() -> None:
     assert stats["max"] == 5.0
 
 
-def test_streaming_aggregator_case_4_with_integers() -> None:
+def test_streaming_aggregator_with_integers() -> None:
     """
     Test case 4: Aggregation with integer inputs.
     """
@@ -70,7 +70,7 @@ def test_streaming_aggregator_case_4_with_integers() -> None:
     assert stats["mean"] == pytest.approx(20.0)
 
 
-def test_streaming_aggregator_case_5_variance_and_std_dev() -> None:
+def test_streaming_aggregator_variance_and_std_dev() -> None:
     """
     Test case 5: Variance and standard deviation calculation.
     """
@@ -90,7 +90,7 @@ def test_streaming_aggregator_case_5_variance_and_std_dev() -> None:
     assert stats["std_dev"] == pytest.approx(2.138, rel=1e-2)
 
 
-def test_streaming_aggregator_case_6_edge_case_zero_values() -> None:
+def test_streaming_aggregator_edge_case_zero_values() -> None:
     """
     Test case 6: Aggregation with zero values.
     """
@@ -109,7 +109,7 @@ def test_streaming_aggregator_case_6_edge_case_zero_values() -> None:
     assert stats["max"] == 0.0
 
 
-def test_streaming_aggregator_case_7_edge_case_negative_values() -> None:
+def test_streaming_aggregator_edge_case_negative_values() -> None:
     """
     Test case 7: Aggregation with negative values.
     """
@@ -128,7 +128,7 @@ def test_streaming_aggregator_case_7_edge_case_negative_values() -> None:
     assert stats["max"] == 10.0
 
 
-def test_streaming_aggregator_case_8_edge_case_large_numbers() -> None:
+def test_streaming_aggregator_edge_case_large_numbers() -> None:
     """
     Test case 8: Aggregation with large numbers.
     """
@@ -145,7 +145,7 @@ def test_streaming_aggregator_case_8_edge_case_large_numbers() -> None:
     assert stats["sum"] == pytest.approx(6e10)
 
 
-def test_streaming_aggregator_case_9_edge_case_small_numbers() -> None:
+def test_streaming_aggregator_edge_case_small_numbers() -> None:
     """
     Test case 9: Aggregation with very small numbers.
     """
@@ -161,7 +161,7 @@ def test_streaming_aggregator_case_9_edge_case_small_numbers() -> None:
     assert stats["mean"] == pytest.approx(2e-10, rel=1e-6)
 
 
-def test_streaming_aggregator_case_10_edge_case_mixed_magnitudes() -> None:
+def test_streaming_aggregator_edge_case_mixed_magnitudes() -> None:
     """
     Test case 10: Values with very different magnitudes.
     """
@@ -178,7 +178,7 @@ def test_streaming_aggregator_case_10_edge_case_mixed_magnitudes() -> None:
     assert stats["max"] == pytest.approx(1e5)
 
 
-def test_streaming_aggregator_case_11_reset() -> None:
+def test_streaming_aggregator_reset() -> None:
     """
     Test case 11: Reset functionality.
     """
@@ -199,7 +199,7 @@ def test_streaming_aggregator_case_11_reset() -> None:
     assert stats_after["variance"] == 0.0
 
 
-def test_streaming_aggregator_case_12_get_stats_empty() -> None:
+def test_streaming_aggregator_get_stats_empty() -> None:
     """
     Test case 12: get_stats on empty aggregator.
     """
@@ -216,7 +216,7 @@ def test_streaming_aggregator_case_12_get_stats_empty() -> None:
     assert stats["sum"] == 0.0
 
 
-def test_streaming_aggregator_case_13_merge_aggregators() -> None:
+def test_streaming_aggregator_merge_aggregators() -> None:
     """
     Test case 13: Merge two aggregators.
     """
@@ -240,7 +240,7 @@ def test_streaming_aggregator_case_13_merge_aggregators() -> None:
     assert stats["max"] == 40.0
 
 
-def test_streaming_aggregator_case_14_merge_empty_aggregator() -> None:
+def test_streaming_aggregator_merge_empty_aggregator() -> None:
     """
     Test case 14: Merge with empty aggregator.
     """
@@ -261,7 +261,7 @@ def test_streaming_aggregator_case_14_merge_empty_aggregator() -> None:
     assert stats_after["mean"] == stats_before["mean"]
 
 
-def test_streaming_aggregator_case_15_merge_into_empty() -> None:
+def test_streaming_aggregator_merge_into_empty() -> None:
     """
     Test case 15: Merge into empty aggregator.
     """
@@ -279,7 +279,7 @@ def test_streaming_aggregator_case_15_merge_into_empty() -> None:
     assert stats["mean"] == pytest.approx(15.0)
 
 
-def test_streaming_aggregator_case_16_min_max_tracking() -> None:
+def test_streaming_aggregator_min_max_tracking() -> None:
     """
     Test case 16: Min and max value tracking.
     """
@@ -296,7 +296,7 @@ def test_streaming_aggregator_case_16_min_max_tracking() -> None:
     assert stats["count"] == 100
 
 
-def test_streaming_aggregator_case_17_type_error_invalid_value_type() -> None:
+def test_streaming_aggregator_type_error_invalid_value_type() -> None:
     """
     Test case 17: TypeError for invalid value type.
     """
@@ -306,7 +306,7 @@ def test_streaming_aggregator_case_17_type_error_invalid_value_type() -> None:
         agg.add("not_a_number")  # type: ignore[arg-type]
 
 
-def test_streaming_aggregator_case_18_type_error_merge_non_aggregator() -> None:
+def test_streaming_aggregator_type_error_merge_non_aggregator() -> None:
     """
     Test case 18: TypeError when merging with non-StreamingAggregator.
     """
@@ -316,7 +316,7 @@ def test_streaming_aggregator_case_18_type_error_merge_non_aggregator() -> None:
         agg.merge("not_an_aggregator")  # type: ignore[arg-type]
 
 
-def test_streaming_aggregator_case_19_type_error_add_batch_non_list() -> None:
+def test_streaming_aggregator_type_error_add_batch_non_list() -> None:
     """
     Test case 19: TypeError for invalid add_batch type.
     """
@@ -326,7 +326,7 @@ def test_streaming_aggregator_case_19_type_error_add_batch_non_list() -> None:
         agg.add_batch("not a list")  # type: ignore[arg-type]
 
 
-def test_streaming_aggregator_case_20_add_batch_functionality() -> None:
+def test_streaming_aggregator_add_batch_functionality() -> None:
     """
     Test case 20: add_batch functionality.
     """
@@ -340,7 +340,7 @@ def test_streaming_aggregator_case_20_add_batch_functionality() -> None:
     assert stats["sum"] == pytest.approx(15.0)
 
 
-def test_streaming_aggregator_case_21_properties_access() -> None:
+def test_streaming_aggregator_properties_access() -> None:
     """
     Test case 21: Accessing mean, variance, std_dev as properties.
     """
@@ -355,7 +355,7 @@ def test_streaming_aggregator_case_21_properties_access() -> None:
     assert agg.std_dev > 0.0
 
 
-def test_streaming_aggregator_case_22_negative_values() -> None:
+def test_streaming_aggregator_negative_values() -> None:
     """
     Test case 22: Aggregation with negative values.
     """
@@ -370,7 +370,7 @@ def test_streaming_aggregator_case_22_negative_values() -> None:
     assert stats["max"] == 5.0
 
 
-def test_streaming_aggregator_case_23_large_numbers() -> None:
+def test_streaming_aggregator_large_numbers() -> None:
     """
     Test case 23: Aggregation with large numbers.
     """
@@ -385,7 +385,7 @@ def test_streaming_aggregator_case_23_large_numbers() -> None:
     assert stats["sum"] == pytest.approx(6e10)
 
 
-def test_streaming_aggregator_case_24_merge_variance_preservation() -> None:
+def test_streaming_aggregator_merge_variance_preservation() -> None:
     """
     Test case 24: Variance is correctly preserved when merging.
     """

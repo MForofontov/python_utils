@@ -4,7 +4,7 @@ from security_functions.token_generation.generate_url_safe_token import (
 )
 
 
-def test_generate_url_safe_token_case_1_default_length() -> None:
+def test_generate_url_safe_token_default_length() -> None:
     """
     Test case 1: Generate token with default length.
     """
@@ -17,7 +17,7 @@ def test_generate_url_safe_token_case_1_default_length() -> None:
     assert all(c.isalnum() or c in "-_" for c in token)  # URL-safe characters only
 
 
-def test_generate_url_safe_token_case_2_custom_length() -> None:
+def test_generate_url_safe_token_custom_length() -> None:
     """
     Test case 2: Generate token with custom length.
     """
@@ -33,7 +33,7 @@ def test_generate_url_safe_token_case_2_custom_length() -> None:
     assert all(c.isalnum() or c in "-_" for c in token)
 
 
-def test_generate_url_safe_token_case_3_short_length() -> None:
+def test_generate_url_safe_token_short_length() -> None:
     """
     Test case 3: Generate token with short length.
     """
@@ -49,7 +49,7 @@ def test_generate_url_safe_token_case_3_short_length() -> None:
     assert all(c.isalnum() or c in "-_" for c in token)
 
 
-def test_generate_url_safe_token_case_4_long_length() -> None:
+def test_generate_url_safe_token_long_length() -> None:
     """
     Test case 4: Generate token with long length.
     """
@@ -65,7 +65,7 @@ def test_generate_url_safe_token_case_4_long_length() -> None:
     assert all(c.isalnum() or c in "-_" for c in token)
 
 
-def test_generate_url_safe_token_case_7_randomness() -> None:
+def test_generate_url_safe_token_randomness() -> None:
     """
     Test case 5: Generated tokens should be different (randomness).
     """
@@ -80,7 +80,7 @@ def test_generate_url_safe_token_case_7_randomness() -> None:
     assert token1 != token3
 
 
-def test_generate_url_safe_token_case_8_url_safe_characters() -> None:
+def test_generate_url_safe_token_url_safe_characters() -> None:
     """
     Test case 6: Verify only URL-safe characters are used.
     """
@@ -97,7 +97,7 @@ def test_generate_url_safe_token_case_8_url_safe_characters() -> None:
     assert token_chars.issubset(allowed_chars)
 
 
-def test_generate_url_safe_token_case_9_no_padding() -> None:
+def test_generate_url_safe_token_no_padding() -> None:
     """
     Test case 7: Verify that no base64 padding characters are present.
     """
@@ -109,7 +109,7 @@ def test_generate_url_safe_token_case_9_no_padding() -> None:
     assert "=" not in token  # No padding characters
 
 
-def test_generate_url_safe_token_case_10_minimum_length() -> None:
+def test_generate_url_safe_token_minimum_length() -> None:
     """
     Test case 8: Test minimum valid length.
     """
@@ -122,7 +122,7 @@ def test_generate_url_safe_token_case_10_minimum_length() -> None:
     assert all(c.isalnum() or c in "-_" for c in token)
 
 
-def test_generate_url_safe_token_case_11_consistent_character_set() -> None:
+def test_generate_url_safe_token_consistent_character_set() -> None:
     """
     Test case 9: Verify consistent character set across multiple generations.
     """
@@ -141,7 +141,7 @@ def test_generate_url_safe_token_case_11_consistent_character_set() -> None:
     assert all_chars.issubset(allowed_chars)
 
 
-def test_generate_url_safe_token_case_12_base64_properties() -> None:
+def test_generate_url_safe_token_base64_properties() -> None:
     """
     Test case 10: Verify properties inherited from base64 encoding.
     """
@@ -157,7 +157,7 @@ def test_generate_url_safe_token_case_12_base64_properties() -> None:
     assert not any(char in forbidden_chars for char in token)
 
 
-def test_generate_url_safe_token_case_5_type_validation() -> None:
+def test_generate_url_safe_token_type_validation() -> None:
     """
     Test case 11: Type validation for length parameter.
     """
@@ -166,7 +166,7 @@ def test_generate_url_safe_token_case_5_type_validation() -> None:
         generate_url_safe_token(length="invalid")
 
 
-def test_generate_url_safe_token_case_6_value_validation() -> None:
+def test_generate_url_safe_token_value_validation() -> None:
     """
     Test case 12: Value validation for length parameter.
     """

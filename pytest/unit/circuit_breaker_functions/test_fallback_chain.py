@@ -2,7 +2,7 @@ import pytest
 from circuit_breaker_functions.fallback_chain import fallback_chain, FallbackChain
 
 
-def test_fallback_chain_case_1_normal_operation_first_succeeds() -> None:
+def test_fallback_chain_normal_operation_first_succeeds() -> None:
     """
     Test case 1: First function succeeds, no fallbacks needed.
     """
@@ -17,7 +17,7 @@ def test_fallback_chain_case_1_normal_operation_first_succeeds() -> None:
     assert result == "primary"
 
 
-def test_fallback_chain_case_2_second_function_succeeds() -> None:
+def test_fallback_chain_second_function_succeeds() -> None:
     """
     Test case 2: First fails, second succeeds.
     """
@@ -32,7 +32,7 @@ def test_fallback_chain_case_2_second_function_succeeds() -> None:
     assert result == "backup"
 
 
-def test_fallback_chain_case_3_multiple_fallbacks() -> None:
+def test_fallback_chain_multiple_fallbacks() -> None:
     """
     Test case 3: Multiple fallbacks with third succeeding.
     """
@@ -50,7 +50,7 @@ def test_fallback_chain_case_3_multiple_fallbacks() -> None:
     assert result == "third time's the charm"
 
 
-def test_fallback_chain_case_4_with_different_return_types() -> None:
+def test_fallback_chain_with_different_return_types() -> None:
     """
     Test case 4: Functions with different but compatible return types.
     """
@@ -65,7 +65,7 @@ def test_fallback_chain_case_4_with_different_return_types() -> None:
     assert result == 3.14
 
 
-def test_fallback_chain_case_5_edge_case_all_functions_fail() -> None:
+def test_fallback_chain_edge_case_all_functions_fail() -> None:
     """
     Test case 5: All functions fail, last exception is raised.
     """
@@ -83,7 +83,7 @@ def test_fallback_chain_case_5_edge_case_all_functions_fail() -> None:
         fallback_chain(fail1, [fail2, fail3])
 
 
-def test_fallback_chain_case_6_edge_case_empty_fallbacks_list() -> None:
+def test_fallback_chain_edge_case_empty_fallbacks_list() -> None:
     """
     Test case 6: Empty fallbacks list raises ValueError.
     """
@@ -95,7 +95,7 @@ def test_fallback_chain_case_6_edge_case_empty_fallbacks_list() -> None:
         fallback_chain(only_func, [])
 
 
-def test_fallback_chain_case_7_edge_case_all_fail() -> None:
+def test_fallback_chain_edge_case_all_fail() -> None:
     """
     Test case 7: All functions fail raises exception.
     """
@@ -110,7 +110,7 @@ def test_fallback_chain_case_7_edge_case_all_fail() -> None:
         fallback_chain(failing, [failing2])
 
 
-def test_fallback_chain_case_8_type_error_primary_not_callable() -> None:
+def test_fallback_chain_type_error_primary_not_callable() -> None:
     """
     Test case 8: TypeError when primary is not callable.
     """
@@ -118,7 +118,7 @@ def test_fallback_chain_case_8_type_error_primary_not_callable() -> None:
         fallback_chain("not_callable", [lambda: "test"])  # type: ignore[arg-type]
 
 
-def test_fallback_chain_case_9_type_error_non_callable() -> None:
+def test_fallback_chain_type_error_non_callable() -> None:
     """
     Test case 9: TypeError when non-callable is provided.
     """
@@ -130,7 +130,7 @@ def test_fallback_chain_case_9_type_error_non_callable() -> None:
         fallback_chain(valid_func, "not_callable")  # type: ignore[arg-type]
 
 
-def test_fallback_chain_class_case_1_normal_operation() -> None:
+def test_fallback_chain_class_normal_operation() -> None:
     """
     Test case 10: FallbackChain class normal operation.
     """
@@ -146,7 +146,7 @@ def test_fallback_chain_class_case_1_normal_operation() -> None:
     assert result == "primary result"
 
 
-def test_fallback_chain_class_case_2_multiple_handlers() -> None:
+def test_fallback_chain_class_multiple_handlers() -> None:
     """
     Test case 11: FallbackChain with multiple handlers.
     """
@@ -165,7 +165,7 @@ def test_fallback_chain_class_case_2_multiple_handlers() -> None:
     assert result == "success"
 
 
-def test_fallback_chain_class_case_3_with_args() -> None:
+def test_fallback_chain_class_with_args() -> None:
     """
     Test case 12: FallbackChain execute with arguments.
     """
@@ -181,7 +181,7 @@ def test_fallback_chain_class_case_3_with_args() -> None:
     assert result == 8
 
 
-def test_fallback_chain_class_case_4_with_kwargs() -> None:
+def test_fallback_chain_class_with_kwargs() -> None:
     """
     Test case 13: FallbackChain execute with keyword arguments.
     """
@@ -197,7 +197,7 @@ def test_fallback_chain_class_case_4_with_kwargs() -> None:
     assert result == "Hi, World!"
 
 
-def test_fallback_chain_class_case_5_add_fallback() -> None:
+def test_fallback_chain_class_add_fallback() -> None:
     """
     Test case 14: Add additional fallback to chain.
     """
@@ -217,7 +217,7 @@ def test_fallback_chain_class_case_5_add_fallback() -> None:
     assert len(chain.fallbacks) == 2
 
 
-def test_fallback_chain_class_case_6_edge_case_first_succeeds() -> None:
+def test_fallback_chain_class_edge_case_first_succeeds() -> None:
     """
     Test case 15: First handler succeeds, others not called.
     """
@@ -239,7 +239,7 @@ def test_fallback_chain_class_case_6_edge_case_first_succeeds() -> None:
     assert call_count["fallback"] == 0  # Should not be called
 
 
-def test_fallback_chain_class_case_7_edge_case_all_fail() -> None:
+def test_fallback_chain_class_edge_case_all_fail() -> None:
     """
     Test case 16: All handlers fail, exception raised.
     """
@@ -255,7 +255,7 @@ def test_fallback_chain_class_case_7_edge_case_all_fail() -> None:
         chain.execute()
 
 
-def test_fallback_chain_class_case_8_edge_case_empty_fallbacks() -> None:
+def test_fallback_chain_class_edge_case_empty_fallbacks() -> None:
     """
     Test case 17: Cannot create chain with empty fallbacks list.
     """
@@ -266,7 +266,7 @@ def test_fallback_chain_class_case_8_edge_case_empty_fallbacks() -> None:
         FallbackChain(primary, [])
 
 
-def test_fallback_chain_class_case_9_add_multiple_fallbacks() -> None:
+def test_fallback_chain_class_add_multiple_fallbacks() -> None:
     """
     Test case 18: Add multiple fallbacks to chain.
     """
@@ -289,7 +289,7 @@ def test_fallback_chain_class_case_9_add_multiple_fallbacks() -> None:
     assert result == "success"
 
 
-def test_fallback_chain_class_case_10_fallback_order_preserved() -> None:
+def test_fallback_chain_class_fallback_order_preserved() -> None:
     """
     Test case 19: Fallbacks executed in order.
     """
@@ -315,7 +315,7 @@ def test_fallback_chain_class_case_10_fallback_order_preserved() -> None:
     assert execution_order == [1, 2, 3]
 
 
-def test_fallback_chain_class_case_11_type_error_non_callable_fallback() -> None:
+def test_fallback_chain_class_type_error_non_callable_fallback() -> None:
     """
     Test case 20: TypeError when adding non-callable fallback.
     """
@@ -331,7 +331,7 @@ def test_fallback_chain_class_case_11_type_error_non_callable_fallback() -> None
         chain.add_fallback("not_callable")  # type: ignore[arg-type]
 
 
-def test_fallback_chain_class_case_12_type_error_non_callable_primary() -> None:
+def test_fallback_chain_class_type_error_non_callable_primary() -> None:
     """
     Test case 21: TypeError when primary is not callable.
     """

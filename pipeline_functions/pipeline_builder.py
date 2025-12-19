@@ -65,6 +65,68 @@ class Pipeline:
         """Initialize empty pipeline."""
         self.steps: list[Callable[[Any], Any]] = []
 
+    def __repr__(self) -> str:
+        """Return detailed string representation of pipeline."""
+        return f"Pipeline(steps={len(self.steps)})"
+
+    def __str__(self) -> str:
+        """Return human-readable string representation."""
+        if not self.steps:
+            return "Pipeline: [empty]"
+        
+        step_names = []
+        for i, step in enumerate(self.steps, 1):
+            # Get function name or representation
+            if hasattr(step, '__name__'):
+                name = step.__name__
+            elif hasattr(step, '__class__'):
+                name = step.__class__.__name__
+            else:
+                name = str(step)
+            step_names.append(f"  {i}. {name}")
+        
+        return f"Pipeline ({len(self.steps)} steps):\n" + "\n".join(step_names)
+
+    def __len__(self) -> int:
+        """Return number of steps in pipeline."""
+        return len(self.steps)
+
+    def show_steps(self) -> list[dict[str, Any]]:
+        """
+        Return detailed information about all pipeline steps.
+
+        Returns
+        -------
+        list[dict[str, Any]]
+            List of dictionaries with step information.
+            Each dict contains: 'index', 'name', 'type', 'callable'.
+
+        Examples
+        --------
+        >>> p = Pipeline()
+        >>> p.add_step(lambda x: x * 2)
+        <...Pipeline object...>
+        >>> p.add_step(str.upper)
+        <...Pipeline object...>
+        >>> steps = p.show_steps()
+        >>> len(steps)
+        2
+        >>> steps[0]['index']
+        0
+        >>> steps[1]['name']
+        'upper'
+        """
+        result = []
+        for i, step in enumerate(self.steps):
+            step_info = {
+                'index': i,
+                'name': getattr(step, '__name__', repr(step)),
+                'type': type(step).__name__,
+                'callable': step,
+            }
+            result.append(step_info)
+        return result
+
     def add_step(self, func: Callable[[Any], Any]) -> "Pipeline":
         """
         Add a transformation step to the pipeline.
@@ -717,6 +779,108 @@ class Pipeline:
         10
         """
         return self.execute(data)
+
+    def get_step(self, index: int) -> Callable[[Any], Any]:
+        """
+        Get a specific step by index.
+
+        Parameters
+        ----------
+        index : int
+            Index of the step to retrieve (0-based).
+
+        Returns
+        -------
+        Callable[[Any], Any]
+            The transformation function at the specified index.
+
+        Raises
+        ------
+        TypeError
+            If index is not an integer.
+        IndexError
+            If index is out of range.
+
+        Examples
+        --------
+        >>> p = Pipeline()
+        >>> p.add_step(lambda x: x * 2)
+        <...Pipeline object...>
+        >>> step = p.get_step(0)
+        >>> step(5)
+        10
+        """
+        if not isinstance(index, int):
+            raise TypeError(f"index must be an integer, got {type(index).__name__}")
+        if index < 0 or index >= len(self.steps):
+            raise IndexError(f"index {index} out of range for pipeline with {len(self.steps)} steps")
+        return self.steps[index]
+
+    def remove_step(self, index: int) -> "Pipeline":
+        """
+        Remove a step from the pipeline by index.
+
+        Parameters
+        ----------
+        index : int
+            Index of the step to remove (0-based).
+
+        Returns
+        -------
+        Pipeline
+            Self for method chaining.
+
+        Raises
+        ------
+        TypeError
+            If index is not an integer.
+        IndexError
+            If index is out of range.
+
+        Examples
+        --------
+        >>> p = Pipeline()
+        >>> p.add_step(lambda x: x * 2)
+        <...Pipeline object...>
+        >>> p.add_step(lambda x: x + 1)
+        <...Pipeline object...>
+        >>> len(p)
+        2
+        >>> p.remove_step(0)
+        <...Pipeline object...>
+        >>> len(p)
+        1
+        """
+        if not isinstance(index, int):
+            raise TypeError(f"index must be an integer, got {type(index).__name__}")
+        if index < 0 or index >= len(self.steps):
+            raise IndexError(f"index {index} out of range for pipeline with {len(self.steps)} steps")
+        self.steps.pop(index)
+        return self
+
+    def clear(self) -> "Pipeline":
+        """
+        Remove all steps from the pipeline.
+
+        Returns
+        -------
+        Pipeline
+            Self for method chaining.
+
+        Examples
+        --------
+        >>> p = Pipeline()
+        >>> p.add_step(lambda x: x * 2)
+        <...Pipeline object...>
+        >>> len(p)
+        1
+        >>> p.clear()
+        <...Pipeline object...>
+        >>> len(p)
+        0
+        """
+        self.steps.clear()
+        return self
 
 
 def pipeline_builder(*steps: Callable[[Any], Any]) -> Pipeline:

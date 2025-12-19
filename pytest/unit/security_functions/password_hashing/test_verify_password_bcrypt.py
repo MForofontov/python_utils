@@ -7,7 +7,7 @@ from security_functions.password_hashing.verify_password_bcrypt import (
 )
 
 
-def test_verify_password_bcrypt_case_1_correct_password() -> None:
+def test_verify_password_bcrypt_correct_password() -> None:
     """
     Test case 1: Verify correct password returns True.
     """
@@ -22,7 +22,7 @@ def test_verify_password_bcrypt_case_1_correct_password() -> None:
     assert result is True
 
 
-def test_verify_password_bcrypt_case_2_incorrect_password() -> None:
+def test_verify_password_bcrypt_incorrect_password() -> None:
     """
     Test case 2: Verify incorrect password returns False.
     """
@@ -38,7 +38,7 @@ def test_verify_password_bcrypt_case_2_incorrect_password() -> None:
     assert result is False
 
 
-def test_verify_password_bcrypt_case_3_different_rounds() -> None:
+def test_verify_password_bcrypt_different_rounds() -> None:
     """
     Test case 3: Verify password with different rounds.
     """
@@ -54,7 +54,7 @@ def test_verify_password_bcrypt_case_3_different_rounds() -> None:
     assert result is True
 
 
-def test_verify_password_bcrypt_case_7_case_sensitive() -> None:
+def test_verify_password_bcrypt_case_sensitive() -> None:
     """
     Test case 4: Password verification should be case sensitive.
     """
@@ -71,7 +71,7 @@ def test_verify_password_bcrypt_case_7_case_sensitive() -> None:
     assert wrong_case_result is False
 
 
-def test_verify_password_bcrypt_case_8_unicode_password() -> None:
+def test_verify_password_bcrypt_unicode_password() -> None:
     """
     Test case 5: Handle Unicode characters in password verification.
     """
@@ -88,7 +88,7 @@ def test_verify_password_bcrypt_case_8_unicode_password() -> None:
     assert wrong_result is False
 
 
-def test_verify_password_bcrypt_case_9_special_characters() -> None:
+def test_verify_password_bcrypt_special_characters() -> None:
     """
     Test case 6: Handle special characters in password verification.
     """
@@ -103,7 +103,7 @@ def test_verify_password_bcrypt_case_9_special_characters() -> None:
     assert result is True
 
 
-def test_verify_password_bcrypt_case_10_long_password() -> None:
+def test_verify_password_bcrypt_long_password() -> None:
     """
     Test case 7: Handle very long password verification.
     """
@@ -118,7 +118,7 @@ def test_verify_password_bcrypt_case_10_long_password() -> None:
     assert result is True
 
 
-def test_verify_password_bcrypt_case_12_timing_attack_resistance() -> None:
+def test_verify_password_bcrypt_timing_attack_resistance() -> None:
     """
     Test case 8: Verify that function handles invalid hashes gracefully.
     """
@@ -138,7 +138,7 @@ def test_verify_password_bcrypt_case_12_timing_attack_resistance() -> None:
         assert result is False  # Should return False, not raise exception
 
 
-def test_verify_password_bcrypt_case_4_type_validation() -> None:
+def test_verify_password_bcrypt_type_validation() -> None:
     """
     Test case 9: Type validation for all parameters.
     """
@@ -153,7 +153,7 @@ def test_verify_password_bcrypt_case_4_type_validation() -> None:
         verify_password_bcrypt("password", 123)
 
 
-def test_verify_password_bcrypt_case_5_value_validation() -> None:
+def test_verify_password_bcrypt_value_validation() -> None:
     """
     Test case 10: Value validation for parameters.
     """
@@ -168,7 +168,7 @@ def test_verify_password_bcrypt_case_5_value_validation() -> None:
         verify_password_bcrypt("password", "")
 
 
-def test_verify_password_bcrypt_case_6_invalid_hash_format() -> None:
+def test_verify_password_bcrypt_invalid_hash_format() -> None:
     """
     Test case 11: Invalid bcrypt hash format should raise ValueError.
     """
@@ -183,7 +183,7 @@ def test_verify_password_bcrypt_case_6_invalid_hash_format() -> None:
         verify_password_bcrypt("password", "$2b$12$short")
 
 
-def test_verify_password_bcrypt_case_11_malformed_hash() -> None:
+def test_verify_password_bcrypt_malformed_hash() -> None:
     """
     Test case 12: Malformed hash should raise ValueError.
     """

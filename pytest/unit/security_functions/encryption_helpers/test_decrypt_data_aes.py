@@ -3,7 +3,7 @@ from security_functions.encryption_helpers.decrypt_data_aes import decrypt_data_
 from security_functions.encryption_helpers.encrypt_data_aes import encrypt_data_aes
 
 
-def test_decrypt_data_aes_case_1_basic_decryption() -> None:
+def test_decrypt_data_aes_basic_decryption() -> None:
     """
     Test case 1: Basic AES decryption should recover original data.
     """
@@ -18,7 +18,7 @@ def test_decrypt_data_aes_case_1_basic_decryption() -> None:
     assert decrypted == original_data
 
 
-def test_decrypt_data_aes_case_2_custom_key_decryption() -> None:
+def test_decrypt_data_aes_custom_key_decryption() -> None:
     """
     Test case 2: Decrypt data encrypted with custom key.
     """
@@ -36,7 +36,7 @@ def test_decrypt_data_aes_case_2_custom_key_decryption() -> None:
     assert decrypted == original_data
 
 
-def test_decrypt_data_aes_case_7_unicode_data() -> None:
+def test_decrypt_data_aes_unicode_data() -> None:
     """
     Test case 3: Handle Unicode characters in data.
     """
@@ -51,7 +51,7 @@ def test_decrypt_data_aes_case_7_unicode_data() -> None:
     assert decrypted == original_data
 
 
-def test_decrypt_data_aes_case_8_long_data() -> None:
+def test_decrypt_data_aes_long_data() -> None:
     """
     Test case 4: Decrypt long data string.
     """
@@ -66,7 +66,7 @@ def test_decrypt_data_aes_case_8_long_data() -> None:
     assert decrypted == original_data
 
 
-def test_decrypt_data_aes_case_9_special_characters() -> None:
+def test_decrypt_data_aes_special_characters() -> None:
     """
     Test case 5: Handle special characters and symbols.
     """
@@ -81,7 +81,7 @@ def test_decrypt_data_aes_case_9_special_characters() -> None:
     assert decrypted == original_data
 
 
-def test_decrypt_data_aes_case_10_bytes_to_string_conversion() -> None:
+def test_decrypt_data_aes_bytes_to_string_conversion() -> None:
     """
     Test case 6: Decrypt bytes data that was encrypted.
     """
@@ -97,7 +97,7 @@ def test_decrypt_data_aes_case_10_bytes_to_string_conversion() -> None:
     assert decrypted == original_bytes.decode("utf-8")
 
 
-def test_decrypt_data_aes_case_11_roundtrip_multiple_times() -> None:
+def test_decrypt_data_aes_roundtrip_multiple_times() -> None:
     """
     Test case 7: Multiple encrypt/decrypt roundtrips should be consistent.
     """
@@ -119,7 +119,7 @@ def test_decrypt_data_aes_case_11_roundtrip_multiple_times() -> None:
     assert decrypted2 == original_data
 
 
-def test_decrypt_data_aes_case_3_type_validation() -> None:
+def test_decrypt_data_aes_type_validation() -> None:
     """
     Test case 8: Type validation for parameters.
     """
@@ -132,7 +132,7 @@ def test_decrypt_data_aes_case_3_type_validation() -> None:
         decrypt_data_aes("encrypted", 123)
 
 
-def test_decrypt_data_aes_case_4_value_validation() -> None:
+def test_decrypt_data_aes_value_validation() -> None:
     """
     Test case 9: Value validation for parameters.
     """
@@ -145,7 +145,7 @@ def test_decrypt_data_aes_case_4_value_validation() -> None:
         decrypt_data_aes("encrypted", "")
 
 
-def test_decrypt_data_aes_case_5_wrong_key() -> None:
+def test_decrypt_data_aes_wrong_key() -> None:
     """
     Test case 10: Wrong key should raise ValueError during decryption.
     """
@@ -161,7 +161,7 @@ def test_decrypt_data_aes_case_5_wrong_key() -> None:
         decrypt_data_aes(encrypted, wrong_key)
 
 
-def test_decrypt_data_aes_case_6_invalid_encrypted_data() -> None:
+def test_decrypt_data_aes_invalid_encrypted_data() -> None:
     """
     Test case 11: Invalid encrypted data should raise ValueError.
     """
@@ -174,7 +174,7 @@ def test_decrypt_data_aes_case_6_invalid_encrypted_data() -> None:
         decrypt_data_aes(invalid_encrypted, key)
 
 
-def test_decrypt_data_aes_case_12_invalid_key_format() -> None:
+def test_decrypt_data_aes_invalid_key_format() -> None:
     """
     Test case 12: Invalid key format should raise ValueError.
     """

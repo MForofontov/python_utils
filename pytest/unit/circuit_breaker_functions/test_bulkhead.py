@@ -5,7 +5,7 @@ import pytest
 from circuit_breaker_functions.bulkhead import Bulkhead
 
 
-def test_bulkhead_case_1_normal_operation() -> None:
+def test_bulkhead_normal_operation() -> None:
     """
     Test case 1: Normal operation with single call.
     """
@@ -14,12 +14,12 @@ def test_bulkhead_case_1_normal_operation() -> None:
     def work() -> str:
         return "completed"
 
-    result = bulkhead.execute(work)
+    result = bulkhead.call(work)
     assert result == "completed"
-    assert bulkhead.current_concurrent == 0
+    assert bulkhead.active_count == 0
 
 
-def test_bulkhead_case_2_multiple_sequential_calls() -> None:
+def test_bulkhead_multiple_sequential_calls() -> None:
     """
     Test case 2: Multiple sequential calls within limit.
     """
@@ -34,10 +34,10 @@ def test_bulkhead_case_2_multiple_sequential_calls() -> None:
         results.append(result)
 
     assert results == [0, 2, 4, 6, 8]
-    assert bulkhead.current_concurrent == 0
+    assert bulkhead.active_count == 0
 
 
-def test_bulkhead_case_3_with_args_and_kwargs() -> None:
+def test_bulkhead_with_args_and_kwargs() -> None:
     """
     Test case 3: Bulkhead with function arguments.
     """
@@ -48,14 +48,14 @@ def test_bulkhead_case_3_with_args_and_kwargs() -> None:
             return a * b
         return a + b
 
-    result1 = bulkhead.execute(process, 3, 4)
+    result1 = bulkhead.call(process, 3, 4)
     assert result1 == 12
 
-    result2 = bulkhead.execute(process, 3, 4, multiply=False)
+    result2 = bulkhead.call(process, 3, 4, multiply=False)
     assert result2 == 7
 
 
-def test_bulkhead_case_4_concurrent_execution_within_limit() -> None:
+def test_bulkhead_concurrent_execution_within_limit() -> None:
     """
     Test case 4: Concurrent executions within max_concurrent limit.
     """
@@ -72,10 +72,10 @@ def test_bulkhead_case_4_concurrent_execution_within_limit() -> None:
             results.append(future.result(timeout=2))
 
     assert sorted(results) == [0, 2, 4]
-    assert bulkhead.current_concurrent == 0
+    assert bulkhead.active_count == 0
 
 
-def test_bulkhead_case_5_edge_case_max_concurrent_reached() -> None:
+def test_bulkhead_edge_case_max_concurrent_reached() -> None:
     """
     Test case 5: Timeout when max_concurrent is reached.
     """
@@ -102,23 +102,23 @@ def test_bulkhead_case_5_edge_case_max_concurrent_reached() -> None:
         assert len(errors) > 0 or len(results) < 3
 
 
-def test_bulkhead_case_6_edge_case_zero_timeout() -> None:
+def test_bulkhead_edge_case_zero_timeout() -> None:
     """
-    Test case 6: Immediate timeout with zero timeout value.
+    Test case 6: Very short timeout value.
     """
-    bulkhead = Bulkhead(max_concurrent=1, timeout=0.0)
+    bulkhead = Bulkhead(max_concurrent=1, timeout=0.01)
 
     def work() -> str:
-        time.sleep(0.01)
+        time.sleep(0.1)
         return "done"
 
     # First call acquires semaphore
     with ThreadPoolExecutor(max_workers=2) as executor:
-        future1 = executor.submit(bulkhead.execute, work)
+        future1 = executor.submit(bulkhead.call, work)
         time.sleep(0.005)  # Ensure first call is running
 
-        # Second call should timeout immediately
-        future2 = executor.submit(bulkhead.execute, work)
+        # Second call should timeout quickly
+        future2 = executor.submit(bulkhead.call, work)
 
         try:
             future1.result(timeout=1)
@@ -129,7 +129,7 @@ def test_bulkhead_case_6_edge_case_zero_timeout() -> None:
             future2.result(timeout=0.5)
 
 
-def test_bulkhead_case_7_edge_case_function_raises_exception() -> None:
+def test_bulkhead_edge_case_function_raises_exception() -> None:
     """
     Test case 7: Semaphore released when function raises exception.
     """
@@ -149,7 +149,7 @@ def test_bulkhead_case_7_edge_case_function_raises_exception() -> None:
     assert result == "success"
 
 
-def test_bulkhead_case_8_edge_case_single_concurrent() -> None:
+def test_bulkhead_edge_case_single_concurrent() -> None:
     """
     Test case 8: Bulkhead with max_concurrent=1.
     """
@@ -166,7 +166,7 @@ def test_bulkhead_case_8_edge_case_single_concurrent() -> None:
     assert sorted(results) == [0, 1]
 
 
-def test_bulkhead_case_9_edge_case_stats_tracking() -> None:
+def test_bulkhead_edge_case_stats_tracking() -> None:
     """
     Test case 9: Statistics tracking with get_stats.
     """
@@ -185,14 +185,14 @@ def test_bulkhead_case_9_edge_case_stats_tracking() -> None:
     assert bulkhead.available_slots == 3
 
 
-def test_bulkhead_case_10_edge_case_properties() -> None:
-    \"\"\"
+def test_bulkhead_edge_case_properties() -> None:
+    """
     Test case 10: Test active_count and available_slots properties.
-    \"\"\"
+    """
     bulkhead = Bulkhead(max_concurrent=3)
 
     def work() -> str:
-        return \"done\"
+        return "done"
 
     # Initially, no active operations
     assert bulkhead.active_count == 0
@@ -200,12 +200,12 @@ def test_bulkhead_case_10_edge_case_properties() -> None:
 
     # After call completes, count should be back to 0
     result = bulkhead.call(work)
-    assert result == \"done\"
+    assert result == "done"
     assert bulkhead.active_count == 0
     assert bulkhead.available_slots == 3
 
 
-def test_bulkhead_case_11_type_error_invalid_max_concurrent() -> None:
+def test_bulkhead_type_error_invalid_max_concurrent() -> None:
     """
     Test case 11: TypeError for invalid max_concurrent type.
     """
@@ -213,7 +213,7 @@ def test_bulkhead_case_11_type_error_invalid_max_concurrent() -> None:
         Bulkhead(max_concurrent="3")  # type: ignore[arg-type]
 
 
-def test_bulkhead_case_12_value_error_zero_max_concurrent() -> None:
+def test_bulkhead_value_error_zero_max_concurrent() -> None:
     """
     Test case 12: ValueError for zero max_concurrent.
     """
@@ -221,7 +221,7 @@ def test_bulkhead_case_12_value_error_zero_max_concurrent() -> None:
         Bulkhead(max_concurrent=0)
 
 
-def test_bulkhead_case_13_value_error_negative_max_concurrent() -> None:
+def test_bulkhead_value_error_negative_max_concurrent() -> None:
     """
     Test case 13: ValueError for negative max_concurrent.
     """
@@ -229,7 +229,7 @@ def test_bulkhead_case_13_value_error_negative_max_concurrent() -> None:
         Bulkhead(max_concurrent=-1)
 
 
-def test_bulkhead_case_14_type_error_invalid_timeout() -> None:
+def test_bulkhead_type_error_invalid_timeout() -> None:
     """
     Test case 14: TypeError for invalid timeout type.
     """
@@ -237,7 +237,7 @@ def test_bulkhead_case_14_type_error_invalid_timeout() -> None:
         Bulkhead(max_concurrent=3, timeout="5")  # type: ignore[arg-type]
 
 
-def test_bulkhead_case_15_value_error_negative_timeout() -> None:
+def test_bulkhead_value_error_negative_timeout() -> None:
     """
     Test case 15: ValueError for negative timeout.
     """
@@ -245,7 +245,7 @@ def test_bulkhead_case_15_value_error_negative_timeout() -> None:
         Bulkhead(max_concurrent=3, timeout=-1.0)
 
 
-def test_bulkhead_case_16_type_error_non_callable() -> None:
+def test_bulkhead_type_error_non_callable() -> None:
     """
     Test case 16: TypeError for non-callable function.
     """

@@ -4,7 +4,7 @@ import pytest
 from circuit_breaker_functions.circuit_breaker import CircuitBreaker, CircuitState
 
 
-def test_circuit_breaker_case_1_normal_operation() -> None:
+def test_circuit_breaker_normal_operation() -> None:
     """
     Test case 1: Normal operation with successful calls.
     """
@@ -20,7 +20,7 @@ def test_circuit_breaker_case_1_normal_operation() -> None:
     assert cb.failure_count == 0
 
 
-def test_circuit_breaker_case_2_multiple_successes() -> None:
+def test_circuit_breaker_multiple_successes() -> None:
     """
     Test case 2: Multiple successful calls keep circuit closed.
     """
@@ -37,7 +37,7 @@ def test_circuit_breaker_case_2_multiple_successes() -> None:
     assert cb.failure_count == 0
 
 
-def test_circuit_breaker_case_3_with_args_and_kwargs() -> None:
+def test_circuit_breaker_with_args_and_kwargs() -> None:
     """
     Test case 3: Circuit breaker with function arguments.
     """
@@ -50,7 +50,7 @@ def test_circuit_breaker_case_3_with_args_and_kwargs() -> None:
     assert result == 6
 
 
-def test_circuit_breaker_case_4_edge_case_opens_after_threshold() -> None:
+def test_circuit_breaker_edge_case_opens_after_threshold() -> None:
     """
     Test case 4: Circuit opens after reaching failure threshold.
     """
@@ -70,7 +70,7 @@ def test_circuit_breaker_case_4_edge_case_opens_after_threshold() -> None:
     assert cb.failure_count == 0  # Reset when circuit opens
 
 
-def test_circuit_breaker_case_5_edge_case_rejects_when_open() -> None:
+def test_circuit_breaker_edge_case_rejects_when_open() -> None:
     """
     Test case 5: Circuit rejects calls when open.
     """
@@ -91,7 +91,7 @@ def test_circuit_breaker_case_5_edge_case_rejects_when_open() -> None:
         cb.call(lambda: "should not execute")
 
 
-def test_circuit_breaker_case_6_edge_case_half_open_after_timeout() -> None:
+def test_circuit_breaker_edge_case_half_open_after_timeout() -> None:
     """
     Test case 6: Circuit transitions to half-open after recovery timeout.
     """
@@ -119,7 +119,7 @@ def test_circuit_breaker_case_6_edge_case_half_open_after_timeout() -> None:
     assert cb.state == CircuitState.HALF_OPEN
 
 
-def test_circuit_breaker_case_7_edge_case_closes_after_success_threshold() -> None:
+def test_circuit_breaker_edge_case_closes_after_success_threshold() -> None:
     """
     Test case 7: Circuit closes after success threshold in half-open state.
     """
@@ -149,7 +149,7 @@ def test_circuit_breaker_case_7_edge_case_closes_after_success_threshold() -> No
     assert cb.failure_count == 0
 
 
-def test_circuit_breaker_case_8_edge_case_reopens_on_failure_in_half_open() -> None:
+def test_circuit_breaker_edge_case_reopens_on_failure_in_half_open() -> None:
     """
     Test case 8: Circuit reopens on failure in half-open state.
     """
@@ -174,7 +174,7 @@ def test_circuit_breaker_case_8_edge_case_reopens_on_failure_in_half_open() -> N
     assert cb.state == CircuitState.OPEN
 
 
-def test_circuit_breaker_case_9_edge_case_reset() -> None:
+def test_circuit_breaker_edge_case_reset() -> None:
     """
     Test case 9: Reset functionality.
     """
@@ -198,7 +198,7 @@ def test_circuit_breaker_case_9_edge_case_reset() -> None:
     assert cb.last_failure_time is None
 
 
-def test_circuit_breaker_case_10_type_error_invalid_failure_threshold() -> None:
+def test_circuit_breaker_type_error_invalid_failure_threshold() -> None:
     """
     Test case 10: TypeError for invalid failure threshold.
     """
@@ -206,7 +206,7 @@ def test_circuit_breaker_case_10_type_error_invalid_failure_threshold() -> None:
         CircuitBreaker(failure_threshold="3", recovery_timeout=1.0)  # type: ignore[arg-type]
 
 
-def test_circuit_breaker_case_11_value_error_negative_failure_threshold() -> None:
+def test_circuit_breaker_value_error_negative_failure_threshold() -> None:
     """
     Test case 11: ValueError for negative failure threshold.
     """
@@ -214,7 +214,7 @@ def test_circuit_breaker_case_11_value_error_negative_failure_threshold() -> Non
         CircuitBreaker(failure_threshold=0, recovery_timeout=1.0)
 
 
-def test_circuit_breaker_case_12_type_error_invalid_recovery_timeout() -> None:
+def test_circuit_breaker_type_error_invalid_recovery_timeout() -> None:
     """
     Test case 12: TypeError for invalid recovery timeout.
     """
@@ -222,7 +222,7 @@ def test_circuit_breaker_case_12_type_error_invalid_recovery_timeout() -> None:
         CircuitBreaker(failure_threshold=3, recovery_timeout="1.0")  # type: ignore[arg-type]
 
 
-def test_circuit_breaker_case_13_value_error_negative_recovery_timeout() -> None:
+def test_circuit_breaker_value_error_negative_recovery_timeout() -> None:
     """
     Test case 13: ValueError for negative recovery timeout.
     """
@@ -230,7 +230,7 @@ def test_circuit_breaker_case_13_value_error_negative_recovery_timeout() -> None
         CircuitBreaker(failure_threshold=3, recovery_timeout=-1.0)
 
 
-def test_circuit_breaker_case_14_type_error_invalid_success_threshold() -> None:
+def test_circuit_breaker_type_error_invalid_success_threshold() -> None:
     """
     Test case 14: TypeError for invalid success threshold.
     """
@@ -238,7 +238,7 @@ def test_circuit_breaker_case_14_type_error_invalid_success_threshold() -> None:
         CircuitBreaker(failure_threshold=3, recovery_timeout=1.0, success_threshold=1.5)  # type: ignore[arg-type]
 
 
-def test_circuit_breaker_case_15_value_error_zero_success_threshold() -> None:
+def test_circuit_breaker_value_error_zero_success_threshold() -> None:
     """
     Test case 15: ValueError for zero success threshold.
     """
@@ -246,7 +246,7 @@ def test_circuit_breaker_case_15_value_error_zero_success_threshold() -> None:
         CircuitBreaker(failure_threshold=3, recovery_timeout=1.0, success_threshold=0)
 
 
-def test_circuit_breaker_case_16_type_error_non_callable() -> None:
+def test_circuit_breaker_type_error_non_callable() -> None:
     """
     Test case 16: TypeError for non-callable function.
     """

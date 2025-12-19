@@ -2,7 +2,7 @@ import pytest
 from web_scraping_functions.rotation.rotate_proxy import rotate_proxy
 
 
-def test_rotate_proxy_case_1_basic_rotation() -> None:
+def test_rotate_proxy_basic_rotation() -> None:
     """
     Test case 1: Basic proxy rotation through list.
     """
@@ -23,7 +23,7 @@ def test_rotate_proxy_case_1_basic_rotation() -> None:
     assert result4 == {"http": "proxy1", "https": "proxy1"}  # Cycles back
 
 
-def test_rotate_proxy_case_2_single_proxy() -> None:
+def test_rotate_proxy_single_proxy() -> None:
     """
     Test case 2: Rotation with single proxy.
     """
@@ -40,7 +40,7 @@ def test_rotate_proxy_case_2_single_proxy() -> None:
     assert result2 == {"http": "only_proxy", "https": "only_proxy"}
 
 
-def test_rotate_proxy_case_3_infinite_cycling() -> None:
+def test_rotate_proxy_infinite_cycling() -> None:
     """
     Test case 3: Verify infinite cycling.
     """
@@ -56,7 +56,7 @@ def test_rotate_proxy_case_3_infinite_cycling() -> None:
     assert results == expected
 
 
-def test_rotate_proxy_case_4_list_not_modified() -> None:
+def test_rotate_proxy_list_not_modified() -> None:
     """
     Test case 4: Original list is not modified.
     """
@@ -73,7 +73,7 @@ def test_rotate_proxy_case_4_list_not_modified() -> None:
     assert proxies == original_proxies
 
 
-def test_rotate_proxy_case_5_type_error_proxies() -> None:
+def test_rotate_proxy_type_error_proxies() -> None:
     """
     Test case 5: TypeError for invalid proxies type.
     """
@@ -83,7 +83,7 @@ def test_rotate_proxy_case_5_type_error_proxies() -> None:
         next(rotator)
 
 
-def test_rotate_proxy_case_6_value_error_empty_list() -> None:
+def test_rotate_proxy_value_error_empty_list() -> None:
     """
     Test case 6: ValueError for empty proxy list.
     """
@@ -93,7 +93,7 @@ def test_rotate_proxy_case_6_value_error_empty_list() -> None:
         next(rotator)
 
 
-def test_rotate_proxy_case_7_mixed_proxy_formats() -> None:
+def test_rotate_proxy_mixed_proxy_formats() -> None:
     """
     Test case 7: Support different proxy string formats.
     """

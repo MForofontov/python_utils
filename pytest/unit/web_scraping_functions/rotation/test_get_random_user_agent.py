@@ -4,7 +4,7 @@ from web_scraping_functions.rotation.get_random_user_agent import (
 )
 
 
-def test_get_random_user_agent_case_1_returns_from_list() -> None:
+def test_get_random_user_agent_returns_from_list() -> None:
     """
     Test case 1: Return a user agent from the list.
     """
@@ -18,7 +18,7 @@ def test_get_random_user_agent_case_1_returns_from_list() -> None:
     assert result in user_agents
 
 
-def test_get_random_user_agent_case_2_single_user_agent() -> None:
+def test_get_random_user_agent_single_user_agent() -> None:
     """
     Test case 2: Return the only user agent from single-element list.
     """
@@ -32,7 +32,7 @@ def test_get_random_user_agent_case_2_single_user_agent() -> None:
     assert result == "Mozilla/5.0"
 
 
-def test_get_random_user_agent_case_3_randomness() -> None:
+def test_get_random_user_agent_randomness() -> None:
     """
     Test case 3: Verify random selection over multiple calls.
     """
@@ -46,7 +46,7 @@ def test_get_random_user_agent_case_3_randomness() -> None:
     assert len(results) >= 2
 
 
-def test_get_random_user_agent_case_4_default_user_agents() -> None:
+def test_get_random_user_agent_default_user_agents() -> None:
     """
     Test case 4: Use default user agents when None provided.
     """
@@ -59,7 +59,7 @@ def test_get_random_user_agent_case_4_default_user_agents() -> None:
     assert "Mozilla" in result
 
 
-def test_get_random_user_agent_case_5_list_not_modified() -> None:
+def test_get_random_user_agent_list_not_modified() -> None:
     """
     Test case 5: Original list is not modified.
     """
@@ -74,7 +74,7 @@ def test_get_random_user_agent_case_5_list_not_modified() -> None:
     assert user_agents == original_uas
 
 
-def test_get_random_user_agent_case_6_type_error_user_agents() -> None:
+def test_get_random_user_agent_type_error_user_agents() -> None:
     """
     Test case 6: TypeError for invalid user_agents type.
     """
@@ -83,7 +83,7 @@ def test_get_random_user_agent_case_6_type_error_user_agents() -> None:
         get_random_user_agent("not a list")
 
 
-def test_get_random_user_agent_case_7_value_error_empty_list() -> None:
+def test_get_random_user_agent_value_error_empty_list() -> None:
     """
     Test case 7: ValueError for empty user agent list.
     """
@@ -92,7 +92,7 @@ def test_get_random_user_agent_case_7_value_error_empty_list() -> None:
         get_random_user_agent([])
 
 
-def test_get_random_user_agent_case_8_realistic_user_agents() -> None:
+def test_get_random_user_agent_realistic_user_agents() -> None:
     """
     Test case 9: Handle realistic user agent strings.
     """
