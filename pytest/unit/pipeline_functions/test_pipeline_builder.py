@@ -4,7 +4,7 @@ from unittest.mock import Mock
 import pytest
 from pipeline_functions.pipeline_builder import Pipeline, pipeline_builder
 
-def test_pipeline_case_1_normal_operation() -> None:
+def test_pipeline_normal_operation() -> None:
     """
     Test case 1: Basic pipeline with single step.
     """
@@ -16,7 +16,7 @@ def test_pipeline_case_1_normal_operation() -> None:
     assert result == 10
 
 
-def test_pipeline_case_2_multiple_steps() -> None:
+def test_pipeline_multiple_steps() -> None:
     """
     Test case 2: Pipeline with multiple sequential steps.
     """
@@ -30,7 +30,7 @@ def test_pipeline_case_2_multiple_steps() -> None:
     assert result == 25  # (5 + 10) * 2 - 5 = 25
 
 
-def test_pipeline_case_3_callable_execution() -> None:
+def test_pipeline_callable_execution() -> None:
     """
     Test case 3: Pipeline as callable.
     """
@@ -42,7 +42,7 @@ def test_pipeline_case_3_callable_execution() -> None:
     assert result == 16
 
 
-def test_pipeline_case_4_map_step() -> None:
+def test_pipeline_map_step() -> None:
     """
     Test case 4: Map step with iterable.
     """
@@ -54,7 +54,7 @@ def test_pipeline_case_4_map_step() -> None:
     assert result == [2, 4, 6, 8]
 
 
-def test_pipeline_case_5_filter_step() -> None:
+def test_pipeline_filter_step() -> None:
     """
     Test case 5: Filter step with predicate.
     """
@@ -66,7 +66,7 @@ def test_pipeline_case_5_filter_step() -> None:
     assert result == [2, 4, 6]
 
 
-def test_pipeline_case_6_conditional_step() -> None:
+def test_pipeline_conditional_step() -> None:
     """
     Test case 6: Conditional step execution.
     """
@@ -84,7 +84,7 @@ def test_pipeline_case_6_conditional_step() -> None:
     assert result2 == 30  # 15 * 2
 
 
-def test_pipeline_case_7_reduce_step() -> None:
+def test_pipeline_reduce_step() -> None:
     """
     Test case 7: Reduce step aggregation.
     """
@@ -96,7 +96,7 @@ def test_pipeline_case_7_reduce_step() -> None:
     assert result == 15
 
 
-def test_pipeline_case_8_tap_step() -> None:
+def test_pipeline_tap_step() -> None:
     """
     Test case 8: Tap step for side effects.
     """
@@ -113,7 +113,7 @@ def test_pipeline_case_8_tap_step() -> None:
     assert side_effects == [20]  # Tapped value after first step
 
 
-def test_pipeline_case_9_flatten_step() -> None:
+def test_pipeline_flatten_step() -> None:
     """
     Test case 9: Flatten step for nested iterables.
     """
@@ -125,7 +125,7 @@ def test_pipeline_case_9_flatten_step() -> None:
     assert result == [1, 2, 3, 4, 5]
 
 
-def test_pipeline_case_10_batch_step() -> None:
+def test_pipeline_batch_step() -> None:
     """
     Test case 10: Batch step grouping.
     """
@@ -137,7 +137,7 @@ def test_pipeline_case_10_batch_step() -> None:
     assert result == [[1, 2, 3], [4, 5]]
 
 
-def test_pipeline_case_11_distinct_step() -> None:
+def test_pipeline_distinct_step() -> None:
     """
     Test case 11: Distinct step removes duplicates.
     """
@@ -149,7 +149,7 @@ def test_pipeline_case_11_distinct_step() -> None:
     assert result == [1, 2, 3, 4, 5]
 
 
-def test_pipeline_case_12_group_by_step() -> None:
+def test_pipeline_group_by_step() -> None:
     """
     Test case 12: Group by step categorization.
     """
@@ -162,7 +162,7 @@ def test_pipeline_case_12_group_by_step() -> None:
     assert result == {0: [2, 4, 6], 1: [1, 3, 5]}
 
 
-def test_pipeline_case_13_error_handler() -> None:
+def test_pipeline_error_handler() -> None:
     """
     Test case 13: Error handler with fallback.
     """
@@ -175,7 +175,7 @@ def test_pipeline_case_13_error_handler() -> None:
     assert result == -1
 
 
-def test_pipeline_case_14_combine_pipelines() -> None:
+def test_pipeline_combine_pipelines() -> None:
     """
     Test case 14: Combine two pipelines.
     """
@@ -192,7 +192,7 @@ def test_pipeline_case_14_combine_pipelines() -> None:
     assert result == 20  # (5 * 2) + 10
 
 
-def test_pipeline_case_15_complex_pipeline() -> None:
+def test_pipeline_complex_pipeline() -> None:
     """
     Test case 15: Complex pipeline with multiple operations.
     """
@@ -212,9 +212,9 @@ def test_pipeline_case_15_complex_pipeline() -> None:
     assert result == 24
 
 
-def test_pipeline_case_45_repr_method_normal_operation() -> None:
+def test_pipeline_repr_method_normal_operation() -> None:
     """
-    Test case 45: Normal operation - __repr__ returns correct representation.
+    Test case 16: Normal operation - __repr__ returns correct representation.
     """
     pipeline = Pipeline()
     pipeline.add_step(lambda x: x * 2)
@@ -225,9 +225,9 @@ def test_pipeline_case_45_repr_method_normal_operation() -> None:
     assert result == "Pipeline(steps=2)"
 
 
-def test_pipeline_case_46_str_method_normal_operation() -> None:
+def test_pipeline_str_method_normal_operation() -> None:
     """
-    Test case 46: Normal operation - __str__ shows all steps with numbering.
+    Test case 17: Normal operation - __str__ shows all steps with numbering.
     """
     pipeline = Pipeline()
     pipeline.add_step(lambda x: x * 2)
@@ -240,9 +240,9 @@ def test_pipeline_case_46_str_method_normal_operation() -> None:
     assert "2. upper" in result
 
 
-def test_pipeline_case_47_len_method_normal_operation() -> None:
+def test_pipeline_len_method_normal_operation() -> None:
     """
-    Test case 47: Normal operation - __len__ returns correct step count.
+    Test case 18: Normal operation - __len__ returns correct step count.
     """
     pipeline = Pipeline()
     assert len(pipeline) == 0
@@ -254,9 +254,9 @@ def test_pipeline_case_47_len_method_normal_operation() -> None:
     assert len(pipeline) == 2
 
 
-def test_pipeline_case_48_show_steps_normal_operation() -> None:
+def test_pipeline_show_steps_normal_operation() -> None:
     """
-    Test case 48: Normal operation - show_steps returns detailed step information.
+    Test case 19: Normal operation - show_steps returns detailed step information.
     """
     pipeline = Pipeline()
     pipeline.add_step(lambda x: x * 2)
@@ -275,9 +275,9 @@ def test_pipeline_case_48_show_steps_normal_operation() -> None:
     assert callable(steps[1]['callable'])
 
 
-def test_pipeline_case_49_get_step_normal_operation() -> None:
+def test_pipeline_get_step_normal_operation() -> None:
     """
-    Test case 49: Normal operation - get_step retrieves correct step by index.
+    Test case 20: Normal operation - get_step retrieves correct step by index.
     """
     pipeline = Pipeline()
     func1 = lambda x: x * 2
@@ -290,9 +290,9 @@ def test_pipeline_case_49_get_step_normal_operation() -> None:
     assert step(5) == 10
 
 
-def test_pipeline_case_50_remove_step_normal_operation() -> None:
+def test_pipeline_remove_step_normal_operation() -> None:
     """
-    Test case 50: Normal operation - remove_step removes step and maintains order.
+    Test case 21: Normal operation - remove_step removes step and maintains order.
     """
     pipeline = Pipeline()
     pipeline.add_step(lambda x: x * 2)
@@ -308,9 +308,9 @@ def test_pipeline_case_50_remove_step_normal_operation() -> None:
     assert result == 5  # (5 * 2) - 5 = 5
 
 
-def test_pipeline_case_51_clear_normal_operation() -> None:
+def test_pipeline_clear_normal_operation() -> None:
     """
-    Test case 51: Normal operation - clear removes all steps.
+    Test case 22: Normal operation - clear removes all steps.
     """
     pipeline = Pipeline()
     pipeline.add_step(lambda x: x * 2)
@@ -322,9 +322,9 @@ def test_pipeline_case_51_clear_normal_operation() -> None:
     assert len(pipeline) == 0
 
 
-def test_pipeline_case_16_edge_case_empty_pipeline() -> None:
+def test_pipeline_edge_case_empty_pipeline() -> None:
     """
-    Test case 16: Execute empty pipeline.
+    Test case 23: Execute empty pipeline.
     """
     pipeline = Pipeline()
 
@@ -333,9 +333,9 @@ def test_pipeline_case_16_edge_case_empty_pipeline() -> None:
     assert result == 42  # No transformations
 
 
-def test_pipeline_case_17_edge_case_empty_input_list() -> None:
+def test_pipeline_edge_case_empty_input_list() -> None:
     """
-    Test case 17: Pipeline with empty input list.
+    Test case 24: Pipeline with empty input list.
     """
     pipeline = Pipeline()
     pipeline.map_step(lambda x: x * 2)
@@ -345,9 +345,9 @@ def test_pipeline_case_17_edge_case_empty_input_list() -> None:
     assert result == []
 
 
-def test_pipeline_case_18_edge_case_none_input() -> None:
+def test_pipeline_edge_case_none_input() -> None:
     """
-    Test case 18: Pipeline with None input.
+    Test case 25: Pipeline with None input.
     """
     pipeline = Pipeline()
     pipeline.add_step(lambda x: x if x is not None else 0)
@@ -357,9 +357,9 @@ def test_pipeline_case_18_edge_case_none_input() -> None:
     assert result == 0
 
 
-def test_pipeline_case_19_edge_case_single_element_list() -> None:
+def test_pipeline_edge_case_single_element_list() -> None:
     """
-    Test case 19: Pipeline with single element list.
+    Test case 26: Pipeline with single element list.
     """
     pipeline = Pipeline()
     pipeline.map_step(lambda x: x + 1)
@@ -369,9 +369,9 @@ def test_pipeline_case_19_edge_case_single_element_list() -> None:
     assert result == [43]
 
 
-def test_pipeline_case_20_edge_case_batch_with_remainder() -> None:
+def test_pipeline_edge_case_batch_with_remainder() -> None:
     """
-    Test case 20: Batch step with remainder elements.
+    Test case 27: Batch step with remainder elements.
     """
     pipeline = Pipeline()
     pipeline.add_batch_step(batch_size=3)
@@ -381,9 +381,9 @@ def test_pipeline_case_20_edge_case_batch_with_remainder() -> None:
     assert result == [[1, 2, 3], [4, 5, 6], [7, 8]]
 
 
-def test_pipeline_case_21_edge_case_flatten_empty_sublists() -> None:
+def test_pipeline_edge_case_flatten_empty_sublists() -> None:
     """
-    Test case 21: Flatten with empty sublists.
+    Test case 28: Flatten with empty sublists.
     """
     pipeline = Pipeline()
     pipeline.add_flatten_step()
@@ -393,9 +393,9 @@ def test_pipeline_case_21_edge_case_flatten_empty_sublists() -> None:
     assert result == [1, 2, 3]
 
 
-def test_pipeline_case_22_edge_case_distinct_all_unique() -> None:
+def test_pipeline_edge_case_distinct_all_unique() -> None:
     """
-    Test case 22: Distinct with all unique values.
+    Test case 29: Distinct with all unique values.
     """
     pipeline = Pipeline()
     pipeline.add_distinct_step()
@@ -405,9 +405,9 @@ def test_pipeline_case_22_edge_case_distinct_all_unique() -> None:
     assert result == [1, 2, 3, 4, 5]
 
 
-def test_pipeline_case_23_edge_case_distinct_all_duplicates() -> None:
+def test_pipeline_edge_case_distinct_all_duplicates() -> None:
     """
-    Test case 23: Distinct with all duplicates.
+    Test case 30: Distinct with all duplicates.
     """
     pipeline = Pipeline()
     pipeline.add_distinct_step()
@@ -417,9 +417,9 @@ def test_pipeline_case_23_edge_case_distinct_all_duplicates() -> None:
     assert result == [1]
 
 
-def test_pipeline_case_24_edge_case_group_by_empty_list() -> None:
+def test_pipeline_edge_case_group_by_empty_list() -> None:
     """
-    Test case 24: Group by with empty list.
+    Test case 31: Group by with empty list.
     """
     pipeline = Pipeline()
     pipeline.group_by_step(lambda x: x % 2)
@@ -430,9 +430,9 @@ def test_pipeline_case_24_edge_case_group_by_empty_list() -> None:
     assert result == {}
 
 
-def test_pipeline_case_25_edge_case_reduce_single_element() -> None:
+def test_pipeline_edge_case_reduce_single_element() -> None:
     """
-    Test case 25: Reduce with single element.
+    Test case 32: Reduce with single element.
     """
     pipeline = Pipeline()
     pipeline.reduce_step(lambda acc, x: acc + x, initial=10)
@@ -442,9 +442,9 @@ def test_pipeline_case_25_edge_case_reduce_single_element() -> None:
     assert result == 15
 
 
-def test_pipeline_case_26_edge_case_reduce_empty_list() -> None:
+def test_pipeline_edge_case_reduce_empty_list() -> None:
     """
-    Test case 26: Reduce with empty list returns initial.
+    Test case 33: Reduce with empty list returns initial.
     """
     pipeline = Pipeline()
     pipeline.reduce_step(lambda acc, x: acc + x, initial=42)
@@ -454,9 +454,9 @@ def test_pipeline_case_26_edge_case_reduce_empty_list() -> None:
     assert result == 42
 
 
-def test_pipeline_case_27_edge_case_filter_none_match() -> None:
+def test_pipeline_edge_case_filter_none_match() -> None:
     """
-    Test case 27: Filter where no elements match.
+    Test case 34: Filter where no elements match.
     """
     pipeline = Pipeline()
     pipeline.filter_step(lambda x: x > 100)
@@ -466,9 +466,9 @@ def test_pipeline_case_27_edge_case_filter_none_match() -> None:
     assert result == []
 
 
-def test_pipeline_case_28_edge_case_filter_all_match() -> None:
+def test_pipeline_edge_case_filter_all_match() -> None:
     """
-    Test case 28: Filter where all elements match.
+    Test case 35: Filter where all elements match.
     """
     pipeline = Pipeline()
     pipeline.filter_step(lambda x: x > 0)
@@ -478,9 +478,9 @@ def test_pipeline_case_28_edge_case_filter_all_match() -> None:
     assert result == [1, 2, 3, 4, 5]
 
 
-def test_pipeline_case_29_edge_case_conditional_no_false_func() -> None:
+def test_pipeline_edge_case_conditional_no_false_func() -> None:
     """
-    Test case 29: Conditional without false_func.
+    Test case 36: Conditional without false_func.
     """
     pipeline = Pipeline()
     pipeline.add_conditional_step(condition=lambda x: x > 10, true_func=lambda x: x * 2)
@@ -492,9 +492,9 @@ def test_pipeline_case_29_edge_case_conditional_no_false_func() -> None:
     assert result2 == 30  # 15 * 2
 
 
-def test_pipeline_case_30_pipeline_builder_function() -> None:
+def test_pipeline_pipeline_builder_function() -> None:
     """
-    Test case 30: Use pipeline_builder convenience function.
+    Test case 37: Use pipeline_builder convenience function.
     """
     pipeline = pipeline_builder()
     pipeline.add_step(lambda x: x * 3)
@@ -504,9 +504,9 @@ def test_pipeline_case_30_pipeline_builder_function() -> None:
     assert result == 21
 
 
-def test_pipeline_case_52_edge_case_str_empty_pipeline() -> None:
+def test_pipeline_edge_case_str_empty_pipeline() -> None:
     """
-    Test case 52: Edge case - __str__ for empty pipeline.
+    Test case 38: Edge case - __str__ for empty pipeline.
     """
     pipeline = Pipeline()
 
@@ -515,9 +515,9 @@ def test_pipeline_case_52_edge_case_str_empty_pipeline() -> None:
     assert result == "Pipeline: [empty]"
 
 
-def test_pipeline_case_53_edge_case_show_steps_empty_pipeline() -> None:
+def test_pipeline_edge_case_show_steps_empty_pipeline() -> None:
     """
-    Test case 53: Edge case - show_steps returns empty list for empty pipeline.
+    Test case 39: Edge case - show_steps returns empty list for empty pipeline.
     """
     pipeline = Pipeline()
 
@@ -526,9 +526,9 @@ def test_pipeline_case_53_edge_case_show_steps_empty_pipeline() -> None:
     assert steps == []
 
 
-def test_pipeline_case_54_edge_case_show_steps_various_callables() -> None:
+def test_pipeline_edge_case_show_steps_various_callables() -> None:
     """
-    Test case 54: Edge case - show_steps handles various callable types.
+    Test case 40: Edge case - show_steps handles various callable types.
     """
     def named_function(x):
         return x * 2
@@ -549,9 +549,9 @@ def test_pipeline_case_54_edge_case_show_steps_various_callables() -> None:
     assert steps[2]['name'] == 'split'
 
 
-def test_pipeline_case_55_edge_case_remove_step_method_chaining() -> None:
+def test_pipeline_edge_case_remove_step_method_chaining() -> None:
     """
-    Test case 55: Edge case - remove_step supports method chaining.
+    Test case 41: Edge case - remove_step supports method chaining.
     """
     pipeline = Pipeline()
     pipeline.add_step(lambda x: x * 2)
@@ -562,9 +562,9 @@ def test_pipeline_case_55_edge_case_remove_step_method_chaining() -> None:
     assert result == 6  # Only second step remains
 
 
-def test_pipeline_case_56_edge_case_clear_empty_pipeline() -> None:
+def test_pipeline_edge_case_clear_empty_pipeline() -> None:
     """
-    Test case 56: Edge case - clear on empty pipeline does nothing.
+    Test case 42: Edge case - clear on empty pipeline does nothing.
     """
     pipeline = Pipeline()
 
@@ -573,9 +573,9 @@ def test_pipeline_case_56_edge_case_clear_empty_pipeline() -> None:
     assert len(pipeline) == 0
 
 
-def test_pipeline_case_57_edge_case_clear_method_chaining() -> None:
+def test_pipeline_edge_case_clear_method_chaining() -> None:
     """
-    Test case 57: Edge case - clear supports method chaining.
+    Test case 43: Edge case - clear supports method chaining.
     """
     pipeline = Pipeline()
     pipeline.add_step(lambda x: x * 2)
@@ -585,9 +585,9 @@ def test_pipeline_case_57_edge_case_clear_method_chaining() -> None:
     assert result == 15
 
 
-def test_pipeline_case_31_type_error_non_callable_step() -> None:
+def test_pipeline_type_error_non_callable_step() -> None:
     """
-    Test case 31: TypeError for non-callable step.
+    Test case 44: TypeError for non-callable step.
     """
     pipeline = Pipeline()
 
@@ -595,9 +595,9 @@ def test_pipeline_case_31_type_error_non_callable_step() -> None:
         pipeline.add_step("not_callable")  # type: ignore[arg-type]
 
 
-def test_pipeline_case_32_type_error_non_callable_map() -> None:
+def test_pipeline_type_error_non_callable_map() -> None:
     """
-    Test case 32: TypeError for non-callable map function.
+    Test case 45: TypeError for non-callable map function.
     """
     pipeline = Pipeline()
 
@@ -605,9 +605,9 @@ def test_pipeline_case_32_type_error_non_callable_map() -> None:
         pipeline.map_step(42)  # type: ignore[arg-type]
 
 
-def test_pipeline_case_33_type_error_non_callable_filter() -> None:
+def test_pipeline_type_error_non_callable_filter() -> None:
     """
-    Test case 33: TypeError for non-callable filter predicate.
+    Test case 46: TypeError for non-callable filter predicate.
     """
     pipeline = Pipeline()
 
@@ -615,9 +615,9 @@ def test_pipeline_case_33_type_error_non_callable_filter() -> None:
         pipeline.filter_step("not_callable")  # type: ignore[arg-type]
 
 
-def test_pipeline_case_34_type_error_non_callable_condition() -> None:
+def test_pipeline_type_error_non_callable_condition() -> None:
     """
-    Test case 34: TypeError for non-callable condition.
+    Test case 47: TypeError for non-callable condition.
     """
     pipeline = Pipeline()
 
@@ -628,9 +628,9 @@ def test_pipeline_case_34_type_error_non_callable_condition() -> None:
         )
 
 
-def test_pipeline_case_35_type_error_non_callable_true_func() -> None:
+def test_pipeline_type_error_non_callable_true_func() -> None:
     """
-    Test case 35: TypeError for non-callable true_func.
+    Test case 48: TypeError for non-callable true_func.
     """
     pipeline = Pipeline()
 
@@ -641,9 +641,9 @@ def test_pipeline_case_35_type_error_non_callable_true_func() -> None:
         )
 
 
-def test_pipeline_case_36_type_error_non_callable_false_func() -> None:
+def test_pipeline_type_error_non_callable_false_func() -> None:
     """
-    Test case 36: TypeError for non-callable false_func.
+    Test case 49: TypeError for non-callable false_func.
     """
     pipeline = Pipeline()
 
@@ -655,9 +655,9 @@ def test_pipeline_case_36_type_error_non_callable_false_func() -> None:
         )
 
 
-def test_pipeline_case_37_type_error_non_callable_reduce_func() -> None:
+def test_pipeline_type_error_non_callable_reduce_func() -> None:
     """
-    Test case 37: TypeError for non-callable reduce function.
+    Test case 50: TypeError for non-callable reduce function.
     """
     pipeline = Pipeline()
 
@@ -665,9 +665,9 @@ def test_pipeline_case_37_type_error_non_callable_reduce_func() -> None:
         pipeline.reduce_step("not_callable", initial=0)  # type: ignore[arg-type]
 
 
-def test_pipeline_case_38_type_error_non_callable_tap() -> None:
+def test_pipeline_type_error_non_callable_tap() -> None:
     """
-    Test case 38: TypeError for non-callable tap function.
+    Test case 51: TypeError for non-callable tap function.
     """
     pipeline = Pipeline()
 
@@ -675,9 +675,9 @@ def test_pipeline_case_38_type_error_non_callable_tap() -> None:
         pipeline.add_tap_step(None)  # type: ignore[arg-type]
 
 
-def test_pipeline_case_39_type_error_invalid_batch_size() -> None:
+def test_pipeline_type_error_invalid_batch_size() -> None:
     """
-    Test case 39: TypeError for invalid batch size type.
+    Test case 52: TypeError for invalid batch size type.
     """
     pipeline = Pipeline()
 
@@ -685,9 +685,9 @@ def test_pipeline_case_39_type_error_invalid_batch_size() -> None:
         pipeline.add_batch_step(batch_size="3")  # type: ignore[arg-type]
 
 
-def test_pipeline_case_40_value_error_zero_batch_size() -> None:
+def test_pipeline_value_error_zero_batch_size() -> None:
     """
-    Test case 40: ValueError for zero batch size.
+    Test case 53: ValueError for zero batch size.
     """
     pipeline = Pipeline()
 
@@ -695,9 +695,9 @@ def test_pipeline_case_40_value_error_zero_batch_size() -> None:
         pipeline.add_batch_step(batch_size=0)
 
 
-def test_pipeline_case_41_value_error_negative_batch_size() -> None:
+def test_pipeline_value_error_negative_batch_size() -> None:
     """
-    Test case 41: ValueError for negative batch size.
+    Test case 54: ValueError for negative batch size.
     """
     pipeline = Pipeline()
 
@@ -705,9 +705,9 @@ def test_pipeline_case_41_value_error_negative_batch_size() -> None:
         pipeline.add_batch_step(batch_size=-5)
 
 
-def test_pipeline_case_42_type_error_non_callable_key_func() -> None:
+def test_pipeline_type_error_non_callable_key_func() -> None:
     """
-    Test case 42: TypeError for non-callable key function.
+    Test case 55: TypeError for non-callable key function.
     """
     pipeline = Pipeline()
 
@@ -715,9 +715,9 @@ def test_pipeline_case_42_type_error_non_callable_key_func() -> None:
         pipeline.group_by_step(key=42)  # type: ignore[arg-type]
 
 
-def test_pipeline_case_43_type_error_non_callable_error_handler() -> None:
+def test_pipeline_type_error_non_callable_error_handler() -> None:
     """
-    Test case 43: TypeError for non-callable error handler.
+    Test case 56: TypeError for non-callable error handler.
     """
     pipeline = Pipeline()
 
@@ -725,9 +725,9 @@ def test_pipeline_case_43_type_error_non_callable_error_handler() -> None:
         pipeline.add_error_handler("not_callable")  # type: ignore[arg-type]
 
 
-def test_pipeline_case_44_type_error_combine_non_pipeline() -> None:
+def test_pipeline_type_error_combine_non_pipeline() -> None:
     """
-    Test case 44: TypeError when combining with non-Pipeline.
+    Test case 57: TypeError when combining with non-Pipeline.
     """
     pipeline = Pipeline()
 
@@ -735,7 +735,7 @@ def test_pipeline_case_44_type_error_combine_non_pipeline() -> None:
         pipeline.combine("not_a_pipeline")  # type: ignore[arg-type]
 
 
-def test_pipeline_case_58_type_error_get_step_non_integer() -> None:
+def test_pipeline_type_error_get_step_non_integer() -> None:
     """
     Test case 58: TypeError - get_step raises TypeError for non-integer index.
     """
@@ -746,7 +746,7 @@ def test_pipeline_case_58_type_error_get_step_non_integer() -> None:
         pipeline.get_step("0")  # type: ignore[arg-type]
 
 
-def test_pipeline_case_59_index_error_get_step_out_of_range() -> None:
+def test_pipeline_index_error_get_step_out_of_range() -> None:
     """
     Test case 59: IndexError - get_step raises IndexError for out of range index.
     """
@@ -757,7 +757,7 @@ def test_pipeline_case_59_index_error_get_step_out_of_range() -> None:
         pipeline.get_step(5)
 
 
-def test_pipeline_case_60_index_error_get_step_negative_out_of_range() -> None:
+def test_pipeline_index_error_get_step_negative_out_of_range() -> None:
     """
     Test case 60: IndexError - get_step raises IndexError for negative out of range index.
     """
@@ -768,7 +768,7 @@ def test_pipeline_case_60_index_error_get_step_negative_out_of_range() -> None:
         pipeline.get_step(-1)
 
 
-def test_pipeline_case_61_type_error_remove_step_non_integer() -> None:
+def test_pipeline_type_error_remove_step_non_integer() -> None:
     """
     Test case 61: TypeError - remove_step raises TypeError for non-integer index.
     """
@@ -779,7 +779,7 @@ def test_pipeline_case_61_type_error_remove_step_non_integer() -> None:
         pipeline.remove_step(1.5)  # type: ignore[arg-type]
 
 
-def test_pipeline_case_62_index_error_remove_step_out_of_range() -> None:
+def test_pipeline_index_error_remove_step_out_of_range() -> None:
     """
     Test case 62: IndexError - remove_step raises IndexError for out of range index.
     """

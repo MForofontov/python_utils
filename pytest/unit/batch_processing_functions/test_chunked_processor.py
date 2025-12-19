@@ -8,7 +8,7 @@ from batch_processing_functions.chunked_processor import (
 )
 
 
-def test_chunked_processor_case_1_normal_operation() -> None:
+def test_chunked_processor_normal_operation() -> None:
     """
     Test case 1: Normal operation with valid inputs.
     """
@@ -22,7 +22,7 @@ def test_chunked_processor_case_1_normal_operation() -> None:
     assert processor.call_count == 4  # ceil(10/3) = 4 chunks
 
 
-def test_chunked_processor_case_2_exact_chunk_size() -> None:
+def test_chunked_processor_exact_chunk_size() -> None:
     """
     Test case 2: Items count is exact multiple of chunk_size.
     """
@@ -35,7 +35,7 @@ def test_chunked_processor_case_2_exact_chunk_size() -> None:
     assert results == list(range(1, 13))
 
 
-def test_chunked_processor_case_3_single_chunk() -> None:
+def test_chunked_processor_single_chunk() -> None:
     """
     Test case 3: All items fit in single chunk.
     """
@@ -48,7 +48,7 @@ def test_chunked_processor_case_3_single_chunk() -> None:
     assert results == [2, 4, 6]
 
 
-def test_chunked_processor_case_4_with_strings() -> None:
+def test_chunked_processor_with_strings() -> None:
     """
     Test case 4: Processing strings.
     """
@@ -60,7 +60,7 @@ def test_chunked_processor_case_4_with_strings() -> None:
     assert results == ["HELLO", "WORLD", "TEST"]
 
 
-def test_chunked_processor_case_5_edge_case_empty_iterable() -> None:
+def test_chunked_processor_edge_case_empty_iterable() -> None:
     """
     Test case 5: Empty iterable.
     """
@@ -73,7 +73,7 @@ def test_chunked_processor_case_5_edge_case_empty_iterable() -> None:
     assert processor.call_count == 0
 
 
-def test_chunked_processor_case_6_edge_case_single_item() -> None:
+def test_chunked_processor_edge_case_single_item() -> None:
     """
     Test case 6: Single item in iterable.
     """
@@ -85,7 +85,7 @@ def test_chunked_processor_case_6_edge_case_single_item() -> None:
     assert results == [84]
 
 
-def test_chunked_processor_case_7_edge_case_chunk_size_one() -> None:
+def test_chunked_processor_edge_case_chunk_size_one() -> None:
     """
     Test case 7: Chunk size of 1.
     """
@@ -97,7 +97,7 @@ def test_chunked_processor_case_7_edge_case_chunk_size_one() -> None:
     assert results == [11, 12, 13, 14]
 
 
-def test_chunked_processor_case_8_edge_case_processor_returns_none() -> None:
+def test_chunked_processor_edge_case_processor_returns_none() -> None:
     """
     Test case 8: Processor returns None for some items.
     """
@@ -109,7 +109,7 @@ def test_chunked_processor_case_8_edge_case_processor_returns_none() -> None:
     assert results == [1, None, 3, None]
 
 
-def test_chunked_processor_case_9_edge_case_large_chunk_size() -> None:
+def test_chunked_processor_edge_case_large_chunk_size() -> None:
     """
     Test case 9: Chunk size larger than iterable.
     """
@@ -121,7 +121,7 @@ def test_chunked_processor_case_9_edge_case_large_chunk_size() -> None:
     assert results == [3, 6, 9]
 
 
-def test_chunked_processor_case_10_type_error_non_iterable() -> None:
+def test_chunked_processor_type_error_non_iterable() -> None:
     """
     Test case 10: TypeError for non-iterable items.
     """
@@ -131,7 +131,7 @@ def test_chunked_processor_case_10_type_error_non_iterable() -> None:
         list(chunked_processor(42, processor, chunk_size=3))  # type: ignore[arg-type]
 
 
-def test_chunked_processor_case_11_type_error_non_callable_processor() -> None:
+def test_chunked_processor_type_error_non_callable_processor() -> None:
     """
     Test case 11: TypeError for non-callable processor.
     """
@@ -141,7 +141,7 @@ def test_chunked_processor_case_11_type_error_non_callable_processor() -> None:
         list(chunked_processor(items, "not_callable", chunk_size=3))  # type: ignore[arg-type]
 
 
-def test_chunked_processor_case_12_type_error_invalid_chunk_size_type() -> None:
+def test_chunked_processor_type_error_invalid_chunk_size_type() -> None:
     """
     Test case 12: TypeError for invalid chunk_size type.
     """
@@ -152,7 +152,7 @@ def test_chunked_processor_case_12_type_error_invalid_chunk_size_type() -> None:
         list(chunked_processor(items, processor, chunk_size="3"))  # type: ignore[arg-type]
 
 
-def test_chunked_processor_case_13_value_error_zero_chunk_size() -> None:
+def test_chunked_processor_value_error_zero_chunk_size() -> None:
     """
     Test case 13: ValueError for zero chunk_size.
     """
@@ -163,7 +163,7 @@ def test_chunked_processor_case_13_value_error_zero_chunk_size() -> None:
         list(chunked_processor(items, processor, chunk_size=0))
 
 
-def test_chunked_processor_case_14_value_error_negative_chunk_size() -> None:
+def test_chunked_processor_value_error_negative_chunk_size() -> None:
     """
     Test case 14: ValueError for negative chunk_size.
     """
@@ -174,7 +174,7 @@ def test_chunked_processor_case_14_value_error_negative_chunk_size() -> None:
         list(chunked_processor(items, processor, chunk_size=-5))
 
 
-def test_chunked_processor_class_case_1_normal_operation() -> None:
+def test_chunked_processor_class_normal_operation() -> None:
     """
     Test case 15: ChunkedProcessor class normal operation.
     """
@@ -187,7 +187,7 @@ def test_chunked_processor_class_case_1_normal_operation() -> None:
     assert results == [0, 2, 4, 6, 8, 10]
 
 
-def test_chunked_processor_class_case_2_with_memory_threshold() -> None:
+def test_chunked_processor_class_with_memory_threshold() -> None:
     """
     Test case 16: ChunkedProcessor with max_memory_mb.
     """
@@ -200,7 +200,7 @@ def test_chunked_processor_class_case_2_with_memory_threshold() -> None:
     assert len(results) == 10
 
 
-def test_chunked_processor_class_case_3_batch_processor() -> None:
+def test_chunked_processor_class_batch_processor() -> None:
     """
     Test case 17: ChunkedProcessor with batch processor.
     """
@@ -215,7 +215,7 @@ def test_chunked_processor_class_case_3_batch_processor() -> None:
     assert results == [0, 2, 4, 6, 8, 10, 12, 14, 16]
 
 
-def test_chunked_processor_class_case_4_reusability() -> None:
+def test_chunked_processor_class_reusability() -> None:
     """
     Test case 18: ChunkedProcessor reusability.
     """
@@ -231,7 +231,7 @@ def test_chunked_processor_class_case_4_reusability() -> None:
     assert processor.call_count == 6  # 3 chunks per call * 2 calls
 
 
-def test_chunked_processor_class_case_5_different_datasets() -> None:
+def test_chunked_processor_class_different_datasets() -> None:
     """
     Test case 19: ChunkedProcessor with different datasets.
     """
@@ -246,7 +246,7 @@ def test_chunked_processor_class_case_5_different_datasets() -> None:
     assert results2 == [20, 40]
 
 
-def test_chunked_processor_class_case_6_type_error_invalid_chunk_size() -> None:
+def test_chunked_processor_class_type_error_invalid_chunk_size() -> None:
     """
     Test case 20: TypeError for invalid chunk_size.
     """
@@ -255,7 +255,7 @@ def test_chunked_processor_class_case_6_type_error_invalid_chunk_size() -> None:
         ChunkedProcessor(processor, chunk_size=2.5)  # type: ignore[arg-type]
 
 
-def test_chunked_processor_class_case_7_value_error_zero_chunk_size() -> None:
+def test_chunked_processor_class_value_error_zero_chunk_size() -> None:
     """
     Test case 21: ValueError for zero chunk_size.
     """
@@ -264,7 +264,7 @@ def test_chunked_processor_class_case_7_value_error_zero_chunk_size() -> None:
         ChunkedProcessor(processor, chunk_size=0)
 
 
-def test_chunked_processor_class_case_8_type_error_invalid_max_memory_mb() -> None:
+def test_chunked_processor_class_type_error_invalid_max_memory_mb() -> None:
     """
     Test case 22: TypeError for invalid max_memory_mb.
     """
@@ -273,7 +273,7 @@ def test_chunked_processor_class_case_8_type_error_invalid_max_memory_mb() -> No
         ChunkedProcessor(processor, chunk_size=3, max_memory_mb="90")  # type: ignore[arg-type]
 
 
-def test_chunked_processor_class_case_9_value_error_max_memory_mb_negative() -> (
+def test_chunked_processor_class_value_error_max_memory_mb_negative() -> (
     None
 ):
     """
@@ -284,7 +284,7 @@ def test_chunked_processor_class_case_9_value_error_max_memory_mb_negative() -> 
         ChunkedProcessor(processor, chunk_size=3, max_memory_mb=-10)
 
 
-def test_chunked_processor_class_case_10_type_error_non_callable_processor() -> None:
+def test_chunked_processor_class_type_error_non_callable_processor() -> None:
     """
     Test case 24: TypeError for non-callable processor.
     """
@@ -292,7 +292,7 @@ def test_chunked_processor_class_case_10_type_error_non_callable_processor() -> 
         ChunkedProcessor("not_callable", chunk_size=3)  # type: ignore[arg-type]
 
 
-def test_chunked_processor_case_25_type_error_processor_returns_non_list() -> None:
+def test_chunked_processor_type_error_processor_returns_non_list() -> None:
     """
     Test case 25: TypeError when processor returns non-list.
     """
