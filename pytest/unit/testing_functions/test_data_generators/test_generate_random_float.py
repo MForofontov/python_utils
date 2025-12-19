@@ -4,7 +4,7 @@ from testing_functions.test_data_generators.generate_random_float import (
 )
 
 
-def test_generate_random_float_case_1_default_parameters() -> None:
+def test_generate_random_float_default_parameters() -> None:
     """
     Test case 1: Generate random float with default parameters.
     """
@@ -16,7 +16,7 @@ def test_generate_random_float_case_1_default_parameters() -> None:
     assert 0.0 <= result <= 1.0
 
 
-def test_generate_random_float_case_2_custom_range() -> None:
+def test_generate_random_float_custom_range() -> None:
     """
     Test case 2: Generate random float with custom range.
     """
@@ -27,7 +27,7 @@ def test_generate_random_float_case_2_custom_range() -> None:
     assert 5.0 <= result <= 10.0
 
 
-def test_generate_random_float_case_3_custom_precision() -> None:
+def test_generate_random_float_custom_precision() -> None:
     """
     Test case 3: Generate random float with custom precision.
     """
@@ -41,7 +41,7 @@ def test_generate_random_float_case_3_custom_precision() -> None:
         assert decimal_places <= 4
 
 
-def test_generate_random_float_case_4_zero_precision() -> None:
+def test_generate_random_float_zero_precision() -> None:
     """
     Test case 4: Generate random float with zero precision.
     """
@@ -52,7 +52,7 @@ def test_generate_random_float_case_4_zero_precision() -> None:
     assert result == int(result)
 
 
-def test_generate_random_float_case_5_type_error_min_value() -> None:
+def test_generate_random_float_type_error_min_value() -> None:
     """
     Test case 5: TypeError for invalid min_value type.
     """
@@ -61,7 +61,7 @@ def test_generate_random_float_case_5_type_error_min_value() -> None:
         generate_random_float("0.0", 1.0)
 
 
-def test_generate_random_float_case_6_type_error_max_value() -> None:
+def test_generate_random_float_type_error_max_value() -> None:
     """
     Test case 6: TypeError for invalid max_value type.
     """
@@ -70,7 +70,7 @@ def test_generate_random_float_case_6_type_error_max_value() -> None:
         generate_random_float(0.0, "1.0")
 
 
-def test_generate_random_float_case_7_type_error_precision() -> None:
+def test_generate_random_float_type_error_precision() -> None:
     """
     Test case 7: TypeError for invalid precision type.
     """
@@ -79,7 +79,7 @@ def test_generate_random_float_case_7_type_error_precision() -> None:
         generate_random_float(0.0, 1.0, "2")
 
 
-def test_generate_random_float_case_8_value_error_min_greater_than_max() -> None:
+def test_generate_random_float_value_error_min_greater_than_max() -> None:
     """
     Test case 8: ValueError when min_value > max_value.
     """
@@ -88,7 +88,7 @@ def test_generate_random_float_case_8_value_error_min_greater_than_max() -> None
         generate_random_float(10.0, 5.0)
 
 
-def test_generate_random_float_case_9_value_error_negative_precision() -> None:
+def test_generate_random_float_value_error_negative_precision() -> None:
     """
     Test case 9: ValueError for negative precision.
     """

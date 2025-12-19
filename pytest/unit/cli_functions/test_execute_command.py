@@ -5,7 +5,7 @@ import pytest
 from cli_functions.execute_command import execute_command
 
 
-def test_execute_command_case_1_simple_echo() -> None:
+def test_execute_command_simple_echo() -> None:
     """
     Test case 1: Execute simple echo command successfully.
     """
@@ -17,7 +17,7 @@ def test_execute_command_case_1_simple_echo() -> None:
     assert "hello" in result["stdout"]
 
 
-def test_execute_command_case_2_list_command() -> None:
+def test_execute_command_list_command() -> None:
     """
     Test case 2: Execute command as list without shell.
     """
@@ -28,7 +28,7 @@ def test_execute_command_case_2_list_command() -> None:
     assert "hello" in result["stdout"]
 
 
-def test_execute_command_case_3_command_with_timeout() -> None:
+def test_execute_command_command_with_timeout() -> None:
     """
     Test case 3: Execute command with timeout.
     """
@@ -38,7 +38,7 @@ def test_execute_command_case_3_command_with_timeout() -> None:
     assert result["return_code"] == 0
 
 
-def test_execute_command_case_4_invalid_command() -> None:
+def test_execute_command_invalid_command() -> None:
     """
     Test case 4: Execute invalid command returns non-zero exit code.
     """
@@ -48,7 +48,7 @@ def test_execute_command_case_4_invalid_command() -> None:
     assert result["return_code"] != 0
 
 
-def test_execute_command_case_5_invalid_type_error() -> None:
+def test_execute_command_invalid_type_error() -> None:
     """
     Test case 5: Invalid command type raises TypeError.
     """
@@ -59,7 +59,7 @@ def test_execute_command_case_5_invalid_type_error() -> None:
         execute_command(None)
 
 
-def test_execute_command_case_6_negative_timeout_error() -> None:
+def test_execute_command_negative_timeout_error() -> None:
     """
     Test case 6: Negative timeout raises ValueError.
     """

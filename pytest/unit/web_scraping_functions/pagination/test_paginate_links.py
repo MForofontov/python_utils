@@ -2,7 +2,7 @@ import pytest
 from web_scraping_functions.pagination.paginate_links import paginate_links
 
 
-def test_paginate_links_case_1_simple_pagination() -> None:
+def test_paginate_links_simple_pagination() -> None:
     """
     Test case 1: Generate simple pagination URLs.
     """
@@ -20,7 +20,7 @@ def test_paginate_links_case_1_simple_pagination() -> None:
     ]
 
 
-def test_paginate_links_case_2_custom_param() -> None:
+def test_paginate_links_custom_param() -> None:
     """
     Test case 2: Generate pagination with custom parameter name.
     """
@@ -37,7 +37,7 @@ def test_paginate_links_case_2_custom_param() -> None:
     ]
 
 
-def test_paginate_links_case_3_existing_query_params() -> None:
+def test_paginate_links_existing_query_params() -> None:
     """
     Test case 3: Add pagination to URL with existing query parameters.
     """
@@ -54,7 +54,7 @@ def test_paginate_links_case_3_existing_query_params() -> None:
     ]
 
 
-def test_paginate_links_case_4_single_page() -> None:
+def test_paginate_links_single_page() -> None:
     """
     Test case 4: Generate single page URL.
     """
@@ -68,7 +68,7 @@ def test_paginate_links_case_4_single_page() -> None:
     assert result == ["https://example.com/page?page=5"]
 
 
-def test_paginate_links_case_5_start_page_one() -> None:
+def test_paginate_links_start_page_one() -> None:
     """
     Test case 5: Generate pagination starting from 1.
     """
@@ -83,7 +83,7 @@ def test_paginate_links_case_5_start_page_one() -> None:
     assert "page=1" in result[0]
 
 
-def test_paginate_links_case_6_type_error_base_url() -> None:
+def test_paginate_links_type_error_base_url() -> None:
     """
     Test case 6: TypeError for invalid base_url type.
     """
@@ -92,7 +92,7 @@ def test_paginate_links_case_6_type_error_base_url() -> None:
         paginate_links(123, start_page=1, end_page=3)
 
 
-def test_paginate_links_case_7_type_error_start_page() -> None:
+def test_paginate_links_type_error_start_page() -> None:
     """
     Test case 7: TypeError for invalid start_page type.
     """
@@ -101,7 +101,7 @@ def test_paginate_links_case_7_type_error_start_page() -> None:
         paginate_links("https://example.com", start_page="1", end_page=3)
 
 
-def test_paginate_links_case_8_type_error_end_page() -> None:
+def test_paginate_links_type_error_end_page() -> None:
     """
     Test case 8: TypeError for invalid end_page type.
     """
@@ -110,7 +110,7 @@ def test_paginate_links_case_8_type_error_end_page() -> None:
         paginate_links("https://example.com", start_page=1, end_page="3")
 
 
-def test_paginate_links_case_9_type_error_page_param() -> None:
+def test_paginate_links_type_error_page_param() -> None:
     """
     Test case 9: TypeError for invalid page_param type.
     """
@@ -119,7 +119,7 @@ def test_paginate_links_case_9_type_error_page_param() -> None:
         paginate_links("https://example.com", start_page=1, end_page=3, page_param=123)
 
 
-def test_paginate_links_case_10_value_error_empty_url() -> None:
+def test_paginate_links_value_error_empty_url() -> None:
     """
     Test case 10: ValueError for empty base_url.
     """
@@ -128,7 +128,7 @@ def test_paginate_links_case_10_value_error_empty_url() -> None:
         paginate_links("", start_page=1, end_page=3)
 
 
-def test_paginate_links_case_11_value_error_zero_start_page() -> None:
+def test_paginate_links_value_error_zero_start_page() -> None:
     """
     Test case 11: ValueError for zero start_page (must be positive).
     """
@@ -137,7 +137,7 @@ def test_paginate_links_case_11_value_error_zero_start_page() -> None:
         paginate_links("https://example.com", start_page=0, end_page=3)
 
 
-def test_paginate_links_case_12_value_error_invalid_range() -> None:
+def test_paginate_links_value_error_invalid_range() -> None:
     """
     Test case 12: ValueError when start_page > end_page.
     """

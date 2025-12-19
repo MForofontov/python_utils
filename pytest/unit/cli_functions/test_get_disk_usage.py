@@ -4,7 +4,7 @@ import pytest
 from cli_functions.get_disk_usage import get_disk_usage
 
 
-def test_get_disk_usage_case_1_valid_path() -> None:
+def test_get_disk_usage_valid_path() -> None:
     """
     Test case 1: Test get_disk_usage function with valid path returns correct disk information.
     """
@@ -29,7 +29,7 @@ def test_get_disk_usage_case_1_valid_path() -> None:
     assert disk_info["free"] <= disk_info["total"]
 
 
-def test_get_disk_usage_case_2_temp_directory() -> None:
+def test_get_disk_usage_temp_directory() -> None:
     """
     Test case 2: Test get_disk_usage function with temporary directory.
     """
@@ -39,7 +39,7 @@ def test_get_disk_usage_case_2_temp_directory() -> None:
         assert disk_info["total"] > 0
 
 
-def test_get_disk_usage_case_3_invalid_path_error() -> None:
+def test_get_disk_usage_invalid_path_error() -> None:
     """
     Test case 3: Test get_disk_usage function with invalid path raises FileNotFoundError.
     """
@@ -47,7 +47,7 @@ def test_get_disk_usage_case_3_invalid_path_error() -> None:
         get_disk_usage("/nonexistent/path")
 
 
-def test_get_disk_usage_case_4_invalid_type_error() -> None:
+def test_get_disk_usage_invalid_type_error() -> None:
     """
     Test case 4: Test get_disk_usage function with invalid input type raises TypeError.
     """
@@ -58,7 +58,7 @@ def test_get_disk_usage_case_4_invalid_type_error() -> None:
         get_disk_usage(None)
 
 
-def test_get_disk_usage_case_5_percent_calculation() -> None:
+def test_get_disk_usage_percent_calculation() -> None:
     """
     Test case 5: Verify percent_used calculation is accurate.
     """
@@ -68,7 +68,7 @@ def test_get_disk_usage_case_5_percent_calculation() -> None:
     assert abs(disk_info["percent_used"] - expected_percent) < 0.01
 
 
-def test_get_disk_usage_case_6_multiple_paths() -> None:
+def test_get_disk_usage_multiple_paths() -> None:
     """
     Test case 6: Test disk usage for multiple valid paths.
     """

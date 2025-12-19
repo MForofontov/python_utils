@@ -2,7 +2,7 @@ import pytest
 from cli_functions.get_memory_info import get_memory_info
 
 
-def test_get_memory_info_case_1_returns_valid_dict() -> None:
+def test_get_memory_info_returns_valid_dict() -> None:
     """
     Test case 1: Test get_memory_info returns valid dictionary.
     """
@@ -16,7 +16,7 @@ def test_get_memory_info_case_1_returns_valid_dict() -> None:
     assert 'percent_used' in mem_info
 
 
-def test_get_memory_info_case_2_positive_values() -> None:
+def test_get_memory_info_positive_values() -> None:
     """
     Test case 2: Test all memory values are non-negative.
     """
@@ -28,7 +28,7 @@ def test_get_memory_info_case_2_positive_values() -> None:
     assert mem_info['free'] >= 0
 
 
-def test_get_memory_info_case_3_percent_range() -> None:
+def test_get_memory_info_percent_range() -> None:
     """
     Test case 3: Test percent_used is in valid range.
     """
@@ -36,7 +36,7 @@ def test_get_memory_info_case_3_percent_range() -> None:
     assert 0 <= mem_info['percent_used'] <= 100
 
 
-def test_get_memory_info_case_4_relationships() -> None:
+def test_get_memory_info_relationships() -> None:
     """
     Test case 4: Test relationships between memory values.
     """
@@ -48,7 +48,7 @@ def test_get_memory_info_case_4_relationships() -> None:
     assert mem_info['available'] <= mem_info['total']
 
 
-def test_get_memory_info_case_5_consistency() -> None:
+def test_get_memory_info_consistency() -> None:
     """
     Test case 5: Test consistency between multiple calls.
     """
@@ -59,7 +59,7 @@ def test_get_memory_info_case_5_consistency() -> None:
     assert mem_info1['total'] == mem_info2['total']
 
 
-def test_get_memory_info_case_6_value_types() -> None:
+def test_get_memory_info_value_types() -> None:
     """
     Test case 6: Test all values are correct types.
     """

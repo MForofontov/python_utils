@@ -6,7 +6,7 @@ import pytest
 from security_functions.token_generation.generate_jwt_token import generate_jwt_token
 
 
-def test_generate_jwt_token_case_1_basic_token() -> None:
+def test_generate_jwt_token_basic_token() -> None:
     """
     Test case 1: Generate basic JWT token with simple payload.
     """
@@ -36,7 +36,7 @@ def test_generate_jwt_token_case_1_basic_token() -> None:
     assert "exp" in decoded_payload
 
 
-def test_generate_jwt_token_case_2_custom_expiration() -> None:
+def test_generate_jwt_token_custom_expiration() -> None:
     """
     Test case 2: Generate JWT token with custom expiration time.
     """
@@ -67,7 +67,7 @@ def test_generate_jwt_token_case_2_custom_expiration() -> None:
     assert abs((exp_time - iat_time) - 7200) < 10  # Allow 10 second tolerance
 
 
-def test_generate_jwt_token_case_3_complex_payload() -> None:
+def test_generate_jwt_token_complex_payload() -> None:
     """
     Test case 3: Generate JWT token with complex payload.
     """
@@ -101,7 +101,7 @@ def test_generate_jwt_token_case_3_complex_payload() -> None:
     assert decoded_payload["metadata"]["login_count"] == 5
 
 
-def test_generate_jwt_token_case_6_header_verification() -> None:
+def test_generate_jwt_token_header_verification() -> None:
     """
     Test case 4: Verify JWT header is correct.
     """
@@ -126,7 +126,7 @@ def test_generate_jwt_token_case_6_header_verification() -> None:
     assert decoded_header["typ"] == "JWT"
 
 
-def test_generate_jwt_token_case_7_empty_payload() -> None:
+def test_generate_jwt_token_empty_payload() -> None:
     """
     Test case 5: Generate JWT token with empty payload.
     """
@@ -153,7 +153,7 @@ def test_generate_jwt_token_case_7_empty_payload() -> None:
     assert "exp" in decoded_payload
 
 
-def test_generate_jwt_token_case_8_different_secrets_different_signatures() -> None:
+def test_generate_jwt_token_different_secrets_different_signatures() -> None:
     """
     Test case 6: Different secrets should produce different signatures.
     """
@@ -176,7 +176,7 @@ def test_generate_jwt_token_case_8_different_secrets_different_signatures() -> N
     assert parts1[2] != parts2[2]
 
 
-def test_generate_jwt_token_case_9_unicode_payload() -> None:
+def test_generate_jwt_token_unicode_payload() -> None:
     """
     Test case 7: Handle Unicode characters in payload.
     """
@@ -208,7 +208,7 @@ def test_generate_jwt_token_case_9_unicode_payload() -> None:
     assert decoded_payload["unicode_key_🔑"] == "unicode_value_🎯"
 
 
-def test_generate_jwt_token_case_10_timestamp_validation() -> None:
+def test_generate_jwt_token_timestamp_validation() -> None:
     """
     Test case 8: Verify iat and exp timestamps are reasonable.
     """
@@ -239,7 +239,7 @@ def test_generate_jwt_token_case_10_timestamp_validation() -> None:
     assert abs((exp - iat) - 3600) < 10  # Allow 10 second tolerance
 
 
-def test_generate_jwt_token_case_4_type_validation() -> None:
+def test_generate_jwt_token_type_validation() -> None:
     """
     Test case 9: Type validation for all parameters.
     """
@@ -256,7 +256,7 @@ def test_generate_jwt_token_case_4_type_validation() -> None:
         generate_jwt_token({}, "secret", "invalid")
 
 
-def test_generate_jwt_token_case_5_value_validation() -> None:
+def test_generate_jwt_token_value_validation() -> None:
     """
     Test case 10: Value validation for parameters.
     """

@@ -5,7 +5,7 @@ from web_scraping_functions.rate_limiting.create_rate_limiter import (
 )
 
 
-def test_create_rate_limiter_case_1_basic_rate_limiting() -> None:
+def test_create_rate_limiter_basic_rate_limiting() -> None:
     """
     Test case 1: Basic rate limiting with wait method.
     """
@@ -22,7 +22,7 @@ def test_create_rate_limiter_case_1_basic_rate_limiting() -> None:
     assert elapsed >= 0.1  # At least 0.1 seconds between calls
 
 
-def test_create_rate_limiter_case_2_multiple_waits() -> None:
+def test_create_rate_limiter_multiple_waits() -> None:
     """
     Test case 2: Multiple wait calls respect rate limit.
     """
@@ -39,7 +39,7 @@ def test_create_rate_limiter_case_2_multiple_waits() -> None:
     assert elapsed >= 0.4  # At least 0.4 seconds for 3 calls at 5/sec
 
 
-def test_create_rate_limiter_case_3_fast_rate() -> None:
+def test_create_rate_limiter_fast_rate() -> None:
     """
     Test case 3: Fast rate limiting (100 calls per second).
     """
@@ -56,7 +56,7 @@ def test_create_rate_limiter_case_3_fast_rate() -> None:
     assert elapsed >= 0.01  # At least 0.01 seconds between calls
 
 
-def test_create_rate_limiter_case_4_slow_rate() -> None:
+def test_create_rate_limiter_slow_rate() -> None:
     """
     Test case 4: Slow rate limiting (1 call per second).
     """
@@ -73,7 +73,7 @@ def test_create_rate_limiter_case_4_slow_rate() -> None:
     assert elapsed >= 1.0  # At least 1 second between calls
 
 
-def test_create_rate_limiter_case_5_calls_per_second_attribute() -> None:
+def test_create_rate_limiter_calls_per_second_attribute() -> None:
     """
     Test case 5: Verify rate limiter has calls_per_second attribute.
     """
@@ -85,7 +85,7 @@ def test_create_rate_limiter_case_5_calls_per_second_attribute() -> None:
     assert limiter.calls_per_second == 5
 
 
-def test_create_rate_limiter_case_6_type_error_calls_per_second() -> None:
+def test_create_rate_limiter_type_error_calls_per_second() -> None:
     """
     Test case 6: TypeError for invalid calls_per_second type.
     """
@@ -94,7 +94,7 @@ def test_create_rate_limiter_case_6_type_error_calls_per_second() -> None:
         create_rate_limiter(calls_per_second="5")
 
 
-def test_create_rate_limiter_case_7_value_error_zero_rate() -> None:
+def test_create_rate_limiter_value_error_zero_rate() -> None:
     """
     Test case 7: ValueError for zero calls_per_second.
     """
@@ -103,7 +103,7 @@ def test_create_rate_limiter_case_7_value_error_zero_rate() -> None:
         create_rate_limiter(calls_per_second=0)
 
 
-def test_create_rate_limiter_case_8_value_error_negative_rate() -> None:
+def test_create_rate_limiter_value_error_negative_rate() -> None:
     """
     Test case 8: ValueError for negative calls_per_second.
     """
@@ -112,7 +112,7 @@ def test_create_rate_limiter_case_8_value_error_negative_rate() -> None:
         create_rate_limiter(calls_per_second=-5)
 
 
-def test_create_rate_limiter_case_9_fractional_rate() -> None:
+def test_create_rate_limiter_fractional_rate() -> None:
     """
     Test case 9: Support fractional calls per second.
     """

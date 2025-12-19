@@ -9,7 +9,7 @@ import pytest
 from file_functions import find_files_by_mtime
 
 
-def test_find_files_by_mtime_case_1_newer_than_filter() -> None:
+def test_find_files_by_mtime_newer_than_filter() -> None:
     """
     Test case 1: Filter files newer than specified datetime.
     """
@@ -38,7 +38,7 @@ def test_find_files_by_mtime_case_1_newer_than_filter() -> None:
         assert Path(file_path).name == "new.txt"
 
 
-def test_find_files_by_mtime_case_2_older_than_filter() -> None:
+def test_find_files_by_mtime_older_than_filter() -> None:
     """
     Test case 2: Filter files older than specified datetime.
     """
@@ -67,7 +67,7 @@ def test_find_files_by_mtime_case_2_older_than_filter() -> None:
         assert Path(file_path).name == "old.txt"
 
 
-def test_find_files_by_mtime_case_3_days_old_filter() -> None:
+def test_find_files_by_mtime_days_old_filter() -> None:
     """
     Test case 3: Filter files modified exactly N days ago.
     """
@@ -93,7 +93,7 @@ def test_find_files_by_mtime_case_3_days_old_filter() -> None:
         assert Path(file_path).name == "target.txt"
 
 
-def test_find_files_by_mtime_case_4_combined_filters() -> None:
+def test_find_files_by_mtime_combined_filters() -> None:
     """
     Test case 4: Combined newer_than and older_than filters.
     """
@@ -130,7 +130,7 @@ def test_find_files_by_mtime_case_4_combined_filters() -> None:
         assert Path(file_path).name == "middle.txt"
 
 
-def test_find_files_by_mtime_case_10_file_access_error_handling() -> None:
+def test_find_files_by_mtime_file_access_error_handling() -> None:
     """
     Test case 5: Graceful handling of file access errors.
     """
@@ -157,7 +157,7 @@ def test_find_files_by_mtime_case_10_file_access_error_handling() -> None:
             assert result == []
 
 
-def test_find_files_by_mtime_case_5_no_criteria_error() -> None:
+def test_find_files_by_mtime_no_criteria_error() -> None:
     """
     Test case 6: ValueError when no time criteria specified.
     """
@@ -170,7 +170,7 @@ def test_find_files_by_mtime_case_5_no_criteria_error() -> None:
                         find_files_by_mtime(temp_dir)
 
 
-def test_find_files_by_mtime_case_11_path_is_file_not_directory() -> None:
+def test_find_files_by_mtime_path_is_file_not_directory() -> None:
     """
     Test case 7: ValueError when path is a file, not a directory.
     """
@@ -185,7 +185,7 @@ def test_find_files_by_mtime_case_11_path_is_file_not_directory() -> None:
             find_files_by_mtime(str(file_path), newer_than=cutoff)
 
 
-def test_find_files_by_mtime_case_6_invalid_directory_error() -> None:
+def test_find_files_by_mtime_invalid_directory_error() -> None:
     """
     Test case 8: ValueError for non-existent directory.
     """
@@ -198,7 +198,7 @@ def test_find_files_by_mtime_case_6_invalid_directory_error() -> None:
         find_files_by_mtime(non_existent_dir, newer_than=cutoff)
 
 
-def test_find_files_by_mtime_case_7_invalid_type_errors() -> None:
+def test_find_files_by_mtime_invalid_type_errors() -> None:
     """
     Test case 9: TypeError for invalid parameter types.
     """
@@ -221,7 +221,7 @@ def test_find_files_by_mtime_case_7_invalid_type_errors() -> None:
         find_files_by_mtime("/tmp", older_than="not_datetime")
 
 
-def test_find_files_by_mtime_case_8_invalid_time_range() -> None:
+def test_find_files_by_mtime_invalid_time_range() -> None:
     """
     Test case 10: ValueError for invalid time range.
     """
@@ -235,7 +235,7 @@ def test_find_files_by_mtime_case_8_invalid_time_range() -> None:
             find_files_by_mtime(temp_dir, newer_than=newer_than, older_than=older_than)
 
 
-def test_find_files_by_mtime_case_9_negative_days_old_error() -> None:
+def test_find_files_by_mtime_negative_days_old_error() -> None:
     """
     Test case 11: ValueError for negative days_old.
     """

@@ -4,7 +4,7 @@ import pytest
 from ssh_functions.ssh_copy_file import ssh_copy_file
 
 
-def test_ssh_copy_file_case_1_normal_operation() -> None:
+def test_ssh_copy_file_normal_operation() -> None:
     """
     Test case 1: Normal operation with valid inputs.
     """
@@ -18,7 +18,7 @@ def test_ssh_copy_file_case_1_normal_operation() -> None:
         assert result == {"stdout": "", "stderr": "", "exit_code": 0}
 
 
-def test_ssh_copy_file_case_2_edge_case_empty_file() -> None:
+def test_ssh_copy_file_edge_case_empty_file() -> None:
     """
     Test case 2: Edge case with empty local file path.
     """
@@ -30,7 +30,7 @@ def test_ssh_copy_file_case_2_edge_case_empty_file() -> None:
         assert result["exit_code"] == 0
 
 
-def test_ssh_copy_file_case_5_boundary_conditions() -> None:
+def test_ssh_copy_file_boundary_conditions() -> None:
     """
     Test case 3: Boundary conditions for port.
     """
@@ -44,7 +44,7 @@ def test_ssh_copy_file_case_5_boundary_conditions() -> None:
         assert result_max["exit_code"] == 0
 
 
-def test_ssh_copy_file_case_3_type_error_local_path() -> None:
+def test_ssh_copy_file_type_error_local_path() -> None:
     """
     Test case 4: TypeError for invalid local_path type.
     """
@@ -52,7 +52,7 @@ def test_ssh_copy_file_case_3_type_error_local_path() -> None:
         ssh_copy_file(123, "/tmp/file.txt", "host")
 
 
-def test_ssh_copy_file_case_4_value_error_port() -> None:
+def test_ssh_copy_file_value_error_port() -> None:
     """
     Test case 5: ValueError for invalid port value.
     """
@@ -60,7 +60,7 @@ def test_ssh_copy_file_case_4_value_error_port() -> None:
         ssh_copy_file("file.txt", "/tmp/file.txt", "host", port=70000)
 
 
-def test_ssh_copy_file_case_6_timeout_error() -> None:
+def test_ssh_copy_file_timeout_error() -> None:
     """
     Test case 6: RuntimeError for timeout.
     """

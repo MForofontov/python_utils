@@ -7,7 +7,7 @@ import pytest
 from file_functions import create_temp_directory
 
 
-def test_create_temp_directory_case_1_normal_operation() -> None:
+def test_create_temp_directory_normal_operation() -> None:
     """
     Test case 1: Normal operation with default parameters.
     """
@@ -27,7 +27,7 @@ def test_create_temp_directory_case_1_normal_operation() -> None:
     assert not Path(temp_dir).exists()
 
 
-def test_create_temp_directory_case_2_custom_suffix() -> None:
+def test_create_temp_directory_custom_suffix() -> None:
     """
     Test case 2: Create temp directory with custom suffix.
     """
@@ -39,7 +39,7 @@ def test_create_temp_directory_case_2_custom_suffix() -> None:
         assert Path(temp_dir).exists()
 
 
-def test_create_temp_directory_case_3_custom_prefix() -> None:
+def test_create_temp_directory_custom_prefix() -> None:
     """
     Test case 3: Create temp directory with custom prefix.
     """
@@ -51,7 +51,7 @@ def test_create_temp_directory_case_3_custom_prefix() -> None:
         assert Path(temp_dir).exists()
 
 
-def test_create_temp_directory_case_4_custom_parent_directory() -> None:
+def test_create_temp_directory_custom_parent_directory() -> None:
     """
     Test case 4: Create temp directory in custom parent directory.
     """
@@ -64,7 +64,7 @@ def test_create_temp_directory_case_4_custom_parent_directory() -> None:
             assert Path(temp_dir).exists()
 
 
-def test_create_temp_directory_case_5_no_delete() -> None:
+def test_create_temp_directory_no_delete() -> None:
     """
     Test case 5: Create persistent temp directory (delete=False).
     """
@@ -88,7 +88,7 @@ def test_create_temp_directory_case_5_no_delete() -> None:
         pass
 
 
-def test_create_temp_directory_case_6_nested_structure() -> None:
+def test_create_temp_directory_nested_structure() -> None:
     """
     Test case 6: Create nested structure in temp directory.
     """
@@ -110,7 +110,7 @@ def test_create_temp_directory_case_6_nested_structure() -> None:
     assert not temp_path.exists()
 
 
-def test_create_temp_directory_case_7_path_object_directory() -> None:
+def test_create_temp_directory_path_object_directory() -> None:
     """
     Test case 7: Function works with Path object for parent directory.
     """
@@ -125,7 +125,7 @@ def test_create_temp_directory_case_7_path_object_directory() -> None:
             assert Path(temp_dir).exists()
 
 
-def test_create_temp_directory_case_10_cleanup_error_handling() -> None:
+def test_create_temp_directory_cleanup_error_handling() -> None:
     """
     Test case 8: Graceful handling of cleanup errors.
     """
@@ -143,7 +143,7 @@ def test_create_temp_directory_case_10_cleanup_error_handling() -> None:
     assert not Path(temp_dir_holder[0]).exists()
 
 
-def test_create_temp_directory_case_8_invalid_type_errors() -> None:
+def test_create_temp_directory_invalid_type_errors() -> None:
     """
     Test case 9: TypeError for invalid parameter types.
     """
@@ -168,7 +168,7 @@ def test_create_temp_directory_case_8_invalid_type_errors() -> None:
             pass
 
 
-def test_create_temp_directory_case_9_directory_creation_error() -> None:
+def test_create_temp_directory_directory_creation_error() -> None:
     """
     Test case 10: OSError handling during directory creation.
     """

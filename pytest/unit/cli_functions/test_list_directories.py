@@ -5,7 +5,7 @@ import pytest
 from cli_functions.list_directories import list_directories
 
 
-def test_list_directories_case_1_valid_directory() -> None:
+def test_list_directories_valid_directory() -> None:
     """
     Test case 1: Test list_directories function with a valid directory returns correct directory list.
     """
@@ -32,7 +32,7 @@ def test_list_directories_case_1_valid_directory() -> None:
         assert len(dirs_with_hidden) == 3
 
 
-def test_list_directories_case_2_empty_directory() -> None:
+def test_list_directories_empty_directory() -> None:
     """
     Test case 2: Test list_directories function with an empty directory returns empty list.
     """
@@ -42,7 +42,7 @@ def test_list_directories_case_2_empty_directory() -> None:
         assert len(directories) == 0
 
 
-def test_list_directories_case_3_with_files() -> None:
+def test_list_directories_with_files() -> None:
     """
     Test case 3: Test list_directories function ignores files and only returns directories.
     """
@@ -61,7 +61,7 @@ def test_list_directories_case_3_with_files() -> None:
         assert len(directories) == 1
 
 
-def test_list_directories_case_4_nonexistent_directory_error() -> None:
+def test_list_directories_nonexistent_directory_error() -> None:
     """
     Test case 4: Test list_directories function with a nonexistent directory raises FileNotFoundError.
     """
@@ -69,7 +69,7 @@ def test_list_directories_case_4_nonexistent_directory_error() -> None:
         list_directories("/nonexistent/directory")
 
 
-def test_list_directories_case_5_not_a_directory_error() -> None:
+def test_list_directories_not_a_directory_error() -> None:
     """
     Test case 5: Test list_directories function with a file instead of directory raises NotADirectoryError.
     """
@@ -81,7 +81,7 @@ def test_list_directories_case_5_not_a_directory_error() -> None:
             os.unlink(temp_file.name)
 
 
-def test_list_directories_case_6_invalid_type_error() -> None:
+def test_list_directories_invalid_type_error() -> None:
     """
     Test case 6: Test list_directories function with invalid input type raises TypeError.
     """

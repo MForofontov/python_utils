@@ -2,7 +2,7 @@ import pytest
 from security_functions.encryption_helpers.encrypt_xor import encrypt_xor
 
 
-def test_encrypt_xor_case_1_basic_encryption() -> None:
+def test_encrypt_xor_basic_encryption() -> None:
     """
     Test case 1: Basic XOR encryption with default parameters.
     """
@@ -22,7 +22,7 @@ def test_encrypt_xor_case_1_basic_encryption() -> None:
     assert all(c in "0123456789abcdef" for c in encrypted)
 
 
-def test_encrypt_xor_case_2_custom_key() -> None:
+def test_encrypt_xor_custom_key() -> None:
     """
     Test case 2: XOR encryption with custom key.
     """
@@ -40,7 +40,7 @@ def test_encrypt_xor_case_2_custom_key() -> None:
     assert all(c in "0123456789abcdef" for c in encrypted)
 
 
-def test_encrypt_xor_case_6_different_keys_different_results() -> None:
+def test_encrypt_xor_different_keys_different_results() -> None:
     """
     Test case 3: Different keys should produce different encrypted results.
     """
@@ -57,7 +57,7 @@ def test_encrypt_xor_case_6_different_keys_different_results() -> None:
     assert encrypted1 != encrypted2
 
 
-def test_encrypt_xor_case_7_random_key_generation() -> None:
+def test_encrypt_xor_random_key_generation() -> None:
     """
     Test case 4: Random key generation produces different keys.
     """
@@ -74,7 +74,7 @@ def test_encrypt_xor_case_7_random_key_generation() -> None:
     assert len(key2) > 0
 
 
-def test_encrypt_xor_case_8_unicode_data() -> None:
+def test_encrypt_xor_unicode_data() -> None:
     """
     Test case 5: Handle Unicode characters in data.
     """
@@ -91,7 +91,7 @@ def test_encrypt_xor_case_8_unicode_data() -> None:
     assert all(c in "0123456789abcdef" for c in encrypted)
 
 
-def test_encrypt_xor_case_9_long_data() -> None:
+def test_encrypt_xor_long_data() -> None:
     """
     Test case 6: Encrypt long data string.
     """
@@ -114,7 +114,7 @@ def test_encrypt_xor_case_9_long_data() -> None:
     assert all(c in "0123456789abcdef" for c in encrypted)
 
 
-def test_encrypt_xor_case_10_key_length_adaptation() -> None:
+def test_encrypt_xor_key_length_adaptation() -> None:
     """
     Test case 7: Verify key length adaptation based on data size.
     """
@@ -133,7 +133,7 @@ def test_encrypt_xor_case_10_key_length_adaptation() -> None:
     assert len(long_key) > 0
 
 
-def test_encrypt_xor_case_11_deterministic_with_same_key() -> None:
+def test_encrypt_xor_deterministic_with_same_key() -> None:
     """
     Test case 8: Same data and key should produce same encrypted result.
     """
@@ -149,7 +149,7 @@ def test_encrypt_xor_case_11_deterministic_with_same_key() -> None:
     assert encrypted1 == encrypted2
 
 
-def test_encrypt_xor_case_12_special_characters() -> None:
+def test_encrypt_xor_special_characters() -> None:
     """
     Test case 9: Handle special characters and symbols.
     """
@@ -167,7 +167,7 @@ def test_encrypt_xor_case_12_special_characters() -> None:
     assert all(c in "0123456789abcdef" for c in encrypted)
 
 
-def test_encrypt_xor_case_3_empty_data_raises_error() -> None:
+def test_encrypt_xor_empty_data_raises_error() -> None:
     """
     Test case 10: Empty data should raise ValueError.
     """
@@ -176,7 +176,7 @@ def test_encrypt_xor_case_3_empty_data_raises_error() -> None:
         encrypt_xor("")
 
 
-def test_encrypt_xor_case_4_type_validation() -> None:
+def test_encrypt_xor_type_validation() -> None:
     """
     Test case 11: Type validation for parameters.
     """
@@ -189,7 +189,7 @@ def test_encrypt_xor_case_4_type_validation() -> None:
         encrypt_xor("data", key=123)
 
 
-def test_encrypt_xor_case_5_empty_key_raises_error() -> None:
+def test_encrypt_xor_empty_key_raises_error() -> None:
     """
     Test case 12: Empty key should raise ValueError.
     """

@@ -4,7 +4,7 @@ from security_functions.password_hashing.hash_password_pbkdf2 import (
 )
 
 
-def test_hash_password_pbkdf2_case_1_normal_operation() -> None:
+def test_hash_password_pbkdf2_normal_operation() -> None:
     """
     Test case 1: Normal operation with valid password.
     """
@@ -22,7 +22,7 @@ def test_hash_password_pbkdf2_case_1_normal_operation() -> None:
     assert all(c in "0123456789abcdef" for c in hashed)
 
 
-def test_hash_password_pbkdf2_case_2_custom_salt() -> None:
+def test_hash_password_pbkdf2_custom_salt() -> None:
     """
     Test case 2: Using custom salt.
     """
@@ -39,7 +39,7 @@ def test_hash_password_pbkdf2_case_2_custom_salt() -> None:
     assert len(hashed) == 64
 
 
-def test_hash_password_pbkdf2_case_3_custom_iterations() -> None:
+def test_hash_password_pbkdf2_custom_iterations() -> None:
     """
     Test case 3: Using custom iteration count.
     """
@@ -57,7 +57,7 @@ def test_hash_password_pbkdf2_case_3_custom_iterations() -> None:
     assert len(salt) == 32
 
 
-def test_hash_password_pbkdf2_case_6_deterministic_with_same_salt() -> None:
+def test_hash_password_pbkdf2_deterministic_with_same_salt() -> None:
     """
     Test case 4: Same password and salt should produce same hash.
     """
@@ -73,7 +73,7 @@ def test_hash_password_pbkdf2_case_6_deterministic_with_same_salt() -> None:
     assert hashed1 == hashed2
 
 
-def test_hash_password_pbkdf2_case_7_different_passwords_different_hashes() -> None:
+def test_hash_password_pbkdf2_different_passwords_different_hashes() -> None:
     """
     Test case 5: Different passwords should produce different hashes.
     """
@@ -90,7 +90,7 @@ def test_hash_password_pbkdf2_case_7_different_passwords_different_hashes() -> N
     assert hashed1 != hashed2
 
 
-def test_hash_password_pbkdf2_case_8_random_salt_generation() -> None:
+def test_hash_password_pbkdf2_random_salt_generation() -> None:
     """
     Test case 6: Random salt generation produces different salts.
     """
@@ -107,7 +107,7 @@ def test_hash_password_pbkdf2_case_8_random_salt_generation() -> None:
     assert len(salt2) == 32
 
 
-def test_hash_password_pbkdf2_case_9_unicode_password() -> None:
+def test_hash_password_pbkdf2_unicode_password() -> None:
     """
     Test case 7: Handle Unicode characters in password.
     """
@@ -124,7 +124,7 @@ def test_hash_password_pbkdf2_case_9_unicode_password() -> None:
     assert len(salt) == 32
 
 
-def test_hash_password_pbkdf2_case_10_boundary_iterations() -> None:
+def test_hash_password_pbkdf2_boundary_iterations() -> None:
     """
     Test case 8: Test boundary values for iterations.
     """
@@ -140,7 +140,7 @@ def test_hash_password_pbkdf2_case_10_boundary_iterations() -> None:
     assert len(hashed_high) == 64
 
 
-def test_hash_password_pbkdf2_case_4_type_validation() -> None:
+def test_hash_password_pbkdf2_type_validation() -> None:
     """
     Test case 9: Type validation for all parameters.
     """
@@ -157,7 +157,7 @@ def test_hash_password_pbkdf2_case_4_type_validation() -> None:
         hash_password_pbkdf2("password", iterations="invalid")
 
 
-def test_hash_password_pbkdf2_case_5_value_validation() -> None:
+def test_hash_password_pbkdf2_value_validation() -> None:
     """
     Test case 10: Value validation for parameters.
     """

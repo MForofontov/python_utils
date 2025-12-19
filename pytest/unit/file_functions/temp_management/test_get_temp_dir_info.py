@@ -6,7 +6,7 @@ import pytest
 from file_functions import get_temp_dir_info
 
 
-def test_get_temp_dir_info_case_1_normal_operation() -> None:
+def test_get_temp_dir_info_normal_operation() -> None:
     """
     Test case 1: Normal operation returns valid info dictionary.
     """
@@ -32,7 +32,7 @@ def test_get_temp_dir_info_case_1_normal_operation() -> None:
             assert isinstance(info["available_space_bytes"], int)
 
 
-def test_get_temp_dir_info_case_2_temp_directory_exists() -> None:
+def test_get_temp_dir_info_temp_directory_exists() -> None:
     """
     Test case 2: System temp directory should exist and be writable.
     """
@@ -47,7 +47,7 @@ def test_get_temp_dir_info_case_2_temp_directory_exists() -> None:
             assert info["total_size_bytes"] >= 0
 
 
-def test_get_temp_dir_info_case_3_path_matches_system_temp() -> None:
+def test_get_temp_dir_info_path_matches_system_temp() -> None:
     """
     Test case 3: Path should match system temp directory.
     """
@@ -60,7 +60,7 @@ def test_get_temp_dir_info_case_3_path_matches_system_temp() -> None:
             assert info["path"] == expected_path
 
 
-def test_get_temp_dir_info_case_4_file_counting() -> None:
+def test_get_temp_dir_info_file_counting() -> None:
     """
     Test case 4: File counting with known files in temp directory.
     """
@@ -83,7 +83,7 @@ def test_get_temp_dir_info_case_4_file_counting() -> None:
             assert info["total_size_bytes"] > 0
 
 
-def test_get_temp_dir_info_case_5_nested_files() -> None:
+def test_get_temp_dir_info_nested_files() -> None:
     """
     Test case 5: Counting includes files in subdirectories.
     """
@@ -105,7 +105,7 @@ def test_get_temp_dir_info_case_5_nested_files() -> None:
             assert info["total_files"] == 2
 
 
-def test_get_temp_dir_info_case_6_empty_directory() -> None:
+def test_get_temp_dir_info_empty_directory() -> None:
     """
     Test case 6: Empty temp directory returns zero counts.
     """
@@ -120,7 +120,7 @@ def test_get_temp_dir_info_case_6_empty_directory() -> None:
             assert info["total_size_bytes"] == 0
 
 
-def test_get_temp_dir_info_case_7_non_existent_directory() -> None:
+def test_get_temp_dir_info_non_existent_directory() -> None:
     """
     Test case 7: Non-existent temp directory handling.
     """
@@ -138,7 +138,7 @@ def test_get_temp_dir_info_case_7_non_existent_directory() -> None:
         assert info["total_size_bytes"] == 0
 
 
-def test_get_temp_dir_info_case_9_statvfs_not_available() -> None:
+def test_get_temp_dir_info_statvfs_not_available() -> None:
     """
     Test case 8: Handle systems where statvfs is not available.
     """
@@ -153,7 +153,7 @@ def test_get_temp_dir_info_case_9_statvfs_not_available() -> None:
                 assert info["available_space_bytes"] == 0
 
 
-def test_get_temp_dir_info_case_8_file_access_error_handling() -> None:
+def test_get_temp_dir_info_file_access_error_handling() -> None:
     """
     Test case 9: Graceful handling of file access errors.
     """
@@ -181,7 +181,7 @@ def test_get_temp_dir_info_case_8_file_access_error_handling() -> None:
                     get_temp_dir_info()
 
 
-def test_get_temp_dir_info_case_10_directory_access_error() -> None:
+def test_get_temp_dir_info_directory_access_error() -> None:
     """
     Test case 10: OSError handling during directory access.
     """

@@ -2,7 +2,7 @@ import pytest
 from cli_functions.get_network_info import get_network_info
 
 
-def test_get_network_info_case_1_returns_dict() -> None:
+def test_get_network_info_returns_dict() -> None:
     """
     Test case 1: Test get_network_info returns a dictionary.
     """
@@ -10,7 +10,7 @@ def test_get_network_info_case_1_returns_dict() -> None:
     assert isinstance(net_info, dict)
 
 
-def test_get_network_info_case_2_interface_structure() -> None:
+def test_get_network_info_interface_structure() -> None:
     """
     Test case 2: Test each interface has expected structure.
     """
@@ -26,7 +26,7 @@ def test_get_network_info_case_2_interface_structure() -> None:
         assert 'mac' in interface_data
 
 
-def test_get_network_info_case_3_address_lists() -> None:
+def test_get_network_info_address_lists() -> None:
     """
     Test case 3: Test address lists are valid.
     """
@@ -38,7 +38,7 @@ def test_get_network_info_case_3_address_lists() -> None:
         assert isinstance(interface_data['mac'], list)
 
 
-def test_get_network_info_case_4_address_dict_structure() -> None:
+def test_get_network_info_address_dict_structure() -> None:
     """
     Test case 4: Test individual address dictionaries have expected keys.
     """
@@ -52,7 +52,7 @@ def test_get_network_info_case_4_address_dict_structure() -> None:
                 assert 'netmask' in addr_dict
 
 
-def test_get_network_info_case_5_at_least_one_interface() -> None:
+def test_get_network_info_at_least_one_interface() -> None:
     """
     Test case 5: Most systems should have at least one network interface.
     """
@@ -61,7 +61,7 @@ def test_get_network_info_case_5_at_least_one_interface() -> None:
     assert len(net_info) >= 0  # Can be 0 in some test environments
 
 
-def test_get_network_info_case_6_consistency() -> None:
+def test_get_network_info_consistency() -> None:
     """
     Test case 6: Test consistency between multiple calls.
     """

@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from web_scraping_functions.html_parsing.extract_links import extract_links
 
 
-def test_extract_links_case_1_simple_links() -> None:
+def test_extract_links_simple_links() -> None:
     """
     Test case 1: Extract simple links.
     """
@@ -18,7 +18,7 @@ def test_extract_links_case_1_simple_links() -> None:
     assert result == ['/page1', '/page2']
 
 
-def test_extract_links_case_2_absolute_urls() -> None:
+def test_extract_links_absolute_urls() -> None:
     """
     Test case 2: Convert to absolute URLs.
     """
@@ -33,7 +33,7 @@ def test_extract_links_case_2_absolute_urls() -> None:
     assert result == ['https://example.com/page1', 'https://example.com/page2']
 
 
-def test_extract_links_case_3_mixed_urls() -> None:
+def test_extract_links_mixed_urls() -> None:
     """
     Test case 3: Extract mixed relative and absolute URLs.
     """
@@ -48,7 +48,7 @@ def test_extract_links_case_3_mixed_urls() -> None:
     assert result == ['https://example.com/local', 'https://other.com']
 
 
-def test_extract_links_case_4_relative_paths() -> None:
+def test_extract_links_relative_paths() -> None:
     """
     Test case 4: Extract relative paths without leading slash.
     """
@@ -63,7 +63,7 @@ def test_extract_links_case_4_relative_paths() -> None:
     assert result == ['https://example.com/page1', 'https://example.com/page2']
 
 
-def test_extract_links_case_5_no_links() -> None:
+def test_extract_links_no_links() -> None:
     """
     Test case 5: Extract from HTML with no links.
     """
@@ -78,7 +78,7 @@ def test_extract_links_case_5_no_links() -> None:
     assert result == []
 
 
-def test_extract_links_case_6_type_error_element() -> None:
+def test_extract_links_type_error_element() -> None:
     """
     Test case 6: TypeError for invalid element type.
     """
@@ -87,7 +87,7 @@ def test_extract_links_case_6_type_error_element() -> None:
         extract_links("not a soup")
 
 
-def test_extract_links_case_7_type_error_absolute() -> None:
+def test_extract_links_type_error_absolute() -> None:
     """
     Test case 7: TypeError for invalid absolute type.
     """
@@ -100,7 +100,7 @@ def test_extract_links_case_7_type_error_absolute() -> None:
         extract_links(soup, absolute="yes")
 
 
-def test_extract_links_case_8_type_error_base_url() -> None:
+def test_extract_links_type_error_base_url() -> None:
     """
     Test case 8: TypeError for invalid base_url type.
     """
@@ -113,7 +113,7 @@ def test_extract_links_case_8_type_error_base_url() -> None:
         extract_links(soup, base_url=123)
 
 
-def test_extract_links_case_9_value_error_missing_base_url() -> None:
+def test_extract_links_value_error_missing_base_url() -> None:
     """
     Test case 9: ValueError when absolute is True but base_url is None.
     """

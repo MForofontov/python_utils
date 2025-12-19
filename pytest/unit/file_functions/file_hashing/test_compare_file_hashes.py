@@ -5,7 +5,7 @@ import pytest
 from file_functions import compare_file_hashes
 
 
-def test_compare_file_hashes_case_1_identical_files() -> None:
+def test_compare_file_hashes_identical_files() -> None:
     """
     Test case 1: Compare identical files returns True.
     """
@@ -29,7 +29,7 @@ def test_compare_file_hashes_case_1_identical_files() -> None:
         Path(file2_path).unlink()
 
 
-def test_compare_file_hashes_case_2_different_files() -> None:
+def test_compare_file_hashes_different_files() -> None:
     """
     Test case 2: Compare different files returns False.
     """
@@ -53,7 +53,7 @@ def test_compare_file_hashes_case_2_different_files() -> None:
         Path(file2_path).unlink()
 
 
-def test_compare_file_hashes_case_3_sha256_algorithm() -> None:
+def test_compare_file_hashes_sha256_algorithm() -> None:
     """
     Test case 3: Compare files using SHA256 algorithm.
     """
@@ -77,7 +77,7 @@ def test_compare_file_hashes_case_3_sha256_algorithm() -> None:
         Path(file2_path).unlink()
 
 
-def test_compare_file_hashes_case_4_sha1_algorithm() -> None:
+def test_compare_file_hashes_sha1_algorithm() -> None:
     """
     Test case 4: Compare files using SHA1 algorithm.
     """
@@ -101,7 +101,7 @@ def test_compare_file_hashes_case_4_sha1_algorithm() -> None:
         Path(file2_path).unlink()
 
 
-def test_compare_file_hashes_case_5_custom_chunk_size() -> None:
+def test_compare_file_hashes_custom_chunk_size() -> None:
     """
     Test case 5: Compare files with custom chunk size.
     """
@@ -125,7 +125,7 @@ def test_compare_file_hashes_case_5_custom_chunk_size() -> None:
         Path(file2_path).unlink()
 
 
-def test_compare_file_hashes_case_6_path_objects() -> None:
+def test_compare_file_hashes_path_objects() -> None:
     """
     Test case 6: Function works with Path object inputs.
     """
@@ -149,7 +149,7 @@ def test_compare_file_hashes_case_6_path_objects() -> None:
         file2_path.unlink()
 
 
-def test_compare_file_hashes_case_7_invalid_algorithm_error() -> None:
+def test_compare_file_hashes_invalid_algorithm_error() -> None:
     """
     Test case 7: ValueError for invalid hash algorithm.
     """
@@ -160,7 +160,7 @@ def test_compare_file_hashes_case_7_invalid_algorithm_error() -> None:
             compare_file_hashes(file1.name, file2.name, hash_algorithm="invalid")
 
 
-def test_compare_file_hashes_case_8_invalid_type_errors() -> None:
+def test_compare_file_hashes_invalid_type_errors() -> None:
     """
     Test case 8: TypeError for invalid parameter types.
     """
@@ -181,7 +181,7 @@ def test_compare_file_hashes_case_8_invalid_type_errors() -> None:
         compare_file_hashes("/tmp/file1.txt", "/tmp/file2.txt", chunk_size="not_int")
 
 
-def test_compare_file_hashes_case_9_invalid_chunk_size_error() -> None:
+def test_compare_file_hashes_invalid_chunk_size_error() -> None:
     """
     Test case 9: ValueError for invalid chunk size.
     """
@@ -192,7 +192,7 @@ def test_compare_file_hashes_case_9_invalid_chunk_size_error() -> None:
             compare_file_hashes(file1.name, file2.name, chunk_size=0)
 
 
-def test_compare_file_hashes_case_10_file_not_found_propagation() -> None:
+def test_compare_file_hashes_file_not_found_propagation() -> None:
     """
     Test case 10: Proper error propagation when files don't exist.
     """

@@ -5,7 +5,7 @@ import pytest
 from ssh_functions.ssh_execute_command import ssh_execute_command
 
 
-def test_ssh_execute_command_case_1_normal_operation() -> None:
+def test_ssh_execute_command_normal_operation() -> None:
     """
     Test case 1: Normal operation with valid inputs.
     """
@@ -19,7 +19,7 @@ def test_ssh_execute_command_case_1_normal_operation() -> None:
         assert result == {"stdout": "output", "stderr": "", "exit_code": 0}
 
 
-def test_ssh_execute_command_case_2_edge_case_empty_command() -> None:
+def test_ssh_execute_command_edge_case_empty_command() -> None:
     """
     Test case 2: Edge case with empty command.
     """
@@ -31,7 +31,7 @@ def test_ssh_execute_command_case_2_edge_case_empty_command() -> None:
         assert result == {"stdout": "", "stderr": "", "exit_code": 0}
 
 
-def test_ssh_execute_command_case_5_boundary_conditions() -> None:
+def test_ssh_execute_command_boundary_conditions() -> None:
     """
     Test case 3: Boundary conditions for port.
     """
@@ -45,7 +45,7 @@ def test_ssh_execute_command_case_5_boundary_conditions() -> None:
         assert result_max["exit_code"] == 0
 
 
-def test_ssh_execute_command_case_3_type_error_host() -> None:
+def test_ssh_execute_command_type_error_host() -> None:
     """
     Test case 4: TypeError for invalid host type.
     """
@@ -53,7 +53,7 @@ def test_ssh_execute_command_case_3_type_error_host() -> None:
         ssh_execute_command(123, "ls")
 
 
-def test_ssh_execute_command_case_4_value_error_port() -> None:
+def test_ssh_execute_command_value_error_port() -> None:
     """
     Test case 5: ValueError for invalid port value.
     """
@@ -61,7 +61,7 @@ def test_ssh_execute_command_case_4_value_error_port() -> None:
         ssh_execute_command("host", "ls", port=70000)
 
 
-def test_ssh_execute_command_case_6_timeout_error() -> None:
+def test_ssh_execute_command_timeout_error() -> None:
     """
     Test case 6: RuntimeError for timeout.
     """
@@ -70,7 +70,7 @@ def test_ssh_execute_command_case_6_timeout_error() -> None:
             ssh_execute_command("host", "ls")
 
 
-def test_ssh_execute_command_case_7_timeout_expired() -> None:
+def test_ssh_execute_command_timeout_expired() -> None:
     """
     Test case 7: subprocess.TimeoutExpired raises RuntimeError with timeout-specific message.
     """

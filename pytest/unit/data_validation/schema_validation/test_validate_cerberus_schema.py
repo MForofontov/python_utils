@@ -16,7 +16,7 @@ except ImportError:
 pytestmark = pytest.mark.skipif(not CERBERUS_AVAILABLE, reason="Cerberus not installed")
 
 
-def test_validate_cerberus_schema_case_1_simple_valid_data() -> None:
+def test_validate_cerberus_schema_simple_valid_data() -> None:
     """
     Test case 1: Simple valid data validation.
     """
@@ -34,7 +34,7 @@ def test_validate_cerberus_schema_case_1_simple_valid_data() -> None:
     assert result["email"] == "john@example.com"
 
 
-def test_validate_cerberus_schema_case_2_with_defaults() -> None:
+def test_validate_cerberus_schema_with_defaults() -> None:
     """
     Test case 2: Schema with default values.
     """
@@ -54,7 +54,7 @@ def test_validate_cerberus_schema_case_2_with_defaults() -> None:
     assert result["score"] == 0.0
 
 
-def test_validate_cerberus_schema_case_3_type_coercion() -> None:
+def test_validate_cerberus_schema_type_coercion() -> None:
     """
     Test case 3: Type coercion during validation.
     """
@@ -72,7 +72,7 @@ def test_validate_cerberus_schema_case_3_type_coercion() -> None:
     assert result["active"] is True
 
 
-def test_validate_cerberus_schema_case_4_nested_schemas() -> None:
+def test_validate_cerberus_schema_nested_schemas() -> None:
     """
     Test case 4: Nested schema validation.
     """
@@ -96,7 +96,7 @@ def test_validate_cerberus_schema_case_4_nested_schemas() -> None:
     assert result["metadata"]["source"] == "api"
 
 
-def test_validate_cerberus_schema_case_5_list_validation() -> None:
+def test_validate_cerberus_schema_list_validation() -> None:
     """
     Test case 5: List schema validation.
     """
@@ -113,7 +113,7 @@ def test_validate_cerberus_schema_case_5_list_validation() -> None:
     assert result["tags"] == ["python", "validation", "test"]
 
 
-def test_validate_cerberus_schema_case_6_value_constraints() -> None:
+def test_validate_cerberus_schema_value_constraints() -> None:
     """
     Test case 6: Value constraint validation.
     """
@@ -134,7 +134,7 @@ def test_validate_cerberus_schema_case_6_value_constraints() -> None:
     assert result["status"] == "active"
 
 
-def test_validate_cerberus_schema_case_7_allow_unknown_fields() -> None:
+def test_validate_cerberus_schema_allow_unknown_fields() -> None:
     """
     Test case 7: Allow unknown fields validation.
     """
@@ -149,7 +149,7 @@ def test_validate_cerberus_schema_case_7_allow_unknown_fields() -> None:
     assert result["extra_field"] == "should be allowed"
 
 
-def test_validate_cerberus_schema_case_8_without_normalization() -> None:
+def test_validate_cerberus_schema_without_normalization() -> None:
     """
     Test case 8: Validation without normalization.
     """
@@ -165,7 +165,7 @@ def test_validate_cerberus_schema_case_8_without_normalization() -> None:
     assert "count" not in result  # Default not applied without normalization
 
 
-def test_validate_cerberus_schema_case_17_edge_cases() -> None:
+def test_validate_cerberus_schema_edge_cases() -> None:
     """
     Test case 9: Edge cases and boundary conditions.
     """
@@ -190,7 +190,7 @@ def test_validate_cerberus_schema_case_17_edge_cases() -> None:
     assert result["score"] == 100
 
 
-def test_validate_cerberus_schema_case_19_performance_large_data() -> None:
+def test_validate_cerberus_schema_performance_large_data() -> None:
     """
     Test case 10: Performance with large data structures.
     """
@@ -217,7 +217,7 @@ def test_validate_cerberus_schema_case_19_performance_large_data() -> None:
     assert elapsed_time < 2.0  # Should complete within 2 seconds
 
 
-def test_validate_cerberus_schema_case_9_type_error_invalid_data() -> None:
+def test_validate_cerberus_schema_type_error_invalid_data() -> None:
     """
     Test case 11: TypeError for invalid data type.
     """
@@ -234,7 +234,7 @@ def test_validate_cerberus_schema_case_9_type_error_invalid_data() -> None:
         validate_cerberus_schema(123, schema, param_name="user_data")
 
 
-def test_validate_cerberus_schema_case_10_type_error_invalid_schema() -> None:
+def test_validate_cerberus_schema_type_error_invalid_schema() -> None:
     """
     Test case 12: TypeError for invalid schema type.
     """
@@ -247,7 +247,7 @@ def test_validate_cerberus_schema_case_10_type_error_invalid_schema() -> None:
         validate_cerberus_schema(data, "not a dict")
 
 
-def test_validate_cerberus_schema_case_11_type_error_invalid_parameters() -> None:
+def test_validate_cerberus_schema_type_error_invalid_parameters() -> None:
     """
     Test case 13: TypeError for invalid parameter types.
     """
@@ -264,7 +264,7 @@ def test_validate_cerberus_schema_case_11_type_error_invalid_parameters() -> Non
         validate_cerberus_schema(data, schema, param_name=123)
 
 
-def test_validate_cerberus_schema_case_12_value_error_missing_required() -> None:
+def test_validate_cerberus_schema_value_error_missing_required() -> None:
     """
     Test case 14: ValueError for missing required fields.
     """
@@ -279,7 +279,7 @@ def test_validate_cerberus_schema_case_12_value_error_missing_required() -> None
         validate_cerberus_schema(data, schema)
 
 
-def test_validate_cerberus_schema_case_13_value_error_type_mismatch() -> None:
+def test_validate_cerberus_schema_value_error_type_mismatch() -> None:
     """
     Test case 15: ValueError for type mismatches.
     """
@@ -291,7 +291,7 @@ def test_validate_cerberus_schema_case_13_value_error_type_mismatch() -> None:
         validate_cerberus_schema(data, schema)
 
 
-def test_validate_cerberus_schema_case_14_value_error_constraint_violations() -> None:
+def test_validate_cerberus_schema_value_error_constraint_violations() -> None:
     """
     Test case 16: ValueError for constraint violations.
     """
@@ -317,7 +317,7 @@ def test_validate_cerberus_schema_case_14_value_error_constraint_violations() ->
         validate_cerberus_schema(data, schema)
 
 
-def test_validate_cerberus_schema_case_15_value_error_unknown_fields() -> None:
+def test_validate_cerberus_schema_value_error_unknown_fields() -> None:
     """
     Test case 17: ValueError for unknown fields when not allowed.
     """
@@ -329,7 +329,7 @@ def test_validate_cerberus_schema_case_15_value_error_unknown_fields() -> None:
         validate_cerberus_schema(data, schema, allow_unknown=False)
 
 
-def test_validate_cerberus_schema_case_16_value_error_nested_validation() -> None:
+def test_validate_cerberus_schema_value_error_nested_validation() -> None:
     """
     Test case 18: ValueError for nested validation failures.
     """
@@ -354,7 +354,7 @@ def test_validate_cerberus_schema_case_16_value_error_nested_validation() -> Non
         validate_cerberus_schema(data, schema)
 
 
-def test_validate_cerberus_schema_case_18_custom_param_name() -> None:
+def test_validate_cerberus_schema_custom_param_name() -> None:
     """
     Test case 19: Custom parameter name in error messages.
     """
@@ -365,7 +365,7 @@ def test_validate_cerberus_schema_case_18_custom_param_name() -> None:
         validate_cerberus_schema(data, schema, param_name="config_data")
 
 
-def test_validate_cerberus_schema_case_20_cerberus_not_available() -> None:
+def test_validate_cerberus_schema_cerberus_not_available() -> None:
     """Test case 20: ImportError when Cerberus is not available."""
     # Save the original module if it exists
     original_module = sys.modules.get('data_validation.schema_validation.validate_cerberus_schema')
@@ -391,7 +391,7 @@ def test_validate_cerberus_schema_case_20_cerberus_not_available() -> None:
             sys.modules['data_validation.schema_validation.validate_cerberus_schema'] = original_module
 
 
-def test_validate_cerberus_schema_case_21_normalize_type_error() -> None:
+def test_validate_cerberus_schema_normalize_type_error() -> None:
     """Test case 21: TypeError for invalid normalize parameter."""
     schema = {"name": {"type": "string"}}
     data = {"name": "test"}
@@ -399,7 +399,7 @@ def test_validate_cerberus_schema_case_21_normalize_type_error() -> None:
         validate_cerberus_schema(data, schema, normalize="yes")
 
 
-def test_validate_cerberus_schema_case_22_param_name_type_error() -> None:
+def test_validate_cerberus_schema_param_name_type_error() -> None:
     """Test case 22: TypeError for invalid param_name parameter."""
     schema = {"name": {"type": "string"}}
     data = {"name": "test"}
@@ -407,7 +407,7 @@ def test_validate_cerberus_schema_case_22_param_name_type_error() -> None:
         validate_cerberus_schema(data, schema, param_name=123)
 
 
-def test_validate_cerberus_schema_case_23_allow_unknown_type_error() -> None:
+def test_validate_cerberus_schema_allow_unknown_type_error() -> None:
     """Test case 23: TypeError for invalid allow_unknown parameter."""
     schema = {"name": {"type": "string"}}
     data = {"name": "test"}

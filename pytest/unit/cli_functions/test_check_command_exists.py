@@ -2,7 +2,7 @@ import pytest
 from cli_functions.check_command_exists import check_command_exists
 
 
-def test_check_command_exists_case_1_python_exists() -> None:
+def test_check_command_exists_python_exists() -> None:
     """
     Test case 1: Test check_command_exists with python command.
     """
@@ -12,7 +12,7 @@ def test_check_command_exists_case_1_python_exists() -> None:
     assert result is True or check_command_exists('python3') is True
 
 
-def test_check_command_exists_case_2_nonexistent_command() -> None:
+def test_check_command_exists_nonexistent_command() -> None:
     """
     Test case 2: Test check_command_exists with nonexistent command.
     """
@@ -20,7 +20,7 @@ def test_check_command_exists_case_2_nonexistent_command() -> None:
     assert result is False
 
 
-def test_check_command_exists_case_3_common_commands() -> None:
+def test_check_command_exists_common_commands() -> None:
     """
     Test case 3: Test check_command_exists with common commands.
     """
@@ -30,7 +30,7 @@ def test_check_command_exists_case_3_common_commands() -> None:
     assert any(results), "At least one common command should exist"
 
 
-def test_check_command_exists_case_4_invalid_type_error() -> None:
+def test_check_command_exists_invalid_type_error() -> None:
     """
     Test case 4: Invalid command type raises TypeError.
     """
@@ -41,7 +41,7 @@ def test_check_command_exists_case_4_invalid_type_error() -> None:
         check_command_exists(None)
 
 
-def test_check_command_exists_case_5_empty_string_error() -> None:
+def test_check_command_exists_empty_string_error() -> None:
     """
     Test case 5: Empty command string raises ValueError.
     """
@@ -49,7 +49,7 @@ def test_check_command_exists_case_5_empty_string_error() -> None:
         check_command_exists('')
 
 
-def test_check_command_exists_case_6_consistency() -> None:
+def test_check_command_exists_consistency() -> None:
     """
     Test case 6: Multiple calls return consistent results.
     """

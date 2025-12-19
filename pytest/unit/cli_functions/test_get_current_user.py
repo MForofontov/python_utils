@@ -2,7 +2,7 @@ import pytest
 from cli_functions.get_current_user import get_current_user
 
 
-def test_get_current_user_case_1_returns_string() -> None:
+def test_get_current_user_returns_string() -> None:
     """
     Test case 1: Test get_current_user returns a string.
     """
@@ -10,7 +10,7 @@ def test_get_current_user_case_1_returns_string() -> None:
     assert isinstance(user, str)
 
 
-def test_get_current_user_case_2_non_empty() -> None:
+def test_get_current_user_non_empty() -> None:
     """
     Test case 2: Test get_current_user returns non-empty string.
     """
@@ -18,7 +18,7 @@ def test_get_current_user_case_2_non_empty() -> None:
     assert len(user) > 0
 
 
-def test_get_current_user_case_3_consistency() -> None:
+def test_get_current_user_consistency() -> None:
     """
     Test case 3: Test get_current_user returns consistent value.
     """
@@ -27,7 +27,7 @@ def test_get_current_user_case_3_consistency() -> None:
     assert user1 == user2
 
 
-def test_get_current_user_case_4_no_whitespace_only() -> None:
+def test_get_current_user_no_whitespace_only() -> None:
     """
     Test case 4: Test username is not just whitespace.
     """
@@ -36,7 +36,7 @@ def test_get_current_user_case_4_no_whitespace_only() -> None:
     assert len(user.strip()) > 0
 
 
-def test_get_current_user_case_5_valid_characters() -> None:
+def test_get_current_user_valid_characters() -> None:
     """
     Test case 5: Test username contains valid characters.
     """
@@ -45,7 +45,7 @@ def test_get_current_user_case_5_valid_characters() -> None:
     assert any(c.isalnum() or c in '_-.' for c in user)
 
 
-def test_get_current_user_case_6_multiple_calls() -> None:
+def test_get_current_user_multiple_calls() -> None:
     """
     Test case 6: Test multiple calls return same value.
     """

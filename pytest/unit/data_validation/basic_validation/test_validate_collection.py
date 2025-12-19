@@ -2,7 +2,7 @@ import pytest
 from data_validation import validate_collection
 
 
-def test_validate_collection_case_1_basic_collections() -> None:
+def test_validate_collection_basic_collections() -> None:
     """
     Test case 1: Basic collection type validation.
     """
@@ -23,7 +23,7 @@ def test_validate_collection_case_1_basic_collections() -> None:
     validate_collection({}, dict)
 
 
-def test_validate_collection_case_2_length_validation() -> None:
+def test_validate_collection_length_validation() -> None:
     """
     Test case 2: Collection length validation with min/max bounds.
     """
@@ -40,7 +40,7 @@ def test_validate_collection_case_2_length_validation() -> None:
     validate_collection({"a": 1, "b": 2, "c": 3}, dict, min_length=2, max_length=5)
 
 
-def test_validate_collection_case_3_empty_collection_handling() -> None:
+def test_validate_collection_empty_collection_handling() -> None:
     """
     Test case 3: Empty collection handling with allow_empty parameter.
     """
@@ -54,7 +54,7 @@ def test_validate_collection_case_3_empty_collection_handling() -> None:
     validate_collection([], list, min_length=0, max_length=5, allow_empty=True)
 
 
-def test_validate_collection_case_4_element_type_validation() -> None:
+def test_validate_collection_element_type_validation() -> None:
     """
     Test case 4: Element type validation for homogeneous collections.
     """
@@ -71,7 +71,7 @@ def test_validate_collection_case_4_element_type_validation() -> None:
     validate_collection((True, False, True), tuple, element_type=bool)
 
 
-def test_validate_collection_case_5_dict_value_validation() -> None:
+def test_validate_collection_dict_value_validation() -> None:
     """
     Test case 5: Dictionary value type validation.
     """
@@ -85,7 +85,7 @@ def test_validate_collection_case_5_dict_value_validation() -> None:
     validate_collection({"a": 1, "b": "hello"}, dict, element_type=(int, str))
 
 
-def test_validate_collection_case_6_union_element_types() -> None:
+def test_validate_collection_union_element_types() -> None:
     """
     Test case 6: Union element type validation.
     """
@@ -99,7 +99,7 @@ def test_validate_collection_case_6_union_element_types() -> None:
     validate_collection((True, 1, False, 0), tuple, element_type=(bool, int))
 
 
-def test_validate_collection_case_7_complex_validation_combinations() -> None:
+def test_validate_collection_complex_validation_combinations() -> None:
     """
     Test case 7: Complex combinations of validation parameters.
     """
@@ -124,7 +124,7 @@ def test_validate_collection_case_7_complex_validation_combinations() -> None:
     )
 
 
-def test_validate_collection_case_13_edge_cases() -> None:
+def test_validate_collection_edge_cases() -> None:
     """
     Test case 8: Edge cases and boundary conditions.
     """
@@ -144,7 +144,7 @@ def test_validate_collection_case_13_edge_cases() -> None:
     validate_collection([1, None, 3], list, element_type=(int, type(None)))
 
 
-def test_validate_collection_case_14_performance_large_collections() -> None:
+def test_validate_collection_performance_large_collections() -> None:
     """
     Test case 9: Performance with large collections.
     """
@@ -165,7 +165,7 @@ def test_validate_collection_case_14_performance_large_collections() -> None:
     assert elapsed_time < 1.0  # Should complete within 1 second
 
 
-def test_validate_collection_case_8_type_error_wrong_collection_type() -> None:
+def test_validate_collection_type_error_wrong_collection_type() -> None:
     """
     Test case 10: TypeError for wrong collection type.
     """
@@ -183,7 +183,7 @@ def test_validate_collection_case_8_type_error_wrong_collection_type() -> None:
         validate_collection("not a list", list, param_name="items")
 
 
-def test_validate_collection_case_9_value_error_empty_not_allowed() -> None:
+def test_validate_collection_value_error_empty_not_allowed() -> None:
     """
     Test case 11: ValueError when empty collections are not allowed.
     """
@@ -201,7 +201,7 @@ def test_validate_collection_case_9_value_error_empty_not_allowed() -> None:
         validate_collection([], list, allow_empty=False, param_name="items")
 
 
-def test_validate_collection_case_10_value_error_length_bounds() -> None:
+def test_validate_collection_value_error_length_bounds() -> None:
     """
     Test case 12: ValueError for length constraint violations.
     """
@@ -226,7 +226,7 @@ def test_validate_collection_case_10_value_error_length_bounds() -> None:
         validate_collection([1, 2], list, min_length=5, param_name="items")
 
 
-def test_validate_collection_case_11_type_error_element_validation() -> None:
+def test_validate_collection_type_error_element_validation() -> None:
     """
     Test case 13: TypeError for wrong element types.
     """
@@ -255,7 +255,7 @@ def test_validate_collection_case_11_type_error_element_validation() -> None:
         validate_collection([1, 2, 3], list, element_type=str, param_name="items")
 
 
-def test_validate_collection_case_12_type_error_invalid_parameters() -> None:
+def test_validate_collection_type_error_invalid_parameters() -> None:
     """
     Test case 14: TypeError for invalid parameter types.
     """
@@ -289,19 +289,19 @@ def test_validate_collection_case_12_type_error_invalid_parameters() -> None:
         validate_collection([1, 2, 3], list, min_length=5, max_length=3)
 
 
-def test_validate_collection_case_15_allow_empty_type_error() -> None:
+def test_validate_collection_allow_empty_type_error() -> None:
     """Test case 15: Test TypeError for non-bool allow_empty parameter."""
     with pytest.raises(TypeError, match="allow_empty must be bool"):
         validate_collection([1, 2, 3], list, allow_empty=1)  # type: ignore
 
 
-def test_validate_collection_case_16_max_length_type_error() -> None:
+def test_validate_collection_max_length_type_error() -> None:
     """Test case 16: Test TypeError for non-integer max_length parameter."""
     with pytest.raises(TypeError, match="max_length must be int or None"):
         validate_collection([1, 2, 3], list, max_length="10")  # type: ignore
 
 
-def test_validate_collection_case_17_non_iterable_element_validation() -> None:
+def test_validate_collection_non_iterable_element_validation() -> None:
     """Test case 17: Test TypeError for non-iterable with element_type validation."""
     # Create a custom class that is Sized but not Iterable to trigger line 159
     class SizedNotIterable:
@@ -313,7 +313,7 @@ def test_validate_collection_case_17_non_iterable_element_validation() -> None:
         validate_collection(obj, SizedNotIterable, element_type=int)  # type: ignore
 
 
-def test_validate_collection_case_18_dict_element_validation_failure() -> None:
+def test_validate_collection_dict_element_validation_failure() -> None:
     """Test case 18: Test element type validation for dictionary values."""
     with pytest.raises(TypeError, match="value for key 'b' must be int"):
         validate_collection({"a": 1, "b": "two"}, dict, element_type=int)

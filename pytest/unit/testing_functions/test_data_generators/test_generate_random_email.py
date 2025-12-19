@@ -4,7 +4,7 @@ from testing_functions.test_data_generators.generate_random_email import (
 )
 
 
-def test_generate_random_email_case_1_default_parameters() -> None:
+def test_generate_random_email_default_parameters() -> None:
     """
     Test case 1: Generate random email with default parameters.
     """
@@ -17,7 +17,7 @@ def test_generate_random_email_case_1_default_parameters() -> None:
     assert len(result.split('@')[0]) == 10
 
 
-def test_generate_random_email_case_2_custom_domain() -> None:
+def test_generate_random_email_custom_domain() -> None:
     """
     Test case 2: Generate random email with custom domain.
     """
@@ -28,7 +28,7 @@ def test_generate_random_email_case_2_custom_domain() -> None:
     assert '@test.org' in result
 
 
-def test_generate_random_email_case_3_custom_username_length() -> None:
+def test_generate_random_email_custom_username_length() -> None:
     """
     Test case 3: Generate random email with custom username length.
     """
@@ -40,7 +40,7 @@ def test_generate_random_email_case_3_custom_username_length() -> None:
     assert len(username) == 5
 
 
-def test_generate_random_email_case_4_valid_format() -> None:
+def test_generate_random_email_valid_format() -> None:
     """
     Test case 4: Verify email has valid format.
     """
@@ -54,7 +54,7 @@ def test_generate_random_email_case_4_valid_format() -> None:
     assert len(parts[1]) > 0
 
 
-def test_generate_random_email_case_5_type_error_domain() -> None:
+def test_generate_random_email_type_error_domain() -> None:
     """
     Test case 5: TypeError for invalid domain type.
     """
@@ -63,7 +63,7 @@ def test_generate_random_email_case_5_type_error_domain() -> None:
         generate_random_email(123)
 
 
-def test_generate_random_email_case_6_type_error_username_length() -> None:
+def test_generate_random_email_type_error_username_length() -> None:
     """
     Test case 6: TypeError for invalid username_length type.
     """
@@ -72,7 +72,7 @@ def test_generate_random_email_case_6_type_error_username_length() -> None:
         generate_random_email("example.com", "10")
 
 
-def test_generate_random_email_case_7_value_error_empty_domain() -> None:
+def test_generate_random_email_value_error_empty_domain() -> None:
     """
     Test case 7: ValueError for empty domain.
     """
@@ -81,7 +81,7 @@ def test_generate_random_email_case_7_value_error_empty_domain() -> None:
         generate_random_email("")
 
 
-def test_generate_random_email_case_8_value_error_zero_username_length() -> None:
+def test_generate_random_email_value_error_zero_username_length() -> None:
     """
     Test case 8: ValueError for zero username_length.
     """
@@ -90,7 +90,7 @@ def test_generate_random_email_case_8_value_error_zero_username_length() -> None
         generate_random_email("example.com", 0)
 
 
-def test_generate_random_email_case_9_value_error_negative_username_length() -> None:
+def test_generate_random_email_value_error_negative_username_length() -> None:
     """
     Test case 9: ValueError for negative username_length.
     """

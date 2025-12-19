@@ -2,7 +2,7 @@ import pytest
 from cli_functions.kill_process import kill_process
 
 
-def test_kill_process_case_1_nonexistent_pid() -> None:
+def test_kill_process_nonexistent_pid() -> None:
     """
     Test case 1: Test kill_process function with a nonexistent PID returns False.
     """
@@ -10,7 +10,7 @@ def test_kill_process_case_1_nonexistent_pid() -> None:
     assert not result
 
 
-def test_kill_process_case_2_handles_os_errors() -> None:
+def test_kill_process_handles_os_errors() -> None:
     """
     Test case 2: Test kill_process handles OSError and PermissionError gracefully.
     """
@@ -29,7 +29,7 @@ def test_kill_process_case_2_handles_os_errors() -> None:
             assert result is False
 
 
-def test_kill_process_case_3_invalid_type_error() -> None:
+def test_kill_process_invalid_type_error() -> None:
     """
     Test case 3: Test kill_process function with invalid input types raises TypeError.
     """
@@ -43,7 +43,7 @@ def test_kill_process_case_3_invalid_type_error() -> None:
         kill_process(12.5)
 
 
-def test_kill_process_case_4_invalid_pid_error() -> None:
+def test_kill_process_invalid_pid_error() -> None:
     """
     Test case 4: Test kill_process function with invalid PID values raises ValueError.
     """
@@ -57,7 +57,7 @@ def test_kill_process_case_4_invalid_pid_error() -> None:
         kill_process(-999)
 
 
-def test_kill_process_case_5_with_different_signals() -> None:
+def test_kill_process_with_different_signals() -> None:
     """
     Test case 5: Test kill_process with different signal types.
     """
@@ -71,7 +71,7 @@ def test_kill_process_case_5_with_different_signals() -> None:
     assert result2 is False
 
 
-def test_kill_process_case_6_process_lookup_error() -> None:
+def test_kill_process_process_lookup_error() -> None:
     """
     Test case 6: Test kill_process handles ProcessLookupError.
     """

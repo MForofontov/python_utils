@@ -2,7 +2,7 @@ import pytest
 from cli_functions.get_cpu_info import get_cpu_info
 
 
-def test_get_cpu_info_case_1_returns_valid_dict() -> None:
+def test_get_cpu_info_returns_valid_dict() -> None:
     """
     Test case 1: The get_cpu_info function returns a valid dictionary with CPU information.
     """
@@ -29,7 +29,7 @@ def test_get_cpu_info_case_1_returns_valid_dict() -> None:
     assert len(cpu_info["cpu_percent_per_core"]) == cpu_info["cpu_count"]
 
 
-def test_get_cpu_info_case_2_custom_interval() -> None:
+def test_get_cpu_info_custom_interval() -> None:
     """
     Test case 2: Test get_cpu_info with custom interval parameter.
     """
@@ -40,7 +40,7 @@ def test_get_cpu_info_case_2_custom_interval() -> None:
     assert isinstance(cpu_info["cpu_percent"], (int, float))
 
 
-def test_get_cpu_info_case_3_per_core_percents_valid() -> None:
+def test_get_cpu_info_per_core_percents_valid() -> None:
     """
     Test case 3: Verify per-core CPU percentages are valid.
     """
@@ -52,7 +52,7 @@ def test_get_cpu_info_case_3_per_core_percents_valid() -> None:
         assert 0 <= core_percent <= 100
 
 
-def test_get_cpu_info_case_4_frequency_info() -> None:
+def test_get_cpu_info_frequency_info() -> None:
     """
     Test case 4: Verify CPU frequency information is present and valid.
     """
@@ -68,7 +68,7 @@ def test_get_cpu_info_case_4_frequency_info() -> None:
         assert cpu_info["cpu_freq_current"] > 0
 
 
-def test_get_cpu_info_case_5_load_average() -> None:
+def test_get_cpu_info_load_average() -> None:
     """
     Test case 5: Verify load average information is present.
     """
@@ -81,7 +81,7 @@ def test_get_cpu_info_case_5_load_average() -> None:
         assert len(cpu_info["load_average"]) == 3
 
 
-def test_get_cpu_info_case_6_consistency() -> None:
+def test_get_cpu_info_consistency() -> None:
     """
     Test case 6: Verify consistency between multiple calls.
     """

@@ -6,7 +6,7 @@ from security_functions.token_generation.generate_secure_token import (
 )
 
 
-def test_generate_secure_token_case_1_default_parameters() -> None:
+def test_generate_secure_token_default_parameters() -> None:
     """
     Test case 1: Generate token with default parameters.
     """
@@ -19,7 +19,7 @@ def test_generate_secure_token_case_1_default_parameters() -> None:
     assert token.isalnum()  # Only letters and digits by default
 
 
-def test_generate_secure_token_case_2_custom_length() -> None:
+def test_generate_secure_token_custom_length() -> None:
     """
     Test case 2: Generate token with custom length.
     """
@@ -34,7 +34,7 @@ def test_generate_secure_token_case_2_custom_length() -> None:
     assert len(token) == length
 
 
-def test_generate_secure_token_case_3_letters_only() -> None:
+def test_generate_secure_token_letters_only() -> None:
     """
     Test case 3: Generate token with letters only.
     """
@@ -49,7 +49,7 @@ def test_generate_secure_token_case_3_letters_only() -> None:
     assert any(c.isupper() for c in token)  # Has uppercase
 
 
-def test_generate_secure_token_case_4_digits_only() -> None:
+def test_generate_secure_token_digits_only() -> None:
     """
     Test case 4: Generate token with digits only.
     """
@@ -62,7 +62,7 @@ def test_generate_secure_token_case_4_digits_only() -> None:
     assert token.isdigit()  # Only digits
 
 
-def test_generate_secure_token_case_5_with_symbols() -> None:
+def test_generate_secure_token_with_symbols() -> None:
     """
     Test case 5: Generate token including symbols.
     """
@@ -80,7 +80,7 @@ def test_generate_secure_token_case_5_with_symbols() -> None:
     assert has_letter or has_digit
 
 
-def test_generate_secure_token_case_8_randomness() -> None:
+def test_generate_secure_token_randomness() -> None:
     """
     Test case 6: Generated tokens should be different (randomness).
     """
@@ -95,7 +95,7 @@ def test_generate_secure_token_case_8_randomness() -> None:
     assert token1 != token3
 
 
-def test_generate_secure_token_case_9_symbols_only() -> None:
+def test_generate_secure_token_symbols_only() -> None:
     """
     Test case 7: Generate token with symbols only.
     """
@@ -110,7 +110,7 @@ def test_generate_secure_token_case_9_symbols_only() -> None:
     assert all(c in "!@#$%^&*-_=+[]{}|;:,.<>?" for c in token)
 
 
-def test_generate_secure_token_case_10_boundary_lengths() -> None:
+def test_generate_secure_token_boundary_lengths() -> None:
     """
     Test case 8: Test boundary values for length.
     """
@@ -123,7 +123,7 @@ def test_generate_secure_token_case_10_boundary_lengths() -> None:
     assert len(token_large) == 1000
 
 
-def test_generate_secure_token_case_11_all_character_types() -> None:
+def test_generate_secure_token_all_character_types() -> None:
     """
     Test case 9: Generate token with all character types enabled.
     """
@@ -143,7 +143,7 @@ def test_generate_secure_token_case_11_all_character_types() -> None:
     assert all(c in valid_chars for c in token)
 
 
-def test_generate_secure_token_case_6_type_validation() -> None:
+def test_generate_secure_token_type_validation() -> None:
     """
     Test case 10: Type validation for all parameters.
     """
@@ -164,7 +164,7 @@ def test_generate_secure_token_case_6_type_validation() -> None:
         generate_secure_token(include_symbols="invalid")
 
 
-def test_generate_secure_token_case_7_value_validation() -> None:
+def test_generate_secure_token_value_validation() -> None:
     """
     Test case 11: Value validation for parameters.
     """
