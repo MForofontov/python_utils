@@ -1,8 +1,4 @@
-"""
-Set cartesian product utilities.
-
-This module provides utilities for computing cartesian products of sets.
-"""
+"""Set cartesian product utilities."""
 
 import itertools
 from typing import TypeVar

@@ -1,3 +1,4 @@
+"""Simple global alignment without gap penalty."""
 
 
 def simple_alignment(seq1: str, seq2: str) -> tuple[str, str]:

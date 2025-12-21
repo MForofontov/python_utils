@@ -1,3 +1,5 @@
+"""Extract date components (year, month, day)."""
+
 from datetime import datetime
 
 

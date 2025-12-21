@@ -1,3 +1,5 @@
+"""Async gather with timeout support."""
+
 import asyncio
 from collections.abc import Awaitable, Iterable
 from typing import TypeVar
@@ -39,7 +41,7 @@ async def gather_with_timeout(
     >>> asyncio.run(gather_with_timeout(coros, timeout=1.0))
     [1, 2]
     """
-    tasks = [asyncio.create_task(aw) for aw in awaitables]
+    tasks: list[asyncio.Task[T]] = [asyncio.create_task(aw) for aw in awaitables]  # type: ignore[arg-type]
     try:
         return await asyncio.wait_for(asyncio.gather(*tasks), timeout=timeout)
     except asyncio.TimeoutError:

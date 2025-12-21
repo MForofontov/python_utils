@@ -1,3 +1,5 @@
+"""Filter FASTA sequences by custom criteria."""
+
 from collections.abc import Callable, Iterator
 
 from .fasta_parser import parse_fasta

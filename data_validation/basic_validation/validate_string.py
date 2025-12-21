@@ -1,9 +1,4 @@
-"""
-String validation utility with pattern matching and content validation.
-
-This module provides comprehensive string validation including length checks,
-pattern matching with regex, content validation, and common string formats.
-"""
+"""String validation with pattern matching and content checks."""
 
 import re
 from re import Pattern

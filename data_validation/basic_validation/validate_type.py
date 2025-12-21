@@ -1,9 +1,4 @@
-"""
-Type validation utility for ensuring values match expected types.
-
-This module provides a comprehensive type validation function that supports
-single types, union types, and nested type checking for complex data structures.
-"""
+"""Type validation for ensuring values match expected types."""
 
 from typing import Any
 

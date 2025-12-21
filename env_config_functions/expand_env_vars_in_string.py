@@ -1,3 +1,5 @@
+"""Environment variable expansion in strings."""
+
 import os
 import re
 
@@ -28,7 +30,7 @@ def expand_env_vars_in_string(s: str, default: str | None = None) -> str:
     'Path: none'
     """
 
-    def replacer(match):
+    def replacer(match: re.Match[str]) -> str:
         var = match.group(1) or match.group(2)
         return os.environ.get(var, default or "")
 

@@ -1,3 +1,5 @@
+"""Parallel unique value extraction."""
+
 from multiprocessing import Pool, cpu_count
 from typing import TypeVar
 

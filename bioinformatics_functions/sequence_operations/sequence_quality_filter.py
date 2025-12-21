@@ -1,3 +1,5 @@
+"""Filter sequences based on quality metrics."""
+
 from typing import Any
 
 

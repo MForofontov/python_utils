@@ -1,3 +1,6 @@
+"""Center string in field of specified width."""
+
+
 def center_string(s: str, width: int, fillchar: str = " ") -> str:
     """
     Center a string in a field of a specified width.

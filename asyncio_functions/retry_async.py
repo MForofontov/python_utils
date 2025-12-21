@@ -1,3 +1,5 @@
+"""Async function retry utilities."""
+
 import asyncio
 from collections.abc import Awaitable, Callable
 from typing import TypeVar
@@ -6,7 +8,7 @@ from typing import TypeVar
 T = TypeVar("T")
 
 
-async def retry_async(
+async def retry_async(  # type: ignore[return]
     func: Callable[..., Awaitable[T]],
     retries: int,
     delay: float,
@@ -49,7 +51,7 @@ async def retry_async(
             if attempt < retries - 1:
                 await asyncio.sleep(delay)
             else:
-                raise e
+                raise
 
 
 __all__ = ["retry_async"]

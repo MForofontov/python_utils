@@ -1,6 +1,4 @@
-"""
-Module for listing files in a directory.
-"""
+"""File listing in directories."""
 
 import os
 

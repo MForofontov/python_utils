@@ -1,3 +1,5 @@
+"""Hostname to IP resolution."""
+
 import socket
 
 

@@ -1,3 +1,6 @@
+"""Remove all whitespace characters."""
+
+
 def remove_whitespace(s: str) -> str:
     """
     Remove all whitespace characters from a string.

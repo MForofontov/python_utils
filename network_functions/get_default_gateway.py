@@ -1,4 +1,4 @@
-"""Utilities for determining the default gateway address."""
+"""Default gateway address determination."""
 
 from __future__ import annotations
 

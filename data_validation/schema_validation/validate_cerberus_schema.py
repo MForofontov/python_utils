@@ -1,9 +1,4 @@
-"""
-Schema validation utility using Cerberus for dictionary-based data validation.
-
-This module provides comprehensive schema validation using Cerberus validator
-for validating dictionary structures with flexible schema definitions.
-"""
+"""Schema validation using Cerberus for dictionary-based data."""
 
 from typing import Any
 
@@ -158,7 +153,7 @@ def validate_cerberus_schema(
     # If normalization requested, apply it
     if normalize:
         normalized_data = validator.normalized(data)
-        return normalized_data
+        return normalized_data  # type: ignore[no-any-return]
     else:
         return data.copy()  # Return a copy to avoid modifying original
 

@@ -1,3 +1,5 @@
+"""Safe JSON deserialization with error handling."""
+
 import json
 from typing import Any
 

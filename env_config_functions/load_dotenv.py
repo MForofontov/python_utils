@@ -1,3 +1,5 @@
+"""Load environment variables from .env files."""
+
 import os
 
 

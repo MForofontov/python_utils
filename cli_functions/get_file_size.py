@@ -1,6 +1,4 @@
-"""
-Module for getting file size.
-"""
+"""File size retrieval."""
 
 import os
 

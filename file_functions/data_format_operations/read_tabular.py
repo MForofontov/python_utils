@@ -1,3 +1,5 @@
+"""Tabular data file reading utilities."""
+
 import csv
 
 

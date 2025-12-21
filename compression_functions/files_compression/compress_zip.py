@@ -1,3 +1,5 @@
+"""ZIP archive compression."""
+
 import os
 import zipfile
 

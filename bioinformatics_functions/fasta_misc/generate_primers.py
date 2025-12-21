@@ -1,3 +1,4 @@
+"""Generate PCR primers from DNA sequences."""
 
 
 def generate_primers(

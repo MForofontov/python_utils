@@ -1,3 +1,5 @@
+"""Rename FASTA sequence headers."""
+
 from collections.abc import Callable, Iterator
 
 from .fasta_parser import parse_fasta

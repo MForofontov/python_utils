@@ -1,3 +1,5 @@
+"""JSON file to dictionary conversion."""
+
 import json
 from typing import Any
 

@@ -1,3 +1,6 @@
+"""Transcribe DNA to RNA sequences."""
+
+
 def transcribe_dna_to_rna(seq: str) -> str:
     """
     Transcribe a DNA sequence to RNA (replace T with U).

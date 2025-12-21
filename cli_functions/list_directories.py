@@ -1,6 +1,4 @@
-"""
-Module for listing directories.
-"""
+"""Directory listing utilities."""
 
 import os
 

@@ -1,3 +1,6 @@
+"""Calculate nucleotide frequency in DNA."""
+
+
 def nucleotide_frequency(seq: str) -> dict[str, int]:
     """
     Calculate the frequency of each nucleotide in a DNA sequence.

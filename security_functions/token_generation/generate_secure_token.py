@@ -1,9 +1,4 @@
-"""
-Secure random token generation.
-
-This module provides functions for generating cryptographically secure
-random tokens for various purposes like session tokens, API keys, etc.
-"""
+"""Secure random token generation."""
 
 import secrets
 import string

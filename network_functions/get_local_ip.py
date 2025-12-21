@@ -1,3 +1,5 @@
+"""Get local IP address."""
+
 import socket
 
 

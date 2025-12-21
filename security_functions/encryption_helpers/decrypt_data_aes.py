@@ -1,9 +1,4 @@
-"""
-AES decryption utilities.
-
-This module provides functions for AES decryption using Fernet symmetric
-encryption from the cryptography library.
-"""
+"""AES decryption utilities."""
 
 import base64
 

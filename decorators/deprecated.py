@@ -1,4 +1,5 @@
-import logging
+"""Deprecation warning decorator."""
+
 import warnings
 from collections.abc import Callable
 from functools import wraps

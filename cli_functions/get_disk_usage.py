@@ -1,6 +1,4 @@
-"""
-Module for getting disk usage information.
-"""
+"""Disk usage information retrieval."""
 
 import os
 

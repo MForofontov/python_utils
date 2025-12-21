@@ -1,3 +1,6 @@
+"""Count non-overlapping occurrences of substring."""
+
+
 def count_substring(s: str, substring: str) -> int:
     """
     Count the number of non-overlapping occurrences of a substring in a string.

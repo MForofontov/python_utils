@@ -1,4 +1,4 @@
-"""Utilities for retrieving day names."""
+"""Day name retrieval utilities."""
 
 
 def get_days_of_week(short_names: bool = False) -> list[str]:

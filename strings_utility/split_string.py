@@ -1,3 +1,6 @@
+"""Split string by specified delimiter."""
+
+
 def split_string(s: str, delimiter: str = " ") -> list[str]:
     """
     Split a string by a specified delimiter.

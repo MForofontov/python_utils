@@ -1,3 +1,5 @@
+"""Function chaining decorator."""
+
 from collections.abc import Callable
 from functools import wraps
 from inspect import Parameter, signature

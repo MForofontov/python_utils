@@ -1,3 +1,5 @@
+"""Concatenate multiple FASTA format strings."""
+
 from collections.abc import Sequence
 
 

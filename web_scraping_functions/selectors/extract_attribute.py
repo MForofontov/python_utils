@@ -67,7 +67,7 @@ def extract_attribute(
     if not attribute.strip():
         raise ValueError("attribute cannot be empty")
     
-    return element.get(attribute, default)
+    return element.get(attribute, default)  # type: ignore[return-value]
 
 
 __all__ = ['extract_attribute']

@@ -1,3 +1,5 @@
+"""Check if all sets in a list are identical."""
+
 from typing import Any
 
 

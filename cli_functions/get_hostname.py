@@ -1,6 +1,4 @@
-"""
-Module for getting the system hostname.
-"""
+"""System hostname retrieval."""
 
 import socket
 

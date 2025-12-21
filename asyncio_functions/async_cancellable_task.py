@@ -1,7 +1,9 @@
+"""Cancellable async task utilities."""
+
 import asyncio
 import contextlib
 from collections.abc import Awaitable, Callable
-from typing import TypeVar
+from typing import TypeVar, Any
 
 # Define a type variable T to represent the return type of the task
 T = TypeVar("T")
@@ -53,9 +55,9 @@ async def async_cancellable_task(
     if cancel_event.is_set():
         raise asyncio.CancelledError("Task was cancelled.")
 
-    task_future = asyncio.create_task(task())
-    cancel_future = asyncio.create_task(cancel_event.wait())
-    pending: set[asyncio.Task] = set()
+    task_future: asyncio.Task[T] = asyncio.create_task(task())  # type: ignore[arg-type]
+    cancel_future: asyncio.Task[Any] = asyncio.create_task(cancel_event.wait())
+    pending: set[asyncio.Task[Any]] = set()
 
     try:
         done, pending = await asyncio.wait(

@@ -70,16 +70,16 @@ def extract_links(
         href = tag['href']
         if absolute and base_url:
             # Simple absolute URL construction
-            if href.startswith('http://') or href.startswith('https://'):
+            if href.startswith('http://') or href.startswith('https://'):  # type: ignore[union-attr]
                 links.append(href)
-            elif href.startswith('/'):
-                links.append(base_url.rstrip('/') + href)
+            elif href.startswith('/'):  # type: ignore[union-attr]
+                links.append(base_url.rstrip('/') + href)  # type: ignore[operator]
             else:
-                links.append(base_url.rstrip('/') + '/' + href)
+                links.append(base_url.rstrip('/') + '/' + href)  # type: ignore[operator]
         else:
             links.append(href)
     
-    return links
+    return links  # type: ignore[return-value]
 
 
 __all__ = ['extract_links']

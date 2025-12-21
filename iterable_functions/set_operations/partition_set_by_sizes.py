@@ -1,8 +1,4 @@
-"""
-Partition a set into subsets of given sizes.
-
-This module provides utilities for partitioning sets into smaller subsets.
-"""
+"""Partition a set into subsets of given sizes."""
 
 from typing import TypeVar
 

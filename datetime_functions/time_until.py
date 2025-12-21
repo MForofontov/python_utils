@@ -1,3 +1,5 @@
+"""Calculate human-readable time until future datetime."""
+
 from datetime import datetime
 
 

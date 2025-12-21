@@ -1,3 +1,5 @@
+"""Parallel accumulation with reduction."""
+
 from collections.abc import Callable
 from itertools import accumulate
 from multiprocessing import Pool, cpu_count
@@ -66,13 +68,13 @@ def parallel_accumulate(
         )
 
     # Initialize the results list and cumulative offset
-    results = []
-    cumulative_offset = 0
+    results: list[T] = []
+    cumulative_offset: T = 0  # type: ignore[assignment]
 
     # Adjust partial results and combine them into the final results list
     for partial in partial_results:
         # Adjust each partial result by adding the cumulative offset
-        adjusted_partial = [x + cumulative_offset for x in partial]
+        adjusted_partial = [x + cumulative_offset for x in partial]  # type: ignore[operator]
         # Update the cumulative offset to the last value of the adjusted partial
         cumulative_offset = adjusted_partial[-1]
         # Extend the results list with the adjusted partial results

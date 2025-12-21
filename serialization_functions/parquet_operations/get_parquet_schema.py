@@ -2,7 +2,7 @@
 Get Parquet schema information.
 """
 
-from typing import Any
+import pyarrow.parquet as pq
 
 
 def get_parquet_schema(file_path: str) -> dict[str, str]:
@@ -43,17 +43,12 @@ def get_parquet_schema(file_path: str) -> dict[str, str]:
     ----------
     Time: O(m), Space: O(m), where m is number of columns
     """
-    try:
-        import pyarrow.parquet as pq
-    except ImportError as e:
-        raise ImportError("pyarrow is required. Install with: pip install pyarrow") from e
-    
     if not isinstance(file_path, str):
         raise TypeError(f"file_path must be a string, got {type(file_path).__name__}")
     
     # Read schema
     parquet_file = pq.ParquetFile(file_path)
-    schema = parquet_file.schema
+    schema = parquet_file.schema_arrow
     
     return {field.name: str(field.type) for field in schema}
 

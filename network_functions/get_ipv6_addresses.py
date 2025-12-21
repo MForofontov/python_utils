@@ -1,3 +1,5 @@
+"""Get IPv6 addresses."""
+
 import socket
 
 import psutil

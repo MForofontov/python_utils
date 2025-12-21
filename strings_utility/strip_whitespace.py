@@ -1,3 +1,6 @@
+"""Strip leading and trailing whitespace."""
+
+
 def strip_whitespace(s: str) -> str:
     """
     Strip leading and trailing whitespace from a string.

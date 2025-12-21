@@ -1,3 +1,6 @@
+"""Check if string contains substring."""
+
+
 def contains_substring(s: str, substring: str) -> bool:
     """
     Check if a string contains a specified substring.

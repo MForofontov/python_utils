@@ -1,3 +1,5 @@
+"""Parse FASTA format sequences."""
+
 from collections.abc import Iterator
 
 
@@ -30,7 +32,7 @@ def parse_fasta(fasta_str: str) -> Iterator[tuple[str, str]]:
     if not isinstance(fasta_str, str):
         raise TypeError(f"fasta_str must be str, got {type(fasta_str).__name__}")
     header = None
-    seq = []
+    seq: list[str] = []
     for line in fasta_str.splitlines():
         line = line.strip()
         if not line:

@@ -1,3 +1,5 @@
+"""Function timeout decorator."""
+
 import logging
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
@@ -92,7 +94,7 @@ def timeout(
             with ThreadPoolExecutor(max_workers=1) as executor:
                 future = executor.submit(_run_func)
                 try:
-                    return future.result(timeout=seconds)
+                    return future.result(timeout=seconds)  # type: ignore[no-any-return]
                 except FuturesTimeoutError as exc:
                     message = (
                         f"Function {func.__name__} timed out after {seconds} seconds"

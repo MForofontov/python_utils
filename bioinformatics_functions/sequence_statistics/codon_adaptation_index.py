@@ -1,3 +1,5 @@
+"""Calculate Codon Adaptation Index (CAI)."""
+
 import math
 
 

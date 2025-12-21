@@ -1,3 +1,6 @@
+"""Left-justify string in field of specified width."""
+
+
 def ljust_string(s: str, width: int, fillchar: str = " ") -> str:
     """
     Left-justify a string in a field of a specified width.

@@ -1,3 +1,5 @@
+"""Conditional function execution decorator."""
+
 from collections.abc import Callable
 from functools import wraps
 from typing import ParamSpec, TypeVar

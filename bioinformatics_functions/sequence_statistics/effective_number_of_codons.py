@@ -1,3 +1,4 @@
+"""Calculate Effective Number of Codons (ENC)."""
 
 
 def effective_number_of_codons(seq: str) -> float:

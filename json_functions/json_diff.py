@@ -1,3 +1,5 @@
+"""JSON difference comparison utilities."""
+
 from typing import Any
 
 

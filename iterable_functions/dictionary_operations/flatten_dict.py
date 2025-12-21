@@ -1,31 +1,4 @@
-"""
-Flatten a nested dictionary into a single-level dictionary.
-
-Parameters
-----------
-d : dict
-    The dictionary to flatten.
-separator : str, optional
-    The separator to use for nested keys (default '_').
-prefix : str, optional
-    A prefix to add to all keys (default '').
-
-Returns
--------
-dict
-    A flattened dictionary.
-
-Raises
-------
-TypeError
-    If d is not a dictionary.
-
-Examples
---------
->>> nested = {'a': 1, 'b': {'c': 2, 'd': {'e': 3}}}
->>> flatten_dict(nested)
-{'a': 1, 'b_c': 2, 'b_d_e': 3}
-"""
+"""Nested dictionary flattening."""
 
 from typing import Any
 

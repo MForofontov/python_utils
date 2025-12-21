@@ -1,3 +1,4 @@
+"""Find tandem repeats in DNA sequences."""
 
 
 def tandem_repeat_finder(

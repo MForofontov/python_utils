@@ -1,3 +1,5 @@
+"""Parallel reduction operations."""
+
 from collections.abc import Callable
 from functools import reduce
 from multiprocessing import Pool, cpu_count

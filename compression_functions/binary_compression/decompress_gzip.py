@@ -1,3 +1,5 @@
+"""GZIP decompression for binary data."""
+
 import gzip
 import io
 

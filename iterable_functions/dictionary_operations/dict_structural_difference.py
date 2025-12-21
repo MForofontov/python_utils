@@ -1,3 +1,5 @@
+"""Dictionary structural difference comparison."""
+
 from typing import Any
 
 

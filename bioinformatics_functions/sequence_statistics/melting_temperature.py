@@ -1,3 +1,6 @@
+"""Calculate melting temperature (Tm) of DNA."""
+
+
 def melting_temperature(seq: str) -> float:
     """
     Calculate melting temperature (Tm) of a DNA sequence using nearest-neighbor method.

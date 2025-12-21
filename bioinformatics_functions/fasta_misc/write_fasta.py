@@ -1,3 +1,5 @@
+"""Write sequences to FASTA format."""
+
 from collections.abc import Sequence
 
 

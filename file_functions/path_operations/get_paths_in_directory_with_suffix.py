@@ -1,3 +1,5 @@
+"""Directory path filtering by suffix."""
+
 import os
 
 

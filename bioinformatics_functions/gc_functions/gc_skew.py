@@ -1,3 +1,6 @@
+"""Calculate GC skew of DNA sequences."""
+
+
 def gc_skew(seq: str) -> float:
     """
     Calculate the GC skew of a DNA sequence.

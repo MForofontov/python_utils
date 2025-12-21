@@ -1,3 +1,5 @@
+"""Generate reverse complement of FASTA sequences."""
+
 from collections.abc import Iterator
 
 from .fasta_parser import parse_fasta

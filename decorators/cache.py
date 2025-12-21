@@ -1,3 +1,5 @@
+"""Function result caching decorator."""
+
 from collections.abc import Callable
 from functools import wraps
 from typing import Any, ParamSpec, TypeVar, cast
@@ -76,13 +78,13 @@ def cache(func: Callable[P, R]) -> Callable[P, R]:
             raise TypeError(f"Unhashable arguments: {exc}") from exc
 
         # Return the cached result
-        return cached_results[key]
+        return cached_results[key]  # type: ignore[no-any-return]
 
     def cache_clear() -> None:
         """Public method to clear the cached results for ``func``."""
         cached_results.clear()
 
-    wrapper.cache_clear = cache_clear
+    wrapper.cache_clear = cache_clear  # type: ignore[attr-defined]
 
     return cast(Callable[P, R], wrapper)
 

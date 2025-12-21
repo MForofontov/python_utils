@@ -1,3 +1,4 @@
+"""Find palindromic sequences in DNA."""
 
 
 def palindromic_sequence_finder(

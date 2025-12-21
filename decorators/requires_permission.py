@@ -1,3 +1,5 @@
+"""Permission validation decorator."""
+
 import logging
 from collections.abc import Callable
 from functools import wraps
@@ -110,7 +112,7 @@ def requires_permission(
             # Call the original function with the provided arguments and keyword arguments
             return func(user_permissions, *args, **kwargs)
 
-        return wrapper
+        return wrapper  # type: ignore[return-value]
 
     return decorator
 

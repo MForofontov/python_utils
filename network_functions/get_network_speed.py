@@ -1,3 +1,5 @@
+"""Get network interface speed."""
+
 import time
 from contextlib import closing
 

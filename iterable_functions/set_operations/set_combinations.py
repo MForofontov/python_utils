@@ -1,8 +1,4 @@
-"""
-Set combinations utilities.
-
-This module provides utilities for generating combinations from sets.
-"""
+"""Set combinations utilities."""
 
 from .count_combinations import count_combinations
 from .get_combinations import get_combinations

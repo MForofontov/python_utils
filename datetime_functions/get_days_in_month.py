@@ -1,3 +1,5 @@
+"""Get number of days in month."""
+
 from calendar import monthrange
 from datetime import datetime
 

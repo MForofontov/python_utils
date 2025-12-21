@@ -78,13 +78,6 @@ from .bioinformatics_functions import (
     validate_fasta,
     write_fasta,
 )
-from .circuit_breaker_functions import (
-    AdaptiveTimeout,
-    Bulkhead,
-    CircuitBreaker,
-    FallbackChain,
-    fallback_chain,
-)
 from .compression_functions import (
     decompress_number,
     polyline_decoding_list_of_ints,
@@ -98,6 +91,24 @@ from .data_validation import (
     validate_range,
     validate_string,
     validate_type,
+)
+from .dev_utilities import (
+    count_code_lines,
+    format_statistics,
+    format_validation_result,
+    generate_dependency_graph,
+    generate_license,
+    get_code_statistics,
+    save_license_file,
+    validate_project_structure,
+    find_missing_tests,
+    format_coverage_report,
+    CodeLineCount,
+    CodeStatistics,
+    ValidationIssue,
+    ValidationResult,
+    MissingTest,
+    TestCoverageReport,
 )
 from .datetime_functions import (
     calculate_age,
@@ -317,10 +328,6 @@ from .multiprocessing_functions import (
     parallel_starmap,
     parallel_unique,
 )
-from .pipeline_functions import (
-    Pipeline,
-    pipeline_builder,
-)
 
 from .regex_functions import (
     extract_emails,
@@ -392,6 +399,15 @@ from .strings_utility import (
     zfill_string,
 )
 
+from .url_functions import (
+    expand_url_template,
+    match_url_pattern,
+    merge_query_params,
+    normalize_url,
+    slugify_url,
+    validate_url_format,
+)
+
 # Version information
 __version__ = "1.0.0"
 __author__ = "Python Utils Contributors"
@@ -419,11 +435,6 @@ __all__ = [
     "ChunkedProcessor",
     "StreamingAggregator",
     "chunked_processor",
-    "AdaptiveTimeout",
-    "Bulkhead",
-    "CircuitBreaker",
-    "FallbackChain",
-    "fallback_chain",
     "decompress_number",
     "polyline_decoding_list_of_ints",
     "polyline_encoding_list_of_ints",
@@ -434,6 +445,19 @@ __all__ = [
     "validate_range",
     "validate_string",
     "validate_type",
+    # Dev utilities
+    "count_code_lines",
+    "format_statistics",
+    "format_validation_result",
+    "generate_dependency_graph",
+    "generate_license",
+    "get_code_statistics",
+    "save_license_file",
+    "validate_project_structure",
+    "CodeLineCount",
+    "CodeStatistics",
+    "ValidationIssue",
+    "ValidationResult",
     "calculate_age",
     "compare_dates",
     "convert_timezone",
@@ -632,8 +656,6 @@ __all__ = [
     "parallel_sort",
     "parallel_starmap",
     "parallel_unique",
-    "Pipeline",
-    "pipeline_builder",
     "extract_emails",
     "extract_urls",
     "remove_html_tags",
@@ -738,4 +760,11 @@ __all__ = [
     "sort_annotations",
     "annotation_to_bed",
     "annotation_statistics",
+    # URL functions
+    "expand_url_template",
+    "match_url_pattern",
+    "merge_query_params",
+    "normalize_url",
+    "slugify_url",
+    "validate_url_format",
 ]

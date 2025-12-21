@@ -1,3 +1,5 @@
+"""BZ2 file decompression."""
+
 import bz2
 import os
 import stat

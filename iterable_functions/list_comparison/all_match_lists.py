@@ -1,3 +1,5 @@
+"""Check if all elements match between lists."""
+
 from typing import Any
 
 

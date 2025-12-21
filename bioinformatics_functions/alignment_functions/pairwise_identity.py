@@ -1,3 +1,6 @@
+"""Calculate percentage identity between two sequences."""
+
+
 def pairwise_identity(seq1: str, seq2: str, aligned: bool = False) -> float:
     """
     Calculate the percentage identity between two sequences.

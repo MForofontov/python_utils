@@ -1,33 +1,4 @@
-"""
-Filter dictionary by keys using patterns or exact matches.
-
-Parameters
-----------
-d : dict
-    The dictionary to filter.
-keys : list or set
-    Keys to include in the filtered dictionary.
-pattern : str, optional
-    Regex pattern to match keys against.
-invert : bool, optional
-    If True, exclude matching keys instead of including them (default False).
-
-Returns
--------
-dict
-    A filtered dictionary.
-
-Raises
-------
-TypeError
-    If d is not a dictionary or keys is not a list/set.
-
-Examples
---------
->>> d = {'name': 'John', 'age': 30, 'city': 'NYC', 'email': 'john@example.com'}
->>> filter_dict_by_keys(d, ['name', 'age'])
-{'name': 'John', 'age': 30}
-"""
+"""Dictionary filtering by keys."""
 
 import re
 from typing import Any
@@ -35,8 +6,8 @@ from typing import Any
 
 def filter_dict_by_keys(
     d: dict[str, Any],
-    keys: list[str] | set[str] = None,
-    pattern: str = None,
+    keys: list[str] | set[str] | None = None,
+    pattern: str | None = None,
     invert: bool = False,
 ) -> dict[str, Any]:
     """

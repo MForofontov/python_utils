@@ -1,3 +1,5 @@
+"""File existence checking and deletion."""
+
 import os
 
 

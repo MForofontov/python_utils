@@ -1,3 +1,5 @@
+"""Function throttling decorator."""
+
 import logging
 import time
 from collections.abc import Callable

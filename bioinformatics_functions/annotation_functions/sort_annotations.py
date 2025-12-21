@@ -1,3 +1,5 @@
+"""Sort genomic annotations by position."""
+
 from collections.abc import Sequence
 from typing import Any
 

@@ -4,6 +4,8 @@ Get Parquet file metadata.
 
 from typing import Any
 
+import pyarrow.parquet as pq
+
 
 def get_parquet_metadata(file_path: str) -> dict[str, Any]:
     """
@@ -45,11 +47,6 @@ def get_parquet_metadata(file_path: str) -> dict[str, Any]:
     ----------
     Time: O(1), Space: O(1)
     """
-    try:
-        import pyarrow.parquet as pq
-    except ImportError as e:
-        raise ImportError("pyarrow is required. Install with: pip install pyarrow") from e
-    
     if not isinstance(file_path, str):
         raise TypeError(f"file_path must be a string, got {type(file_path).__name__}")
     

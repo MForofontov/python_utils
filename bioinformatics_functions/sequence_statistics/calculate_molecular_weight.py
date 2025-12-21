@@ -1,3 +1,6 @@
+"""Calculate molecular weight of biological sequences."""
+
+
 def calculate_molecular_weight(seq: str, seq_type: str = "dna") -> float:
     """
     Calculate molecular weight of a DNA, RNA, or protein sequence.

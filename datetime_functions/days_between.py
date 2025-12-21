@@ -1,3 +1,5 @@
+"""Calculate days between two datetime objects."""
+
 from datetime import datetime
 
 

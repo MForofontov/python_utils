@@ -1,3 +1,5 @@
+"""Check if list contains element of specific type."""
+
 from typing import Any
 
 

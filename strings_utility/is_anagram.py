@@ -1,3 +1,5 @@
+"""Check if two strings are anagrams."""
+
 from collections import Counter
 
 

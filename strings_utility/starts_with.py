@@ -1,3 +1,6 @@
+"""Check if string starts with specified prefix."""
+
+
 def starts_with(s: str, prefix: str) -> bool:
     """
     Check if a string starts with a specified prefix.

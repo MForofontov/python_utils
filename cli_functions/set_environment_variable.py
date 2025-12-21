@@ -1,6 +1,4 @@
-"""
-Module for setting environment variables.
-"""
+"""Environment variable configuration."""
 
 import os
 

@@ -1,9 +1,4 @@
-"""
-Email validation utility with multiple validation strategies.
-
-This module provides comprehensive email validation using regex patterns,
-format checking, and optional domain validation.
-"""
+"""Email validation with multiple strategies."""
 
 import re
 

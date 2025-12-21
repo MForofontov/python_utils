@@ -1,9 +1,4 @@
-"""
-File copying utility.
-
-This module provides a function to copy files from source to destination,
-preserving file contents and overwriting existing files.
-"""
+"""File copying utility."""
 
 import os
 import shutil

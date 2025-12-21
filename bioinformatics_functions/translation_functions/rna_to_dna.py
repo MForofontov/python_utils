@@ -1,3 +1,6 @@
+"""Convert RNA sequences to DNA."""
+
+
 def rna_to_dna(seq: str) -> str:
     """
     Convert RNA sequence to DNA sequence (U → T).

@@ -1,3 +1,5 @@
+"""Parallel function application with arguments."""
+
 from collections.abc import Callable
 from multiprocessing import Pool, cpu_count
 from typing import Any, TypeVar
@@ -10,7 +12,7 @@ R = TypeVar("R")
 def parallel_apply_with_args(
     func: Callable[[T, Any], R],
     data: list[T],
-    args: tuple = (),
+    args: tuple[Any, ...] = (),
     num_processes: int | None = None,
 ) -> list[R]:
     """
@@ -22,7 +24,7 @@ def parallel_apply_with_args(
         The function to apply to each item in the list.
     data : list[T]
         The list of data items to process.
-    args : Tuple, optional
+    args : tuple[Any, ...], optional
         Additional arguments to pass to the function (by default an empty tuple).
     num_processes : int | None, optional
         The number of processes to use for parallel execution. If None, it defaults

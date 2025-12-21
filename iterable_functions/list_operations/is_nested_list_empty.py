@@ -1,3 +1,5 @@
+"""Check if nested list is empty."""
+
 from typing import Any
 
 

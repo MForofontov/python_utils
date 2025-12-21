@@ -1,8 +1,4 @@
-"""
-Password verification using bcrypt algorithm.
-
-This module provides secure password verification against bcrypt hashes.
-"""
+"""Password verification using bcrypt algorithm."""
 
 import bcrypt
 

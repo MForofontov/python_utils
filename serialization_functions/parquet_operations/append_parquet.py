@@ -5,6 +5,9 @@ Append data to existing Parquet file.
 from typing import Any
 from pathlib import Path
 
+import pyarrow as pa
+import pyarrow.parquet as pq
+
 
 def append_parquet(
     data: list[dict[str, Any]],
@@ -49,14 +52,8 @@ def append_parquet(
 
     Complexity
     ----------
-    Time: O(n*m), Space: O(n*m), where n is rows, m is columns
+    Time: O(n*m), Space: O(n*m), where n is total rows, m is columns
     """
-    try:
-        import pyarrow as pa
-        import pyarrow.parquet as pq
-    except ImportError as e:
-        raise ImportError("pyarrow is required. Install with: pip install pyarrow") from e
-    
     if not isinstance(data, list):
         raise TypeError(f"data must be a list, got {type(data).__name__}")
     

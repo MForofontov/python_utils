@@ -1,8 +1,4 @@
-"""
-Get permutations from a set.
-
-This module provides a utility for generating permutations from sets.
-"""
+"""Get permutations from a set."""
 
 import itertools
 from typing import TypeVar
@@ -76,7 +72,7 @@ def get_permutations(input_set: set[T], r: int | None = None) -> list[list[T]]:
         return []
 
     # Generate permutations
-    elements = sorted(list(input_set))
+    elements = sorted(list(input_set))  # type: ignore[type-var]
     permutations = [list(perm) for perm in itertools.permutations(elements, r)]
     permutations.sort()  # Ensure lexicographic ordering
 

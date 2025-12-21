@@ -1,3 +1,5 @@
+"""Ping host utility."""
+
 import subprocess
 
 

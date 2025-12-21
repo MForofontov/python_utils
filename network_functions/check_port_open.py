@@ -1,3 +1,5 @@
+"""Check if network port is open."""
+
 import socket
 
 

@@ -1,8 +1,4 @@
-"""
-Structured log formatter with consistent field alignment.
-
-Formats logs with aligned fields for better readability in console output.
-"""
+"""Structured log formatter with consistent field alignment."""
 
 import logging
 from datetime import datetime

@@ -1,3 +1,5 @@
+"""Print dependency information to terminal."""
+
 import platform
 import shutil
 from collections.abc import Iterable

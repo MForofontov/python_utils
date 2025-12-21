@@ -1,3 +1,5 @@
+"""Convert all set elements to strings."""
+
 from typing import Any
 
 

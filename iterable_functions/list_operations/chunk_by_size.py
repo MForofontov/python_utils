@@ -1,8 +1,4 @@
-"""
-Split list into chunks of specified size.
-
-This module provides functionality to split a list into smaller chunks of a specified size.
-"""
+"""Split list into chunks of specified size."""
 
 from typing import TypeVar
 

@@ -1,3 +1,6 @@
+"""Remove low-complexity regions from sequences."""
+
+
 def remove_low_complexity_regions(
     seq: str,
     window_size: int = 10,

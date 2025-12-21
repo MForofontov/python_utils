@@ -1,6 +1,4 @@
-"""
-Module for getting CPU information.
-"""
+"""CPU information retrieval."""
 
 import os
 

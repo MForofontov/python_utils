@@ -1,3 +1,5 @@
+"""Async function wrapper decorator."""
+
 import asyncio
 import inspect
 import logging

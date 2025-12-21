@@ -1,6 +1,4 @@
-"""
-Module for killing a process by PID.
-"""
+"""Process termination by PID."""
 
 import os
 import signal

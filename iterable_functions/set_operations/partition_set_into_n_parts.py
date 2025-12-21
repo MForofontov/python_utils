@@ -1,8 +1,4 @@
-"""
-Partition set into n parts utilities.
-
-This module provides utilities for partitioning sets into n approximately equal-sized subsets.
-"""
+"""Partition set into n parts utilities."""
 
 from typing import TypeVar
 
@@ -71,7 +67,7 @@ def partition_set_into_n_parts(input_set: set[T], n: int) -> list[set[T]]:
     # Handle edge cases
     if n >= len(input_set):
         # More partitions than elements
-        partitions = [set() for _ in range(n)]
+        partitions: list[set[T]] = [set() for _ in range(n)]
         for i, element in enumerate(input_set):
             if i < n:
                 partitions[i].add(element)

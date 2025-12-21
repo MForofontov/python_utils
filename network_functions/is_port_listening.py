@@ -1,3 +1,5 @@
+"""Check if port is listening."""
+
 import psutil
 
 

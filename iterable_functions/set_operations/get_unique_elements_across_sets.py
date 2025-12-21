@@ -1,8 +1,4 @@
-"""
-Get unique elements across sets utilities.
-
-This module provides utilities for getting elements that appear in exactly one set across multiple sets.
-"""
+"""Get unique elements across sets utilities."""
 
 from typing import TypeVar
 

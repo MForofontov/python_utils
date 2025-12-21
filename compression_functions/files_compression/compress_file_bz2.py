@@ -1,3 +1,5 @@
+"""BZ2 file compression."""
+
 import bz2
 import os
 

@@ -1,3 +1,6 @@
+"""Get DNS servers configured on system."""
+
+
 def get_dns_servers() -> list[str]:
     """
     Get DNS servers configured on the system.

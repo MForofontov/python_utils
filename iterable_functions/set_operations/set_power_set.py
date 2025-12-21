@@ -1,8 +1,4 @@
-"""
-Set power set utilities.
-
-This module provides utilities for generating power sets of sets.
-"""
+"""Set power set utilities."""
 
 from typing import TypeVar
 
@@ -70,10 +66,10 @@ def set_power_set(input_set: set[T]) -> set[frozenset[T]]:
     n = len(elements)
 
     # Generate all possible subsets using bit manipulation
-    power_set = set()
+    power_set: set[frozenset[T]] = set()
 
     for i in range(2**n):
-        subset = frozenset()
+        subset: frozenset[T] = frozenset()
         for j in range(n):
             if i & (1 << j):
                 subset = subset | {elements[j]}

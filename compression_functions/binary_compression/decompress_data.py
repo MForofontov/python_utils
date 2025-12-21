@@ -1,3 +1,5 @@
+"""Generic data decompression with algorithm selection."""
+
 from .decompress_bz2 import decompress_bz2
 from .decompress_gzip import decompress_gzip
 from .decompress_lzma import decompress_lzma

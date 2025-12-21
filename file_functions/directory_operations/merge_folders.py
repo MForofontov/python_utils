@@ -1,3 +1,5 @@
+"""Directory merging utilities."""
+
 import os
 import shutil
 

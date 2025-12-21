@@ -1,3 +1,5 @@
+"""Async stream processing utilities."""
+
 from collections.abc import AsyncIterator, Awaitable, Callable
 
 

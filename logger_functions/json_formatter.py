@@ -1,9 +1,4 @@
-"""
-JSON log formatter for structured logging.
-
-Formats log records as JSON objects, making them easy to parse
-by log aggregation systems and monitoring tools.
-"""
+"""JSON log formatter for structured logging."""
 
 import json
 import logging

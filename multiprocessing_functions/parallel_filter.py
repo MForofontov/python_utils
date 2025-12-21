@@ -1,3 +1,5 @@
+"""Parallel filtering operations."""
+
 from collections.abc import Callable
 from multiprocessing import Pool, cpu_count
 from typing import TypeVar

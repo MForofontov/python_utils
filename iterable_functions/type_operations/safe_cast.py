@@ -1,9 +1,4 @@
-"""
-Safe type casting utilities.
-
-This module provides utilities for safely casting values to different types
-with fallback options.
-"""
+"""Safe type casting utilities."""
 
 from typing import Any, TypeVar
 
@@ -109,7 +104,7 @@ def safe_cast(value: Any, target_type: type[T], default: T | None = None) -> T |
                 return (value,)
         else:
             # Generic conversion attempt
-            return target_type(value)
+            return target_type(value)  # type: ignore[call-arg]
     except (ValueError, TypeError, AttributeError):
         # Conversion failed, return default or original value
         if default is not None:

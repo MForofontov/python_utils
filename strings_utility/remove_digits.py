@@ -1,3 +1,6 @@
+"""Remove all numerical digits from string."""
+
+
 def remove_digits(s: str) -> str:
     """
     Remove all numerical digits from a string.

@@ -1,3 +1,5 @@
+"""Function retry decorator."""
+
 import logging
 import time
 from collections.abc import Callable

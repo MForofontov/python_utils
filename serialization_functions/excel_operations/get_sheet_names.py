@@ -2,6 +2,8 @@
 Get list of sheet names from Excel workbook.
 """
 
+from openpyxl import load_workbook
+
 
 def get_sheet_names(file_path: str) -> list[str]:
     """
@@ -44,11 +46,6 @@ def get_sheet_names(file_path: str) -> list[str]:
     ----------
     Time: O(n), Space: O(n), where n is number of sheets
     """
-    try:
-        from openpyxl import load_workbook
-    except ImportError as e:
-        raise ImportError("openpyxl is required. Install with: pip install openpyxl") from e
-    
     if not isinstance(file_path, str):
         raise TypeError(f"file_path must be a string, got {type(file_path).__name__}")
     
@@ -56,7 +53,7 @@ def get_sheet_names(file_path: str) -> list[str]:
     sheet_names = wb.sheetnames
     wb.close()
     
-    return sheet_names
+    return sheet_names  # type: ignore[no-any-return]
 
 
 __all__ = ['get_sheet_names']

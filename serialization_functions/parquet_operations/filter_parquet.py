@@ -4,6 +4,10 @@ Filter Parquet file by column values.
 
 from typing import Any
 
+import pyarrow as pa
+import pyarrow.parquet as pq
+import pyarrow.compute as pc
+
 
 def filter_parquet(
     file_path: str,
@@ -55,12 +59,6 @@ def filter_parquet(
     ----------
     Time: O(n*m), Space: O(k*m), where n is rows, m is columns, k is filtered rows
     """
-    try:
-        import pyarrow.parquet as pq
-        import pyarrow.compute as pc
-    except ImportError as e:
-        raise ImportError("pyarrow is required. Install with: pip install pyarrow") from e
-    
     if not isinstance(file_path, str):
         raise TypeError(f"file_path must be a string, got {type(file_path).__name__}")
     
@@ -81,8 +79,8 @@ def filter_parquet(
         if not isinstance(op, str):
             raise ValueError("Filter operator must be a string")
     
-    # Read table
-    table = pq.read_table(file_path, columns=columns)
+    # Read table (without column selection initially to allow filtering on all columns)
+    table = pq.read_table(file_path)
     
     # Apply filters
     mask = None
@@ -104,11 +102,11 @@ def filter_parquet(
         elif op == 'in':
             if not isinstance(val, (list, tuple)):
                 raise ValueError(f"Value for 'in' operator must be list or tuple, got {type(val).__name__}")
-            condition = pc.is_in(column, val)
+            condition = pc.is_in(column, pa.array(val))
         elif op == 'not in':
             if not isinstance(val, (list, tuple)):
                 raise ValueError(f"Value for 'not in' operator must be list or tuple, got {type(val).__name__}")
-            condition = pc.invert(pc.is_in(column, val))
+            condition = pc.invert(pc.is_in(column, pa.array(val)))
         else:
             raise ValueError(f"Unsupported operator: {op}")
         
@@ -123,7 +121,11 @@ def filter_parquet(
     else:
         filtered_table = table
     
-    return filtered_table.to_pylist()
+    # Select columns if specified
+    if columns is not None:
+        filtered_table = filtered_table.select(columns)
+    
+    return filtered_table.to_pylist()  # type: ignore[no-any-return]
 
 
 __all__ = ['filter_parquet']

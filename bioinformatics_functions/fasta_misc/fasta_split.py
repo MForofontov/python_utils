@@ -1,3 +1,5 @@
+"""Split FASTA sequences into individual records."""
+
 from collections.abc import Iterator
 
 from .fasta_parser import parse_fasta

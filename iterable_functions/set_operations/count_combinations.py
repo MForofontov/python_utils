@@ -1,8 +1,4 @@
-"""
-Count combinations from a set.
-
-This module provides a utility for counting combinations from sets.
-"""
+"""Count combinations from a set."""
 
 from typing import TypeVar
 

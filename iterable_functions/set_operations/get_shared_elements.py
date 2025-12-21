@@ -1,3 +1,5 @@
+"""Find shared elements across multiple sets."""
+
 from collections import Counter
 from typing import TypeVar
 

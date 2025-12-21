@@ -1,9 +1,4 @@
-"""
-Password hashing using PBKDF2 algorithm.
-
-This module provides secure password hashing using PBKDF2 with SHA-256,
-which is widely supported and recommended by security standards.
-"""
+"""Password hashing using PBKDF2 algorithm."""
 
 import hashlib
 import secrets

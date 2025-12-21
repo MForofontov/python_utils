@@ -1,3 +1,6 @@
+"""Calculate Hamming distance between sequences."""
+
+
 def hamming_distance(seq1: str, seq2: str) -> int:
     """
     Calculate Hamming distance between two sequences (number of differing positions).

@@ -1,3 +1,4 @@
+"""Convert FASTA sequences to dictionary."""
 
 from .fasta_parser import parse_fasta
 

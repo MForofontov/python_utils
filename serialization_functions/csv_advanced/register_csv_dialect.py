@@ -96,7 +96,7 @@ def register_csv_dialect(
         doublequote=doublequote,
         skipinitialspace=skipinitialspace,
         lineterminator=lineterminator,
-        quoting=quoting,
+        quoting=quoting,  # type: ignore[arg-type]
     )
 
 

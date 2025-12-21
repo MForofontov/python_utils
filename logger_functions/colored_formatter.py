@@ -1,9 +1,4 @@
-"""
-Colored log formatter for console output.
-
-Adds ANSI color codes to log messages based on log level,
-making it easier to visually distinguish different types of messages.
-"""
+"""Colored log formatter for console output."""
 
 import logging
 import sys

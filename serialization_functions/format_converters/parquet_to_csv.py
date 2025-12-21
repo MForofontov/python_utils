@@ -1,8 +1,4 @@
-"""
-Parquet to CSV converter.
-
-Converts Parquet files to CSV format with column selection and filtering.
-"""
+"""Parquet to CSV converter."""
 
 from pathlib import Path
 from typing import Any, Callable

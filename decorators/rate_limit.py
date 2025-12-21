@@ -1,3 +1,5 @@
+"""Rate limiting decorator."""
+
 import logging
 import time
 from collections import deque

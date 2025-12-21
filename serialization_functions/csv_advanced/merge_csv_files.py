@@ -111,7 +111,7 @@ def merge_csv_files(
     rows_written = 0
 
     with open(output_file, 'w', encoding=encoding, newline='') as outfile:
-        writer: csv.writer | None = None
+        writer: Any = None
 
         for idx, input_path in enumerate(input_files):
             with open(input_path, 'r', encoding=encoding, newline='') as infile:

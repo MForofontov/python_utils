@@ -1,8 +1,4 @@
-"""
-Excel to CSV batch converter.
-
-Converts all sheets from an Excel workbook to separate CSV files.
-"""
+"""Excel to CSV batch converter."""
 
 from pathlib import Path
 from typing import Any

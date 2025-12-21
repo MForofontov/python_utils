@@ -1,3 +1,5 @@
+"""Check if list partially contains a sublist."""
+
 from typing import TypeVar
 
 from .any_match_lists import any_match_lists

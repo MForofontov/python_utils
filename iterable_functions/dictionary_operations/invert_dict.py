@@ -1,34 +1,4 @@
-"""
-Invert a dictionary, swapping keys and values.
-
-Parameters
-----------
-d : dict
-    The dictionary to invert.
-allow_duplicates : bool, optional
-    If True, allow duplicate values (default False). If False, raises ValueError on duplicates.
-
-Returns
--------
-dict
-    An inverted dictionary.
-
-Raises
-------
-TypeError
-    If d is not a dictionary.
-ValueError
-    If allow_duplicates is False and duplicate values exist.
-
-Examples
---------
->>> d = {'a': 1, 'b': 2, 'c': 1}
->>> invert_dict(d, allow_duplicates=True)
-{1: ['a', 'c'], 2: ['b']}
->>> invert_dict(d, allow_duplicates=False)
-Traceback (most recent call last):
-ValueError: Duplicate values found: [1]
-"""
+"""Dictionary key-value inversion."""
 
 from typing import Any
 
@@ -68,8 +38,8 @@ def invert_dict(d: dict[str, Any], allow_duplicates: bool = False) -> dict[Any, 
     if not isinstance(d, dict):
         raise TypeError(f"d must be a dictionary, got {type(d).__name__}")
 
-    inverted = {}
-    duplicates = []
+    inverted: dict[Any, Any] = {}
+    duplicates: list[Any] = []
 
     for key, value in d.items():
         if value in inverted:

@@ -1,3 +1,5 @@
+"""Print system information to terminal."""
+
 import platform
 import shutil
 import subprocess

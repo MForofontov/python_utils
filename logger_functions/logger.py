@@ -1,4 +1,4 @@
-"""Utilities for creating module-specific loggers and validating logger instances."""
+"""Module-specific loggers and logger instance validation."""
 
 import logging
 from logging import Logger, NullHandler

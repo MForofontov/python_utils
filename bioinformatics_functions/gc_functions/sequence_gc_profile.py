@@ -1,3 +1,4 @@
+"""Calculate GC content profile across sequences."""
 
 
 def sequence_gc_profile(seq: str, window: int) -> list[float]:

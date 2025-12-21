@@ -1,3 +1,6 @@
+"""Calculate GC content using sliding windows."""
+
+
 def gc_content_windows(
     seq: str, window_size: int = 100, step_size: int | None = None
 ) -> list[tuple[int, int, float]]:

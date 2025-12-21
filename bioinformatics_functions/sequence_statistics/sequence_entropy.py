@@ -1,3 +1,5 @@
+"""Calculate Shannon entropy of sequences."""
+
 import math
 
 
@@ -33,7 +35,7 @@ def sequence_entropy(seq: str) -> float:
         raise TypeError(f"seq must be str, got {type(seq).__name__}")
     if not seq:
         raise ValueError("Sequence must not be empty")
-    freq = {}
+    freq: dict[str, int] = {}
     for base in seq:
         freq[base] = freq.get(base, 0) + 1
     entropy = 0.0

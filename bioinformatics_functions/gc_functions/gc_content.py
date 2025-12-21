@@ -1,3 +1,6 @@
+"""Calculate GC content percentage of DNA sequences."""
+
+
 def gc_content(seq: str) -> float:
     """
     Calculate GC content percentage of a DNA sequence.

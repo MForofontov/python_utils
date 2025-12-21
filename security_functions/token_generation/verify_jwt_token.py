@@ -1,9 +1,4 @@
-"""
-JWT token verification.
-
-This module provides functions for verifying and decoding JSON Web Tokens (JWT)
-using HMAC-SHA256 algorithm.
-"""
+"""JWT token verification."""
 
 import base64
 import hashlib
@@ -127,7 +122,7 @@ def verify_jwt_token(
         if current_timestamp >= exp_timestamp:
             raise ValueError("token has expired")
 
-    return payload
+    return payload  # type: ignore[no-any-return]
 
 
 __all__ = ["verify_jwt_token"]

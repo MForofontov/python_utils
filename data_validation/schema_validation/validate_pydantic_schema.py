@@ -1,12 +1,4 @@
-"""
-Schema validation utility using Pydantic for complex data structure validation.
-
-This module provides comprehensive schema validation using Pydantic models
-for validating complex nested data structures, API payloads, and configuration
-objects. The helper supports both Pydantic v1 and v2 by dynamically
-configuring models to respect ``allow_extra`` and ``strict`` options for the
-requested runtime.
-"""
+"""Schema validation using Pydantic for complex data structures."""
 
 from dataclasses import dataclass
 from typing import Any, TypeVar
@@ -18,9 +10,9 @@ try:
     PYDANTIC_AVAILABLE = True
 except ImportError:
     # Fallback classes when pydantic is not available
-    BaseModel = object
-    ValidationError = Exception
-    pydantic_dataclass = dataclass
+    BaseModel = object  # type: ignore[assignment,misc]
+    ValidationError = Exception  # type: ignore[assignment,misc]
+    pydantic_dataclass = dataclass  # type: ignore[assignment]
     PYDANTIC_AVAILABLE = False
 
 try:
@@ -28,7 +20,7 @@ try:
 
     HAS_CONFIG_DICT = True
 except ImportError:
-    ConfigDict = None  # type: ignore[assignment]
+    ConfigDict = None  # type: ignore[assignment,misc]
     HAS_CONFIG_DICT = False
 
 T = TypeVar("T")
@@ -161,7 +153,7 @@ def validate_pydantic_schema(
                     configured_model = type(
                         f"{schema_model.__name__}Configured",
                         (schema_model,),
-                        {"model_config": ConfigDict(**config_dict)},
+                        {"model_config": ConfigDict(**config_dict)},  # type: ignore[typeddict-item]
                     )
             else:
                 config_attrs: dict[str, Any] = {
@@ -191,7 +183,7 @@ def validate_pydantic_schema(
         if isinstance(data, dict):
             validated_instance = configured_model(**data)
         else:
-            validated_instance = configured_model(data)
+            validated_instance = configured_model(data)  # type: ignore[call-arg]
 
         return validated_instance
 

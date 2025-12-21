@@ -188,7 +188,7 @@ class StreamingAggregator:
         >>> round(agg.std_dev, 2)
         2.58
         """
-        return self.variance**0.5
+        return self.variance**0.5  # type: ignore[no-any-return]
 
     def get_stats(self) -> dict[str, Any]:
         """

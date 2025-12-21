@@ -1,8 +1,4 @@
-"""
-Get combinations with replacement from a set.
-
-This module provides a utility for generating combinations with replacement from sets.
-"""
+"""Get combinations with replacement from a set."""
 
 import itertools
 from typing import TypeVar
@@ -72,7 +68,7 @@ def get_combinations_with_replacement(input_set: set[T], r: int) -> list[list[T]
         return []
 
     # Generate combinations with replacement
-    elements = sorted(list(input_set))
+    elements = sorted(list(input_set))  # type: ignore[type-var]
     combinations = [
         list(comb) for comb in itertools.combinations_with_replacement(elements, r)
     ]

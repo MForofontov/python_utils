@@ -1,3 +1,5 @@
+"""Async function chaining utilities."""
+
 from collections.abc import Awaitable, Callable
 from typing import TypeVar, cast
 

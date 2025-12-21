@@ -1,3 +1,5 @@
+"""Dictionary sorting by tuple keys."""
+
 from collections import OrderedDict
 from typing import Any
 

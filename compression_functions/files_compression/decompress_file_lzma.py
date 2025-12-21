@@ -1,3 +1,5 @@
+"""LZMA file decompression."""
+
 import lzma
 import os
 import stat

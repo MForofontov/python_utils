@@ -1,3 +1,5 @@
+"""Get system hostname."""
+
 import socket
 
 

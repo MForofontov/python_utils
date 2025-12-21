@@ -1,3 +1,5 @@
+"""Subsample FASTA sequences randomly."""
+
 import random
 from collections.abc import Iterator
 

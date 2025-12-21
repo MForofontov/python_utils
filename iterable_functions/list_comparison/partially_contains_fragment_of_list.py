@@ -1,3 +1,5 @@
+"""Check if list partially contains a fragment."""
+
 from typing import Any
 
 

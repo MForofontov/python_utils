@@ -1,3 +1,5 @@
+"""Snappy decompression for binary data."""
+
 import snappy
 
 

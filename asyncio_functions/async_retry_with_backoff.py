@@ -1,3 +1,5 @@
+"""Async retry with exponential backoff."""
+
 import asyncio
 from collections.abc import Awaitable, Callable
 from typing import TypeVar

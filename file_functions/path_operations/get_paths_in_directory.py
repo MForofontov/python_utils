@@ -1,3 +1,5 @@
+"""Directory path listing utilities."""
+
 import os
 from collections.abc import Callable
 

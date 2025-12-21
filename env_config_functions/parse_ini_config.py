@@ -1,3 +1,5 @@
+"""INI configuration file parsing."""
+
 import configparser
 from collections.abc import Callable
 from typing import Any

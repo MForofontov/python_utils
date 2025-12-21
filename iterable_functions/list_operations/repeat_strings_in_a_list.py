@@ -1,3 +1,6 @@
+"""Create list with repeated string."""
+
+
 def repeat_strings_in_a_list(string: str, times: int) -> list[str]:
     """
     Creates a list where a given string is repeated a specified number of times.

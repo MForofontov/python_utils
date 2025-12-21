@@ -1,6 +1,4 @@
-"""
-Module for executing shell commands.
-"""
+"""Shell command execution."""
 
 import subprocess
 from typing import Any

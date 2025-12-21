@@ -1,3 +1,5 @@
+"""Parallel processing utilities using multiprocessing."""
+
 from .parallel_accumulate import parallel_accumulate
 from .parallel_apply_with_args import parallel_apply_with_args
 from .parallel_broadcast import parallel_broadcast

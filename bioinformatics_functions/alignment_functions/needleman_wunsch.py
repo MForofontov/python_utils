@@ -1,3 +1,6 @@
+"""Global sequence alignment using Needleman-Wunsch algorithm."""
+
+
 def needleman_wunsch(
     seq1: str, seq2: str, match: int = 1, mismatch: int = -1, gap: int = -1
 ) -> tuple[int, str, str]:

@@ -1,3 +1,6 @@
+"""Convert TSV files to dictionary format."""
+
+
 def tsv_to_dict(
     file_path: str, skip_header: bool = False, sep: str = "\t"
 ) -> dict[str, list[str]]:

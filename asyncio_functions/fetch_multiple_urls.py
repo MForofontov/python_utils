@@ -1,3 +1,5 @@
+"""Fetch multiple URLs concurrently."""
+
 import asyncio
 
 import aiohttp

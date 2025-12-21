@@ -1,3 +1,4 @@
+"""Translate DNA to protein sequences."""
 
 
 def translate_dna_to_protein(seq: str) -> str:

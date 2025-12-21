@@ -1,8 +1,4 @@
-"""
-Set power set as lists utilities.
-
-This module provides utilities for generating power sets of sets as lists.
-"""
+"""Set power set as lists utilities."""
 
 from typing import TypeVar
 
@@ -56,7 +52,7 @@ def set_power_set_as_lists(input_set: set[T]) -> list[list[T]]:
     # Convert to list for indexing
     elements = list(input_set)
     try:
-        elements = sorted(elements)
+        elements = sorted(elements)  # type: ignore[type-var]
     except TypeError:
         pass  # If elements are not comparable, skip sorting
     n = len(elements)

@@ -1,3 +1,5 @@
+"""Periodic async task execution utilities."""
+
 import asyncio
 from collections.abc import Awaitable, Callable
 

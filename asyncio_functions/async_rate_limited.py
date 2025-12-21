@@ -1,3 +1,5 @@
+"""Rate-limited async function execution."""
+
 import asyncio
 import time
 from collections import deque

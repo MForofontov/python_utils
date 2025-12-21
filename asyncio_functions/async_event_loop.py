@@ -1,3 +1,5 @@
+"""Async event loop management utilities."""
+
 import asyncio
 from collections.abc import Awaitable, Callable
 from typing import TypeVar

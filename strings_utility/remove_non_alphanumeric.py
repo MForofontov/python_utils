@@ -1,3 +1,6 @@
+"""Remove all non-alphanumeric characters."""
+
+
 def remove_non_alphanumeric(s: str) -> str:
     """
     Remove all non-alphanumeric characters from a string.

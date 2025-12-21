@@ -1,3 +1,6 @@
+"""Count consonants in string."""
+
+
 def count_consonants(s: str) -> int:
     """
     Count the number of consonants in a string (English).

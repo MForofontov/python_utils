@@ -1,3 +1,5 @@
+"""Convert GenBank format to FASTA format."""
+
 import re
 
 

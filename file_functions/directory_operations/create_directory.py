@@ -1,3 +1,5 @@
+"""Directory creation utilities."""
+
 import os
 
 

@@ -1,3 +1,5 @@
+"""File concatenation utilities."""
+
 import shutil
 
 

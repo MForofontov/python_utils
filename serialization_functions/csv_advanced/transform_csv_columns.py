@@ -198,7 +198,7 @@ def transform_csv_columns(
                 # Apply filter
                 if filter_func:
                     try:
-                        if not filter_func(selected_row):
+                        if not filter_func(selected_row):  # type: ignore[arg-type]
                             continue
                     except Exception as e:
                         raise ValueError(f"Error in filter function: {e}") from e

@@ -1,8 +1,4 @@
-"""
-Set symmetric difference utilities.
-
-This module provides utilities for working with symmetric differences of sets.
-"""
+"""Set symmetric difference utilities."""
 
 from typing import TypeVar
 

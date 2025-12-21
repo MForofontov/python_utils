@@ -1,3 +1,5 @@
+"""Find common elements across multiple lists."""
+
 from typing import TypeVar
 
 T = TypeVar("T")

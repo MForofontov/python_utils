@@ -72,7 +72,7 @@ def extract_next_page(
     
     next_link = element.select_one(selector)
     if next_link and next_link.has_attr(attribute):
-        return next_link[attribute]
+        return next_link[attribute]  # type: ignore[return-value]
     
     return None
 

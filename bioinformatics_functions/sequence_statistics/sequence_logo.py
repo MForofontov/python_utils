@@ -1,3 +1,5 @@
+"""Generate sequence logo data for visualization."""
+
 from collections.abc import Sequence
 
 import numpy as np

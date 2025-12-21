@@ -1,8 +1,4 @@
-"""
-Set cartesian product as list utilities.
-
-This module provides utilities for computing cartesian products of sets as lists.
-"""
+"""Set cartesian product as list utilities."""
 
 import itertools
 from typing import TypeVar

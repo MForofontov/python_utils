@@ -1,3 +1,6 @@
+"""Replace multiple substrings with specified replacements."""
+
+
 def replace_multiple_substrings(s: str, replacements: dict[str, str]) -> str:
     """
     Replace multiple substrings in a string with specified replacements.

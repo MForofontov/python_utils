@@ -1,6 +1,4 @@
-"""
-Module for getting the current system user.
-"""
+"""Current system user retrieval."""
 
 import getpass
 

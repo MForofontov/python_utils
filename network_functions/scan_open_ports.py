@@ -1,3 +1,5 @@
+"""Port scanning utility."""
+
 import socket
 
 
