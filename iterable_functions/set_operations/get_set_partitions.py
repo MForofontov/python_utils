@@ -114,13 +114,12 @@ def get_set_partitions(input_set: set[T], k: int) -> list[list[set[T]]]:
     unique_partitions: list[list[set[T]]] = []
     seen: set[frozenset[frozenset[T]]] = set()
 
-    partition: list[set[T]]
-    for partition in set_partitions:
+    for partition in set_partitions:  # type: ignore[assignment]
         # Create a frozenset of frozensets for hashing
         partition_hash = frozenset(frozenset(s) for s in partition)
         if partition_hash not in seen:
             seen.add(partition_hash)
-            unique_partitions.append(partition)
+            unique_partitions.append(partition)  # type: ignore[arg-type]
 
     return unique_partitions
 

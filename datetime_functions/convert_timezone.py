@@ -67,7 +67,7 @@ def convert_timezone(
             except pytz.exceptions.UnknownTimeZoneError as exc:
                 raise ValueError(f"Unknown timezone: {from_timezone}") from exc
         else:
-            from_tz = from_timezone  # type: ignore[assignment]
+            from_tz = from_timezone
 
         # Localize the naive datetime
         dt = from_tz.localize(dt)
