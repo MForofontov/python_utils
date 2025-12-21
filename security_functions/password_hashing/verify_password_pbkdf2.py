@@ -1,8 +1,4 @@
-"""
-Password verification using PBKDF2 algorithm.
-
-This module provides secure password verification against PBKDF2 hashes.
-"""
+"""Password verification using PBKDF2 algorithm."""
 
 import hashlib
 

@@ -1,8 +1,4 @@
-"""
-Set partition utilities.
-
-This module provides utilities for partitioning sets into subsets.
-"""
+"""Set partition utilities."""
 
 from collections.abc import Callable
 from typing import TypeVar

@@ -1,8 +1,4 @@
-"""
-Set power set as lists utilities.
-
-This module provides utilities for generating power sets of sets as lists.
-"""
+"""Set power set as lists utilities."""
 
 from typing import TypeVar
 

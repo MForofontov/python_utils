@@ -1,12 +1,4 @@
-"""
-Schema validation utility using Pydantic for complex data structure validation.
-
-This module provides comprehensive schema validation using Pydantic models
-for validating complex nested data structures, API payloads, and configuration
-objects. The helper supports both Pydantic v1 and v2 by dynamically
-configuring models to respect ``allow_extra`` and ``strict`` options for the
-requested runtime.
-"""
+"""Schema validation using Pydantic for complex data structures."""
 
 from dataclasses import dataclass
 from typing import Any, TypeVar

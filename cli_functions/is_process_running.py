@@ -1,6 +1,4 @@
-"""
-Module for checking if a process is running.
-"""
+"""Process running status check."""
 
 import psutil
 

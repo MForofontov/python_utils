@@ -1,9 +1,4 @@
-"""
-Generate dependency graph for Python modules.
-
-This module provides functionality to analyze and visualize module dependencies
-within a Python project using AST parsing.
-"""
+"""Generate dependency graph for Python modules."""
 
 import ast
 from pathlib import Path

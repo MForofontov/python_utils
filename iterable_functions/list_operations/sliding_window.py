@@ -1,8 +1,4 @@
-"""
-Create sliding windows from a list.
-
-This module provides utilities for creating sliding windows of specified size.
-"""
+"""Create sliding windows from a list."""
 
 from collections.abc import Iterator
 from typing import TypeVar

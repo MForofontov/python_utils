@@ -1,9 +1,4 @@
-"""
-Safe type casting utilities.
-
-This module provides utilities for safely casting values to different types
-with fallback options.
-"""
+"""Safe type casting utilities."""
 
 from typing import Any, TypeVar
 

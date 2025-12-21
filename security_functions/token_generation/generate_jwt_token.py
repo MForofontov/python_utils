@@ -1,9 +1,4 @@
-"""
-JWT token generation and verification.
-
-This module provides functions for generating and verifying JSON Web Tokens (JWT)
-using HMAC-SHA256 algorithm for secure token-based authentication.
-"""
+"""JWT token generation and verification."""
 
 import base64
 import hashlib

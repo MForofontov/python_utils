@@ -1,8 +1,4 @@
-"""
-Excel to Parquet converter.
-
-Direct conversion from Excel to Parquet format with type inference.
-"""
+"""Excel to Parquet converter."""
 
 from pathlib import Path
 from typing import Any

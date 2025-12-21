@@ -1,6 +1,4 @@
-"""
-Module for getting network interface information.
-"""
+"""Network interface information retrieval."""
 
 import psutil
 

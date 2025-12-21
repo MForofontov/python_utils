@@ -1,10 +1,4 @@
-"""
-Simple XOR encryption and decryption.
-
-This module provides basic XOR encryption/decryption functions for educational
-purposes and simple obfuscation. Note: XOR encryption is not cryptographically
-secure and should not be used for protecting sensitive data.
-"""
+"""Simple XOR encryption and decryption."""
 
 import secrets
 

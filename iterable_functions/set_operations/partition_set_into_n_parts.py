@@ -1,8 +1,4 @@
-"""
-Partition set into n parts utilities.
-
-This module provides utilities for partitioning sets into n approximately equal-sized subsets.
-"""
+"""Partition set into n parts utilities."""
 
 from typing import TypeVar
 

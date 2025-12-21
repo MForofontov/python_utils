@@ -1,9 +1,4 @@
-"""
-Schema validation utility using Cerberus for dictionary-based data validation.
-
-This module provides comprehensive schema validation using Cerberus validator
-for validating dictionary structures with flexible schema definitions.
-"""
+"""Schema validation using Cerberus for dictionary-based data."""
 
 from typing import Any
 

@@ -1,9 +1,4 @@
-"""
-Value range validation utility for numeric and comparable values.
-
-This module provides comprehensive value range validation with support for
-minimum/maximum bounds, exclusive bounds, and custom comparison logic.
-"""
+"""Value range validation for numeric and comparable values."""
 
 from typing import TypeVar
 

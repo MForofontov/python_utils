@@ -1,8 +1,4 @@
-"""
-Set power set utilities.
-
-This module provides utilities for generating power sets of sets.
-"""
+"""Set power set utilities."""
 
 from typing import TypeVar
 

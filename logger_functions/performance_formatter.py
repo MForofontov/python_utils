@@ -1,8 +1,4 @@
-"""
-Performance-focused log formatter.
-
-Includes timing information and performance metrics in log output.
-"""
+"""Performance-focused log formatter."""
 
 import logging
 import time

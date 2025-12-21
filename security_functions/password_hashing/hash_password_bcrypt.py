@@ -1,9 +1,4 @@
-"""
-Bcrypt password hashing utility.
-
-This module provides secure password hashing using the bcrypt algorithm,
-which is designed to be slow and resistant to brute-force attacks.
-"""
+"""Bcrypt password hashing utility."""
 
 import bcrypt
 

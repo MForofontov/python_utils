@@ -1,9 +1,4 @@
-"""
-Collection validation utility for lists, sets, dictionaries, and other iterables.
-
-This module provides comprehensive validation for collection types including
-length validation, emptiness checks, and element type validation.
-"""
+"""Collection validation for lists, sets, and dictionaries."""
 
 from collections.abc import Iterable, Sized
 from typing import Any, TypeVar

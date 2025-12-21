@@ -1,9 +1,4 @@
-"""
-Find duplicate elements in a list with their counts.
-
-This module provides utilities for identifying and counting duplicate elements
-in various iterable types.
-"""
+"""Find duplicate elements in a list with their counts."""
 
 from collections import Counter
 from typing import TypeVar

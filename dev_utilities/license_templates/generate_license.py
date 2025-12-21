@@ -1,9 +1,4 @@
-"""
-Generate license files from templates.
-
-This module provides functionality to generate common open-source license files
-with customizable fields like year, author, and project name.
-"""
+"""Generate license files from templates."""
 
 from datetime import datetime
 from pathlib import Path

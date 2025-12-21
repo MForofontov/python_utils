@@ -1,8 +1,4 @@
-"""
-Group list elements by a key function.
-
-This module provides functionality to group elements of a list based on a key function.
-"""
+"""Group list elements by a key function."""
 
 from collections.abc import Callable
 from typing import TypeVar, cast

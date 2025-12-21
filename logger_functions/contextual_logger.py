@@ -1,8 +1,4 @@
-"""
-Contextual logger with built-in context support.
-
-Automatically includes contextual information in all log messages.
-"""
+"""Contextual logger with built-in context support."""
 
 import logging
 import threading

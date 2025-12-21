@@ -1,6 +1,4 @@
-"""
-Module for getting memory information.
-"""
+"""Memory information retrieval."""
 
 import psutil
 

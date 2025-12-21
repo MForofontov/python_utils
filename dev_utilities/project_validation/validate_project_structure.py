@@ -1,9 +1,4 @@
-"""
-Validate Python project structure and conventions.
-
-This module provides functionality to validate that Python projects follow
-best practices and standard conventions.
-"""
+"""Validate Python project structure and conventions."""
 
 from pathlib import Path
 from typing import NamedTuple

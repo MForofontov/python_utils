@@ -1,8 +1,4 @@
-"""
-Get subsets of specific size utilities.
-
-This module provides utilities for getting subsets of a specific size from sets.
-"""
+"""Get subsets of specific size utilities."""
 
 from typing import TypeVar
 

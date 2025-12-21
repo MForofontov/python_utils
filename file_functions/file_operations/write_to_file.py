@@ -1,9 +1,4 @@
-"""
-Write data to file utility.
-
-This module provides a function to write text data to files with various modes
-and options for end characters.
-"""
+"""Write data to file utility."""
 
 
 def write_to_file(

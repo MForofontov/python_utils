@@ -1,6 +1,4 @@
-"""
-Module for getting system uptime.
-"""
+"""System uptime retrieval."""
 
 import time
 

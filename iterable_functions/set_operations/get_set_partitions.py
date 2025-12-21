@@ -1,8 +1,4 @@
-"""
-Get set partitions utilities.
-
-This module provides utilities for generating all possible ways to partition a set into k non-empty subsets.
-"""
+"""Get set partitions utilities."""
 
 from typing import TypeVar
 

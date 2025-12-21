@@ -1,8 +1,4 @@
-"""
-Get permutations from a set.
-
-This module provides a utility for generating permutations from sets.
-"""
+"""Get permutations from a set."""
 
 import itertools
 from typing import TypeVar

@@ -1,10 +1,4 @@
-"""
-URL-safe token generation.
-
-This module provides functions for generating URL-safe tokens that can be
-safely used in URLs, file names, and other contexts where special characters
-might cause issues.
-"""
+"""URL-safe token generation."""
 
 import base64
 import secrets

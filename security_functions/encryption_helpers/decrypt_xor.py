@@ -1,9 +1,4 @@
-"""
-Simple XOR decryption.
-
-This module provides XOR decryption functions that work with data encrypted
-using the encrypt_xor function.
-"""
+"""Simple XOR decryption."""
 
 
 def decrypt_xor(

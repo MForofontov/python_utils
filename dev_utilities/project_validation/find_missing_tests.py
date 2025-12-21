@@ -1,9 +1,4 @@
-"""
-Find source files without corresponding test files.
-
-This module provides functionality to identify Python source files that are
-missing test coverage by checking for corresponding test files.
-"""
+"""Find source files without corresponding test files."""
 
 from pathlib import Path
 from typing import NamedTuple

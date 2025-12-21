@@ -1,9 +1,4 @@
-"""
-JWT token verification.
-
-This module provides functions for verifying and decoding JSON Web Tokens (JWT)
-using HMAC-SHA256 algorithm.
-"""
+"""JWT token verification."""
 
 import base64
 import hashlib

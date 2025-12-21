@@ -1,9 +1,4 @@
-"""
-Count lines of code in Python files.
-
-This module provides functionality to count different types of lines in Python
-source code, including source lines, comments, blank lines, and docstrings.
-"""
+"""Count lines of code in Python files."""
 
 import tokenize
 from pathlib import Path

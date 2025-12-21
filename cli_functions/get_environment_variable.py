@@ -1,6 +1,4 @@
-"""
-Module for getting environment variables.
-"""
+"""Environment variable retrieval."""
 
 import os
 

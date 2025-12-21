@@ -1,6 +1,4 @@
-"""
-Module for checking if a command exists in the system PATH.
-"""
+"""Command existence check in system PATH."""
 
 import shutil
 

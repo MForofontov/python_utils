@@ -1,8 +1,4 @@
-"""
-Excel structure validation.
-
-Validates Excel sheets against schema requirements with detailed error reporting.
-"""
+"""Excel structure validation."""
 
 from pathlib import Path
 from typing import Any

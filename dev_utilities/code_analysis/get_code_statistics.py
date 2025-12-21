@@ -1,9 +1,4 @@
-"""
-Get code statistics and metrics for Python projects.
-
-This module provides functionality to analyze Python projects and generate
-comprehensive statistics about code structure, complexity, and organization.
-"""
+"""Get code statistics and metrics for Python projects."""
 
 import ast
 from pathlib import Path

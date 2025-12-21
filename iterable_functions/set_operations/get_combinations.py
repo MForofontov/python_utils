@@ -1,8 +1,4 @@
-"""
-Get combinations from a set.
-
-This module provides a utility for generating combinations from sets.
-"""
+"""Get combinations from a set."""
 
 import itertools
 from typing import TypeVar
