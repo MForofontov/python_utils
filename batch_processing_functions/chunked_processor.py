@@ -238,7 +238,7 @@ class ChunkedProcessor:
         >>> list(cp.process([1, 2, 3]))
         [2, 4, 6]
         """
-        return chunked_processor(
+        return chunked_processor(  # type: ignore[arg-type]
             items,
             self.processor,
             chunk_size=self.chunk_size,

@@ -63,7 +63,7 @@ def _get_fallback_public_ip() -> str:
             # The IP address doesn't need to be reachable; we just use it to
             # determine the preferred outbound interface.
             sock.connect(("8.8.8.8", 80))
-            ip = sock.getsockname()[0]
+            ip: str = str(sock.getsockname()[0])
         if _is_valid_ipv4(ip):
             return ip
     except OSError:

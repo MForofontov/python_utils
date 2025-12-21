@@ -82,7 +82,7 @@ def cache_with_expiration(
                 if key in cached_results:
                     cached_time, cached_value = cached_results[key]
                     if current_time - cached_time < expiration_time:
-                        return cached_value
+                        return cached_value  # type: ignore[no-any-return]
                 result = func(*args, **kwargs)
                 cached_results[key] = (current_time, result)
             except TypeError as exc:
@@ -94,7 +94,7 @@ def cache_with_expiration(
             """Clear the cache."""
             cached_results.clear()
 
-        wrapper.cache_clear = cache_clear
+        wrapper.cache_clear = cache_clear  # type: ignore[attr-defined]
 
         return cast(Callable[P, R], wrapper)
 

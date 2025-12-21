@@ -70,7 +70,7 @@ def get_set_partitions(input_set: set[T], k: int) -> list[list[set[T]]]:
         raise ValueError(f"k cannot be greater than set size {len(input_set)}, got {k}")
 
     # Convert to sorted list for consistent ordering
-    elements = sorted(list(input_set))
+    elements = sorted(list(input_set))  # type: ignore[type-var]
 
     def generate_partitions(remaining: list[T], num_parts: int) -> list[list[list[T]]]:
         """Recursive helper to generate partitions."""
@@ -104,16 +104,17 @@ def get_set_partitions(input_set: set[T], k: int) -> list[list[set[T]]]:
 
     # Generate partitions and convert to sets
     raw_partitions = generate_partitions(elements, k)
-    set_partitions = []
+    set_partitions: list[list[set[T]]] = []
 
     for partition in raw_partitions:
-        set_partition = [set(subset) for subset in partition]
+        set_partition: list[set[T]] = [set(subset) for subset in partition]
         set_partitions.append(set_partition)
 
     # Remove duplicates (since we're dealing with sets)
-    unique_partitions = []
-    seen = set()
+    unique_partitions: list[list[set[T]]] = []
+    seen: set[frozenset[frozenset[T]]] = set()
 
+    partition: list[set[T]]
     for partition in set_partitions:
         # Create a frozenset of frozensets for hashing
         partition_hash = frozenset(frozenset(s) for s in partition)

@@ -73,7 +73,7 @@ def manipulate_output(
             """
             result = func(*args, **kwargs)
             manipulated_result = manipulation_func(result)
-            return manipulated_result
+            return manipulated_result  # type: ignore[no-any-return]
 
         return wrapper
 

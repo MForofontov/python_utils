@@ -67,7 +67,7 @@ def read_parquet(
     table = pq.read_table(file_path, columns=columns)
     
     # Convert to list of dicts
-    return table.to_pylist()
+    return table.to_pylist()  # type: ignore[no-any-return]
 
 
 __all__ = ['read_parquet']

@@ -76,7 +76,7 @@ def get_subsets_of_size(input_set: set[T], size: int) -> list[list[T]]:
 
     elements = list(input_set)
     try:
-        elements = sorted(elements)
+        elements = sorted(elements)  # type: ignore[type-var]
         subsets = [list(comb) for comb in combinations(elements, size)]
         subsets.sort()
     except TypeError:

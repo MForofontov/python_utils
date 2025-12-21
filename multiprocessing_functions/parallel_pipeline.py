@@ -7,7 +7,7 @@ T = TypeVar("T")
 R = TypeVar("R")
 
 
-def _apply_pipeline(args: tuple[T, list[Callable[[T], T]]]) -> R:
+def _apply_pipeline(args: tuple[T, list[Callable[[T], T]]]) -> T:
     """Apply a pipeline of functions to ``item``."""
     item, funcs = args
     for func in funcs:
@@ -17,7 +17,7 @@ def _apply_pipeline(args: tuple[T, list[Callable[[T], T]]]) -> R:
 
 def parallel_pipeline(
     funcs: list[Callable[[T], T]], data: list[T], num_processes: int | None = None
-) -> list[R]:
+) -> list[T]:
     """
     Apply multiple functions in a pipeline to a list of items in parallel.
 

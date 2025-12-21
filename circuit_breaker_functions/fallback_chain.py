@@ -185,7 +185,7 @@ class FallbackChain:
         self.primary = primary
         self.fallbacks = fallbacks
 
-    def execute(self, *args: Any, **kwargs: Any) -> T:
+    def execute(self, *args: Any, **kwargs: Any) -> T:  # type: ignore[type-var]
         """
         Execute the fallback chain.
 
@@ -212,7 +212,7 @@ class FallbackChain:
         >>> chain.execute()
         'a'
         """
-        return fallback_chain(self.primary, self.fallbacks, *args, **kwargs)
+        return fallback_chain(self.primary, self.fallbacks, *args, **kwargs)  # type: ignore[return-value]
 
     def add_fallback(self, fallback: Callable[[], T]) -> None:
         """
@@ -237,7 +237,7 @@ class FallbackChain:
         """
         if not callable(fallback):
             raise TypeError(f"fallback must be callable, got {type(fallback).__name__}")
-        self.fallbacks.append(fallback)
+        self.fallbacks.append(fallback)  # type: ignore[arg-type]
 
 
 __all__ = ["fallback_chain", "FallbackChain"]

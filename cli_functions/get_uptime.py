@@ -22,7 +22,7 @@ def get_uptime() -> float:
     >>> uptime > 0
     True
     """
-    return time.time() - psutil.boot_time()
+    return time.time() - psutil.boot_time()  # type: ignore[no-any-return]
 
 
 __all__ = ['get_uptime']

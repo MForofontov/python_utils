@@ -660,7 +660,7 @@ class Pipeline:
 
             items = list(data)
             if sort_first:
-                items = sorted(items, key=key)
+                items = sorted(items, key=key)  # type: ignore[arg-type]
 
             return groupby(items, key=key)
 

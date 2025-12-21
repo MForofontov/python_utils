@@ -127,7 +127,7 @@ def verify_jwt_token(
         if current_timestamp >= exp_timestamp:
             raise ValueError("token has expired")
 
-    return payload
+    return payload  # type: ignore[no-any-return]
 
 
 __all__ = ["verify_jwt_token"]

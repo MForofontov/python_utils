@@ -102,7 +102,7 @@ def validate_range(
     # Check that min_value <= max_value if both are provided
     if min_value is not None and max_value is not None:
         try:
-            if min_value > max_value:
+            if min_value > max_value:  # type: ignore[operator]
                 raise ValueError(
                     f"min_value ({min_value}) cannot be greater than max_value ({max_value})"
                 )
@@ -121,12 +121,12 @@ def validate_range(
     if min_value is not None:
         try:
             if min_inclusive:
-                if value < min_value:
+                if value < min_value:  # type: ignore[operator]
                     raise ValueError(
                         f"{param_name} must be >= {min_value}, got {value}"
                     )
             else:
-                if value <= min_value:
+                if value <= min_value:  # type: ignore[operator]
                     raise ValueError(f"{param_name} must be > {min_value}, got {value}")
         except TypeError as e:
             raise TypeError(
@@ -138,12 +138,12 @@ def validate_range(
     if max_value is not None:
         try:
             if max_inclusive:
-                if value > max_value:
+                if value > max_value:  # type: ignore[operator]
                     raise ValueError(
                         f"{param_name} must be <= {max_value}, got {value}"
                     )
             else:
-                if value >= max_value:
+                if value >= max_value:  # type: ignore[operator]
                     raise ValueError(f"{param_name} must be < {max_value}, got {value}")
         except TypeError as e:
             raise TypeError(

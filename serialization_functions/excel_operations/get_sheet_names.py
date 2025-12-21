@@ -53,7 +53,7 @@ def get_sheet_names(file_path: str) -> list[str]:
     sheet_names = wb.sheetnames
     wb.close()
     
-    return sheet_names
+    return sheet_names  # type: ignore[no-any-return]
 
 
 __all__ = ['get_sheet_names']

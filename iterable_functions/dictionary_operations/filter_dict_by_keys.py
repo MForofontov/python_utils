@@ -35,8 +35,8 @@ from typing import Any
 
 def filter_dict_by_keys(
     d: dict[str, Any],
-    keys: list[str] | set[str] = None,
-    pattern: str = None,
+    keys: list[str] | set[str] | None = None,
+    pattern: str | None = None,
     invert: bool = False,
 ) -> dict[str, Any]:
     """

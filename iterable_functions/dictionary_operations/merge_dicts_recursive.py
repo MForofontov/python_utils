@@ -56,7 +56,7 @@ def merge_dicts_recursive(*dicts: dict[str, Any]) -> dict[str, Any]:
     if not all(isinstance(d, dict) for d in dicts):
         raise TypeError("All arguments must be dictionaries")
 
-    result = {}
+    result: dict[Any, Any] = {}
 
     for d in dicts:
         for key, value in d.items():

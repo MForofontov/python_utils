@@ -68,8 +68,8 @@ def invert_dict(d: dict[str, Any], allow_duplicates: bool = False) -> dict[Any, 
     if not isinstance(d, dict):
         raise TypeError(f"d must be a dictionary, got {type(d).__name__}")
 
-    inverted = {}
-    duplicates = []
+    inverted: dict[Any, Any] = {}
+    duplicates: list[Any] = []
 
     for key, value in d.items():
         if value in inverted:

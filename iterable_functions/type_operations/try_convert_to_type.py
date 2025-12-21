@@ -30,7 +30,7 @@ def try_convert_to_type(value: Any, target_type: type[T]) -> T:
         raise TypeError("target_type must be a type")
 
     try:
-        return target_type(value)
+        return target_type(value)  # type: ignore[call-arg]
     except (ValueError, TypeError) as e:
         raise ValueError(f"Failed to convert {value} to {target_type}") from e
 

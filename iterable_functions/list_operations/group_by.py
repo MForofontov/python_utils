@@ -5,7 +5,7 @@ This module provides functionality to group elements of a list based on a key fu
 """
 
 from collections.abc import Callable
-from typing import TypeVar
+from typing import TypeVar, cast
 
 T = TypeVar("T")
 K = TypeVar("K")
@@ -81,7 +81,7 @@ def group_by(
     for item in items:
         if key_func is None:
             # Use item itself as key (for grouping duplicates)
-            key = item  # type: ignore
+            key = cast(K, item)
         else:
             key = key_func(item)
 

@@ -23,7 +23,7 @@ def fasta_stats(fasta_str: str) -> tuple[int, float, float]:
     """
     num = 0
     total_len = 0
-    total_gc = 0
+    total_gc: float = 0.0
     for _, seq in parse_fasta(fasta_str):
         num += 1
         total_len += len(seq)

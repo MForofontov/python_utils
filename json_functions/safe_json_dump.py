@@ -8,7 +8,7 @@ def safe_json_dump(
     obj: Any,
     default: T | None = None,
     encoder: type[json.JSONEncoder] | None = None,
-    **kwargs,
+    **kwargs: Any,
 ) -> str | T:
     """
     Safely dump an object to a JSON string, returning a default value on error.
@@ -44,4 +44,4 @@ def safe_json_dump(
             else json.dumps(obj, **kwargs)
         )
     except (TypeError, ValueError):
-        return default
+        return default  # type: ignore[return-value]

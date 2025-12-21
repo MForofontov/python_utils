@@ -70,7 +70,10 @@ def select_by_css(
     if limit is not None and limit <= 0:
         raise ValueError(f"limit must be positive, got {limit}")
     
-    results = element.select(selector, limit=limit)
+    if limit is not None:
+        results = element.select(selector, limit=limit)
+    else:
+        results = element.select(selector)
     return results
 
 

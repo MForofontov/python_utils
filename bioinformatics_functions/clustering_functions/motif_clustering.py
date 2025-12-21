@@ -49,7 +49,7 @@ def motif_clustering(motifs: Sequence[str], n_clusters: int = 2) -> list[int]:
             X[i, idx] = 1
     kmeans = KMeans(n_clusters=n_clusters, n_init=10)
     labels = kmeans.fit_predict(X)
-    return labels.tolist()
+    return labels.tolist()  # type: ignore[no-any-return]
 
 
 __all__ = ["motif_clustering"]

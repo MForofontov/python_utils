@@ -83,7 +83,7 @@ async def async_parallel_download(
                 start += chunk_len
 
             # Download chunks in parallel
-            async def fetch_chunk(start, end, idx):
+            async def fetch_chunk(start: int, end: int, idx: int) -> tuple[int, bytes]:
                 headers = {"Range": f"bytes={start}-{end}"}
                 async with session.get(url, headers=headers) as resp:
                     resp.raise_for_status()

@@ -78,6 +78,7 @@ def stream_csv_chunks(
         raise ValueError(f"chunk_size must be positive, got {chunk_size}")
     
     with open(input_path, 'r', encoding=encoding, newline='') as csvfile:
+        reader: Any
         if use_dict:
             reader = csv.DictReader(csvfile, **kwargs)
         else:

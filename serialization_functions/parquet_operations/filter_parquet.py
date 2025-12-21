@@ -125,7 +125,7 @@ def filter_parquet(
     if columns is not None:
         filtered_table = filtered_table.select(columns)
     
-    return filtered_table.to_pylist()
+    return filtered_table.to_pylist()  # type: ignore[no-any-return]
 
 
 __all__ = ['filter_parquet']
