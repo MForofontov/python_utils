@@ -1,3 +1,5 @@
+"""Compare two datetime objects."""
+
 from datetime import datetime
 
 

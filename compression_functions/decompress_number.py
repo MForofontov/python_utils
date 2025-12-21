@@ -1,3 +1,6 @@
+"""Decompress numbers from polyline-encoded strings."""
+
+
 def decompress_number(text: str, index: int) -> tuple[int, int]:
     """
     Decompress a number from a polyline-encoded string.

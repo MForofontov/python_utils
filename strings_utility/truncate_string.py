@@ -1,3 +1,6 @@
+"""Truncate string to specified length."""
+
+
 def truncate_string(s: str, length: int) -> str:
     """
     Truncate a string to a specified length.

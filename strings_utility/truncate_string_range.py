@@ -1,3 +1,6 @@
+"""Truncate string to specified range."""
+
+
 def truncate_string_range(s: str, start: int, end: int) -> str:
     """
     Truncate a string to a specified range.

@@ -1,3 +1,5 @@
+"""Attempt type conversion with fallback."""
+
 from typing import Any, TypeVar
 
 T = TypeVar("T")

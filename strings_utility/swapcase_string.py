@@ -1,3 +1,6 @@
+"""Swap case of each character in string."""
+
+
 def swapcase_string(s: str) -> str:
     """
     Swap the case of each character in a string.

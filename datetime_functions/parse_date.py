@@ -1,3 +1,5 @@
+"""Parse date string into datetime object."""
+
 from datetime import datetime
 
 

@@ -1,3 +1,6 @@
+"""Strip specified characters from both ends."""
+
+
 def strip_chars(s: str, chars: str) -> str:
     """
     Strip specified characters from both ends of a string.

@@ -1,3 +1,6 @@
+"""Replace tab characters with spaces."""
+
+
 def replace_tabs(s: str, tabsize: int = 4) -> str:
     """
     Replace all tab characters in a string with a specified number of spaces.

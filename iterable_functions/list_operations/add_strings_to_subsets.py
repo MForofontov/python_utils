@@ -1,3 +1,6 @@
+"""Add strings to subsets using clustering algorithm."""
+
+
 def add_strings_to_subsets(my_list: list[set[str]], my_strings: list[str]) -> bool:
     """
     Clustering algorithm that finds a string in a list of strings in

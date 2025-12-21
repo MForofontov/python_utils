@@ -1,3 +1,5 @@
+"""Format datetime object as string."""
+
 from datetime import datetime
 
 

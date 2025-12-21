@@ -1,3 +1,5 @@
+"""Get first day of month for given date."""
+
 from datetime import date, datetime
 
 

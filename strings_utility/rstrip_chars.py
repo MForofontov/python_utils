@@ -1,3 +1,6 @@
+"""Strip specified characters from right end."""
+
+
 def rstrip_chars(s: str, chars: str) -> str:
     """
     Strip specified characters from the right end of a string.

@@ -1,3 +1,6 @@
+"""Replace all occurrences of substring."""
+
+
 def replace_substring(s: str, old: str, new: str) -> str:
     """
     Replace all occurrences of a substring with another substring in a string.

@@ -1,3 +1,6 @@
+"""Pad numeric string with zeros on the left."""
+
+
 def zfill_string(s: str, width: int) -> str:
     """
     Pad a numeric string on the left with zeros to fill a field of the specified width.

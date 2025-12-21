@@ -1,3 +1,6 @@
+"""Repeat string specified number of times."""
+
+
 def repeat_string(s: str, n: int) -> str:
     """
     Repeat a string a specified number of times.
