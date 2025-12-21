@@ -1,3 +1,5 @@
+"""Dictionary to TSV file writing."""
+
 from itertools import zip_longest
 from typing import Any
 

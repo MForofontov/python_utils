@@ -1,3 +1,5 @@
+"""Path joining utilities."""
+
 import os
 
 

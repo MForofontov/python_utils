@@ -1,4 +1,6 @@
 from collections import Counter
+"""Find shared elements across multiple sets."""
+
 from typing import TypeVar
 
 T = TypeVar("T")

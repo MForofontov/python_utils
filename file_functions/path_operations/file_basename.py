@@ -1,3 +1,5 @@
+"""File basename extraction."""
+
 import os
 
 

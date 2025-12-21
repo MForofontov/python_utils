@@ -1,4 +1,6 @@
 import os
+"""Directory copying utilities."""
+
 import shutil
 
 

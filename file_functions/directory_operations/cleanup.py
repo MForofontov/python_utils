@@ -1,3 +1,5 @@
+"""Directory cleanup utilities."""
+
 import os
 import shutil
 

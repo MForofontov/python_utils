@@ -1,3 +1,5 @@
+"""Check if all list elements are duplicates."""
+
 from collections import Counter
 from typing import TypeVar
 

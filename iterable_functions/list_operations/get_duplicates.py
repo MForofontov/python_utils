@@ -1,3 +1,5 @@
+"""Extract duplicate elements from list."""
+
 from collections import Counter
 from typing import Any
 

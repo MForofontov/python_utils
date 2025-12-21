@@ -1,3 +1,5 @@
+"""File line reading utilities."""
+
 from itertools import islice
 
 

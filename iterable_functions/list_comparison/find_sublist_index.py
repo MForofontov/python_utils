@@ -1,3 +1,5 @@
+"""Find index of sublist in list."""
+
 from typing import Any
 
 

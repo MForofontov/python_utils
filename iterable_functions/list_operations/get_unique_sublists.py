@@ -1,3 +1,5 @@
+"""Extract unique sublists."""
+
 from typing import TypeVar
 
 T = TypeVar("T")

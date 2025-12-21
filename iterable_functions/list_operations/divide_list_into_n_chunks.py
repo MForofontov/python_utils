@@ -1,3 +1,5 @@
+"""Divide list into N equal chunks."""
+
 from typing import Any
 
 
