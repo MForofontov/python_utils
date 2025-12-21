@@ -1,3 +1,5 @@
+"""Get MAC address."""
+
 import uuid
 
 

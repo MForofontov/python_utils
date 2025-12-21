@@ -1,3 +1,5 @@
+"""Remove text matching regex pattern."""
+
 import re
 
 

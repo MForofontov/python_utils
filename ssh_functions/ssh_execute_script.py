@@ -1,3 +1,5 @@
+"""SSH script execution."""
+
 import subprocess
 from typing import Any
 

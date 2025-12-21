@@ -1,3 +1,5 @@
+"""Check if regex pattern exists in string."""
+
 import re
 
 

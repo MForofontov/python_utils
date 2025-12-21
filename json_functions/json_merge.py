@@ -1,3 +1,5 @@
+"""JSON merging utilities."""
+
 import copy
 from typing import Any
 

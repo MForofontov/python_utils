@@ -1,3 +1,5 @@
+"""Replace text matching regex pattern."""
+
 import re
 
 

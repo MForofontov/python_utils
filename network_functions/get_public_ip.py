@@ -1,3 +1,5 @@
+"""Get public IP address."""
+
 import socket
 from typing import Final
 

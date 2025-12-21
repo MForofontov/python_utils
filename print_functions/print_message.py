@@ -1,3 +1,5 @@
+"""Print formatted messages with logging integration."""
+
 import logging
 from datetime import datetime
 

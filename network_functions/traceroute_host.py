@@ -1,3 +1,5 @@
+"""Traceroute utility."""
+
 import subprocess
 
 

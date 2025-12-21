@@ -1,3 +1,5 @@
+"""Remove punctuation from string."""
+
 import string
 
 

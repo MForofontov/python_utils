@@ -1,3 +1,5 @@
+"""SSH connection verification."""
+
 import subprocess
 from typing import Any
 

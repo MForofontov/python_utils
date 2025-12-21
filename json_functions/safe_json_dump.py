@@ -1,3 +1,5 @@
+"""Safe JSON serialization with error handling."""
+
 import json
 from typing import Any, TypeVar
 

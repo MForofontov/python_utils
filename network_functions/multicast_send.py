@@ -1,3 +1,5 @@
+"""Multicast message sending."""
+
 import socket
 
 

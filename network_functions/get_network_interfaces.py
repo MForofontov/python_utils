@@ -1,5 +1,7 @@
 import socket
 
+"""Get network interfaces information."""
+
 import psutil
 
 

@@ -1,3 +1,5 @@
+"""Password strength verification."""
+
 import re
 from collections.abc import Callable, Iterable
 

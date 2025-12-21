@@ -1,3 +1,5 @@
+"""SSH file transfer utilities."""
+
 import subprocess
 from typing import Any
 
