@@ -399,6 +399,15 @@ from .strings_utility import (
     zfill_string,
 )
 
+from .url_functions import (
+    expand_url_template,
+    match_url_pattern,
+    merge_query_params,
+    normalize_url,
+    slugify_url,
+    validate_url_format,
+)
+
 # Version information
 __version__ = "1.0.0"
 __author__ = "Python Utils Contributors"
@@ -751,4 +760,11 @@ __all__ = [
     "sort_annotations",
     "annotation_to_bed",
     "annotation_statistics",
+    # URL functions
+    "expand_url_template",
+    "match_url_pattern",
+    "merge_query_params",
+    "normalize_url",
+    "slugify_url",
+    "validate_url_format",
 ]
