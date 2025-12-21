@@ -1,3 +1,5 @@
+"""LZMA file compression."""
+
 import lzma
 import os
 

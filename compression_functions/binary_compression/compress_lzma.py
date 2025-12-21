@@ -1,3 +1,5 @@
+"""LZMA compression for binary data."""
+
 import lzma
 
 

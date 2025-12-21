@@ -1,6 +1,8 @@
 from collections.abc import Callable
 from typing import Any
 
+"""YAML configuration file parsing."""
+
 import yaml
 
 

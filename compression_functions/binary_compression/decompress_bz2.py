@@ -1,3 +1,5 @@
+"""BZ2 decompression for binary data."""
+
 import bz2
 
 

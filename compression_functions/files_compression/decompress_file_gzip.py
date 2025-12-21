@@ -1,3 +1,5 @@
+"""GZIP file decompression."""
+
 import gzip
 import os
 import shutil

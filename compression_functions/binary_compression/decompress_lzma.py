@@ -1,3 +1,5 @@
+"""LZMA decompression for binary data."""
+
 import lzma
 
 

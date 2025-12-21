@@ -1,3 +1,5 @@
+"""Environment variable expansion in strings."""
+
 import os
 import re
 

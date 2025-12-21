@@ -1,3 +1,5 @@
+"""Data and file compression utilities."""
+
 from .binary_compression.compress_bz2 import compress_bz2
 from .binary_compression.compress_data import compress_data
 from .binary_compression.compress_gzip import compress_gzip

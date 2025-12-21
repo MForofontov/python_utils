@@ -1,3 +1,6 @@
+"""Polyline encoding for integer lists."""
+
+
 def polyline_encoding_list_of_ints(
     list_of_ints: list[int], precision: int = 0
 ) -> str:

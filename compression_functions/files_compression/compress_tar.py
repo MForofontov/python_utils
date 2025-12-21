@@ -1,3 +1,5 @@
+"""TAR archive compression."""
+
 import os
 import tarfile
 

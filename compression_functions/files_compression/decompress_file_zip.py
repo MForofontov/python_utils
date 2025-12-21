@@ -1,3 +1,5 @@
+"""ZIP archive decompression."""
+
 import os
 import stat
 import zipfile

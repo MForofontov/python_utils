@@ -1,3 +1,5 @@
+"""TAR archive decompression."""
+
 import os
 import stat
 import tarfile

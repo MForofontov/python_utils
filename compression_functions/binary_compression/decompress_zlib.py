@@ -1,3 +1,5 @@
+"""ZLIB decompression for binary data."""
+
 import base64
 import zlib
 

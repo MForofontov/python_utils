@@ -1,3 +1,5 @@
+"""Zstandard decompression for binary data."""
+
 import zstandard as zstd
 
 

@@ -1,3 +1,5 @@
+"""Polyline decoding for integer lists."""
+
 from compression_functions.decompress_number import decompress_number
 
 
