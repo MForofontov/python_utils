@@ -1,3 +1,6 @@
+"""Find first occurrence of substring."""
+
+
 def find_substring(s: str, substring: str) -> int:
     """
     Find the first occurrence of a substring in a string.

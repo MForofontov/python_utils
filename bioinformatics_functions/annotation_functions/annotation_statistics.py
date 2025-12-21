@@ -1,3 +1,5 @@
+"""Calculate statistics for genomic annotations."""
+
 from collections.abc import Sequence
 from typing import Any
 

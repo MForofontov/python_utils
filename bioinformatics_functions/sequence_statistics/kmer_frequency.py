@@ -1,3 +1,4 @@
+"""Calculate k-mer frequency distribution."""
 
 
 def kmer_frequency(seq: str, k: int) -> dict[str, int]:

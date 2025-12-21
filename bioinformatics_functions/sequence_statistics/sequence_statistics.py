@@ -1,3 +1,4 @@
+"""Calculate basic sequence statistics."""
 
 
 def sequence_statistics(seq: str) -> dict[str, float]:

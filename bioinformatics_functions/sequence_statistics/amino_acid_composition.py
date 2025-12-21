@@ -1,3 +1,4 @@
+"""Calculate amino acid composition of proteins."""
 
 
 def amino_acid_composition(seq: str) -> dict[str, float]:

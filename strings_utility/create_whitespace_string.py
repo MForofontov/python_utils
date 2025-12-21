@@ -1,3 +1,6 @@
+"""Create whitespace-filled string of same length."""
+
+
 def create_whitespace_string(input_string: str) -> str:
     """
     Create a string with the same length as the input string filled with whitespace.

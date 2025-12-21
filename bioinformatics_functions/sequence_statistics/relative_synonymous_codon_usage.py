@@ -1,3 +1,6 @@
+"""Calculate Relative Synonymous Codon Usage (RSCU)."""
+
+
 def relative_synonymous_codon_usage(seq: str) -> dict[str, float]:
     """
     Calculate Relative Synonymous Codon Usage (RSCU) for a coding sequence.

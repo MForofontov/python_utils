@@ -1,3 +1,4 @@
+"""Compute evolutionary distance between sequences."""
 
 
 def phylogenetic_distance(seq1: str, seq2: str) -> float:

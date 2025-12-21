@@ -1,3 +1,6 @@
+"""Calculate Levenshtein (edit) distance between sequences."""
+
+
 def levenshtein_distance(seq1: str, seq2: str) -> int:
     """
     Calculate the Levenshtein distance (edit distance) between two sequences.

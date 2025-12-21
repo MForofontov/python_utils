@@ -1,3 +1,5 @@
+"""Validate FASTA format."""
+
 import re
 
 

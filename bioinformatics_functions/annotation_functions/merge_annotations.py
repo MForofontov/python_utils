@@ -1,3 +1,5 @@
+"""Merge overlapping genomic annotations."""
+
 from collections.abc import Sequence
 from typing import Any
 

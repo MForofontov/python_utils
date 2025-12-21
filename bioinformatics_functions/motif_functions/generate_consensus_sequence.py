@@ -1,3 +1,5 @@
+"""Generate consensus sequence from multiple sequences."""
+
 from collections import Counter
 
 

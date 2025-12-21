@@ -1,3 +1,5 @@
+"""Find open reading frames (ORFs) in sequences."""
+
 from collections.abc import Iterator
 
 

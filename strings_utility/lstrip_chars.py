@@ -1,3 +1,6 @@
+"""Strip specified characters from left end."""
+
+
 def lstrip_chars(s: str, chars: str) -> str:
     """
     Strip specified characters from the left end of a string.

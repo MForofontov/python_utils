@@ -1,3 +1,5 @@
+"""Validate protein sequence format and content."""
+
 from typing import Any
 
 

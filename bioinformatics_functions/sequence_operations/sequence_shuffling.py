@@ -1,3 +1,5 @@
+"""Shuffle sequences randomly."""
+
 import random
 
 

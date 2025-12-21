@@ -1,3 +1,6 @@
+"""Check if string ends with specified suffix."""
+
+
 def ends_with(s: str, suffix: str) -> bool:
     """
     Check if a string ends with a specified suffix.

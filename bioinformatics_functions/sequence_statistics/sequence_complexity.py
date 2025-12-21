@@ -1,3 +1,4 @@
+"""Calculate linguistic complexity of sequences."""
 
 
 def sequence_complexity(sequence: str, window: int = 10) -> float:

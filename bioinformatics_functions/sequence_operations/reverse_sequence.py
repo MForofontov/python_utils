@@ -1,3 +1,6 @@
+"""Reverse nucleotide or protein sequences."""
+
+
 def reverse_sequence(seq: str) -> str:
     """
     Return the reverse of a nucleotide or protein sequence.

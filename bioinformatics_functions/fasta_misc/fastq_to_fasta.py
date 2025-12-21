@@ -1,3 +1,6 @@
+"""Convert FASTQ format to FASTA format."""
+
+
 def fastq_to_fasta(fastq_str: str, min_quality: int | None = None) -> str:
     """
     Convert FASTQ format to FASTA format with optional quality filtering.

@@ -1,3 +1,6 @@
+"""Calculate dinucleotide frequency in DNA."""
+
+
 def dinucleotide_frequency(seq: str) -> dict[str, int]:
     """
     Calculate the frequency of each dinucleotide in a DNA sequence.

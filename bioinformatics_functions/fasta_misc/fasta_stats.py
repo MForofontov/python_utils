@@ -1,3 +1,4 @@
+"""Calculate statistics for FASTA sequences."""
 
 from .fasta_parser import parse_fasta
 

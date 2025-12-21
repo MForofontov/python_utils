@@ -1,3 +1,5 @@
+"""Filter genomic annotations by criteria."""
+
 from collections.abc import Iterator, Sequence
 from typing import Any
 

@@ -1,3 +1,4 @@
+"""Calculate codon usage frequency."""
 
 
 def codon_usage_frequency(seq: str) -> dict[str, float]:

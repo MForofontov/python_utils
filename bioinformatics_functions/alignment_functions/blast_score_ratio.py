@@ -1,3 +1,4 @@
+"""Calculate Blast Score Ratio (BSR) for sequence alignment."""
 
 
 def blast_score_ratio(reference_score: float, target_score: float) -> float:

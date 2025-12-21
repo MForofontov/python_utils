@@ -1,3 +1,4 @@
+"""Find CpG islands in DNA sequences."""
 
 
 def find_cpg_islands(

@@ -1,3 +1,4 @@
+"""Split sequences into k-mers."""
 
 
 def sequence_to_kmers(seq: str, k: int) -> list[str]:

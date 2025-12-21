@@ -1,3 +1,6 @@
+"""Calculate isoelectric point (pI) of proteins."""
+
+
 def calculate_isoelectric_point(seq: str) -> float:
     """
     Calculate theoretical isoelectric point (pI) of a protein sequence.

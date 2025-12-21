@@ -1,3 +1,4 @@
+"""Search for motifs with ambiguous bases."""
 
 
 def motif_search(seq: str, motif: str) -> list[int]:

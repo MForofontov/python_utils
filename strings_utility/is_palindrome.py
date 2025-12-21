@@ -1,3 +1,6 @@
+"""Check if string is a palindrome."""
+
+
 def is_palindrome(s: str) -> bool:
     """
     Check if a string is a palindrome.

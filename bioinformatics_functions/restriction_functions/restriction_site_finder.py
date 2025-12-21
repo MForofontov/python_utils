@@ -1,3 +1,5 @@
+"""Find restriction enzyme sites in DNA sequences."""
+
 from collections.abc import Sequence
 
 

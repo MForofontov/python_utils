@@ -1,3 +1,5 @@
+"""Calculate Shannon entropy of sequences."""
+
 import math
 
 

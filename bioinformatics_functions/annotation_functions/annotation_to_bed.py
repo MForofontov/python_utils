@@ -1,3 +1,5 @@
+"""Convert annotations to BED format."""
+
 from collections.abc import Sequence
 from typing import Any
 

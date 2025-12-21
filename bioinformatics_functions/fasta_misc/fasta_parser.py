@@ -1,3 +1,5 @@
+"""Parse FASTA format sequences."""
+
 from collections.abc import Iterator
 
 

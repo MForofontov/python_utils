@@ -1,3 +1,6 @@
+"""Find positions of motifs in sequences."""
+
+
 def find_motif_positions(seq: str, motif: str, allow_overlap: bool = True) -> list[int]:
     """
     Find all positions of a motif in a sequence.

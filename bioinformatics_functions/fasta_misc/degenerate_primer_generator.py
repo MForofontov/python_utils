@@ -1,3 +1,4 @@
+"""Generate degenerate primers from DNA sequences."""
 
 
 def degenerate_primer_generator(seq: str) -> list[str]:

@@ -1,3 +1,5 @@
+"""Calculate conservation scores across sequences."""
+
 from collections.abc import Sequence
 
 

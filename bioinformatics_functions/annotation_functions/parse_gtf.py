@@ -1,3 +1,5 @@
+"""Parse GTF format files."""
+
 from collections.abc import Iterator
 from typing import Any
 

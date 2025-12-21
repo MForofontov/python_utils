@@ -1,3 +1,6 @@
+"""Generate DNA complement without reversing."""
+
+
 def sequence_complement(seq: str) -> str:
     """
     Return the DNA complement of a sequence (without reversing).

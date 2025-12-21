@@ -1,3 +1,5 @@
+"""Match sequence patterns with IUPAC support."""
+
 import re
 
 

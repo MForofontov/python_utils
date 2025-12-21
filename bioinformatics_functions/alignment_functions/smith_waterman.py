@@ -1,3 +1,6 @@
+"""Local sequence alignment using Smith-Waterman algorithm."""
+
+
 def smith_waterman(
     seq1: str, seq2: str, match: int = 2, mismatch: int = -1, gap: int = -1
 ) -> tuple[int, str, str]:
