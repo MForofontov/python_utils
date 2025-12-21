@@ -1,3 +1,5 @@
+"""Async gather with timeout support."""
+
 import asyncio
 from collections.abc import Awaitable, Iterable
 from typing import TypeVar

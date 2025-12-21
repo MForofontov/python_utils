@@ -1,3 +1,5 @@
+"""Find dictionary keys by value."""
+
 from typing import TypeVar
 
 KT = TypeVar("KT", str, int)

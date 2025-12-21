@@ -1,3 +1,5 @@
+"""Function signature logging decorator."""
+
 import inspect
 import logging
 from collections.abc import Callable

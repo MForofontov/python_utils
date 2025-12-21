@@ -1,3 +1,5 @@
+"""Function result caching decorator."""
+
 from collections.abc import Callable
 from functools import wraps
 from typing import Any, ParamSpec, TypeVar, cast

@@ -1,3 +1,5 @@
+"""Async function throttling utilities."""
+
 import asyncio
 from collections.abc import AsyncGenerator
 from typing import TypeVar

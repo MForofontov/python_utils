@@ -1,3 +1,5 @@
+"""Parallel processing with error collection."""
+
 from collections.abc import Callable
 from multiprocessing import Pool, cpu_count
 from typing import TypeVar

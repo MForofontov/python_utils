@@ -1,3 +1,5 @@
+"""Regex-based string search in dictionary lists."""
+
 import re
 
 

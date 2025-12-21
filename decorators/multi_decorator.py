@@ -1,3 +1,5 @@
+"""Multiple decorator composition utility."""
+
 import logging
 from collections.abc import Callable
 from typing import ParamSpec, TypeVar

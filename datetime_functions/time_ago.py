@@ -1,3 +1,5 @@
+"""Calculate human-readable time ago from datetime."""
+
 from datetime import datetime
 
 

@@ -1,3 +1,5 @@
+"""Parallel async download with chunking support."""
+
 import asyncio
 
 import aiohttp

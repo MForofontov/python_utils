@@ -4,6 +4,8 @@ This module provides various utilities for working with dates and times,
 including parsing, formatting, timezone conversions, and date arithmetic.
 """
 
+"""Date and time manipulation utilities."""
+
 from .calculate_age import calculate_age
 from .compare_dates import compare_dates
 from .convert_timezone import convert_timezone

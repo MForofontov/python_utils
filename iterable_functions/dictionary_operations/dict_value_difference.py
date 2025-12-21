@@ -5,6 +5,8 @@ This module provides a function to find differences between two dictionaries,
 returning only the changed values without categorization.
 """
 
+"""Dictionary value difference comparison."""
+
 from typing import Any
 
 

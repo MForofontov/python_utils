@@ -1,3 +1,5 @@
+"""Parallel accumulation with reduction."""
+
 from collections.abc import Callable
 from itertools import accumulate
 from multiprocessing import Pool, cpu_count

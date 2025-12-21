@@ -1,3 +1,5 @@
+"""Cancellable async task utilities."""
+
 import asyncio
 import contextlib
 from collections.abc import Awaitable, Callable

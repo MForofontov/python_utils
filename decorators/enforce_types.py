@@ -1,5 +1,8 @@
+"""Runtime type enforcement decorator."""
+
 import inspect
 import logging
+
 from collections.abc import Callable
 from functools import wraps
 from typing import Any, ParamSpec, TypeVar, get_args, get_origin, get_type_hints

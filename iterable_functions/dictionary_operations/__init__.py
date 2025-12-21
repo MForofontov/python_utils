@@ -5,6 +5,8 @@ Functions for working with dictionaries, including structure analysis,
 value identification, recursive operations, sorting, and advanced utilities.
 """
 
+"""Dictionary manipulation and transformation utilities."""
+
 from .deep_get import deep_get
 from .deep_set import deep_set
 from .dict_structural_difference import dict_structural_difference

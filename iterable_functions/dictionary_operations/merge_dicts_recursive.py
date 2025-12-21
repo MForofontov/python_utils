@@ -1,28 +1,4 @@
-"""
-Recursively merge multiple dictionaries.
-
-Parameters
-----------
-*dicts : dict
-    Variable number of dictionaries to merge.
-
-Returns
--------
-dict
-    A new dictionary containing the merged result.
-
-Raises
-------
-TypeError
-    If any argument is not a dictionary.
-
-Examples
---------
->>> dict1 = {'a': 1, 'b': {'c': 2}}
->>> dict2 = {'b': {'d': 3}, 'e': 4}
->>> merge_dicts_recursive(dict1, dict2)
-{'a': 1, 'b': {'c': 2, 'd': 3}, 'e': 4}
-"""
+"""Recursive dictionary merging."""
 
 from typing import Any
 

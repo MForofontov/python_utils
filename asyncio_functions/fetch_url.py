@@ -1,3 +1,5 @@
+"""Single URL fetching utilities."""
+
 import aiohttp
 
 

@@ -1,3 +1,5 @@
+"""Output manipulation decorator."""
+
 import logging
 from collections.abc import Callable
 from functools import wraps

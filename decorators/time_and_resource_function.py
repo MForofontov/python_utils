@@ -1,3 +1,5 @@
+"""Function timing and resource measurement decorator."""
+
 import gc
 import logging
 import threading

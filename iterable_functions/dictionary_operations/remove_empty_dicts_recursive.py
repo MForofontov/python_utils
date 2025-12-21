@@ -1,3 +1,5 @@
+"""Recursive empty dictionary removal."""
+
 from typing import Any
 
 

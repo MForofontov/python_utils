@@ -1,35 +1,4 @@
-"""
-Safely get a value from a nested dictionary using dot notation or list of keys.
-
-Parameters
-----------
-d : dict
-    The dictionary to search.
-keys : str or list
-    The key path to search for. Can be a dot-separated string or list of keys.
-default : Any, optional
-    Default value to return if key path is not found (default None).
-
-Returns
--------
-Any
-    The value at the specified key path, or default if not found.
-
-Raises
-------
-TypeError
-    If d is not a dictionary.
-
-Examples
---------
->>> d = {'user': {'name': 'John', 'profile': {'age': 30}}}
->>> deep_get(d, 'user.name')
-'John'
->>> deep_get(d, ['user', 'profile', 'age'])
-30
->>> deep_get(d, 'user.email', 'not found')
-'not found'
-"""
+"""Deep nested dictionary value retrieval."""
 
 from typing import Any
 

@@ -1,3 +1,5 @@
+"""Parallel sorting operations."""
+
 from multiprocessing import Pool, cpu_count
 
 

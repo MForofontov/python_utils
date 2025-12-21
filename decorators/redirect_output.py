@@ -1,3 +1,5 @@
+"""Output redirection decorator."""
+
 import logging
 from collections.abc import Callable
 from contextlib import redirect_stdout

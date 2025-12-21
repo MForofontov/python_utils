@@ -2,6 +2,8 @@
 Adaptive timeout that self-adjusts based on historical latency.
 """
 
+"""Adaptive timeout management for resilient operations."""
+
 import time
 from collections import deque
 from collections.abc import Callable

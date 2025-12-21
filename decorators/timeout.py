@@ -1,3 +1,5 @@
+"""Function timeout decorator."""
+
 import logging
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor

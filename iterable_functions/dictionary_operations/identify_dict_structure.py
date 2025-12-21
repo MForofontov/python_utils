@@ -1,3 +1,5 @@
+"""Dictionary structure identification and analysis."""
+
 from typing import Any
 
 

@@ -1,3 +1,5 @@
+"""Async/await error handling utilities."""
+
 # Import necessary types from the typing module
 from collections.abc import Awaitable, Callable
 from typing import TypeVar
