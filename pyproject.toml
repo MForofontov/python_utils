@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "python_utils"
-version = "0.2.0"
+dynamic = ["version"]
 description = "A comprehensive collection of 200+ reusable Python utility functions across 14+ specialized modules"
 readme = "README.md"
 license = { file = "LICENSE" }
@@ -77,6 +77,9 @@ dev = [
 [tool.setuptools.packages.find]
 where = ["."]
 exclude = ["pytest*"]
+
+[tool.setuptools.dynamic]
+version = {attr = "_version.__version__"}
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
