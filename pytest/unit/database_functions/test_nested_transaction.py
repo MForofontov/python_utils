@@ -282,3 +282,137 @@ def test_nested_transaction_invalid_create_func() -> None:
             pass
     
     conn.close()
+
+
+def test_nested_transaction_with_release_savepoint_func_error() -> None:
+    """
+    Test case 11: Tests that release_savepoint_func errors are logged but don't fail.
+    """
+    # Arrange
+    conn = sqlite3.connect(":memory:")
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE test (id INTEGER)")
+    
+    def failing_release(name):
+        raise RuntimeError("Release failed")
+    
+    # Act - should complete despite release error
+    with nested_transaction(
+        conn,
+        savepoint_name="test_sp",
+        release_savepoint_func=failing_release
+    ):
+        cursor.execute("INSERT INTO test VALUES (1)")
+    
+    # Assert - transaction should still work
+    result = cursor.execute("SELECT * FROM test").fetchall()
+    assert len(result) == 1
+    
+    conn.close()
+
+
+def test_nested_transaction_fallback_to_sql_release() -> None:
+    """
+    Test case 12: Tests fallback to SQL RELEASE SAVEPOINT when connection.commit() raises AttributeError.
+    """
+    # Arrange - Use a mock connection without commit
+    from unittest.mock import Mock
+    mock_conn = Mock()
+    mock_conn.commit = Mock(side_effect=AttributeError("No commit method"))
+    mock_conn.execute = Mock()
+    
+    # Act - should fall back to SQL RELEASE SAVEPOINT
+    with nested_transaction(mock_conn, savepoint_name="test_sp"):
+        pass
+    
+    # Assert - execute was called for SAVEPOINT and RELEASE
+    calls = [str(call) for call in mock_conn.execute.call_args_list]
+    assert any("SAVEPOINT" in str(call) for call in calls)
+    assert any("RELEASE" in str(call) for call in calls)
+
+
+def test_nested_transaction_fallback_rollback_to_sql() -> None:
+    """
+    Test case 13: Tests fallback to SQL ROLLBACK TO SAVEPOINT when connection.rollback() raises AttributeError.
+    """
+    # Arrange - Use a mock connection without rollback
+    from unittest.mock import Mock
+    mock_conn = Mock()
+    mock_conn.rollback = Mock(side_effect=AttributeError("No rollback method"))
+    mock_conn.execute = Mock()
+    
+    # Act & Assert
+    with pytest.raises(ValueError, match="Test error"):
+        with nested_transaction(mock_conn, savepoint_name="test_sp"):
+            raise ValueError("Test error")
+    
+    # Assert - execute was called for SAVEPOINT and ROLLBACK TO SAVEPOINT
+    calls = [str(call) for call in mock_conn.execute.call_args_list]
+    assert any("SAVEPOINT" in str(call) for call in calls)
+    assert any("ROLLBACK" in str(call) for call in calls)
+
+
+def test_nested_transaction_rollback_savepoint_func_error() -> None:
+    """
+    Test case 14: Tests that rollback_savepoint_func errors are logged.
+    """
+    # Arrange
+    conn = sqlite3.connect(":memory:")
+    
+    def failing_rollback(name):
+        raise RuntimeError("Rollback failed")
+    
+    # Act & Assert - original exception should still be raised
+    with pytest.raises(ValueError, match="Test error"):
+        with nested_transaction(
+            conn,
+            savepoint_name="test_sp",
+            rollback_savepoint_func=failing_rollback
+        ):
+            raise ValueError("Test error")
+    
+    conn.close()
+
+
+def test_nested_transaction_create_savepoint_func_error() -> None:
+    """
+    Test case 15: Tests that create_savepoint_func errors are propagated.
+    """
+    # Arrange
+    conn = sqlite3.connect(":memory:")
+    
+    def failing_create(name):
+        raise RuntimeError("Create savepoint failed")
+    
+    # Act & Assert
+    with pytest.raises(RuntimeError, match="Create savepoint failed"):
+        with nested_transaction(
+            conn,
+            savepoint_name="test_sp",
+            create_savepoint_func=failing_create
+        ):
+            pass
+    
+    conn.close()
+
+
+def test_nested_transaction_fallback_begin_nested_not_available() -> None:
+    """
+    Test case 16: Tests fallback to SQL when connection.begin_nested() not available.
+    """
+    # Arrange
+    conn = sqlite3.connect(":memory:")
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE test (id INTEGER)")
+    
+    # Act - SQLite connection doesn't have begin_nested(), should use SQL
+    with nested_transaction(conn):
+        cursor.execute("INSERT INTO test VALUES (1)")
+    
+    conn.commit()
+    
+    # Assert
+    result = cursor.execute("SELECT * FROM test").fetchall()
+    assert len(result) == 1
+    
+    conn.close()

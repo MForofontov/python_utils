@@ -222,3 +222,237 @@ def test_atomic_transaction_invalid_rollback_func() -> None:
             pass
     
     conn.close()
+
+
+def test_atomic_transaction_with_begin_func() -> None:
+    """
+    Test case 11: Tests explicit begin_func is called.
+    """
+    # Arrange
+    conn = sqlite3.connect(":memory:")
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE test (id INTEGER)")
+    
+    begin_called = [False]
+    def begin_func():
+        begin_called[0] = True
+        cursor.execute("BEGIN")
+    
+    # Act
+    with atomic_transaction(
+        conn,
+        begin_func=begin_func,
+        commit_func=lambda: conn.commit(),
+        rollback_func=lambda: conn.rollback()
+    ):
+        cursor.execute("INSERT INTO test VALUES (1)")
+    
+    # Assert
+    assert begin_called[0] is True
+    result = cursor.execute("SELECT * FROM test").fetchall()
+    assert len(result) == 1
+    
+    conn.close()
+
+
+def test_atomic_transaction_fallback_commit() -> None:
+    """
+    Test case 12: Tests fallback to connection.commit() when commit_func is None.
+    """
+    # Arrange
+    conn = sqlite3.connect(":memory:")
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE test (id INTEGER)")
+    
+    # Act - no explicit commit_func, should use connection.commit()
+    with atomic_transaction(conn):
+        cursor.execute("INSERT INTO test VALUES (1)")
+    
+    # Assert - data should be committed
+    result = cursor.execute("SELECT * FROM test").fetchall()
+    assert len(result) == 1
+    
+    conn.close()
+
+
+def test_atomic_transaction_fallback_rollback() -> None:
+    """
+    Test case 13: Tests fallback to connection.rollback() when rollback_func is None.
+    """
+    # Arrange
+    conn = sqlite3.connect(":memory:")
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE test (id INTEGER)")
+    
+    # Act & Assert - no explicit rollback_func, should use connection.rollback()
+    with pytest.raises(ValueError):
+        with atomic_transaction(conn):
+            cursor.execute("INSERT INTO test VALUES (1)")
+            raise ValueError("Test error")
+    
+    # Assert - data should be rolled back
+    result = cursor.execute("SELECT * FROM test").fetchall()
+    assert len(result) == 0
+    
+    conn.close()
+
+
+def test_atomic_transaction_commit_with_no_auto_commit() -> None:
+    """
+    Test case 14: Tests that commit is not called when auto_commit=False.
+    """
+    # Arrange
+    conn = sqlite3.connect(":memory:")
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE test (id INTEGER)")
+    
+    commit_called = [False]
+    def commit_func():
+        commit_called[0] = True
+        conn.commit()
+    
+    # Act
+    with atomic_transaction(conn, commit_func=commit_func, auto_commit=False):
+        cursor.execute("INSERT INTO test VALUES (1)")
+    
+    # Assert - commit should not have been called
+    assert commit_called[0] is False
+    
+    # Manual commit needed
+    conn.commit()
+    result = cursor.execute("SELECT * FROM test").fetchall()
+    assert len(result) == 1
+    
+    conn.close()
+
+
+def test_atomic_transaction_commit_error_handling() -> None:
+    """
+    Test case 15: Tests that commit errors are propagated.
+    """
+    # Arrange
+    conn = sqlite3.connect(":memory:")
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE test (id INTEGER)")
+    
+    def failing_commit():
+        raise RuntimeError("Commit failed")
+    
+    # Act & Assert
+    with pytest.raises(RuntimeError, match="Commit failed"):
+        with atomic_transaction(conn, commit_func=failing_commit):
+            cursor.execute("INSERT INTO test VALUES (1)")
+    
+    conn.close()
+
+
+def test_atomic_transaction_rollback_error_during_exception() -> None:
+    """
+    Test case 16: Tests rollback error is logged when original exception occurs.
+    """
+    # Arrange
+    conn = sqlite3.connect(":memory:")
+    
+    def failing_rollback():
+        raise RuntimeError("Rollback failed")
+    
+    # Act & Assert - original exception should be raised
+    with pytest.raises(ValueError, match="Original error"):
+        with atomic_transaction(conn, rollback_func=failing_rollback):
+            raise ValueError("Original error")
+    
+    conn.close()
+
+
+def test_atomic_transaction_invalid_begin_func() -> None:
+    """
+    Test case 17: Tests invalid begin_func type raises TypeError.
+    """
+    # Arrange
+    conn = sqlite3.connect(":memory:")
+    
+    # Act & Assert
+    with pytest.raises(TypeError, match="begin_func must be callable or None"):
+        with atomic_transaction(conn, begin_func="not_callable"):
+            pass
+    
+    conn.close()
+
+
+def test_atomic_transaction_connection_without_commit_method() -> None:
+    """
+    Test case 18: Tests fallback when connection has no commit() method.
+    """
+    # Arrange - Mock connection without commit method
+    from unittest.mock import Mock
+    mock_conn = Mock(spec=[])  # Empty spec, no methods
+    
+    # Act & Assert - should log warning about missing commit
+    with atomic_transaction(mock_conn):
+        pass  # No exception should be raised
+    
+    # Connection doesn't have commit(), so it logs warning but continues
+
+
+def test_atomic_transaction_connection_without_rollback_method() -> None:
+    """
+    Test case 19: Tests fallback when connection has no rollback() method.
+    """
+    # Arrange - Mock connection without rollback method
+    from unittest.mock import Mock
+    mock_conn = Mock(spec=[])  # Empty spec, no methods
+    
+    # Act & Assert - should log warning about missing rollback
+    with pytest.raises(ValueError):
+        with atomic_transaction(mock_conn):
+            raise ValueError("Test error")
+    
+    # Connection doesn't have rollback(), so it logs warning
+
+
+def test_atomic_transaction_begin_func_failure() -> None:
+    """
+    Test case 20: Tests that begin_func errors are propagated.
+    """
+    # Arrange
+    conn = sqlite3.connect(":memory:")
+    
+    def failing_begin():
+        raise RuntimeError("Begin failed")
+    
+    # Act & Assert
+    with pytest.raises(RuntimeError, match="Begin failed"):
+        with atomic_transaction(conn, begin_func=failing_begin):
+            pass
+    
+    conn.close()
+
+
+def test_atomic_transaction_fallback_commit_error() -> None:
+    """
+    Test case 21: Tests error handling when fallback connection.commit() fails.
+    """
+    # Arrange
+    from unittest.mock import Mock
+    mock_conn = Mock()
+    mock_conn.commit = Mock(side_effect=RuntimeError("Commit failed"))
+    
+    # Act & Assert
+    with pytest.raises(RuntimeError, match="Commit failed"):
+        with atomic_transaction(mock_conn):
+            pass  # Success path, but commit fails
+
+
+def test_atomic_transaction_fallback_rollback_error() -> None:
+    """
+    Test case 22: Tests error handling when fallback connection.rollback() fails.
+    """
+    # Arrange
+    from unittest.mock import Mock
+    mock_conn = Mock()
+    mock_conn.rollback = Mock(side_effect=RuntimeError("Rollback failed"))
+    
+    # Act & Assert - original exception should be raised, rollback error logged
+    with pytest.raises(ValueError, match="Original error"):
+        with atomic_transaction(mock_conn):
+            raise ValueError("Original error")

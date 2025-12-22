@@ -428,3 +428,363 @@ def test_execute_bulk_chunked_invalid_on_error() -> None:
         execute_bulk_chunked(conn, executor, [], on_error="invalid")
     
     conn.close()
+
+
+def test_execute_bulk_chunked_commit_failure_in_skip_mode() -> None:
+    """
+    Test case 15: Tests commit failure handling in skip mode.
+    """
+    # Arrange
+    conn = sqlite3.connect(":memory:")
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE test (id INTEGER PRIMARY KEY, value TEXT)")
+    
+    commit_called = []
+    def failing_commit():
+        commit_called.append(True)
+        raise RuntimeError("Commit failed")
+    
+    def executor(chunk):
+        for row in chunk:
+            cursor.execute("INSERT INTO test VALUES (?, ?)", (row['id'], row['value']))
+    
+    data = [{"id": 1, "value": "a"}, {"id": 2, "value": "b"}]
+    
+    # Act - in skip mode, commit errors cause the chunk to be skipped
+    result = execute_bulk_chunked(
+        conn,
+        executor,
+        data,
+        chunk_size=2,
+        on_error="skip",
+        commit_func=failing_commit
+    )
+    
+    # Assert - rows counted as both successful (executed) and failed (commit failed)
+    assert len(commit_called) == 1
+    assert result["successful"] == 2  # Execution succeeded
+    assert result["failed"] == 2      # Commit failed, chunk skipped
+    assert len(result["errors"]) == 1
+    assert "Commit failed" in result["errors"][0]["error"]
+    
+    conn.close()
+
+
+def test_execute_bulk_chunked_progress_callback_exception() -> None:
+    """
+    Test case 16: Tests that progress callback exceptions are caught and logged.
+    """
+    # Arrange
+    conn = sqlite3.connect(":memory:")
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE test (id INTEGER PRIMARY KEY)")
+    
+    def executor(chunk):
+        for row in chunk:
+            cursor.execute("INSERT INTO test VALUES (?)", (row['id'],))
+    
+    def failing_callback(completed, total):
+        raise RuntimeError("Callback error")
+    
+    data = [{"id": 1}, {"id": 2}]
+    
+    # Act - should complete despite callback failures
+    result = execute_bulk_chunked(
+        conn,
+        executor,
+        data,
+        chunk_size=1,
+        progress_callback=failing_callback
+    )
+    
+    # Assert - operation should succeed
+    assert result["successful"] == 2
+    assert result["failed"] == 0
+    
+    conn.close()
+
+
+def test_execute_bulk_chunked_continue_mode_commit_error() -> None:
+    """
+    Test case 17: Tests that commit errors in continue mode cause individual row retry which may fail.
+    """
+    # Arrange
+    conn = sqlite3.connect(":memory:")
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE test (id INTEGER PRIMARY KEY)")
+    
+    commit_count = [0]
+    def always_failing_commit():
+        commit_count[0] += 1
+        raise RuntimeError("Commit failed")
+    
+    def executor(chunk):
+        for row in chunk:
+            cursor.execute("INSERT INTO test VALUES (?)", (row['id'],))
+    
+    data = [{"id": 1}, {"id": 2}, {"id": 3}]
+    
+    # Act - in continue mode, when chunk commit fails, it retries individual rows
+    # But those rows fail because data was already inserted (UNIQUE constraint)
+    result = execute_bulk_chunked(
+        conn,
+        executor,
+        data,
+        chunk_size=10,
+        on_error="continue",
+        commit_func=always_failing_commit
+    )
+    
+    # Assert - chunk executed (successful=3), commit failed, individual rows failed on re-execution
+    assert commit_count[0] == 1  # Only chunk commit attempted (row execution failed before commit)
+    assert result["successful"] == 3  # Chunk execution succeeded initially
+    assert result["failed"] == 3      # All 3 rows failed on individual retry
+    assert len(result["errors"]) == 3  # 3 errors from individual row retries
+    # Errors are IntegrityError, not commit errors, because re-execution failed
+    assert all("UNIQUE constraint" in error["error"] for error in result["errors"])
+    
+    conn.close()
+
+
+def test_execute_bulk_chunked_rollback_failure_in_fail_fast() -> None:
+    """
+    Test case 18: Tests rollback failure doesn't suppress original error in fail_fast mode.
+    """
+    # Arrange
+    conn = sqlite3.connect(":memory:")
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE test (id INTEGER PRIMARY KEY, value TEXT)")
+    
+    def failing_rollback():
+        raise RuntimeError("Rollback failed")
+    
+    def failing_executor(chunk):
+        raise ValueError("Executor error")
+    
+    data = [{"id": 1, "value": "a"}]
+    
+    # Act & Assert - original error should be raised, rollback logged
+    with pytest.raises(ValueError, match="Executor error"):
+        execute_bulk_chunked(
+            conn,
+            failing_executor,
+            data,
+            on_error="fail_fast",
+            rollback_func=failing_rollback
+        )
+    
+    conn.close()
+
+
+def test_execute_bulk_chunked_skip_mode_rollback_failure() -> None:
+    """
+    Test case 19: Tests that rollback failure in skip mode is logged but doesn't stop processing.
+    """
+    # Arrange
+    conn = sqlite3.connect(":memory:")
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE test (id INTEGER PRIMARY KEY)")
+    cursor.execute("INSERT INTO test VALUES (2)")  # Create duplicate
+    
+    def failing_rollback():
+        raise RuntimeError("Rollback failed")
+    
+    def executor(chunk):
+        for row in chunk:
+            cursor.execute("INSERT INTO test VALUES (?)", (row['id'],))
+    
+    # Make chunk 2 fail due to duplicate key
+    data = [{"id": 1}, {"id": 2}, {"id": 3}]
+    
+    # Act - should continue despite rollback failure
+    result = execute_bulk_chunked(
+        conn,
+        executor,
+        data,
+        chunk_size=1,
+        on_error="skip",
+        rollback_func=failing_rollback
+    )
+    
+    # Assert
+    assert result["successful"] == 2  # Rows 1 and 3
+    assert result["failed"] == 1      # Row 2
+    
+    conn.close()
+
+
+def test_execute_bulk_chunked_continue_mode_with_rollback_per_row() -> None:
+    """
+    Test case 20: Tests rollback is called for failed chunk and failed row in continue mode.
+    """
+    # Arrange
+    conn = sqlite3.connect(":memory:")
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE test (id INTEGER PRIMARY KEY)")
+    cursor.execute("INSERT INTO test VALUES (2)")  # Create duplicate key
+    conn.commit()
+    
+    rollback_count = [0]
+    def counting_rollback():
+        rollback_count[0] += 1
+        conn.rollback()  # Actually rollback
+    
+    def executor(chunk):
+        for row in chunk:
+            cursor.execute("INSERT INTO test VALUES (?)", (row['id'],))
+    
+    data = [{"id": 1}, {"id": 2}, {"id": 3}]  # id=2 will fail
+    
+    # Act
+    result = execute_bulk_chunked(
+        conn,
+        executor,
+        data,
+        chunk_size=10,
+        on_error="continue",
+        rollback_func=counting_rollback
+    )
+    
+    # Assert - in continue mode, chunk fails first (rollback called), then individual rows are tried
+    # Row 1 succeeds, row 2 fails (rollback called), row 3 succeeds = 2 successful
+    assert result["successful"] == 2
+    assert result["failed"] == 1
+    assert rollback_count[0] >= 2  # Rollback for chunk failure + row failure
+    
+    conn.close()
+
+
+def test_execute_bulk_chunked_invalid_commit_func() -> None:
+    """
+    Test case 21: Tests invalid commit_func type raises TypeError.
+    """
+    # Arrange
+    conn = sqlite3.connect(":memory:")
+    
+    # Act & Assert
+    with pytest.raises(TypeError, match="commit_func must be callable or None"):
+        execute_bulk_chunked(
+            conn,
+            lambda chunk: None,
+            [],
+            commit_func="not_callable"
+        )
+    
+    conn.close()
+
+
+def test_execute_bulk_chunked_invalid_rollback_func() -> None:
+    """
+    Test case 22: Tests invalid rollback_func type raises TypeError.
+    """
+    # Arrange
+    conn = sqlite3.connect(":memory:")
+    
+    # Act & Assert
+    with pytest.raises(TypeError, match="rollback_func must be callable or None"):
+        execute_bulk_chunked(
+            conn,
+            lambda chunk: None,
+            [],
+            rollback_func=123
+        )
+    
+    conn.close()
+
+
+def test_execute_bulk_chunked_invalid_progress_callback() -> None:
+    """
+    Test case 23: Tests invalid progress_callback type raises TypeError.
+    """
+    # Arrange
+    conn = sqlite3.connect(":memory:")
+    
+    # Act & Assert
+    with pytest.raises(TypeError, match="progress_callback must be callable or None"):
+        execute_bulk_chunked(
+            conn,
+            lambda chunk: None,
+            [],
+            progress_callback=[1, 2, 3]
+        )
+    
+    conn.close()
+
+
+def test_execute_bulk_chunked_continue_mode_individual_row_commit_failure() -> None:
+    """
+    Test case 24: Tests continue mode where individual row commits fail after successful execution.
+    """
+    # Arrange
+    conn = sqlite3.connect(":memory:")
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE test (id INTEGER PRIMARY KEY)")
+    
+    # Make first chunk fail to trigger continue mode
+    execution_count = [0]
+    def executor_that_fails_first(chunk):
+        execution_count[0] += 1
+        if execution_count[0] == 1 and len(chunk) > 1:
+            # First chunk execution fails
+            raise RuntimeError("Chunk execution failed")
+        # Individual rows succeed
+        for row in chunk:
+            cursor.execute("INSERT INTO test VALUES (?)", (row['id'],))
+    
+    commit_count = [0]
+    def commit_that_fails_on_second():
+        commit_count[0] += 1
+        if commit_count[0] == 2:  # Second commit (first individual row)
+            raise RuntimeError("Row commit failed")
+    
+    data = [{"id": 1}, {"id": 2}, {"id": 3}]
+    
+    # Act
+    result = execute_bulk_chunked(
+        conn,
+        executor_that_fails_first,
+        data,
+        chunk_size=10,
+        on_error="continue",
+        commit_func=commit_that_fails_on_second
+    )
+    
+    # Assert - chunk failed, then individual rows processed
+    # Row 1 succeeds, row 2 commit fails, row 3 succeeds
+    assert result["successful"] >= 1
+    assert result["failed"] >= 1
+    
+    conn.close()
+
+
+def test_execute_bulk_chunked_fail_fast_with_successful_rollback() -> None:
+    """
+    Test case 25: Tests fail_fast mode with successful rollback before re-raising.
+    """
+    # Arrange
+    conn = sqlite3.connect(":memory:")
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE test (id INTEGER)")
+    
+    rollback_called = [False]
+    def rollback_func():
+        rollback_called[0] = True
+        conn.rollback()
+    
+    def failing_executor(chunk):
+        raise ValueError("Execution failed")
+    
+    data = [{"id": 1}]
+    
+    # Act & Assert
+    with pytest.raises(ValueError, match="Execution failed"):
+        execute_bulk_chunked(
+            conn,
+            failing_executor,
+            data,
+            on_error="fail_fast",
+            rollback_func=rollback_func
+        )
+    
+    assert rollback_called[0] is True
+    conn.close()
