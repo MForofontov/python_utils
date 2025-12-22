@@ -423,8 +423,9 @@ from .url_functions import (
     validate_url_format,
 )
 
-# Version information
-__version__ = "1.0.0"
+# Version information - single source of truth
+from ._version import __version__
+
 __author__ = "Python Utils Contributors"
 __license__ = "MIT"
 

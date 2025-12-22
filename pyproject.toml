@@ -4,19 +4,57 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "python_utils"
-version = "0.1.0"
+version = "0.2.0"
+description = "A comprehensive collection of 200+ reusable Python utility functions across 14+ specialized modules"
+readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.10"
-dependencies = [
-    "cramjam==2.11.0",
-    "python-snappy==0.7.3",
-    "zstandard==0.23.0",
-    "psutil==7.0.0",
-    "tqdm==4.67.1",
-    "numpy==2.3.2",
-    "aiohttp==3.12.15",
-    "pytz==2024.2",
+authors = [
+    { name = "MForofontov", email = "your.email@example.com" }
 ]
+keywords = [
+    "utilities",
+    "utils",
+    "helpers",
+    "asyncio",
+    "database",
+    "file-handling",
+    "data-validation",
+    "compression",
+    "datetime",
+    "decorators",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Utilities",
+    "Typing :: Typed",
+]
+
+dependencies = [
+    "cramjam>=2.11.0",
+    "python-snappy>=0.7.3",
+    "zstandard>=0.23.0",
+    "psutil>=7.0.0",
+    "tqdm>=4.67.0",
+    "numpy>=2.3.0",
+    "aiohttp>=3.12.0",
+    "pytz>=2024.2",
+    "sqlalchemy>=2.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/MForofontov/python-utils"
+Repository = "https://github.com/MForofontov/python-utils"
+Issues = "https://github.com/MForofontov/python-utils/issues"
+Documentation = "https://github.com/MForofontov/python-utils#readme"
 
 [project.optional-dependencies]
 dev = [

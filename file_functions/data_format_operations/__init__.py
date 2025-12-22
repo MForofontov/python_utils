@@ -19,4 +19,4 @@ __all__ = [
     "write_dict_to_tsv",
 ]
 
-__version__ = "1.0.0"
+from ..._version import __version__

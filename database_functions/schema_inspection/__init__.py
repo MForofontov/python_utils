@@ -42,4 +42,4 @@ __all__ = [
     "check_data_anomalies",
 ]
 
-__version__ = "1.0.0"
+from ..._version import __version__

@@ -17,4 +17,4 @@ __all__ = [
     "find_files_by_mtime",
 ]
 
-__version__ = "1.0.0"
+from ..._version import __version__
