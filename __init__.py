@@ -95,9 +95,7 @@ from .data_validation import (
 from .database_functions import (
     ConnectionPoolManager,
     managed_db_connection,
-    bulk_insert_chunked,
-    bulk_update_chunked,
-    bulk_upsert_chunked,
+    execute_bulk_chunked,
     execute_with_retry,
     stream_query_results,
     execute_with_timeout,
@@ -465,9 +463,7 @@ __all__ = [
     # Database functions
     "ConnectionPoolManager",
     "managed_db_connection",
-    "bulk_insert_chunked",
-    "bulk_update_chunked",
-    "bulk_upsert_chunked",
+    "execute_bulk_chunked",
     "execute_with_retry",
     "stream_query_results",
     "execute_with_timeout",
