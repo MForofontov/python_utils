@@ -507,7 +507,12 @@ __all__ = [
     'function3',
 ]
 
-__version__ = '1.0.0'
+# Version - import from central _version.py
+from ._version import __version__  # For top-level modules
+# OR
+from .._version import __version__  # For nested modules
+# OR
+from ..._version import __version__  # For deeply nested modules
 ```
 
 #### 2. Import Standards
@@ -740,6 +745,13 @@ def validate_numeric_input(
 - **Type checking**: `mypy .`
 - **Linting**: `pylint python_utils/`
 - **Coverage**: `pytest --cov=python_utils --cov-report=html`
+
+#### Version Management
+- **Single source of truth**: All version information is centralized in `_version.py`
+- **Update version**: Edit `_version.py` only - all modules import from it
+- **pyproject.toml**: Dynamically reads version via `{attr = "_version.__version__"}`
+- **Module imports**: Use relative imports (`from ._version import __version__`)
+- **Utility script**: Run `python update_versions.py` to update any hardcoded versions
 
 ### Package Usage Philosophy
 
