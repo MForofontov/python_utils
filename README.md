@@ -1,18 +1,24 @@
 # Python Utilities
 
-A comprehensive collection of reusable Python utilities and functions covering a wide range of programming tasks. This library provides modular, well-tested, and documented functions organized by domain to help accelerate development across various Python projects.
+A comprehensive collection of 400+ reusable Python utilities and functions covering a wide range of programming tasks. This library provides modular, well-tested, and documented functions organized by domain to help accelerate development across various Python projects.
 
 ## 🚀 Overview
 
-This repository contains over 200+ utility functions, classes, and decorators organized into 14 specialized modules. Each module focuses on a specific domain and provides production-ready implementations with comprehensive documentation, type hints, and unit tests.
+This repository contains over **400+ utility functions, classes, and decorators** organized into **24 specialized modules**. Each module focuses on a specific domain and provides production-ready implementations with comprehensive documentation, type hints, and unit tests.
+
+**Key Highlights:**
+- 🎯 **24+ specialized modules** covering asyncio, databases, files, networking, and more
+- 📝 **NumPy-style docstrings** with examples and complexity analysis
+- 🔒 **Complete type hints** for all functions (Python 3.10+)
+- ✅ **88%+ test coverage** with comprehensive unit tests
+- 🐍 **Modern Python** practices (3.10+)
+- 📦 **Modular design** - use only what you need
 
 ## 📦 Installation
 
-### From Source
+### From GitHub
 ```bash
-git clone https://github.com/MForofontov/python-utils.git
-cd python-utils
-pip install .
+pip install git+https://github.com/MForofontov/python-utils.git
 ```
 
 ### Development Installation
@@ -25,569 +31,531 @@ pip install -e ".[dev]"
 ## 🗂️ Module Structure
 
 ### 🔄 Asyncio Functions (`asyncio_functions/`)
-Advanced asynchronous programming utilities for building robust async applications:
+**17 functions** for advanced asynchronous programming:
 
-- **Task Management**: `async_batch`, `async_chain`, `async_throttle`, `async_timeout`
-- **Error Handling**: `async_await_with_error_handling`, `async_retry_with_backoff`
-- **Resource Management**: `AsyncConnectionPool`, `use_connection`, `async_cleanup`
+- **Task Management**: `async_batch`, `async_chain`, `async_throttle`, `async_cancellable_task`
+- **Error Handling**: `async_await_with_error_handling`, `retry_async`, `async_retry_with_backoff`
+- **Resource Management**: `AsyncConnectionPool`, `async_cleanup`
 - **Rate Limiting**: `async_rate_limited`, `async_periodic`
-- **Concurrency**: `gather_with_timeout`, `run_in_parallel`, `async_map`
-- **HTTP Utilities**: `fetch`, `fetch_all`
+- **HTTP Utilities**: `fetch_url`, `fetch_multiple_urls`, `async_download`, `async_parallel_download`
 - **Stream Processing**: `async_stream_processor`
-- **Task Control**: `async_cancellable_task`
-
-**Key Features:**
-- Connection pooling for database/HTTP connections
-- Configurable retry mechanisms with exponential backoff
-- Rate limiting and throttling for API calls
-- Stream processing for large datasets
-- Graceful cleanup and cancellation handling
+- **Utilities**: `gather_with_timeout`, `async_event_loop`
 
 ### 🗜️ Compression Functions (`compression_functions/`)
-Comprehensive data compression utilities supporting multiple algorithms:
+**27 functions** for data compression supporting multiple algorithms:
 
 #### Binary Compression
 - **Algorithms**: GZIP, BZ2, LZMA, Zlib, Snappy, Zstandard
-- **Functions**: `compress_data`, `decompress_data` with auto-detection
-- **Performance**: Optimized for speed and compression ratio
+- **Functions**: `compress_data`, `decompress_data` with auto-format detection
 
 #### File Compression
-- **Archive Formats**: ZIP, TAR (with GZIP/BZ2/LZMA)
-- **File Operations**: `compress_zip`, `decompress_file_zip`, `compress_tar`
+- **Archive Formats**: ZIP, TAR (with GZIP/BZ2/LZMA compression)
 - **Batch Processing**: Handle multiple files and directories
 
 #### Specialized Compression
-- **Polyline Encoding**: `polyline_encoding_list_of_ints`, `polyline_decoding_list_of_ints`
-- **Number Compression**: `decompress_number` for numerical data
+- **Polyline Encoding**: Efficient list-of-integers compression
+- **Number Compression**: Numerical data optimization
+
+### 🗄️ Database Functions (`database_functions/`)
+**23 functions** for database operations with SQLAlchemy support:
+
+#### Connection Management
+- `create_connection`: Universal connection factory (PostgreSQL, MySQL, SQLite, Oracle, SQL Server)
+- `get_connection_pool`: Connection pooling with configurable sizes
+- `test_connection`: Connection health checks
+
+#### Transaction Management
+- `atomic_transaction`: ACID-compliant transactions with automatic rollback
+- `nested_transaction`: Savepoint-based nested transactions
+- `transaction_context`: Context manager for transaction control
+
+#### Query Execution
+- `execute_query`: Safe parameterized query execution
+- `execute_many`: Batch query execution
+- `fetch_one`, `fetch_all`: Result fetching utilities
+
+#### Bulk Operations
+- `execute_bulk_chunked`: Memory-efficient bulk inserts
+- `batch_insert`: High-performance batch insertion
+- `bulk_update`: Optimized bulk updates
+
+#### Schema Inspection (**15 utilities**)
+- `get_table_info`: Comprehensive table metadata
+- `compare_schemas`: Cross-database schema comparison
+- `detect_schema_drift`: Validate actual vs expected schema
+- `get_foreign_key_dependencies`: Topological sorting for safe operations
+- `verify_referential_integrity`: Find orphaned records
+- `get_column_statistics`: Data profiling and quality metrics
+- `find_duplicate_indexes`: Performance optimization analysis
+- `safe_truncate_tables`: FK-aware table truncation
+- `find_duplicate_rows`: Duplicate detection
+- `get_table_sizes`: Storage analysis (PostgreSQL, MySQL, SQLite, Oracle, SQL Server)
+- `check_encoding_issues`: Text encoding validation
+- `find_unused_columns`: Identify rarely-used columns
+- `find_missing_indexes`: Index recommendations
+- `compare_table_data`: Migration validation
+- `check_data_anomalies`: Data quality monitoring
+
+### 📅 Datetime Functions (`datetime_functions/`)
+**27 functions** for date and time manipulation:
+
+- **Conversion**: `convert_to_utc`, `convert_timezone`, `parse_iso8601`
+- **Calculations**: `add_business_days`, `get_age`, `time_until`
+- **Formatting**: `format_relative_time`, `humanize_duration`
+- **Business Logic**: `is_business_day`, `get_next_business_day`
+- **Range Operations**: `generate_date_range`, `split_date_range`
 
 ### 🎨 Decorators (`decorators/`)
-Powerful decorators for function enhancement and cross-cutting concerns:
+**50+ decorators** for function enhancement:
 
 #### Performance & Monitoring
-- `@time_function`: Execution time measurement
+- `@time_function`: Execution time measurement with statistics
 - `@time_and_resource_function`: CPU, memory, and time profiling
-- `@cache`: Function result caching with TTL
+- `@cache`: LRU caching with TTL support
 - `@cache_with_expiration`: Time-based cache invalidation
 
 #### Error Handling & Resilience
 - `@handle_error`: Comprehensive error handling with logging
-- `@async_handle_error`: Async-specific error management
-- `@retry`: Configurable retry logic with backoff
+- `@retry`: Configurable retry with exponential backoff
 - `@timeout`: Function execution timeouts
+- `@circuit_breaker`: Circuit breaker pattern for fault tolerance
 
 #### Input/Output Processing
 - `@enforce_types`: Runtime type checking
-- `@validate_args`: Argument validation
+- `@validate_args`: Argument validation with custom rules
 - `@normalize_input`: Input data normalization
-- `@format_output`: Output formatting and serialization
-- `@serialize_output`: JSON/pickle serialization
+- `@format_output`: Output formatting and transformation
 
 #### Control Flow
-- `@conditional_execute`: Conditional function execution
-- `@conditional_return`: Smart return value handling
 - `@rate_limit`: Function call rate limiting
 - `@throttle`: Request throttling
-- `@deprecated`: Deprecation warnings
-
-#### Development & Debugging
-- `@log_function_calls`: Comprehensive call logging
-- `@log_signature`: Function signature logging
-- `@redirect_output`: Output redirection
-- `@multi_decorator`: Decorator composition
-- `@chain`: Function chaining
-
-#### Advanced Features
-- `@async_wrapper`: Sync-to-async conversion
-- `@event_trigger`: Event-driven programming
-- `@env_config`: Environment-based configuration
-- `@requires_permission`: Permission-based access control
-
-### 🏗️ Data Types (`data_types/`)
-Complete implementations of fundamental data structures:
-
-#### Trees
-- **AVL Tree**: `AVLNode`, `AVLTree` - Self-balancing binary search tree
-- **Red-Black Tree**: `RedBlackNode`, `RedBlackTree` - Balanced binary tree
-- **Splay Tree**: `SplayNode`, `SplayTree` - Self-adjusting binary tree
-- **Binary Tree**: `BinaryTreeNode`, `BinaryTree` - Basic binary tree
-- **Segment Tree**: `SegmentTree` - Range query optimization
-- **Trie**: `TrieNode`, `Trie` - Prefix tree for string operations
-
-#### Linear Data Structures
-- **Linked List**: `Node`, `LinkedList` - Dynamic linear structure
-- **Stack**: `Stack` - LIFO data structure
-- **Queue**: `Queue` - FIFO data structure
-- **Deque**: `Deque` - Double-ended queue
-- **Circular Queue**: `CircularQueue` - Fixed-size circular buffer
-
-#### Advanced Structures
-- **Graph**: `Graph` - Adjacency list representation with algorithms
-- **Hash Table**: `HashTable` - Custom hash table implementation
-- **Binary Heap**: `BinaryHeap` - Min/max heap operations
-- **Priority Queue**: `PriorityQueue` - Priority-based queue
-- **Skip List**: `SkipNode`, `SkipList` - Probabilistic data structure
-- **Union Find**: `UnionFind` - Disjoint set data structure
-
-### 📅 Datetime Functions (`datetime_functions/`)
-Comprehensive date and time manipulation utilities:
-
-#### Date Operations
-- **Calculations**: `calculate_age`, `days_between`, `time_ago`, `time_until`
-- **Comparisons**: `compare_dates`, `is_today`, `is_weekend`, `is_leap_year`
-- **Parsing**: `parse_date`, `format_date`, `get_current_datetime_iso`
-
-#### Date Components
-- **Extraction**: `get_date_parts`, `get_week_number`, `get_days_in_month`
-- **Calendar**: `get_days_of_week`, `get_start_of_week`, `get_end_of_week`
-
-#### Date Manipulation
-- **Modification**: `modify_days`, `modify_weeks`, `modify_months`, `modify_years`
-- **Boundaries**: `get_start_of_month`, `get_end_of_month`, `get_start_of_year`, `get_end_of_year`
-- **Timezone**: `convert_timezone`
+- `@deprecated`: Deprecation warnings with migration hints
 
 ### 📁 File Functions (`file_functions/`)
-Robust file system operations and data processing:
+**32 functions** organized into specialized submodules:
 
 #### File Operations
-- **Basic**: `copy_file`, `check_and_delete_file`, `write_to_file`
-- **Directory**: `create_directory`, `copy_folder`, `merge_folders`, `cleanup`
-- **Path Utilities**: `join_paths`, `file_basename`, `get_paths_dict`
+- `read_file_lines`, `write_file_lines`: Line-based I/O
+- `append_to_file`, `copy_file`, `move_file`
+- `get_file_size`, `file_exists`, `ensure_file_exists`
 
-#### File Discovery
-- **Search**: `get_paths_in_directory`, `get_paths_in_directory_with_suffix`
-- **Filtering**: Support for pattern matching and recursive search
+#### Directory Operations
+- `create_directory`, `delete_directory`, `list_files`
+- `copy_directory`, `move_directory`
 
-#### Data Processing
-- **Text Files**: `read_lines`, `write_lines`, `concat_files`
-- **Tabular Data**: `read_tabular` - CSV/TSV parsing with custom delimiters
-- **JSON**: `json_to_dict`, `write_dict_to_json` - JSON file operations
-- **TSV**: `tsv_to_dict`, `write_dict_to_tsv` - Tab-separated value handling
+#### Path Operations
+- `normalize_path`, `get_absolute_path`, `get_relative_path`
+- `split_path`, `join_paths`
+
+#### File Hashing
+- `hash_file`: Support for MD5, SHA1, SHA256, SHA512
+- `verify_file_hash`: Integrity checking
+
+#### Data Format Operations
+- `read_csv`, `write_csv`, `read_json`, `write_json`
+- `read_yaml`, `write_yaml`, `read_toml`, `write_toml`
+
+#### Recursive Search
+- `find_files_by_extension`, `find_files_by_pattern`
+- `search_file_content`: Full-text search
+
+#### Temp Management
+- `create_temp_file`, `create_temp_directory`
+- `temp_file_context`, `temp_dir_context`
 
 ### 🌐 HTTP Functions (`http_functions/`)
-HTTP client utilities for web API interactions:
+**9 functions** for HTTP operations:
 
-- **Request Methods**: Support for GET, POST, PUT, DELETE, PATCH
-- **Authentication**: Basic, Bearer token, API key support
-- **Session Management**: Persistent connections and cookie handling
-- **Error Handling**: Retry logic and timeout management
-- **Response Processing**: JSON parsing and error detection
+- `http_get`, `http_post`, `http_put`, `http_delete`
+- `download_file`: Streaming download with progress
+- `upload_file`: Multipart file upload
+- `parse_query_string`, `build_query_string`
+- `get_response_headers`
 
-### 🔧 Iterable Functions (`iterable_functions/`)
-Advanced operations for Python iterables and data structures:
+### 🔄 Iterable Functions (`iterable_functions/`)
+**55 functions** for advanced iteration and collection operations:
 
-#### List Operations
-- **Manipulation**: `flatten_list`, `divide_list_into_n_chunks`
-- **Search**: `find_sublist_index`, `get_max_min_values`
-- **Analysis**: `identify_dict_structure`
+- **Chunking**: `chunk_list`, `sliding_window`, `batch_iterable`
+- **Filtering**: `filter_none`, `filter_duplicates`, `filter_by_type`
+- **Transformation**: `flatten`, `group_by`, `partition`
+- **Aggregation**: `merge_dicts`, `deep_merge`, `reduce_by_key`
+- **Utilities**: `first`, `last`, `nth`, `take`, `drop`
 
-#### Data Processing
-- **Transformation**: Element-wise operations and filtering
-- **Aggregation**: Statistical operations on iterables
-- **Validation**: Structure and type checking
+### 🧬 Bioinformatics Functions (`bioinformatics_functions/`)
+**77 functions** for biological sequence analysis:
 
-### 📊 JSON Functions (`json_functions/`)
-JSON data manipulation and validation utilities:
+#### Sequence Operations
+- Reverse complement, transcription, translation
+- ORF finding, codon usage analysis
 
-- **Parsing**: Safe JSON parsing with error handling
-- **Validation**: Schema validation and structure checking
-- **Transformation**: JSON-to-object and object-to-JSON conversion
-- **Merging**: Deep merge operations for complex JSON structures
+#### Alignment
+- Needleman-Wunsch, Smith-Waterman algorithms
+- Multiple sequence alignment
 
-### 💻 CLI Functions (`cli_functions/`)
-Cross-platform command-line interface and system utilities:
+#### GC Content & Statistics
+- GC content calculation, GC skew
+- Sequence complexity analysis
 
-#### Command Execution
-- **execute_command**: Execute shell commands with timeout and error handling
-- **check_command_exists**: Verify command availability in system PATH
+#### Motif & Pattern Finding
+- Motif discovery, consensus sequences
+- Pattern matching with mismatches
 
-#### Environment Management
-- **get_environment_variable**: Retrieve environment variables with validation
-- **set_environment_variable**: Set environment variables safely
+#### Translation & Codon Usage
+- Genetic code translation (standard + alternative codes)
+- Codon frequency analysis
 
-#### System Information
-- **get_cpu_info**: CPU statistics and usage monitoring
-- **get_memory_info**: Memory usage and statistics
-- **get_disk_usage**: Disk space and usage information
-- **get_network_info**: Network interface details
-- **get_uptime**: System uptime tracking
-- **get_current_user**: Current system user information
-- **get_hostname**: System hostname retrieval
+### 🧮 Mathematical Functions (`mathematical_functions/`)
+**5 core functions** for numerical operations:
 
-#### Process Management
-- **is_process_running**: Check if process is running by name
-- **kill_process**: Terminate process by PID
+- `gcd`, `lcm`: Greatest common divisor and least common multiple
+- `is_prime`: Primality testing
+- `factorial`: Factorial computation
+- `fibonacci`: Fibonacci sequence generation
 
-#### File Operations
-- **get_file_size**: Get file size in bytes
-- **list_files**: List files in directory
-- **list_directories**: List subdirectories
+### 🔐 Security Functions (`security_functions/`)
+**12 functions** for cryptography and security:
 
-### 🔧 Logger Functions (`logger_functions/`)
-Advanced logging configuration and management:
+- **Hashing**: `hash_password`, `verify_password` (bcrypt)
+- **Encryption**: `encrypt_data`, `decrypt_data` (AES, RSA)
+- **Tokens**: `generate_token`, `verify_token`
+- **Keys**: `generate_key_pair`, `sign_data`, `verify_signature`
 
-- **Logger Creation**: `get_logger` - Configured logger instances
-- **Validation**: `validate_logger` - Logger configuration verification
-- **Formatting**: Custom formatters for different output formats
-- **Handlers**: File, console, and rotating log handlers
+### 📊 Serialization Functions (`serialization_functions/`)
+**28 functions** for advanced data serialization:
 
-### ⚡ Multiprocessing Functions (`multiprocessing_functions/`)
-Parallel processing utilities for CPU-intensive tasks:
+#### CSV Operations
+- `stream_csv_chunks`: Memory-efficient streaming
+- `merge_csv_files`: Merge multiple CSV files
+- `transform_csv_columns`: Column transformations
+- `validate_csv_structure`: Schema validation
 
-- **Process Pools**: Managed worker processes
-- **Task Distribution**: Automatic workload balancing
-- **Result Aggregation**: Efficient result collection
-- **Error Handling**: Process failure recovery
+#### Excel Operations
+- `read_excel_sheet`, `write_excel_sheet`
+- `merge_excel_sheets`: Multi-sheet merging
+- `transpose_excel_data`, `auto_format_excel_columns`
+- `read_excel_range`, `write_excel_range`
+
+#### Parquet Operations
+- `read_parquet`, `write_parquet`
+- `merge_parquet_files`, `filter_parquet`
+- `partition_parquet_by_column`: Efficient partitioning
+- `get_parquet_schema`, `get_parquet_metadata`
+
+#### Format Converters
+- `csv_to_parquet`, `parquet_to_csv`
+- `excel_to_parquet`, `parquet_to_excel`
+- `excel_to_csv_batch`: Batch conversion
+
+### 🔌 SSH Functions (`ssh_functions/`)
+**12 functions** for SSH operations:
+
+#### Remote Operations
+- `execute_remote_command`: Remote command execution
+- `upload_file`, `download_file`: SFTP transfers
+- `list_remote_files`, `remote_file_exists`
+
+#### Local Operations
+- `execute_local_command`: Local command with SSH-like interface
+- `create_ssh_key_pair`: Key generation
+
+### 🧪 Testing Functions (`testing_functions/`)
+**24 functions** for test utilities:
+
+#### Fixtures & Mocks
+- `create_temp_file_fixture`, `create_temp_dir_fixture`
+- `mock_function`, `mock_class`
+- `create_mock_response`: HTTP response mocking
+
+#### Assertions
+- `assert_equals_ignore_whitespace`
+- `assert_json_equals`, `assert_xml_equals`
+- `assert_raises_with_message`
+
+#### Test Data Generators
+- `generate_random_string`, `generate_random_number`
+- `generate_test_dataframe`, `generate_test_json`
+
+### 🌍 Network Functions (`network_functions/`)
+**28 functions** for network operations:
+
+- **IP Utilities**: `is_valid_ip`, `ip_in_range`, `get_ip_info`
+- **DNS**: `resolve_hostname`, `reverse_dns_lookup`
+- **Port Scanning**: `scan_port`, `scan_ports`
+- **Connectivity**: `ping_host`, `check_port_open`
+
+### 🌐 Web Scraping Functions (`web_scraping_functions/`)
+**18 functions** for web scraping:
+
+- **HTML Parsing**: `parse_html`, `extract_links`, `extract_text`
+- **CSS Selectors**: `select_elements`, `get_attribute`
+- **XPath**: `xpath_select`, `xpath_extract`
+- **Advanced**: `scrape_table`, `extract_metadata`
+
+### 🔗 URL Functions (`url_functions/`)
+**8 functions** for URL manipulation:
+
+- `parse_url`, `build_url`, `normalize_url`
+- `validate_url_format`, `extract_domain`
+- `add_query_params`, `remove_query_params`
 
 ### 🖨️ Print Functions (`print_functions/`)
-Enhanced console output and system information display:
+**3 utilities** for enhanced console output:
 
-- **Formatted Output**: `print_message` - Styled console messages
-- **System Info**: `print_system_info_in_terminal` - Hardware and OS details
-- **Dependencies**: `print_dependencies_info_in_terminal` - Package information
-- **Styling**: Color support and formatting options
+- `print_colored`: ANSI color support
+- `print_table`: Tabular data formatting
+- `print_progress_bar`: Progress visualization
 
-### 📈 Statistics Functions (`statistics_functions/`)
-Mathematical and statistical computation utilities:
+### 🔍 Regex Functions (`regex_functions/`)
+**5 functions** for regular expressions:
 
-- **Descriptive Statistics**: Mean, median, mode, standard deviation
-- **Distributions**: Normal, binomial, and custom distributions
-- **Correlation**: Pearson and Spearman correlation coefficients
-- **Regression**: Linear and polynomial regression analysis
+- `validate_email`, `validate_phone`, `validate_url`
+- `extract_emails`, `extract_urls`
 
-### 🔤 String Utilities (`strings_utility/`)
-Comprehensive string manipulation and processing:
+### ⚙️ CLI Functions (`cli_functions/`)
+**16 functions** for system operations:
 
-- **Formatting**: Case conversion, padding, and alignment
-- **Validation**: Pattern matching and format verification
-- **Transformation**: Encoding, escaping, and normalization
-- **Parsing**: String tokenization and extraction
+- **System Info**: `get_cpu_info`, `get_memory_info`, `get_disk_usage`
+- **Process Management**: `is_process_running`, `kill_process`
+- **File System**: `list_files`, `list_directories`, `get_file_size`
+- **Environment**: `get_environment_variable`, `set_environment_variable`
 
-## 🛠️ Dependencies
+### 📝 Logger Functions (`logger_functions/`)
+**7 functions** for logging utilities:
 
-### Core Dependencies
-- **cramjam** (2.11.0) - Fast compression/decompression
-- **python-snappy** (0.7.3) - Snappy compression bindings
-- **zstandard** (0.23.0) - Zstandard compression
-- **psutil** (7.0.0) - System and process utilities
-- **tqdm** (4.67.1) - Progress bars
-- **numpy** (2.3.2) - Numerical computing
-- **aiohttp** (3.12.15) - Async HTTP client/server
-- **pandas** (2.3.1) - Data manipulation and analysis
+- `setup_logger`: Configurable logger creation
+- `log_function_call`: Automatic function logging
+- `log_exception`: Exception logging with context
+- `create_rotating_logger`: Rotating file handler
 
-### Development Dependencies
-- **pytest** (8.4.1) - Testing framework
-- **pytest-asyncio** (1.1.0) - Async testing support
-- **allure-pytest** (2.15.0) - Test reporting
-- **pylint** (3.3.7) - Code analysis
-- **mypy** (1.17.1) - Static type checking
+### 🔄 Multiprocessing Functions (`multiprocessing_functions/`)
+**19 functions** for parallel processing:
 
-## 🧪 Testing
+- **Pool Management**: `create_pool`, `parallel_map`, `parallel_starmap`
+- **Process Control**: `run_in_process`, `terminate_pool`
+- **Utilities**: `get_cpu_count`, `split_work`
 
-The project includes comprehensive unit tests for all modules:
+### 🔧 Batch Processing Functions (`batch_processing_functions/`)
+**2 classes** for efficient data processing:
 
-```bash
-# Run all tests
-pytest
+- `ChunkedProcessor`: Memory-efficient batch processing
+- `StreamingAggregator`: Real-time data aggregation
 
-# Run tests for specific module
-pytest pytest/unit/asyncio_functions/
+### 🌿 Environment Config Functions (`env_config_functions/`)
+**6 functions** for configuration management:
 
-# Run with coverage
-pytest --cov=. --cov-report=html
+- `load_env_file`, `get_env_variable`, `set_env_variable`
+- `load_yaml_config`, `load_toml_config`
+- `merge_configs`: Hierarchical configuration merging
 
-# Run with allure reporting
-pytest --alluredir=allure-results
-allure serve allure-results
-```
+### ✅ Data Validation (`data_validation/`)
+**Multiple submodules** for data validation:
 
-All tests that involve randomness use a fixed seed (`random.seed(0)`) to ensure reproducible results.
+#### Basic Validation
+- Type checking, range validation, format validation
+- String validation (email, phone, URL, etc.)
 
-### Test Structure
-```
-pytest/
-├── conftest.py              # Test configuration
-└── unit/                    # Unit tests
-    ├── asyncio_functions/   # Async function tests
-    ├── compression_functions/ # Compression tests
-    ├── data_types/          # Data structure tests
-    ├── decorators/          # Decorator tests
-    └── ...                  # Other module tests
-```
+#### Schema Validation
+- JSON Schema validation
+- Custom schema definition and validation
+- Nested structure validation
+
+### 🛠️ Development Utilities (`dev_utilities/`)
+Utilities for development workflows:
+
+- Code generation helpers
+- AST manipulation utilities
+- Development environment tools
+
+## 🔑 Key Features
+
+### Database-Agnostic Design
+All database functions use **SQLAlchemy** for maximum portability:
+- ✅ PostgreSQL
+- ✅ MySQL / MariaDB
+- ✅ SQLite
+- ✅ Oracle
+- ✅ SQL Server
+
+### Type Safety
+- Complete type hints using modern Python syntax (`list[str]`, `dict[str, Any]`)
+- Runtime type checking with decorators
+- mypy-compliant codebase
+
+### Comprehensive Testing
+- 88%+ test coverage
+- 150+ test files with 1000+ test cases
+- Pytest-based testing framework
+- Comprehensive edge case coverage
+
+### Documentation
+- NumPy-style docstrings for all functions
+- Examples in docstrings
+- Time/space complexity notes for algorithms
+- Comprehensive README with usage examples
 
 ## 📚 Usage Examples
 
-### Asyncio Functions
+### Database Operations
 ```python
-from asyncio_functions import async_retry_with_backoff, fetch_all, AsyncConnectionPool
+from database_functions import create_connection, atomic_transaction, execute_query
+from database_functions.schema_inspection import (
+    get_table_info,
+    find_duplicate_rows,
+    get_foreign_key_dependencies
+)
 
-# Retry with exponential backoff
-@async_retry_with_backoff(max_retries=3, base_delay=1.0)
-async def unreliable_api_call():
-    # Your async function here
-    pass
+# Create connection
+conn = create_connection("postgresql://user:pass@localhost/db")
 
-# Fetch multiple URLs concurrently
-urls = ['http://api1.com', 'http://api2.com']
-results = await fetch_all(urls, max_concurrent=10)
+# Safe transaction
+with atomic_transaction(conn) as trans:
+    execute_query(trans, "INSERT INTO users VALUES (:name)", {"name": "John"})
+
+# Schema inspection
+table_info = get_table_info(conn, "users")
+print(f"Columns: {table_info['columns']}")
+
+# Find duplicates
+duplicates = find_duplicate_rows(conn, "users", ["email"])
+
+# Get FK dependencies for safe operations
+deps = get_foreign_key_dependencies(conn)
+print(f"Safe drop order: {deps['ordered_tables']}")
+```
+
+### Async Operations
+```python
+from asyncio_functions import async_batch, fetch_multiple_urls, AsyncConnectionPool
+
+# Batch processing
+async def process_items():
+    results = await async_batch(
+        items=range(100),
+        func=process_item,
+        batch_size=10
+    )
+    return results
+
+# HTTP fetching
+urls = ["https://api.example.com/1", "https://api.example.com/2"]
+responses = await fetch_multiple_urls(urls, max_concurrent=5)
 
 # Connection pooling
-async with AsyncConnectionPool(max_connections=5) as pool:
-    async with use_connection(pool) as conn:
-        # Use connection
-        pass
+async with AsyncConnectionPool("postgresql://...") as pool:
+    async with pool.acquire() as conn:
+        result = await conn.fetch("SELECT * FROM users")
 ```
 
 ### Decorators
 ```python
-from decorators import cache, time_function, handle_error, validate_args
+from decorators import cache, retry, timeout, enforce_types
 
-# Function caching
-@cache(maxsize=100, ttl=300)
-def expensive_computation(x, y):
-    return x ** y
-
-# Performance monitoring
-@time_function
-def slow_function():
-    # Function implementation
-    pass
-
-# Error handling
-@handle_error(default_return=None, log_errors=True)
-def risky_function():
-    # Function that might fail
-    pass
-
-# Argument validation
-@validate_args(types={'x': int, 'y': str})
-def typed_function(x: int, y: str):
-    return f"{y}: {x}"
-```
-
-### Data Types
-```python
-from data_types import AVLTree, Graph, HashTable, Trie
-
-# Self-balancing tree
-tree = AVLTree()
-tree.insert(10)
-tree.insert(5)
-tree.insert(15)
-
-# Graph operations
-graph = Graph()
-graph.add_edge('A', 'B', weight=5)
-path = graph.shortest_path('A', 'B')
-
-# Hash table
-ht = HashTable(capacity=100)
-ht.put('key', 'value')
-
-# Trie for string operations
-trie = Trie()
-trie.insert('hello')
-trie.insert('world')
-suggestions = trie.get_words_with_prefix('hel')
+@cache(maxsize=128, ttl=3600)
+@retry(max_attempts=3, backoff=2.0)
+@timeout(seconds=30)
+@enforce_types
+def fetch_user_data(user_id: int) -> dict:
+    # Function logic here
+    return {"id": user_id, "name": "John"}
 ```
 
 ### File Operations
 ```python
-from file_functions import read_tabular, write_dict_to_json, copy_folder
+from file_functions import read_file_lines, hash_file, find_files_by_pattern
+from file_functions import temp_file_context
 
-# Read CSV/TSV files
-data = read_tabular('data.csv', delimiter=',', headers=True)
+# Read file
+lines = read_file_lines("data.txt", encoding="utf-8")
 
-# JSON operations
-data = {'name': 'John', 'age': 30}
-write_dict_to_json(data, 'output.json')
+# Hash file
+file_hash = hash_file("document.pdf", algorithm="sha256")
 
-# Directory operations
-copy_folder('source/', 'destination/', overwrite=True)
+# Find files
+python_files = find_files_by_pattern("/project", "*.py")
+
+# Temp file context
+with temp_file_context(suffix=".txt") as temp_path:
+    # Use temp file
+    temp_path.write_text("temporary data")
 ```
 
-### Compression
+### Data Serialization
 ```python
-from compression_functions import compress_data, decompress_data, compress_zip
+from serialization_functions import (
+    stream_csv_chunks,
+    csv_to_parquet,
+    read_excel_sheet
+)
 
-# Automatic compression
-data = b"Hello, World!" * 1000
-compressed = compress_data(data, algorithm='gzip')
-decompressed = decompress_data(compressed)
+# Stream large CSV
+for chunk in stream_csv_chunks("large_file.csv", chunk_size=10000):
+    process_chunk(chunk)
 
-# File compression
-compress_zip(['file1.txt', 'file2.txt'], 'archive.zip')
+# Convert formats
+csv_to_parquet("input.csv", "output.parquet", compression="snappy")
+
+# Read Excel
+data = read_excel_sheet("report.xlsx", sheet_name="Sales")
 ```
 
-## 🔧 Configuration
-
-### Environment Variables
-Many functions support configuration through environment variables:
+## 🧪 Testing
 
 ```bash
-# Logging configuration
-export LOG_LEVEL=DEBUG
-export LOG_FORMAT='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+# Run all tests
+python -m pytest
 
-# HTTP client settings
-export HTTP_TIMEOUT=30
-export HTTP_MAX_RETRIES=3
+# Run with coverage
+python -m pytest --cov=. --cov-report=html
 
-# Compression settings
-export DEFAULT_COMPRESSION='gzip'
-export COMPRESSION_LEVEL=6
+# Run specific module tests
+python -m pytest pytest/unit/database_functions/
 ```
 
-### Configuration Files
-Some modules support configuration files (JSON/YAML):
+## 📋 Requirements
 
-```json
-{
-  "async_settings": {
-    "max_concurrent_requests": 10,
-    "timeout": 30,
-    "retry_attempts": 3
-  },
-  "compression": {
-    "default_algorithm": "gzip",
-    "compression_level": 6
-  }
-}
-```
-
-## 🏗️ Architecture
-
-### Design Principles
-1. **Modularity**: Each module is self-contained and independently usable
-2. **Type Safety**: Comprehensive type hints throughout the codebase
-3. **Error Handling**: Robust error handling with informative messages
-4. **Performance**: Optimized implementations for common use cases
-5. **Documentation**: Extensive docstrings with examples
-6. **Testing**: High test coverage with unit and integration tests
-
-### Code Quality
-- **Static Analysis**: pylint and mypy for code quality
-- **Formatting**: Consistent code style
-- **Documentation**: NumPy-style docstrings
-- **Version Control**: Semantic versioning
+- **Python**: 3.10 or higher
+- **Core Dependencies**: Listed in `pyproject.toml`
+- **Optional Dependencies**: 
+  - `pyarrow` for Parquet operations
+  - `openpyxl` for Excel operations
+  - `paramiko` for SSH operations
+  - `bcrypt` for password hashing
 
 ## 🤝 Contributing
 
-### Development Setup
-```bash
-# Clone and setup
-git clone https://github.com/MForofontov/python-utils.git
-cd python-utils
+Contributions are welcome! Please follow these guidelines:
 
-# Install in development mode
-pip install -e ".[dev]"
+1. Follow the existing code style and patterns
+2. Add comprehensive docstrings (NumPy style)
+3. Include type hints for all functions
+4. Write unit tests with 95%+ coverage
+5. Update documentation as needed
 
-# Run quality checks
-pylint python_utils/
-mypy python_utils/
-pytest
-```
+See `.github/copilot-instructions.md` for detailed development guidelines.
 
-### Contribution Guidelines
-1. **Code Style**: Follow PEP 8 and existing patterns
-2. **Documentation**: Add docstrings for all public functions
-3. **Testing**: Include unit tests for new functionality
-4. **Type Hints**: Add type annotations for all parameters and returns
-5. **Error Handling**: Include appropriate error handling and validation
+## 📝 Version Management
 
-### Adding New Modules
-1. Create module directory with `__init__.py`
-2. Implement functions with proper documentation
-3. Add comprehensive unit tests
-4. Update main `__init__.py` and documentation
-5. Run full test suite
+This package uses centralized version management:
+- **Single source**: Version defined in `_version.py`
+- **Automatic**: All modules import from `_version.py`
+- **Dynamic**: `pyproject.toml` reads version at build time
+- **Update**: Change version in one place: `_version.py`
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License - see LICENSE file for details.
+
+## 👤 Author
+
+**MForofontov**
+- GitHub: [@MForofontov](https://github.com/MForofontov)
 
 ## 🔗 Links
 
 - **Repository**: https://github.com/MForofontov/python-utils
-- **Documentation**: [Coming Soon]
 - **Issues**: https://github.com/MForofontov/python-utils/issues
-- **Discussions**: https://github.com/MForofontov/python-utils/discussions
-
-## 📝 Changelog
-
-### Version 0.1.0
-- Initial release with 14 core modules
-- Over 200+ utility functions and classes
-- Comprehensive test suite
-- Full type annotation support
-- Documentation and examples
+- **Documentation**: https://github.com/MForofontov/python-utils#readme
 
 ---
 
-**Made with ❤️ by the Python Utils Team**
-
-## Running Tests
-
-You **must** install the development dependencies before running tests. Use
-`pip install -r requirements_dev.txt` or install the optional `dev` extras via
-`pip install -e .[dev]`. These packages include `pytest` and
-`pytest-asyncio` in addition to the runtime requirements. If they are missing,
-tests will raise import errors. After installing the dependencies, you can run
-all tests and generate an Allure report using the helper script:
-
-```bash
-bash pytest.sh
-```
-
-The script runs tests from `pytest/unit` and stores the report under `pytest_run_tests/`.
-The Allure command-line tool is required to generate the reports. If you don't have it installed, follow the [official installation guide](https://docs.qameta.io/allure/#_installing_a_commandline).
-
-## Example Usage
-
-Import modules directly from the package. For example, to capitalize each word in a string:
-
-```python
-from strings_utility.capitalize_words import capitalize_words
-
-print(capitalize_words("hello world"))  # -> 'Hello World'
-```
-
-## Logging
-
-Set up a logger once in your application and pass it to any decorator that
-accepts the optional ``logger`` parameter.
-
-```python
-import logging
-
-logger = logging.getLogger("python_utils")
-handler = logging.StreamHandler()
-formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
-handler.setFormatter(formatter)
-logger.addHandler(handler)
-logger.setLevel(logging.INFO)
-
-from decorators.throttle import throttle
-
-@throttle(0.5, logger=logger)
-def my_function():
-    ...
-```
-
-The `timeout` decorator is also thread-based so it works on all platforms,
-including Windows. When the specified limit is reached a `TimeoutException` is
-raised while the underlying thread may still finish in the background.
-
-## Contributing
-
-1. Fork the repository and create a new branch.
-2. Make your changes and add tests when appropriate.
-3. Commit your work and open a pull request.
-
-## Authors
-
-- [Mykyta Forofontov](https://github.com/MForofontov)
-
-## License
-
-This project is licensed under the [GNU GPLv3](LICENSE).
-
+⭐ **Star this repository** if you find it useful!
