@@ -7,7 +7,9 @@ from ssh_functions.remote.ssh_execute_command import ssh_execute_command
 
 
 def test_ssh_execute_command_successful_with_password() -> None:
-    """Test successful command execution with password authentication."""
+    """
+    Test case 1: Test successful command execution with password authentication.
+    """
     with patch("ssh_functions.remote.ssh_execute_command.paramiko.SSHClient") as mock_client:
         with patch("ssh_functions.remote.ssh_execute_command.getpass.getuser", return_value="testuser"):
             mock_ssh = MagicMock()
@@ -31,7 +33,9 @@ def test_ssh_execute_command_successful_with_password() -> None:
 
 
 def test_ssh_execute_command_successful_with_key_file() -> None:
-    """Test successful command execution with key file authentication."""
+    """
+    Test case 2: Test successful command execution with key file authentication.
+    """
     with patch("ssh_functions.remote.ssh_execute_command.paramiko.SSHClient") as mock_client:
         with patch("ssh_functions.remote.ssh_execute_command.getpass.getuser", return_value="testuser"):
             mock_ssh = MagicMock()
@@ -54,7 +58,9 @@ def test_ssh_execute_command_successful_with_key_file() -> None:
 
 
 def test_ssh_execute_command_with_stderr() -> None:
-    """Test command execution with stderr output."""
+    """
+    Test case 3: Test command execution with stderr output.
+    """
     with patch("ssh_functions.remote.ssh_execute_command.paramiko.SSHClient") as mock_client:
         with patch("ssh_functions.remote.ssh_execute_command.getpass.getuser", return_value="testuser"):
             mock_ssh = MagicMock()
@@ -73,7 +79,9 @@ def test_ssh_execute_command_with_stderr() -> None:
 
 
 def test_ssh_execute_command_with_custom_port() -> None:
-    """Test command execution with custom port."""
+    """
+    Test case 4: Test command execution with custom port.
+    """
     with patch("ssh_functions.remote.ssh_execute_command.paramiko.SSHClient") as mock_client:
         with patch("ssh_functions.remote.ssh_execute_command.getpass.getuser", return_value="testuser"):
             mock_ssh = MagicMock()
@@ -95,7 +103,9 @@ def test_ssh_execute_command_with_custom_port() -> None:
 
 
 def test_ssh_execute_command_default_user() -> None:
-    """Test command execution with default user from getpass."""
+    """
+    Test case 5: Test command execution with default user from getpass.
+    """
     with patch("ssh_functions.remote.ssh_execute_command.paramiko.SSHClient") as mock_client:
         with patch("ssh_functions.remote.ssh_execute_command.getpass.getuser", return_value="currentuser"):
             mock_ssh = MagicMock()
@@ -117,7 +127,9 @@ def test_ssh_execute_command_default_user() -> None:
 
 
 def test_ssh_execute_command_with_custom_timeout() -> None:
-    """Test command execution with custom timeout."""
+    """
+    Test case 6: Test command execution with custom timeout.
+    """
     with patch("ssh_functions.remote.ssh_execute_command.paramiko.SSHClient") as mock_client:
         with patch("ssh_functions.remote.ssh_execute_command.getpass.getuser", return_value="testuser"):
             mock_ssh = MagicMock()
@@ -139,7 +151,9 @@ def test_ssh_execute_command_with_custom_timeout() -> None:
 
 
 def test_ssh_execute_command_boundary_port_min() -> None:
-    """Test command execution with minimum port value."""
+    """
+    Test case 7: Test command execution with minimum port value.
+    """
     with patch("ssh_functions.remote.ssh_execute_command.paramiko.SSHClient") as mock_client:
         with patch("ssh_functions.remote.ssh_execute_command.getpass.getuser", return_value="testuser"):
             mock_ssh = MagicMock()
@@ -157,7 +171,9 @@ def test_ssh_execute_command_boundary_port_min() -> None:
 
 
 def test_ssh_execute_command_boundary_port_max() -> None:
-    """Test command execution with maximum port value."""
+    """
+    Test case 8: Test command execution with maximum port value.
+    """
     with patch("ssh_functions.remote.ssh_execute_command.paramiko.SSHClient") as mock_client:
         with patch("ssh_functions.remote.ssh_execute_command.getpass.getuser", return_value="testuser"):
             mock_ssh = MagicMock()
@@ -175,73 +191,97 @@ def test_ssh_execute_command_boundary_port_max() -> None:
 
 
 def test_ssh_execute_command_type_error_host() -> None:
-    """Test TypeError for invalid host type."""
+    """
+    Test case 9: Test TypeError for invalid host type.
+    """
     with pytest.raises(TypeError, match="host must be a string"):
         ssh_execute_command(123, "ls")
 
 
 def test_ssh_execute_command_type_error_command() -> None:
-    """Test TypeError for invalid command type."""
+    """
+    Test case 10: Test TypeError for invalid command type.
+    """
     with pytest.raises(TypeError, match="command must be a string"):
         ssh_execute_command("host", 123)
 
 
 def test_ssh_execute_command_type_error_user() -> None:
-    """Test TypeError for invalid user type."""
+    """
+    Test case 11: Test TypeError for invalid user type.
+    """
     with pytest.raises(TypeError, match="user must be a string or None"):
         ssh_execute_command("host", "ls", user=123)
 
 
 def test_ssh_execute_command_type_error_password() -> None:
-    """Test TypeError for invalid password type."""
+    """
+    Test case 12: Test TypeError for invalid password type.
+    """
     with pytest.raises(TypeError, match="password must be a string or None"):
         ssh_execute_command("host", "ls", password=123)
 
 
 def test_ssh_execute_command_type_error_key_filename() -> None:
-    """Test TypeError for invalid key_filename type."""
+    """
+    Test case 13: Test TypeError for invalid key_filename type.
+    """
     with pytest.raises(TypeError, match="key_filename must be a string or None"):
         ssh_execute_command("host", "ls", key_filename=123)
 
 
 def test_ssh_execute_command_type_error_port() -> None:
-    """Test TypeError for invalid port type."""
+    """
+    Test case 14: Test TypeError for invalid port type.
+    """
     with pytest.raises(TypeError, match="port must be an integer"):
         ssh_execute_command("host", "ls", port="22")
 
 
 def test_ssh_execute_command_type_error_timeout() -> None:
-    """Test TypeError for invalid timeout type."""
+    """
+    Test case 15: Test TypeError for invalid timeout type.
+    """
     with pytest.raises(TypeError, match="timeout must be a number"):
         ssh_execute_command("host", "ls", timeout="30")
 
 
 def test_ssh_execute_command_value_error_port_too_low() -> None:
-    """Test ValueError for port value too low."""
+    """
+    Test case 16: Test ValueError for port value too low.
+    """
     with pytest.raises(ValueError, match="port must be in 1-65535"):
         ssh_execute_command("host", "ls", port=0)
 
 
 def test_ssh_execute_command_value_error_port_too_high() -> None:
-    """Test ValueError for port value too high."""
+    """
+    Test case 17: Test ValueError for port value too high.
+    """
     with pytest.raises(ValueError, match="port must be in 1-65535"):
         ssh_execute_command("host", "ls", port=70000)
 
 
 def test_ssh_execute_command_value_error_timeout_negative() -> None:
-    """Test ValueError for negative timeout."""
+    """
+    Test case 18: Test ValueError for negative timeout.
+    """
     with pytest.raises(ValueError, match="timeout must be positive"):
         ssh_execute_command("host", "ls", timeout=-5)
 
 
 def test_ssh_execute_command_value_error_timeout_zero() -> None:
-    """Test ValueError for zero timeout."""
+    """
+    Test case 19: Test ValueError for zero timeout.
+    """
     with pytest.raises(ValueError, match="timeout must be positive"):
         ssh_execute_command("host", "ls", timeout=0)
 
 
 def test_ssh_execute_command_runtime_error_auth_failure() -> None:
-    """Test RuntimeError for authentication failure."""
+    """
+    Test case 20: Test RuntimeError for authentication failure.
+    """
     with patch("ssh_functions.remote.ssh_execute_command.paramiko.SSHClient") as mock_client:
         with patch("ssh_functions.remote.ssh_execute_command.getpass.getuser", return_value="testuser"):
             mock_ssh = MagicMock()
@@ -254,7 +294,9 @@ def test_ssh_execute_command_runtime_error_auth_failure() -> None:
 
 
 def test_ssh_execute_command_runtime_error_ssh_exception() -> None:
-    """Test RuntimeError for SSH exception."""
+    """
+    Test case 21: Test RuntimeError for SSH exception.
+    """
     with patch("ssh_functions.remote.ssh_execute_command.paramiko.SSHClient") as mock_client:
         with patch("ssh_functions.remote.ssh_execute_command.getpass.getuser", return_value="testuser"):
             mock_ssh = MagicMock()
@@ -267,7 +309,9 @@ def test_ssh_execute_command_runtime_error_ssh_exception() -> None:
 
 
 def test_ssh_execute_command_runtime_error_timeout() -> None:
-    """Test RuntimeError for timeout."""
+    """
+    Test case 22: Test RuntimeError for timeout.
+    """
     with patch("ssh_functions.remote.ssh_execute_command.paramiko.SSHClient") as mock_client:
         with patch("ssh_functions.remote.ssh_execute_command.getpass.getuser", return_value="testuser"):
             mock_ssh = MagicMock()
@@ -279,7 +323,9 @@ def test_ssh_execute_command_runtime_error_timeout() -> None:
 
 
 def test_ssh_execute_command_runtime_error_general() -> None:
-    """Test RuntimeError for general exception."""
+    """
+    Test case 23: Test RuntimeError for general exception.
+    """
     with patch("ssh_functions.remote.ssh_execute_command.paramiko.SSHClient") as mock_client:
         with patch("ssh_functions.remote.ssh_execute_command.getpass.getuser", return_value="testuser"):
             mock_ssh = MagicMock()
