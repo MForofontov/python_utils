@@ -3,7 +3,7 @@ Unit tests for compare_schemas function.
 """
 
 import pytest
-from sqlalchemy import create_engine, Column, Integer, String, Float
+from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy.orm import declarative_base
 
 from database_functions import compare_schemas
@@ -28,13 +28,12 @@ class ProductV1(Base):
     price = Column(Float)
 
 
-def test_compare_schemas_identical_schemas() -> None:
+def test_compare_schemas_identical_schemas(dual_engines) -> None:
     """
     Test case 1: Identical schemas should show no differences.
     """
     # Arrange
-    engine1 = create_engine("sqlite:///:memory:")
-    engine2 = create_engine("sqlite:///:memory:")
+    engine1, engine2 = dual_engines
     Base.metadata.create_all(engine1)
     Base.metadata.create_all(engine2)
     conn1 = engine1.connect()
@@ -51,17 +50,14 @@ def test_compare_schemas_identical_schemas() -> None:
     
     conn1.close()
     conn2.close()
-    engine1.dispose()
-    engine2.dispose()
 
 
-def test_compare_schemas_new_tables() -> None:
+def test_compare_schemas_new_tables(dual_engines) -> None:
     """
     Test case 2: New tables are detected.
     """
     # Arrange
-    engine1 = create_engine("sqlite:///:memory:")
-    engine2 = create_engine("sqlite:///:memory:")
+    engine1, engine2 = dual_engines
     
     # Create only users in source
     Base.metadata.tables['users'].create(engine1)
@@ -81,17 +77,14 @@ def test_compare_schemas_new_tables() -> None:
     
     conn1.close()
     conn2.close()
-    engine1.dispose()
-    engine2.dispose()
 
 
-def test_compare_schemas_dropped_tables() -> None:
+def test_compare_schemas_dropped_tables(dual_engines) -> None:
     """
     Test case 3: Dropped tables are detected as breaking changes.
     """
     # Arrange
-    engine1 = create_engine("sqlite:///:memory:")
-    engine2 = create_engine("sqlite:///:memory:")
+    engine1, engine2 = dual_engines
     
     # Create both tables in source
     Base.metadata.create_all(engine1)
@@ -111,15 +104,14 @@ def test_compare_schemas_dropped_tables() -> None:
     
     conn1.close()
     conn2.close()
-    engine1.dispose()
-    engine2.dispose()
 
 
-def test_compare_schemas_new_columns() -> None:
+def test_compare_schemas_new_columns(dual_engines) -> None:
     """
     Test case 4: New columns in existing tables are detected.
     """
     # Arrange
+    engine1, engine2 = dual_engines
     Base2 = declarative_base()
     
     class UserV2(Base2):
@@ -129,8 +121,6 @@ def test_compare_schemas_new_columns() -> None:
         email = Column(String(100))
         phone = Column(String(20))  # New column
     
-    engine1 = create_engine("sqlite:///:memory:")
-    engine2 = create_engine("sqlite:///:memory:")
     Base.metadata.tables['users'].create(engine1)
     Base2.metadata.create_all(engine2)
     
@@ -149,15 +139,14 @@ def test_compare_schemas_new_columns() -> None:
     
     conn1.close()
     conn2.close()
-    engine1.dispose()
-    engine2.dispose()
 
 
-def test_compare_schemas_dropped_columns() -> None:
+def test_compare_schemas_dropped_columns(dual_engines) -> None:
     """
     Test case 5: Dropped columns are detected as breaking changes.
     """
     # Arrange
+    engine1, engine2 = dual_engines
     Base2 = declarative_base()
     
     class UserV2(Base2):
@@ -166,8 +155,6 @@ def test_compare_schemas_dropped_columns() -> None:
         username = Column(String(50))
         # email column dropped
     
-    engine1 = create_engine("sqlite:///:memory:")
-    engine2 = create_engine("sqlite:///:memory:")
     Base.metadata.tables['users'].create(engine1)
     Base2.metadata.create_all(engine2)
     
@@ -185,15 +172,14 @@ def test_compare_schemas_dropped_columns() -> None:
     
     conn1.close()
     conn2.close()
-    engine1.dispose()
-    engine2.dispose()
 
 
-def test_compare_schemas_type_changes() -> None:
+def test_compare_schemas_type_changes(dual_engines) -> None:
     """
     Test case 6: Column type changes are detected as breaking.
     """
     # Arrange
+    engine1, engine2 = dual_engines
     Base2 = declarative_base()
     
     class UserV2(Base2):
@@ -202,8 +188,6 @@ def test_compare_schemas_type_changes() -> None:
         username = Column(String(100))  # Changed from 50 to 100
         email = Column(String(100))
     
-    engine1 = create_engine("sqlite:///:memory:")
-    engine2 = create_engine("sqlite:///:memory:")
     Base.metadata.tables['users'].create(engine1)
     Base2.metadata.create_all(engine2)
     
@@ -223,17 +207,14 @@ def test_compare_schemas_type_changes() -> None:
     
     conn1.close()
     conn2.close()
-    engine1.dispose()
-    engine2.dispose()
 
 
-def test_compare_schemas_with_ignore_tables() -> None:
+def test_compare_schemas_with_ignore_tables(dual_engines) -> None:
     """
     Test case 7: Ignored tables are excluded from comparison.
     """
     # Arrange
-    engine1 = create_engine("sqlite:///:memory:")
-    engine2 = create_engine("sqlite:///:memory:")
+    engine1, engine2 = dual_engines
     Base.metadata.create_all(engine1)
     Base.metadata.tables['users'].create(engine2)  # Only users in target
     
@@ -248,49 +229,42 @@ def test_compare_schemas_with_ignore_tables() -> None:
     
     conn1.close()
     conn2.close()
-    engine1.dispose()
-    engine2.dispose()
 
 
-def test_compare_schemas_none_source_connection() -> None:
+def test_compare_schemas_none_source_connection(memory_engine) -> None:
     """
     Test case 8: None source_connection raises TypeError.
     """
     # Arrange
-    engine = create_engine("sqlite:///:memory:")
-    conn = engine.connect()
+    conn = memory_engine.connect()
     
     # Act & Assert
     with pytest.raises(TypeError, match="source_connection cannot be None"):
         compare_schemas(None, conn)
     
     conn.close()
-    engine.dispose()
 
 
-def test_compare_schemas_none_target_connection() -> None:
+def test_compare_schemas_none_target_connection(memory_engine) -> None:
     """
     Test case 9: None target_connection raises TypeError.
     """
     # Arrange
-    engine = create_engine("sqlite:///:memory:")
-    conn = engine.connect()
+    conn = memory_engine.connect()
     
     # Act & Assert
     with pytest.raises(TypeError, match="target_connection cannot be None"):
         compare_schemas(conn, None)
     
     conn.close()
-    engine.dispose()
 
 
-def test_compare_schemas_invalid_ignore_tables_type() -> None:
+def test_compare_schemas_invalid_ignore_tables_type(dual_engines) -> None:
     """
     Test case 10: Invalid ignore_tables type raises TypeError.
     """
     # Arrange
-    engine1 = create_engine("sqlite:///:memory:")
-    engine2 = create_engine("sqlite:///:memory:")
+    engine1, engine2 = dual_engines
     conn1 = engine1.connect()
     conn2 = engine2.connect()
     
@@ -300,17 +274,14 @@ def test_compare_schemas_invalid_ignore_tables_type() -> None:
     
     conn1.close()
     conn2.close()
-    engine1.dispose()
-    engine2.dispose()
 
 
-def test_compare_schemas_invalid_schema_type() -> None:
+def test_compare_schemas_invalid_schema_type(dual_engines) -> None:
     """
     Test case 11: Invalid schema type raises TypeError.
     """
     # Arrange
-    engine1 = create_engine("sqlite:///:memory:")
-    engine2 = create_engine("sqlite:///:memory:")
+    engine1, engine2 = dual_engines
     conn1 = engine1.connect()
     conn2 = engine2.connect()
     
@@ -320,5 +291,3 @@ def test_compare_schemas_invalid_schema_type() -> None:
     
     conn1.close()
     conn2.close()
-    engine1.dispose()
-    engine2.dispose()

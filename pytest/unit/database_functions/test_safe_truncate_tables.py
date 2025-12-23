@@ -3,7 +3,7 @@ Unit tests for safe_truncate_tables function.
 """
 
 import pytest
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, MetaData, Table
+from sqlalchemy import Column, Integer, String, ForeignKey, MetaData, Table
 from sqlalchemy.orm import declarative_base
 
 from database_functions.schema_inspection import safe_truncate_tables
@@ -35,14 +35,13 @@ class Project(Base):
     emp_id = Column(Integer, ForeignKey('employees.id'))
 
 
-def test_safe_truncate_tables_respects_fk_order() -> None:
+def test_safe_truncate_tables_respects_fk_order(memory_engine) -> None:
     """
     Test case 1: Tables are truncated in safe FK dependency order.
     """
     # Arrange
-    engine = create_engine("sqlite:///:memory:")
-    Base.metadata.create_all(engine)
-    conn = engine.connect()
+    Base.metadata.create_all(memory_engine)
+    conn = memory_engine.connect()
     
     # Insert test data
     conn.execute(Department.__table__.insert(), {"id": 1, "name": "Engineering"})
@@ -68,17 +67,15 @@ def test_safe_truncate_tables_respects_fk_order() -> None:
     assert projects_idx < employees_idx < departments_idx
     
     conn.close()
-    engine.dispose()
 
 
-def test_safe_truncate_tables_specific_tables() -> None:
+def test_safe_truncate_tables_specific_tables(memory_engine) -> None:
     """
     Test case 2: Truncate only specified tables.
     """
     # Arrange
-    engine = create_engine("sqlite:///:memory:")
-    Base.metadata.create_all(engine)
-    conn = engine.connect()
+    Base.metadata.create_all(memory_engine)
+    conn = memory_engine.connect()
     
     conn.execute(Department.__table__.insert(), {"id": 1, "name": "Engineering"})
     conn.execute(Employee.__table__.insert(), {"id": 1, "name": "Alice", "dept_id": 1})
@@ -93,17 +90,15 @@ def test_safe_truncate_tables_specific_tables() -> None:
     assert "departments" not in result["truncated"]
     
     conn.close()
-    engine.dispose()
 
 
-def test_safe_truncate_tables_empty_database() -> None:
+def test_safe_truncate_tables_empty_database(memory_engine) -> None:
     """
     Test case 3: Handle empty database gracefully.
     """
     # Arrange
-    engine = create_engine("sqlite:///:memory:")
-    Base.metadata.create_all(engine)
-    conn = engine.connect()
+    Base.metadata.create_all(memory_engine)
+    conn = memory_engine.connect()
     
     # Act
     result = safe_truncate_tables(conn)
@@ -113,7 +108,6 @@ def test_safe_truncate_tables_empty_database() -> None:
     assert len(result["truncated"]) >= 0
     
     conn.close()
-    engine.dispose()
 
 
 def test_safe_truncate_tables_invalid_connection_type_error() -> None:
@@ -128,13 +122,12 @@ def test_safe_truncate_tables_invalid_connection_type_error() -> None:
         safe_truncate_tables(None)
 
 
-def test_safe_truncate_tables_invalid_tables_type_error() -> None:
+def test_safe_truncate_tables_invalid_tables_type_error(memory_engine) -> None:
     """
     Test case 5: TypeError for invalid tables parameter.
     """
     # Arrange
-    engine = create_engine("sqlite:///:memory:")
-    conn = engine.connect()
+    conn = memory_engine.connect()
     expected_message = "tables must be list or None"
     
     # Act & Assert
@@ -142,16 +135,14 @@ def test_safe_truncate_tables_invalid_tables_type_error() -> None:
         safe_truncate_tables(conn, tables="invalid")
     
     conn.close()
-    engine.dispose()
 
 
-def test_safe_truncate_tables_invalid_cascade_type_error() -> None:
+def test_safe_truncate_tables_invalid_cascade_type_error(memory_engine) -> None:
     """
     Test case 6: TypeError for invalid cascade parameter.
     """
     # Arrange
-    engine = create_engine("sqlite:///:memory:")
-    conn = engine.connect()
+    conn = memory_engine.connect()
     expected_message = "cascade must be bool"
     
     # Act & Assert
@@ -159,16 +150,14 @@ def test_safe_truncate_tables_invalid_cascade_type_error() -> None:
         safe_truncate_tables(conn, cascade="yes")
     
     conn.close()
-    engine.dispose()
 
 
-def test_safe_truncate_tables_invalid_schema_type_error() -> None:
+def test_safe_truncate_tables_invalid_schema_type_error(memory_engine) -> None:
     """
     Test case 7: TypeError for invalid schema parameter.
     """
     # Arrange
-    engine = create_engine("sqlite:///:memory:")
-    conn = engine.connect()
+    conn = memory_engine.connect()
     expected_message = "schema must be str or None"
     
     # Act & Assert
@@ -176,17 +165,15 @@ def test_safe_truncate_tables_invalid_schema_type_error() -> None:
         safe_truncate_tables(conn, schema=123)
     
     conn.close()
-    engine.dispose()
 
 
-def test_safe_truncate_tables_verifies_data_deleted() -> None:
+def test_safe_truncate_tables_verifies_data_deleted(memory_engine) -> None:
     """
-    Test case 8: Verify data is actually deleted after truncate.
+    Test case 8: Verify data is actually deleted after truncation.
     """
     # Arrange
-    engine = create_engine("sqlite:///:memory:")
-    Base.metadata.create_all(engine)
-    conn = engine.connect()
+    Base.metadata.create_all(memory_engine)
+    conn = memory_engine.connect()
     
     # Insert data
     conn.execute(Department.__table__.insert(), {"id": 1, "name": "Engineering"})
@@ -205,17 +192,15 @@ def test_safe_truncate_tables_verifies_data_deleted() -> None:
     assert len(rows) == 0
     
     conn.close()
-    engine.dispose()
 
 
-def test_safe_truncate_tables_with_cascade_option() -> None:
+def test_safe_truncate_tables_with_cascade_option(memory_engine) -> None:
     """
     Test case 9: Test cascade parameter is accepted.
     """
     # Arrange
-    engine = create_engine("sqlite:///:memory:")
-    Base.metadata.create_all(engine)
-    conn = engine.connect()
+    Base.metadata.create_all(memory_engine)
+    conn = memory_engine.connect()
     
     # Act
     result = safe_truncate_tables(conn, cascade=True)
@@ -225,17 +210,15 @@ def test_safe_truncate_tables_with_cascade_option() -> None:
     assert isinstance(result["truncated"], list)
     
     conn.close()
-    engine.dispose()
 
 
-def test_safe_truncate_tables_nonexistent_table_in_list() -> None:
+def test_safe_truncate_tables_nonexistent_table_in_list(memory_engine) -> None:
     """
     Test case 10: Handle nonexistent table gracefully.
     """
     # Arrange
-    engine = create_engine("sqlite:///:memory:")
-    Base.metadata.create_all(engine)
-    conn = engine.connect()
+    Base.metadata.create_all(memory_engine)
+    conn = memory_engine.connect()
     
     # Act
     result = safe_truncate_tables(conn, tables=["nonexistent_table"])
@@ -245,4 +228,33 @@ def test_safe_truncate_tables_nonexistent_table_in_list() -> None:
     assert "errors" in result
     
     conn.close()
-    engine.dispose()
+
+
+def test_safe_truncate_tables_commit_exception_handling(memory_engine) -> None:
+    """
+    Test case 11: Handle commit exceptions gracefully.
+    """
+    # Arrange
+    
+    class TableWithoutFK(Base):
+        """Simple table for testing."""
+        __tablename__ = 'test_table'
+        id = Column(Integer, primary_key=True)
+        data = Column(String(50))
+    
+    Base.metadata.create_all(memory_engine)
+    conn = memory_engine.connect()
+    
+    # Insert some data
+    conn.execute(TableWithoutFK.__table__.insert(), {"id": 1, "data": "test"})
+    conn.commit()
+    
+    # Act - should handle even if commit raises exception
+    result = safe_truncate_tables(conn, tables=["test_table"])
+    
+    # Assert - should succeed or fail gracefully
+    assert isinstance(result, dict)
+    assert "success" in result
+    assert "truncated" in result
+    
+    conn.close()

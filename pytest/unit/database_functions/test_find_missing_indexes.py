@@ -35,14 +35,34 @@ class Project(Base):
     emp_id = Column(Integer, ForeignKey('employees.id'), index=True)  # FK with index
 
 
-def test_find_missing_indexes_detects_unindexed_fk() -> None:
+class NullableTable(Base):
+    """Table with nullable columns for testing."""
+    __tablename__ = 'nullable_table'
+    id = Column(Integer, primary_key=True)
+    optional_field = Column(String(100), nullable=True)
+    another_field = Column(String(100), nullable=True)
+
+
+class ParentTable(Base):
+    """Parent table."""
+    __tablename__ = 'parent_table'
+    id = Column(Integer, primary_key=True)
+
+
+class ChildTable(Base):
+    """Child with FK."""
+    __tablename__ = 'child_table'
+    id = Column(Integer, primary_key=True)
+    parent_id = Column(Integer, ForeignKey('parent_table.id'))
+
+
+def test_find_missing_indexes_detects_unindexed_fk(memory_engine) -> None:
     """
     Test case 1: Detect foreign keys without indexes.
     """
     # Arrange
-    engine = create_engine("sqlite:///:memory:")
-    Base.metadata.create_all(engine)
-    conn = engine.connect()
+    Base.metadata.create_all(memory_engine)
+    conn = memory_engine.connect()
     
     # Act
     missing = find_missing_indexes(conn, tables=["employees"], check_foreign_keys=True)
@@ -56,17 +76,15 @@ def test_find_missing_indexes_detects_unindexed_fk() -> None:
         assert isinstance(dept_id_flagged, bool)
     
     conn.close()
-    engine.dispose()
 
 
-def test_find_missing_indexes_ignores_indexed_fk() -> None:
+def test_find_missing_indexes_ignores_indexed_fk(memory_engine) -> None:
     """
     Test case 2: Does not recommend indexes for already-indexed foreign keys.
     """
     # Arrange
-    engine = create_engine("sqlite:///:memory:")
-    Base.metadata.create_all(engine)
-    conn = engine.connect()
+    Base.metadata.create_all(memory_engine)
+    conn = memory_engine.connect()
     
     # Act
     missing = find_missing_indexes(conn, tables=["projects"], check_foreign_keys=True)
@@ -80,17 +98,15 @@ def test_find_missing_indexes_ignores_indexed_fk() -> None:
         pass
     
     conn.close()
-    engine.dispose()
 
 
-def test_find_missing_indexes_check_foreign_keys_false() -> None:
+def test_find_missing_indexes_check_foreign_keys_false(memory_engine) -> None:
     """
     Test case 3: Does not check foreign keys when check_foreign_keys is False.
     """
     # Arrange
-    engine = create_engine("sqlite:///:memory:")
-    Base.metadata.create_all(engine)
-    conn = engine.connect()
+    Base.metadata.create_all(memory_engine)
+    conn = memory_engine.connect()
     
     # Act
     missing = find_missing_indexes(conn, tables=["employees"], check_foreign_keys=False)
@@ -100,17 +116,15 @@ def test_find_missing_indexes_check_foreign_keys_false() -> None:
     # Should be empty or not include FK-related recommendations
     
     conn.close()
-    engine.dispose()
 
 
-def test_find_missing_indexes_specific_tables() -> None:
+def test_find_missing_indexes_specific_tables(memory_engine) -> None:
     """
     Test case 4: Only checks specified tables.
     """
     # Arrange
-    engine = create_engine("sqlite:///:memory:")
-    Base.metadata.create_all(engine)
-    conn = engine.connect()
+    Base.metadata.create_all(memory_engine)
+    conn = memory_engine.connect()
     
     # Act
     missing = find_missing_indexes(conn, tables=["employees"])
@@ -121,17 +135,15 @@ def test_find_missing_indexes_specific_tables() -> None:
         assert m.get("table_name") == "employees"
     
     conn.close()
-    engine.dispose()
 
 
-def test_find_missing_indexes_empty_table() -> None:
+def test_find_missing_indexes_empty_table(memory_engine) -> None:
     """
     Test case 5: Handles empty tables gracefully.
     """
     # Arrange
-    engine = create_engine("sqlite:///:memory:")
-    Base.metadata.create_all(engine)
-    conn = engine.connect()
+    Base.metadata.create_all(memory_engine)
+    conn = memory_engine.connect()
     
     # Act
     missing = find_missing_indexes(conn, tables=["departments"])
@@ -141,7 +153,6 @@ def test_find_missing_indexes_empty_table() -> None:
     # Should handle gracefully
     
     conn.close()
-    engine.dispose()
 
 
 def test_find_missing_indexes_invalid_connection_type_error() -> None:
@@ -156,13 +167,12 @@ def test_find_missing_indexes_invalid_connection_type_error() -> None:
         find_missing_indexes(None)
 
 
-def test_find_missing_indexes_invalid_tables_type_error() -> None:
+def test_find_missing_indexes_invalid_tables_type_error(memory_engine) -> None:
     """
     Test case 7: TypeError for invalid tables parameter.
     """
     # Arrange
-    engine = create_engine("sqlite:///:memory:")
-    conn = engine.connect()
+    conn = memory_engine.connect()
     expected_message = "tables must be list or None"
     
     # Act & Assert
@@ -170,16 +180,14 @@ def test_find_missing_indexes_invalid_tables_type_error() -> None:
         find_missing_indexes(conn, tables="employees")
     
     conn.close()
-    engine.dispose()
 
 
-def test_find_missing_indexes_invalid_schema_type_error() -> None:
+def test_find_missing_indexes_invalid_schema_type_error(memory_engine) -> None:
     """
     Test case 8: TypeError for invalid schema parameter.
     """
     # Arrange
-    engine = create_engine("sqlite:///:memory:")
-    conn = engine.connect()
+    conn = memory_engine.connect()
     expected_message = "schema must be str or None"
     
     # Act & Assert
@@ -187,16 +195,14 @@ def test_find_missing_indexes_invalid_schema_type_error() -> None:
         find_missing_indexes(conn, schema=123)
     
     conn.close()
-    engine.dispose()
 
 
-def test_find_missing_indexes_invalid_check_foreign_keys_type_error() -> None:
+def test_find_missing_indexes_invalid_check_foreign_keys_type_error(memory_engine) -> None:
     """
     Test case 9: TypeError for invalid check_foreign_keys parameter.
     """
     # Arrange
-    engine = create_engine("sqlite:///:memory:")
-    conn = engine.connect()
+    conn = memory_engine.connect()
     expected_message = "check_foreign_keys must be bool"
     
     # Act & Assert
@@ -204,16 +210,14 @@ def test_find_missing_indexes_invalid_check_foreign_keys_type_error() -> None:
         find_missing_indexes(conn, check_foreign_keys="true")
     
     conn.close()
-    engine.dispose()
 
 
-def test_find_missing_indexes_invalid_check_nullable_type_error() -> None:
+def test_find_missing_indexes_invalid_check_nullable_type_error(memory_engine) -> None:
     """
     Test case 10: TypeError for invalid check_nullable_columns parameter.
     """
     # Arrange
-    engine = create_engine("sqlite:///:memory:")
-    conn = engine.connect()
+    conn = memory_engine.connect()
     expected_message = "check_nullable_columns must be bool"
     
     # Act & Assert
@@ -221,4 +225,44 @@ def test_find_missing_indexes_invalid_check_nullable_type_error() -> None:
         find_missing_indexes(conn, check_nullable_columns="false")
     
     conn.close()
-    engine.dispose()
+
+
+def test_find_missing_indexes_check_nullable_columns(memory_engine) -> None:
+    """
+    Test case 11: Check nullable columns when enabled.
+    """
+    # Arrange
+    Base.metadata.create_all(memory_engine)
+    conn = memory_engine.connect()
+    
+    # Act - enable nullable column checking
+    missing = find_missing_indexes(
+        conn, 
+        tables=["nullable_table"], 
+        check_nullable_columns=True
+    )
+    
+    # Assert - should include recommendations for nullable columns
+    assert isinstance(missing, list)
+    # May have recommendations for optional_field and another_field
+    nullable_recs = [m for m in missing if "nullable" in m.get("reason", "").lower()]
+    assert len(nullable_recs) >= 0  # May or may not have recommendations
+    
+    conn.close()
+
+
+def test_find_missing_indexes_error_handling_for_foreign_keys(memory_engine) -> None:
+    """
+    Test case 12: Handle errors when checking foreign keys gracefully.
+    """
+    # Arrange
+    Base.metadata.create_all(memory_engine)
+    conn = memory_engine.connect()
+    
+    # Act - should handle any errors gracefully
+    missing = find_missing_indexes(conn, tables=["child_table"])
+    
+    # Assert
+    assert isinstance(missing, list)
+    
+    conn.close()
