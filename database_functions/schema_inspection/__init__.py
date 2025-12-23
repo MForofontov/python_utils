@@ -20,6 +20,7 @@ from .get_column_statistics import get_column_statistics
 from .get_foreign_key_dependencies import get_foreign_key_dependencies
 from .get_table_info import get_table_info, ColumnInfo, TableInfo
 from .get_table_sizes import get_table_sizes
+from .migrate_id_type import migrate_id_type
 from .safe_truncate_tables import safe_truncate_tables
 from .suggest_data_type_optimizations import suggest_data_type_optimizations
 from .verify_referential_integrity import verify_referential_integrity
@@ -43,6 +44,7 @@ __all__ = [
     "get_foreign_key_dependencies",
     "get_table_info",
     "get_table_sizes",
+    "migrate_id_type",
     "safe_truncate_tables",
     "suggest_data_type_optimizations",
     "verify_referential_integrity",
