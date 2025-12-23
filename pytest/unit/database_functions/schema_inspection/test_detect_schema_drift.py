@@ -11,6 +11,43 @@ from database_functions import detect_schema_drift
 from conftest import Base, User, Product
 
 
+@pytest.fixture
+def schema_dict() -> dict:
+    """
+    Local fixture providing expected schema for drift detection tests.
+    
+    Only used by 2 tests in this file, so kept local rather than in conftest.py.
+    """
+    return {
+        "users": {
+            "name": "users",
+            "columns": [
+                {"name": "id", "type": "INTEGER", "primary_key": True},
+                {"name": "username", "type": "VARCHAR(50)"},
+                {"name": "email", "type": "VARCHAR(100)"},
+                {"name": "role", "type": "VARCHAR(20)"},
+                {"name": "status", "type": "VARCHAR(10)"},
+                {"name": "balance", "type": "FLOAT"}
+            ],
+            "indexes": [],
+            "foreign_keys": []
+        },
+        "products": {
+            "name": "products",
+            "columns": [
+                {"name": "id", "type": "INTEGER", "primary_key": True},
+                {"name": "sku", "type": "VARCHAR(500)"},
+                {"name": "name", "type": "VARCHAR(100)"},
+                {"name": "description", "type": "VARCHAR(500)"},
+                {"name": "price", "type": "FLOAT"},
+                {"name": "status", "type": "VARCHAR(20)"}
+            ],
+            "indexes": [],
+            "foreign_keys": []
+        }
+    }
+
+
 def test_detect_schema_drift_no_drift(memory_engine: Engine) -> None:
     """
     Test case 1: No drift when actual schema matches expected.
