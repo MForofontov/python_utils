@@ -7,34 +7,7 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import declarative_base, Session
 
 from database_functions.schema_inspection import find_duplicate_rows
-
-
-Base = declarative_base()
-
-
-class User(Base):
-    """Test User model."""
-    __tablename__ = 'users'
-    id = Column(Integer, primary_key=True)
-    email = Column(String(100))
-    username = Column(String(50))
-
-
-class SimpleTable(Base):
-    """Simple table for testing."""
-    __tablename__ = 'simple_table'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(50))
-
-
-class PersonTable(Base):
-    """Test model for duplicate detection with multiple groups."""
-    __tablename__ = "persons"
-    id = Column(Integer, primary_key=True)
-    first_name = Column(String(50))
-    last_name = Column(String(50))
-    age = Column(Integer)
-    city = Column(String(50))
+from conftest import Base, User
 
 
 def test_find_duplicate_rows_identifies_duplicates(memory_engine) -> None:
@@ -267,20 +240,20 @@ def test_find_duplicate_rows_sample_ids_exception_handling(memory_engine) -> Non
     Test case 13: Handle exception when fetching sample IDs gracefully.
     """
     # Arrange
-    Base.metadata.create_all(memory_engine)
+    User.__table__.create(memory_engine)
     conn = memory_engine.connect()
     
     # Insert duplicate data
-    conn.execute(SimpleTable.__table__.insert(), {"id": 1, "name": "test"})
-    conn.execute(SimpleTable.__table__.insert(), {"id": 2, "name": "test"})
+    conn.execute(User.__table__.insert(), {"id": 1, "username": "test", "email": "test@example.com"})
+    conn.execute(User.__table__.insert(), {"id": 2, "username": "test", "email": "test@example.com"})
     conn.commit()
     
     # Act - even without primary key, should handle gracefully
-    duplicates = find_duplicate_rows(conn, "simple_table", ["name"])
+    duplicates = find_duplicate_rows(conn, "users", ["username"])
     
     # Assert - should still find duplicates even if sample_ids fails
     assert len(duplicates) == 1
-    assert duplicates[0]["name"] == "test"
+    assert duplicates[0]["username"] == "test"
     
     conn.close()
 
@@ -318,37 +291,42 @@ def test_find_duplicate_rows_multiple_duplicate_groups(memory_engine) -> None:
     groups of duplicate rows and returns them sorted by duplicate count.
     """
     # Arrange
-    Base.metadata.create_all(memory_engine)
+    User.__table__.create(memory_engine)
 
     with Session(memory_engine) as session:
         # Create multiple duplicate groups
         # Group 1: "John Doe" appears 5 times
-        persons = [
-            PersonTable(id=i, first_name="John", last_name="Doe", age=30, city="NYC")
+        users = [
+            User(id=i, username=f"user{i}", email=f"user{i}@example.com",
+                 first_name="John", last_name="Doe", age=30, city="NYC")
             for i in range(1, 6)
         ]
         # Group 2: "Jane Smith" appears 3 times
-        persons.extend([
-            PersonTable(id=i, first_name="Jane", last_name="Smith", age=25, city="LA")
+        users.extend([
+            User(id=i, username=f"user{i}", email=f"user{i}@example.com",
+                 first_name="Jane", last_name="Smith", age=25, city="LA")
             for i in range(6, 9)
         ])
         # Group 3: "Bob Wilson" appears 2 times
-        persons.extend([
-            PersonTable(id=9, first_name="Bob", last_name="Wilson", age=35, city="SF"),
-            PersonTable(id=10, first_name="Bob", last_name="Wilson", age=35, city="SF"),
+        users.extend([
+            User(id=9, username="user9", email="user9@example.com",
+                 first_name="Bob", last_name="Wilson", age=35, city="SF"),
+            User(id=10, username="user10", email="user10@example.com",
+                 first_name="Bob", last_name="Wilson", age=35, city="SF"),
         ])
         # Unique person
-        persons.append(
-            PersonTable(id=11, first_name="Alice", last_name="Brown", age=28, city="Boston")
+        users.append(
+            User(id=11, username="user11", email="user11@example.com",
+                 first_name="Alice", last_name="Brown", age=28, city="Boston")
         )
-        session.add_all(persons)
+        session.add_all(users)
         session.commit()
 
     # Act
     with memory_engine.connect() as connection:
         duplicates = find_duplicate_rows(
             connection,
-            table_name="persons",
+            table_name="users",
             columns=["first_name", "last_name", "age", "city"],
             min_duplicates=2,
         )

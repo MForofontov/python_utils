@@ -20,6 +20,7 @@ def test_suggest_data_type_optimizations_oversized_varchar(memory_engine) -> Non
         for i in range(100):
             session.add(Product(
                 id=i,
+                name=f"Product{i}",
                 sku=f"SKU{i:03d}",  # Max 6 chars, but VARCHAR(500)
                 description="Short description",
                 price=10.0,
@@ -53,6 +54,7 @@ def test_suggest_data_type_optimizations_with_sample_size(memory_engine) -> None
         for i in range(1000):
             session.add(Product(
                 id=i,
+                name=f"Product{i}",
                 sku=f"SKU{i}",
                 description="Product description",
                 price=float(i),
@@ -98,6 +100,7 @@ def test_suggest_data_type_optimizations_specific_tables(memory_engine) -> None:
     with Session(memory_engine) as session:
         session.add(Product(
             id=1,
+            name="Product1",
             sku="SKU001",
             description="Test",
             price=10.0,
@@ -130,6 +133,7 @@ def test_suggest_data_type_optimizations_severity_levels(memory_engine) -> None:
         for i in range(50):
             session.add(Product(
                 id=i,
+                name="P",
                 sku="A",  # VARCHAR(500) with 1 char - high severity
                 description="X",
                 price=1.0,
@@ -157,6 +161,7 @@ def test_suggest_data_type_optimizations_provides_reasoning(memory_engine) -> No
     with Session(memory_engine) as session:
         session.add(Product(
             id=1,
+            name="TestProduct",
             sku="TEST",
             description="Description",
             price=10.0,
@@ -249,6 +254,7 @@ def test_suggest_data_type_optimizations_includes_potential_savings(memory_engin
         for i in range(100):
             session.add(Product(
                 id=i,
+                name="N",
                 sku="X",
                 description="Y",
                 price=1.0,

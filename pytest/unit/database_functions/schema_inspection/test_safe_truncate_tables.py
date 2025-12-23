@@ -7,32 +7,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey, MetaData, Table
 from sqlalchemy.orm import declarative_base
 
 from database_functions.schema_inspection import safe_truncate_tables
-
-
-Base = declarative_base()
-
-
-class Department(Base):
-    """Test Department model."""
-    __tablename__ = 'departments'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(100))
-
-
-class Employee(Base):
-    """Test Employee model - depends on Department."""
-    __tablename__ = 'employees'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(100))
-    dept_id = Column(Integer, ForeignKey('departments.id'))
-
-
-class Project(Base):
-    """Test Project model - depends on Employee."""
-    __tablename__ = 'projects'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(100))
-    emp_id = Column(Integer, ForeignKey('employees.id'))
+from conftest import Base, User, Product, Order, Invoice
 
 
 def test_safe_truncate_tables_respects_fk_order(memory_engine) -> None:
@@ -43,10 +18,11 @@ def test_safe_truncate_tables_respects_fk_order(memory_engine) -> None:
     Base.metadata.create_all(memory_engine)
     conn = memory_engine.connect()
     
-    # Insert test data
-    conn.execute(Department.__table__.insert(), {"id": 1, "name": "Engineering"})
-    conn.execute(Employee.__table__.insert(), {"id": 1, "name": "Alice", "dept_id": 1})
-    conn.execute(Project.__table__.insert(), {"id": 1, "name": "Project X", "emp_id": 1})
+    # Insert test data with FK dependencies: Invoice -> Order -> Product/User
+    conn.execute(User.__table__.insert(), {"id": 1, "username": "user1", "email": "user1@example.com"})
+    conn.execute(Product.__table__.insert(), {"id": 1, "name": "Product1"})
+    conn.execute(Order.__table__.insert(), {"id": 1, "user_id": 1, "product_id": 1, "quantity": 10})
+    conn.execute(Invoice.__table__.insert(), {"id": 1, "invoice_number": "INV001", "user_id": 1, "order_id": 1, "total_amount": 100.0, "status": "paid"})
     conn.commit()
     
     # Act
@@ -54,17 +30,17 @@ def test_safe_truncate_tables_respects_fk_order(memory_engine) -> None:
     
     # Assert
     assert result["success"] is True
-    assert len(result["truncated"]) == 3
-    assert "projects" in result["truncated"]
-    assert "employees" in result["truncated"]
-    assert "departments" in result["truncated"]
+    assert len(result["truncated"]) >= 4
+    assert "invoices" in result["truncated"]
+    assert "orders" in result["truncated"]
+    assert "users" in result["truncated"]
+    assert "products" in result["truncated"]
     
-    # Verify order: projects before employees before departments
+    # Verify order: invoices before orders before users/products
     order = result["order_used"]
-    projects_idx = order.index("projects")
-    employees_idx = order.index("employees")
-    departments_idx = order.index("departments")
-    assert projects_idx < employees_idx < departments_idx
+    invoices_idx = order.index("invoices")
+    orders_idx = order.index("orders")
+    assert invoices_idx < orders_idx
     
     conn.close()
 
@@ -77,17 +53,19 @@ def test_safe_truncate_tables_specific_tables(memory_engine) -> None:
     Base.metadata.create_all(memory_engine)
     conn = memory_engine.connect()
     
-    conn.execute(Department.__table__.insert(), {"id": 1, "name": "Engineering"})
-    conn.execute(Employee.__table__.insert(), {"id": 1, "name": "Alice", "dept_id": 1})
+    conn.execute(User.__table__.insert(), {"id": 1, "username": "user1", "email": "user1@example.com"})
+    conn.execute(Product.__table__.insert(), {"id": 1, "name": "Product1"})
+    conn.execute(Order.__table__.insert(), {"id": 1, "user_id": 1, "product_id": 1, "quantity": 10})
     conn.commit()
     
     # Act
-    result = safe_truncate_tables(conn, tables=["employees"])
+    result = safe_truncate_tables(conn, tables=["orders"])
     
     # Assert
     assert result["success"] is True
-    assert "employees" in result["truncated"]
-    assert "departments" not in result["truncated"]
+    assert "orders" in result["truncated"]
+    assert "users" not in result["truncated"]
+    assert "products" not in result["truncated"]
     
     conn.close()
 
@@ -176,18 +154,18 @@ def test_safe_truncate_tables_verifies_data_deleted(memory_engine) -> None:
     conn = memory_engine.connect()
     
     # Insert data
-    conn.execute(Department.__table__.insert(), {"id": 1, "name": "Engineering"})
-    conn.execute(Department.__table__.insert(), {"id": 2, "name": "Sales"})
+    conn.execute(User.__table__.insert(), {"id": 1, "username": "user1", "email": "user1@example.com"})
+    conn.execute(User.__table__.insert(), {"id": 2, "username": "user2", "email": "user2@example.com"})
     conn.commit()
     
     # Act
-    result = safe_truncate_tables(conn, tables=["departments"])
+    result = safe_truncate_tables(conn, tables=["users"])
     
     # Assert
     assert result["success"] is True
     
     # Verify data is gone
-    count_result = conn.execute(Department.__table__.select())
+    count_result = conn.execute(User.__table__.select())
     rows = count_result.fetchall()
     assert len(rows) == 0
     

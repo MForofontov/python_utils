@@ -7,25 +7,7 @@ from sqlalchemy import create_engine, Column, Integer, String, Index
 from sqlalchemy.orm import declarative_base
 
 from database_functions.schema_inspection import get_table_sizes
-
-
-Base = declarative_base()
-
-
-class Product(Base):
-    """Test Product model."""
-    __tablename__ = 'products'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(100))
-    category = Column(String(50))
-
-
-class Order(Base):
-    """Test Order model."""
-    __tablename__ = 'orders'
-    id = Column(Integer, primary_key=True)
-    product_id = Column(Integer)
-    quantity = Column(Integer)
+from conftest import Base, Product, Order
 
 
 def test_get_table_sizes_returns_all_tables() -> None:

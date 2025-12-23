@@ -3,41 +3,10 @@ Unit tests for find_unused_columns function.
 """
 
 import pytest
-from sqlalchemy import create_engine, Column, Integer, String, Float
-from sqlalchemy.orm import declarative_base, Session
+from sqlalchemy.orm import Session
 
 from database_functions.schema_inspection import find_unused_columns
-
-
-Base = declarative_base()
-
-
-class Customer(Base):
-    """Test Customer model."""
-    __tablename__ = 'customers'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(100))
-    email = Column(String(100))
-    phone = Column(String(20))
-    notes = Column(String(500))
-
-
-class NullableTable(Base):
-    """Table with nullable columns for testing."""
-    __tablename__ = 'nullable_table'
-    id = Column(Integer, primary_key=True)
-    optional_field = Column(String(100), nullable=True)
-    another_field = Column(String(100), nullable=True)
-
-
-class DataTable(Base):
-    """Test model with mixed NULL/non-NULL columns."""
-    __tablename__ = "data_table"
-
-    id = Column(Integer, primary_key=True)
-    used_column = Column(String(50))
-    mostly_null_column = Column(String(50))
-    completely_null_column = Column(String(50))
+from conftest import Base, Transaction
 
 
 def test_find_unused_columns_detects_high_null_percentage(memory_engine) -> None:
@@ -48,25 +17,25 @@ def test_find_unused_columns_detects_high_null_percentage(memory_engine) -> None
     Base.metadata.create_all(memory_engine)
     conn = memory_engine.connect()
     
-    # Insert data with mostly NULL in 'notes' column
+    # Insert data with mostly NULL columns
     for i in range(100):
-        conn.execute(Customer.__table__.insert(), {
+        conn.execute(Transaction.__table__.insert(), {
             "id": i,
-            "name": f"Customer{i}",
-            "email": f"customer{i}@example.com",
-            "phone": None,
-            "notes": None  # 100% NULL
+            "transaction_type": f"Transaction{i}",
+            "reference": f"ref{i}",
+            "receipt_url": "used_value",
+            "promo_code": None,
+            "gift_message": None  # 100% NULL
         })
     conn.commit()
     
     # Act
-    unused = find_unused_columns(conn, tables=["customers"], null_threshold=0.90)
+    unused = find_unused_columns(conn, tables=["transactions"], null_threshold=0.90)
     
     # Assert
-    assert len(unused) >= 2  # phone and notes should be flagged
+    assert len(unused) >= 2  # promo_code and gift_message should be flagged
     column_names = [u["column_name"] for u in unused]
-    assert "phone" in column_names
-    assert "notes" in column_names
+    assert "gift_message" in column_names
     
     # Verify structure
     for col in unused:
@@ -90,17 +59,24 @@ def test_find_unused_columns_no_unused_columns(memory_engine) -> None:
     
     # Insert data with all columns populated
     for i in range(10):
-        conn.execute(Customer.__table__.insert(), {
+        conn.execute(Transaction.__table__.insert(), {
             "id": i,
-            "name": f"Customer{i}",
-            "email": f"customer{i}@example.com",
-            "phone": f"555-{i:04d}",
-            "notes": f"Notes {i}"
+            "transaction_type": f"Trans{i}",
+            "reference": f"ref{i}@example.com",
+            "payment_method": f"555-{i:04d}",
+            "description": f"Notes {i}",
+            "amount": 100 + i,
+            "balance": 1000.0 + i,
+            "merchant_id": f"merchant{i}",
+            "customer_notes": f"notes{i}",
+            "receipt_url": f"https://receipt{i}.com",
+            "promo_code": f"PROMO{i}",
+            "gift_message": f"Gift message {i}"
         })
     conn.commit()
     
     # Act
-    unused = find_unused_columns(conn, tables=["customers"], null_threshold=0.95)
+    unused = find_unused_columns(conn, tables=["transactions"], null_threshold=0.95)
     
     # Assert
     assert len(unused) == 0
@@ -118,20 +94,20 @@ def test_find_unused_columns_custom_threshold(memory_engine) -> None:
     
     # Insert data with 50% NULL
     for i in range(100):
-        conn.execute(Customer.__table__.insert(), {
+        conn.execute(Transaction.__table__.insert(), {
             "id": i,
-            "name": f"Customer{i}",
-            "email": f"customer{i}@example.com",
-            "phone": f"555-{i:04d}" if i % 2 == 0 else None,  # 50% NULL
-            "notes": "Some notes"
+            "transaction_type": f"Trans{i}",
+            "reference": f"ref{i}@example.com",
+            "payment_method": f"555-{i:04d}" if i % 2 == 0 else None,  # 50% NULL
+            "description": "Some notes"
         })
     conn.commit()
     
     # Act - set threshold to 40% (should catch phone column)
-    unused = find_unused_columns(conn, tables=["customers"], null_threshold=0.40)
+    unused = find_unused_columns(conn, tables=["transactions"], null_threshold=0.40)
     
     # Assert
-    assert any(col["column_name"] == "phone" for col in unused)
+    assert any(col["column_name"] == "payment_method" for col in unused)
     
     conn.close()
 
@@ -145,7 +121,7 @@ def test_find_unused_columns_empty_table(memory_engine) -> None:
     conn = memory_engine.connect()
     
     # Act
-    unused = find_unused_columns(conn, tables=["customers"])
+    unused = find_unused_columns(conn, tables=["transactions"])
     
     # Assert - should handle gracefully, not crash
     assert isinstance(unused, list)
@@ -162,20 +138,22 @@ def test_find_unused_columns_specific_tables(memory_engine) -> None:
     conn = memory_engine.connect()
     
     for i in range(10):
-        conn.execute(Customer.__table__.insert(), {
+        conn.execute(Transaction.__table__.insert(), {
             "id": i,
-            "name": f"Customer{i}",
-            "email": f"customer{i}@example.com",
-            "phone": None,
-            "notes": None
+            "transaction_type": f"Trans{i}",
+            "reference": f"ref{i}@example.com",
+            "payment_method": None,
+            "description": None,
+            "gift_message": None,
+            "promo_code": None
         })
     conn.commit()
     
     # Act
-    unused = find_unused_columns(conn, tables=["customers"])
+    unused = find_unused_columns(conn, tables=["transactions"])
     
     # Assert
-    assert all(col["table_name"] == "customers" for col in unused)
+    assert all(col["table_name"] == "transactions" for col in unused)
     
     conn.close()
 
@@ -264,17 +242,19 @@ def test_find_unused_columns_distinct_count_exception(memory_engine) -> None:
     Base.metadata.create_all(memory_engine)
     conn = memory_engine.connect()
     
-    # Insert data with all NULL in optional_field
+    # Insert data with all NULL in merchant_id
     for i in range(10):
-        conn.execute(NullableTable.__table__.insert(), {
+        conn.execute(Transaction.__table__.insert(), {
             "id": i,
-            "optional_field": None,
-            "another_field": None
+            "transaction_type": f"Trans{i}",
+            "reference": f"ref{i}",
+            "merchant_id": None,
+            "customer_notes": None
         })
     conn.commit()
     
     # Act - should handle potential exceptions in distinct count
-    unused = find_unused_columns(conn, tables=["nullable_table"], null_threshold=0.5)
+    unused = find_unused_columns(conn, tables=["transactions"], null_threshold=0.5)
     
     # Assert
     assert len(unused) >= 2  # Both nullable fields should be flagged
@@ -292,15 +272,17 @@ def test_find_unused_columns_with_some_distinct_values(memory_engine) -> None:
     
     # Insert data with some NULL and some non-NULL
     for i in range(100):
-        conn.execute(NullableTable.__table__.insert(), {
+        conn.execute(Transaction.__table__.insert(), {
             "id": i,
-            "optional_field": "value1" if i < 10 else None,  # 10% non-NULL
-            "another_field": None  # 100% NULL
+            "transaction_type": f"Trans{i}",
+            "reference": f"ref{i}",
+            "merchant_id": "value1" if i < 10 else None,  # 10% non-NULL
+            "customer_notes": None  # 100% NULL
         })
     conn.commit()
     
     # Act
-    unused = find_unused_columns(conn, tables=["nullable_table"], null_threshold=0.50)
+    unused = find_unused_columns(conn, tables=["transactions"], null_threshold=0.50)
     
     # Assert
     assert len(unused) >= 1
@@ -322,14 +304,22 @@ def test_find_unused_columns_mixed_usage(memory_engine) -> None:
     with Session(memory_engine) as session:
         # Create 100 rows with mixed NULL patterns
         for i in range(1, 101):
-            # used_column: always has values (0% NULL)
-            # mostly_null_column: 85% NULL
-            # completely_null_column: 100% NULL
-            session.add(DataTable(
+            # receipt_url: always has values (0% NULL)
+            # promo_code: 85% NULL
+            # gift_message: 100% NULL
+            session.add(Transaction(
                 id=i,
-                used_column=f"value_{i}",
-                mostly_null_column=f"value_{i}" if i <= 15 else None,
-                completely_null_column=None,
+                transaction_type=f"Transaction{i}",
+                reference=f"customer{i}@example.com",
+                payment_method="credit_card",
+                description="Transaction description",
+                amount=100 + i,
+                balance=1000.0,
+                merchant_id="opt" if i % 3 == 0 else None,
+                customer_notes="another" if i % 2 == 0 else None,
+                receipt_url=f"value_{i}",
+                promo_code=f"value_{i}" if i <= 15 else None,
+                gift_message=None,
             ))
         session.commit()
 
@@ -337,7 +327,7 @@ def test_find_unused_columns_mixed_usage(memory_engine) -> None:
     with memory_engine.connect() as connection:
         unused = find_unused_columns(
             connection,
-            tables=["data_table"],
+            tables=["transactions"],
             null_threshold=0.80,  # 80% threshold
         )
 
@@ -345,13 +335,15 @@ def test_find_unused_columns_mixed_usage(memory_engine) -> None:
     assert len(unused) == 2, "Should find 2 unused columns"
     
     unused_names = {col["column_name"] for col in unused}
-    assert "used_column" not in unused_names, "used_column should not be flagged"
-    assert "mostly_null_column" in unused_names, "mostly_null_column should be flagged (85% NULL)"
-    assert "completely_null_column" in unused_names, "completely_null_column should be flagged (100% NULL)"
+    assert "receipt_url" not in unused_names, "receipt_url should not be flagged"
+    assert "promo_code" in unused_names, "promo_code should be flagged (85% NULL)"
+    assert "gift_message" in unused_names, "gift_message should be flagged (100% NULL)"
+    assert "promo_code" in unused_names, "mostly_null_column should be flagged (85% NULL)"
+    assert "gift_message" in unused_names, "completely_null_column should be flagged (100% NULL)"
     
     # Verify percentages
-    mostly_null = next(c for c in unused if c["column_name"] == "mostly_null_column")
+    mostly_null = next(c for c in unused if c["column_name"] == "promo_code")
     assert mostly_null["null_percentage"] == 0.85
     
-    completely_null = next(c for c in unused if c["column_name"] == "completely_null_column")
+    completely_null = next(c for c in unused if c["column_name"] == "gift_message")
     assert completely_null["null_percentage"] == 1.0

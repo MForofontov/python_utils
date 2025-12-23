@@ -7,7 +7,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import declarative_base
 
 from database_functions.schema_inspection import get_foreign_key_dependencies
-from conftest import Base, Department, Employee, Project
+from conftest import Base, User, Product, Order, Invoice
 
 
 def test_get_foreign_key_dependencies_ordered_tables(memory_engine) -> None:

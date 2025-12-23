@@ -3,54 +3,44 @@ Unit tests for check_data_anomalies function.
 """
 
 import pytest
-from sqlalchemy import Column, Integer, String, Float
-from sqlalchemy.orm import declarative_base, Session
+from sqlalchemy.engine import Engine
+from sqlalchemy.orm import Session
 
 from database_functions.schema_inspection import check_data_anomalies
+from conftest import Base, User, Product
 
 
-Base = declarative_base()
-
-
-class Measurement(Base):
-    """Test Measurement model."""
-    __tablename__ = 'measurements'
-    id = Column(Integer, primary_key=True)
-    sensor_name = Column(String(50))
-    value = Column(Float)
-    status = Column(String(20))
-
-
-def test_check_data_anomalies_all_same_value(memory_engine) -> None:
+def test_check_data_anomalies_all_same_value(memory_engine: Engine) -> None:
     """
     Test case 1: Detect columns where all values are identical.
     """
     # Arrange
-    Base.metadata.create_all(memory_engine)
+    User.__table__.create(memory_engine)
     conn = memory_engine.connect()
     
-    # Insert data with all same status
+    # Insert data with all same role
     for i in range(10):
-        conn.execute(Measurement.__table__.insert(), {
+        conn.execute(User.__table__.insert(), {
             "id": i,
-            "sensor_name": f"sensor_{i}",
-            "value": float(i),
-            "status": "active"  # All identical
+            "username": f"user_{i}",
+            "email": f"user{i}@example.com",
+            "role": "admin",  # All identical
+            "status": "active",
+            "score": float(i)
         })
     conn.commit()
     
     # Act
-    anomalies = check_data_anomalies(conn, tables=["measurements"], check_all_same=True)
+    anomalies = check_data_anomalies(conn, tables=["users"], check_all_same=True)
     
     # Assert
     assert isinstance(anomalies, list)
-    # Should detect status column has all same values
-    status_anomalies = [a for a in anomalies if a.get("column_name") == "status"]
-    if len(status_anomalies) > 0:
-        assert any("same" in a.get("anomaly_type", "").lower() for a in status_anomalies)
+    # Should detect role column has all same values
+    role_anomalies = [a for a in anomalies if a.get("column_name") == "role"]
+    if len(role_anomalies) > 0:
+        assert any("same" in a.get("anomaly_type", "").lower() for a in role_anomalies)
     
     conn.close()
-    memory_engine.dispose()
 
 
 def test_check_data_anomalies_all_null_column(memory_engine) -> None:
@@ -58,31 +48,32 @@ def test_check_data_anomalies_all_null_column(memory_engine) -> None:
     Test case 2: Detect columns that are entirely NULL.
     """
     # Arrange
-    Base.metadata.create_all(memory_engine)
+    User.__table__.create(memory_engine)
     conn = memory_engine.connect()
     
-    # Insert data with all NULL in value column
+    # Insert data with all NULL in score column
     for i in range(10):
-        conn.execute(Measurement.__table__.insert(), {
+        conn.execute(User.__table__.insert(), {
             "id": i,
-            "sensor_name": f"sensor_{i}",
-            "value": None,  # All NULL
-            "status": "inactive"
+            "username": f"user_{i}",
+            "email": f"user{i}@example.com",
+            "role": "user",
+            "status": "inactive",
+            "score": None  # All NULL
         })
     conn.commit()
     
     # Act
-    anomalies = check_data_anomalies(conn, tables=["measurements"])
+    anomalies = check_data_anomalies(conn, tables=["users"])
     
     # Assert
     assert isinstance(anomalies, list)
     # May detect all_null anomaly
-    value_anomalies = [a for a in anomalies if a.get("column_name") == "value"]
-    if len(value_anomalies) > 0:
-        assert any("null" in a.get("anomaly_type", "").lower() for a in value_anomalies)
+    score_anomalies = [a for a in anomalies if a.get("column_name") == "score"]
+    if len(score_anomalies) > 0:
+        assert any("null" in a.get("anomaly_type", "").lower() for a in score_anomalies)
     
     conn.close()
-    memory_engine.dispose()
 
 
 def test_check_data_anomalies_clean_data(memory_engine) -> None:
@@ -90,29 +81,31 @@ def test_check_data_anomalies_clean_data(memory_engine) -> None:
     Test case 3: Returns empty or minimal anomalies for clean data.
     """
     # Arrange
-    Base.metadata.create_all(memory_engine)
+    User.__table__.create(memory_engine)
     conn = memory_engine.connect()
     
     # Insert diverse, clean data
-    statuses = ["active", "inactive", "pending", "completed"]
+    roles = ["admin", "user", "moderator", "guest"]
+    statuses = ["active", "inactive", "pending"]
     for i in range(20):
-        conn.execute(Measurement.__table__.insert(), {
+        conn.execute(User.__table__.insert(), {
             "id": i,
-            "sensor_name": f"sensor_{i}",
-            "value": float(i * 10),
-            "status": statuses[i % len(statuses)]
+            "username": f"user_{i}",
+            "email": f"user{i}@example.com",
+            "role": roles[i % len(roles)],
+            "status": statuses[i % len(statuses)],
+            "score": float(i * 10)
         })
     conn.commit()
     
     # Act
-    anomalies = check_data_anomalies(conn, tables=["measurements"])
+    anomalies = check_data_anomalies(conn, tables=["users"])
     
     # Assert
     assert isinstance(anomalies, list)
     # Should have no or few anomalies
     
     conn.close()
-    memory_engine.dispose()
 
 
 def test_check_data_anomalies_empty_table(memory_engine) -> None:
@@ -120,18 +113,17 @@ def test_check_data_anomalies_empty_table(memory_engine) -> None:
     Test case 4: Handles empty tables gracefully.
     """
     # Arrange
-    Base.metadata.create_all(memory_engine)
+    User.__table__.create(memory_engine)
     conn = memory_engine.connect()
     
     # Act
-    anomalies = check_data_anomalies(conn, tables=["measurements"])
+    anomalies = check_data_anomalies(conn, tables=["users"])
     
     # Assert
     assert isinstance(anomalies, list)
     # Should handle gracefully
     
     conn.close()
-    memory_engine.dispose()
 
 
 def test_check_data_anomalies_check_all_same_false(memory_engine) -> None:
@@ -139,21 +131,23 @@ def test_check_data_anomalies_check_all_same_false(memory_engine) -> None:
     Test case 5: Does not check for identical values when check_all_same is False.
     """
     # Arrange
-    Base.metadata.create_all(memory_engine)
+    User.__table__.create(memory_engine)
     conn = memory_engine.connect()
     
-    # Insert data with all same status
+    # Insert data with all same role
     for i in range(10):
-        conn.execute(Measurement.__table__.insert(), {
+        conn.execute(User.__table__.insert(), {
             "id": i,
-            "sensor_name": f"sensor_{i}",
-            "value": float(i),
-            "status": "active"
+            "username": f"user_{i}",
+            "email": f"user{i}@example.com",
+            "role": "admin",
+            "status": "active",
+            "score": float(i)
         })
     conn.commit()
     
     # Act
-    anomalies = check_data_anomalies(conn, tables=["measurements"], check_all_same=False)
+    anomalies = check_data_anomalies(conn, tables=["users"], check_all_same=False)
     
     # Assert
     assert isinstance(anomalies, list)
@@ -162,7 +156,6 @@ def test_check_data_anomalies_check_all_same_false(memory_engine) -> None:
     assert len(all_same_anomalies) == 0
     
     conn.close()
-    memory_engine.dispose()
 
 
 def test_check_data_anomalies_specific_tables(memory_engine) -> None:
@@ -170,28 +163,29 @@ def test_check_data_anomalies_specific_tables(memory_engine) -> None:
     Test case 6: Only checks specified tables.
     """
     # Arrange
-    Base.metadata.create_all(memory_engine)
+    User.__table__.create(memory_engine)
     conn = memory_engine.connect()
     
     for i in range(5):
-        conn.execute(Measurement.__table__.insert(), {
+        conn.execute(User.__table__.insert(), {
             "id": i,
-            "sensor_name": f"sensor_{i}",
-            "value": None,
-            "status": "active"
+            "username": f"user_{i}",
+            "email": f"user{i}@example.com",
+            "role": "user",
+            "status": "active",
+            "score": None
         })
     conn.commit()
     
     # Act
-    anomalies = check_data_anomalies(conn, tables=["measurements"])
+    anomalies = check_data_anomalies(conn, tables=["users"])
     
     # Assert
     assert isinstance(anomalies, list)
     for a in anomalies:
-        assert a.get("table_name") == "measurements"
+        assert a.get("table_name") == "users"
     
     conn.close()
-    memory_engine.dispose()
 
 
 def test_check_data_anomalies_invalid_connection_type_error() -> None:
@@ -216,10 +210,9 @@ def test_check_data_anomalies_invalid_tables_type_error(memory_engine) -> None:
     
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
-        check_data_anomalies(conn, tables="measurements")
+        check_data_anomalies(conn, tables="users")
     
     conn.close()
-    memory_engine.dispose()
 
 
 def test_check_data_anomalies_invalid_schema_type_error(memory_engine) -> None:
@@ -235,7 +228,6 @@ def test_check_data_anomalies_invalid_schema_type_error(memory_engine) -> None:
         check_data_anomalies(conn, schema=123)
     
     conn.close()
-    memory_engine.dispose()
 
 
 def test_check_data_anomalies_invalid_check_all_same_type_error(memory_engine) -> None:
@@ -251,7 +243,6 @@ def test_check_data_anomalies_invalid_check_all_same_type_error(memory_engine) -
         check_data_anomalies(conn, check_all_same="true")
     
     conn.close()
-    memory_engine.dispose()
 
 
 def test_check_data_anomalies_invalid_check_outliers_type_error(memory_engine) -> None:
@@ -267,7 +258,6 @@ def test_check_data_anomalies_invalid_check_outliers_type_error(memory_engine) -
         check_data_anomalies(conn, check_outliers="false")
     
     conn.close()
-    memory_engine.dispose()
 
 
 def test_check_data_anomalies_invalid_outlier_threshold_type_error(memory_engine) -> None:
@@ -283,7 +273,6 @@ def test_check_data_anomalies_invalid_outlier_threshold_type_error(memory_engine
         check_data_anomalies(conn, outlier_std_threshold="3.0")
     
     conn.close()
-    memory_engine.dispose()
 
 
 def test_check_data_anomalies_negative_threshold_value_error(memory_engine) -> None:
@@ -299,20 +288,9 @@ def test_check_data_anomalies_negative_threshold_value_error(memory_engine) -> N
         check_data_anomalies(conn, outlier_std_threshold=-1.0)
     
     conn.close()
-    memory_engine.dispose()
 
 
-class Product(Base):
-    """Test model with primary key and numeric columns for outlier detection."""
-    __tablename__ = "products"
-
-    id = Column(Integer, primary_key=True)
-    name = Column(String(100))
-    price = Column(Float)
-    quantity = Column(Integer)
-
-
-def test_check_data_anomalies_skips_primary_key_columns(memory_engine) -> None:
+def test_check_data_anomalies_skips_primary_key_columns(memory_engine: Engine) -> None:
     """
     Test case 14: Primary key columns should be skipped in anomaly detection.
     
@@ -320,7 +298,7 @@ def test_check_data_anomalies_skips_primary_key_columns(memory_engine) -> None:
     even if they have patterns that would normally be flagged.
     """
     # Arrange
-    Base.metadata.create_all(memory_engine)
+    Product.__table__.create(memory_engine)
 
     with Session(memory_engine) as session:
         # All products have same ID pattern but IDs should be skipped
@@ -353,7 +331,7 @@ def test_check_data_anomalies_outlier_detection_sqlite_limitation(memory_engine)
     when statistical functions are not available.
     """
     # Arrange
-    Base.metadata.create_all(memory_engine)
+    Product.__table__.create(memory_engine)
 
     with Session(memory_engine) as session:
         # Create data with clear outliers

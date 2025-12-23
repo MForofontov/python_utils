@@ -7,7 +7,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import declarative_base, Session
 
 from database_functions.schema_inspection import verify_referential_integrity
-from conftest import Base, Department, Employee, Project
+from conftest import Base, User, Product, Order, Invoice
 
 
 def test_verify_referential_integrity_no_violations(memory_engine) -> None:
@@ -18,10 +18,12 @@ def test_verify_referential_integrity_no_violations(memory_engine) -> None:
     Base.metadata.create_all(memory_engine)
     
     with Session(memory_engine) as session:
-        dept = Department(id=1, name="Engineering")
-        session.add(dept)
-        session.add(Employee(id=1, name="Alice", dept_id=1))
-        session.add(Employee(id=2, name="Bob", dept_id=1))
+        user = User(id=1, username="user1", email="user1@example.com")
+        product = Product(id=1, name="Product1")
+        session.add(user)
+        session.add(product)
+        session.add(Order(id=1, user_id=1, product_id=1, quantity=10))
+        session.add(Order(id=2, user_id=1, product_id=1, quantity=5))
         session.commit()
     
     # Act
@@ -41,13 +43,15 @@ def test_verify_referential_integrity_detects_orphaned_records(memory_engine) ->
     Base.metadata.create_all(memory_engine)
     
     with Session(memory_engine) as session:
-        # Create department
-        dept = Department(id=1, name="Engineering")
-        session.add(dept)
-        # Create employee with valid FK
-        session.add(Employee(id=1, name="Alice", dept_id=1))
-        # Create orphaned employee (dept_id=999 doesn't exist)
-        session.add(Employee(id=2, name="Bob", dept_id=999))
+        # Create user and product
+        user = User(id=1, username="user1", email="user1@example.com")
+        product = Product(id=1, name="Product1")
+        session.add(user)
+        session.add(product)
+        # Create order with valid FK
+        session.add(Order(id=1, user_id=1, product_id=1, quantity=10))
+        # Create orphaned order (user_id=999 doesn't exist)
+        session.add(Order(id=2, user_id=999, product_id=1, quantity=5))
         session.commit()
     
     # Act
@@ -56,11 +60,11 @@ def test_verify_referential_integrity_detects_orphaned_records(memory_engine) ->
     
     # Assert
     assert len(violations) >= 1
-    emp_violation = next((v for v in violations if v["table"] == "employees"), None)
-    if emp_violation:
-        assert emp_violation["column"] == "dept_id"
-        assert emp_violation["referenced_table"] == "departments"
-        assert emp_violation["orphaned_count"] >= 1
+    order_violation = next((v for v in violations if v["table"] == "orders"), None)
+    if order_violation:
+        assert order_violation["column"] == "user_id"
+        assert order_violation["referenced_table"] == "users"
+        assert order_violation["orphaned_count"] >= 1
 
 
 def test_verify_referential_integrity_provides_sample_ids(memory_engine) -> None:
@@ -71,11 +75,13 @@ def test_verify_referential_integrity_provides_sample_ids(memory_engine) -> None
     Base.metadata.create_all(memory_engine)
     
     with Session(memory_engine) as session:
-        dept = Department(id=1, name="Engineering")
-        session.add(dept)
-        # Create multiple orphaned employees
+        user = User(id=1, username="user1", email="user1@example.com")
+        product = Product(id=1, name="Product1")
+        session.add(user)
+        session.add(product)
+        # Create multiple orphaned orders
         for i in range(15):
-            session.add(Employee(id=100+i, name=f"Orphan{i}", dept_id=999))
+            session.add(Order(id=100+i, user_id=999, product_id=1, quantity=i+1))
         session.commit()
     
     # Act
@@ -84,11 +90,11 @@ def test_verify_referential_integrity_provides_sample_ids(memory_engine) -> None
     
     # Assert
     if len(violations) > 0:
-        emp_violation = next((v for v in violations if v["table"] == "employees"), None)
-        if emp_violation:
-            assert "sample_ids" in emp_violation
-            assert isinstance(emp_violation["sample_ids"], list)
-            assert len(emp_violation["sample_ids"]) <= 10  # Max 10 samples
+        order_violation = next((v for v in violations if v["table"] == "orders"), None)
+        if order_violation:
+            assert "sample_ids" in order_violation
+            assert isinstance(order_violation["sample_ids"], list)
+            assert len(order_violation["sample_ids"]) <= 10  # Max 10 samples
 
 
 def test_verify_referential_integrity_empty_database(memory_engine) -> None:
@@ -134,23 +140,19 @@ def test_verify_referential_integrity_multiple_violations(memory_engine) -> None
     Test case 6: Detect violations across multiple tables.
     """
     # Arrange
-    class ProjectMultipleViolations(Base):
-        __tablename__ = 'projects_multi_viol'
-        id = Column(Integer, primary_key=True)
-        name = Column(String(100))
-        emp_id = Column(Integer, ForeignKey('employees.id'))
-    
     Base.metadata.create_all(memory_engine)
     
     with Session(memory_engine) as session:
-        dept = Department(id=1, name="Engineering")
-        session.add(dept)
-        # Valid employee
-        session.add(Employee(id=1, name="Alice", dept_id=1))
-        # Orphaned employee
-        session.add(Employee(id=2, name="Bob", dept_id=999))
-        # Orphaned project
-        session.add(ProjectMultipleViolations(id=1, name="Project X", emp_id=999))
+        user = User(id=1, username="user1", email="user1@example.com")
+        product = Product(id=1, name="Product1")
+        session.add(user)
+        session.add(product)
+        # Valid order
+        session.add(Order(id=1, user_id=1, product_id=1, quantity=10))
+        # Orphaned order (user_id=999)
+        session.add(Order(id=2, user_id=999, product_id=1, quantity=5))
+        # Orphaned invoice (order_id=999)
+        session.add(Invoice(id=1, invoice_number="INV001", user_id=1, order_id=999, total_amount=100.0, status="paid"))
         session.commit()
     
     # Act
@@ -169,11 +171,13 @@ def test_verify_referential_integrity_counts_orphaned(memory_engine) -> None:
     Base.metadata.create_all(memory_engine)
     
     with Session(memory_engine) as session:
-        dept = Department(id=1, name="Engineering")
-        session.add(dept)
-        # Create 5 orphaned employees
+        user = User(id=1, username="user1", email="user1@example.com")
+        product = Product(id=1, name="Product1")
+        session.add(user)
+        session.add(product)
+        # Create 5 orphaned orders
         for i in range(5):
-            session.add(Employee(id=i, name=f"Orphan{i}", dept_id=999))
+            session.add(Order(id=i, user_id=999, product_id=1, quantity=i+1))
         session.commit()
     
     # Act
@@ -182,9 +186,9 @@ def test_verify_referential_integrity_counts_orphaned(memory_engine) -> None:
     
     # Assert
     if len(violations) > 0:
-        emp_violation = next((v for v in violations if v["table"] == "employees"), None)
-        if emp_violation:
-            assert emp_violation["orphaned_count"] == 5
+        order_violation = next((v for v in violations if v["table"] == "orders"), None)
+        if order_violation:
+            assert order_violation["orphaned_count"] == 5
 
 
 def test_verify_referential_integrity_invalid_connection_type_error() -> None:
@@ -220,12 +224,14 @@ def test_verify_referential_integrity_null_foreign_keys(memory_engine) -> None:
     Base.metadata.create_all(memory_engine)
     
     with Session(memory_engine) as session:
-        dept = Department(id=1, name="Engineering")
-        session.add(dept)
-        # Employee with NULL dept_id (nullable FK)
-        session.add(Employee(id=1, name="Alice", dept_id=None))
-        # Employee with valid dept_id
-        session.add(Employee(id=2, name="Bob", dept_id=1))
+        user = User(id=1, username="user1", email="user1@example.com")
+        product = Product(id=1, name="Product1")
+        session.add(user)
+        session.add(product)
+        # Order with NULL user_id (nullable FK)
+        session.add(Order(id=1, user_id=None, product_id=1, quantity=10))
+        # Order with valid user_id
+        session.add(Order(id=2, user_id=1, product_id=1, quantity=5))
         session.commit()
     
     # Act

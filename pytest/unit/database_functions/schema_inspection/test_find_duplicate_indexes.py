@@ -7,11 +7,32 @@ from sqlalchemy import Column, Integer, String, Index
 from sqlalchemy.orm import declarative_base
 
 from database_functions.schema_inspection import find_duplicate_indexes
-from conftest import Base, Employee
+from conftest import Base, User
 
 
-# Create duplicate index on shared Employee model
-Index('idx_email_duplicate', Employee.name)
+def test_find_duplicate_indexes_identifies_redundant(memory_engine) -> None:
+    """
+    Test case 1: Identify redundant indexes.
+    """
+    # Arrange - Create a local table with duplicate indexes
+    class TableWithDuplicates(Base):
+        __tablename__ = 'table_with_duplicates'
+        __table_args__ = (
+            Index('idx_name_1', 'name'),
+            Index('idx_name_2', 'name'),  # Duplicate
+        )
+        id = Column(Integer, primary_key=True)
+        name = Column(String(50))
+    
+    Base.metadata.create_all(memory_engine)
+    
+    # Act
+    with memory_engine.connect() as connection:
+        result = find_duplicate_indexes(connection)
+    
+    # Assert
+    assert "exact_duplicates" in result or "redundant" in result
+    assert isinstance(result.get("exact_duplicates", []), list) or isinstance(result.get("redundant", []), list)
 
 
 def test_find_duplicate_indexes_detects_exact_duplicates(memory_engine) -> None:
@@ -70,18 +91,20 @@ def test_find_duplicate_indexes_identifies_redundant(memory_engine) -> None:
     """
     Test case 4: Identify redundant indexes (prefix of another).
     """
-    # Arrange
-    class OrderTable(Base):
-        __tablename__ = 'orders'
+    # Arrange - create a new Base for this test to avoid table name conflicts
+    TestBase = declarative_base()
+    
+    class ShipmentTable(TestBase):
+        __tablename__ = 'shipments'
         id = Column(Integer, primary_key=True)
         customer_id = Column(Integer)
-        order_date = Column(String(10))
+        ship_date = Column(String(10))
     
     # Create composite index and its prefix
-    Index('idx_customer', OrderTable.customer_id)
-    Index('idx_customer_date', OrderTable.customer_id, OrderTable.order_date)
+    Index('idx_shipment_customer', ShipmentTable.customer_id)
+    Index('idx_shipment_customer_date', ShipmentTable.customer_id, ShipmentTable.ship_date)
     
-    Base.metadata.create_all(memory_engine)
+    TestBase.metadata.create_all(memory_engine)
     
     # Act
     with memory_engine.connect() as connection:
@@ -89,7 +112,7 @@ def test_find_duplicate_indexes_identifies_redundant(memory_engine) -> None:
     
     # Assert
     assert "redundant" in result
-    # idx_customer is redundant if idx_customer_date exists
+    # idx_shipment_customer is redundant if idx_shipment_customer_date exists
 
 
 def test_find_duplicate_indexes_with_schema(memory_engine) -> None:

@@ -22,9 +22,10 @@ def test_analyze_column_cardinality_identifies_low_cardinality(memory_engine) ->
             session.add(User(
                 id=i,
                 username=f"user{i}",
+                email=f"user{i}@example.com",
                 role="admin" if i < 10 else "user",  # Only 2 distinct values
                 status="active",
-                score=float(i)
+                balance=float(i)
             ))
         session.commit()
     
@@ -57,9 +58,10 @@ def test_analyze_column_cardinality_identifies_high_cardinality(memory_engine) -
             session.add(User(
                 id=i,
                 username=f"user{i}",
+                email=f"user{i}@example.com",
                 role="user",
                 status="active",
-                score=float(i)
+                balance=float(i)
             ))
         session.commit()
     
@@ -90,9 +92,10 @@ def test_analyze_column_cardinality_with_sample_size(memory_engine) -> None:
             session.add(User(
                 id=i,
                 username=f"user{i}",
+                email=f"user{i}@example.com",
                 role="user",
                 status="active",
-                score=float(i)
+                balance=float(i)
             ))
         session.commit()
     
@@ -137,9 +140,10 @@ def test_analyze_column_cardinality_null_handling(memory_engine) -> None:
             session.add(User(
                 id=i,
                 username=f"user{i}",
-                role="user" if i < 50 else None,  # 50% NULL
+                email=f"user{i}@example.com",
+                role="admin" if i < 10 else None,  # 90% NULL
                 status="active",
-                score=float(i)
+                balance=float(i)
             ))
         session.commit()
     
@@ -150,9 +154,9 @@ def test_analyze_column_cardinality_null_handling(memory_engine) -> None:
     # Assert
     role_result = next((r for r in results if r["column_name"] == "role"), None)
     assert role_result is not None
-    assert role_result["null_count"] == 50
-    # null_percentage might be 50.0 (as percentage) or 0.5 (as ratio)
-    assert role_result["null_percentage"] in [50.0, 0.5] or pytest.approx(role_result["null_percentage"], abs=1) in [50.0, 0.5]
+    assert role_result["null_count"] == 90  # 90 NULLs (i >= 10)
+    # null_percentage might be 90.0 (as percentage) or 0.9 (as ratio)
+    assert role_result["null_percentage"] in [90.0, 0.9] or pytest.approx(role_result["null_percentage"], abs=1) in [90.0, 0.9]
 
 
 def test_analyze_column_cardinality_invalid_connection_type_error() -> None:
