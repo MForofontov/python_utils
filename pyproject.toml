@@ -86,6 +86,10 @@ pythonpath = ["."]
 testpaths = ["pytest/unit"]
 # optional, if you use asyncio tests
 # asyncio_mode = "auto"
+markers = [
+    "performance: marks tests as performance tests (deselect with '-m \"not performance\"')",
+    "slow: marks tests as slow running tests (deselect with '-m \"not slow\"')",
+]
 
 [tool.ruff]
 line-length = 88
