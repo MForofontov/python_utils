@@ -7,6 +7,8 @@ conversions (UUID, integer, string).
 
 import logging
 import uuid
+from collections.abc import Generator
+from typing import Any
 from unittest.mock import Mock
 
 import pytest
@@ -20,13 +22,14 @@ from sqlalchemy import (
     create_engine,
     text,
 )
+from sqlalchemy.engine import Engine
 from sqlalchemy.exc import SQLAlchemyError
 
 from database_functions.schema_inspection.migrate_id_type import migrate_id_type
 
 
 @pytest.fixture
-def in_memory_engine():
+def in_memory_engine() -> Generator[Engine, None, None]:
     """
     Test case setup: Create in-memory SQLite database engine.
     """
@@ -36,7 +39,7 @@ def in_memory_engine():
 
 
 @pytest.fixture
-def sample_database(in_memory_engine):
+def sample_database(in_memory_engine: Engine) -> tuple[Engine, MetaData]:
     """
     Test case setup: Create complex database with multiple tables and relationships.
     
@@ -163,7 +166,7 @@ def sample_database(in_memory_engine):
     return engine, metadata
 
 
-def test_migrate_id_type_successful_complex_migration(sample_database) -> None:
+def test_migrate_id_type_successful_complex_migration(sample_database: tuple[Engine, MetaData]) -> None:
     """
     Test case 1: Successfully migrate IDs with all FK relationships updated across 4 tables.
     """
@@ -171,7 +174,7 @@ def test_migrate_id_type_successful_complex_migration(sample_database) -> None:
     engine, metadata = sample_database
     id_counter = [0]
 
-    def generate_new_id():
+    def generate_new_id() -> str:
         id_counter[0] += 1
         return f"new-user-{id_counter[0]}"
 
@@ -243,7 +246,7 @@ def test_migrate_id_type_successful_complex_migration(sample_database) -> None:
         assert standalone_ids == ["standalone-1", "standalone-2"]
 
 
-def test_migrate_id_type_with_uuid_generator(in_memory_engine) -> None:
+def test_migrate_id_type_with_uuid_generator(in_memory_engine: Engine) -> None:
     """
     Test case 2: Migration with UUID generator function.
     """
@@ -297,13 +300,13 @@ def test_migrate_id_type_invalid_engine_type() -> None:
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         migrate_id_type(
-            engine=invalid_engine,
+            engine=invalid_engine,  # type: ignore[arg-type]
             table_name="users",
             id_generator=uuid.uuid4,
         )
 
 
-def test_migrate_id_type_invalid_table_name_type(in_memory_engine) -> None:
+def test_migrate_id_type_invalid_table_name_type(in_memory_engine: Engine) -> None:
     """
     Test case 4: TypeError when table_name is not a string.
     """
@@ -314,12 +317,12 @@ def test_migrate_id_type_invalid_table_name_type(in_memory_engine) -> None:
     with pytest.raises(TypeError, match=expected_message):
         migrate_id_type(
             engine=in_memory_engine,
-            table_name=123,
+            table_name=123,  # type: ignore[arg-type]
             id_generator=uuid.uuid4,
         )
 
 
-def test_migrate_id_type_empty_table_name(in_memory_engine) -> None:
+def test_migrate_id_type_empty_table_name(in_memory_engine: Engine) -> None:
     """
     Test case 5: ValueError when table_name is empty string.
     """
@@ -335,7 +338,7 @@ def test_migrate_id_type_empty_table_name(in_memory_engine) -> None:
         )
 
 
-def test_migrate_id_type_non_callable_id_generator(in_memory_engine) -> None:
+def test_migrate_id_type_non_callable_id_generator(in_memory_engine: Engine) -> None:
     """
     Test case 6: TypeError when id_generator is not callable.
     """
@@ -347,11 +350,11 @@ def test_migrate_id_type_non_callable_id_generator(in_memory_engine) -> None:
         migrate_id_type(
             engine=in_memory_engine,
             table_name="users",
-            id_generator="not_callable",
+            id_generator="not_callable",  # type: ignore[arg-type]
         )
 
 
-def test_migrate_id_type_invalid_batch_size(in_memory_engine) -> None:
+def test_migrate_id_type_invalid_batch_size(in_memory_engine: Engine) -> None:
     """
     Test case 7: ValueError when batch_size is not positive.
     """
@@ -368,7 +371,7 @@ def test_migrate_id_type_invalid_batch_size(in_memory_engine) -> None:
         )
 
 
-def test_migrate_id_type_table_not_exists(in_memory_engine) -> None:
+def test_migrate_id_type_table_not_exists(in_memory_engine: Engine) -> None:
     """
     Test case 8: ValueError when table doesn't exist in database.
     """
@@ -384,7 +387,7 @@ def test_migrate_id_type_table_not_exists(in_memory_engine) -> None:
         )
 
 
-def test_migrate_id_type_column_not_exists(in_memory_engine) -> None:
+def test_migrate_id_type_column_not_exists(in_memory_engine: Engine) -> None:
     """
     Test case 9: ValueError when column doesn't exist in table.
     """
@@ -410,7 +413,7 @@ def test_migrate_id_type_column_not_exists(in_memory_engine) -> None:
         )
 
 
-def test_migrate_id_type_multiple_fk_columns_same_table(in_memory_engine) -> None:
+def test_migrate_id_type_multiple_fk_columns_same_table(in_memory_engine: Engine) -> None:
     """
     Test case 10: Handle multiple FK columns in same table referencing main table.
     """
@@ -454,7 +457,7 @@ def test_migrate_id_type_multiple_fk_columns_same_table(in_memory_engine) -> Non
 
     id_counter = [0]
 
-    def generate_new_id():
+    def generate_new_id() -> str:
         id_counter[0] += 1
         return f"new-user-{id_counter[0]}"
 
@@ -474,7 +477,7 @@ def test_migrate_id_type_multiple_fk_columns_same_table(in_memory_engine) -> Non
     assert result["rows_per_table"]["messages"] == 4  # Both sender_id and receiver_id updated
 
 
-def test_migrate_id_type_with_custom_value_converter(in_memory_engine) -> None:
+def test_migrate_id_type_with_custom_value_converter(in_memory_engine: Engine) -> None:
     """
     Test case 11: Use custom value converter for ID conversion.
     """
@@ -495,11 +498,11 @@ def test_migrate_id_type_with_custom_value_converter(in_memory_engine) -> None:
 
     id_counter = [100]
 
-    def generate_new_id():
+    def generate_new_id() -> int:
         id_counter[0] += 1
         return id_counter[0]
 
-    def int_converter(value):
+    def int_converter(value: Any) -> str:
         return str(int(value))
 
     # Act
@@ -518,7 +521,7 @@ def test_migrate_id_type_with_custom_value_converter(in_memory_engine) -> None:
     assert result["rows_per_table"]["products"] == 2
 
 
-def test_migrate_id_type_with_logger(sample_database, caplog) -> None:
+def test_migrate_id_type_with_logger(sample_database: tuple[Engine, MetaData], caplog: Any) -> None:
     """
     Test case 12: Verify logging output during migration.
     """
@@ -527,7 +530,7 @@ def test_migrate_id_type_with_logger(sample_database, caplog) -> None:
     logger = logging.getLogger("test_migration")
     logger.setLevel(logging.INFO)
 
-    def generate_new_id():
+    def generate_new_id() -> str:
         return str(uuid.uuid4())
 
     # Act
@@ -545,7 +548,7 @@ def test_migrate_id_type_with_logger(sample_database, caplog) -> None:
     assert result["rows_per_table"]["users"] == 3
 
 
-def test_migrate_id_type_small_batch_size(in_memory_engine) -> None:
+def test_migrate_id_type_small_batch_size(in_memory_engine: Engine) -> None:
     """
     Test case 13: Verify batch processing with small batch size.
     """
@@ -567,7 +570,7 @@ def test_migrate_id_type_small_batch_size(in_memory_engine) -> None:
 
     id_counter = [0]
 
-    def generate_new_id():
+    def generate_new_id() -> str:
         id_counter[0] += 1
         return f"new-item-{id_counter[0]}"
 
@@ -585,7 +588,7 @@ def test_migrate_id_type_small_batch_size(in_memory_engine) -> None:
     assert result["rows_per_table"]["items"] == 10
 
 
-def test_migrate_id_type_invalid_logger_type(in_memory_engine) -> None:
+def test_migrate_id_type_invalid_logger_type(in_memory_engine: Engine) -> None:
     """
     Test case 14: TypeError when logger is not Logger instance or None.
     """
@@ -598,11 +601,11 @@ def test_migrate_id_type_invalid_logger_type(in_memory_engine) -> None:
             engine=in_memory_engine,
             table_name="users",
             id_generator=uuid.uuid4,
-            logger="not_a_logger",
+            logger="not_a_logger",  # type: ignore[arg-type]
         )
 
 
-def test_migrate_id_type_no_fk_relationships(in_memory_engine) -> None:
+def test_migrate_id_type_no_fk_relationships(in_memory_engine: Engine) -> None:
     """
     Test case 15: Migration succeeds when table has no FK relationships.
     """
@@ -635,7 +638,7 @@ def test_migrate_id_type_no_fk_relationships(in_memory_engine) -> None:
     assert len(result["rows_per_table"]) == 1  # Only standalone table
 
 
-def test_migrate_id_type_empty_table(in_memory_engine) -> None:
+def test_migrate_id_type_empty_table(in_memory_engine: Engine) -> None:
     """
     Test case 16: Migration succeeds with empty table.
     """
@@ -664,7 +667,7 @@ def test_migrate_id_type_empty_table(in_memory_engine) -> None:
     assert result["fk_relationships_updated"] == 0
 
 
-def test_migrate_id_type_custom_id_column_name(in_memory_engine) -> None:
+def test_migrate_id_type_custom_id_column_name(in_memory_engine: Engine) -> None:
     """
     Test case 17: Migration with custom ID column name.
     """
@@ -696,7 +699,7 @@ def test_migrate_id_type_custom_id_column_name(in_memory_engine) -> None:
     assert result["rows_per_table"]["products"] == 1
 
 
-def test_migrate_id_type_invalid_value_converter_type(in_memory_engine) -> None:
+def test_migrate_id_type_invalid_value_converter_type(in_memory_engine: Engine) -> None:
     """
     Test case 18: TypeError when value_converter is not callable or None.
     """
@@ -709,11 +712,11 @@ def test_migrate_id_type_invalid_value_converter_type(in_memory_engine) -> None:
             engine=in_memory_engine,
             table_name="users",
             id_generator=uuid.uuid4,
-            value_converter="not_callable",
+            value_converter="not_callable",  # type: ignore[arg-type]
         )
 
 
-def test_migrate_id_type_invalid_id_column_type(in_memory_engine) -> None:
+def test_migrate_id_type_invalid_id_column_type(in_memory_engine: Engine) -> None:
     """
     Test case 19: TypeError when id_column is not a string.
     """
@@ -726,11 +729,11 @@ def test_migrate_id_type_invalid_id_column_type(in_memory_engine) -> None:
             engine=in_memory_engine,
             table_name="users",
             id_generator=uuid.uuid4,
-            id_column=[],
+            id_column=[],  # type: ignore[arg-type]
         )
 
 
-def test_migrate_id_type_zero_batch_size(in_memory_engine) -> None:
+def test_migrate_id_type_zero_batch_size(in_memory_engine: Engine) -> None:
     """
     Test case 20: ValueError when batch_size is zero.
     """

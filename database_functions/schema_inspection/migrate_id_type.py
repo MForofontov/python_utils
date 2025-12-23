@@ -491,7 +491,7 @@ def _execute_batch_update(
     )
 
     result = conn.execute(query)
-    return result.rowcount
+    return result.rowcount or 0
 
 
 def _disable_fk_constraints(conn: Any, dialect_name: str) -> None:
