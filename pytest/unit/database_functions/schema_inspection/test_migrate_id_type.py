@@ -748,3 +748,222 @@ def test_migrate_id_type_zero_batch_size(in_memory_engine: Engine) -> None:
             id_generator=uuid.uuid4,
             batch_size=0,
         )
+
+
+def test_migrate_id_type_nonexistent_table(in_memory_engine: Engine) -> None:
+    """
+    Test case 21: Error handling when table doesn't exist.
+    
+    Validates proper error handling and descriptive error messages.
+    """
+    # Arrange
+    def generate_new_id() -> str:
+        return "new-id"
+    
+    # Act & Assert - Should raise error for non-existent table
+    with pytest.raises(Exception) as exc_info:
+        migrate_id_type(
+            engine=in_memory_engine,
+            table_name="non_existent_table",
+            id_generator=generate_new_id,
+            id_column="id",
+            batch_size=1000,
+        )
+    
+    # Verify error message is descriptive
+    error_message = str(exc_info.value).lower()
+    assert "non_existent_table" in error_message or "table" in error_message or "not found" in error_message, \
+        f"Error message should mention the table: {exc_info.value}"
+
+
+def test_migrate_id_type_nonexistent_column(in_memory_engine: Engine) -> None:
+    """
+    Test case 22: Error handling when ID column doesn't exist.
+    
+    Validates proper error handling and no data modification on error.
+    """
+    # Arrange
+    engine = in_memory_engine
+    metadata = MetaData()
+    
+    users = Table(
+        "users",
+        metadata,
+        Column("id", String(36), primary_key=True),
+        Column("name", String(100)),
+    )
+    
+    metadata.create_all(engine)
+    
+    # Insert test data
+    with engine.begin() as conn:
+        user_data = [{"id": f"user-{i}", "name": f"User{i}"} for i in range(10)]
+        conn.execute(users.insert(), user_data)
+    
+    def generate_new_id() -> str:
+        return "new-id"
+    
+    # Act & Assert - Should raise error for non-existent column
+    with pytest.raises(Exception) as exc_info:
+        migrate_id_type(
+            engine=engine,
+            table_name="users",
+            id_generator=generate_new_id,
+            id_column="non_existent_column",
+            batch_size=1000,
+        )
+    
+    # Verify data wasn't modified
+    with engine.begin() as conn:
+        count = conn.execute(text("SELECT COUNT(*) FROM users WHERE id LIKE 'user-%'")).scalar()
+        assert count == 10, "Original data should remain unchanged after error"
+
+
+def test_migrate_id_type_duplicate_id_generation(in_memory_engine: Engine) -> None:
+    """
+    Test case 23: Error handling when ID generator produces duplicate IDs.
+    
+    Validates proper error handling and transaction rollback.
+    """
+    # Arrange
+    engine = in_memory_engine
+    metadata = MetaData()
+    
+    items = Table(
+        "items",
+        metadata,
+        Column("id", String(36), primary_key=True),
+        Column("value", Integer),
+    )
+    
+    metadata.create_all(engine)
+    
+    # Insert test data
+    with engine.begin() as conn:
+        item_data = [{"id": f"item-{i}", "value": i} for i in range(20)]
+        conn.execute(items.insert(), item_data)
+    
+    # ID generator that produces duplicates after 10 IDs
+    counter = [0]
+    
+    def duplicate_id_generator() -> str:
+        counter[0] += 1
+        if counter[0] <= 10:
+            return f"new-item-{counter[0]}"
+        else:
+            return "new-item-10"  # Duplicate!
+    
+    # Act & Assert - Should raise error for duplicate IDs
+    with pytest.raises(Exception) as exc_info:
+        migrate_id_type(
+            engine=engine,
+            table_name="items",
+            id_generator=duplicate_id_generator,
+            id_column="id",
+            batch_size=1000,
+        )
+    
+    # Verify error is about uniqueness/integrity
+    error_message = str(exc_info.value).lower()
+    assert "unique" in error_message or "constraint" in error_message or "duplicate" in error_message, \
+        f"Error should mention uniqueness/constraint violation: {exc_info.value}"
+    
+    # Verify data integrity - should be rolled back to original state
+    with engine.begin() as conn:
+        old_ids = conn.execute(text("SELECT COUNT(*) FROM items WHERE id LIKE 'item-%'")).scalar()
+        new_ids = conn.execute(text("SELECT COUNT(*) FROM items WHERE id LIKE 'new-item-%'")).scalar()
+        
+        assert old_ids + new_ids == 20, "Total row count should remain 20"
+        # Transaction should rollback on error
+        assert old_ids == 20 or new_ids == 20, \
+            "Data should be either all old IDs (rollback) or all new IDs (success)"
+
+
+def test_migrate_id_type_failing_id_generator(in_memory_engine: Engine) -> None:
+    """
+    Test case 24: Error handling when ID generator function fails.
+    
+    Validates proper error propagation and no partial data corruption.
+    """
+    # Arrange
+    engine = in_memory_engine
+    metadata = MetaData()
+    
+    products = Table(
+        "products",
+        metadata,
+        Column("id", String(36), primary_key=True),
+        Column("name", String(100)),
+    )
+    
+    metadata.create_all(engine)
+    
+    # Insert test data
+    with engine.begin() as conn:
+        product_data = [{"id": f"product-{i}", "name": f"Product{i}"} for i in range(20)]
+        conn.execute(products.insert(), product_data)
+    
+    # ID generator that fails after 10 calls
+    counter = [0]
+    
+    def failing_id_generator() -> str:
+        counter[0] += 1
+        if counter[0] <= 10:
+            return f"new-product-{counter[0]}"
+        else:
+            raise RuntimeError("ID generator service unavailable")
+    
+    # Act & Assert - Should propagate the generator's error
+    with pytest.raises(RuntimeError, match="ID generator service unavailable"):
+        migrate_id_type(
+            engine=engine,
+            table_name="products",
+            id_generator=failing_id_generator,
+            id_column="id",
+            batch_size=1000,
+        )
+    
+    # Verify data wasn't partially corrupted
+    with engine.begin() as conn:
+        old_ids = conn.execute(text("SELECT COUNT(*) FROM products WHERE id LIKE 'product-%'")).scalar()
+        new_ids = conn.execute(text("SELECT COUNT(*) FROM products WHERE id LIKE 'new-product-%'")).scalar()
+        
+        assert old_ids + new_ids == 20, "Total row count should remain 20"
+        # Should be rolled back to original state
+        assert old_ids == 20 or new_ids == 20, \
+            "Data should be either all old IDs (rollback) or all new IDs (success)"
+
+
+def test_migrate_id_type_negative_batch_size(in_memory_engine: Engine) -> None:
+    """
+    Test case 25: ValueError when batch_size is negative.
+    """
+    # Arrange
+    expected_message = "batch_size must be positive, got -100"
+
+    # Act & Assert
+    with pytest.raises(ValueError, match=expected_message):
+        migrate_id_type(
+            engine=in_memory_engine,
+            table_name="users",
+            id_generator=uuid.uuid4,
+            batch_size=-100,
+        )
+
+
+def test_migrate_id_type_invalid_batch_size_type(in_memory_engine: Engine) -> None:
+    """
+    Test case 26: TypeError when batch_size is not an integer.
+    """
+    # Arrange
+    expected_message = "batch_size must be an integer, got str"
+
+    # Act & Assert
+    with pytest.raises(TypeError, match=expected_message):
+        migrate_id_type(
+            engine=in_memory_engine,
+            table_name="users",
+            id_generator=uuid.uuid4,
+            batch_size="invalid",  # type: ignore[arg-type]
+        )
+
