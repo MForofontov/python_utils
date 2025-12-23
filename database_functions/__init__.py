@@ -18,10 +18,7 @@ from .bulk_operations import (
     execute_bulk_chunked,
 )
 from .query_execution import (
-    QueryTimeoutError,
-    execute_with_retry,
     stream_query_results,
-    execute_with_timeout,
 )
 from .transaction_management import (
     atomic_transaction,
@@ -45,10 +42,7 @@ __all__ = [
     "BulkOperationResult",
     "execute_bulk_chunked",
     # Query execution
-    "QueryTimeoutError",
-    "execute_with_retry",
     "stream_query_results",
-    "execute_with_timeout",
     # Transaction management
     "atomic_transaction",
     "nested_transaction",
