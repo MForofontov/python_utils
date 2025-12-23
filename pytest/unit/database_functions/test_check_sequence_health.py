@@ -3,20 +3,10 @@ Unit tests for check_sequence_health function.
 """
 
 import pytest
-from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import declarative_base, Session
+from sqlalchemy.orm import Session
 
 from database_functions.schema_inspection import check_sequence_health
-
-
-Base = declarative_base()
-
-
-class Product(Base):
-    """Test Product model with auto-increment ID."""
-    __tablename__ = 'products'
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String(100))
+from conftest import Base, Product
 
 
 def test_check_sequence_health_normal_usage(memory_engine) -> None:

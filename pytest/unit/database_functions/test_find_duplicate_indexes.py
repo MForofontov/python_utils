@@ -7,22 +7,11 @@ from sqlalchemy import Column, Integer, String, Index
 from sqlalchemy.orm import declarative_base
 
 from database_functions.schema_inspection import find_duplicate_indexes
+from conftest import Base, Employee
 
 
-Base = declarative_base()
-
-
-class Employee(Base):
-    """Test Employee model with duplicate indexes."""
-    __tablename__ = 'employees'
-    id = Column(Integer, primary_key=True)
-    email = Column(String(100), index=True)
-    name = Column(String(100))
-    dept = Column(String(50))
-
-
-# Create duplicate index manually
-Index('idx_email_duplicate', Employee.email)
+# Create duplicate index on shared Employee model
+Index('idx_email_duplicate', Employee.name)
 
 
 def test_find_duplicate_indexes_detects_exact_duplicates(memory_engine) -> None:
@@ -148,8 +137,8 @@ def test_find_duplicate_indexes_multiple_tables(memory_engine) -> None:
     Test case 8: Analyze indexes across multiple tables.
     """
     # Arrange
-    class Department(Base):
-        __tablename__ = 'departments'
+    class DepartmentDuplicateTest(Base):
+        __tablename__ = 'departments_dup_test'
         id = Column(Integer, primary_key=True)
         name = Column(String(100), index=True)
     
@@ -184,8 +173,8 @@ def test_find_duplicate_indexes_unique_vs_non_unique(memory_engine) -> None:
     Test case 10: Differentiate between unique and non-unique indexes.
     """
     # Arrange
-    class Product(Base):
-        __tablename__ = 'products'
+    class ProductUniqueTest(Base):
+        __tablename__ = 'products_unique_test'
         id = Column(Integer, primary_key=True)
         sku = Column(String(50), unique=True)
         name = Column(String(100))

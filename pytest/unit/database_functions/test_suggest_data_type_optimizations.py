@@ -3,23 +3,10 @@ Unit tests for suggest_data_type_optimizations function.
 """
 
 import pytest
-from sqlalchemy import Column, Integer, String, Float, Text
-from sqlalchemy.orm import declarative_base, Session
+from sqlalchemy.orm import Session
 
 from database_functions.schema_inspection import suggest_data_type_optimizations
-
-
-Base = declarative_base()
-
-
-class Product(Base):
-    """Test Product model with inefficient data types."""
-    __tablename__ = 'products'
-    id = Column(Integer, primary_key=True)
-    sku = Column(String(500))  # Oversized VARCHAR
-    description = Column(Text)
-    price = Column(Float)  # Could be integer
-    status = Column(String(20))
+from conftest import Base, Product
 
 
 def test_suggest_data_type_optimizations_oversized_varchar(memory_engine) -> None:

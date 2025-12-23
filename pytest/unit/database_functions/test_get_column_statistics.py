@@ -3,23 +3,10 @@ Unit tests for get_column_statistics function.
 """
 
 import pytest
-from sqlalchemy import Column, Integer, String, Float
-from sqlalchemy.orm import declarative_base, Session
+from sqlalchemy.orm import Session
 
 from database_functions.schema_inspection import get_column_statistics
-
-
-Base = declarative_base()
-
-
-class Customer(Base):
-    """Test Customer model."""
-    __tablename__ = 'customers'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(100))
-    email = Column(String(100))
-    age = Column(Integer)
-    balance = Column(Float)
+from conftest import Base, Customer
 
 
 def test_get_column_statistics_single_column(memory_engine) -> None:

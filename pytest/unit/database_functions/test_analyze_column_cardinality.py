@@ -3,23 +3,10 @@ Unit tests for analyze_column_cardinality function.
 """
 
 import pytest
-from sqlalchemy import Column, Integer, String, Float
-from sqlalchemy.orm import declarative_base, Session
+from sqlalchemy.orm import Session
 
 from database_functions.schema_inspection import analyze_column_cardinality
-
-
-Base = declarative_base()
-
-
-class User(Base):
-    """Test User model with varying cardinality columns."""
-    __tablename__ = 'users'
-    id = Column(Integer, primary_key=True)
-    username = Column(String(50))  # High cardinality
-    role = Column(String(20))  # Low cardinality
-    status = Column(String(10))  # Low cardinality
-    score = Column(Float)
+from conftest import Base, User
 
 
 def test_analyze_column_cardinality_identifies_low_cardinality(memory_engine) -> None:

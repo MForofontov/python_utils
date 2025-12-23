@@ -7,32 +7,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import declarative_base
 
 from database_functions.schema_inspection import get_foreign_key_dependencies
-
-
-Base = declarative_base()
-
-
-class Department(Base):
-    """Parent table - no dependencies."""
-    __tablename__ = 'departments'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(100))
-
-
-class Employee(Base):
-    """Child table - depends on Department."""
-    __tablename__ = 'employees'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(100))
-    dept_id = Column(Integer, ForeignKey('departments.id'))
-
-
-class Project(Base):
-    """Grandchild table - depends on Employee."""
-    __tablename__ = 'projects'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(100))
-    emp_id = Column(Integer, ForeignKey('employees.id'))
+from conftest import Base, Department, Employee, Project
 
 
 def test_get_foreign_key_dependencies_ordered_tables(memory_engine) -> None:

@@ -7,24 +7,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import declarative_base, Session
 
 from database_functions.schema_inspection import verify_referential_integrity
-
-
-Base = declarative_base()
-
-
-class Department(Base):
-    """Parent table."""
-    __tablename__ = 'departments'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(100))
-
-
-class Employee(Base):
-    """Child table with FK to Department."""
-    __tablename__ = 'employees'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(100))
-    dept_id = Column(Integer, ForeignKey('departments.id'))
+from conftest import Base, Department, Employee, Project
 
 
 def test_verify_referential_integrity_no_violations(memory_engine) -> None:
@@ -126,15 +109,15 @@ def test_verify_referential_integrity_no_foreign_keys(memory_engine) -> None:
     Test case 5: Handle tables with no foreign keys.
     """
     # Arrange
-    class StandaloneTable(Base):
-        __tablename__ = 'standalone'
+    class StandaloneNoFK(Base):
+        __tablename__ = 'standalone_no_fk'
         id = Column(Integer, primary_key=True)
         data = Column(String(50))
     
     Base.metadata.create_all(memory_engine)
     
     with Session(memory_engine) as session:
-        session.add(StandaloneTable(id=1, data="test"))
+        session.add(StandaloneNoFK(id=1, data="test"))
         session.commit()
     
     # Act
@@ -151,8 +134,8 @@ def test_verify_referential_integrity_multiple_violations(memory_engine) -> None
     Test case 6: Detect violations across multiple tables.
     """
     # Arrange
-    class Project(Base):
-        __tablename__ = 'projects'
+    class ProjectMultipleViolations(Base):
+        __tablename__ = 'projects_multi_viol'
         id = Column(Integer, primary_key=True)
         name = Column(String(100))
         emp_id = Column(Integer, ForeignKey('employees.id'))
@@ -167,7 +150,7 @@ def test_verify_referential_integrity_multiple_violations(memory_engine) -> None
         # Orphaned employee
         session.add(Employee(id=2, name="Bob", dept_id=999))
         # Orphaned project
-        session.add(Project(id=1, name="Project X", emp_id=999))
+        session.add(ProjectMultipleViolations(id=1, name="Project X", emp_id=999))
         session.commit()
     
     # Act

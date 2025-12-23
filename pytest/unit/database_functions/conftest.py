@@ -8,8 +8,68 @@ across test files.
 from collections.abc import Generator
 
 import pytest
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, Column, Integer, String, Float, ForeignKey
 from sqlalchemy.engine import Engine
+from sqlalchemy.orm import declarative_base
+
+
+# Shared declarative base for all test models
+Base = declarative_base()
+
+
+# Common table models used across multiple tests
+class Department(Base):
+    """Parent table for FK relationship tests."""
+    __tablename__ = 'departments'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100))
+
+
+class Employee(Base):
+    """Child table with FK to Department."""
+    __tablename__ = 'employees'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100))
+    dept_id = Column(Integer, ForeignKey('departments.id'))
+
+
+class Project(Base):
+    """Grandchild table with FK to Employee."""
+    __tablename__ = 'projects'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100))
+    emp_id = Column(Integer, ForeignKey('employees.id'))
+
+
+class User(Base):
+    """Generic user table for cardinality/statistics tests."""
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    username = Column(String(50))
+    role = Column(String(20))
+    status = Column(String(10))
+    score = Column(Float)
+
+
+class Customer(Base):
+    """Customer table for column statistics tests."""
+    __tablename__ = 'customers'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100))
+    email = Column(String(100))
+    age = Column(Integer)
+    balance = Column(Float)
+
+
+class Product(Base):
+    """Product table for data type optimization tests."""
+    __tablename__ = 'products'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    sku = Column(String(500))
+    name = Column(String(100))
+    description = Column(String(500))
+    price = Column(Float)
+    status = Column(String(20))
 
 
 @pytest.fixture
@@ -94,3 +154,24 @@ def dual_engines() -> Generator[tuple[Engine, Engine], None, None]:
     yield engine1, engine2
     engine1.dispose()
     engine2.dispose()
+
+
+@pytest.fixture
+def base_metadata():
+    """
+    Fixture providing access to the shared Base metadata.
+    
+    Use this to create all tables defined in conftest.py models.
+    
+    Returns
+    -------
+    DeclarativeMeta
+        The shared declarative base with common table models.
+    
+    Examples
+    --------
+    >>> def test_with_tables(memory_engine, base_metadata):
+    ...     base_metadata.metadata.create_all(memory_engine)
+    ...     # Tables now exist in memory_engine
+    """
+    return Base
