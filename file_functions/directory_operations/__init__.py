@@ -17,4 +17,4 @@ __all__ = [
     "merge_folders",
 ]
 
-__version__ = "1.0.0"
+from ..._version import __version__

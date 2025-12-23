@@ -5,6 +5,8 @@ Safely truncate tables in dependency order respecting foreign keys.
 import logging
 from typing import Any
 
+from sqlalchemy import text
+
 from .get_foreign_key_dependencies import get_foreign_key_dependencies
 
 logger = logging.getLogger(__name__)
@@ -87,14 +89,14 @@ def safe_truncate_tables(
             truncate_sql = f"TRUNCATE TABLE {table}{cascade_clause}"
             
             try:
-                connection.execute(truncate_sql)
+                connection.execute(text(truncate_sql))
                 truncated.append(table)
                 logger.info(f"Truncated table: {table}")
             except Exception as truncate_error:
                 # Fall back to DELETE if TRUNCATE not supported
                 logger.warning(f"TRUNCATE failed for {table}, using DELETE: {truncate_error}")
                 delete_sql = f"DELETE FROM {table}"
-                connection.execute(delete_sql)
+                connection.execute(text(delete_sql))
                 truncated.append(table)
                 logger.info(f"Deleted all rows from table: {table}")
                 

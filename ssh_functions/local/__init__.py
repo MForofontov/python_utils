@@ -16,4 +16,4 @@ __all__ = [
     "ssh_execute_script",
 ]
 
-__version__ = "1.0.0"
+from ..._version import __version__

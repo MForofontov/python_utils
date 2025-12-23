@@ -47,4 +47,4 @@ __all__ = [
     "list_directories",
 ]
 
-__version__ = '1.0.0'
+from .._version import __version__
