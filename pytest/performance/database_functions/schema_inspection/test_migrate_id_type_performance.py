@@ -600,7 +600,7 @@ def test_migrate_id_type_performance_batch_size_comparison(performance_engine: E
 @pytest.mark.slow
 def test_migrate_id_type_performance_stress_test_1m_rows(performance_engine: Engine) -> None:
     """
-    Test case 7: Stress test with 1 million rows (marked as slow).
+    Test case 7: Stress test with 2 million rows spread across 5 FK tables (marked as slow).
     
     This test is marked with both @pytest.mark.performance and @pytest.mark.slow.
     
@@ -608,42 +608,153 @@ def test_migrate_id_type_performance_stress_test_1m_rows(performance_engine: Eng
     Skip with: pytest -m "performance and not slow"
     
     Validates:
-    - Function can handle very large datasets
-    - Performance remains acceptable at scale
-    - Memory usage doesn't grow excessively
+    - Function can handle very large datasets with complex FK relationships
+    - Performance remains acceptable at scale with multiple tables
+    - Memory usage doesn't grow excessively with FK updates
+    - Correct FK discovery and updates across 5 tables
     """
     # Arrange
     engine = performance_engine
     metadata = MetaData()
     
-    items = Table(
-        "items",
+    # Main table: users (400,000 rows)
+    users = Table(
+        "users",
         metadata,
         Column("id", String(36), primary_key=True),
-        Column("value", Integer),
+        Column("username", String(100)),
+        Column("email", String(100)),
+    )
+    
+    # 5 FK tables (400,000 rows each = 1,600,000 FK rows total)
+    orders = Table(
+        "orders",
+        metadata,
+        Column("order_id", Integer, primary_key=True),
+        Column("user_id", String(36), ForeignKey("users.id")),
+        Column("amount", Integer),
+    )
+    
+    addresses = Table(
+        "addresses",
+        metadata,
+        Column("address_id", Integer, primary_key=True),
+        Column("user_id", String(36), ForeignKey("users.id")),
+        Column("street", String(100)),
+    )
+    
+    payments = Table(
+        "payments",
+        metadata,
+        Column("payment_id", Integer, primary_key=True),
+        Column("user_id", String(36), ForeignKey("users.id")),
+        Column("card_number", String(20)),
+    )
+    
+    sessions = Table(
+        "sessions",
+        metadata,
+        Column("session_id", Integer, primary_key=True),
+        Column("user_id", String(36), ForeignKey("users.id")),
+        Column("login_time", String(50)),
+    )
+    
+    logs = Table(
+        "logs",
+        metadata,
+        Column("log_id", Integer, primary_key=True),
+        Column("user_id", String(36), ForeignKey("users.id")),
+        Column("action", String(100)),
     )
     
     metadata.create_all(engine)
     
-    # Insert 1,000,000 items in batches
-    print("\n⏳ Setting up 1M rows...")
+    # Insert 400,000 users in batches
+    print("\n⏳ Setting up 400K users...")
     with engine.begin() as conn:
         batch_size = 10000
-        for batch_start in range(0, 1000000, batch_size):
-            if batch_start % 100000 == 0:
-                print(f"  Inserted {batch_start:,} rows...")
-            item_data = [
-                {"id": f"item-{i}", "value": i}
-                for i in range(batch_start, min(batch_start + batch_size, 1000000))
+        for batch_start in range(0, 400000, batch_size):
+            if batch_start % 50000 == 0 and batch_start > 0:
+                print(f"  Inserted {batch_start:,} users...")
+            user_data = [
+                {
+                    "id": f"user-{i}",
+                    "username": f"User{i}",
+                    "email": f"user{i}@example.com"
+                }
+                for i in range(batch_start, min(batch_start + batch_size, 400000))
             ]
-            conn.execute(items.insert(), item_data)
-    print("  ✓ Setup complete")
+            conn.execute(users.insert(), user_data)
+    print("  ✓ Users complete (400,000 rows)")
+    
+    # Insert 400K rows into each FK table (2M total FK references)
+    print("⏳ Setting up 5 FK tables (400K rows each, 2M total)...")
+    with engine.begin() as conn:
+        for batch_start in range(0, 400000, batch_size):
+            if batch_start % 50000 == 0 and batch_start > 0:
+                print(f"  Inserted {batch_start:,} FK rows per table...")
+            
+            # Each FK table gets 400K rows
+            user_id_offset = batch_start
+            
+            orders_data = [
+                {
+                    "order_id": i,
+                    "user_id": f"user-{i}",
+                    "amount": (i * 100) % 10000
+                }
+                for i in range(batch_start, min(batch_start + batch_size, 400000))
+            ]
+            conn.execute(orders.insert(), orders_data)
+            
+            addresses_data = [
+                {
+                    "address_id": i,
+                    "user_id": f"user-{i}",
+                    "street": f"Street {i}"
+                }
+                for i in range(batch_start, min(batch_start + batch_size, 400000))
+            ]
+            conn.execute(addresses.insert(), addresses_data)
+            
+            payments_data = [
+                {
+                    "payment_id": i,
+                    "user_id": f"user-{i}",
+                    "card_number": f"****{i % 10000:04d}"
+                }
+                for i in range(batch_start, min(batch_start + batch_size, 400000))
+            ]
+            conn.execute(payments.insert(), payments_data)
+            
+            sessions_data = [
+                {
+                    "session_id": i,
+                    "user_id": f"user-{i}",
+                    "login_time": f"2025-01-{(i % 28) + 1:02d}"
+                }
+                for i in range(batch_start, min(batch_start + batch_size, 400000))
+            ]
+            conn.execute(sessions.insert(), sessions_data)
+            
+            logs_data = [
+                {
+                    "log_id": i,
+                    "user_id": f"user-{i}",
+                    "action": f"Action{i % 100}"
+                }
+                for i in range(batch_start, min(batch_start + batch_size, 400000))
+            ]
+            conn.execute(logs.insert(), logs_data)
+    
+    print("  ✓ FK tables complete (2,000,000 rows total)")
+    print(f"  📊 Total setup: 2.4M rows (400K users + 2M FK references)")
     
     id_counter = [0]
     
     def generate_new_id() -> str:
         id_counter[0] += 1
-        return f"new-item-{id_counter[0]}"
+        return f"new-user-{id_counter[0]}"
     
     # Get process for memory measurement
     process = psutil.Process()
@@ -652,11 +763,11 @@ def test_migrate_id_type_performance_stress_test_1m_rows(performance_engine: Eng
     mem_before = process.memory_info().rss / 1024 / 1024  # Convert to MB
     
     # Act
-    print("⏳ Starting migration...")
+    print("⏳ Starting migration of 400K users + 2M FK references...")
     start_time = time.time()
     result = migrate_id_type(
         engine=engine,
-        table_name="items",
+        table_name="users",
         id_generator=generate_new_id,
         batch_size=5000,
     )
@@ -671,16 +782,83 @@ def test_migrate_id_type_performance_stress_test_1m_rows(performance_engine: Eng
     id_mapping_size_mb = id_mapping_size / 1024 / 1024
     
     # Assert
-    assert result["rows_migrated"] == 1000000
-    assert result["rows_per_table"]["items"] == 1000000
+    assert result["rows_migrated"] == 400000
+    assert result["fk_relationships_updated"] == 2000000  # 400K × 5 tables
+    assert len(result["tables_affected"]) == 5
+    assert result["rows_per_table"]["users"] == 400000
+    assert result["rows_per_table"]["orders"] == 400000
+    assert result["rows_per_table"]["addresses"] == 400000
+    assert result["rows_per_table"]["payments"] == 400000
+    assert result["rows_per_table"]["sessions"] == 400000
+    assert result["rows_per_table"]["logs"] == 400000
     
-    # Performance assertion: should complete within 5 minutes
-    assert elapsed_time < 300.0, f"Migration took {elapsed_time:.2f}s, expected < 300s"
+    # Performance assertion: should complete within 10 minutes for 2M+ rows
+    assert elapsed_time < 600.0, f"Migration took {elapsed_time:.2f}s, expected < 600s"
     
-    # Memory assertion: should not exceed 500 MB for 1M rows (including id_mapping ~80MB)
-    assert mem_used < 500.0, f"Memory usage {mem_used:.2f} MB exceeds limit of 500 MB"
+    # Memory assertion: should not exceed 1 GB for 2M+ rows
+    assert mem_used < 1024.0, f"Memory usage {mem_used:.2f} MB exceeds limit of 1024 MB"
     
-    rows_per_second = 1000000 / elapsed_time
-    print(f"\n✓ Migrated 1M rows in {elapsed_time:.2f}s ({rows_per_second:.0f} rows/sec)")
+    total_rows = 400000 + 2000000
+    rows_per_second = total_rows / elapsed_time
+    print(f"\n✓ Migrated 2.4M total rows in {elapsed_time:.2f}s ({rows_per_second:.0f} rows/sec)")
+    print(f"  • 400K users (main table)")
+    print(f"  • 2M FK references (5 tables × 400K rows)")
     print(f"  Memory used: {mem_used:.2f} MB (id_mapping: {id_mapping_size_mb:.2f} MB)")
-    print(f"  Memory efficiency: {mem_used / 1000:.2f} KB per 1k rows")
+    print(f"  Memory efficiency: {mem_used / 400:.2f} KB per 1k rows")
+    
+    # Validate data integrity: check that all IDs were changed
+    print("\n🔍 Validating data integrity...")
+    with engine.begin() as conn:
+        # Check users table - all IDs should start with "new-user-"
+        users_check = conn.execute(text("SELECT COUNT(*) FROM users WHERE id LIKE 'new-user-%'")).scalar()
+        assert users_check == 400000, f"Expected all 400K users to have new IDs, got {users_check}"
+        
+        # Check no old IDs remain
+        old_users_check = conn.execute(text("SELECT COUNT(*) FROM users WHERE id LIKE 'user-%'")).scalar()
+        assert old_users_check == 0, f"Found {old_users_check} users with old IDs, expected 0"
+        
+        # Check FK tables - all user_id references should be updated
+        orders_check = conn.execute(text("SELECT COUNT(*) FROM orders WHERE user_id LIKE 'new-user-%'")).scalar()
+        assert orders_check == 400000, f"Expected all 400K orders to have new user_ids, got {orders_check}"
+        
+        addresses_check = conn.execute(text("SELECT COUNT(*) FROM addresses WHERE user_id LIKE 'new-user-%'")).scalar()
+        assert addresses_check == 400000, f"Expected all 400K addresses to have new user_ids, got {addresses_check}"
+        
+        payments_check = conn.execute(text("SELECT COUNT(*) FROM payments WHERE user_id LIKE 'new-user-%'")).scalar()
+        assert payments_check == 400000, f"Expected all 400K payments to have new user_ids, got {payments_check}"
+        
+        sessions_check = conn.execute(text("SELECT COUNT(*) FROM sessions WHERE user_id LIKE 'new-user-%'")).scalar()
+        assert sessions_check == 400000, f"Expected all 400K sessions to have new user_ids, got {sessions_check}"
+        
+        logs_check = conn.execute(text("SELECT COUNT(*) FROM logs WHERE user_id LIKE 'new-user-%'")).scalar()
+        assert logs_check == 400000, f"Expected all 400K logs to have new user_ids, got {logs_check}"
+        
+        # Verify referential integrity - all FK references should still point to valid users
+        orphaned_orders = conn.execute(text(
+            "SELECT COUNT(*) FROM orders o WHERE NOT EXISTS (SELECT 1 FROM users u WHERE u.id = o.user_id)"
+        )).scalar()
+        assert orphaned_orders == 0, f"Found {orphaned_orders} orphaned orders"
+        
+        orphaned_addresses = conn.execute(text(
+            "SELECT COUNT(*) FROM addresses a WHERE NOT EXISTS (SELECT 1 FROM users u WHERE u.id = a.user_id)"
+        )).scalar()
+        assert orphaned_addresses == 0, f"Found {orphaned_addresses} orphaned addresses"
+        
+        orphaned_payments = conn.execute(text(
+            "SELECT COUNT(*) FROM payments p WHERE NOT EXISTS (SELECT 1 FROM users u WHERE u.id = p.user_id)"
+        )).scalar()
+        assert orphaned_payments == 0, f"Found {orphaned_payments} orphaned payments"
+        
+        orphaned_sessions = conn.execute(text(
+            "SELECT COUNT(*) FROM sessions s WHERE NOT EXISTS (SELECT 1 FROM users u WHERE u.id = s.user_id)"
+        )).scalar()
+        assert orphaned_sessions == 0, f"Found {orphaned_sessions} orphaned sessions"
+        
+        orphaned_logs = conn.execute(text(
+            "SELECT COUNT(*) FROM logs l WHERE NOT EXISTS (SELECT 1 FROM users u WHERE u.id = l.user_id)"
+        )).scalar()
+        assert orphaned_logs == 0, f"Found {orphaned_logs} orphaned logs"
+    
+    print("  ✅ All users have new IDs (no old IDs remain)")
+    print("  ✅ All 2M FK references updated correctly")
+    print("  ✅ Referential integrity maintained (no orphaned records)")
