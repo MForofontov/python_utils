@@ -5,14 +5,20 @@ These tests measure performance characteristics with large datasets and multiple
 FK relationships. Tests are marked with @pytest.mark.performance to allow
 selective execution.
 
+Uses SQLite file-based storage for more realistic performance testing that better
+reflects production database behavior (2-5x slower than in-memory, but still
+5-10x faster than PostgreSQL).
+
 Run with: pytest -m performance
 Skip with: pytest -m "not performance"
 """
 
 import sys
+import tempfile
 import time
 import uuid
 from collections.abc import Generator
+from pathlib import Path
 
 import psutil
 import pytest
@@ -34,10 +40,23 @@ from database_functions.schema_inspection.migrate_id_type import migrate_id_type
 @pytest.fixture
 def performance_engine() -> Generator[Engine, None, None]:
     """
-    Test case setup: Create in-memory SQLite database engine for performance tests.
+    Test case setup: Create file-based SQLite database engine for performance tests.
+    
+    Uses temporary file for more realistic performance testing compared to in-memory.
+    File is automatically cleaned up after test completion.
     """
-    engine = create_engine("sqlite:///:memory:")
+    # Create temporary directory and database file
+    temp_dir = tempfile.mkdtemp()
+    db_path = Path(temp_dir) / "test_performance.db"
+    
+    engine = create_engine(f"sqlite:///{db_path}")
     yield engine
+    
+    # Cleanup: close connections and remove temp file
+    engine.dispose()
+    if db_path.exists():
+        db_path.unlink()
+    Path(temp_dir).rmdir()
     engine.dispose()
 
 
@@ -112,6 +131,10 @@ def test_migrate_id_type_performance_10k_rows(performance_engine: Engine) -> Non
         id_counter[0] += 1
         return f"new-user-{id_counter[0]}"
     
+    # Memory measurement
+    process = psutil.Process()
+    mem_before = process.memory_info().rss / 1024 / 1024  # MB
+    
     # Act
     start_time = time.time()
     result = migrate_id_type(
@@ -123,6 +146,9 @@ def test_migrate_id_type_performance_10k_rows(performance_engine: Engine) -> Non
     )
     elapsed_time = time.time() - start_time
     
+    mem_after = process.memory_info().rss / 1024 / 1024  # MB
+    mem_used = mem_after - mem_before
+    
     # Assert
     assert result["rows_migrated"] == 10000
     assert result["fk_relationships_updated"] == 35000  # 20k orders + 15k sessions
@@ -133,8 +159,10 @@ def test_migrate_id_type_performance_10k_rows(performance_engine: Engine) -> Non
     
     # Performance assertion: should complete within 5 seconds
     assert elapsed_time < 5.0, f"Migration took {elapsed_time:.2f}s, expected < 5s"
+    assert mem_used < 50.0, f"Memory usage {mem_used:.2f} MB exceeds limit of 50 MB"
     
     print(f"\n✓ Migrated 10k users with 35k FK references in {elapsed_time:.2f}s")
+    print(f"  Memory used: {mem_used:.2f} MB")
 
 
 @pytest.mark.performance
@@ -178,6 +206,10 @@ def test_migrate_id_type_performance_100k_rows(performance_engine: Engine) -> No
         id_counter[0] += 1
         return f"new-item-{id_counter[0]}"
     
+    # Memory measurement
+    process = psutil.Process()
+    mem_before = process.memory_info().rss / 1024 / 1024  # MB
+    
     # Act
     start_time = time.time()
     result = migrate_id_type(
@@ -189,6 +221,9 @@ def test_migrate_id_type_performance_100k_rows(performance_engine: Engine) -> No
     )
     elapsed_time = time.time() - start_time
     
+    mem_after = process.memory_info().rss / 1024 / 1024  # MB
+    mem_used = mem_after - mem_before
+    
     # Assert
     assert result["rows_migrated"] == 100000
     assert result["fk_relationships_updated"] == 0
@@ -196,8 +231,10 @@ def test_migrate_id_type_performance_100k_rows(performance_engine: Engine) -> No
     
     # Performance assertion: should complete within 30 seconds
     assert elapsed_time < 30.0, f"Migration took {elapsed_time:.2f}s, expected < 30s"
+    assert mem_used < 100.0, f"Memory usage {mem_used:.2f} MB exceeds limit of 100 MB"
     
     print(f"\n✓ Migrated 100k rows in {elapsed_time:.2f}s ({100000/elapsed_time:.0f} rows/sec)")
+    print(f"  Memory used: {mem_used:.2f} MB")
 
 
 @pytest.mark.performance
@@ -279,6 +316,10 @@ def test_migrate_id_type_performance_complex_fk_relationships(performance_engine
         id_counter[0] += 1
         return f"new-user-{id_counter[0]}"
     
+    # Memory measurement
+    process = psutil.Process()
+    mem_before = process.memory_info().rss / 1024 / 1024  # MB
+    
     # Act
     start_time = time.time()
     result = migrate_id_type(
@@ -289,6 +330,9 @@ def test_migrate_id_type_performance_complex_fk_relationships(performance_engine
         batch_size=500,
     )
     elapsed_time = time.time() - start_time
+    
+    mem_after = process.memory_info().rss / 1024 / 1024  # MB
+    mem_used = mem_after - mem_before
     
     # Assert
     assert result["rows_migrated"] == 5000
@@ -303,8 +347,10 @@ def test_migrate_id_type_performance_complex_fk_relationships(performance_engine
     
     # Performance assertion: should complete within 10 seconds
     assert elapsed_time < 10.0, f"Migration took {elapsed_time:.2f}s, expected < 10s"
+    assert mem_used < 50.0, f"Memory usage {mem_used:.2f} MB exceeds limit of 50 MB"
     
     print(f"\n✓ Migrated 5k users with 5 FK tables (25k references) in {elapsed_time:.2f}s")
+    print(f"  Memory used: {mem_used:.2f} MB")
 
 
 @pytest.mark.performance
@@ -340,6 +386,10 @@ def test_migrate_id_type_performance_small_batch_size(performance_engine: Engine
         id_counter[0] += 1
         return f"new-item-{id_counter[0]}"
     
+    # Memory measurement
+    process = psutil.Process()
+    mem_before = process.memory_info().rss / 1024 / 1024  # MB
+    
     # Act - Use very small batch size
     start_time = time.time()
     result = migrate_id_type(
@@ -350,14 +400,19 @@ def test_migrate_id_type_performance_small_batch_size(performance_engine: Engine
     )
     elapsed_time = time.time() - start_time
     
+    mem_after = process.memory_info().rss / 1024 / 1024  # MB
+    mem_used = mem_after - mem_before
+    
     # Assert
     assert result["rows_migrated"] == 10000
     assert result["rows_per_table"]["items"] == 10000
     
     # Performance assertion: should still complete reasonably fast
     assert elapsed_time < 10.0, f"Migration with batch_size=100 took {elapsed_time:.2f}s, expected < 10s"
+    assert mem_used < 50.0, f"Memory usage {mem_used:.2f} MB exceeds limit of 50 MB"
     
     print(f"\n✓ Migrated 10k rows with batch_size=100 in {elapsed_time:.2f}s")
+    print(f"  Memory used: {mem_used:.2f} MB")
 
 
 @pytest.mark.performance
@@ -406,95 +461,139 @@ def test_migrate_id_type_performance_uuid_generation(performance_engine: Engine)
     for old_id, new_id in result["id_mapping"].items():
         assert "-" in new_id, f"Generated ID {new_id} doesn't look like a UUID"
     
-    # Performance assertion
-    assert elapsed_time < 5.0, f"UUID migration took {elapsed_time:.2f}s, expected < 5s"
-    
-    print(f"\n✓ Migrated 10k rows with UUID generation in {elapsed_time:.2f}s")
-
-
-@pytest.mark.performance
-def test_migrate_id_type_performance_memory_efficiency(performance_engine: Engine) -> None:
-    """
-    Test case 6: Memory efficiency with large ID mappings.
-    
-    Validates:
-    - ID mapping doesn't consume excessive memory
-    - Large result dictionaries are handled efficiently
-    - Memory usage stays within reasonable bounds
-    """
-    # Arrange
-    engine = performance_engine
-    metadata = MetaData()
-    
-    items = Table(
-        "items",
-        metadata,
-        Column("id", String(36), primary_key=True),
-        Column("data", String(100)),
-    )
-    
-    metadata.create_all(engine)
-    
-    # Insert 50,000 items
-    with engine.begin() as conn:
-        batch_size = 5000
-        for batch_start in range(0, 50000, batch_size):
-            item_data = [
-                {"id": f"item-{i}", "data": f"Data{i}"}
-                for i in range(batch_start, min(batch_start + batch_size, 50000))
-            ]
-            conn.execute(items.insert(), item_data)
-    
-    id_counter = [0]
-    
-    def generate_new_id() -> str:
-        id_counter[0] += 1
-        return f"new-item-{id_counter[0]}"
-    
-    # Get process for memory measurement
+    # Memory measurement
     process = psutil.Process()
+    mem_before = process.memory_info().rss / 1024 / 1024  # MB
     
-    # Measure memory before migration
-    mem_before = process.memory_info().rss / 1024 / 1024  # Convert to MB
-    
-    # Act
+    # Act - Use UUID4 generator (realistic scenario)
     start_time = time.time()
     result = migrate_id_type(
         engine=engine,
-        table_name="items",
-        id_generator=generate_new_id,
-        batch_size=2000,
+        table_name="users",
+        id_generator=lambda: str(uuid.uuid4()),
+        id_column="id",
+        batch_size=1000,
     )
     elapsed_time = time.time() - start_time
     
-    # Measure memory after migration
-    mem_after = process.memory_info().rss / 1024 / 1024  # Convert to MB
+    mem_after = process.memory_info().rss / 1024 / 1024  # MB
     mem_used = mem_after - mem_before
     
-    # Calculate expected memory for ID mapping
-    # Each entry: ~80 bytes (key + value + dict overhead)
-    # 50k entries ≈ 4 MB for id_mapping
-    id_mapping_size = sys.getsizeof(result["id_mapping"])
-    id_mapping_size_mb = id_mapping_size / 1024 / 1024
-    
     # Assert
-    assert result["rows_migrated"] == 50000
-    assert len(result["id_mapping"]) == 50000
-    assert result["rows_per_table"]["items"] == 50000
+    assert result["rows_migrated"] == 10000
+    assert result["rows_per_table"]["users"] == 10000
     
-    # Verify ID mapping is complete
-    assert all(old_id.startswith("item-") for old_id in result["id_mapping"].keys())
-    assert all(new_id.startswith("new-item-") for new_id in result["id_mapping"].values())
+    # All IDs should be valid UUIDs (contain hyphens)
+    for old_id, new_id in result["id_mapping"].items():
+        assert "-" in new_id, f"Generated ID {new_id} doesn't look like a UUID"
     
     # Performance assertion
-    assert elapsed_time < 15.0, f"Migration took {elapsed_time:.2f}s, expected < 15s"
+    assert elapsed_time < 5.0, f"UUID migration took {elapsed_time:.2f}s, expected < 5s"
+    assert mem_used < 50.0, f"Memory usage {mem_used:.2f} MB exceeds limit of 50 MB"
     
-    # Memory assertion: should not exceed 100 MB for 50k rows
-    assert mem_used < 100.0, f"Memory usage {mem_used:.2f} MB exceeds limit of 100 MB"
+    print(f"\n✓ Migrated 10k rows with UUID generation in {elapsed_time:.2f}s")
+    print(f"  Memory used: {mem_used:.2f} MB")
+
+
+@pytest.mark.performance
+def test_migrate_id_type_performance_batch_size_comparison(performance_engine: Engine) -> None:
+    """
+    Test case 7: Batch size impact comparison on speed and memory.
     
-    print(f"\n✓ Migrated 50k rows with full ID mapping in {elapsed_time:.2f}s")
-    print(f"  Memory used: {mem_used:.2f} MB (id_mapping: {id_mapping_size_mb:.2f} MB)")
-    print(f"  Memory efficiency: {mem_used / 50:.2f} KB per 1k rows")
+    Validates:
+    - Different batch sizes (100, 500, 1000, 5000, 10000) impact on performance
+    - Optimal batch size for different scenarios
+    - Memory usage vs speed tradeoffs
+    """
+    # Arrange
+    engine = performance_engine
+    batch_sizes = [100, 500, 1000, 5000, 10000]
+    results = {}
+    
+    print("\n📊 Batch Size Performance Comparison (20K rows)")
+    print("=" * 70)
+    
+    for batch_size in batch_sizes:
+        # Create fresh metadata for each test
+        metadata = MetaData()
+        
+        items = Table(
+            "items",
+            metadata,
+            Column("id", String(36), primary_key=True),
+            Column("data", String(100)),
+        )
+        
+        metadata.create_all(engine)
+        
+        # Insert 20,000 items
+        with engine.begin() as conn:
+            item_data = [
+                {"id": f"item-{batch_size}-{i}", "data": f"Data{i}"}
+                for i in range(20000)
+            ]
+            conn.execute(items.insert(), item_data)
+        
+        id_counter = [0]
+        
+        def generate_new_id() -> str:
+            id_counter[0] += 1
+            return f"new-item-{batch_size}-{id_counter[0]}"
+        
+        # Get process for memory measurement
+        process = psutil.Process()
+        mem_before = process.memory_info().rss / 1024 / 1024  # MB
+        
+        # Act
+        start_time = time.time()
+        result = migrate_id_type(
+            engine=engine,
+            table_name="items",
+            id_generator=generate_new_id,
+            batch_size=batch_size,
+        )
+        elapsed_time = time.time() - start_time
+        
+        mem_after = process.memory_info().rss / 1024 / 1024  # MB
+        mem_used = mem_after - mem_before
+        
+        # Store results
+        results[batch_size] = {
+            "time": elapsed_time,
+            "memory": mem_used,
+            "rows_per_sec": 20000 / elapsed_time,
+        }
+        
+        # Cleanup for next iteration
+        metadata.drop_all(engine)
+        
+        # Print results
+        print(f"Batch size {batch_size:>5}: {elapsed_time:>6.3f}s | "
+              f"{results[batch_size]['rows_per_sec']:>8.0f} rows/sec | "
+              f"{mem_used:>6.2f} MB")
+    
+    print("=" * 70)
+    
+    # Find optimal batch size (best speed)
+    fastest_batch = min(results.items(), key=lambda x: x[1]["time"])
+    most_efficient_mem = min(results.items(), key=lambda x: x[1]["memory"])
+    
+    print(f"\n✓ Fastest: batch_size={fastest_batch[0]} ({fastest_batch[1]['time']:.3f}s)")
+    print(f"✓ Most memory efficient: batch_size={most_efficient_mem[0]} ({most_efficient_mem[1]['memory']:.2f} MB)")
+    
+    # Assert all completed successfully
+    for batch_size, stats in results.items():
+        assert stats["time"] < 10.0, f"Batch size {batch_size} took {stats['time']:.2f}s, expected < 10s"
+        assert stats["memory"] < 50.0, f"Batch size {batch_size} used {stats['memory']:.2f} MB, expected < 50 MB"
+    
+    # Performance insights
+    slowest_time = max(stats["time"] for stats in results.values())
+    fastest_time = min(stats["time"] for stats in results.values())
+    speedup = slowest_time / fastest_time
+    
+    print(f"\n📈 Performance Insights:")
+    print(f"   • Speed variation: {speedup:.2f}x between slowest and fastest")
+    print(f"   • Batch sizes 1000-5000 recommended for balanced performance")
 
 
 @pytest.mark.performance
