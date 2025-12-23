@@ -98,10 +98,25 @@ def compare_table_data(
         raise TypeError(f"compare_columns must be list or None, got {type(compare_columns).__name__}")
     if not isinstance(sample_differences, int):
         raise TypeError(f"sample_differences must be int, got {type(sample_differences).__name__}")
+    if sample_differences < 0:
+        raise ValueError("sample_differences must be non-negative")
 
     # Default target table to source table
     if target_table is None:
         target_table = source_table
+
+    # Verify tables exist before reflecting
+    from sqlalchemy import inspect
+    source_inspector = inspect(source_connection)
+    target_inspector = inspect(target_connection)
+    
+    source_tables = source_inspector.get_table_names(schema=source_schema)
+    target_tables = target_inspector.get_table_names(schema=target_schema)
+    
+    if source_table not in source_tables:
+        raise ValueError(f"Source table {source_table} not found")
+    if target_table not in target_tables:
+        raise ValueError(f"Target table {target_table} not found")
 
     # Reflect source and target tables
     source_metadata = MetaData()
@@ -111,7 +126,7 @@ def compare_table_data(
     target_metadata.reflect(bind=target_connection, schema=target_schema, only=[target_table])
     
     if source_table not in source_metadata.tables:
-        raise ValueError(f"Source table {source_table} not found")
+        raise ValueError(f"Source table {source_table} not found in metadata")
     if target_table not in target_metadata.tables:
         raise ValueError(f"Target table {target_table} not found")
     
@@ -257,7 +272,7 @@ def compare_table_data(
                 }
                 
         except Exception as e:
-                logger.debug(f"Error comparing checksums for {col_name}: {e}")
+            logger.debug(f"Error comparing checksums for {col_name}: {e}")
             result["column_checksums"][col_name] = {
                 "match": None,
                 "error": str(e),

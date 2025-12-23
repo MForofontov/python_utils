@@ -16,4 +16,4 @@ __all__ = [
     "stream_query_results",
 ]
 
-from ..._version import __version__
+from _version import __version__

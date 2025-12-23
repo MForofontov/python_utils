@@ -82,9 +82,13 @@ def find_missing_indexes(
         raise TypeError(f"check_nullable_columns must be bool, got {type(check_nullable_columns).__name__}")
 
     # Reflect metadata
+    from sqlalchemy import inspect
     metadata = MetaData()
-    inspector = connection.dialect.inspector(connection)
-    metadata.reflect(bind=connection, schema=schema, only=tables)
+    inspector = inspect(connection)
+    if tables:
+        metadata.reflect(bind=connection, schema=schema, only=tables)
+    else:
+        metadata.reflect(bind=connection, schema=schema)
     
     table_names = tables if tables else inspector.get_table_names(schema=schema)
     

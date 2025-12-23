@@ -77,9 +77,18 @@ def get_table_sizes(
 
     # Reflect metadata to get table list
     metadata = MetaData()
-    metadata.reflect(bind=connection, schema=schema, only=tables)
-    
-    table_names = tables if tables else [t for t in metadata.tables.keys()]
+    if tables:
+        # Verify tables exist before reflecting
+        from sqlalchemy import inspect
+        inspector = inspect(connection)
+        available_tables = inspector.get_table_names(schema=schema)
+        existing_tables = [t for t in tables if t in available_tables]
+        if existing_tables:
+            metadata.reflect(bind=connection, schema=schema, only=existing_tables)
+        table_names = existing_tables
+    else:
+        metadata.reflect(bind=connection, schema=schema)
+        table_names = [t for t in metadata.tables.keys()]
     
     # Detect database type
     db_dialect = connection.dialect.name.lower()

@@ -13,4 +13,4 @@ __all__ = [
     "managed_db_connection",
 ]
 
-from ..._version import __version__
+from _version import __version__

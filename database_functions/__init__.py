@@ -62,4 +62,4 @@ __all__ = [
     "detect_schema_drift",
 ]
 
-from .._version import __version__
+from _version import __version__
