@@ -172,6 +172,7 @@ def test_detect_schema_drift_missing_columns(memory_engine: Engine) -> None:
         username = Column(String(50))
         # email and other columns missing
     
+    _ = UserPartial  # Suppress unused warning - class is used via Base2.metadata
     Base2.metadata.create_all(memory_engine)
     conn = memory_engine.connect()
     
@@ -217,6 +218,7 @@ def test_detect_schema_drift_unexpected_columns(memory_engine: Engine) -> None:
         email = Column(String(100))
         phone = Column(String(20))  # Extra column
     
+    _ = UserExtended  # Suppress unused warning - class is used via Base2.metadata
     Base2.metadata.create_all(memory_engine)
     conn = memory_engine.connect()
     
@@ -258,6 +260,7 @@ def test_detect_schema_drift_multiple_diffs(memory_engine: Engine, schema_dict: 
         username = Column(String(50))
         phone = Column(String(20))  # Extra column, other columns missing
     
+    _ = UserPartial  # Suppress unused warning - class is used via Base2.metadata
     Base2.metadata.create_all(memory_engine)
     conn = memory_engine.connect()
     
