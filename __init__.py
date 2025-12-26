@@ -189,6 +189,13 @@ from .env_config_functions import (
     parse_toml_config,
     parse_yaml_config,
 )
+from .formatting_functions import (
+    format_currency,
+    format_duration,
+    format_file_size,
+    format_number_compact,
+    parse_size,
+)
 from .file_functions import (
     calculate_md5_hash,
     calculate_sha1_hash,
