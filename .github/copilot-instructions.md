@@ -733,6 +733,158 @@ def validate_numeric_input(
         raise ValueError(f"{name} must be <= {max_value}, got {value}")
 ```
 
+### Logging Best Practices
+
+#### When to Use Logger Parameters
+
+**✅ DO use logger parameters in:**
+
+1. **Decorators** - Infrastructure code that wraps user functions
+   - Users need flexibility to override logging per decorator instance
+   - Different contexts require different logging behavior
+   - Testing requires injectable mock loggers
+   - Example: `@retry(max_retries=3, logger=custom_logger)`
+
+2. **Long-running operations** - Functions with progress tracking
+   - Database migrations, batch processing, file operations
+   - Users need visibility into operation progress
+   - Example: `migrate_id_type(..., logger=progress_logger)`
+
+3. **Integration utilities** - Functions that bridge logging systems
+   - Print functions that integrate with logging
+   - Functions that need to work with custom logging frameworks
+   - Example: `print_message(..., logger=app_logger)`
+
+**❌ DON'T use logger parameters in:**
+
+1. **Regular utility functions** - Pure logic functions
+   - Use module-level logger: `logger = logging.getLogger(__name__)`
+   - No need for per-call logging customization
+   - Example: `calculate_sum()`, `parse_json()`, `validate_email()`
+
+2. **Simple transformations** - Data processing functions
+   - Focus on single responsibility (transformation)
+   - Module-level logging is sufficient
+   - Example: `encode_base64()`, `normalize_string()`
+
+#### Logger Parameter Pattern
+
+**Decorators (KEEP logger parameter):**
+```python
+import logging
+from functools import wraps
+
+def retry(
+    max_retries: int,
+    delay: float = 1.0,
+    logger: logging.Logger | None = None,  # ✅ Optional logger for flexibility
+) -> Callable:
+    """Retry decorator with optional logging override."""
+    
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
+        @wraps(func)
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
+            for attempt in range(max_retries):
+                try:
+                    return func(*args, **kwargs)
+                except Exception as e:
+                    if logger:  # Only log if logger provided
+                        logger.warning(f"Retry {attempt + 1}/{max_retries} failed: {e}")
+                    if attempt == max_retries - 1:
+                        raise
+        return wrapper
+    return decorator
+
+# Usage flexibility:
+@retry(max_retries=3, logger=critical_logger)  # Detailed logs
+def process_payment(): pass
+
+@retry(max_retries=3, logger=None)  # No logs
+def internal_helper(): pass
+```
+
+**Regular Functions (USE module logger):**
+```python
+import logging
+
+# Module-level logger
+logger = logging.getLogger(__name__)
+
+def calculate_statistics(data: list[float]) -> dict[str, float]:
+    """Calculate statistics - uses module logger."""
+    logger.debug(f"Calculating statistics for {len(data)} values")
+    
+    if not data:
+        raise ValueError("data cannot be empty")
+    
+    result = {
+        'mean': sum(data) / len(data),
+        'min': min(data),
+        'max': max(data),
+    }
+    
+    logger.debug(f"Statistics calculated: {result}")
+    return result
+```
+
+#### Why Decorators Keep Logger Parameters
+
+**1. Multiple contexts with different logging needs:**
+```python
+# Critical operations need detailed logs
+@timeout(seconds=30, logger=critical_logger)
+def process_payment(): pass
+
+# Background tasks need minimal logs
+@timeout(seconds=10, logger=background_logger)
+def sync_cache(): pass
+
+# Internal utilities need no logs
+@timeout(seconds=5, logger=None)
+def helper(): pass
+```
+
+**2. Testing and verification:**
+```python
+def test_retry_logging():
+    """Verify decorator logs retry attempts."""
+    mock_logger = Mock()
+    
+    @retry(max_retries=3, logger=mock_logger)
+    def failing_func():
+        raise ValueError("Test error")
+    
+    with pytest.raises(ValueError):
+        failing_func()
+    
+    # Verify logging behavior
+    assert mock_logger.warning.call_count == 3
+```
+
+**3. Third-party integration:**
+```python
+# Integrate with company logging system
+from company_logging import CompanyLogger
+
+company_logger = CompanyLogger("payments", team="finance")
+
+@handle_error(logger=company_logger.get_logger())
+def process_transaction(): pass
+```
+
+**4. Decorator reusability across projects:**
+```python
+# Project A: Uses structlog
+@handle_error(logger=structlog_logger)
+def project_a_func(): pass
+
+# Project B: Uses standard logging
+@handle_error(logger=std_logger)
+def project_b_func(): pass
+```
+
+**Key Principle**: Decorators are **infrastructure code** that need flexibility. Regular functions are **application code** that use module-level loggers. This is the industry standard pattern used by Flask, Celery, SQLAlchemy, and other major libraries.
+
 ### Environment & Dependencies
 
 #### Development Environment

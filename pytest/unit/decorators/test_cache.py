@@ -71,7 +71,7 @@ def test_cache_concat_different_args():
     assert concat("a", "b", "c") == "abc"
     # Different arguments, should not use cache
     assert concat("x", "y", "z") == "xyz"
-    assert call_counts["concat"] == 1  # Function should be called twice
+    assert call_counts["concat"] == 2  # Function should be called twice (different args)
     call_counts["concat"] = 0
 
 
