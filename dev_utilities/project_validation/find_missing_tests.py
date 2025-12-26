@@ -23,7 +23,7 @@ class MissingTest(NamedTuple):
     module: str
 
 
-class TestCoverageReport(NamedTuple):
+class CoverageReport(NamedTuple):
     """
     Contains test coverage analysis results.
 
@@ -50,7 +50,7 @@ def find_missing_tests(
     source_dirs: list[str] | None = None,
     test_base_dir: str = "pytest/unit",
     exclude_init: bool = True,
-) -> TestCoverageReport:
+) -> CoverageReport:
     """
     Find all source files without corresponding test files.
 
@@ -70,7 +70,7 @@ def find_missing_tests(
 
     Returns
     -------
-    TestCoverageReport
+    CoverageReport
         Named tuple containing coverage analysis results.
 
     Raises
@@ -170,7 +170,7 @@ def find_missing_tests(
         (files_with_tests / total_files * 100) if total_files > 0 else 0.0
     )
 
-    return TestCoverageReport(
+    return CoverageReport(
         total_source_files=total_files,
         files_with_tests=files_with_tests,
         missing_tests=missing_tests,
@@ -194,7 +194,7 @@ def _auto_detect_source_dirs(project_path: Path) -> list[str]:
 
 
 def format_coverage_report(
-    report: TestCoverageReport,
+    report: CoverageReport,
     verbose: bool = True,
     show_limit: int = 20,
 ) -> str:
@@ -203,7 +203,7 @@ def format_coverage_report(
 
     Parameters
     ----------
-    report : TestCoverageReport
+    report : CoverageReport
         Coverage report to format.
     verbose : bool, optional
         Include detailed missing test list (by default True).
@@ -231,9 +231,9 @@ def format_coverage_report(
     Time: O(n), Space: O(n)
     where n is the number of missing tests
     """
-    if not isinstance(report, TestCoverageReport):
+    if not isinstance(report, CoverageReport):
         raise TypeError(
-            f"report must be TestCoverageReport, got {type(report).__name__}"
+            f"report must be CoverageReport, got {type(report).__name__}"
         )
     if not isinstance(verbose, bool):
         raise TypeError(f"verbose must be bool, got {type(verbose).__name__}")
@@ -282,5 +282,5 @@ __all__ = [
     "find_missing_tests",
     "format_coverage_report",
     "MissingTest",
-    "TestCoverageReport",
+    "CoverageReport",
 ]

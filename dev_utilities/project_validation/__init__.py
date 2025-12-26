@@ -13,7 +13,7 @@ from .find_missing_tests import (
     find_missing_tests,
     format_coverage_report,
     MissingTest,
-    TestCoverageReport,
+    CoverageReport,
 )
 
 __all__ = [
@@ -23,5 +23,5 @@ __all__ = [
     "find_missing_tests",
     "format_coverage_report",
     "MissingTest",
-    "TestCoverageReport",
+    "CoverageReport",
 ]

@@ -27,7 +27,7 @@ from .project_validation.find_missing_tests import (
     find_missing_tests,
     format_coverage_report,
     MissingTest,
-    TestCoverageReport,
+    CoverageReport,
 )
 
 __all__ = [
@@ -55,7 +55,7 @@ __all__ = [
     "ValidationResult",
     "ValidationIssue",
     "MissingTest",
-    "TestCoverageReport",
+    "CoverageReport",
     "LicenseType",
 ]
 

@@ -120,7 +120,7 @@ from .dev_utilities import (
     ValidationIssue,
     ValidationResult,
     MissingTest,
-    TestCoverageReport,
+    CoverageReport,
 )
 from .datetime_functions import (
     calculate_age,
@@ -307,7 +307,6 @@ from .cli_functions import (
     get_disk_usage,
     get_environment_variable,
     get_file_size,
-    get_hostname,
     get_memory_info,
     get_network_info,
     get_uptime,

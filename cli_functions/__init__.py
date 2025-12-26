@@ -13,7 +13,6 @@ from .get_current_user import get_current_user
 from .get_disk_usage import get_disk_usage
 from .get_environment_variable import get_environment_variable
 from .get_file_size import get_file_size
-from .get_hostname import get_hostname
 from .get_memory_info import get_memory_info
 from .get_network_info import get_network_info
 from .get_uptime import get_uptime
@@ -37,7 +36,6 @@ __all__ = [
     "get_network_info",
     "get_uptime",
     "get_current_user",
-    "get_hostname",
     # Process management
     "is_process_running",
     "kill_process",
