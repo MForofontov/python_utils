@@ -127,7 +127,6 @@ from .datetime_functions import (
     compare_dates,
     convert_timezone,
     days_between,
-    format_date,
     get_current_datetime_iso,
     get_current_datetime_iso_utc,
     get_date_parts,
@@ -191,6 +190,7 @@ from .env_config_functions import (
 )
 from .formatting_functions import (
     format_currency,
+    format_date,
     format_duration,
     format_file_size,
     format_number_compact,

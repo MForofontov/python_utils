@@ -1,7 +1,7 @@
 from datetime import datetime
 
 import pytest
-from datetime_functions.format_date import format_date
+from formatting_functions.format_date import format_date
 
 
 def test_format_date_with_default_format() -> None:

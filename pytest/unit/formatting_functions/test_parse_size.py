@@ -216,6 +216,3 @@ def test_parse_size_unknown_unit() -> None:
     
     with pytest.raises(ValueError, match=expected_message):
         parse_size("1 INVALID")
-
-
-def test_parse_size_round_trip_consistency() -> None:
