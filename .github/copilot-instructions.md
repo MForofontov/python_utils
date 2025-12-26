@@ -381,9 +381,24 @@ def test_function_name_normal_operation() -> None:
     assert result == expected
 
 
+def test_function_name_typical_use_case() -> None:
+    """
+    Test case 2: Another typical usage scenario.
+    """
+    # Arrange
+    input_data = another_valid_input
+    expected = another_expected_output
+    
+    # Act
+    result = function_name(input_data)
+    
+    # Assert
+    assert result == expected
+
+
 def test_function_name_empty_input() -> None:
     """
-    Test case 2: Edge case with empty input.
+    Test case 3: Edge case with empty input.
     """
     # Arrange
     input_data = empty_input
@@ -396,35 +411,9 @@ def test_function_name_empty_input() -> None:
     assert result == expected
 
 
-def test_function_name_invalid_type_raises_error() -> None:
-    """
-    Test case 3: TypeError for invalid input type.
-    """
-    # Arrange
-    invalid_input = "wrong_type"
-    expected_message = "param must be int, got str"
-    
-    # Act & Assert
-    with pytest.raises(TypeError, match=expected_message):
-        function_name(invalid_input)
-
-
-def test_function_name_negative_value_raises_error() -> None:
-    """
-    Test case 4: ValueError for invalid input value.
-    """
-    # Arrange
-    invalid_input = -1
-    expected_message = "param must be non-negative"
-    
-    # Act & Assert
-    with pytest.raises(ValueError, match=expected_message):
-        function_name(invalid_input)
-
-
 def test_function_name_boundary_conditions() -> None:
     """
-    Test case 5: Boundary conditions testing.
+    Test case 4: Boundary conditions testing.
     """
     # Test minimum boundary
     result_min = function_name(0)
@@ -437,7 +426,7 @@ def test_function_name_boundary_conditions() -> None:
 
 def test_function_name_performance_large_input() -> None:
     """
-    Test case 6: Performance with large input data.
+    Test case 5: Performance with large input data.
     """
     # Arrange
     large_input = generate_large_test_data(10000)
@@ -451,6 +440,31 @@ def test_function_name_performance_large_input() -> None:
     # Assert
     assert result is not None
     assert elapsed_time < 1.0  # Should complete within 1 second
+
+def test_function_name_invalid_type_raises_error() -> None:
+    """
+    Test case 6: TypeError for invalid input type.
+    """
+    # Arrange
+    invalid_input = "wrong_type"
+    expected_message = "param must be int, got str"
+    
+    # Act & Assert
+    with pytest.raises(TypeError, match=expected_message):
+        function_name(invalid_input)
+
+
+def test_function_name_negative_value_raises_error() -> None:
+    """
+    Test case 7: ValueError for invalid input value.
+    """
+    # Arrange
+    invalid_input = -1
+    expected_message = "param must be non-negative"
+    
+    # Act & Assert
+    with pytest.raises(ValueError, match=expected_message):
+        function_name(invalid_input)
 
 
 @pytest.mark.asyncio
@@ -470,13 +484,10 @@ async def test_async_function_normal_operation() -> None:
 ```
 
 #### Testing Requirements
-- **Minimum 6 test cases** per function covering:
-  1. Normal/typical usage
-  2. Edge cases (empty inputs, boundary values)
-  3. Type validation errors
-  4. Value validation errors
-  5. Boundary conditions
-  6. Performance considerations
+- **Minimum 6 test cases** per function covering (in this order):
+  1. **Normal/typical usage cases** (2-4 tests): Standard usage scenarios with valid inputs
+  2. **Edge cases** (2-3 tests): Empty inputs, boundary values, large inputs, performance considerations
+  3. **Error cases** (2-4 tests): Type validation errors, value validation errors, invalid states
 
 - **Naming Convention**: `test_function_name_descriptive_scenario`
   - ✅ GOOD: `test_parse_json_empty_string`, `test_calculate_sum_negative_numbers`, `test_validate_email_invalid_format`

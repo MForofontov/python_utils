@@ -47,19 +47,9 @@ def test_format_currency_thousand_separators() -> None:
     assert format_currency(999) == "$999.00"
 
 
-def test_format_currency_negative_amounts() -> None:
-    """
-    Test case 5: Format negative amounts.
-    """
-    # Arrange & Act & Assert
-    assert format_currency(-50.25) == "-$50.25"
-    assert format_currency(-1234.56) == "-$1,234.56"
-    assert format_currency(-1000000) == "-$1,000,000.00"
-
-
 def test_format_currency_decimal_rounding() -> None:
     """
-    Test case 6: Verify decimal rounding.
+    Test case 5: Verify decimal rounding.
     """
     # Arrange & Act & Assert
     assert format_currency(1.234) == "$1.23"  # Rounds down
@@ -69,7 +59,7 @@ def test_format_currency_decimal_rounding() -> None:
 
 def test_format_currency_various_currencies() -> None:
     """
-    Test case 7: Test various currency symbols.
+    Test case 6: Test various currency symbols.
     """
     # Arrange & Act & Assert
     assert format_currency(100, currency="AUD") == "A$100.00"
@@ -77,6 +67,23 @@ def test_format_currency_various_currencies() -> None:
     assert format_currency(100, currency="INR") == "₹100.00"
     assert format_currency(100, currency="BRL") == "R$100.00"
     assert format_currency(100, currency="RUB") == "₽100.00"
+
+
+def test_format_currency_integer_and_float_amounts() -> None:
+    """
+    Test case 7: Handle various integer and float amounts.
+    """
+    # Arrange & Act & Assert
+    # Integer amounts
+    assert format_currency(100) == "$100.00"
+    assert format_currency(1000) == "$1,000.00"
+    assert format_currency(1000000) == "$1,000,000.00"
+    
+    # Float amounts
+    assert format_currency(12.3) == "$12.30"
+    assert format_currency(12.34) == "$12.34"
+    assert format_currency(12.345) == "$12.35"  # Rounds
+    assert format_currency(0.5) == "$0.50"
 
 
 def test_format_currency_case_insensitive() -> None:
@@ -99,9 +106,38 @@ def test_format_currency_whitespace_handling() -> None:
     assert format_currency(100, currency="EUR ") == "€100.00"
 
 
+def test_format_currency_negative_amounts() -> None:
+    """
+    Test case 10: Format negative amounts.
+    """
+    # Arrange & Act & Assert
+    assert format_currency(-50.25) == "-$50.25"
+    assert format_currency(-1234.56) == "-$1,234.56"
+    assert format_currency(-1000000) == "-$1,000,000.00"
+
+
+def test_format_currency_large_amounts() -> None:
+    """
+    Test case 11: Format very large amounts.
+    """
+    # Arrange & Act & Assert
+    assert format_currency(1_000_000_000) == "$1,000,000,000.00"
+    assert format_currency(999_999_999.99) == "$999,999,999.99"
+
+
+def test_format_currency_small_amounts() -> None:
+    """
+    Test case 12: Format small fractional amounts.
+    """
+    # Arrange & Act & Assert
+    assert format_currency(0.01) == "$0.01"
+    assert format_currency(0.99) == "$0.99"
+    assert format_currency(0.001) == "$0.00"  # Rounds to zero
+
+
 def test_format_currency_unknown_currency() -> None:
     """
-    Test case 10: Unknown currency uses code as prefix.
+    Test case 13: Unknown currency uses code as prefix.
     """
     # Arrange & Act & Assert
     assert format_currency(100, currency="XXX") == "XXX 100.00"
@@ -110,7 +146,7 @@ def test_format_currency_unknown_currency() -> None:
 
 def test_format_currency_invalid_type_amount() -> None:
     """
-    Test case 11: TypeError for invalid amount type.
+    Test case 14: TypeError for invalid amount type.
     """
     # Arrange
     expected_message = "amount must be a number, got str"
@@ -122,7 +158,7 @@ def test_format_currency_invalid_type_amount() -> None:
 
 def test_format_currency_invalid_type_currency() -> None:
     """
-    Test case 12: TypeError for invalid currency type.
+    Test case 15: TypeError for invalid currency type.
     """
     # Arrange
     expected_message = "currency must be a string, got int"
@@ -134,7 +170,7 @@ def test_format_currency_invalid_type_currency() -> None:
 
 def test_format_currency_invalid_type_locale() -> None:
     """
-    Test case 13: TypeError for invalid locale type.
+    Test case 16: TypeError for invalid locale type.
     """
     # Arrange
     expected_message = "locale must be a string or None, got int"
@@ -146,7 +182,7 @@ def test_format_currency_invalid_type_locale() -> None:
 
 def test_format_currency_invalid_currency_code_length() -> None:
     """
-    Test case 14: ValueError for invalid currency code length.
+    Test case 17: ValueError for invalid currency code length.
     """
     # Arrange
     expected_message = "currency must be a 3-letter ISO 4217 code"
@@ -160,43 +196,3 @@ def test_format_currency_invalid_currency_code_length() -> None:
     
     with pytest.raises(ValueError, match=expected_message):
         format_currency(100, currency="")
-
-
-def test_format_currency_large_amounts() -> None:
-    """
-    Test case 15: Format very large amounts.
-    """
-    # Arrange & Act & Assert
-    assert format_currency(1_000_000_000) == "$1,000,000,000.00"
-    assert format_currency(999_999_999.99) == "$999,999,999.99"
-
-
-def test_format_currency_small_amounts() -> None:
-    """
-    Test case 16: Format small fractional amounts.
-    """
-    # Arrange & Act & Assert
-    assert format_currency(0.01) == "$0.01"
-    assert format_currency(0.99) == "$0.99"
-    assert format_currency(0.001) == "$0.00"  # Rounds to zero
-
-
-def test_format_currency_integer_amounts() -> None:
-    """
-    Test case 17: Format integer amounts correctly.
-    """
-    # Arrange & Act & Assert
-    assert format_currency(100) == "$100.00"
-    assert format_currency(1000) == "$1,000.00"
-    assert format_currency(1000000) == "$1,000,000.00"
-
-
-def test_format_currency_float_amounts() -> None:
-    """
-    Test case 18: Handle various float amounts.
-    """
-    # Arrange & Act & Assert
-    assert format_currency(12.3) == "$12.30"
-    assert format_currency(12.34) == "$12.34"
-    assert format_currency(12.345) == "$12.35"  # Rounds
-    assert format_currency(0.5) == "$0.50"
