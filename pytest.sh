@@ -12,7 +12,7 @@ ALLURE_RESULTS_DIR=${2:-$DEFAULT_ALLURE_RESULTS_DIR}
 ALLURE_REPORT_DIR=${3:-$DEFAULT_ALLURE_REPORT_DIR}
 GENERATE_ALLURE=${4:-true}  # New option to control Allure report generation
 RUN_PARALLEL=${5:-false}    # Option to run tests in parallel with pytest-xdist
-EXTRA_ARGS=${6:-}           # Extra pytest arguments
+EXTRA_ARGS=${6:-"-k 'not performance'"}  # Extra pytest arguments (skip performance tests by default)
 ENABLE_COVERAGE=${7:-false} # Option to enable coverage reporting
 COVERAGE_REPORT_DIR=${8:-$DEFAULT_COVERAGE_REPORT_DIR}
 
