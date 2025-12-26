@@ -120,14 +120,13 @@ from .dev_utilities import (
     ValidationIssue,
     ValidationResult,
     MissingTest,
-    TestCoverageReport,
+    CoverageReport,
 )
 from .datetime_functions import (
     calculate_age,
     compare_dates,
     convert_timezone,
     days_between,
-    format_date,
     get_current_datetime_iso,
     get_current_datetime_iso_utc,
     get_date_parts,
@@ -188,6 +187,14 @@ from .env_config_functions import (
     parse_ini_config,
     parse_toml_config,
     parse_yaml_config,
+)
+from .formatting_functions import (
+    format_currency,
+    format_date,
+    format_duration,
+    format_file_size,
+    format_number_compact,
+    parse_size,
 )
 from .file_functions import (
     calculate_md5_hash,
@@ -300,7 +307,6 @@ from .cli_functions import (
     get_disk_usage,
     get_environment_variable,
     get_file_size,
-    get_hostname,
     get_memory_info,
     get_network_info,
     get_uptime,
@@ -570,6 +576,12 @@ __all__ = [
     "get_table_info",
     "compare_schemas",
     "detect_schema_drift",
+    # Formatting functions
+    "format_file_size",
+    "parse_size",
+    "format_duration",
+    "format_number_compact",
+    "format_currency",
     # Dev utilities
     "count_code_lines",
     "format_statistics",

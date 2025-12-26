@@ -6,7 +6,7 @@ from dev_utilities.project_validation.find_missing_tests import (
     find_missing_tests,
     format_coverage_report,
     MissingTest,
-    TestCoverageReport,
+    CoverageReport,
 )
 
 
@@ -30,7 +30,7 @@ def test_find_missing_tests_valid_project(tmp_path: Path) -> None:
     report = find_missing_tests(tmp_path, source_dirs=["my_functions"])
 
     # Assert
-    assert isinstance(report, TestCoverageReport)
+    assert isinstance(report, CoverageReport)
     assert report.total_source_files == 2  # func1, func2 (excluding __init__)
     assert report.files_with_tests == 1
     assert len(report.missing_tests) == 1
@@ -234,13 +234,13 @@ def test_missing_test_named_tuple_structure() -> None:
 
 def test_test_coverage_report_named_tuple_structure() -> None:
     """
-    Test TestCoverageReport NamedTuple structure and attributes.
+    Test CoverageReport NamedTuple structure and attributes.
     """
     # Arrange
     missing = MissingTest("src/a.py", "tests/test_a.py", "src")
 
     # Act
-    report = TestCoverageReport(
+    report = CoverageReport(
         total_source_files=10,
         files_with_tests=8,
         missing_tests=[missing],
@@ -265,7 +265,7 @@ def test_format_coverage_report_basic_output() -> None:
         expected_test_file="tests/utils/test_helper.py",
         module="utils",
     )
-    report = TestCoverageReport(
+    report = CoverageReport(
         total_source_files=5, files_with_tests=4, missing_tests=[missing], coverage_percentage=80.0
     )
 
@@ -286,7 +286,7 @@ def test_format_coverage_report_verbose_output() -> None:
     # Arrange
     missing1 = MissingTest("src/a.py", "tests/test_a.py", "src")
     missing2 = MissingTest("src/b.py", "tests/test_b.py", "src")
-    report = TestCoverageReport(
+    report = CoverageReport(
         total_source_files=10,
         files_with_tests=8,
         missing_tests=[missing1, missing2],
@@ -313,7 +313,7 @@ def test_format_coverage_report_show_limit() -> None:
         MissingTest(f"src/file{i}.py", f"tests/test_file{i}.py", "src")
         for i in range(30)
     ]
-    report = TestCoverageReport(
+    report = CoverageReport(
         total_source_files=30,
         files_with_tests=0,
         missing_tests=missing_tests,
@@ -336,7 +336,7 @@ def test_format_coverage_report_invalid_report_type_raises_error() -> None:
     """
     # Arrange
     invalid_report = "not_a_report"
-    expected_message = "report must be TestCoverageReport, got str"
+    expected_message = "report must be CoverageReport, got str"
 
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
@@ -348,7 +348,7 @@ def test_format_coverage_report_invalid_verbose_type_raises_error() -> None:
     Test TypeError for invalid verbose parameter.
     """
     # Arrange
-    report = TestCoverageReport(
+    report = CoverageReport(
         total_source_files=0, files_with_tests=0, missing_tests=[], coverage_percentage=0.0
     )
     expected_message = "verbose must be bool, got str"
@@ -363,7 +363,7 @@ def test_format_coverage_report_invalid_show_limit_type_raises_error() -> None:
     Test TypeError for invalid show_limit parameter.
     """
     # Arrange
-    report = TestCoverageReport(
+    report = CoverageReport(
         total_source_files=0, files_with_tests=0, missing_tests=[], coverage_percentage=0.0
     )
     expected_message = "show_limit must be int, got str"
@@ -378,7 +378,7 @@ def test_format_coverage_report_empty_missing_tests() -> None:
     Test formatting when there are no missing tests.
     """
     # Arrange
-    report = TestCoverageReport(
+    report = CoverageReport(
         total_source_files=10,
         files_with_tests=10,
         missing_tests=[],
@@ -404,7 +404,7 @@ def test_format_coverage_report_multiple_modules() -> None:
         MissingTest("core/main.py", "tests/core/test_main.py", "core"),
         MissingTest("core/config.py", "tests/core/test_config.py", "core"),
     ]
-    report = TestCoverageReport(
+    report = CoverageReport(
         total_source_files=10,
         files_with_tests=7,
         missing_tests=missing_tests,

@@ -1,7 +1,7 @@
 """Date and Time Utilities module.
 
 This module provides various utilities for working with dates and times,
-including parsing, formatting, timezone conversions, and date arithmetic.
+including parsing, timezone conversions, and date arithmetic.
 """
 
 """Date and time manipulation utilities."""
@@ -10,7 +10,6 @@ from .calculate_age import calculate_age
 from .compare_dates import compare_dates
 from .convert_timezone import convert_timezone
 from .days_between import days_between
-from .format_date import format_date
 from .get_current_datetime_iso_utc import get_current_datetime_iso_utc
 from .get_date_parts import get_date_parts
 from .get_days_in_month import get_days_in_month
@@ -35,7 +34,6 @@ from .time_until import time_until
 
 __all__ = [
     "parse_date",
-    "format_date",
     "convert_timezone",
     "modify_days",
     "modify_weeks",
