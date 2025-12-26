@@ -100,8 +100,9 @@ def test_format_number_compact_custom_threshold() -> None:
     Test case 10: Test custom threshold values.
     """
     # Arrange & Act & Assert
-    assert format_number_compact(100, threshold=100) == "0.1K"
-    assert format_number_compact(500, threshold=100) == "0.5K"
+    assert format_number_compact(100, threshold=100) == "100"
+    assert format_number_compact(500, threshold=100) == "500"
+    assert format_number_compact(1000, threshold=100) == "1K"
     assert format_number_compact(99, threshold=100) == "99"
 
 

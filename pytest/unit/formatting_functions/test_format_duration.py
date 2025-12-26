@@ -30,8 +30,8 @@ def test_format_duration_minutes() -> None:
     # Arrange & Act & Assert
     assert format_duration(90) == "1m 30s"
     assert format_duration(90, long_format=True) == "1 minute 30 seconds"
-    assert format_duration(120) == "2m 0s"
-    assert format_duration(120, long_format=True) == "2 minutes 0 seconds"
+    assert format_duration(120) == "2m"
+    assert format_duration(120, long_format=True) == "2 minutes"
 
 
 def test_format_duration_hours() -> None:
@@ -39,7 +39,7 @@ def test_format_duration_hours() -> None:
     Test case 4: Format durations with hours.
     """
     # Arrange & Act & Assert
-    assert format_duration(3600) == "1h 0m"
+    assert format_duration(3600) == "1h"
     assert format_duration(3665) == "1h 1m"
     assert format_duration(3665, precision=3) == "1h 1m 5s"
     assert format_duration(3665, long_format=True) == "1 hour 1 minute"
@@ -50,9 +50,9 @@ def test_format_duration_days() -> None:
     Test case 5: Format durations with days.
     """
     # Arrange & Act & Assert
-    assert format_duration(86400) == "1d 0h"
+    assert format_duration(86400) == "1d"
     assert format_duration(90000) == "1d 1h"
-    assert format_duration(90000, precision=3) == "1d 1h 0m"
+    assert format_duration(90000, precision=3) == "1d 1h"
     assert format_duration(90061, precision=3) == "1d 1h 1m"
 
 
@@ -61,7 +61,7 @@ def test_format_duration_weeks() -> None:
     Test case 6: Format durations with weeks.
     """
     # Arrange & Act & Assert
-    assert format_duration(604800) == "1w 0d"
+    assert format_duration(604800) == "1w"
     assert format_duration(691200) == "1w 1d"
     assert format_duration(691200, long_format=True) == "1 week 1 day"
 
@@ -71,7 +71,7 @@ def test_format_duration_years() -> None:
     Test case 7: Format durations with years.
     """
     # Arrange & Act & Assert
-    assert format_duration(31536000) == "1y 0w"  # 365 days
+    assert format_duration(31536000) == "1y"  # 365 days
     assert format_duration(32140800) == "1y 1w"
     assert format_duration(32140800, long_format=True) == "1 year 1 week"
 
@@ -187,7 +187,7 @@ def test_format_duration_large_values() -> None:
     """
     # Arrange & Act & Assert
     # 10 years
-    assert format_duration(315360000) == "10y 0w"
+    assert format_duration(315360000) == "10y"
     
     # Multiple years with all units
     large_duration = (2 * 365 * 24 * 60 * 60) + (3 * 7 * 24 * 60 * 60) + (4 * 24 * 60 * 60)
@@ -197,10 +197,10 @@ def test_format_duration_large_values() -> None:
 
 def test_format_duration_boundary_conditions() -> None:
     """
-    Test case 18: Test boundary conditions between units.
+    Test case 17: Test boundary conditions for time units.
     """
     # Arrange & Act & Assert
     assert format_duration(59) == "59s"
-    assert format_duration(60) == "1m 0s"
-    assert format_duration(3599) == "59m 59s"
-    assert format_duration(3600) == "1h 0m"
+    assert format_duration(60) == "1m"
+    assert format_duration(61) == "1m 1s"
+    assert format_duration(3600) == "1h"

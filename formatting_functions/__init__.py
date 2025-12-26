@@ -18,4 +18,4 @@ __all__ = [
     "format_currency",
 ]
 
-from .._version import __version__
+from _version import __version__

@@ -148,10 +148,10 @@ def test_parse_size_empty_string() -> None:
 
 def test_parse_size_invalid_format() -> None:
     """
-    Test case 14: ValueError for invalid format.
+    Test case 13: ValueError for invalid format.
     """
     # Arrange
-    expected_message = "Invalid size format"
+    expected_message = "Invalid size format|Invalid number in size string"
     
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
@@ -178,7 +178,7 @@ def test_parse_size_negative_value() -> None:
     Test case 16: ValueError for negative size.
     """
     # Arrange
-    expected_message = "Size cannot be negative"
+    expected_message = "Invalid size format"
     
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):

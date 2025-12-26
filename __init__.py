@@ -577,6 +577,12 @@ __all__ = [
     "get_table_info",
     "compare_schemas",
     "detect_schema_drift",
+    # Formatting functions
+    "format_file_size",
+    "parse_size",
+    "format_duration",
+    "format_number_compact",
+    "format_currency",
     # Dev utilities
     "count_code_lines",
     "format_statistics",
