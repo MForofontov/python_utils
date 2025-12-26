@@ -1,5 +1,6 @@
 """Async error handling decorator."""
 
+import inspect
 import logging
 from collections.abc import Awaitable, Callable
 from functools import wraps

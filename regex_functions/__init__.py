@@ -25,4 +25,4 @@ __all__ = [
     'sanitize_filename',
 ]
 
-from .._version import __version__
+from _version import __version__

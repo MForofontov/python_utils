@@ -21,4 +21,4 @@ __all__ = [
     "validate_url_format",
 ]
 
-from .._version import __version__
+from _version import __version__

@@ -17,4 +17,4 @@ __all__ = [
     "compare_file_hashes",
 ]
 
-from ..._version import __version__
+from _version import __version__
