@@ -1,5 +1,58 @@
 """Format numbers as currency strings."""
 
+# Currency symbols mapping (common ones)
+_CURRENCY_SYMBOLS = {
+    "USD": "$",
+    "EUR": "€",
+    "GBP": "£",
+    "JPY": "¥",
+    "CNY": "¥",
+    "INR": "₹",
+    "AUD": "A$",
+    "CAD": "C$",
+    "CHF": "CHF",
+    "KRW": "₩",
+    "BRL": "R$",
+    "RUB": "₽",
+    "ZAR": "R",
+    "MXN": "$",
+    "SGD": "S$",
+    "HKD": "HK$",
+    "NOK": "kr",
+    "SEK": "kr",
+    "DKK": "kr",
+    "PLN": "zł",
+    "THB": "฿",
+    "IDR": "Rp",
+    "MYR": "RM",
+    "PHP": "₱",
+    "CZK": "Kč",
+    "ILS": "₪",
+    "CLP": "$",
+    "VND": "₫",
+    "AED": "د.إ",
+    "SAR": "﷼",
+}
+
+# Zero-decimal currencies (no fractional units)
+_ZERO_DECIMAL_CURRENCIES = frozenset({
+    "JPY",
+    "KRW",
+    "VND",
+    "CLP",
+    "ISK",
+    "PYG",
+    "UGX",
+    "RWF",
+    "XAF",
+    "XOF",
+    "BIF",
+    "DJF",
+    "GNF",
+    "KMF",
+    "XPF",
+})
+
 
 def format_currency(
     amount: int | float,
@@ -76,64 +129,11 @@ def format_currency(
     if len(currency) != 3:
         raise ValueError(f"currency must be a 3-letter ISO 4217 code, got: {currency}")
 
-    # Currency symbols mapping (common ones)
-    currency_symbols = {
-        "USD": "$",
-        "EUR": "€",
-        "GBP": "£",
-        "JPY": "¥",
-        "CNY": "¥",
-        "INR": "₹",
-        "AUD": "A$",
-        "CAD": "C$",
-        "CHF": "CHF",
-        "KRW": "₩",
-        "BRL": "R$",
-        "RUB": "₽",
-        "ZAR": "R",
-        "MXN": "$",
-        "SGD": "S$",
-        "HKD": "HK$",
-        "NOK": "kr",
-        "SEK": "kr",
-        "DKK": "kr",
-        "PLN": "zł",
-        "THB": "฿",
-        "IDR": "Rp",
-        "MYR": "RM",
-        "PHP": "₱",
-        "CZK": "Kč",
-        "ILS": "₪",
-        "CLP": "$",
-        "VND": "₫",
-        "AED": "د.إ",
-        "SAR": "﷼",
-    }
-
-    # Zero-decimal currencies (no fractional units)
-    zero_decimal_currencies = {
-        "JPY",
-        "KRW",
-        "VND",
-        "CLP",
-        "ISK",
-        "PYG",
-        "UGX",
-        "RWF",
-        "XAF",
-        "XOF",
-        "BIF",
-        "DJF",
-        "GNF",
-        "KMF",
-        "XPF",
-    }
-
     # Get currency symbol
-    symbol = currency_symbols.get(currency, currency + " ")
+    symbol = _CURRENCY_SYMBOLS.get(currency, currency + " ")
 
     # Determine decimal places
-    decimal_places = 0 if currency in zero_decimal_currencies else 2
+    decimal_places = 0 if currency in _ZERO_DECIMAL_CURRENCIES else 2
 
     # Round amount to appropriate decimal places
     rounded_amount = round(amount, decimal_places)
