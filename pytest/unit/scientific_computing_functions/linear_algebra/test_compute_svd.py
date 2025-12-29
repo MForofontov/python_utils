@@ -326,3 +326,32 @@ def test_compute_svd_jagged_array() -> None:
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         compute_svd(invalid_matrix)
+
+def test_compute_svd_low_rank_k_ignored_without_compute_uv() -> None:
+    """Test case 26: low_rank_k is ignored when compute_uv=False."""
+    # Arrange
+    matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    
+    # Act - low_rank_k is silently ignored, no error raised
+    result = compute_svd(matrix, low_rank_k=2, compute_uv=False)
+    
+    # Assert - should return only singular values, no approximation
+    assert 'singular_values' in result
+    assert 'approximation' not in result
+    assert 'U' not in result
+    assert 'Vt' not in result
+
+
+def test_compute_svd_singular_values_conversion() -> None:
+    """Test case 27: Verify singular values are float array when compute_uv=False."""
+    # Arrange
+    matrix = np.array([[3, 1], [1, 3]], dtype=np.float64)
+    
+    # Act
+    result = compute_svd(matrix, compute_uv=False)
+    
+    # Assert
+    assert 'singular_values' in result
+    assert isinstance(result['singular_values'], np.ndarray)
+    assert result['singular_values'].dtype in [np.float32, np.float64]
+    assert len(result['singular_values']) == 2

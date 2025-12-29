@@ -585,3 +585,108 @@ def test_numerical_integration_return_structure_trapz() -> None:
     assert isinstance(result["result"], float)
     # trapz doesn't have error estimate
     assert "error" not in result or result.get("error") is None
+
+def test_numerical_integration_romberg_missing_func() -> None:
+    """Test case 41: ValueError for romberg without func."""
+    # Arrange
+    expected_message = "func is required for romberg method"
+    
+    # Act & Assert
+    with pytest.raises(ValueError, match=expected_message):
+        numerical_integration(func=None, a=0, b=1, method="romberg")
+
+
+def test_numerical_integration_romberg_non_callable() -> None:
+    """Test case 42: TypeError for romberg with non-callable func."""
+    # Arrange
+    invalid_func = "not_a_function"
+    expected_message = "func must be callable"
+    
+    # Act & Assert
+    with pytest.raises(TypeError, match=expected_message):
+        numerical_integration(func=invalid_func, a=0, b=1, method="romberg")
+
+
+def test_numerical_integration_romberg_missing_bounds() -> None:
+    """Test case 43: ValueError for romberg without bounds."""
+    # Arrange
+    def f(x: float) -> float:
+        return x**2
+    expected_message = "a and b are required for romberg method"
+    
+    # Act & Assert
+    with pytest.raises(ValueError, match=expected_message):
+        numerical_integration(func=f, a=None, b=None, method="romberg")
+
+
+def test_numerical_integration_romberg_invalid_a_type() -> None:
+    """Test case 44: TypeError for romberg with invalid a type."""
+    # Arrange
+    def f(x: float) -> float:
+        return x
+    expected_message = "a must be a number, got str"
+    
+    # Act & Assert
+    with pytest.raises(TypeError, match=expected_message):
+        numerical_integration(func=f, a="zero", b=1, method="romberg")
+
+
+def test_numerical_integration_romberg_invalid_b_type() -> None:
+    """Test case 45: TypeError for romberg with invalid b type."""
+    # Arrange
+    def f(x: float) -> float:
+        return x
+    expected_message = "b must be a number, got list"
+    
+    # Act & Assert
+    with pytest.raises(TypeError, match=expected_message):
+        numerical_integration(func=f, a=0, b=[1], method="romberg")
+
+
+def test_numerical_integration_romberg_integration_failure() -> None:
+    """Test case 46: ValueError when romberg integration fails."""
+    # Arrange
+    def problematic_func(x: float) -> float:
+        if x == 0:
+            raise ZeroDivisionError("Division by zero")
+        return 1 / x
+    
+    # Act & Assert - romberg should fail or be skipped if unavailable
+    try:
+        with pytest.raises(ValueError, match="integration failed"):
+            numerical_integration(func=problematic_func, a=0, b=1, method="romberg")
+    except AttributeError:
+        # romberg not available in this scipy version
+        pytest.skip("romberg integration not available in this scipy version")
+
+
+def test_numerical_integration_trapz_integration_failure() -> None:
+    """Test case 47: ValueError when trapz has invalid y data."""
+    # Arrange - NaN values caught by validation
+    invalid_y = np.array([np.nan, np.nan, np.nan])
+    
+    # Act & Assert
+    with pytest.raises(ValueError, match="y contains NaN or Inf values"):
+        numerical_integration(y=invalid_y, method="trapz")
+
+
+def test_numerical_integration_simps_integration_failure() -> None:
+    """Test case 48: ValueError when simps has invalid y data."""
+    # Arrange - NaN values caught by validation
+    invalid_y = np.array([np.nan, np.nan, np.nan])
+    
+    # Act & Assert
+    with pytest.raises(ValueError, match="y contains NaN or Inf values"):
+        numerical_integration(y=invalid_y, method="simps")
+
+
+def test_numerical_integration_unknown_method() -> None:
+    """Test case 49: ValueError for unknown integration method."""
+    # Arrange
+    def f(x: float) -> float:
+        return x
+    expected_message = "method must be 'quad', 'trapz', 'simps', or 'romberg'"
+    
+    # Act & Assert
+    with pytest.raises(ValueError, match=expected_message):
+        numerical_integration(func=f, a=0, b=1, method="invalid_method")

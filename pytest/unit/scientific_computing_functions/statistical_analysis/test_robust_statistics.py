@@ -6,6 +6,7 @@ Tests cover normal operation, edge cases, and error conditions.
 
 import pytest
 import numpy as np
+import warnings
 from scientific_computing_functions.statistical_analysis.robust_statistics import (
     robust_statistics,
 )
@@ -278,3 +279,73 @@ def test_robust_statistics_inf_values() -> None:
     # Assert - function handles inf but some results may be nan/inf
     assert result['median'] == 4.0
     assert result['mad'] > 0
+
+def test_robust_statistics_nan_warning_single() -> None:
+    """Test case 21: NaN warning path with single NaN value."""
+    # Arrange
+    data_with_nan = [1, 2, np.nan, 4, 5]
+    
+    # Act & Assert - should warn about NaN removal
+    with warnings.catch_warnings(record=True) as w:
+        warnings.simplefilter("always")
+        result = robust_statistics(data_with_nan)
+        
+        # Verify warning was raised
+        assert len(w) == 1
+        assert issubclass(w[0].category, UserWarning)
+        assert "1 NaN value(s)" in str(w[0].message)
+    
+    # Result should be calculated on valid data only
+    assert result['median'] == 3.0
+    assert result['mad'] > 0
+
+
+def test_robust_statistics_nan_warning_multiple() -> None:
+    """Test case 22: NaN warning path with multiple NaN values."""
+    # Arrange
+    data_with_nans = [1, 2, np.nan, 4, np.nan, 5, np.nan]
+    
+    # Act & Assert - should warn about NaN removal
+    with warnings.catch_warnings(record=True) as w:
+        warnings.simplefilter("always")
+        result = robust_statistics(data_with_nans)
+        
+        # Verify warning was raised with correct count
+        assert len(w) == 1
+        assert issubclass(w[0].category, UserWarning)
+        assert "3 NaN value(s)" in str(w[0].message)
+    
+    # Result should be calculated on valid data only [1, 2, 4, 5]
+    assert result['median'] == 3.0
+
+
+def test_robust_statistics_all_nan_after_removal() -> None:
+    """Test case 23: ValueError when only NaN values remain."""
+    # Arrange
+    data_all_nan = [np.nan, np.nan, np.nan]
+    expected_message = "data contains only NaN values"
+    
+    # Act & Assert - should raise ValueError after removing all NaNs
+    with warnings.catch_warnings(record=True):
+        warnings.simplefilter("always")
+        with pytest.raises(ValueError, match=expected_message):
+            robust_statistics(data_all_nan)
+
+
+def test_robust_statistics_mixed_nan_and_values() -> None:
+    """Test case 24: NaN warning with mixed valid and NaN values."""
+    # Arrange
+    data_mixed = [np.nan, 10, 20, np.nan, 30, 40, np.nan, 50]
+    
+    # Act
+    with warnings.catch_warnings(record=True) as w:
+        warnings.simplefilter("always")
+        result = robust_statistics(data_mixed)
+        
+        # Verify warning
+        assert len(w) == 1
+        assert "3 NaN value(s)" in str(w[0].message)
+    
+    # Assert - calculated on [10, 20, 30, 40, 50]
+    assert result['median'] == 30.0
+    assert result['iqr'] == 20.0

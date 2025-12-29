@@ -351,3 +351,67 @@ def test_solve_linear_system_negative_threshold() -> None:
     except ValueError:
         # If it raises, that's also acceptable
         pass
+
+def test_solve_linear_system_non_numeric_in_A() -> None:
+    """Test case 26: ValueError for non-numeric values in A."""
+    # Arrange
+    invalid_A = [[1, "two"], [3, 4]]
+    b = [1, 2]
+    expected_message = "arrays contain non-numeric values"
+    
+    # Act & Assert
+    with pytest.raises(ValueError, match=expected_message):
+        solve_linear_system(invalid_A, b)
+
+
+def test_solve_linear_system_non_numeric_in_b() -> None:
+    """Test case 27: ValueError for non-numeric values in b."""
+    # Arrange
+    A = [[1, 2], [3, 4]]
+    invalid_b = [1, "two"]
+    expected_message = "arrays contain non-numeric values"
+    
+    # Act & Assert
+    with pytest.raises(ValueError, match=expected_message):
+        solve_linear_system(A, invalid_b)
+
+
+def test_solve_linear_system_1d_A() -> None:
+    """Test case 28: ValueError for 1D array as A."""
+    # Arrange
+    invalid_A = [1, 2, 3, 4]
+    b = [1, 2]
+    expected_message = "A must be 2-dimensional"
+    
+    # Act & Assert
+    with pytest.raises(ValueError, match=expected_message):
+        solve_linear_system(invalid_A, b)
+
+
+def test_solve_linear_system_condition_check_singular_matrix() -> None:
+    """Test case 29: Test condition check handles singular matrix (LinAlgError path)."""
+    # Arrange - Create a nearly singular matrix that may cause LinAlgError during condition number computation
+    A = [[1e-10, 0], [0, 1e-10]]
+    b = [1, 1]
+    
+    # Act - This should handle the LinAlgError gracefully and set well_conditioned=False
+    try:
+        result = solve_linear_system(A, b, check_condition=True)
+        # If it succeeds, verify result structure
+        assert 'solution' in result
+        assert 'well_conditioned' in result
+    except ValueError:
+        # Singular matrix may also raise ValueError during solve
+        pass
+
+
+def test_solve_linear_system_invalid_b_dimension() -> None:
+    """Test case 30: ValueError for b with wrong dimensions."""
+    # Arrange
+    A = [[1, 2], [3, 4]]
+    invalid_b = [[1], [2]]  # 2D array instead of 1D
+    expected_message = "b must be 1-dimensional"
+    
+    # Act & Assert
+    with pytest.raises(ValueError, match=expected_message):
+        solve_linear_system(A, invalid_b)
