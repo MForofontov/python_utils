@@ -355,19 +355,20 @@ from .regex_functions import (
     sanitize_filename,
 )
 from .scientific_computing_functions import (
+    adaptive_filter,
     apply_filter,
     bootstrap_statistic,
     comprehensive_stats,
-    compute_spectrogram,
     compute_svd,
+    constrained_least_squares,
     correlation_analysis,
-    multiple_testing_correction,
-    nonlinear_fit,
+    detect_outliers,
     numerical_derivative,
     numerical_integration,
     perform_t_test,
-    polynomial_fit,
+    power_analysis,
     robust_statistics,
+    solve_boundary_value_problem,
     solve_linear_system,
 )
 from .print_functions import (
