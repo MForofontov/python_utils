@@ -1,5 +1,5 @@
 """
-Create line plots with multiple series and comprehensive customization.
+Create line plot with multiple series and comprehensive customization.
 """
 
 import logging
