@@ -1,0 +1,105 @@
+"""
+Unit tests for hex_to_rgb function.
+"""
+
+import pytest
+from data_visualization_functions.color_palettes import hex_to_rgb
+
+
+def test_hex_to_rgb_with_hash():
+    """
+    Test case 1: Convert hex color with # prefix.
+    """
+    # Arrange
+    hex_color = '#FF0000'
+    expected = (255, 0, 0)
+    
+    # Act
+    result = hex_to_rgb(hex_color)
+    
+    # Assert
+    assert result == expected
+
+
+def test_hex_to_rgb_without_hash():
+    """
+    Test case 2: Convert hex color without # prefix.
+    """
+    # Arrange
+    hex_color = '00FF00'
+    expected = (0, 255, 0)
+    
+    # Act
+    result = hex_to_rgb(hex_color)
+    
+    # Assert
+    assert result == expected
+
+
+def test_hex_to_rgb_blue():
+    """
+    Test case 3: Convert blue hex color.
+    """
+    # Arrange
+    hex_color = '#0000FF'
+    expected = (0, 0, 255)
+    
+    # Act
+    result = hex_to_rgb(hex_color)
+    
+    # Assert
+    assert result == expected
+
+
+def test_hex_to_rgb_mixed_case():
+    """
+    Test case 4: Convert mixed case hex color.
+    """
+    # Arrange
+    hex_color = '#AbCdEf'
+    expected = (171, 205, 239)
+    
+    # Act
+    result = hex_to_rgb(hex_color)
+    
+    # Assert
+    assert result == expected
+
+
+def test_hex_to_rgb_invalid_length_raises_error():
+    """
+    Test case 5: ValueError for invalid hex length.
+    """
+    # Arrange
+    hex_color = '#FFF'
+    expected_message = "hex_color must be 6 characters"
+    
+    # Act & Assert
+    with pytest.raises(ValueError, match=expected_message):
+        hex_to_rgb(hex_color)
+
+
+def test_hex_to_rgb_invalid_characters_raises_error():
+    """
+    Test case 6: ValueError for invalid hex characters.
+    """
+    # Arrange
+    hex_color = 'GGGGGG'
+    expected_message = "Invalid hex color code"
+    
+    # Act & Assert
+    with pytest.raises(ValueError, match=expected_message):
+        hex_to_rgb(hex_color)
+
+
+def test_hex_to_rgb_invalid_type_raises_error():
+    """
+    Test case 7: TypeError for non-string input.
+    """
+    # Arrange
+    hex_color = 123456
+    expected_message = "hex_color must be a string"
+    
+    # Act & Assert
+    with pytest.raises(TypeError, match=expected_message):
+        hex_to_rgb(hex_color)

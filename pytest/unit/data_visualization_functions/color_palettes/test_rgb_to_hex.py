@@ -1,0 +1,120 @@
+"""
+Unit tests for rgb_to_hex function.
+"""
+
+import pytest
+from data_visualization_functions.color_palettes import rgb_to_hex
+
+
+def test_rgb_to_hex_red():
+    """
+    Test case 1: Convert red RGB to hex.
+    """
+    # Arrange
+    r, g, b = 255, 0, 0
+    expected = '#FF0000'
+    
+    # Act
+    result = rgb_to_hex(r, g, b)
+    
+    # Assert
+    assert result == expected
+
+
+def test_rgb_to_hex_green():
+    """
+    Test case 2: Convert green RGB to hex.
+    """
+    # Arrange
+    r, g, b = 0, 255, 0
+    expected = '#00FF00'
+    
+    # Act
+    result = rgb_to_hex(r, g, b)
+    
+    # Assert
+    assert result == expected
+
+
+def test_rgb_to_hex_mixed():
+    """
+    Test case 3: Convert mixed RGB values to hex.
+    """
+    # Arrange
+    r, g, b = 128, 64, 192
+    expected = '#8040C0'
+    
+    # Act
+    result = rgb_to_hex(r, g, b)
+    
+    # Assert
+    assert result == expected
+
+
+def test_rgb_to_hex_black():
+    """
+    Test case 4: Convert black RGB to hex.
+    """
+    # Arrange
+    r, g, b = 0, 0, 0
+    expected = '#000000'
+    
+    # Act
+    result = rgb_to_hex(r, g, b)
+    
+    # Assert
+    assert result == expected
+
+
+def test_rgb_to_hex_white():
+    """
+    Test case 5: Convert white RGB to hex.
+    """
+    # Arrange
+    r, g, b = 255, 255, 255
+    expected = '#FFFFFF'
+    
+    # Act
+    result = rgb_to_hex(r, g, b)
+    
+    # Assert
+    assert result == expected
+
+
+def test_rgb_to_hex_r_out_of_range_raises_error():
+    """
+    Test case 6: ValueError for r value out of range.
+    """
+    # Arrange
+    r, g, b = 256, 0, 0
+    expected_message = "r must be in range"
+    
+    # Act & Assert
+    with pytest.raises(ValueError, match=expected_message):
+        rgb_to_hex(r, g, b)
+
+
+def test_rgb_to_hex_negative_value_raises_error():
+    """
+    Test case 7: ValueError for negative RGB value.
+    """
+    # Arrange
+    r, g, b = 100, -1, 100
+    expected_message = "g must be in range"
+    
+    # Act & Assert
+    with pytest.raises(ValueError, match=expected_message):
+        rgb_to_hex(r, g, b)
+
+
+def test_rgb_to_hex_invalid_type_raises_error():
+    """
+    Test case 8: TypeError for non-integer input.
+    """
+    # Arrange
+    r, g, b = "255", 0, 0
+    expected_message = "r must be an integer"
+    
+    # Act & Assert
+    with pytest.raises(TypeError, match=expected_message):
+        rgb_to_hex(r, g, b)
