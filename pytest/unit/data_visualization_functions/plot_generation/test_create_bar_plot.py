@@ -56,7 +56,6 @@ def test_create_bar_plot_with_styling():
     plt.close(fig)
 
 
-@pytest.mark.skip(reason="Implementation bug: barh() gets multiple values for 'width' argument")
 def test_create_bar_plot_horizontal():
     """
     Test case 3: Create horizontal bar plot.
