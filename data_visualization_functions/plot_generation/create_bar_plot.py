@@ -167,32 +167,34 @@ def create_bar_plot(
         # Stacked bars
         bottom = np.zeros(len(categories))
         for i, series in enumerate(value_series):
-            plot_kwargs: dict[str, Any] = {'width': width}
+            plot_kwargs: dict[str, Any] = {}
             if labels is not None:
                 plot_kwargs['label'] = labels[i]
             if colors is not None:
                 plot_kwargs['color'] = colors[i]
             
             if horizontal:
-                ax.barh(x, series, **plot_kwargs, left=bottom)
+                # barh uses 'height' parameter instead of 'width'
+                ax.barh(x, series, height=width, left=bottom, **plot_kwargs)
             else:
-                ax.bar(x, series, **plot_kwargs, bottom=bottom)
+                ax.bar(x, series, width=width, bottom=bottom, **plot_kwargs)
             
             bottom += np.array(series)
     else:
         # Grouped bars
         for i, series in enumerate(value_series):
             offset = (i - num_series / 2 + 0.5) * width
-            plot_kwargs: dict[str, Any] = {'width': width}
+            plot_kwargs: dict[str, Any] = {}
             if labels is not None:
                 plot_kwargs['label'] = labels[i]
             if colors is not None:
                 plot_kwargs['color'] = colors[i]
             
             if horizontal:
-                ax.barh(x + offset, series, **plot_kwargs)
+                # barh uses 'height' parameter instead of 'width'
+                ax.barh(x + offset, series, height=width, **plot_kwargs)
             else:
-                ax.bar(x + offset, series, **plot_kwargs)
+                ax.bar(x + offset, series, width=width, **plot_kwargs)
     
     # Set ticks and labels
     if horizontal:
