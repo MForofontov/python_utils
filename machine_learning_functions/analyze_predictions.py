@@ -167,7 +167,7 @@ def analyze_predictions(
         error_indices = np.where(errors)[0]
         
         if len(error_indices) > 0:
-            confusion_pairs = {}
+            confusion_pairs: dict[str, int] = {}
             for idx in error_indices:
                 true_cls = int(y_true[idx])
                 pred_cls = int(y_pred[idx])

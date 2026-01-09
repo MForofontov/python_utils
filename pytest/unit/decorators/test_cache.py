@@ -68,10 +68,12 @@ def test_cache_concat_different_args():
     Test case 5: Caching with different variable arguments.
     """
     call_counts["concat"] = 0
+    concat.cache_clear()  # Clear cache before test
     assert concat("a", "b", "c") == "abc"
     # Different arguments, should not use cache
     assert concat("x", "y", "z") == "xyz"
     assert call_counts["concat"] == 2  # Function should be called twice (different args)
+    concat.cache_clear()
     call_counts["concat"] = 0
 
 

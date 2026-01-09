@@ -144,7 +144,7 @@ def auto_select_best_model(
         }
     
     # Find best model
-    best_model_name = max(all_scores, key=all_scores.get)
+    best_model_name = max(all_scores, key=lambda x: all_scores[x])
     best_score = all_scores[best_model_name]
     
     # Create ranking
