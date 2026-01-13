@@ -50,5 +50,4 @@ __all__ = [
     "verify_referential_integrity",
 ]
 
-from _version import __version__
 

@@ -21,4 +21,3 @@ __all__ = [
     "write_to_file",
 ]
 
-from _version import __version__

@@ -92,4 +92,3 @@ __all__ = [
     'parquet_to_excel',
 ]
 
-from _version import __version__

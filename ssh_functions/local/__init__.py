@@ -16,4 +16,3 @@ __all__ = [
     "ssh_execute_script",
 ]
 
-from _version import __version__

@@ -88,4 +88,3 @@ __all__ = [
     "generate_random_url",
 ]
 
-from _version import __version__

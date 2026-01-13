@@ -12,4 +12,3 @@ __all__ = [
     "execute_bulk_chunked",
 ]
 
-from _version import __version__

@@ -59,4 +59,3 @@ __all__ = [
     "LicenseType",
 ]
 
-from _version import __version__
