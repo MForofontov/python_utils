@@ -15,4 +15,3 @@ __all__ = [
     "savepoint_context",
 ]
 
-from _version import __version__

@@ -17,4 +17,3 @@ __all__ = [
     "get_temp_dir_info",
 ]
 
-from _version import __version__

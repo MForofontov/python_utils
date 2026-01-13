@@ -58,4 +58,3 @@ __all__ = [
     'extract_attribute',
 ]
 
-from _version import __version__

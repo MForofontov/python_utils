@@ -33,4 +33,3 @@ __all__ = [
     "validate_cerberus_schema",
 ]
 
-from _version import __version__

@@ -45,4 +45,3 @@ __all__ = [
     "list_directories",
 ]
 
-from _version import __version__

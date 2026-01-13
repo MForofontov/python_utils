@@ -21,4 +21,3 @@ __all__ = [
     "validate_email",
 ]
 
-from _version import __version__
