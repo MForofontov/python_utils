@@ -43,19 +43,19 @@ def assert_list_equal_unordered(
         raise TypeError(f"actual must be a list, got {type(actual).__name__}")
     if not isinstance(expected, list):
         raise TypeError(f"expected must be a list, got {type(expected).__name__}")
-    
+
     if len(actual) != len(expected):
         raise AssertionError(
             f"Lists have different lengths: actual={len(actual)}, expected={len(expected)}"
         )
-    
+
     sorted_actual = sorted(actual, key=str)
     sorted_expected = sorted(expected, key=str)
-    
+
     if sorted_actual != sorted_expected:
         raise AssertionError(
             f"Lists contain different elements:\nactual={actual}\nexpected={expected}"
         )
 
 
-__all__ = ['assert_list_equal_unordered']
+__all__ = ["assert_list_equal_unordered"]

@@ -78,13 +78,17 @@ def slugify_url(
     if not isinstance(text, str):
         raise TypeError(f"text must be a string, got {type(text).__name__}")
     if max_length is not None and not isinstance(max_length, int):
-        raise TypeError(f"max_length must be int or None, got {type(max_length).__name__}")
+        raise TypeError(
+            f"max_length must be int or None, got {type(max_length).__name__}"
+        )
     if not isinstance(separator, str):
         raise TypeError(f"separator must be a string, got {type(separator).__name__}")
     if not isinstance(lowercase, bool):
         raise TypeError(f"lowercase must be a bool, got {type(lowercase).__name__}")
     if not isinstance(allow_unicode, bool):
-        raise TypeError(f"allow_unicode must be a bool, got {type(allow_unicode).__name__}")
+        raise TypeError(
+            f"allow_unicode must be a bool, got {type(allow_unicode).__name__}"
+        )
 
     if not text:
         raise ValueError("text cannot be empty")

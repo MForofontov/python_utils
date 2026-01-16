@@ -1,5 +1,6 @@
-import pytest
 from lxml import etree
+
+import pytest
 from web_scraping_functions.selectors.select_by_xpath import select_by_xpath
 
 
@@ -9,10 +10,10 @@ def test_select_by_xpath_simple_xpath() -> None:
     """
     # Arrange
     html = '<div class="item">A</div><div class="item">B</div>'
-    
+
     # Act
     result = select_by_xpath(html, '//div[@class="item"]')
-    
+
     # Assert
     assert len(result) == 2
     assert all(isinstance(elem, etree._Element) for elem in result)
@@ -24,10 +25,10 @@ def test_select_by_xpath_single_element() -> None:
     """
     # Arrange
     html = '<div class="item">A</div><div class="item">B</div><div class="item">C</div>'
-    
+
     # Act
     result = select_by_xpath(html, '//div[@class="item"][1]')
-    
+
     # Assert
     assert len(result) == 1
 
@@ -37,11 +38,11 @@ def test_select_by_xpath_text_selection() -> None:
     Test case 3: Select elements by text content.
     """
     # Arrange
-    html = '<p>Hello</p><p>World</p>'
-    
+    html = "<p>Hello</p><p>World</p>"
+
     # Act
     result = select_by_xpath(html, '//p[text()="Hello"]')
-    
+
     # Assert
     assert len(result) == 1
 
@@ -51,11 +52,11 @@ def test_select_by_xpath_nested_selection() -> None:
     Test case 4: Select nested elements.
     """
     # Arrange
-    html = '<div><section><p>Text</p></section></div>'
-    
+    html = "<div><section><p>Text</p></section></div>"
+
     # Act
-    result = select_by_xpath(html, '//div/section/p')
-    
+    result = select_by_xpath(html, "//div/section/p")
+
     # Assert
     assert len(result) == 1
 
@@ -66,10 +67,10 @@ def test_select_by_xpath_no_matches() -> None:
     """
     # Arrange
     html = '<div class="item">A</div>'
-    
+
     # Act
     result = select_by_xpath(html, '//span[@class="nonexistent"]')
-    
+
     # Assert
     assert result == []
 
@@ -89,7 +90,7 @@ def test_select_by_xpath_type_error_xpath() -> None:
     """
     # Arrange
     html = '<div class="item">A</div>'
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match="xpath must be a string"):
         select_by_xpath(html, 123)  # type: ignore
@@ -110,7 +111,7 @@ def test_select_by_xpath_value_error_empty_xpath() -> None:
     """
     # Arrange
     html = '<div class="item">A</div>'
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match="xpath cannot be empty"):
         select_by_xpath(html, "")

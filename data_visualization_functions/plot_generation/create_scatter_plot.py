@@ -23,7 +23,7 @@ def create_scatter_plot(
     alpha: float = 0.6,
     grid: bool = True,
     figsize: tuple[int, int] = (10, 6),
-    marker: str = 'o',
+    marker: str = "o",
 ) -> tuple[Figure, Axes]:
     """
     Create a scatter plot with customizable styling.
@@ -90,9 +90,13 @@ def create_scatter_plot(
     """
     # Type validation
     if not isinstance(x_data, (list, np.ndarray)):
-        raise TypeError(f"x_data must be a list or numpy array, got {type(x_data).__name__}")
+        raise TypeError(
+            f"x_data must be a list or numpy array, got {type(x_data).__name__}"
+        )
     if not isinstance(y_data, (list, np.ndarray)):
-        raise TypeError(f"y_data must be a list or numpy array, got {type(y_data).__name__}")
+        raise TypeError(
+            f"y_data must be a list or numpy array, got {type(y_data).__name__}"
+        )
     if not isinstance(title, str):
         raise TypeError(f"title must be a string, got {type(title).__name__}")
     if not isinstance(xlabel, str):
@@ -111,14 +115,16 @@ def create_scatter_plot(
     # Convert to numpy arrays
     x_data = np.asarray(x_data)
     y_data = np.asarray(y_data)
-    
+
     # Value validation
     if len(x_data) == 0:
         raise ValueError("x_data cannot be empty")
     if len(y_data) == 0:
         raise ValueError("y_data cannot be empty")
     if len(x_data) != len(y_data):
-        raise ValueError(f"x_data length ({len(x_data)}) must match y_data length ({len(y_data)})")
+        raise ValueError(
+            f"x_data length ({len(x_data)}) must match y_data length ({len(y_data)})"
+        )
     if not 0 <= alpha <= 1:
         raise ValueError(f"alpha must be between 0 and 1, got {alpha}")
     if figsize[0] <= 0 or figsize[1] <= 0:
@@ -126,25 +132,25 @@ def create_scatter_plot(
 
     # Create plot
     fig, ax = plt.subplots(figsize=figsize)
-    
+
     scatter = ax.scatter(x_data, y_data, c=colors, s=sizes, alpha=alpha, marker=marker)
-    
+
     # Customize plot
     if title:
-        ax.set_title(title, fontsize=14, fontweight='bold')
+        ax.set_title(title, fontsize=14, fontweight="bold")
     if xlabel:
         ax.set_xlabel(xlabel, fontsize=12)
     if ylabel:
         ax.set_ylabel(ylabel, fontsize=12)
-    
+
     if grid:
-        ax.grid(True, alpha=0.3, linestyle='--')
-    
+        ax.grid(True, alpha=0.3, linestyle="--")
+
     plt.tight_layout()
-    
+
     logger.debug(f"Created scatter plot with {len(x_data)} data points")
-    
+
     return fig, ax
 
 
-__all__ = ['create_scatter_plot']
+__all__ = ["create_scatter_plot"]

@@ -4,7 +4,6 @@ Partition Parquet data into multiple files by column values.
 
 from pathlib import Path
 from typing import Any
-from collections.abc import Sequence
 
 import pyarrow as pa
 import pyarrow.parquet as pq
@@ -109,7 +108,7 @@ def partition_parquet_by_column(
     if not partition_column:
         raise ValueError("partition_column cannot be empty")
 
-    valid_compressions = {'snappy', 'gzip', 'brotli', 'lz4', 'zstd', 'none'}
+    valid_compressions = {"snappy", "gzip", "brotli", "lz4", "zstd", "none"}
     if compression not in valid_compressions:
         raise ValueError(
             f"compression must be one of {valid_compressions}, got '{compression}'"
@@ -150,19 +149,15 @@ def partition_parquet_by_column(
         partition_table = table.filter(mask)
 
         # Generate safe filename from partition value
-        safe_value = str(value).replace('/', '_').replace('\\', '_').replace(' ', '_')
+        safe_value = str(value).replace("/", "_").replace("\\", "_").replace(" ", "_")
         output_file_path = output_path / f"{safe_value}.parquet"
 
         # Write partition file
-        pq.write_table(
-            partition_table,
-            output_file_path,
-            compression=compression
-        )
+        pq.write_table(partition_table, output_file_path, compression=compression)
 
         partition_counts[value] = len(partition_table)
 
     return partition_counts
 
 
-__all__ = ['partition_parquet_by_column']
+__all__ = ["partition_parquet_by_column"]

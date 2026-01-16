@@ -3,9 +3,9 @@ Merge multiple CSV files into one.
 """
 
 import csv
+from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
-from collections.abc import Sequence
 
 
 def merge_csv_files(
@@ -14,7 +14,7 @@ def merge_csv_files(
     *,
     has_header: bool = True,
     skip_duplicates: bool = False,
-    encoding: str = 'utf-8',
+    encoding: str = "utf-8",
     **kwargs: Any,
 ) -> int:
     """
@@ -110,11 +110,11 @@ def merge_csv_files(
     header: list[str] | None = None
     rows_written = 0
 
-    with open(output_file, 'w', encoding=encoding, newline='') as outfile:
+    with open(output_file, "w", encoding=encoding, newline="") as outfile:
         writer: Any = None
 
         for idx, input_path in enumerate(input_files):
-            with open(input_path, 'r', encoding=encoding, newline='') as infile:
+            with open(input_path, encoding=encoding, newline="") as infile:
                 reader = csv.reader(infile, **kwargs)
 
                 # Handle header
@@ -154,4 +154,4 @@ def merge_csv_files(
     return rows_written
 
 
-__all__ = ['merge_csv_files']
+__all__ = ["merge_csv_files"]

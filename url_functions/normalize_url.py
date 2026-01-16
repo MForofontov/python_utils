@@ -79,15 +79,25 @@ def normalize_url(
     if not isinstance(url, str):
         raise TypeError(f"url must be a string, got {type(url).__name__}")
     if not isinstance(remove_default_port, bool):
-        raise TypeError(f"remove_default_port must be bool, got {type(remove_default_port).__name__}")
+        raise TypeError(
+            f"remove_default_port must be bool, got {type(remove_default_port).__name__}"
+        )
     if not isinstance(remove_fragment, bool):
-        raise TypeError(f"remove_fragment must be bool, got {type(remove_fragment).__name__}")
+        raise TypeError(
+            f"remove_fragment must be bool, got {type(remove_fragment).__name__}"
+        )
     if not isinstance(sort_query_params, bool):
-        raise TypeError(f"sort_query_params must be bool, got {type(sort_query_params).__name__}")
+        raise TypeError(
+            f"sort_query_params must be bool, got {type(sort_query_params).__name__}"
+        )
     if not isinstance(remove_trailing_slash, bool):
-        raise TypeError(f"remove_trailing_slash must be bool, got {type(remove_trailing_slash).__name__}")
+        raise TypeError(
+            f"remove_trailing_slash must be bool, got {type(remove_trailing_slash).__name__}"
+        )
     if not isinstance(lowercase_scheme_host, bool):
-        raise TypeError(f"lowercase_scheme_host must be bool, got {type(lowercase_scheme_host).__name__}")
+        raise TypeError(
+            f"lowercase_scheme_host must be bool, got {type(lowercase_scheme_host).__name__}"
+        )
 
     if not url:
         raise ValueError("url cannot be empty")
@@ -100,23 +110,23 @@ def normalize_url(
 
     # Normalize scheme and host
     scheme = parsed.scheme.lower() if lowercase_scheme_host else parsed.scheme
-    
+
     # Handle port
     port = parsed.port
     if port is not None and remove_default_port:
         # Remove default ports
         if (scheme == "http" and port == 80) or (scheme == "https" and port == 443):
             port = None
-    
+
     if lowercase_scheme_host:
         # Use hostname and rebuild netloc (this lowercases the host)
         netloc = parsed.hostname or ""
         netloc = netloc.lower()
-        
+
         # Add port if present and not removed
         if port is not None:
             netloc = f"{netloc}:{port}"
-            
+
         # Add username/password if present
         if parsed.username:
             user_pass = parsed.username

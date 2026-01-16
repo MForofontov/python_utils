@@ -1,11 +1,12 @@
 """Tests for append_parquet module."""
 
-import pytest
 from pathlib import Path
-from serialization_functions.parquet_operations.append_parquet import append_parquet
 
 import pyarrow as pa
 import pyarrow.parquet as pq
+
+import pytest
+from serialization_functions.parquet_operations.append_parquet import append_parquet
 
 
 def test_append_parquet_to_new_file(tmp_path: Path) -> None:

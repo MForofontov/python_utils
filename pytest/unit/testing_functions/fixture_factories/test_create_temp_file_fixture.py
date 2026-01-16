@@ -1,4 +1,3 @@
-from pathlib import Path
 
 import pytest
 from testing_functions.fixture_factories.create_temp_file_fixture import (
@@ -15,7 +14,7 @@ def test_create_temp_file_fixture_default_parameters() -> None:
         assert temp_file.exists()
         assert temp_file.suffix == ".txt"
         assert temp_file.read_text() == ""
-    
+
     # After context, file should be deleted
     assert not temp_file.exists()
 
@@ -26,7 +25,7 @@ def test_create_temp_file_fixture_with_content() -> None:
     """
     # Arrange
     content = "test content"
-    
+
     # Act & Assert
     with create_temp_file_fixture(content) as temp_file:
         assert temp_file.read_text() == content
@@ -47,11 +46,11 @@ def test_create_temp_file_fixture_multiline_content() -> None:
     """
     # Arrange
     content = "line1\nline2\nline3"
-    
+
     # Act & Assert
     with create_temp_file_fixture(content) as temp_file:
         assert temp_file.read_text() == content
-        lines = temp_file.read_text().split('\n')
+        lines = temp_file.read_text().split("\n")
         assert len(lines) == 3
 
 
@@ -61,12 +60,12 @@ def test_create_temp_file_fixture_file_cleanup() -> None:
     """
     # Arrange
     file_path = None
-    
+
     # Act
     with create_temp_file_fixture("test") as temp_file:
         file_path = temp_file
         assert file_path.exists()
-    
+
     # Assert
     assert not file_path.exists()
 

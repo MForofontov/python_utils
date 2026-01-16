@@ -56,7 +56,9 @@ def test_validate_logger_none_not_allowed() -> None:
     """
     Test case 7: validate_logger raises TypeError when None is not allowed.
     """
-    with pytest.raises(TypeError, match=r"logger must be an instance of logging.Logger\."):
+    with pytest.raises(
+        TypeError, match=r"logger must be an instance of logging.Logger\."
+    ):
         validate_logger(None, allow_none=False)
 
 

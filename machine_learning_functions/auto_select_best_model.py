@@ -2,6 +2,7 @@
 
 import logging
 from typing import Any
+
 import numpy as np
 from sklearn.model_selection import cross_val_score
 
@@ -15,7 +16,7 @@ def auto_select_best_model(
     X_test: np.ndarray | None = None,
     y_test: np.ndarray | None = None,
     cv_folds: int = 5,
-    scoring: str = 'accuracy',
+    scoring: str = "accuracy",
     refit: bool = True,
 ) -> dict[str, Any]:
     """
@@ -86,7 +87,7 @@ def auto_select_best_model(
     -----
     Provides automated model selection with comprehensive comparison.
     Uses cross-validation to avoid overfitting in selection.
-    
+
     Use battle-tested libraries: Built on sklearn's cross_val_score.
     Adds value through: automated comparison, ranking, best model selection,
     convenient workflow that combines training and evaluation.
@@ -105,9 +106,13 @@ def auto_select_best_model(
     if not isinstance(y_train, np.ndarray):
         raise TypeError(f"y_train must be numpy array, got {type(y_train).__name__}")
     if X_test is not None and not isinstance(X_test, np.ndarray):
-        raise TypeError(f"X_test must be numpy array or None, got {type(X_test).__name__}")
+        raise TypeError(
+            f"X_test must be numpy array or None, got {type(X_test).__name__}"
+        )
     if y_test is not None and not isinstance(y_test, np.ndarray):
-        raise TypeError(f"y_test must be numpy array or None, got {type(y_test).__name__}")
+        raise TypeError(
+            f"y_test must be numpy array or None, got {type(y_test).__name__}"
+        )
     if (X_test is None) != (y_test is None):
         raise ValueError("X_test and y_test must both be provided or both be None")
     if not isinstance(cv_folds, int):
@@ -122,64 +127,64 @@ def auto_select_best_model(
     # Evaluate all models
     all_scores = {}
     all_cv_results = {}
-    
+
     logger.info(f"Evaluating {len(models)} models with {cv_folds}-fold CV")
-    
+
     for name, model in models.items():
         logger.debug(f"Evaluating model: {name}")
-        
+
         # Cross-validation
         cv_scores = cross_val_score(
             model, X_train, y_train, cv=cv_folds, scoring=scoring
         )
-        
+
         mean_score = float(np.mean(cv_scores))
         std_score = float(np.std(cv_scores))
-        
+
         all_scores[name] = mean_score
         all_cv_results[name] = {
-            'mean': mean_score,
-            'std': std_score,
-            'scores': cv_scores.tolist(),
+            "mean": mean_score,
+            "std": std_score,
+            "scores": cv_scores.tolist(),
         }
-    
+
     # Find best model
     best_model_name = max(all_scores, key=lambda x: all_scores[x])
     best_score = all_scores[best_model_name]
-    
+
     # Create ranking
     ranking = sorted(all_scores.keys(), key=lambda x: all_scores[x], reverse=True)
-    
+
     logger.info(f"Best model: {best_model_name} (CV score: {best_score:.4f})")
-    
+
     # Prepare result
     result: dict[str, Any] = {
-        'best_model_name': best_model_name,
-        'best_score': best_score,
-        'all_scores': all_scores,
-        'all_cv_results': all_cv_results,
-        'ranking': ranking,
+        "best_model_name": best_model_name,
+        "best_score": best_score,
+        "all_scores": all_scores,
+        "all_cv_results": all_cv_results,
+        "ranking": ranking,
     }
-    
+
     # Refit best model on full training set
     best_model = models[best_model_name]
     if refit:
         logger.debug(f"Refitting best model ({best_model_name}) on full training set")
         best_model.fit(X_train, y_train)
-        result['best_model'] = best_model
-    
+        result["best_model"] = best_model
+
     # Test set evaluation if provided
     if X_test is not None and y_test is not None:
         if not refit:
             # Need to fit model for test evaluation
             best_model.fit(X_train, y_train)
-            result['best_model'] = best_model
-        
+            result["best_model"] = best_model
+
         test_score = float(best_model.score(X_test, y_test))
-        result['test_score'] = test_score
+        result["test_score"] = test_score
         logger.info(f"Test score: {test_score:.4f}")
-    
+
     return result
 
 
-__all__ = ['auto_select_best_model']
+__all__ = ["auto_select_best_model"]

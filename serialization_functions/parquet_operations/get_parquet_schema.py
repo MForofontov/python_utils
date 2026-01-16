@@ -45,12 +45,12 @@ def get_parquet_schema(file_path: str) -> dict[str, str]:
     """
     if not isinstance(file_path, str):
         raise TypeError(f"file_path must be a string, got {type(file_path).__name__}")
-    
+
     # Read schema
     parquet_file = pq.ParquetFile(file_path)
     schema = parquet_file.schema_arrow
-    
+
     return {field.name: str(field.type) for field in schema}
 
 
-__all__ = ['get_parquet_schema']
+__all__ = ["get_parquet_schema"]

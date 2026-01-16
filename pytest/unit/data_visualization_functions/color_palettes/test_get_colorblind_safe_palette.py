@@ -2,10 +2,14 @@
 Unit tests for get_colorblind_safe_palette function.
 """
 
-import pytest
 import matplotlib
-matplotlib.use('Agg')  # Use non-GUI backend for testing
-from data_visualization_functions.color_palettes.get_colorblind_safe_palette import get_colorblind_safe_palette
+
+import pytest
+
+matplotlib.use("Agg")  # Use non-GUI backend for testing
+from data_visualization_functions.color_palettes.get_colorblind_safe_palette import (
+    get_colorblind_safe_palette,
+)
 
 
 def test_get_colorblind_safe_palette_default():
@@ -14,7 +18,7 @@ def test_get_colorblind_safe_palette_default():
     """
     # Act
     colors = get_colorblind_safe_palette(8)
-    
+
     # Assert
     assert isinstance(colors, list)
     assert len(colors) == 8
@@ -27,7 +31,7 @@ def test_get_colorblind_safe_palette_specific_count():
     """
     # Act
     colors = get_colorblind_safe_palette(n_colors=5)
-    
+
     # Assert
     assert len(colors) == 5
 
@@ -38,7 +42,7 @@ def test_get_colorblind_safe_palette_large():
     """
     # Act
     colors = get_colorblind_safe_palette(n_colors=10)
-    
+
     # Assert
     assert len(colors) == 10
 
@@ -49,7 +53,7 @@ def test_get_colorblind_safe_palette_single_color():
     """
     # Act
     colors = get_colorblind_safe_palette(n_colors=1)
-    
+
     # Assert
     assert len(colors) == 1
     assert isinstance(colors[0], str)
@@ -61,9 +65,9 @@ def test_get_colorblind_safe_palette_hex_format():
     """
     # Act
     colors = get_colorblind_safe_palette(n_colors=5)
-    
+
     # Assert
-    assert all(c.startswith('#') for c in colors)
+    assert all(c.startswith("#") for c in colors)
     assert all(len(c) == 7 for c in colors)
 
 
@@ -73,7 +77,7 @@ def test_get_colorblind_safe_palette_zero_colors_raises_error():
     """
     # Arrange
     expected_message = "n_colors must be positive"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         get_colorblind_safe_palette(n_colors=0)
@@ -85,7 +89,7 @@ def test_get_colorblind_safe_palette_negative_colors_raises_error():
     """
     # Arrange
     expected_message = "n_colors must be positive"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         get_colorblind_safe_palette(n_colors=-3)
@@ -97,10 +101,10 @@ def test_get_colorblind_safe_palette_invalid_type_raises_error():
     """
     # Arrange
     expected_message = "n_colors must be an integer"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         get_colorblind_safe_palette(n_colors="5")
 
 
-__all__ = ['test_get_colorblind_safe_palette_default']
+__all__ = ["test_get_colorblind_safe_palette_default"]

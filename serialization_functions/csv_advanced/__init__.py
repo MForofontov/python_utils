@@ -11,9 +11,9 @@ from .transform_csv_columns import transform_csv_columns
 from .validate_csv_structure import validate_csv_structure
 
 __all__ = [
-    'merge_csv_files',
-    'register_csv_dialect',
-    'stream_csv_chunks',
-    'transform_csv_columns',
-    'validate_csv_structure',
+    "merge_csv_files",
+    "register_csv_dialect",
+    "stream_csv_chunks",
+    "transform_csv_columns",
+    "validate_csv_structure",
 ]

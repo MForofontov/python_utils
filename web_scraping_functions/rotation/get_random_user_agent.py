@@ -51,7 +51,7 @@ def get_random_user_agent(
         raise TypeError(
             f"user_agents must be a list or None, got {type(user_agents).__name__}"
         )
-    
+
     if user_agents is None:
         # Default user agents
         user_agents = [
@@ -61,11 +61,11 @@ def get_random_user_agent(
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0",
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Safari/605.1.15",
         ]
-    
+
     if not user_agents:
         raise ValueError("user_agents list cannot be empty")
-    
+
     return random.choice(user_agents)
 
 
-__all__ = ['get_random_user_agent']
+__all__ = ["get_random_user_agent"]

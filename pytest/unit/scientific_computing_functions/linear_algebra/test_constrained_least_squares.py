@@ -1,9 +1,11 @@
 """Unit tests for constrained_least_squares function."""
 
 import numpy as np
-import pytest
 
-from scientific_computing_functions.linear_algebra.constrained_least_squares import constrained_least_squares
+import pytest
+from scientific_computing_functions.linear_algebra.constrained_least_squares import (
+    constrained_least_squares,
+)
 
 
 # Normal operation tests
@@ -12,15 +14,15 @@ def test_constrained_least_squares_simple_overdetermined() -> None:
     # Arrange
     A = [[1, 0], [0, 1], [1, 1]]
     b = [2, 1, 3]
-    
+
     # Act
     result = constrained_least_squares(A, b)
-    
+
     # Assert
-    assert result['success'] is True
-    assert len(result['x']) == 2
-    assert result['cost'] >= 0
-    assert len(result['residuals']) == 3
+    assert result["success"] is True
+    assert len(result["x"]) == 2
+    assert result["cost"] >= 0
+    assert len(result["residuals"]) == 3
 
 
 def test_constrained_least_squares_with_lower_bound() -> None:
@@ -29,14 +31,14 @@ def test_constrained_least_squares_with_lower_bound() -> None:
     A = [[1, 0], [0, 1], [1, 1]]
     b = [2, 1, 3]
     bounds = (0, np.inf)  # Non-negative least squares
-    
+
     # Act
     result = constrained_least_squares(A, b, bounds=bounds)
-    
+
     # Assert
-    assert result['success'] is True
-    assert all(result['x'] >= 0)  # All values non-negative
-    assert result['cost'] >= 0
+    assert result["success"] is True
+    assert all(result["x"] >= 0)  # All values non-negative
+    assert result["cost"] >= 0
 
 
 def test_constrained_least_squares_with_box_constraints() -> None:
@@ -45,14 +47,14 @@ def test_constrained_least_squares_with_box_constraints() -> None:
     A = [[1, 0], [0, 1], [1, 1]]
     b = [2, 1, 3]
     bounds = ([0, 0], [2, 2])  # Each variable bounded between 0 and 2
-    
+
     # Act
     result = constrained_least_squares(A, b, bounds=bounds)
-    
+
     # Assert
-    assert result['success'] is True
-    assert all(0 <= x <= 2 for x in result['x'])
-    assert len(result['active_constraints']) >= 0
+    assert result["success"] is True
+    assert all(0 <= x <= 2 for x in result["x"])
+    assert len(result["active_constraints"]) >= 0
 
 
 def test_constrained_least_squares_trf_method() -> None:
@@ -61,13 +63,13 @@ def test_constrained_least_squares_trf_method() -> None:
     A = np.random.rand(20, 5)
     b = np.random.rand(20)
     bounds = (-1, 1)
-    
+
     # Act
-    result = constrained_least_squares(A, b, bounds=bounds, method='trf')
-    
+    result = constrained_least_squares(A, b, bounds=bounds, method="trf")
+
     # Assert
-    assert result['success'] is True
-    assert all(-1 <= x <= 1 for x in result['x'])
+    assert result["success"] is True
+    assert all(-1 <= x <= 1 for x in result["x"])
 
 
 def test_constrained_least_squares_bvls_method() -> None:
@@ -76,13 +78,13 @@ def test_constrained_least_squares_bvls_method() -> None:
     A = [[2, 1], [1, 2], [1, 1]]
     b = [3, 3, 2]
     bounds = (0, 10)
-    
+
     # Act
-    result = constrained_least_squares(A, b, bounds=bounds, method='bvls')
-    
+    result = constrained_least_squares(A, b, bounds=bounds, method="bvls")
+
     # Assert
-    assert result['success'] is True
-    assert all(result['x'] >= 0)
+    assert result["success"] is True
+    assert all(result["x"] >= 0)
 
 
 def test_constrained_least_squares_trf_method_with_bounds() -> None:
@@ -91,13 +93,13 @@ def test_constrained_least_squares_trf_method_with_bounds() -> None:
     A = [[1, 2], [2, 1], [1, 1]]
     b = [5, 4, 3]
     bounds = (-5, 5)
-    
+
     # Act - scipy.optimize.lsq_linear only supports 'trf' and 'bvls'
-    result = constrained_least_squares(A, b, bounds=bounds, method='trf')
-    
+    result = constrained_least_squares(A, b, bounds=bounds, method="trf")
+
     # Assert
-    assert result['success'] is True
-    assert all(-5 <= x <= 5 for x in result['x'])
+    assert result["success"] is True
+    assert all(-5 <= x <= 5 for x in result["x"])
 
 
 def test_constrained_least_squares_with_custom_tolerance() -> None:
@@ -105,13 +107,13 @@ def test_constrained_least_squares_with_custom_tolerance() -> None:
     # Arrange
     A = [[1, 0], [0, 1], [1, 1]]
     b = [1, 1, 2]
-    
+
     # Act
     result = constrained_least_squares(A, b, tol=1e-12, max_iter=500)
-    
+
     # Assert
-    assert result['success'] is True
-    assert result['optimality'] < 0.01  # Should be well-optimized
+    assert result["success"] is True
+    assert result["optimality"] < 0.01  # Should be well-optimized
 
 
 def test_constrained_least_squares_numpy_arrays() -> None:
@@ -119,13 +121,13 @@ def test_constrained_least_squares_numpy_arrays() -> None:
     # Arrange
     A = np.array([[1, 0], [0, 1], [1, 1]], dtype=float)
     b = np.array([2, 1, 3], dtype=float)
-    
+
     # Act
     result = constrained_least_squares(A, b)
-    
+
     # Assert
-    assert result['success'] is True
-    assert isinstance(result['x'], np.ndarray)
+    assert result["success"] is True
+    assert isinstance(result["x"], np.ndarray)
 
 
 # Edge case tests
@@ -135,15 +137,15 @@ def test_constrained_least_squares_tight_bounds() -> None:
     A = [[1, 0], [0, 1], [1, 1]]
     b = [2, 1, 3]
     bounds = ([0.5, 0.5], [1.5, 1.5])  # Tight bounds
-    
+
     # Act
     result = constrained_least_squares(A, b, bounds=bounds)
-    
+
     # Assert
-    assert result['success'] is True
-    assert all(0.5 <= x <= 1.5 for x in result['x'])
+    assert result["success"] is True
+    assert all(0.5 <= x <= 1.5 for x in result["x"])
     # Should have active constraints due to tight bounds
-    assert len(result['active_constraints']) >= 0
+    assert len(result["active_constraints"]) >= 0
 
 
 def test_constrained_least_squares_exact_system() -> None:
@@ -151,14 +153,14 @@ def test_constrained_least_squares_exact_system() -> None:
     # Arrange
     A = [[2, 0], [0, 3]]
     b = [4, 6]  # Exact solution is [2, 2]
-    
+
     # Act
     result = constrained_least_squares(A, b)
-    
+
     # Assert
-    assert result['success'] is True
-    assert np.allclose(result['x'], [2, 2], atol=1e-6)
-    assert result['cost'] < 1e-10  # Should be near zero
+    assert result["success"] is True
+    assert np.allclose(result["x"], [2, 2], atol=1e-6)
+    assert result["cost"] < 1e-10  # Should be near zero
 
 
 def test_constrained_least_squares_all_constraints_active() -> None:
@@ -167,14 +169,14 @@ def test_constrained_least_squares_all_constraints_active() -> None:
     A = [[1, 1], [1, 1], [1, 1]]
     b = [10, 10, 10]  # Wants high values
     bounds = ([0, 0], [1, 1])  # Very restrictive
-    
+
     # Act
     result = constrained_least_squares(A, b, bounds=bounds)
-    
+
     # Assert
-    assert result['success'] is True
+    assert result["success"] is True
     # Both variables should be at upper bound
-    assert len(result['active_constraints']) >= 1
+    assert len(result["active_constraints"]) >= 1
 
 
 def test_constrained_least_squares_one_variable() -> None:
@@ -182,14 +184,14 @@ def test_constrained_least_squares_one_variable() -> None:
     # Arrange
     A = [[1], [2], [3]]
     b = [1, 2, 3]
-    
+
     # Act
     result = constrained_least_squares(A, b, bounds=(0, 10))
-    
+
     # Assert
-    assert result['success'] is True
-    assert len(result['x']) == 1
-    assert 0 <= result['x'][0] <= 10
+    assert result["success"] is True
+    assert len(result["x"]) == 1
+    assert 0 <= result["x"][0] <= 10
 
 
 def test_constrained_least_squares_large_system() -> None:
@@ -199,14 +201,14 @@ def test_constrained_least_squares_large_system() -> None:
     A = np.random.rand(100, 10)
     b = np.random.rand(100)
     bounds = (0, 1)
-    
+
     # Act
     result = constrained_least_squares(A, b, bounds=bounds)
-    
+
     # Assert
-    assert result['success'] is True
-    assert len(result['x']) == 10
-    assert all(0 <= x <= 1 for x in result['x'])
+    assert result["success"] is True
+    assert len(result["x"]) == 10
+    assert all(0 <= x <= 1 for x in result["x"])
 
 
 def test_constrained_least_squares_scalar_bounds() -> None:
@@ -215,13 +217,13 @@ def test_constrained_least_squares_scalar_bounds() -> None:
     A = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
     b = [5, 5, 5]
     bounds = (0, 3)  # Scalar bounds
-    
+
     # Act
     result = constrained_least_squares(A, b, bounds=bounds)
-    
+
     # Assert
-    assert result['success'] is True
-    assert all(0 <= x <= 3 for x in result['x'])
+    assert result["success"] is True
+    assert all(0 <= x <= 3 for x in result["x"])
 
 
 # Error case tests
@@ -231,7 +233,7 @@ def test_constrained_least_squares_invalid_A_type() -> None:
     invalid_A = "not a matrix"
     b = [1, 2, 3]
     expected_message = "A must be a list or numpy array"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         constrained_least_squares(invalid_A, b)
@@ -243,7 +245,7 @@ def test_constrained_least_squares_invalid_b_type() -> None:
     A = [[1, 0], [0, 1]]
     invalid_b = "not a vector"
     expected_message = "b must be a list or numpy array"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         constrained_least_squares(A, invalid_b)
@@ -255,7 +257,7 @@ def test_constrained_least_squares_A_not_2d() -> None:
     invalid_A = [1, 2, 3]  # 1D array
     b = [1, 2, 3]
     expected_message = "A must be a 2D array"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         constrained_least_squares(invalid_A, b)
@@ -267,7 +269,7 @@ def test_constrained_least_squares_b_not_1d() -> None:
     A = [[1, 0], [0, 1]]
     invalid_b = [[1], [2]]  # 2D array
     expected_message = "b must be a 1D array"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         constrained_least_squares(A, invalid_b)
@@ -279,7 +281,7 @@ def test_constrained_least_squares_incompatible_dimensions() -> None:
     A = [[1, 0], [0, 1]]  # 2x2
     b = [1, 2, 3]  # Length 3
     expected_message = "Incompatible dimensions"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         constrained_least_squares(A, b)
@@ -292,7 +294,7 @@ def test_constrained_least_squares_invalid_bounds_type() -> None:
     b = [1, 2]
     invalid_bounds = [0, 1]  # Should be tuple
     expected_message = "bounds must be a tuple of \\(lower, upper\\)"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         constrained_least_squares(A, b, bounds=invalid_bounds)
@@ -305,7 +307,7 @@ def test_constrained_least_squares_invalid_method() -> None:
     b = [1, 2]
     invalid_method = "invalid"
     expected_message = "Invalid method"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         constrained_least_squares(A, b, method=invalid_method)
@@ -317,7 +319,7 @@ def test_constrained_least_squares_negative_max_iter() -> None:
     A = [[1, 0], [0, 1]]
     b = [1, 2]
     expected_message = "max_iter must be positive"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         constrained_least_squares(A, b, max_iter=-10)
@@ -329,7 +331,7 @@ def test_constrained_least_squares_zero_max_iter() -> None:
     A = [[1, 0], [0, 1]]
     b = [1, 2]
     expected_message = "max_iter must be positive"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         constrained_least_squares(A, b, max_iter=0)
@@ -341,7 +343,7 @@ def test_constrained_least_squares_negative_tolerance() -> None:
     A = [[1, 0], [0, 1]]
     b = [1, 2]
     expected_message = "tol must be positive"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         constrained_least_squares(A, b, tol=-1e-6)
@@ -354,7 +356,7 @@ def test_constrained_least_squares_invalid_bounds_size() -> None:
     b = [1, 2]
     invalid_bounds = ([0], [1])  # Only 1 element, but need 2
     expected_message = "Lower bounds size .* doesn't match number of variables"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         constrained_least_squares(A, b, bounds=invalid_bounds)
@@ -367,7 +369,7 @@ def test_constrained_least_squares_lower_greater_than_upper() -> None:
     b = [1, 2]
     invalid_bounds = ([2, 2], [1, 1])  # Lower > upper
     expected_message = "Lower bounds must be <= upper bounds"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         constrained_least_squares(A, b, bounds=invalid_bounds)
@@ -379,7 +381,7 @@ def test_constrained_least_squares_invalid_max_iter_type() -> None:
     A = [[1, 0], [0, 1]]
     b = [1, 2]
     expected_message = "max_iter must be an integer"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         constrained_least_squares(A, b, max_iter=10.5)
@@ -391,7 +393,7 @@ def test_constrained_least_squares_invalid_tol_type() -> None:
     A = [[1, 0], [0, 1]]
     b = [1, 2]
     expected_message = "tol must be a number"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         constrained_least_squares(A, b, tol="1e-6")
@@ -403,7 +405,7 @@ def test_constrained_least_squares_invalid_method_type() -> None:
     A = [[1, 0], [0, 1]]
     b = [1, 2]
     expected_message = "method must be a string"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         constrained_least_squares(A, b, method=123)

@@ -1,13 +1,14 @@
 """Tests for get_parquet_schema module."""
 
-import pytest
 from pathlib import Path
-from serialization_functions.parquet_operations.get_parquet_schema import (
-    get_parquet_schema,
-)
 
 import pyarrow as pa
 import pyarrow.parquet as pq
+
+import pytest
+from serialization_functions.parquet_operations.get_parquet_schema import (
+    get_parquet_schema,
+)
 
 
 def test_get_parquet_schema_basic(tmp_path: Path) -> None:

@@ -5,6 +5,8 @@ A comprehensive collection of reusable Python functions, classes, and decorators
 organized into specialized modules for enterprise-grade utility libraries.
 """
 
+# Version information - single source of truth
+from ._version import __version__
 from .asyncio_functions import (
     async_await_with_error_handling,
     async_batch,
@@ -30,7 +32,6 @@ from .batch_processing_functions import (
     StreamingAggregator,
     chunked_processor,
 )
-
 from .bioinformatics_functions import (
     annotation_statistics,
     annotation_to_bed,
@@ -78,6 +79,23 @@ from .bioinformatics_functions import (
     validate_fasta,
     write_fasta,
 )
+from .cli_functions import (
+    check_command_exists,
+    execute_command,
+    get_cpu_info,
+    get_current_user,
+    get_disk_usage,
+    get_environment_variable,
+    get_file_size,
+    get_memory_info,
+    get_network_info,
+    get_uptime,
+    is_process_running,
+    kill_process,
+    list_directories,
+    list_files,
+    set_environment_variable,
+)
 from .compression_functions import (
     decompress_number,
     polyline_decoding_list_of_ints,
@@ -92,35 +110,52 @@ from .data_validation import (
     validate_string,
     validate_type,
 )
+from .data_visualization_functions import (
+    # Chart configuration utilities
+    ChartTheme,
+    adjust_brightness,
+    aggregate_by_group,
+    apply_theme,
+    bin_data,
+    calculate_moving_statistics,
+    configure_axes_style,
+    configure_export_defaults,
+    create_bar_plot,
+    create_figure_grid,
+    create_gradient,
+    create_histogram,
+    # Plot generation helpers
+    create_line_plot,
+    create_scatter_plot,
+    export_current_figure,
+    generate_categorical_colors,
+    # Color palette generators
+    generate_color_palette,
+    get_colorblind_safe_palette,
+    get_preset_theme,
+    hex_to_rgb,
+    # Data-to-visualization transformers
+    normalize_data,
+    pivot_for_heatmap,
+    reset_theme,
+    rgb_to_hex,
+    # Export utilities
+    save_figure,
+    save_multiple_formats,
+    set_figure_size,
+    smooth_timeseries,
+)
 from .database_functions import (
     ConnectionPoolManager,
-    managed_db_connection,
-    execute_bulk_chunked,
-    stream_query_results,
     atomic_transaction,
-    nested_transaction,
-    savepoint_context,
-    get_table_info,
     compare_schemas,
     detect_schema_drift,
-)
-from .dev_utilities import (
-    count_code_lines,
-    format_statistics,
-    format_validation_result,
-    generate_dependency_graph,
-    generate_license,
-    get_code_statistics,
-    save_license_file,
-    validate_project_structure,
-    find_missing_tests,
-    format_coverage_report,
-    CodeLineCount,
-    CodeStatistics,
-    ValidationIssue,
-    ValidationResult,
-    MissingTest,
-    CoverageReport,
+    execute_bulk_chunked,
+    get_table_info,
+    managed_db_connection,
+    nested_transaction,
+    savepoint_context,
+    stream_query_results,
 )
 from .datetime_functions import (
     calculate_age,
@@ -149,41 +184,6 @@ from .datetime_functions import (
     parse_date,
     time_ago,
     time_until,
-)
-from .data_visualization_functions import (
-    # Plot generation helpers
-    create_line_plot,
-    create_scatter_plot,
-    create_bar_plot,
-    create_histogram,
-    # Chart configuration utilities
-    ChartTheme,
-    get_preset_theme,
-    apply_theme,
-    reset_theme,
-    configure_axes_style,
-    set_figure_size,
-    # Color palette generators
-    generate_color_palette,
-    create_gradient,
-    get_colorblind_safe_palette,
-    hex_to_rgb,
-    rgb_to_hex,
-    adjust_brightness,
-    generate_categorical_colors,
-    # Data-to-visualization transformers
-    normalize_data,
-    bin_data,
-    aggregate_by_group,
-    pivot_for_heatmap,
-    smooth_timeseries,
-    calculate_moving_statistics,
-    # Export utilities
-    save_figure,
-    save_multiple_formats,
-    export_current_figure,
-    create_figure_grid,
-    configure_export_defaults,
 )
 from .decorators import (
     async_handle_error,
@@ -215,6 +215,24 @@ from .decorators import (
     timeout,
     validate_args,
 )
+from .dev_utilities import (
+    CodeLineCount,
+    CodeStatistics,
+    CoverageReport,
+    MissingTest,
+    ValidationIssue,
+    ValidationResult,
+    count_code_lines,
+    find_missing_tests,
+    format_coverage_report,
+    format_statistics,
+    format_validation_result,
+    generate_dependency_graph,
+    generate_license,
+    get_code_statistics,
+    save_license_file,
+    validate_project_structure,
+)
 from .env_config_functions import (
     expand_env_vars_in_string,
     get_env_var,
@@ -222,14 +240,6 @@ from .env_config_functions import (
     parse_ini_config,
     parse_toml_config,
     parse_yaml_config,
-)
-from .formatting_functions import (
-    format_currency,
-    format_date,
-    format_duration,
-    format_file_size,
-    format_number_compact,
-    parse_size,
 )
 from .file_functions import (
     calculate_md5_hash,
@@ -264,6 +274,14 @@ from .file_functions import (
     write_dict_to_tsv,
     write_lines,
     write_to_file,
+)
+from .formatting_functions import (
+    format_currency,
+    format_date,
+    format_duration,
+    format_file_size,
+    format_number_compact,
+    parse_size,
 )
 from .http_functions import (
     build_url,
@@ -334,23 +352,6 @@ from .json_functions import (
     safe_json_dump,
     safe_json_load,
 )
-from .cli_functions import (
-    check_command_exists,
-    execute_command,
-    get_cpu_info,
-    get_current_user,
-    get_disk_usage,
-    get_environment_variable,
-    get_file_size,
-    get_memory_info,
-    get_network_info,
-    get_uptime,
-    is_process_running,
-    kill_process,
-    list_directories,
-    list_files,
-    set_environment_variable,
-)
 from .logger_functions import (
     colored_formatter,
     contextual_logger,
@@ -381,12 +382,37 @@ from .multiprocessing_functions import (
     parallel_starmap,
     parallel_unique,
 )
-
+from .network_functions import (
+    check_port_open,
+    get_default_gateway,
+    get_dns_servers,
+    get_hostname,
+    get_ipv6_addresses,
+    get_local_ip,
+    get_mac_address,
+    get_network_interfaces,
+    get_network_speed,
+    get_public_ip,
+    get_subnet_mask,
+    is_internet_available,
+    is_port_listening,
+    multicast_receive,
+    multicast_send,
+    ping_host,
+    resolve_hostname,
+    scan_open_ports,
+    traceroute_host,
+)
+from .print_functions import (
+    print_dependencies_info_in_terminal,
+    print_message,
+    print_system_info_in_terminal,
+)
 from .regex_functions import (
     extract_emails,
     extract_urls,
-    remove_html_tags,
     remove_extra_whitespace,
+    remove_html_tags,
     sanitize_filename,
 )
 from .scientific_computing_functions import (
@@ -406,11 +432,6 @@ from .scientific_computing_functions import (
     solve_boundary_value_problem,
     solve_linear_system,
 )
-from .print_functions import (
-    print_dependencies_info_in_terminal,
-    print_message,
-    print_system_info_in_terminal,
-)
 from .security_functions import (
     decrypt_data_aes,
     decrypt_xor,
@@ -424,6 +445,36 @@ from .security_functions import (
     verify_jwt_token,
     verify_password_bcrypt,
     verify_password_pbkdf2,
+)
+from .serialization_functions import (
+    append_parquet,
+    auto_format_excel_columns,
+    create_excel_workbook,
+    csv_to_parquet,
+    excel_to_csv_batch,
+    excel_to_parquet,
+    filter_parquet,
+    get_parquet_metadata,
+    get_parquet_schema,
+    get_sheet_names,
+    merge_csv_files,
+    merge_excel_sheets,
+    merge_parquet_files,
+    parquet_to_csv,
+    parquet_to_excel,
+    partition_parquet_by_column,
+    read_excel_range,
+    read_excel_sheet,
+    read_parquet,
+    register_csv_dialect,
+    stream_csv_chunks,
+    transform_csv_columns,
+    transpose_excel_data,
+    validate_csv_structure,
+    validate_excel_structure,
+    write_excel_range,
+    write_excel_sheet,
+    write_parquet,
 )
 from .ssh_functions import (
     ssh_check_connection,
@@ -468,90 +519,6 @@ from .strings_utility import (
     verify_password,
     zfill_string,
 )
-
-from .url_functions import (
-    expand_url_template,
-    match_url_pattern,
-    merge_query_params,
-    normalize_url,
-    slugify_url,
-    validate_url_format,
-)
-
-from .web_scraping_functions import (
-    parse_html,
-    extract_text,
-    extract_links,
-    extract_tables,
-    find_elements_by_class,
-    find_elements_by_id,
-    paginate_links,
-    extract_next_page,
-    paginate_with_callback,
-    rate_limited_scraper,
-    create_rate_limiter,
-    rotate_proxy,
-    rotate_user_agent,
-    get_random_proxy,
-    get_random_user_agent,
-    select_by_css,
-    select_by_xpath,
-    extract_attribute,
-)
-
-from .network_functions import (
-    ping_host,
-    get_local_ip,
-    check_port_open,
-    resolve_hostname,
-    get_mac_address,
-    is_internet_available,
-    scan_open_ports,
-    get_hostname,
-    get_public_ip,
-    traceroute_host,
-    get_network_interfaces,
-    is_port_listening,
-    get_dns_servers,
-    get_subnet_mask,
-    get_default_gateway,
-    get_ipv6_addresses,
-    get_network_speed,
-    multicast_send,
-    multicast_receive,
-)
-
-from .serialization_functions import (
-    merge_csv_files,
-    register_csv_dialect,
-    stream_csv_chunks,
-    transform_csv_columns,
-    validate_csv_structure,
-    auto_format_excel_columns,
-    create_excel_workbook,
-    get_sheet_names,
-    merge_excel_sheets,
-    read_excel_range,
-    read_excel_sheet,
-    transpose_excel_data,
-    validate_excel_structure,
-    write_excel_range,
-    write_excel_sheet,
-    append_parquet,
-    filter_parquet,
-    get_parquet_metadata,
-    get_parquet_schema,
-    merge_parquet_files,
-    partition_parquet_by_column,
-    read_parquet,
-    write_parquet,
-    csv_to_parquet,
-    excel_to_csv_batch,
-    excel_to_parquet,
-    parquet_to_csv,
-    parquet_to_excel,
-)
-
 from .testing_functions import (
     assert_almost_equal,
     assert_dict_contains,
@@ -561,13 +528,9 @@ from .testing_functions import (
     assert_type_match,
     benchmark_function,
     compare_functions,
-    measure_memory_usage,
+    create_mock_object,
     create_temp_dir_fixture,
     create_temp_file_fixture,
-    mock_datetime_fixture,
-    create_mock_object,
-    mock_api_response,
-    mock_file_system,
     generate_random_date,
     generate_random_datetime,
     generate_random_dict,
@@ -577,10 +540,39 @@ from .testing_functions import (
     generate_random_list,
     generate_random_string,
     generate_random_url,
+    measure_memory_usage,
+    mock_api_response,
+    mock_datetime_fixture,
+    mock_file_system,
 )
-
-# Version information - single source of truth
-from ._version import __version__
+from .url_functions import (
+    expand_url_template,
+    match_url_pattern,
+    merge_query_params,
+    normalize_url,
+    slugify_url,
+    validate_url_format,
+)
+from .web_scraping_functions import (
+    create_rate_limiter,
+    extract_attribute,
+    extract_links,
+    extract_next_page,
+    extract_tables,
+    extract_text,
+    find_elements_by_class,
+    find_elements_by_id,
+    get_random_proxy,
+    get_random_user_agent,
+    paginate_links,
+    paginate_with_callback,
+    parse_html,
+    rate_limited_scraper,
+    rotate_proxy,
+    rotate_user_agent,
+    select_by_css,
+    select_by_xpath,
+)
 
 __author__ = "Python Utils Contributors"
 __license__ = "MIT"

@@ -79,7 +79,9 @@ def power_analysis(
     """
     # Input validation
     if not isinstance(effect_size, (int, float)):
-        raise TypeError(f"effect_size must be a number, got {type(effect_size).__name__}")
+        raise TypeError(
+            f"effect_size must be a number, got {type(effect_size).__name__}"
+        )
     if not isinstance(alpha, (int, float)):
         raise TypeError(f"alpha must be a number, got {type(alpha).__name__}")
     if not isinstance(power, (int, float)):
@@ -87,7 +89,9 @@ def power_analysis(
     if not isinstance(test_type, str):
         raise TypeError(f"test_type must be a string, got {type(test_type).__name__}")
     if not isinstance(alternative, str):
-        raise TypeError(f"alternative must be a string, got {type(alternative).__name__}")
+        raise TypeError(
+            f"alternative must be a string, got {type(alternative).__name__}"
+        )
     if not isinstance(n_groups, int):
         raise TypeError(f"n_groups must be an integer, got {type(n_groups).__name__}")
 

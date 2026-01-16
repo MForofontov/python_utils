@@ -16,4 +16,3 @@ __all__ = [
     "calculate_sha256_hash",
     "compare_file_hashes",
 ]
-

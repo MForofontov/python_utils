@@ -4,6 +4,7 @@ Save a matplotlib figure to file.
 
 import logging
 from pathlib import Path
+
 from matplotlib.figure import Figure
 
 logger = logging.getLogger(__name__)
@@ -13,7 +14,7 @@ def save_figure(
     fig: Figure,
     filepath: str | Path,
     dpi: int = 300,
-    bbox_inches: str = 'tight',
+    bbox_inches: str = "tight",
     transparent: bool = False,
 ) -> None:
     """
@@ -94,7 +95,7 @@ def save_figure(
     if not filepath_obj.suffix:
         raise ValueError(f"filepath must have an extension (e.g., .png): '{filepath}'")
 
-    valid_extensions = ['.png', '.pdf', '.svg', '.jpg', '.jpeg', '.eps', '.ps', '.tiff']
+    valid_extensions = [".png", ".pdf", ".svg", ".jpg", ".jpeg", ".eps", ".ps", ".tiff"]
     if filepath_obj.suffix.lower() not in valid_extensions:
         logger.warning(
             f"Unusual file extension '{filepath_obj.suffix}'. "
@@ -120,4 +121,4 @@ def save_figure(
     logger.info(f"Saved figure to {filepath_obj}")
 
 
-__all__ = ['save_figure']
+__all__ = ["save_figure"]

@@ -3,7 +3,6 @@ Tests for expand_url_template function.
 """
 
 import pytest
-
 from url_functions.expand_url_template import expand_url_template
 
 
@@ -15,7 +14,7 @@ def test_expand_url_template_simple_variable() -> None:
     template = "/users/{user_id}"
     variables = {"user_id": 123}
     expected = "/users/123"
-    
+
     # Act
     result = expand_url_template(template, variables)
 
@@ -31,7 +30,7 @@ def test_expand_url_template_multiple_variables() -> None:
     template = "/users/{user_id}/posts/{post_id}"
     variables = {"user_id": 123, "post_id": 456}
     expected = "/users/123/posts/456"
-    
+
     # Act
     result = expand_url_template(template, variables)
 
@@ -47,7 +46,7 @@ def test_expand_url_template_query_expansion() -> None:
     template = "/search{?q,page}"
     variables = {"q": "python", "page": 2}
     expected = "/search?q=python&page=2"
-    
+
     # Act
     result = expand_url_template(template, variables)
 
@@ -63,7 +62,7 @@ def test_expand_url_template_path_expansion() -> None:
     template = "/repos{/owner,repo}"
     variables = {"owner": "python", "repo": "cpython"}
     expected = "/repos/python/cpython"
-    
+
     # Act
     result = expand_url_template(template, variables)
 
@@ -79,7 +78,7 @@ def test_expand_url_template_fragment_expansion() -> None:
     template = "/docs{#section}"
     variables = {"section": "installation"}
     expected = "/docs#installation"
-    
+
     # Act
     result = expand_url_template(template, variables)
 
@@ -95,7 +94,7 @@ def test_expand_url_template_missing_variable_non_strict() -> None:
     template = "/users/{user_id}/posts/{post_id}"
     variables = {"user_id": 123}
     # Missing post_id should result in empty string for that part
-    
+
     # Act
     result = expand_url_template(template, variables, strict=False)
 
@@ -111,7 +110,7 @@ def test_expand_url_template_missing_variable_strict_raises_error() -> None:
     template = "/users/{user_id}/posts/{post_id}"
     variables = {"user_id": 123}
     expected_message = "Undefined variable: post_id"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         expand_url_template(template, variables, strict=True)
@@ -125,7 +124,7 @@ def test_expand_url_template_list_variable() -> None:
     template = "/tags/{tags}"
     variables = {"tags": ["python", "web", "api"]}
     expected = "/tags/python,web,api"
-    
+
     # Act
     result = expand_url_template(template, variables)
 
@@ -141,7 +140,7 @@ def test_expand_url_template_list_in_query() -> None:
     template = "/search{?tags}"
     variables = {"tags": ["python", "web"]}
     expected = "/search?tags=python&tags=web"
-    
+
     # Act
     result = expand_url_template(template, variables)
 
@@ -156,7 +155,7 @@ def test_expand_url_template_url_encoding() -> None:
     # Arrange
     template = "/search{?q}"
     variables = {"q": "python & web"}
-    
+
     # Act
     result = expand_url_template(template, variables)
 
@@ -172,7 +171,7 @@ def test_expand_url_template_empty_template_raises_error() -> None:
     template = ""
     variables = {"a": "1"}
     expected_message = "template cannot be empty"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         expand_url_template(template, variables)
@@ -186,7 +185,7 @@ def test_expand_url_template_invalid_template_type_raises_error() -> None:
     template = 123
     variables = {"a": "1"}
     expected_message = "template must be a string, got int"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         expand_url_template(template, variables)  # type: ignore
@@ -200,7 +199,7 @@ def test_expand_url_template_invalid_variables_type_raises_error() -> None:
     template = "/users/{id}"
     variables = "invalid"
     expected_message = "variables must be a dict, got str"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         expand_url_template(template, variables)  # type: ignore
@@ -214,7 +213,7 @@ def test_expand_url_template_no_variables() -> None:
     template = "/api/v2/users"
     variables = {}
     expected = "/api/v2/users"
-    
+
     # Act
     result = expand_url_template(template, variables)
 
@@ -230,7 +229,7 @@ def test_expand_url_template_integer_variable() -> None:
     template = "/page/{num}"
     variables = {"num": 42}
     expected = "/page/42"
-    
+
     # Act
     result = expand_url_template(template, variables)
 

@@ -1,5 +1,6 @@
-import pytest
 from bs4 import BeautifulSoup
+
+import pytest
 from web_scraping_functions.html_parsing.find_elements_by_class import (
     find_elements_by_class,
 )
@@ -12,10 +13,10 @@ def test_find_elements_by_class_single_class() -> None:
     # Arrange
     html = '<div class="item">A</div><div class="item">B</div>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act
     result = find_elements_by_class(soup, "item")
-    
+
     # Assert
     assert len(result) == 2
     assert result[0].text == "A"
@@ -29,10 +30,10 @@ def test_find_elements_by_class_with_limit() -> None:
     # Arrange
     html = '<div class="item">A</div><div class="item">B</div><div class="item">C</div>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act
     result = find_elements_by_class(soup, "item", limit=2)
-    
+
     # Assert
     assert len(result) == 2
 
@@ -44,10 +45,10 @@ def test_find_elements_by_class_no_matches() -> None:
     # Arrange
     html = '<div class="other">A</div>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act
     result = find_elements_by_class(soup, "item")
-    
+
     # Assert
     assert result == []
 
@@ -59,10 +60,10 @@ def test_find_elements_by_class_nested_elements() -> None:
     # Arrange
     html = '<div class="outer"><div class="inner">Content</div></div>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act
     result = find_elements_by_class(soup, "inner")
-    
+
     # Assert
     assert len(result) == 1
     assert result[0].text == "Content"
@@ -75,10 +76,10 @@ def test_find_elements_by_class_multiple_classes() -> None:
     # Arrange
     html = '<div class="item active">A</div><div class="item">B</div>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act
     result = find_elements_by_class(soup, "item")
-    
+
     # Assert
     assert len(result) == 2
 
@@ -99,7 +100,7 @@ def test_find_elements_by_class_type_error_class_name() -> None:
     # Arrange
     html = '<div class="item">A</div>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match="class_name must be a string"):
         find_elements_by_class(soup, 123)
@@ -112,7 +113,7 @@ def test_find_elements_by_class_type_error_limit() -> None:
     # Arrange
     html = '<div class="item">A</div>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match="limit must be an integer or None"):
         find_elements_by_class(soup, "item", limit="5")
@@ -125,7 +126,7 @@ def test_find_elements_by_class_value_error_empty_class_name() -> None:
     # Arrange
     html = '<div class="item">A</div>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match="class_name cannot be empty"):
         find_elements_by_class(soup, "")
@@ -138,7 +139,7 @@ def test_find_elements_by_class_value_error_negative_limit() -> None:
     # Arrange
     html = '<div class="item">A</div>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match="limit must be positive"):
         find_elements_by_class(soup, "item", limit=0)

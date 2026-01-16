@@ -48,19 +48,21 @@ def get_environment_variable(
     """
     if not isinstance(var_name, str):
         raise TypeError(f"var_name must be a string, got {type(var_name).__name__}")
-    
+
     if not isinstance(required, bool):
         raise TypeError(f"required must be a boolean, got {type(required).__name__}")
-    
+
     if default is not None and not isinstance(default, str):
-        raise TypeError(f"default must be a string or None, got {type(default).__name__}")
+        raise TypeError(
+            f"default must be a string or None, got {type(default).__name__}"
+        )
 
     value = os.environ.get(var_name, default)
-    
+
     if required and value is None:
         raise ValueError(f"Required environment variable '{var_name}' is not set")
-    
+
     return value
 
 
-__all__ = ['get_environment_variable']
+__all__ = ["get_environment_variable"]

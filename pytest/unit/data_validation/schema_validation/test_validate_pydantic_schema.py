@@ -325,4 +325,3 @@ def test_validate_pydantic_schema_custom_param_name() -> None:
 
     with pytest.raises(ValueError, match="user_data validation failed"):
         validate_pydantic_schema(data, SimpleUserSchema, param_name="user_data")
-        

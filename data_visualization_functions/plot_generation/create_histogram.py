@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 def create_histogram(
     data: list[float] | np.ndarray | list[list[float]] | list[np.ndarray],
-    bins: int | str = 'auto',
+    bins: int | str = "auto",
     title: str = "",
     xlabel: str = "",
     ylabel: str = "Frequency",
@@ -103,7 +103,9 @@ def create_histogram(
     """
     # Type validation
     if not isinstance(data, (list, np.ndarray)):
-        raise TypeError(f"data must be a list or numpy array, got {type(data).__name__}")
+        raise TypeError(
+            f"data must be a list or numpy array, got {type(data).__name__}"
+        )
     if not isinstance(bins, (int, str)):
         raise TypeError(f"bins must be an integer or string, got {type(bins).__name__}")
     if not isinstance(title, str):
@@ -117,7 +119,9 @@ def create_histogram(
     if not isinstance(density, bool):
         raise TypeError(f"density must be a boolean, got {type(density).__name__}")
     if not isinstance(cumulative, bool):
-        raise TypeError(f"cumulative must be a boolean, got {type(cumulative).__name__}")
+        raise TypeError(
+            f"cumulative must be a boolean, got {type(cumulative).__name__}"
+        )
     if not isinstance(grid, bool):
         raise TypeError(f"grid must be a boolean, got {type(grid).__name__}")
     if not isinstance(legend, bool):
@@ -156,52 +160,58 @@ def create_histogram(
         if not isinstance(labels, list):
             raise TypeError(f"labels must be a list, got {type(labels).__name__}")
         if len(labels) != num_datasets:
-            raise ValueError(f"Number of labels ({len(labels)}) must match number of datasets ({num_datasets})")
-    
+            raise ValueError(
+                f"Number of labels ({len(labels)}) must match number of datasets ({num_datasets})"
+            )
+
     if colors is not None:
         if not isinstance(colors, list):
             raise TypeError(f"colors must be a list, got {type(colors).__name__}")
         if len(colors) != num_datasets:
-            raise ValueError(f"Number of colors ({len(colors)}) must match number of datasets ({num_datasets})")
+            raise ValueError(
+                f"Number of colors ({len(colors)}) must match number of datasets ({num_datasets})"
+            )
 
     # Create plot
     fig, ax = plt.subplots(figsize=figsize)
-    
+
     for i, dataset in enumerate(datasets):
         hist_kwargs: dict[str, Any] = {
-            'bins': bins,
-            'alpha': alpha,
-            'density': density,
-            'cumulative': cumulative,
+            "bins": bins,
+            "alpha": alpha,
+            "density": density,
+            "cumulative": cumulative,
         }
-        
+
         if labels is not None:
-            hist_kwargs['label'] = labels[i]
+            hist_kwargs["label"] = labels[i]
         if colors is not None:
-            hist_kwargs['color'] = colors[i]
-        
+            hist_kwargs["color"] = colors[i]
+
         ax.hist(dataset, **hist_kwargs)
-    
+
     # Customize plot
     if title:
-        ax.set_title(title, fontsize=14, fontweight='bold')
+        ax.set_title(title, fontsize=14, fontweight="bold")
     if xlabel:
         ax.set_xlabel(xlabel, fontsize=12)
     if ylabel:
         ax.set_ylabel(ylabel, fontsize=12)
-    
+
     if grid:
-        ax.grid(True, alpha=0.3, linestyle='--', axis='y')
-    
+        ax.grid(True, alpha=0.3, linestyle="--", axis="y")
+
     if legend and labels is not None:
-        ax.legend(loc='best', framealpha=0.9)
-    
+        ax.legend(loc="best", framealpha=0.9)
+
     plt.tight_layout()
-    
+
     total_points = sum(len(d) for d in datasets)
-    logger.debug(f"Created histogram with {num_datasets} datasets and {total_points} total data points")
-    
+    logger.debug(
+        f"Created histogram with {num_datasets} datasets and {total_points} total data points"
+    )
+
     return fig, ax
 
 
-__all__ = ['create_histogram']
+__all__ = ["create_histogram"]

@@ -66,13 +66,9 @@ def solve_linear_system(
     """
     # Input validation
     if not isinstance(A, (list, np.ndarray)):
-        raise TypeError(
-            f"A must be a list or numpy array, got {type(A).__name__}"
-        )
+        raise TypeError(f"A must be a list or numpy array, got {type(A).__name__}")
     if not isinstance(b, (list, np.ndarray)):
-        raise TypeError(
-            f"b must be a list or numpy array, got {type(b).__name__}"
-        )
+        raise TypeError(f"b must be a list or numpy array, got {type(b).__name__}")
     if not isinstance(check_condition, bool):
         raise TypeError(
             f"check_condition must be a boolean, got {type(check_condition).__name__}"
@@ -93,9 +89,7 @@ def solve_linear_system(
     if A_arr.ndim != 2:
         raise ValueError(f"A must be 2-dimensional, got {A_arr.ndim} dimensions")
     if A_arr.shape[0] != A_arr.shape[1]:
-        raise ValueError(
-            f"A must be square, got shape {A_arr.shape}"
-        )
+        raise ValueError(f"A must be square, got shape {A_arr.shape}")
     if b_arr.ndim != 1:
         raise ValueError(f"b must be 1-dimensional, got {b_arr.ndim} dimensions")
     if A_arr.shape[0] != b_arr.shape[0]:

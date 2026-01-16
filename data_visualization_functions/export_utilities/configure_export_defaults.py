@@ -3,6 +3,7 @@ Configure default export settings for matplotlib.
 """
 
 import logging
+
 import matplotlib.pyplot as plt
 
 logger = logging.getLogger(__name__)
@@ -10,8 +11,8 @@ logger = logging.getLogger(__name__)
 
 def configure_export_defaults(
     dpi: int = 300,
-    format: str = 'png',
-    bbox_inches: str = 'tight',
+    format: str = "png",
+    bbox_inches: str = "tight",
     transparent: bool = False,
 ) -> None:
     """
@@ -76,11 +77,9 @@ def configure_export_defaults(
     if dpi < 1:
         raise ValueError(f"dpi must be positive, got {dpi}")
 
-    valid_formats = ['png', 'pdf', 'svg', 'jpg', 'jpeg', 'eps', 'ps', 'tiff']
+    valid_formats = ["png", "pdf", "svg", "jpg", "jpeg", "eps", "ps", "tiff"]
     if format.lower() not in valid_formats:
-        raise ValueError(
-            f"format must be one of {valid_formats}, got '{format}'"
-        )
+        raise ValueError(f"format must be one of {valid_formats}, got '{format}'")
 
     logger.debug(
         f"Configuring export defaults: dpi={dpi}, format={format}, "
@@ -88,10 +87,10 @@ def configure_export_defaults(
     )
 
     # Configure matplotlib defaults
-    plt.rcParams['savefig.dpi'] = dpi
-    plt.rcParams['savefig.format'] = format.lower()
-    plt.rcParams['savefig.bbox'] = bbox_inches
-    plt.rcParams['savefig.transparent'] = transparent
+    plt.rcParams["savefig.dpi"] = dpi
+    plt.rcParams["savefig.format"] = format.lower()
+    plt.rcParams["savefig.bbox"] = bbox_inches
+    plt.rcParams["savefig.transparent"] = transparent
 
     logger.info(
         f"Export defaults configured: {dpi} dpi, {format} format, "
@@ -99,4 +98,4 @@ def configure_export_defaults(
     )
 
 
-__all__ = ['configure_export_defaults']
+__all__ = ["configure_export_defaults"]

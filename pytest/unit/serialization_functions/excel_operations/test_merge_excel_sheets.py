@@ -2,11 +2,12 @@
 Unit tests for merge_excel_sheets function.
 """
 
-from pathlib import Path
 import tempfile
+from pathlib import Path
+
+import openpyxl
 
 import pytest
-import openpyxl
 from serialization_functions.excel_operations.merge_excel_sheets import (
     merge_excel_sheets,
 )

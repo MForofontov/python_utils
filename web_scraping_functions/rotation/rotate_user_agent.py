@@ -2,7 +2,7 @@
 Rotate user agents for requests.
 """
 
-from typing import Iterator
+from collections.abc import Iterator
 
 
 def rotate_user_agent(
@@ -47,14 +47,14 @@ def rotate_user_agent(
     """
     if not isinstance(user_agents, list):
         raise TypeError(f"user_agents must be a list, got {type(user_agents).__name__}")
-    
+
     if not user_agents:
         raise ValueError("user_agents list cannot be empty")
-    
+
     index = 0
     while True:
         yield user_agents[index % len(user_agents)]
         index += 1
 
 
-__all__ = ['rotate_user_agent']
+__all__ = ["rotate_user_agent"]

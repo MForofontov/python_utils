@@ -8,10 +8,10 @@ def test_get_random_proxy_returns_from_list() -> None:
     """
     # Arrange
     proxies = ["proxy1", "proxy2", "proxy3"]
-    
+
     # Act
     result = get_random_proxy(proxies)
-    
+
     # Assert
     assert isinstance(result, dict)
     assert "http" in result and "https" in result
@@ -24,10 +24,10 @@ def test_get_random_proxy_single_proxy() -> None:
     """
     # Arrange
     proxies = ["only_proxy"]
-    
+
     # Act
     result = get_random_proxy(proxies)
-    
+
     # Assert
     assert result == {"http": "only_proxy", "https": "only_proxy"}
 
@@ -38,10 +38,10 @@ def test_get_random_proxy_randomness() -> None:
     """
     # Arrange
     proxies = ["proxy1", "proxy2", "proxy3", "proxy4", "proxy5"]
-    
+
     # Act
     results = {get_random_proxy(proxies)["http"] for _ in range(50)}
-    
+
     # Assert - should get at least 2 different proxies in 50 calls
     assert len(results) >= 2
 
@@ -53,10 +53,10 @@ def test_get_random_proxy_list_not_modified() -> None:
     # Arrange
     proxies = ["proxy1", "proxy2", "proxy3"]
     original_proxies = proxies.copy()
-    
+
     # Act
     get_random_proxy(proxies)
-    
+
     # Assert
     assert proxies == original_proxies
 
@@ -87,12 +87,12 @@ def test_get_random_proxy_proxy_formats() -> None:
     proxies = [
         "http://proxy1.com:8080",
         "https://proxy2.com:3128",
-        "socks5://proxy3.com:1080"
+        "socks5://proxy3.com:1080",
     ]
-    
+
     # Act
     result = get_random_proxy(proxies)
-    
+
     # Assert
     assert isinstance(result, dict)
     assert result["http"] in proxies

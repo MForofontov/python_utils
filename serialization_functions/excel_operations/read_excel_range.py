@@ -64,19 +64,25 @@ def read_excel_range(
     """
     if not isinstance(file_path, str):
         raise TypeError(f"file_path must be a string, got {type(file_path).__name__}")
-    
+
     if not isinstance(sheet_name, (str, int)):
-        raise TypeError(f"sheet_name must be str or int, got {type(sheet_name).__name__}")
-    
+        raise TypeError(
+            f"sheet_name must be str or int, got {type(sheet_name).__name__}"
+        )
+
     if range_string is not None and not isinstance(range_string, str):
-        raise TypeError(f"range_string must be str or None, got {type(range_string).__name__}")
-    
+        raise TypeError(
+            f"range_string must be str or None, got {type(range_string).__name__}"
+        )
+
     if not isinstance(values_only, bool):
-        raise TypeError(f"values_only must be a boolean, got {type(values_only).__name__}")
-    
+        raise TypeError(
+            f"values_only must be a boolean, got {type(values_only).__name__}"
+        )
+
     # Load workbook and sheet
     wb = load_workbook(file_path, read_only=True, data_only=values_only)
-    
+
     if isinstance(sheet_name, int):
         if sheet_name < 0 or sheet_name >= len(wb.sheetnames):
             raise ValueError(f"sheet_name index {sheet_name} out of range")
@@ -85,7 +91,7 @@ def read_excel_range(
         if sheet_name not in wb.sheetnames:
             raise ValueError(f"sheet_name '{sheet_name}' not found")
         ws = wb[sheet_name]
-    
+
     # Read range
     if range_string:
         cell_range = ws[range_string]
@@ -97,12 +103,18 @@ def read_excel_range(
             data = [[cell.value if values_only else cell for cell in cell_range]]
         # Handle 2D range
         else:
-            data = [[cell.value if values_only else cell for cell in row] for row in cell_range]
+            data = [
+                [cell.value if values_only else cell for cell in row]
+                for row in cell_range
+            ]
     else:
-        data = [[cell.value if values_only else cell for cell in row] for row in ws.iter_rows()]
-    
+        data = [
+            [cell.value if values_only else cell for cell in row]
+            for row in ws.iter_rows()
+        ]
+
     wb.close()
     return data
 
 
-__all__ = ['read_excel_range']
+__all__ = ["read_excel_range"]

@@ -43,11 +43,11 @@ def check_command_exists(command: str) -> bool:
     """
     if not isinstance(command, str):
         raise TypeError(f"command must be a string, got {type(command).__name__}")
-    
+
     if not command:
         raise ValueError("command cannot be empty")
-    
+
     return shutil.which(command) is not None
 
 
-__all__ = ['check_command_exists']
+__all__ = ["check_command_exists"]

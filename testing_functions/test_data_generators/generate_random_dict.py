@@ -3,8 +3,9 @@ Generate random dictionary for testing.
 """
 
 from typing import Any
-from .generate_random_int import generate_random_int
+
 from .generate_random_float import generate_random_float
+from .generate_random_int import generate_random_int
 from .generate_random_string import generate_random_string
 
 
@@ -55,12 +56,14 @@ def generate_random_dict(
         raise TypeError(f"key_prefix must be a string, got {type(key_prefix).__name__}")
     if not isinstance(value_type, str):
         raise TypeError(f"value_type must be a string, got {type(value_type).__name__}")
-    
+
     if num_keys < 0:
         raise ValueError(f"num_keys must be non-negative, got {num_keys}")
     if value_type not in ("int", "float", "str"):
-        raise ValueError(f"value_type must be 'int', 'float', or 'str', got {value_type}")
-    
+        raise ValueError(
+            f"value_type must be 'int', 'float', or 'str', got {value_type}"
+        )
+
     result: dict[str, Any] = {}
     for i in range(num_keys):
         key = f"{key_prefix}_{i}"
@@ -70,8 +73,8 @@ def generate_random_dict(
             result[key] = generate_random_float()
         else:  # str
             result[key] = generate_random_string()
-    
+
     return result
 
 
-__all__ = ['generate_random_dict']
+__all__ = ["generate_random_dict"]

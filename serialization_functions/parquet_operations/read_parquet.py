@@ -56,18 +56,20 @@ def read_parquet(
     """
     if not isinstance(file_path, str):
         raise TypeError(f"file_path must be a string, got {type(file_path).__name__}")
-    
+
     if columns is not None:
         if not isinstance(columns, list):
-            raise TypeError(f"columns must be a list or None, got {type(columns).__name__}")
+            raise TypeError(
+                f"columns must be a list or None, got {type(columns).__name__}"
+            )
         if not all(isinstance(col, str) for col in columns):
             raise TypeError("all elements in columns must be strings")
-    
+
     # Read Parquet file
     table = pq.read_table(file_path, columns=columns)
-    
+
     # Convert to list of dicts
     return table.to_pylist()  # type: ignore[no-any-return]
 
 
-__all__ = ['read_parquet']
+__all__ = ["read_parquet"]

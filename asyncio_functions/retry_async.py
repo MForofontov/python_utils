@@ -47,7 +47,7 @@ async def retry_async(  # type: ignore[return]
     for attempt in range(retries):
         try:
             return await func()
-        except Exception as e:
+        except Exception:
             if attempt < retries - 1:
                 await asyncio.sleep(delay)
             else:

@@ -3,7 +3,6 @@ URL pattern matching and validation.
 """
 
 import re
-from typing import Any
 
 
 def match_url_pattern(
@@ -81,7 +80,9 @@ def match_url_pattern(
     if not isinstance(pattern, str):
         raise TypeError(f"pattern must be a string, got {type(pattern).__name__}")
     if not isinstance(case_sensitive, bool):
-        raise TypeError(f"case_sensitive must be a bool, got {type(case_sensitive).__name__}")
+        raise TypeError(
+            f"case_sensitive must be a bool, got {type(case_sensitive).__name__}"
+        )
 
     if not url:
         raise ValueError("url cannot be empty")
@@ -122,23 +123,11 @@ def _pattern_to_regex(pattern: str) -> str:
     escaped = pattern
 
     # Replace {name:type} patterns with typed regex groups
-    escaped = re.sub(
-        r"\{(\w+):int\}",
-        r"(?P<\1>\\d+)",
-        escaped
-    )
-    escaped = re.sub(
-        r"\{(\w+):path\}",
-        r"(?P<\1>.+)",
-        escaped
-    )
+    escaped = re.sub(r"\{(\w+):int\}", r"(?P<\1>\\d+)", escaped)
+    escaped = re.sub(r"\{(\w+):path\}", r"(?P<\1>.+)", escaped)
 
     # Replace {name} patterns with named regex groups
-    escaped = re.sub(
-        r"\{(\w+)\}",
-        r"(?P<\1>[^/]+)",
-        escaped
-    )
+    escaped = re.sub(r"\{(\w+)\}", r"(?P<\1>[^/]+)", escaped)
 
     # Replace wildcards
     escaped = escaped.replace("**", ".+")
@@ -208,11 +197,17 @@ def validate_url_format(
     if not isinstance(url, str):
         raise TypeError(f"url must be a string, got {type(url).__name__}")
     if not isinstance(require_scheme, bool):
-        raise TypeError(f"require_scheme must be bool, got {type(require_scheme).__name__}")
+        raise TypeError(
+            f"require_scheme must be bool, got {type(require_scheme).__name__}"
+        )
     if allowed_schemes is not None and not isinstance(allowed_schemes, list):
-        raise TypeError(f"allowed_schemes must be list or None, got {type(allowed_schemes).__name__}")
+        raise TypeError(
+            f"allowed_schemes must be list or None, got {type(allowed_schemes).__name__}"
+        )
     if not isinstance(require_netloc, bool):
-        raise TypeError(f"require_netloc must be bool, got {type(require_netloc).__name__}")
+        raise TypeError(
+            f"require_netloc must be bool, got {type(require_netloc).__name__}"
+        )
 
     if not url:
         return False

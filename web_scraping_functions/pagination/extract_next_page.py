@@ -63,18 +63,18 @@ def extract_next_page(
         raise TypeError(f"selector must be a string, got {type(selector).__name__}")
     if not isinstance(attribute, str):
         raise TypeError(f"attribute must be a string, got {type(attribute).__name__}")
-    
+
     if not selector.strip():
         raise ValueError("selector cannot be empty")
-    
+
     if not attribute.strip():
         raise ValueError("attribute cannot be empty")
-    
+
     next_link = element.select_one(selector)
     if next_link and next_link.has_attr(attribute):
         return next_link[attribute]  # type: ignore[return-value]
-    
+
     return None
 
 
-__all__ = ['extract_next_page']
+__all__ = ["extract_next_page"]

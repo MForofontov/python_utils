@@ -1,6 +1,7 @@
 """Get subnet mask."""
 
 import socket
+
 import psutil
 
 

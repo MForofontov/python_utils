@@ -10,11 +10,24 @@ def test_ssh_execute_script_successful_with_password() -> None:
     """
     Test case 1: Test successful script execution with password authentication.
     """
-    with patch("ssh_functions.remote.ssh_execute_script.paramiko.SSHClient") as mock_client:
-        with patch("ssh_functions.remote.ssh_execute_script.getpass.getuser", return_value="testuser"):
-            with patch("ssh_functions.remote.ssh_execute_script.os.path.exists", return_value=True):
-                with patch("ssh_functions.remote.ssh_execute_script.os.path.isfile", return_value=True):
-                    with patch("builtins.open", mock_open(read_data="#!/bin/bash\necho hello")):
+    with patch(
+        "ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
+    ) as mock_client:
+        with patch(
+            "ssh_functions.remote.ssh_execute_script.getpass.getuser",
+            return_value="testuser",
+        ):
+            with patch(
+                "ssh_functions.remote.ssh_execute_script.os.path.exists",
+                return_value=True,
+            ):
+                with patch(
+                    "ssh_functions.remote.ssh_execute_script.os.path.isfile",
+                    return_value=True,
+                ):
+                    with patch(
+                        "builtins.open", mock_open(read_data="#!/bin/bash\necho hello")
+                    ):
                         mock_ssh = MagicMock()
                         mock_client.return_value = mock_ssh
                         mock_stdin = MagicMock()
@@ -23,9 +36,15 @@ def test_ssh_execute_script_successful_with_password() -> None:
                         mock_stdout.channel.recv_exit_status.return_value = 0
                         mock_stderr = MagicMock()
                         mock_stderr.read.return_value = b""
-                        mock_ssh.exec_command.return_value = (mock_stdin, mock_stdout, mock_stderr)
-                        
-                        result = ssh_execute_script("host", "script.sh", user="user", password="pass")
+                        mock_ssh.exec_command.return_value = (
+                            mock_stdin,
+                            mock_stdout,
+                            mock_stderr,
+                        )
+
+                        result = ssh_execute_script(
+                            "host", "script.sh", user="user", password="pass"
+                        )
                         assert result["stdout"] == "hello"
                         assert result["stderr"] == ""
                         assert result["exit_code"] == 0
@@ -35,10 +54,21 @@ def test_ssh_execute_script_successful_with_key_file() -> None:
     """
     Test case 2: Test successful script execution with key file authentication.
     """
-    with patch("ssh_functions.remote.ssh_execute_script.paramiko.SSHClient") as mock_client:
-        with patch("ssh_functions.remote.ssh_execute_script.getpass.getuser", return_value="testuser"):
-            with patch("ssh_functions.remote.ssh_execute_script.os.path.exists", return_value=True):
-                with patch("ssh_functions.remote.ssh_execute_script.os.path.isfile", return_value=True):
+    with patch(
+        "ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
+    ) as mock_client:
+        with patch(
+            "ssh_functions.remote.ssh_execute_script.getpass.getuser",
+            return_value="testuser",
+        ):
+            with patch(
+                "ssh_functions.remote.ssh_execute_script.os.path.exists",
+                return_value=True,
+            ):
+                with patch(
+                    "ssh_functions.remote.ssh_execute_script.os.path.isfile",
+                    return_value=True,
+                ):
                     with patch("builtins.open", mock_open(read_data="#!/bin/bash\nls")):
                         mock_ssh = MagicMock()
                         mock_client.return_value = mock_ssh
@@ -48,9 +78,18 @@ def test_ssh_execute_script_successful_with_key_file() -> None:
                         mock_stdout.channel.recv_exit_status.return_value = 0
                         mock_stderr = MagicMock()
                         mock_stderr.read.return_value = b""
-                        mock_ssh.exec_command.return_value = (mock_stdin, mock_stdout, mock_stderr)
-                        
-                        result = ssh_execute_script("host", "script.sh", user="user", key_filename="/path/to/key")
+                        mock_ssh.exec_command.return_value = (
+                            mock_stdin,
+                            mock_stdout,
+                            mock_stderr,
+                        )
+
+                        result = ssh_execute_script(
+                            "host",
+                            "script.sh",
+                            user="user",
+                            key_filename="/path/to/key",
+                        )
                         assert result["exit_code"] == 0
 
 
@@ -58,11 +97,25 @@ def test_ssh_execute_script_with_stderr() -> None:
     """
     Test case 3: Test script execution with stderr output.
     """
-    with patch("ssh_functions.remote.ssh_execute_script.paramiko.SSHClient") as mock_client:
-        with patch("ssh_functions.remote.ssh_execute_script.getpass.getuser", return_value="testuser"):
-            with patch("ssh_functions.remote.ssh_execute_script.os.path.exists", return_value=True):
-                with patch("ssh_functions.remote.ssh_execute_script.os.path.isfile", return_value=True):
-                    with patch("builtins.open", mock_open(read_data="#!/bin/bash\necho error >&2")):
+    with patch(
+        "ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
+    ) as mock_client:
+        with patch(
+            "ssh_functions.remote.ssh_execute_script.getpass.getuser",
+            return_value="testuser",
+        ):
+            with patch(
+                "ssh_functions.remote.ssh_execute_script.os.path.exists",
+                return_value=True,
+            ):
+                with patch(
+                    "ssh_functions.remote.ssh_execute_script.os.path.isfile",
+                    return_value=True,
+                ):
+                    with patch(
+                        "builtins.open",
+                        mock_open(read_data="#!/bin/bash\necho error >&2"),
+                    ):
                         mock_ssh = MagicMock()
                         mock_client.return_value = mock_ssh
                         mock_stdin = MagicMock()
@@ -71,9 +124,15 @@ def test_ssh_execute_script_with_stderr() -> None:
                         mock_stdout.channel.recv_exit_status.return_value = 1
                         mock_stderr = MagicMock()
                         mock_stderr.read.return_value = b"error"
-                        mock_ssh.exec_command.return_value = (mock_stdin, mock_stdout, mock_stderr)
-                        
-                        result = ssh_execute_script("host", "script.sh", user="user", password="pass")
+                        mock_ssh.exec_command.return_value = (
+                            mock_stdin,
+                            mock_stdout,
+                            mock_stderr,
+                        )
+
+                        result = ssh_execute_script(
+                            "host", "script.sh", user="user", password="pass"
+                        )
                         assert result["stderr"] == "error"
                         assert result["exit_code"] == 1
 
@@ -82,10 +141,21 @@ def test_ssh_execute_script_with_custom_port() -> None:
     """
     Test case 4: Test script execution with custom port.
     """
-    with patch("ssh_functions.remote.ssh_execute_script.paramiko.SSHClient") as mock_client:
-        with patch("ssh_functions.remote.ssh_execute_script.getpass.getuser", return_value="testuser"):
-            with patch("ssh_functions.remote.ssh_execute_script.os.path.exists", return_value=True):
-                with patch("ssh_functions.remote.ssh_execute_script.os.path.isfile", return_value=True):
+    with patch(
+        "ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
+    ) as mock_client:
+        with patch(
+            "ssh_functions.remote.ssh_execute_script.getpass.getuser",
+            return_value="testuser",
+        ):
+            with patch(
+                "ssh_functions.remote.ssh_execute_script.os.path.exists",
+                return_value=True,
+            ):
+                with patch(
+                    "ssh_functions.remote.ssh_execute_script.os.path.isfile",
+                    return_value=True,
+                ):
                     with patch("builtins.open", mock_open(read_data="#!/bin/bash\nls")):
                         mock_ssh = MagicMock()
                         mock_client.return_value = mock_ssh
@@ -95,13 +165,23 @@ def test_ssh_execute_script_with_custom_port() -> None:
                         mock_stdout.channel.recv_exit_status.return_value = 0
                         mock_stderr = MagicMock()
                         mock_stderr.read.return_value = b""
-                        mock_ssh.exec_command.return_value = (mock_stdin, mock_stdout, mock_stderr)
-                        
-                        result = ssh_execute_script("host", "script.sh", user="user", password="pass", port=2222)
+                        mock_ssh.exec_command.return_value = (
+                            mock_stdin,
+                            mock_stdout,
+                            mock_stderr,
+                        )
+
+                        result = ssh_execute_script(
+                            "host", "script.sh", user="user", password="pass", port=2222
+                        )
                         assert result["exit_code"] == 0
                         mock_ssh.connect.assert_called_once_with(
-                            hostname="host", port=2222, username="user", password="pass", 
-                            key_filename=None, timeout=60.0
+                            hostname="host",
+                            port=2222,
+                            username="user",
+                            password="pass",
+                            key_filename=None,
+                            timeout=60.0,
                         )
 
 
@@ -109,10 +189,21 @@ def test_ssh_execute_script_with_custom_interpreter() -> None:
     """
     Test case 5: Test script execution with custom interpreter.
     """
-    with patch("ssh_functions.remote.ssh_execute_script.paramiko.SSHClient") as mock_client:
-        with patch("ssh_functions.remote.ssh_execute_script.getpass.getuser", return_value="testuser"):
-            with patch("ssh_functions.remote.ssh_execute_script.os.path.exists", return_value=True):
-                with patch("ssh_functions.remote.ssh_execute_script.os.path.isfile", return_value=True):
+    with patch(
+        "ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
+    ) as mock_client:
+        with patch(
+            "ssh_functions.remote.ssh_execute_script.getpass.getuser",
+            return_value="testuser",
+        ):
+            with patch(
+                "ssh_functions.remote.ssh_execute_script.os.path.exists",
+                return_value=True,
+            ):
+                with patch(
+                    "ssh_functions.remote.ssh_execute_script.os.path.isfile",
+                    return_value=True,
+                ):
                     with patch("builtins.open", mock_open(read_data="print('hello')")):
                         mock_ssh = MagicMock()
                         mock_client.return_value = mock_ssh
@@ -122,21 +213,44 @@ def test_ssh_execute_script_with_custom_interpreter() -> None:
                         mock_stdout.channel.recv_exit_status.return_value = 0
                         mock_stderr = MagicMock()
                         mock_stderr.read.return_value = b""
-                        mock_ssh.exec_command.return_value = (mock_stdin, mock_stdout, mock_stderr)
-                        
-                        result = ssh_execute_script("host", "script.py", user="user", password="pass", interpreter="python3")
+                        mock_ssh.exec_command.return_value = (
+                            mock_stdin,
+                            mock_stdout,
+                            mock_stderr,
+                        )
+
+                        result = ssh_execute_script(
+                            "host",
+                            "script.py",
+                            user="user",
+                            password="pass",
+                            interpreter="python3",
+                        )
                         assert result["exit_code"] == 0
-                        mock_ssh.exec_command.assert_called_once_with("python3 -s", timeout=60.0)
+                        mock_ssh.exec_command.assert_called_once_with(
+                            "python3 -s", timeout=60.0
+                        )
 
 
 def test_ssh_execute_script_default_user() -> None:
     """
     Test case 6: Test script execution with default user from getpass.
     """
-    with patch("ssh_functions.remote.ssh_execute_script.paramiko.SSHClient") as mock_client:
-        with patch("ssh_functions.remote.ssh_execute_script.getpass.getuser", return_value="currentuser"):
-            with patch("ssh_functions.remote.ssh_execute_script.os.path.exists", return_value=True):
-                with patch("ssh_functions.remote.ssh_execute_script.os.path.isfile", return_value=True):
+    with patch(
+        "ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
+    ) as mock_client:
+        with patch(
+            "ssh_functions.remote.ssh_execute_script.getpass.getuser",
+            return_value="currentuser",
+        ):
+            with patch(
+                "ssh_functions.remote.ssh_execute_script.os.path.exists",
+                return_value=True,
+            ):
+                with patch(
+                    "ssh_functions.remote.ssh_execute_script.os.path.isfile",
+                    return_value=True,
+                ):
                     with patch("builtins.open", mock_open(read_data="#!/bin/bash\nls")):
                         mock_ssh = MagicMock()
                         mock_client.return_value = mock_ssh
@@ -146,9 +260,15 @@ def test_ssh_execute_script_default_user() -> None:
                         mock_stdout.channel.recv_exit_status.return_value = 0
                         mock_stderr = MagicMock()
                         mock_stderr.read.return_value = b""
-                        mock_ssh.exec_command.return_value = (mock_stdin, mock_stdout, mock_stderr)
-                        
-                        result = ssh_execute_script("host", "script.sh", password="pass")
+                        mock_ssh.exec_command.return_value = (
+                            mock_stdin,
+                            mock_stdout,
+                            mock_stderr,
+                        )
+
+                        result = ssh_execute_script(
+                            "host", "script.sh", password="pass"
+                        )
                         assert result["exit_code"] == 0
 
 
@@ -156,10 +276,21 @@ def test_ssh_execute_script_boundary_port_min() -> None:
     """
     Test case 7: Test script execution with minimum port value.
     """
-    with patch("ssh_functions.remote.ssh_execute_script.paramiko.SSHClient") as mock_client:
-        with patch("ssh_functions.remote.ssh_execute_script.getpass.getuser", return_value="testuser"):
-            with patch("ssh_functions.remote.ssh_execute_script.os.path.exists", return_value=True):
-                with patch("ssh_functions.remote.ssh_execute_script.os.path.isfile", return_value=True):
+    with patch(
+        "ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
+    ) as mock_client:
+        with patch(
+            "ssh_functions.remote.ssh_execute_script.getpass.getuser",
+            return_value="testuser",
+        ):
+            with patch(
+                "ssh_functions.remote.ssh_execute_script.os.path.exists",
+                return_value=True,
+            ):
+                with patch(
+                    "ssh_functions.remote.ssh_execute_script.os.path.isfile",
+                    return_value=True,
+                ):
                     with patch("builtins.open", mock_open(read_data="#!/bin/bash\nls")):
                         mock_ssh = MagicMock()
                         mock_client.return_value = mock_ssh
@@ -169,9 +300,15 @@ def test_ssh_execute_script_boundary_port_min() -> None:
                         mock_stdout.channel.recv_exit_status.return_value = 0
                         mock_stderr = MagicMock()
                         mock_stderr.read.return_value = b""
-                        mock_ssh.exec_command.return_value = (mock_stdin, mock_stdout, mock_stderr)
-                        
-                        result = ssh_execute_script("host", "script.sh", user="user", password="pass", port=1)
+                        mock_ssh.exec_command.return_value = (
+                            mock_stdin,
+                            mock_stdout,
+                            mock_stderr,
+                        )
+
+                        result = ssh_execute_script(
+                            "host", "script.sh", user="user", password="pass", port=1
+                        )
                         assert result["exit_code"] == 0
 
 
@@ -179,10 +316,21 @@ def test_ssh_execute_script_boundary_port_max() -> None:
     """
     Test case 8: Test script execution with maximum port value.
     """
-    with patch("ssh_functions.remote.ssh_execute_script.paramiko.SSHClient") as mock_client:
-        with patch("ssh_functions.remote.ssh_execute_script.getpass.getuser", return_value="testuser"):
-            with patch("ssh_functions.remote.ssh_execute_script.os.path.exists", return_value=True):
-                with patch("ssh_functions.remote.ssh_execute_script.os.path.isfile", return_value=True):
+    with patch(
+        "ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
+    ) as mock_client:
+        with patch(
+            "ssh_functions.remote.ssh_execute_script.getpass.getuser",
+            return_value="testuser",
+        ):
+            with patch(
+                "ssh_functions.remote.ssh_execute_script.os.path.exists",
+                return_value=True,
+            ):
+                with patch(
+                    "ssh_functions.remote.ssh_execute_script.os.path.isfile",
+                    return_value=True,
+                ):
                     with patch("builtins.open", mock_open(read_data="#!/bin/bash\nls")):
                         mock_ssh = MagicMock()
                         mock_client.return_value = mock_ssh
@@ -192,9 +340,19 @@ def test_ssh_execute_script_boundary_port_max() -> None:
                         mock_stdout.channel.recv_exit_status.return_value = 0
                         mock_stderr = MagicMock()
                         mock_stderr.read.return_value = b""
-                        mock_ssh.exec_command.return_value = (mock_stdin, mock_stdout, mock_stderr)
-                        
-                        result = ssh_execute_script("host", "script.sh", user="user", password="pass", port=65535)
+                        mock_ssh.exec_command.return_value = (
+                            mock_stdin,
+                            mock_stdout,
+                            mock_stderr,
+                        )
+
+                        result = ssh_execute_script(
+                            "host",
+                            "script.sh",
+                            user="user",
+                            password="pass",
+                            port=65535,
+                        )
                         assert result["exit_code"] == 0
 
 
@@ -298,7 +456,9 @@ def test_ssh_execute_script_value_error_file_not_found() -> None:
     """
     Test case 21: Test ValueError when script file doesn't exist.
     """
-    with patch("ssh_functions.remote.ssh_execute_script.os.path.exists", return_value=False):
+    with patch(
+        "ssh_functions.remote.ssh_execute_script.os.path.exists", return_value=False
+    ):
         with pytest.raises(ValueError, match="Script file not found"):
             ssh_execute_script("host", "nonexistent.sh", user="user", password="pass")
 
@@ -307,58 +467,109 @@ def test_ssh_execute_script_value_error_not_a_file() -> None:
     """
     Test case 22: Test ValueError when script path is not a file.
     """
-    with patch("ssh_functions.remote.ssh_execute_script.os.path.exists", return_value=True):
-        with patch("ssh_functions.remote.ssh_execute_script.os.path.isfile", return_value=False):
+    with patch(
+        "ssh_functions.remote.ssh_execute_script.os.path.exists", return_value=True
+    ):
+        with patch(
+            "ssh_functions.remote.ssh_execute_script.os.path.isfile", return_value=False
+        ):
             with pytest.raises(ValueError, match="Script path is not a file"):
-                ssh_execute_script("host", "/some/directory", user="user", password="pass")
+                ssh_execute_script(
+                    "host", "/some/directory", user="user", password="pass"
+                )
 
 
 def test_ssh_execute_script_runtime_error_auth_failure() -> None:
     """
     Test case 23: Test RuntimeError for authentication failure.
     """
-    with patch("ssh_functions.remote.ssh_execute_script.paramiko.SSHClient") as mock_client:
-        with patch("ssh_functions.remote.ssh_execute_script.getpass.getuser", return_value="testuser"):
-            with patch("ssh_functions.remote.ssh_execute_script.os.path.exists", return_value=True):
-                with patch("ssh_functions.remote.ssh_execute_script.os.path.isfile", return_value=True):
+    with patch(
+        "ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
+    ) as mock_client:
+        with patch(
+            "ssh_functions.remote.ssh_execute_script.getpass.getuser",
+            return_value="testuser",
+        ):
+            with patch(
+                "ssh_functions.remote.ssh_execute_script.os.path.exists",
+                return_value=True,
+            ):
+                with patch(
+                    "ssh_functions.remote.ssh_execute_script.os.path.isfile",
+                    return_value=True,
+                ):
                     mock_ssh = MagicMock()
                     mock_client.return_value = mock_ssh
                     import paramiko
-                    mock_ssh.connect.side_effect = paramiko.AuthenticationException("Auth failed")
-                    
+
+                    mock_ssh.connect.side_effect = paramiko.AuthenticationException(
+                        "Auth failed"
+                    )
+
                     with pytest.raises(RuntimeError, match="SSH authentication failed"):
-                        ssh_execute_script("host", "script.sh", user="user", password="badpass")
+                        ssh_execute_script(
+                            "host", "script.sh", user="user", password="badpass"
+                        )
 
 
 def test_ssh_execute_script_runtime_error_ssh_exception() -> None:
     """
     Test case 24: Test RuntimeError for SSH exception.
     """
-    with patch("ssh_functions.remote.ssh_execute_script.paramiko.SSHClient") as mock_client:
-        with patch("ssh_functions.remote.ssh_execute_script.getpass.getuser", return_value="testuser"):
-            with patch("ssh_functions.remote.ssh_execute_script.os.path.exists", return_value=True):
-                with patch("ssh_functions.remote.ssh_execute_script.os.path.isfile", return_value=True):
+    with patch(
+        "ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
+    ) as mock_client:
+        with patch(
+            "ssh_functions.remote.ssh_execute_script.getpass.getuser",
+            return_value="testuser",
+        ):
+            with patch(
+                "ssh_functions.remote.ssh_execute_script.os.path.exists",
+                return_value=True,
+            ):
+                with patch(
+                    "ssh_functions.remote.ssh_execute_script.os.path.isfile",
+                    return_value=True,
+                ):
                     mock_ssh = MagicMock()
                     mock_client.return_value = mock_ssh
                     import paramiko
+
                     mock_ssh.connect.side_effect = paramiko.SSHException("SSH error")
-                    
+
                     with pytest.raises(RuntimeError, match="SSH connection error"):
-                        ssh_execute_script("host", "script.sh", user="user", password="pass")
+                        ssh_execute_script(
+                            "host", "script.sh", user="user", password="pass"
+                        )
 
 
 def test_ssh_execute_script_runtime_error_general() -> None:
     """
     Test case 25: Test RuntimeError for general exception.
     """
-    with patch("ssh_functions.remote.ssh_execute_script.paramiko.SSHClient") as mock_client:
-        with patch("ssh_functions.remote.ssh_execute_script.getpass.getuser", return_value="testuser"):
-            with patch("ssh_functions.remote.ssh_execute_script.os.path.exists", return_value=True):
-                with patch("ssh_functions.remote.ssh_execute_script.os.path.isfile", return_value=True):
+    with patch(
+        "ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
+    ) as mock_client:
+        with patch(
+            "ssh_functions.remote.ssh_execute_script.getpass.getuser",
+            return_value="testuser",
+        ):
+            with patch(
+                "ssh_functions.remote.ssh_execute_script.os.path.exists",
+                return_value=True,
+            ):
+                with patch(
+                    "ssh_functions.remote.ssh_execute_script.os.path.isfile",
+                    return_value=True,
+                ):
                     with patch("builtins.open", mock_open(read_data="#!/bin/bash\nls")):
                         mock_ssh = MagicMock()
                         mock_client.return_value = mock_ssh
-                        mock_ssh.exec_command.side_effect = Exception("Execution failed")
-                        
+                        mock_ssh.exec_command.side_effect = Exception(
+                            "Execution failed"
+                        )
+
                         with pytest.raises(RuntimeError, match="SSH command failed"):
-                            ssh_execute_script("host", "script.sh", user="user", password="pass")
+                            ssh_execute_script(
+                                "host", "script.sh", user="user", password="pass"
+                            )

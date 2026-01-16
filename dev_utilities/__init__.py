@@ -13,21 +13,33 @@ from . import (
 )
 
 # Import all functions for direct access
-from .code_analysis.count_code_lines import count_code_lines, count_code_lines_directory, CodeLineCount
+from .code_analysis.count_code_lines import (
+    CodeLineCount,
+    count_code_lines,
+    count_code_lines_directory,
+)
 from .code_analysis.generate_dependency_graph import generate_dependency_graph
-from .code_analysis.get_code_statistics import get_code_statistics, format_statistics, CodeStatistics
-from .license_templates.generate_license import generate_license, save_license_file, LicenseType
-from .project_validation.validate_project_structure import (
-    validate_project_structure,
-    format_validation_result,
-    ValidationResult,
-    ValidationIssue,
+from .code_analysis.get_code_statistics import (
+    CodeStatistics,
+    format_statistics,
+    get_code_statistics,
+)
+from .license_templates.generate_license import (
+    LicenseType,
+    generate_license,
+    save_license_file,
 )
 from .project_validation.find_missing_tests import (
+    CoverageReport,
+    MissingTest,
     find_missing_tests,
     format_coverage_report,
-    MissingTest,
-    CoverageReport,
+)
+from .project_validation.validate_project_structure import (
+    ValidationIssue,
+    ValidationResult,
+    format_validation_result,
+    validate_project_structure,
 )
 
 __all__ = [
@@ -58,4 +70,3 @@ __all__ = [
     "CoverageReport",
     "LicenseType",
 ]
-

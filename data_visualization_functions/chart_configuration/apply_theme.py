@@ -49,27 +49,29 @@ def apply_theme(theme: ChartTheme) -> None:
     Time: O(1), Space: O(1)
     """
     if not isinstance(theme, ChartTheme):
-        raise TypeError(f"theme must be a ChartTheme instance, got {type(theme).__name__}")
+        raise TypeError(
+            f"theme must be a ChartTheme instance, got {type(theme).__name__}"
+        )
 
     # Apply theme settings
-    plt.rcParams['figure.facecolor'] = theme.background_color
-    plt.rcParams['axes.facecolor'] = theme.background_color
-    plt.rcParams['axes.edgecolor'] = theme.grid_color
-    plt.rcParams['axes.grid'] = True
-    plt.rcParams['grid.color'] = theme.grid_color
-    plt.rcParams['grid.alpha'] = theme.grid_alpha
-    plt.rcParams['axes.titlesize'] = theme.title_fontsize
-    plt.rcParams['axes.labelsize'] = theme.label_fontsize
-    plt.rcParams['xtick.labelsize'] = theme.tick_fontsize
-    plt.rcParams['ytick.labelsize'] = theme.tick_fontsize
-    plt.rcParams['legend.fontsize'] = theme.legend_fontsize
-    plt.rcParams['lines.linewidth'] = theme.line_width
-    plt.rcParams['font.family'] = theme.font_family
+    plt.rcParams["figure.facecolor"] = theme.background_color
+    plt.rcParams["axes.facecolor"] = theme.background_color
+    plt.rcParams["axes.edgecolor"] = theme.grid_color
+    plt.rcParams["axes.grid"] = True
+    plt.rcParams["grid.color"] = theme.grid_color
+    plt.rcParams["grid.alpha"] = theme.grid_alpha
+    plt.rcParams["axes.titlesize"] = theme.title_fontsize
+    plt.rcParams["axes.labelsize"] = theme.label_fontsize
+    plt.rcParams["xtick.labelsize"] = theme.tick_fontsize
+    plt.rcParams["ytick.labelsize"] = theme.tick_fontsize
+    plt.rcParams["legend.fontsize"] = theme.legend_fontsize
+    plt.rcParams["lines.linewidth"] = theme.line_width
+    plt.rcParams["font.family"] = theme.font_family
 
     # Set color cycle
-    plt.rcParams['axes.prop_cycle'] = cycler(color=theme.color_cycle)
+    plt.rcParams["axes.prop_cycle"] = cycler(color=theme.color_cycle)
 
     logger.info(f"Applied theme: {theme.name}")
 
 
-__all__ = ['apply_theme']
+__all__ = ["apply_theme"]

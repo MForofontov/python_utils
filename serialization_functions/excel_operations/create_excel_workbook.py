@@ -2,8 +2,8 @@
 Create new Excel workbook with multiple sheets.
 """
 
-from typing import Any
 from pathlib import Path
+from typing import Any
 
 from openpyxl import Workbook
 
@@ -57,37 +57,39 @@ def create_excel_workbook(
     """
     if not isinstance(file_path, str):
         raise TypeError(f"file_path must be a string, got {type(file_path).__name__}")
-    
+
     if sheets is not None and not isinstance(sheets, dict):
         raise TypeError(f"sheets must be a dict or None, got {type(sheets).__name__}")
-    
+
     # Create parent directories
     Path(file_path).parent.mkdir(parents=True, exist_ok=True)
-    
+
     wb = Workbook()
-    
+
     if sheets:
         # Remove default sheet
-        if 'Sheet' in wb.sheetnames:
-            wb.remove(wb['Sheet'])
-        
+        if "Sheet" in wb.sheetnames:
+            wb.remove(wb["Sheet"])
+
         for sheet_name, data in sheets.items():
             if not isinstance(sheet_name, str):
-                raise TypeError(f"sheet name must be a string, got {type(sheet_name).__name__}")
-            
+                raise TypeError(
+                    f"sheet name must be a string, got {type(sheet_name).__name__}"
+                )
+
             if not isinstance(data, list):
                 raise TypeError(f"sheet data must be a list, got {type(data).__name__}")
-            
+
             if not all(isinstance(row, list) for row in data):
                 raise TypeError("all rows in sheet data must be lists")
-            
+
             ws = wb.create_sheet(sheet_name)
-            
+
             for row_data in data:
                 ws.append(row_data)
-    
+
     wb.save(file_path)
     wb.close()
 
 
-__all__ = ['create_excel_workbook']
+__all__ = ["create_excel_workbook"]

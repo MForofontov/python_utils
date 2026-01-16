@@ -3,8 +3,9 @@ Convert CSV to Parquet with schema inference and transformations.
 """
 
 import csv
+from collections.abc import Callable
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any
 
 import pyarrow as pa
 import pyarrow.parquet as pq
@@ -19,7 +20,7 @@ def csv_to_parquet(
     transformers: dict[str, Callable[[str], Any]] | None = None,
     chunk_size: int = 10000,
     compression: str = "snappy",
-    encoding: str = 'utf-8',
+    encoding: str = "utf-8",
     **csv_kwargs: Any,
 ) -> int:
     """
@@ -135,7 +136,7 @@ def csv_to_parquet(
     if chunk_size <= 0:
         raise ValueError(f"chunk_size must be positive, got {chunk_size}")
 
-    valid_compressions = {'snappy', 'gzip', 'brotli', 'lz4', 'zstd', 'none'}
+    valid_compressions = {"snappy", "gzip", "brotli", "lz4", "zstd", "none"}
     if compression not in valid_compressions:
         raise ValueError(
             f"compression must be one of {valid_compressions}, got '{compression}'"
@@ -147,7 +148,7 @@ def csv_to_parquet(
     inferred_schema = schema
 
     try:
-        with open(input_file, 'r', encoding=encoding, newline='') as csvfile:
+        with open(input_file, encoding=encoding, newline="") as csvfile:
             reader = csv.DictReader(csvfile, **csv_kwargs)
 
             if reader.fieldnames is None:
@@ -186,9 +187,7 @@ def csv_to_parquet(
                     # Write to Parquet
                     if writer is None:
                         writer = pq.ParquetWriter(
-                            output_file,
-                            table.schema,
-                            compression=compression
+                            output_file, table.schema, compression=compression
                         )
 
                     writer.write_table(table)
@@ -207,9 +206,7 @@ def csv_to_parquet(
 
                 if writer is None:
                     writer = pq.ParquetWriter(
-                        output_file,
-                        table.schema,
-                        compression=compression
+                        output_file, table.schema, compression=compression
                     )
 
                 writer.write_table(table)
@@ -222,4 +219,4 @@ def csv_to_parquet(
     return total_rows
 
 
-__all__ = ['csv_to_parquet']
+__all__ = ["csv_to_parquet"]

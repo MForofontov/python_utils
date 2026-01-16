@@ -12,9 +12,7 @@ def test_ssh_copy_file_successful() -> None:
     Test case 1: Successful file copy.
     """
     with patch("subprocess.run") as mock_run:
-        mock_run.return_value = MagicMock(
-            stdout="", stderr="", returncode=0
-        )
+        mock_run.return_value = MagicMock(stdout="", stderr="", returncode=0)
         result = ssh_copy_file("local.txt", "/remote/path.txt", "host", user="user")
         assert result["exit_code"] == 0
 
@@ -24,9 +22,7 @@ def test_ssh_copy_file_with_stderr() -> None:
     Test case 2: File copy with stderr output.
     """
     with patch("subprocess.run") as mock_run:
-        mock_run.return_value = MagicMock(
-            stdout="", stderr="warning", returncode=0
-        )
+        mock_run.return_value = MagicMock(stdout="", stderr="warning", returncode=0)
         result = ssh_copy_file("local.txt", "/remote/path.txt", "host", user="user")
         assert result["stderr"] == "warning"
 
@@ -36,10 +32,10 @@ def test_ssh_copy_file_with_custom_port() -> None:
     Test case 3: File copy with custom port.
     """
     with patch("subprocess.run") as mock_run:
-        mock_run.return_value = MagicMock(
-            stdout="", stderr="", returncode=0
+        mock_run.return_value = MagicMock(stdout="", stderr="", returncode=0)
+        result = ssh_copy_file(
+            "local.txt", "/remote/path.txt", "host", user="user", port=2222
         )
-        result = ssh_copy_file("local.txt", "/remote/path.txt", "host", user="user", port=2222)
         assert result["exit_code"] == 0
 
 
@@ -48,9 +44,7 @@ def test_ssh_copy_file_without_user() -> None:
     Test case 4: File copy without specifying user.
     """
     with patch("subprocess.run") as mock_run:
-        mock_run.return_value = MagicMock(
-            stdout="", stderr="", returncode=0
-        )
+        mock_run.return_value = MagicMock(stdout="", stderr="", returncode=0)
         result = ssh_copy_file("local.txt", "/remote/path.txt", "host")
         assert result["exit_code"] == 0
 
@@ -60,9 +54,7 @@ def test_ssh_copy_file_boundary_port_min() -> None:
     Test case 5: File copy with minimum port value.
     """
     with patch("subprocess.run") as mock_run:
-        mock_run.return_value = MagicMock(
-            stdout="", stderr="", returncode=0
-        )
+        mock_run.return_value = MagicMock(stdout="", stderr="", returncode=0)
         result = ssh_copy_file("local.txt", "/remote/path.txt", "host", port=1)
         assert result["exit_code"] == 0
 
@@ -72,9 +64,7 @@ def test_ssh_copy_file_boundary_port_max() -> None:
     Test case 6: File copy with maximum port value.
     """
     with patch("subprocess.run") as mock_run:
-        mock_run.return_value = MagicMock(
-            stdout="", stderr="", returncode=0
-        )
+        mock_run.return_value = MagicMock(stdout="", stderr="", returncode=0)
         result = ssh_copy_file("local.txt", "/remote/path.txt", "host", port=65535)
         assert result["exit_code"] == 0
 

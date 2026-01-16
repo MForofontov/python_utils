@@ -13,9 +13,7 @@ def test_ssh_execute_script_successful() -> None:
     """
     with patch("builtins.open", mock_open(read_data=b"#!/bin/bash\necho hello")):
         with patch("subprocess.run") as mock_run:
-            mock_run.return_value = MagicMock(
-                stdout="hello", stderr="", returncode=0
-            )
+            mock_run.return_value = MagicMock(stdout="hello", stderr="", returncode=0)
             result = ssh_execute_script("host", "script.sh", user="user")
             assert result["stdout"] == "hello"
             assert result["exit_code"] == 0
@@ -27,9 +25,7 @@ def test_ssh_execute_script_with_stderr() -> None:
     """
     with patch("builtins.open", mock_open(read_data=b"#!/bin/bash\necho error >&2")):
         with patch("subprocess.run") as mock_run:
-            mock_run.return_value = MagicMock(
-                stdout="", stderr="error", returncode=1
-            )
+            mock_run.return_value = MagicMock(stdout="", stderr="error", returncode=1)
             result = ssh_execute_script("host", "script.sh", user="user")
             assert result["stderr"] == "error"
             assert result["exit_code"] == 1
@@ -41,9 +37,7 @@ def test_ssh_execute_script_with_custom_port() -> None:
     """
     with patch("builtins.open", mock_open(read_data=b"#!/bin/bash\nls")):
         with patch("subprocess.run") as mock_run:
-            mock_run.return_value = MagicMock(
-                stdout="ok", stderr="", returncode=0
-            )
+            mock_run.return_value = MagicMock(stdout="ok", stderr="", returncode=0)
             result = ssh_execute_script("host", "script.sh", user="user", port=2222)
             assert result["exit_code"] == 0
 
@@ -54,9 +48,7 @@ def test_ssh_execute_script_without_user() -> None:
     """
     with patch("builtins.open", mock_open(read_data=b"#!/bin/bash\nls")):
         with patch("subprocess.run") as mock_run:
-            mock_run.return_value = MagicMock(
-                stdout="ok", stderr="", returncode=0
-            )
+            mock_run.return_value = MagicMock(stdout="ok", stderr="", returncode=0)
             result = ssh_execute_script("host", "script.sh")
             assert result["exit_code"] == 0
 
@@ -67,9 +59,7 @@ def test_ssh_execute_script_boundary_port_min() -> None:
     """
     with patch("builtins.open", mock_open(read_data=b"#!/bin/bash\nls")):
         with patch("subprocess.run") as mock_run:
-            mock_run.return_value = MagicMock(
-                stdout="ok", stderr="", returncode=0
-            )
+            mock_run.return_value = MagicMock(stdout="ok", stderr="", returncode=0)
             result = ssh_execute_script("host", "script.sh", port=1)
             assert result["exit_code"] == 0
 
@@ -80,9 +70,7 @@ def test_ssh_execute_script_boundary_port_max() -> None:
     """
     with patch("builtins.open", mock_open(read_data=b"#!/bin/bash\nls")):
         with patch("subprocess.run") as mock_run:
-            mock_run.return_value = MagicMock(
-                stdout="ok", stderr="", returncode=0
-            )
+            mock_run.return_value = MagicMock(stdout="ok", stderr="", returncode=0)
             result = ssh_execute_script("host", "script.sh", port=65535)
             assert result["exit_code"] == 0
 

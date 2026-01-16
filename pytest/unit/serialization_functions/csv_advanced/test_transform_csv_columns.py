@@ -3,8 +3,8 @@ Unit tests for transform_csv_columns function.
 """
 
 import csv
-from pathlib import Path
 import tempfile
+from pathlib import Path
 
 import pytest
 from serialization_functions.csv_advanced.transform_csv_columns import (
@@ -30,7 +30,7 @@ def test_transform_csv_columns_column_mapping() -> None:
         rows = transform_csv_columns(input_file, output_file, column_mapping=mapping)
 
         assert rows == 2
-        with open(output_file, "r", newline="") as f:
+        with open(output_file, newline="") as f:
             reader = csv.DictReader(f)
             data = list(reader)
             assert data[0]["name"] == "Alice"
@@ -55,7 +55,7 @@ def test_transform_csv_columns_select_columns() -> None:
         )
 
         assert rows == 1
-        with open(output_file, "r", newline="") as f:
+        with open(output_file, newline="") as f:
             reader = csv.DictReader(f)
             row = next(reader)
             assert list(row.keys()) == ["id", "name"]
@@ -80,7 +80,7 @@ def test_transform_csv_columns_transformers() -> None:
         rows = transform_csv_columns(input_file, output_file, transformers=transformers)
 
         assert rows == 1
-        with open(output_file, "r", newline="") as f:
+        with open(output_file, newline="") as f:
             reader = csv.DictReader(f)
             row = next(reader)
             assert row["email"] == "alice@example.com"
@@ -105,7 +105,7 @@ def test_transform_csv_columns_filter_rows() -> None:
         rows = transform_csv_columns(input_file, output_file, filter_func=filter_func)
 
         assert rows == 2  # Only adults
-        with open(output_file, "r", newline="") as f:
+        with open(output_file, newline="") as f:
             reader = csv.DictReader(f)
             data = list(reader)
             assert len(data) == 2

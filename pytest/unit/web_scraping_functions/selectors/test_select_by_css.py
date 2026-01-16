@@ -1,5 +1,6 @@
-import pytest
 from bs4 import BeautifulSoup
+
+import pytest
 from web_scraping_functions.selectors.select_by_css import select_by_css
 
 
@@ -10,10 +11,10 @@ def test_select_by_css_simple_selector() -> None:
     # Arrange
     html = '<div class="item">A</div><div class="item">B</div>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act
     result = select_by_css(soup, ".item")
-    
+
     # Assert
     assert len(result) == 2
     assert result[0].text == "A"
@@ -27,10 +28,10 @@ def test_select_by_css_with_limit() -> None:
     # Arrange
     html = '<div class="item">A</div><div class="item">B</div><div class="item">C</div>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act
     result = select_by_css(soup, ".item", limit=2)
-    
+
     # Assert
     assert len(result) == 2
 
@@ -42,10 +43,10 @@ def test_select_by_css_complex_selector() -> None:
     # Arrange
     html = '<div class="outer"><p class="inner">Text</p></div>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act
     result = select_by_css(soup, "div.outer p.inner")
-    
+
     # Assert
     assert len(result) == 1
     assert result[0].text == "Text"
@@ -58,10 +59,10 @@ def test_select_by_css_attribute_selector() -> None:
     # Arrange
     html = '<a href="/page1">Link1</a><a href="/page2">Link2</a>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act
     result = select_by_css(soup, 'a[href="/page1"]')
-    
+
     # Assert
     assert len(result) == 1
     assert result[0].text == "Link1"
@@ -74,10 +75,10 @@ def test_select_by_css_no_matches() -> None:
     # Arrange
     html = '<div class="item">A</div>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act
     result = select_by_css(soup, ".nonexistent")
-    
+
     # Assert
     assert result == []
 
@@ -98,7 +99,7 @@ def test_select_by_css_type_error_selector() -> None:
     # Arrange
     html = '<div class="item">A</div>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match="selector must be a string"):
         select_by_css(soup, 123)
@@ -111,7 +112,7 @@ def test_select_by_css_type_error_limit() -> None:
     # Arrange
     html = '<div class="item">A</div>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match="limit must be an integer or None"):
         select_by_css(soup, ".item", limit="5")
@@ -124,7 +125,7 @@ def test_select_by_css_value_error_empty_selector() -> None:
     # Arrange
     html = '<div class="item">A</div>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match="selector cannot be empty"):
         select_by_css(soup, "")
@@ -137,7 +138,7 @@ def test_select_by_css_value_error_non_positive_limit() -> None:
     # Arrange
     html = '<div class="item">A</div>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match="limit must be positive"):
         select_by_css(soup, ".item", limit=0)

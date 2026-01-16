@@ -113,10 +113,10 @@ def test_parse_size_round_trip_consistency() -> None:
     """
     # This test verifies that parsing formatted sizes returns close to original
     from formatting_functions.format_file_size import format_file_size
-    
+
     # Arrange
     original_sizes = [1024, 1048576, 1073741824]
-    
+
     # Act & Assert
     for size in original_sizes:
         formatted = format_file_size(size, precision=0)
@@ -131,7 +131,7 @@ def test_parse_size_invalid_type_size_str() -> None:
     """
     # Arrange
     expected_message = "size_str must be a string, got int"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         parse_size(1024)
@@ -143,7 +143,7 @@ def test_parse_size_invalid_type_binary() -> None:
     """
     # Arrange
     expected_message = "binary must be a boolean, got str"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         parse_size("1 MB", binary="true")
@@ -155,11 +155,11 @@ def test_parse_size_empty_string() -> None:
     """
     # Arrange
     expected_message = "size_str cannot be empty"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         parse_size("")
-    
+
     with pytest.raises(ValueError, match=expected_message):
         parse_size("   ")
 
@@ -170,11 +170,11 @@ def test_parse_size_invalid_format() -> None:
     """
     # Arrange
     expected_message = "Invalid size format|Invalid number in size string"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         parse_size("abc")
-    
+
     with pytest.raises(ValueError, match=expected_message):
         parse_size("1.2.3 MB")
 
@@ -185,7 +185,7 @@ def test_parse_size_invalid_number() -> None:
     """
     # Arrange
     expected_message = "Invalid number in size string"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         parse_size("..5 MB")
@@ -197,7 +197,7 @@ def test_parse_size_negative_value() -> None:
     """
     # Arrange
     expected_message = "Invalid size format"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         parse_size("-1 MB")
@@ -209,10 +209,10 @@ def test_parse_size_unknown_unit() -> None:
     """
     # Arrange
     expected_message = "Unknown unit"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         parse_size("1 XB")
-    
+
     with pytest.raises(ValueError, match=expected_message):
         parse_size("1 INVALID")

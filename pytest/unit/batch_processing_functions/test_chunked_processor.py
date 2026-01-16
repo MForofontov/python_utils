@@ -1,10 +1,9 @@
-from typing import Any
 from unittest.mock import Mock
 
 import pytest
 from batch_processing_functions.chunked_processor import (
-    chunked_processor,
     ChunkedProcessor,
+    chunked_processor,
 )
 
 
@@ -102,7 +101,9 @@ def test_chunked_processor_edge_case_processor_returns_none() -> None:
     Test case 8: Processor returns None for some items.
     """
     items = [1, 2, 3, 4]
-    processor = Mock(side_effect=lambda batch: [None if x % 2 == 0 else x for x in batch])
+    processor = Mock(
+        side_effect=lambda batch: [None if x % 2 == 0 else x for x in batch]
+    )
 
     results = list(chunked_processor(items, processor, chunk_size=2))
 
@@ -238,7 +239,7 @@ def test_chunked_processor_class_different_datasets() -> None:
     processor = Mock(side_effect=lambda batch: [x * 2 for x in batch])
 
     cp = ChunkedProcessor(processor, chunk_size=2)
-    
+
     results1 = list(cp.process([1, 2, 3]))
     results2 = list(cp.process([10, 20]))
 
@@ -273,9 +274,7 @@ def test_chunked_processor_class_type_error_invalid_max_memory_mb() -> None:
         ChunkedProcessor(processor, chunk_size=3, max_memory_mb="90")  # type: ignore[arg-type]
 
 
-def test_chunked_processor_class_value_error_max_memory_mb_negative() -> (
-    None
-):
+def test_chunked_processor_class_value_error_max_memory_mb_negative() -> None:
     """
     Test case 23: ValueError for negative max_memory_mb.
     """
@@ -297,7 +296,9 @@ def test_chunked_processor_type_error_processor_returns_non_list() -> None:
     Test case 25: TypeError when processor returns non-list.
     """
     items = [1, 2, 3]
-    processor = Mock(side_effect=lambda batch: tuple(batch))  # Returns tuple instead of list
+    processor = Mock(
+        side_effect=lambda batch: tuple(batch)
+    )  # Returns tuple instead of list
 
     with pytest.raises(TypeError, match="processor must return a list"):
         list(chunked_processor(items, processor, chunk_size=2))

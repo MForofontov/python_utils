@@ -1,7 +1,7 @@
 import pytest
 from iterable_functions.set_operations.set_symmetric_difference import (
-    set_symmetric_difference,
     get_unique_elements_across_sets,
+    set_symmetric_difference,
 )
 
 

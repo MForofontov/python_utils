@@ -1,8 +1,10 @@
 """Tests for get_sheet_names module."""
 
-import pytest
 from pathlib import Path
-from openpyxl import Workbook, load_workbook
+
+from openpyxl import Workbook
+
+import pytest
 from serialization_functions.excel_operations.get_sheet_names import get_sheet_names
 
 

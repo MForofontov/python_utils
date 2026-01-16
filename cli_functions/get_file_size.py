@@ -45,4 +45,4 @@ def get_file_size(file_path: str) -> int:
     return os.path.getsize(file_path)
 
 
-__all__ = ['get_file_size']
+__all__ = ["get_file_size"]

@@ -4,12 +4,12 @@ Unit tests for correlation_analysis function.
 Tests cover normal operation, edge cases, and error conditions.
 """
 
-import pytest
 import numpy as np
+
+import pytest
 from scientific_computing_functions.statistical_analysis.correlation_analysis import (
     correlation_analysis,
 )
-
 
 # Normal operation tests
 
@@ -19,16 +19,16 @@ def test_correlation_analysis_pearson_positive() -> None:
     # Arrange
     x = [1, 2, 3, 4, 5]
     y = [2, 4, 6, 8, 10]
-    
+
     # Act
-    result = correlation_analysis(x, y, method='pearson')
-    
+    result = correlation_analysis(x, y, method="pearson")
+
     # Assert
-    assert result['correlation'] == pytest.approx(1.0, abs=0.01)
-    assert result['pvalue'] < 0.05
-    assert result['significant'] == True
-    assert result['method'] == 'pearson'
-    assert result['interpretation'] == 'strong'
+    assert result["correlation"] == pytest.approx(1.0, abs=0.01)
+    assert result["pvalue"] < 0.05
+    assert result["significant"] == True
+    assert result["method"] == "pearson"
+    assert result["interpretation"] == "strong"
 
 
 def test_correlation_analysis_pearson_negative() -> None:
@@ -36,14 +36,14 @@ def test_correlation_analysis_pearson_negative() -> None:
     # Arrange
     x = [1, 2, 3, 4, 5]
     y = [10, 8, 6, 4, 2]
-    
+
     # Act
-    result = correlation_analysis(x, y, method='pearson')
-    
+    result = correlation_analysis(x, y, method="pearson")
+
     # Assert
-    assert result['correlation'] < 0
-    assert abs(result['correlation']) == pytest.approx(1.0, abs=0.01)
-    assert result['significant'] == True
+    assert result["correlation"] < 0
+    assert abs(result["correlation"]) == pytest.approx(1.0, abs=0.01)
+    assert result["significant"] == True
 
 
 def test_correlation_analysis_spearman() -> None:
@@ -51,13 +51,13 @@ def test_correlation_analysis_spearman() -> None:
     # Arrange
     x = [1, 2, 3, 4, 5]
     y = [1, 4, 9, 16, 25]  # Non-linear but monotonic
-    
+
     # Act
-    result = correlation_analysis(x, y, method='spearman')
-    
+    result = correlation_analysis(x, y, method="spearman")
+
     # Assert
-    assert result['correlation'] == pytest.approx(1.0, abs=0.01)
-    assert result['method'] == 'spearman'
+    assert result["correlation"] == pytest.approx(1.0, abs=0.01)
+    assert result["method"] == "spearman"
 
 
 def test_correlation_analysis_kendall() -> None:
@@ -65,13 +65,13 @@ def test_correlation_analysis_kendall() -> None:
     # Arrange
     x = [1, 2, 3, 4, 5]
     y = [2, 3, 4, 5, 6]
-    
+
     # Act
-    result = correlation_analysis(x, y, method='kendall')
-    
+    result = correlation_analysis(x, y, method="kendall")
+
     # Assert
-    assert result['correlation'] > 0.9
-    assert result['method'] == 'kendall'
+    assert result["correlation"] > 0.9
+    assert result["method"] == "kendall"
 
 
 def test_correlation_analysis_numpy_arrays() -> None:
@@ -79,13 +79,13 @@ def test_correlation_analysis_numpy_arrays() -> None:
     # Arrange
     x = np.array([1.0, 2.0, 3.0, 4.0, 5.0])
     y = np.array([2.5, 3.5, 4.5, 5.5, 6.5])
-    
+
     # Act
     result = correlation_analysis(x, y)
-    
+
     # Assert
-    assert result['correlation'] == pytest.approx(1.0, abs=0.01)
-    assert 'pvalue' in result
+    assert result["correlation"] == pytest.approx(1.0, abs=0.01)
+    assert "pvalue" in result
 
 
 def test_correlation_analysis_not_significant() -> None:
@@ -94,13 +94,13 @@ def test_correlation_analysis_not_significant() -> None:
     np.random.seed(42)
     x = np.random.randn(10)
     y = np.random.randn(10)
-    
+
     # Act
     result = correlation_analysis(x, y, alpha=0.05)
-    
+
     # Assert
-    assert 'significant' in result
-    assert isinstance(result['significant'], (bool, np.bool_))
+    assert "significant" in result
+    assert isinstance(result["significant"], (bool, np.bool_))
 
 
 # Edge case tests
@@ -111,13 +111,13 @@ def test_correlation_analysis_no_correlation() -> None:
     # Arrange
     x = [1, 2, 3, 4, 5]
     y = [3, 3, 3, 3, 3]  # Constant, no correlation
-    
+
     # Act
     result = correlation_analysis(x, y)
-    
+
     # Assert - constant y results in NaN correlation
-    assert np.isnan(result['correlation'])
-    assert np.isnan(result['pvalue'])
+    assert np.isnan(result["correlation"])
+    assert np.isnan(result["pvalue"])
 
 
 def test_correlation_analysis_small_dataset() -> None:
@@ -125,12 +125,12 @@ def test_correlation_analysis_small_dataset() -> None:
     # Arrange
     x = [1.0, 2.0, 3.0]
     y = [2.0, 4.0, 6.0]
-    
+
     # Act
     result = correlation_analysis(x, y)
-    
+
     # Assert
-    assert result['correlation'] == pytest.approx(1.0, abs=0.01)
+    assert result["correlation"] == pytest.approx(1.0, abs=0.01)
 
 
 def test_correlation_analysis_moderate_correlation() -> None:
@@ -138,13 +138,13 @@ def test_correlation_analysis_moderate_correlation() -> None:
     # Arrange
     x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     y = [2, 4, 5, 4, 6, 7, 8, 9, 8, 11]
-    
+
     # Act
     result = correlation_analysis(x, y)
-    
+
     # Assert
-    assert 0.3 < abs(result['correlation']) < 1.0
-    assert result['interpretation'] in ['moderate', 'strong']
+    assert 0.3 < abs(result["correlation"]) < 1.0
+    assert result["interpretation"] in ["moderate", "strong"]
 
 
 def test_correlation_analysis_weak_correlation() -> None:
@@ -153,13 +153,13 @@ def test_correlation_analysis_weak_correlation() -> None:
     np.random.seed(42)
     x = np.arange(100)
     y = x + np.random.randn(100) * 50  # Large noise
-    
+
     # Act
     result = correlation_analysis(x, y)
-    
+
     # Assert
-    assert 0 < result['correlation'] < 0.7
-    assert result['interpretation'] in ['weak', 'moderate']
+    assert 0 < result["correlation"] < 0.7
+    assert result["interpretation"] in ["weak", "moderate"]
 
 
 def test_correlation_analysis_perfect_negative() -> None:
@@ -167,13 +167,13 @@ def test_correlation_analysis_perfect_negative() -> None:
     # Arrange
     x = [1, 2, 3, 4, 5]
     y = [5, 4, 3, 2, 1]
-    
+
     # Act
     result = correlation_analysis(x, y)
-    
+
     # Assert
-    assert result['correlation'] == pytest.approx(-1.0, abs=0.01)
-    assert result['interpretation'] == 'strong'
+    assert result["correlation"] == pytest.approx(-1.0, abs=0.01)
+    assert result["interpretation"] == "strong"
 
 
 def test_correlation_analysis_strict_alpha() -> None:
@@ -181,13 +181,13 @@ def test_correlation_analysis_strict_alpha() -> None:
     # Arrange
     x = [1, 2, 3, 4, 5]
     y = [2, 3, 4, 5, 6]
-    
+
     # Act
     result = correlation_analysis(x, y, alpha=0.001)
-    
+
     # Assert
-    assert 'significant' in result
-    assert isinstance(result['pvalue'], float)
+    assert "significant" in result
+    assert isinstance(result["pvalue"], float)
 
 
 # Error case tests
@@ -199,7 +199,7 @@ def test_correlation_analysis_invalid_x_type() -> None:
     invalid_x = "not a list or array"
     y = [1, 2, 3]
     expected_message = "x must be a list or numpy array"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         correlation_analysis(invalid_x, y)
@@ -211,7 +211,7 @@ def test_correlation_analysis_invalid_y_type() -> None:
     x = [1, 2, 3]
     invalid_y = {"not": "valid"}
     expected_message = "y must be a list or numpy array"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         correlation_analysis(x, invalid_y)
@@ -223,7 +223,7 @@ def test_correlation_analysis_empty_x() -> None:
     empty_x = []
     y = [1, 2, 3]
     expected_message = "x cannot be empty"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         correlation_analysis(empty_x, y)
@@ -235,7 +235,7 @@ def test_correlation_analysis_empty_y() -> None:
     x = [1, 2, 3]
     empty_y = []
     expected_message = "y cannot be empty"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         correlation_analysis(x, empty_y)
@@ -247,7 +247,7 @@ def test_correlation_analysis_mismatched_lengths() -> None:
     x = [1, 2, 3, 4, 5]
     y = [1, 2, 3]
     expected_message = "x and y must have the same length"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         correlation_analysis(x, y)
@@ -259,7 +259,7 @@ def test_correlation_analysis_invalid_method_type() -> None:
     x = [1, 2, 3]
     y = [2, 3, 4]
     expected_message = "method must be a string"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         correlation_analysis(x, y, method=123)
@@ -271,10 +271,10 @@ def test_correlation_analysis_invalid_method_value() -> None:
     x = [1, 2, 3]
     y = [2, 3, 4]
     expected_message = "method must be 'pearson', 'spearman', or 'kendall'"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
-        correlation_analysis(x, y, method='invalid')
+        correlation_analysis(x, y, method="invalid")
 
 
 def test_correlation_analysis_invalid_alpha_type() -> None:
@@ -283,7 +283,7 @@ def test_correlation_analysis_invalid_alpha_type() -> None:
     x = [1, 2, 3]
     y = [2, 3, 4]
     expected_message = "alpha must be a number"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         correlation_analysis(x, y, alpha="0.05")
@@ -295,7 +295,7 @@ def test_correlation_analysis_alpha_out_of_range_low() -> None:
     x = [1, 2, 3]
     y = [2, 3, 4]
     expected_message = "alpha must be between 0 and 1"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         correlation_analysis(x, y, alpha=0.0)
@@ -307,7 +307,7 @@ def test_correlation_analysis_alpha_out_of_range_high() -> None:
     x = [1, 2, 3]
     y = [2, 3, 4]
     expected_message = "alpha must be between 0 and 1"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         correlation_analysis(x, y, alpha=1.0)
@@ -319,7 +319,7 @@ def test_correlation_analysis_non_numeric_x() -> None:
     invalid_x = ["a", "b", "c"]
     y = [1, 2, 3]
     expected_message = "arrays contain non-numeric values"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         correlation_analysis(invalid_x, y)
@@ -331,7 +331,7 @@ def test_correlation_analysis_non_numeric_y() -> None:
     x = [1, 2, 3]
     invalid_y = ["x", "y", "z"]
     expected_message = "arrays contain non-numeric values"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         correlation_analysis(x, invalid_y)

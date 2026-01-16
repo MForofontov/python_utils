@@ -3,8 +3,8 @@ Measure memory usage of a function.
 """
 
 import tracemalloc
-from typing import Any
 from collections.abc import Callable
+from typing import Any
 
 
 def measure_memory_usage(
@@ -48,20 +48,20 @@ def measure_memory_usage(
     """
     if not callable(func):
         raise TypeError(f"func must be callable, got {type(func).__name__}")
-    
+
     tracemalloc.start()
-    
+
     try:
         result = func(*args, **kwargs)
         current, peak = tracemalloc.get_traced_memory()
     finally:
         tracemalloc.stop()
-    
+
     return {
-        'current_bytes': current,
-        'peak_bytes': peak,
-        'result': result,
+        "current_bytes": current,
+        "peak_bytes": peak,
+        "result": result,
     }
 
 
-__all__ = ['measure_memory_usage']
+__all__ = ["measure_memory_usage"]

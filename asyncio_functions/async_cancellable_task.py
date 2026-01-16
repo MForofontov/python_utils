@@ -3,7 +3,7 @@
 import asyncio
 import contextlib
 from collections.abc import Awaitable, Callable
-from typing import TypeVar, Any
+from typing import Any, TypeVar
 
 # Define a type variable T to represent the return type of the task
 T = TypeVar("T")

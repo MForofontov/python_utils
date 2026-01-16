@@ -259,7 +259,12 @@ def test_invalid_exception_message_type_with_logger(caplog):
     with pytest.raises(TypeError, match="exception_message must be a string or None"):
         with caplog.at_level(logging.ERROR):
 
-            @rate_limit(max_calls=1, period=60, exception_message=["invalid"], logger=test_logger)
+            @rate_limit(
+                max_calls=1,
+                period=60,
+                exception_message=["invalid"],
+                logger=test_logger,
+            )
             def invalid_message_with_logger_function() -> None:
                 pass
 

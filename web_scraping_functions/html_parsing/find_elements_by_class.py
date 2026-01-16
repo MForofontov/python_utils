@@ -63,14 +63,14 @@ def find_elements_by_class(
         raise TypeError(f"class_name must be a string, got {type(class_name).__name__}")
     if limit is not None and not isinstance(limit, int):
         raise TypeError(f"limit must be an integer or None, got {type(limit).__name__}")
-    
+
     if not class_name.strip():
         raise ValueError("class_name cannot be empty")
-    
+
     if limit is not None and limit <= 0:
         raise ValueError(f"limit must be positive, got {limit}")
-    
+
     return element.find_all(class_=class_name, limit=limit)
 
 
-__all__ = ['find_elements_by_class']
+__all__ = ["find_elements_by_class"]

@@ -49,20 +49,20 @@ def get_parquet_metadata(file_path: str) -> dict[str, Any]:
     """
     if not isinstance(file_path, str):
         raise TypeError(f"file_path must be a string, got {type(file_path).__name__}")
-    
+
     # Read metadata
     parquet_file = pq.ParquetFile(file_path)
     metadata = parquet_file.metadata
     schema = parquet_file.schema
-    
+
     return {
-        'num_rows': metadata.num_rows,
-        'num_columns': metadata.num_columns,
-        'num_row_groups': metadata.num_row_groups,
-        'columns': schema.names,
-        'schema': str(schema),
-        'serialized_size': metadata.serialized_size,
+        "num_rows": metadata.num_rows,
+        "num_columns": metadata.num_columns,
+        "num_row_groups": metadata.num_row_groups,
+        "columns": schema.names,
+        "schema": str(schema),
+        "serialized_size": metadata.serialized_size,
     }
 
 
-__all__ = ['get_parquet_metadata']
+__all__ = ["get_parquet_metadata"]

@@ -9,13 +9,15 @@ This module provides comprehensive scientific computing utilities including:
 """
 
 # Statistical analysis
-from .statistical_analysis import *
 # Linear algebra
 from .linear_algebra import *
-# Signal processing
-from .signal_processing import *
+
 # Numerical methods
 from .numerical_methods import *
+
+# Signal processing
+from .signal_processing import *
+from .statistical_analysis import *
 
 __all__ = [
     # Statistical analysis

@@ -35,23 +35,25 @@ _CURRENCY_SYMBOLS = {
 }
 
 # Zero-decimal currencies (no fractional units)
-_ZERO_DECIMAL_CURRENCIES = frozenset({
-    "JPY",
-    "KRW",
-    "VND",
-    "CLP",
-    "ISK",
-    "PYG",
-    "UGX",
-    "RWF",
-    "XAF",
-    "XOF",
-    "BIF",
-    "DJF",
-    "GNF",
-    "KMF",
-    "XPF",
-})
+_ZERO_DECIMAL_CURRENCIES = frozenset(
+    {
+        "JPY",
+        "KRW",
+        "VND",
+        "CLP",
+        "ISK",
+        "PYG",
+        "UGX",
+        "RWF",
+        "XAF",
+        "XOF",
+        "BIF",
+        "DJF",
+        "GNF",
+        "KMF",
+        "XPF",
+    }
+)
 
 
 def format_currency(
@@ -104,9 +106,9 @@ def format_currency(
     Notes
     -----
     Common currency symbols: USD ($), EUR (€), GBP (£), JPY (¥), CNY (¥), INR (₹)
-    
+
     Zero-decimal currencies (no fractional units): JPY, KRW, VND, CLP, etc.
-    
+
     When locale is None, uses basic formatting with thousand separators and
     appropriate decimal places for the currency.
 
@@ -120,9 +122,7 @@ def format_currency(
     if not isinstance(currency, str):
         raise TypeError(f"currency must be a string, got {type(currency).__name__}")
     if locale is not None and not isinstance(locale, str):
-        raise TypeError(
-            f"locale must be a string or None, got {type(locale).__name__}"
-        )
+        raise TypeError(f"locale must be a string or None, got {type(locale).__name__}")
 
     # Validate and normalize currency code
     currency = currency.upper().strip()

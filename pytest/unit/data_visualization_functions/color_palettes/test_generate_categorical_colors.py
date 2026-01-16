@@ -2,10 +2,14 @@
 Unit tests for generate_categorical_colors function.
 """
 
-import pytest
 import matplotlib
-matplotlib.use('Agg')  # Use non-GUI backend for testing
-from data_visualization_functions.color_palettes.generate_categorical_colors import generate_categorical_colors
+
+import pytest
+
+matplotlib.use("Agg")  # Use non-GUI backend for testing
+from data_visualization_functions.color_palettes.generate_categorical_colors import (
+    generate_categorical_colors,
+)
 
 
 def test_generate_categorical_colors_basic():
@@ -14,10 +18,10 @@ def test_generate_categorical_colors_basic():
     """
     # Arrange
     n_colors = 4
-    
+
     # Act
     colors = generate_categorical_colors(n_colors)
-    
+
     # Assert
     assert isinstance(colors, list)
     assert len(colors) == 4
@@ -30,10 +34,10 @@ def test_generate_categorical_colors_many_categories():
     """
     # Arrange
     n_colors = 15
-    
+
     # Act
     colors = generate_categorical_colors(n_colors)
-    
+
     # Assert
     assert len(colors) == 15
     assert all(isinstance(c, str) for c in colors)
@@ -45,10 +49,10 @@ def test_generate_categorical_colors_single_category():
     """
     # Arrange
     n_colors = 1
-    
+
     # Act
     colors = generate_categorical_colors(n_colors)
-    
+
     # Assert
     assert isinstance(colors, list)
     assert len(colors) == 1
@@ -60,12 +64,12 @@ def test_generate_categorical_colors_hex_format():
     """
     # Arrange
     n_colors = 5
-    
+
     # Act
     colors = generate_categorical_colors(n_colors)
-    
+
     # Assert
-    assert all(c.startswith('#') for c in colors)
+    assert all(c.startswith("#") for c in colors)
     assert all(len(c) == 7 for c in colors)  # #RRGGBB format
 
 
@@ -75,10 +79,10 @@ def test_generate_categorical_colors_unique():
     """
     # Arrange
     n_colors = 20
-    
+
     # Act
     colors = generate_categorical_colors(n_colors)
-    
+
     # Assert
     assert len(set(colors)) == len(colors)  # All unique
 
@@ -89,7 +93,7 @@ def test_generate_categorical_colors_empty_raises_error():
     """
     # Arrange
     expected_message = "n_colors must be positive"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         generate_categorical_colors(0)
@@ -101,7 +105,7 @@ def test_generate_categorical_colors_invalid_type_raises_error():
     """
     # Arrange
     expected_message = "n_colors must be an integer"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         generate_categorical_colors("5")
@@ -113,11 +117,10 @@ def test_generate_categorical_colors_none_raises_error():
     """
     # Arrange
     expected_message = "n_colors must be an integer"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         generate_categorical_colors(None)
 
 
-
-__all__ = ['test_generate_categorical_colors_basic']
+__all__ = ["test_generate_categorical_colors_basic"]

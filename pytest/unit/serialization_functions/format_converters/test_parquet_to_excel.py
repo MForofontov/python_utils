@@ -2,13 +2,14 @@
 Unit tests for parquet_to_excel function.
 """
 
-from pathlib import Path
 import tempfile
+from pathlib import Path
 
-import pytest
+import openpyxl
 import pyarrow as pa
 import pyarrow.parquet as pq
-import openpyxl
+
+import pytest
 from serialization_functions.format_converters.parquet_to_excel import parquet_to_excel
 
 

@@ -3,9 +3,9 @@ Transform CSV file with column mapping and filtering.
 """
 
 import csv
+from collections.abc import Callable, Sequence
 from pathlib import Path
-from typing import Any, Callable
-from collections.abc import Sequence
+from typing import Any
 
 
 def transform_csv_columns(
@@ -16,7 +16,7 @@ def transform_csv_columns(
     select_columns: Sequence[str] | None = None,
     transformers: dict[str, Callable[[Any], Any]] | None = None,
     filter_func: Callable[[dict[str, Any]], bool] | None = None,
-    encoding: str = 'utf-8',
+    encoding: str = "utf-8",
     **kwargs: Any,
 ) -> int:
     """
@@ -136,7 +136,7 @@ def transform_csv_columns(
 
     rows_written = 0
 
-    with open(input_file, 'r', encoding=encoding, newline='') as infile:
+    with open(input_file, encoding=encoding, newline="") as infile:
         reader = csv.DictReader(infile, **kwargs)
 
         if reader.fieldnames is None:
@@ -163,16 +163,14 @@ def transform_csv_columns(
                     )
             output_fieldnames = selected
 
-        with open(output_file, 'w', encoding=encoding, newline='') as outfile:
+        with open(output_file, "w", encoding=encoding, newline="") as outfile:
             writer = csv.DictWriter(outfile, fieldnames=output_fieldnames, **kwargs)
             writer.writeheader()
 
             for row in reader:
                 # Apply column mapping to row
                 if column_mapping:
-                    mapped_row = {
-                        column_mapping.get(k, k): v for k, v in row.items()
-                    }
+                    mapped_row = {column_mapping.get(k, k): v for k, v in row.items()}
                 else:
                     mapped_row = row.copy()
 
@@ -209,4 +207,4 @@ def transform_csv_columns(
     return rows_written
 
 
-__all__ = ['transform_csv_columns']
+__all__ = ["transform_csv_columns"]

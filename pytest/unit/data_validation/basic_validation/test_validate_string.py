@@ -327,7 +327,9 @@ def test_validate_string_negative_max_length() -> None:
 
 def test_validate_string_min_greater_than_max() -> None:
     """Test case 19: ValueError when min_length > max_length."""
-    with pytest.raises(ValueError, match="min_length .* cannot be greater than max_length"):
+    with pytest.raises(
+        ValueError, match="min_length .* cannot be greater than max_length"
+    ):
         validate_string("test", min_length=10, max_length=5)
 
 
@@ -335,4 +337,3 @@ def test_validate_string_allowed_chars_type_error() -> None:
     """Test case 20: TypeError for invalid allowed_chars type."""
     with pytest.raises(TypeError, match="allowed_chars must be str or None"):
         validate_string("test", allowed_chars=123)
-

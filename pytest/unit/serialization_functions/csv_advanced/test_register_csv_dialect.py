@@ -1,7 +1,8 @@
 """Tests for register_csv_dialect module."""
 
-import pytest
 import csv
+
+import pytest
 from serialization_functions.csv_advanced.register_csv_dialect import (
     register_csv_dialect,
 )

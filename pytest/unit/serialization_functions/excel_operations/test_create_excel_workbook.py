@@ -1,8 +1,10 @@
 """Tests for create_excel_workbook module."""
 
-import pytest
 from pathlib import Path
-from openpyxl import Workbook, load_workbook
+
+from openpyxl import load_workbook
+
+import pytest
 from serialization_functions.excel_operations.create_excel_workbook import (
     create_excel_workbook,
 )

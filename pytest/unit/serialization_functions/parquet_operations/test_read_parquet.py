@@ -1,11 +1,12 @@
 """Tests for read_parquet module."""
 
-import pytest
 from pathlib import Path
-from serialization_functions.parquet_operations.read_parquet import read_parquet
 
 import pyarrow as pa
 import pyarrow.parquet as pq
+
+import pytest
+from serialization_functions.parquet_operations.read_parquet import read_parquet
 
 
 def test_read_parquet_basic(tmp_path: Path) -> None:

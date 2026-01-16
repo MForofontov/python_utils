@@ -8,10 +8,10 @@ def test_mock_file_system_single_file() -> None:
     """
     # Arrange
     files = {"/test.txt": "content"}
-    
+
     # Act
     fs = mock_file_system(files)
-    
+
     # Assert
     assert fs.read("/test.txt") == "content"
     assert fs.exists("/test.txt") is True
@@ -25,12 +25,12 @@ def test_mock_file_system_multiple_files() -> None:
     files = {
         "/file1.txt": "content1",
         "/file2.txt": "content2",
-        "/dir/file3.txt": "content3"
+        "/dir/file3.txt": "content3",
     }
-    
+
     # Act
     fs = mock_file_system(files)
-    
+
     # Assert
     assert fs.read("/file1.txt") == "content1"
     assert fs.read("/file2.txt") == "content2"
@@ -43,10 +43,10 @@ def test_mock_file_system_file_exists() -> None:
     """
     # Arrange
     files = {"/existing.txt": "data"}
-    
+
     # Act
     fs = mock_file_system(files)
-    
+
     # Assert
     assert fs.exists("/existing.txt") is True
     assert fs.exists("/nonexisting.txt") is False
@@ -60,13 +60,13 @@ def test_mock_file_system_listdir() -> None:
     files = {
         "/dir/file1.txt": "content1",
         "/dir/file2.txt": "content2",
-        "/other/file3.txt": "content3"
+        "/other/file3.txt": "content3",
     }
-    
+
     # Act
     fs = mock_file_system(files)
     result = fs.listdir("/dir")
-    
+
     # Assert
     assert len(result) == 2
     assert "/dir/file1.txt" in result
@@ -79,10 +79,10 @@ def test_mock_file_system_empty_filesystem() -> None:
     """
     # Arrange
     files = {}
-    
+
     # Act
     fs = mock_file_system(files)
-    
+
     # Assert
     assert fs.exists("/any.txt") is False
 
@@ -93,10 +93,10 @@ def test_mock_file_system_files_attribute() -> None:
     """
     # Arrange
     files = {"/test.txt": "content"}
-    
+
     # Act
     fs = mock_file_system(files)
-    
+
     # Assert
     assert fs.files == files
 
@@ -107,10 +107,10 @@ def test_mock_file_system_read_nonexistent_file() -> None:
     """
     # Arrange
     files = {"/existing.txt": "content"}
-    
+
     # Act
     fs = mock_file_system(files)
-    
+
     # Assert
     with pytest.raises(FileNotFoundError, match="File not found"):
         fs.read("/nonexistent.txt")

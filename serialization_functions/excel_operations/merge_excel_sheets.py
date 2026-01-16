@@ -2,13 +2,12 @@
 Merge multiple Excel sheets into a single sheet.
 """
 
+from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
-from collections.abc import Sequence
 
 import openpyxl
 from openpyxl.workbook import Workbook
-from openpyxl.worksheet.worksheet import Worksheet
 
 
 def merge_excel_sheets(
@@ -199,4 +198,4 @@ def merge_excel_sheets(
     return rows_written
 
 
-__all__ = ['merge_excel_sheets']
+__all__ = ["merge_excel_sheets"]

@@ -303,11 +303,12 @@ def test_validate_collection_max_length_type_error() -> None:
 
 def test_validate_collection_non_iterable_element_validation() -> None:
     """Test case 17: Test TypeError for non-iterable with element_type validation."""
+
     # Create a custom class that is Sized but not Iterable to trigger line 159
     class SizedNotIterable:
         def __len__(self) -> int:
             return 5
-    
+
     obj = SizedNotIterable()
     with pytest.raises(TypeError, match="must be iterable for element type validation"):
         validate_collection(obj, SizedNotIterable, element_type=int)  # type: ignore

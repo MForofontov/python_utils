@@ -48,12 +48,12 @@ def get_sheet_names(file_path: str) -> list[str]:
     """
     if not isinstance(file_path, str):
         raise TypeError(f"file_path must be a string, got {type(file_path).__name__}")
-    
+
     wb = load_workbook(file_path, read_only=True)
     sheet_names = wb.sheetnames
     wb.close()
-    
+
     return sheet_names  # type: ignore[no-any-return]
 
 
-__all__ = ['get_sheet_names']
+__all__ = ["get_sheet_names"]

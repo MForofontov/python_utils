@@ -8,12 +8,11 @@ Tests cover:
 """
 
 import numpy as np
-import pytest
 
+import pytest
 from scientific_computing_functions.numerical_methods.numerical_derivative import (
     numerical_derivative,
 )
-
 
 # ========== Normal Operation Tests ==========
 
@@ -23,10 +22,10 @@ def test_numerical_derivative_linear_function() -> None:
     # Arrange
     x = [0, 1, 2, 3, 4]
     y = [0, 2, 4, 6, 8]  # y = 2x, dy/dx = 2
-    
+
     # Act
     result = numerical_derivative(x, y, method="central")
-    
+
     # Assert
     assert "derivative" in result
     assert "x" in result
@@ -42,10 +41,10 @@ def test_numerical_derivative_quadratic_function() -> None:
     x = np.linspace(0, 4, 10)
     y = x**2  # y = x^2, dy/dx = 2x
     expected = 2 * x
-    
+
     # Act
     result = numerical_derivative(x, y, method="central")
-    
+
     # Assert
     assert len(result["derivative"]) == len(x)
     # Check interior points (boundary points use forward/backward difference)
@@ -58,10 +57,10 @@ def test_numerical_derivative_sine_function() -> None:
     x = np.linspace(0, 2 * np.pi, 50)
     y = np.sin(x)  # y = sin(x), dy/dx = cos(x)
     expected = np.cos(x)
-    
+
     # Act
     result = numerical_derivative(x, y, method="central")
-    
+
     # Assert
     assert len(result["derivative"]) == len(x)
     assert np.allclose(result["derivative"], expected, atol=0.1)
@@ -73,10 +72,10 @@ def test_numerical_derivative_exponential_function() -> None:
     x = np.linspace(0, 2, 20)
     y = np.exp(x)  # y = e^x, dy/dx = e^x
     expected = np.exp(x)
-    
+
     # Act
     result = numerical_derivative(x, y, method="gradient")
-    
+
     # Assert
     assert len(result["derivative"]) == len(x)
     assert np.allclose(result["derivative"], expected, rtol=0.1)
@@ -87,10 +86,10 @@ def test_numerical_derivative_gradient_method() -> None:
     # Arrange
     x = [0, 1, 2, 3, 4]
     y = [0, 1, 4, 9, 16]  # y = x^2
-    
+
     # Act
     result = numerical_derivative(x, y, method="gradient")
-    
+
     # Assert
     assert result["method"] == "gradient"
     assert len(result["derivative"]) == len(x)
@@ -102,10 +101,10 @@ def test_numerical_derivative_forward_method() -> None:
     # Arrange
     x = [0, 1, 2, 3, 4]
     y = [0, 1, 4, 9, 16]  # y = x^2
-    
+
     # Act
     result = numerical_derivative(x, y, method="forward")
-    
+
     # Assert
     assert result["method"] == "forward"
     assert len(result["derivative"]) == len(x)
@@ -117,10 +116,10 @@ def test_numerical_derivative_backward_method() -> None:
     # Arrange
     x = [0, 1, 2, 3, 4]
     y = [0, 1, 4, 9, 16]  # y = x^2
-    
+
     # Act
     result = numerical_derivative(x, y, method="backward")
-    
+
     # Assert
     assert result["method"] == "backward"
     assert len(result["derivative"]) == len(x)
@@ -132,10 +131,10 @@ def test_numerical_derivative_central_method() -> None:
     # Arrange
     x = [0, 1, 2, 3, 4]
     y = [0, 1, 4, 9, 16]  # y = x^2
-    
+
     # Act
     result = numerical_derivative(x, y, method="central")
-    
+
     # Assert
     assert result["method"] == "central"
     assert result["order"] == 1
@@ -148,10 +147,10 @@ def test_numerical_derivative_second_order() -> None:
     # Arrange
     x = [0, 1, 2, 3, 4]
     y = [0, 1, 4, 9, 16]  # y = x^2, d²y/dx² = 2
-    
+
     # Act
     result = numerical_derivative(x, y, method="central", order=2)
-    
+
     # Assert
     assert result["order"] == 2
     assert len(result["derivative"]) == len(x)
@@ -163,10 +162,10 @@ def test_numerical_derivative_numpy_array_input() -> None:
     # Arrange
     x = np.array([0.0, 1.0, 2.0, 3.0, 4.0])
     y = np.array([0.0, 2.0, 4.0, 6.0, 8.0])
-    
+
     # Act
     result = numerical_derivative(x, y)
-    
+
     # Assert
     assert len(result["derivative"]) == len(x)
     assert isinstance(result["derivative"], np.ndarray)
@@ -181,10 +180,10 @@ def test_numerical_derivative_minimum_points_first_order() -> None:
     # Arrange
     x = [0.0, 1.0]
     y = [0.0, 2.0]  # dy/dx = 2
-    
+
     # Act
     result = numerical_derivative(x, y)
-    
+
     # Assert
     assert len(result["derivative"]) == 2
     assert np.allclose(result["derivative"], 2.0, atol=0.1)
@@ -195,10 +194,10 @@ def test_numerical_derivative_minimum_points_second_order() -> None:
     # Arrange
     x = [0, 1, 2]
     y = [0, 1, 4]  # y = x^2, d²y/dx² = 2
-    
+
     # Act
     result = numerical_derivative(x, y, order=2)
-    
+
     # Assert
     assert len(result["derivative"]) == 3
     assert np.all(np.isfinite(result["derivative"]))
@@ -209,10 +208,10 @@ def test_numerical_derivative_non_uniform_spacing() -> None:
     # Arrange
     x = [0, 0.5, 1.5, 3.0, 5.0]
     y = [0, 1, 4.5, 9.0, 15.0]  # Approximately y = 2x
-    
+
     # Act
     result = numerical_derivative(x, y, method="central")
-    
+
     # Assert
     assert len(result["derivative"]) == len(x)
     assert np.all(np.isfinite(result["derivative"]))
@@ -225,10 +224,10 @@ def test_numerical_derivative_constant_function() -> None:
     # Arrange
     x = [0, 1, 2, 3, 4]
     y = [5, 5, 5, 5, 5]  # constant
-    
+
     # Act
     result = numerical_derivative(x, y)
-    
+
     # Assert
     assert len(result["derivative"]) == len(x)
     assert np.allclose(result["derivative"], 0.0, atol=1e-10)
@@ -240,10 +239,10 @@ def test_numerical_derivative_negative_values() -> None:
     x = [-4, -3, -2, -1, 0]
     y = [16, 9, 4, 1, 0]  # y = x^2
     expected = 2 * np.array(x)
-    
+
     # Act
     result = numerical_derivative(x, y, method="central")
-    
+
     # Assert
     assert len(result["derivative"]) == len(x)
     # Check interior points (boundary points less accurate)
@@ -255,10 +254,10 @@ def test_numerical_derivative_large_dataset() -> None:
     # Arrange
     x = np.linspace(0, 10, 10000)
     y = np.sin(x)
-    
+
     # Act
     result = numerical_derivative(x, y, method="gradient")
-    
+
     # Assert
     assert len(result["derivative"]) == len(x)
     assert np.all(np.isfinite(result["derivative"]))
@@ -273,7 +272,7 @@ def test_numerical_derivative_invalid_x_type() -> None:
     invalid_x = "not a list"
     y = [0, 1, 2]
     expected_message = "x must be a list or numpy array"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         numerical_derivative(invalid_x, y)  # type: ignore
@@ -285,7 +284,7 @@ def test_numerical_derivative_invalid_y_type() -> None:
     x = [0, 1, 2]
     invalid_y = "not a list"
     expected_message = "y must be a list or numpy array"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         numerical_derivative(x, invalid_y)  # type: ignore
@@ -298,7 +297,7 @@ def test_numerical_derivative_invalid_method_type() -> None:
     y = [0, 1, 4]
     invalid_method = 123
     expected_message = "method must be a string"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         numerical_derivative(x, y, method=invalid_method)  # type: ignore
@@ -311,7 +310,7 @@ def test_numerical_derivative_invalid_method_value() -> None:
     y = [0, 1, 4]
     invalid_method = "invalid"
     expected_message = "method must be"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         numerical_derivative(x, y, method=invalid_method)  # type: ignore
@@ -324,7 +323,7 @@ def test_numerical_derivative_invalid_order_type() -> None:
     y = [0, 1, 4]
     invalid_order = 1.5
     expected_message = "order must be an integer"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         numerical_derivative(x, y, order=invalid_order)  # type: ignore
@@ -337,7 +336,7 @@ def test_numerical_derivative_invalid_order_value() -> None:
     y = [0, 1, 4]
     invalid_order = 3
     expected_message = "order must be 1 or 2"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         numerical_derivative(x, y, order=invalid_order)
@@ -350,7 +349,7 @@ def test_numerical_derivative_zero_order() -> None:
     y = [0, 1, 4]
     invalid_order = 0
     expected_message = "order must be 1 or 2"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         numerical_derivative(x, y, order=invalid_order)
@@ -363,7 +362,7 @@ def test_numerical_derivative_negative_order() -> None:
     y = [0, 1, 4]
     invalid_order = -1
     expected_message = "order must be 1 or 2"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         numerical_derivative(x, y, order=invalid_order)
@@ -375,7 +374,7 @@ def test_numerical_derivative_non_numeric_x() -> None:
     invalid_x = ["a", "b", "c"]
     y = [0, 1, 2]
     expected_message = "arrays contain non-numeric values"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         numerical_derivative(invalid_x, y)
@@ -387,7 +386,7 @@ def test_numerical_derivative_non_numeric_y() -> None:
     x = [0, 1, 2]
     invalid_y = ["a", "b", "c"]
     expected_message = "arrays contain non-numeric values"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         numerical_derivative(x, invalid_y)
@@ -399,7 +398,7 @@ def test_numerical_derivative_multidimensional_x() -> None:
     invalid_x = [[0, 1], [2, 3]]
     y = [0, 1]
     expected_message = "x must be 1-dimensional"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         numerical_derivative(invalid_x, y)
@@ -411,7 +410,7 @@ def test_numerical_derivative_multidimensional_y() -> None:
     x = [0, 1]
     invalid_y = [[0, 1], [2, 3]]
     expected_message = "y must be 1-dimensional"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         numerical_derivative(x, invalid_y)
@@ -423,7 +422,7 @@ def test_numerical_derivative_length_mismatch() -> None:
     x = [0, 1, 2]
     y = [0, 1, 2, 3, 4]
     expected_message = "x and y must have same length"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         numerical_derivative(x, y)
@@ -435,7 +434,7 @@ def test_numerical_derivative_single_point() -> None:
     x = [0]
     y = [0]
     expected_message = "need at least 2 points"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         numerical_derivative(x, y)
@@ -447,7 +446,7 @@ def test_numerical_derivative_empty_arrays() -> None:
     x: list[float] = []
     y: list[float] = []
     expected_message = "need at least 2 points"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         numerical_derivative(x, y)
@@ -459,7 +458,7 @@ def test_numerical_derivative_insufficient_points_second_order() -> None:
     x = [0, 1]
     y = [0, 2]
     expected_message = "need at least 3 points for 2nd derivative"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         numerical_derivative(x, y, order=2)
@@ -471,7 +470,7 @@ def test_numerical_derivative_nan_in_x() -> None:
     x = [0.0, np.nan, 2.0]
     y = [0.0, 1.0, 4.0]
     expected_message = "x contains NaN or Inf values"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         numerical_derivative(x, y)
@@ -483,7 +482,7 @@ def test_numerical_derivative_nan_in_y() -> None:
     x = [0.0, 1.0, 2.0]
     y = [0.0, np.nan, 4.0]
     expected_message = "y contains NaN or Inf values"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         numerical_derivative(x, y)
@@ -495,7 +494,7 @@ def test_numerical_derivative_inf_in_x() -> None:
     x = [0.0, np.inf, 2.0]
     y = [0.0, 1.0, 4.0]
     expected_message = "x contains NaN or Inf values"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         numerical_derivative(x, y)
@@ -507,7 +506,7 @@ def test_numerical_derivative_inf_in_y() -> None:
     x = [0.0, 1.0, 2.0]
     y = [0.0, np.inf, 4.0]
     expected_message = "y contains NaN or Inf values"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         numerical_derivative(x, y)
@@ -518,7 +517,7 @@ def test_numerical_derivative_all_methods_second_order() -> None:
     # Arrange
     x = [0, 1, 2, 3, 4]
     y = [0, 1, 4, 9, 16]  # y = x^2, d²y/dx² = 2
-    
+
     # Act & Assert - all methods should work
     for method in ["gradient", "forward", "backward", "central"]:
         result = numerical_derivative(x, y, method=method, order=2)
@@ -533,10 +532,10 @@ def test_numerical_derivative_float_input() -> None:
     # Arrange
     x = [0.0, 0.5, 1.0, 1.5, 2.0]
     y = [0.0, 0.25, 1.0, 2.25, 4.0]  # y = x^2
-    
+
     # Act
     result = numerical_derivative(x, y, method="central")
-    
+
     # Assert
     assert len(result["derivative"]) == len(x)
     assert np.all(np.isfinite(result["derivative"]))
@@ -550,10 +549,10 @@ def test_numerical_derivative_return_structure() -> None:
     # Arrange
     x = [0, 1, 2, 3, 4]
     y = [0, 1, 4, 9, 16]
-    
+
     # Act
     result = numerical_derivative(x, y, method="central", order=1)
-    
+
     # Assert
     assert isinstance(result, dict)
     assert set(result.keys()) == {"derivative", "x", "method", "order"}

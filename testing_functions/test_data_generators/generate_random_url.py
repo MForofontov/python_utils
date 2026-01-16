@@ -4,6 +4,7 @@ Generate random URL for testing.
 
 import random
 import string
+
 from .generate_random_string import generate_random_string
 
 
@@ -54,24 +55,26 @@ def generate_random_url(
     if not isinstance(domain, str):
         raise TypeError(f"domain must be a string, got {type(domain).__name__}")
     if not isinstance(path_length, int):
-        raise TypeError(f"path_length must be an integer, got {type(path_length).__name__}")
-    
+        raise TypeError(
+            f"path_length must be an integer, got {type(path_length).__name__}"
+        )
+
     if len(protocol) == 0:
         raise ValueError("protocol cannot be empty")
     if len(domain) == 0:
         raise ValueError("domain cannot be empty")
     if path_length < 0:
         raise ValueError(f"path_length must be non-negative, got {path_length}")
-    
+
     path_segments = [
         generate_random_string(random.randint(5, 10), string.ascii_lowercase)
         for _ in range(path_length)
     ]
-    path = '/'.join(path_segments)
-    
+    path = "/".join(path_segments)
+
     if path:
         return f"{protocol}://{domain}/{path}"
     return f"{protocol}://{domain}"
 
 
-__all__ = ['generate_random_url']
+__all__ = ["generate_random_url"]

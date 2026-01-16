@@ -53,13 +53,13 @@ def generate_random_string(
         raise TypeError(f"length must be an integer, got {type(length).__name__}")
     if not isinstance(charset, str):
         raise TypeError(f"charset must be a string, got {type(charset).__name__}")
-    
+
     if length <= 0:
         raise ValueError(f"length must be positive, got {length}")
     if len(charset) == 0:
         raise ValueError("charset cannot be empty")
-    
-    return ''.join(random.choice(charset) for _ in range(length))
+
+    return "".join(random.choice(charset) for _ in range(length))
 
 
-__all__ = ['generate_random_string']
+__all__ = ["generate_random_string"]

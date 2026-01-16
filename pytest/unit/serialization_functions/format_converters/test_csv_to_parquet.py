@@ -3,12 +3,13 @@ Unit tests for csv_to_parquet function.
 """
 
 import csv
-from pathlib import Path
 import tempfile
+from pathlib import Path
 
-import pytest
 import pyarrow as pa
 import pyarrow.parquet as pq
+
+import pytest
 from serialization_functions.format_converters.csv_to_parquet import csv_to_parquet
 
 

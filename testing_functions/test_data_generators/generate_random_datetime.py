@@ -4,6 +4,7 @@ Generate random datetime for testing.
 
 import random
 from datetime import datetime
+
 from .generate_random_date import generate_random_date
 
 
@@ -47,23 +48,23 @@ def generate_random_datetime(
     Time: O(1), Space: O(1)
     """
     if not isinstance(start_year, int):
-        raise TypeError(f"start_year must be an integer, got {type(start_year).__name__}")
+        raise TypeError(
+            f"start_year must be an integer, got {type(start_year).__name__}"
+        )
     if not isinstance(end_year, int):
         raise TypeError(f"end_year must be an integer, got {type(end_year).__name__}")
-    
+
     if start_year > end_year:
         raise ValueError(f"start_year ({start_year}) must be <= end_year ({end_year})")
-    
+
     random_date = generate_random_date(start_year, end_year)
     random_hour = random.randint(0, 23)
     random_minute = random.randint(0, 59)
     random_second = random.randint(0, 59)
-    
+
     return datetime.combine(random_date, datetime.min.time()).replace(
-        hour=random_hour,
-        minute=random_minute,
-        second=random_second
+        hour=random_hour, minute=random_minute, second=random_second
     )
 
 
-__all__ = ['generate_random_datetime']
+__all__ = ["generate_random_datetime"]

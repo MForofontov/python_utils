@@ -33,7 +33,7 @@ def test_format_file_size_precision() -> None:
     """
     # Arrange
     size = 1536
-    
+
     # Act & Assert
     assert format_file_size(size, precision=0) == "2 KiB"
     assert format_file_size(size, precision=1) == "1.5 KiB"
@@ -77,7 +77,7 @@ def test_format_file_size_boundary_values() -> None:
     # Just below and at 1 KiB
     assert format_file_size(1023) == "1023 B"
     assert format_file_size(1024) == "1.00 KiB"
-    
+
     # Just below and at 1 MiB
     assert format_file_size(1048575) == "1024.00 KiB"
     assert format_file_size(1048576) == "1.00 MiB"
@@ -90,7 +90,7 @@ def test_format_file_size_invalid_type_size_bytes() -> None:
     # Arrange
     invalid_input = "1024"
     expected_message = "size_bytes must be a number, got str"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         format_file_size(invalid_input)
@@ -102,7 +102,7 @@ def test_format_file_size_invalid_type_binary() -> None:
     """
     # Arrange
     expected_message = "binary must be a boolean, got str"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         format_file_size(1024, binary="true")
@@ -114,7 +114,7 @@ def test_format_file_size_invalid_type_precision() -> None:
     """
     # Arrange
     expected_message = "precision must be an integer, got float"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         format_file_size(1024, precision=2.5)
@@ -126,7 +126,7 @@ def test_format_file_size_negative_size() -> None:
     """
     # Arrange
     expected_message = "size_bytes must be non-negative"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         format_file_size(-1024)
@@ -138,7 +138,7 @@ def test_format_file_size_negative_precision() -> None:
     """
     # Arrange
     expected_message = "precision must be non-negative"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         format_file_size(1024, precision=-1)

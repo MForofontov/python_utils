@@ -1,5 +1,6 @@
-import pytest
 from bs4 import BeautifulSoup
+
+import pytest
 from web_scraping_functions.html_parsing.find_elements_by_id import (
     find_elements_by_id,
 )
@@ -12,10 +13,10 @@ def test_find_elements_by_id_simple_id() -> None:
     # Arrange
     html = '<div id="main">Content</div>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act
     result = find_elements_by_id(soup, "main")
-    
+
     # Assert
     assert result is not None
     assert result.text == "Content"
@@ -28,10 +29,10 @@ def test_find_elements_by_id_no_match() -> None:
     # Arrange
     html = '<div id="other">Content</div>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act
     result = find_elements_by_id(soup, "main")
-    
+
     # Assert
     assert result is None
 
@@ -43,10 +44,10 @@ def test_find_elements_by_id_nested_element() -> None:
     # Arrange
     html = '<div><section><p id="target">Text</p></section></div>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act
     result = find_elements_by_id(soup, "target")
-    
+
     # Assert
     assert result is not None
     assert result.text == "Text"
@@ -59,10 +60,10 @@ def test_find_elements_by_id_first_match() -> None:
     # Arrange
     html = '<div id="dup">First</div><div id="dup">Second</div>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act
     result = find_elements_by_id(soup, "dup")
-    
+
     # Assert
     assert result is not None
     assert result.text == "First"
@@ -84,7 +85,7 @@ def test_find_elements_by_id_type_error_element_id() -> None:
     # Arrange
     html = '<div id="main">Content</div>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match="element_id must be a string"):
         find_elements_by_id(soup, 123)
@@ -97,7 +98,7 @@ def test_find_elements_by_id_value_error_empty_id() -> None:
     # Arrange
     html = '<div id="main">Content</div>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match="element_id cannot be empty"):
         find_elements_by_id(soup, "")
@@ -110,7 +111,7 @@ def test_find_elements_by_id_value_error_whitespace_id() -> None:
     # Arrange
     html = '<div id="main">Content</div>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match="element_id cannot be empty"):
         find_elements_by_id(soup, "   ")

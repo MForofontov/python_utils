@@ -2,9 +2,10 @@
 Unit tests for create_scatter_plot function.
 """
 
-import pytest
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
+
+import pytest
 from data_visualization_functions.plot_generation import create_scatter_plot
 
 
@@ -15,14 +16,14 @@ def test_create_scatter_plot_basic():
     # Arrange
     x = [1, 2, 3, 4, 5]
     y = [2, 4, 5, 7, 8]
-    
+
     # Act
-    fig, ax = create_scatter_plot(x, y, title='Basic Scatter')
-    
+    fig, ax = create_scatter_plot(x, y, title="Basic Scatter")
+
     # Assert
     assert fig is not None
     assert ax is not None
-    assert ax.get_title() == 'Basic Scatter'
+    assert ax.get_title() == "Basic Scatter"
     assert len(ax.collections) == 1
     plt.close(fig)
 
@@ -34,16 +35,10 @@ def test_create_scatter_plot_with_styling():
     # Arrange
     x = [1, 2, 3]
     y = [4, 5, 6]
-    
+
     # Act
-    fig, ax = create_scatter_plot(
-        x, y,
-        colors='red',
-        sizes=100,
-        alpha=0.8,
-        marker='s'
-    )
-    
+    fig, ax = create_scatter_plot(x, y, colors="red", sizes=100, alpha=0.8, marker="s")
+
     # Assert
     scatter = ax.collections[0]
     assert scatter.get_alpha() == 0.8
@@ -58,13 +53,13 @@ def test_create_scatter_plot_numpy_arrays():
     np.random.seed(42)
     x = np.random.randn(50)
     y = 2 * x + np.random.randn(50) * 0.5
-    
+
     # Act
-    fig, ax = create_scatter_plot(x, y, xlabel='X', ylabel='Y')
-    
+    fig, ax = create_scatter_plot(x, y, xlabel="X", ylabel="Y")
+
     # Assert
-    assert ax.get_xlabel() == 'X'
-    assert ax.get_ylabel() == 'Y'
+    assert ax.get_xlabel() == "X"
+    assert ax.get_ylabel() == "Y"
     assert len(ax.collections[0].get_offsets()) == 50
     plt.close(fig)
 
@@ -76,10 +71,10 @@ def test_create_scatter_plot_with_grid():
     # Arrange
     x = [1, 2, 3, 4]
     y = [2, 3, 4, 5]
-    
+
     # Act
     fig, ax = create_scatter_plot(x, y, grid=True)
-    
+
     # Assert
     assert ax.grid
     plt.close(fig)
@@ -93,7 +88,7 @@ def test_create_scatter_plot_empty_x_raises_error():
     x = []
     y = [1, 2, 3]
     expected_message = "x_data cannot be empty"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         create_scatter_plot(x, y)
@@ -107,7 +102,7 @@ def test_create_scatter_plot_mismatched_lengths_raises_error():
     x = [1, 2, 3]
     y = [1, 2]
     expected_message = "x_data length .* must match y_data length"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         create_scatter_plot(x, y)
@@ -120,7 +115,7 @@ def test_create_scatter_plot_invalid_alpha_raises_error():
     # Arrange
     x = [1, 2, 3]
     y = [1, 2, 3]
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match="alpha must be between 0 and 1"):
         create_scatter_plot(x, y, alpha=1.5)
@@ -134,7 +129,7 @@ def test_create_scatter_plot_invalid_x_type_raises_error():
     x = "invalid"
     y = [1, 2, 3]
     expected_message = "x_data must be a list or numpy array"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         create_scatter_plot(x, y)
@@ -147,7 +142,7 @@ def test_create_scatter_plot_invalid_figsize_raises_error():
     # Arrange
     x = [1, 2, 3]
     y = [1, 2, 3]
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match="figsize dimensions must be positive"):
         create_scatter_plot(x, y, figsize=(10, -6))

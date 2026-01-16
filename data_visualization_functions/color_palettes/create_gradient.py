@@ -58,7 +58,9 @@ def create_gradient(
     """
     # Type validation
     if not isinstance(start_color, str):
-        raise TypeError(f"start_color must be a string, got {type(start_color).__name__}")
+        raise TypeError(
+            f"start_color must be a string, got {type(start_color).__name__}"
+        )
     if not isinstance(end_color, str):
         raise TypeError(f"end_color must be a string, got {type(end_color).__name__}")
     if not isinstance(n_steps, int):
@@ -80,8 +82,10 @@ def create_gradient(
         rgb = [start_rgb[j] + t * (end_rgb[j] - start_rgb[j]) for j in range(3)]
         gradient.append(mcolors.rgb2hex(rgb))
 
-    logger.debug(f"Created gradient with {n_steps} steps from {start_color} to {end_color}")
+    logger.debug(
+        f"Created gradient with {n_steps} steps from {start_color} to {end_color}"
+    )
     return gradient
 
 
-__all__ = ['create_gradient']
+__all__ = ["create_gradient"]

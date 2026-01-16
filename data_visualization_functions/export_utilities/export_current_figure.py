@@ -4,6 +4,7 @@ Export the current matplotlib figure.
 
 import logging
 from pathlib import Path
+
 import matplotlib.pyplot as plt
 
 logger = logging.getLogger(__name__)
@@ -97,7 +98,7 @@ def export_current_figure(
     plt.savefig(
         filepath_obj,
         dpi=dpi,
-        bbox_inches='tight',
+        bbox_inches="tight",
     )
 
     logger.info(f"Exported current figure to {filepath_obj}")
@@ -108,4 +109,4 @@ def export_current_figure(
         logger.debug("Closed figure after saving")
 
 
-__all__ = ['export_current_figure']
+__all__ = ["export_current_figure"]

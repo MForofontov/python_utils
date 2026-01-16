@@ -2,11 +2,11 @@
 Unit tests for get_column_statistics function.
 """
 
-import pytest
+from conftest import Base, User
 from sqlalchemy.orm import Session
 
+import pytest
 from database_functions.schema_inspection import get_column_statistics
-from conftest import Base, User
 
 
 def test_get_column_statistics_single_column(memory_engine) -> None:
@@ -15,23 +15,25 @@ def test_get_column_statistics_single_column(memory_engine) -> None:
     """
     # Arrange
     Base.metadata.create_all(memory_engine)
-    
+
     with Session(memory_engine) as session:
         for i in range(100):
-            session.add(User(
-                id=i,
-                username=f"user{i}",
-                email=f"customer{i}@example.com",
-                first_name=f"First{i}",
-                age=20 + (i % 50),
-                balance=100.0 + i
-            ))
+            session.add(
+                User(
+                    id=i,
+                    username=f"user{i}",
+                    email=f"customer{i}@example.com",
+                    first_name=f"First{i}",
+                    age=20 + (i % 50),
+                    balance=100.0 + i,
+                )
+            )
         session.commit()
-    
+
     # Act
     with memory_engine.connect() as connection:
         stats = get_column_statistics(connection, "users", "email")
-    
+
     # Assert
     assert "email" in stats
     email_stats = stats["email"]
@@ -47,23 +49,25 @@ def test_get_column_statistics_all_columns(memory_engine) -> None:
     """
     # Arrange
     Base.metadata.create_all(memory_engine)
-    
+
     with Session(memory_engine) as session:
         for i in range(50):
-            session.add(User(
-                id=i,
-                username=f"user{i}",
-                email=f"customer{i}@example.com",
-                first_name=f"First{i}",
-                age=25,
-                balance=100.0
-            ))
+            session.add(
+                User(
+                    id=i,
+                    username=f"user{i}",
+                    email=f"customer{i}@example.com",
+                    first_name=f"First{i}",
+                    age=25,
+                    balance=100.0,
+                )
+            )
         session.commit()
-    
+
     # Act
     with memory_engine.connect() as connection:
         stats = get_column_statistics(connection, "users")
-    
+
     # Assert
     assert len(stats) > 1  # Multiple columns
     assert "username" in stats or "email" in stats
@@ -75,28 +79,32 @@ def test_get_column_statistics_with_nulls(memory_engine) -> None:
     """
     # Arrange
     Base.metadata.create_all(memory_engine)
-    
+
     with Session(memory_engine) as session:
         for i in range(100):
-            session.add(User(
-                id=i,
-                username=f"user{i}",
-                email=f"customer{i}@example.com",
-                first_name=f"First{i}" if i < 50 else None,  # 50% NULL
-                age=25,
-                balance=100.0
-            ))
+            session.add(
+                User(
+                    id=i,
+                    username=f"user{i}",
+                    email=f"customer{i}@example.com",
+                    first_name=f"First{i}" if i < 50 else None,  # 50% NULL
+                    age=25,
+                    balance=100.0,
+                )
+            )
         session.commit()
-    
+
     # Act
     with memory_engine.connect() as connection:
         stats = get_column_statistics(connection, "users", "first_name")
-    
+
     # Assert
     first_name_stats = stats["first_name"]
     assert first_name_stats["null_count"] == 50
     # null_percentage might be 50.0 (as percentage) or 0.5 (as ratio)
-    assert first_name_stats["null_percentage"] in [50.0, 0.5] or pytest.approx(first_name_stats["null_percentage"], abs=1) in [50.0, 0.5]
+    assert first_name_stats["null_percentage"] in [50.0, 0.5] or pytest.approx(
+        first_name_stats["null_percentage"], abs=1
+    ) in [50.0, 0.5]
 
 
 def test_get_column_statistics_numeric_min_max(memory_engine) -> None:
@@ -105,23 +113,25 @@ def test_get_column_statistics_numeric_min_max(memory_engine) -> None:
     """
     # Arrange
     Base.metadata.create_all(memory_engine)
-    
+
     with Session(memory_engine) as session:
         for i in range(100):
-            session.add(User(
-                id=i,
-                username=f"user{i}",
-                email=f"customer{i}@example.com",
-                first_name=f"First{i}",
-                age=20 + i,
-                balance=50.0 + i * 10
-            ))
+            session.add(
+                User(
+                    id=i,
+                    username=f"user{i}",
+                    email=f"customer{i}@example.com",
+                    first_name=f"First{i}",
+                    age=20 + i,
+                    balance=50.0 + i * 10,
+                )
+            )
         session.commit()
-    
+
     # Act
     with memory_engine.connect() as connection:
         stats = get_column_statistics(connection, "users", "age")
-    
+
     # Assert
     age_stats = stats["age"]
     assert "min_value" in age_stats or age_stats["distinct_count"] > 0
@@ -134,23 +144,25 @@ def test_get_column_statistics_top_values(memory_engine) -> None:
     """
     # Arrange
     Base.metadata.create_all(memory_engine)
-    
+
     with Session(memory_engine) as session:
         for i in range(100):
-            session.add(User(
-                id=i,
-                username=f"user{i}",
-                email=f"customer{i}@example.com",
-                first_name="John" if i < 50 else "Jane",
-                age=25,
-                balance=100.0
-            ))
+            session.add(
+                User(
+                    id=i,
+                    username=f"user{i}",
+                    email=f"customer{i}@example.com",
+                    first_name="John" if i < 50 else "Jane",
+                    age=25,
+                    balance=100.0,
+                )
+            )
         session.commit()
-    
+
     # Act
     with memory_engine.connect() as connection:
         stats = get_column_statistics(connection, "users", "first_name")
-    
+
     # Assert
     name_stats = stats["first_name"]
     assert "top_values" in name_stats or name_stats["distinct_count"] == 2
@@ -162,11 +174,11 @@ def test_get_column_statistics_empty_table(memory_engine) -> None:
     """
     # Arrange
     Base.metadata.create_all(memory_engine)
-    
+
     # Act
     with memory_engine.connect() as connection:
         stats = get_column_statistics(connection, "users")
-    
+
     # Assert
     assert isinstance(stats, dict)
 
@@ -177,7 +189,7 @@ def test_get_column_statistics_invalid_connection_type_error() -> None:
     """
     # Arrange
     expected_message = "connection cannot be None"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         get_column_statistics(None, "users")
@@ -189,7 +201,7 @@ def test_get_column_statistics_invalid_table_name_type_error(memory_engine) -> N
     """
     # Arrange
     expected_message = "table_name must be str"
-    
+
     # Act & Assert
     with memory_engine.connect() as connection:
         with pytest.raises(TypeError, match=expected_message):
@@ -202,7 +214,7 @@ def test_get_column_statistics_empty_table_name_value_error(memory_engine) -> No
     """
     # Arrange
     expected_message = "table_name cannot be empty"
-    
+
     # Act & Assert
     with memory_engine.connect() as connection:
         with pytest.raises(ValueError, match=expected_message):
@@ -215,7 +227,7 @@ def test_get_column_statistics_invalid_column_name_type_error(memory_engine) -> 
     """
     # Arrange
     expected_message = "column_name must be str or None"
-    
+
     # Act & Assert
     with memory_engine.connect() as connection:
         with pytest.raises(TypeError, match=expected_message):
@@ -228,7 +240,7 @@ def test_get_column_statistics_invalid_schema_type_error(memory_engine) -> None:
     """
     # Arrange
     expected_message = "schema must be str or None"
-    
+
     # Act & Assert
     with memory_engine.connect() as connection:
         with pytest.raises(TypeError, match=expected_message):
@@ -242,7 +254,7 @@ def test_get_column_statistics_nonexistent_column_value_error(memory_engine) -> 
     # Arrange
     Base.metadata.create_all(memory_engine)
     expected_message = "Column nonexistent not found"
-    
+
     # Act & Assert
     with memory_engine.connect() as connection:
         with pytest.raises(ValueError, match=expected_message):

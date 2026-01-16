@@ -5,7 +5,8 @@ Uses scipy.integrate, adds validation, method selection,
 and comprehensive integration output.
 """
 
-from typing import Callable, Literal
+from collections.abc import Callable
+from typing import Literal
 
 import numpy as np
 from scipy import integrate
@@ -144,9 +145,7 @@ def numerical_integration(
         if y is None:
             raise ValueError(f"y is required for {method} method")
         if not isinstance(y, (list, np.ndarray)):
-            raise TypeError(
-                f"y must be a list or numpy array, got {type(y).__name__}"
-            )
+            raise TypeError(f"y must be a list or numpy array, got {type(y).__name__}")
 
         try:
             y_arr = np.asarray(y, dtype=float)

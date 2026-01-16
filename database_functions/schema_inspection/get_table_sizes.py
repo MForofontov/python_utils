@@ -5,7 +5,7 @@ Get storage size information for database tables.
 import logging
 from typing import Any
 
-from sqlalchemy import text, MetaData
+from sqlalchemy import MetaData, text
 
 logger = logging.getLogger(__name__)
 
@@ -73,13 +73,16 @@ def get_table_sizes(
     if schema is not None and not isinstance(schema, str):
         raise TypeError(f"schema must be str or None, got {type(schema).__name__}")
     if not isinstance(include_indexes, bool):
-        raise TypeError(f"include_indexes must be bool, got {type(include_indexes).__name__}")
+        raise TypeError(
+            f"include_indexes must be bool, got {type(include_indexes).__name__}"
+        )
 
     # Reflect metadata to get table list
     metadata = MetaData()
     if tables:
         # Verify tables exist before reflecting
         from sqlalchemy import inspect
+
         inspector = inspect(connection)
         available_tables = inspector.get_table_names(schema=schema)
         existing_tables = [t for t in tables if t in available_tables]
@@ -89,12 +92,12 @@ def get_table_sizes(
     else:
         metadata.reflect(bind=connection, schema=schema)
         table_names = [t for t in metadata.tables.keys()]
-    
+
     # Detect database type
     db_dialect = connection.dialect.name.lower()
-    
+
     results = []
-    
+
     for table_name in table_names:
         table_info = {
             "table_name": table_name,
@@ -103,7 +106,7 @@ def get_table_sizes(
             "index_size_bytes": 0,
             "total_size_bytes": 0,
         }
-        
+
         try:
             # Get row count (database-agnostic)
             if table_name in metadata.tables:
@@ -111,13 +114,13 @@ def get_table_sizes(
                 count_query = text(f"SELECT COUNT(*) FROM {table_name}")
                 result = connection.execute(count_query)
                 table_info["row_count"] = result.scalar() or 0
-            
+
             # Get size information (database-specific)
             if db_dialect == "postgresql":
                 # PostgreSQL size queries
                 schema_prefix = f"{schema}." if schema else ""
                 full_table_name = f"{schema_prefix}{table_name}"
-                
+
                 size_query = text(f"""
                     SELECT 
                         pg_table_size('{full_table_name}') as data_size,
@@ -130,7 +133,7 @@ def get_table_sizes(
                     table_info["data_size_bytes"] = row[0] or 0
                     table_info["index_size_bytes"] = row[1] or 0
                     table_info["total_size_bytes"] = row[2] or 0
-                    
+
             elif db_dialect == "mysql":
                 # MySQL size queries
                 schema_name = schema or connection.engine.url.database
@@ -143,32 +146,36 @@ def get_table_sizes(
                     WHERE table_schema = :schema
                     AND table_name = :table
                 """)
-                result = connection.execute(size_query, {"schema": schema_name, "table": table_name})
+                result = connection.execute(
+                    size_query, {"schema": schema_name, "table": table_name}
+                )
                 row = result.fetchone()
                 if row:
                     table_info["data_size_bytes"] = row[0] or 0
                     table_info["index_size_bytes"] = row[1] or 0
                     table_info["total_size_bytes"] = row[2] or 0
-                    
+
             elif db_dialect == "sqlite":
                 # SQLite - approximate size based on page count
                 try:
-                    page_count_query = text(f"PRAGMA page_count")
-                    page_size_query = text(f"PRAGMA page_size")
-                    
+                    page_count_query = text("PRAGMA page_count")
+                    page_size_query = text("PRAGMA page_size")
+
                     page_count_result = connection.execute(page_count_query)
                     page_size_result = connection.execute(page_size_query)
-                    
+
                     page_count = page_count_result.scalar() or 0
                     page_size = page_size_result.scalar() or 0
-                    
+
                     # This is database-wide, not per-table
                     # Approximate by dividing by number of tables
-                    table_info["total_size_bytes"] = (page_count * page_size) // len(table_names)
+                    table_info["total_size_bytes"] = (page_count * page_size) // len(
+                        table_names
+                    )
                     table_info["data_size_bytes"] = table_info["total_size_bytes"]
                 except Exception as e:
                     logger.debug(f"SQLite size query failed: {e}")
-                    
+
             elif db_dialect == "oracle":
                 # Oracle size queries
                 schema_name = schema or connection.engine.url.username.upper()
@@ -180,14 +187,18 @@ def get_table_sizes(
                     AND segment_name = :table
                 """)
                 try:
-                    result = connection.execute(size_query, {"schema": schema_name, "table": table_name.upper()})
+                    result = connection.execute(
+                        size_query, {"schema": schema_name, "table": table_name.upper()}
+                    )
                     row = result.fetchone()
                     if row and row[0]:
                         table_info["total_size_bytes"] = row[0]
                         table_info["data_size_bytes"] = row[0]
                 except Exception as e:
                     # Fallback to user_segments if dba_segments not accessible
-                    logger.debug(f"Oracle dba_segments failed, trying user_segments: {e}")
+                    logger.debug(
+                        f"Oracle dba_segments failed, trying user_segments: {e}"
+                    )
                     try:
                         size_query = text("""
                             SELECT 
@@ -195,14 +206,16 @@ def get_table_sizes(
                             FROM user_segments
                             WHERE segment_name = :table
                         """)
-                        result = connection.execute(size_query, {"table": table_name.upper()})
+                        result = connection.execute(
+                            size_query, {"table": table_name.upper()}
+                        )
                         row = result.fetchone()
                         if row and row[0]:
                             table_info["total_size_bytes"] = row[0]
                             table_info["data_size_bytes"] = row[0]
                     except Exception as e2:
                         logger.debug(f"Oracle user_segments failed: {e2}")
-                        
+
             elif db_dialect in ("mssql", "microsoft", "pyodbc"):
                 # SQL Server size queries
                 schema_name = schema or "dbo"
@@ -220,42 +233,50 @@ def get_table_sizes(
                     AND s.name = :schema
                     GROUP BY t.name
                 """)
-                result = connection.execute(size_query, {"schema": schema_name, "table": table_name})
+                result = connection.execute(
+                    size_query, {"schema": schema_name, "table": table_name}
+                )
                 row = result.fetchone()
                 if row:
                     table_info["total_size_bytes"] = row[0] or 0
                     table_info["data_size_bytes"] = row[1] or 0
                     # For SQL Server, estimate index size as difference
                     if include_indexes:
-                        table_info["index_size_bytes"] = max(0, (row[0] or 0) - (row[1] or 0))
-                    
+                        table_info["index_size_bytes"] = max(
+                            0, (row[0] or 0) - (row[1] or 0)
+                        )
+
             else:
                 # Fallback: estimate based on row count
                 estimated_bytes = table_info["row_count"] * 1000  # rough estimate
                 table_info["total_size_bytes"] = estimated_bytes
                 table_info["data_size_bytes"] = estimated_bytes
-                logger.warning(f"Size estimation not supported for {db_dialect}, using rough estimate")
-            
+                logger.warning(
+                    f"Size estimation not supported for {db_dialect}, using rough estimate"
+                )
+
             # Calculate MB values
             table_info["data_size_mb"] = table_info["data_size_bytes"] / (1024 * 1024)
             table_info["total_size_mb"] = table_info["total_size_bytes"] / (1024 * 1024)
-            
+
             # Remove index size if not requested
             if not include_indexes:
                 del table_info["index_size_bytes"]
             else:
-                table_info["index_size_mb"] = table_info["index_size_bytes"] / (1024 * 1024)
-            
+                table_info["index_size_mb"] = table_info["index_size_bytes"] / (
+                    1024 * 1024
+                )
+
             results.append(table_info)
-            
+
         except Exception as e:
             logger.error(f"Error getting size for table {table_name}: {e}")
             results.append(table_info)
-    
+
     # Sort by total size descending
     results.sort(key=lambda x: x["total_size_bytes"], reverse=True)
-    
+
     return results
 
 
-__all__ = ['get_table_sizes']
+__all__ = ["get_table_sizes"]

@@ -20,4 +20,3 @@ __all__ = [
     "match_url_pattern",
     "validate_url_format",
 ]
-

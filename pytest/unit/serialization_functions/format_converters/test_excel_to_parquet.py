@@ -2,12 +2,13 @@
 Unit tests for excel_to_parquet function.
 """
 
-from pathlib import Path
 import tempfile
+from pathlib import Path
 
-import pytest
 import openpyxl
 import pyarrow.parquet as pq
+
+import pytest
 from serialization_functions.format_converters.excel_to_parquet import excel_to_parquet
 
 

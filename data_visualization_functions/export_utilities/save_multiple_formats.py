@@ -4,6 +4,7 @@ Save a figure in multiple formats.
 
 import logging
 from pathlib import Path
+
 from matplotlib.figure import Figure
 
 logger = logging.getLogger(__name__)
@@ -92,31 +93,27 @@ def save_multiple_formats(
 
     # Default formats
     if formats is None:
-        formats = ['png', 'pdf', 'svg']
+        formats = ["png", "pdf", "svg"]
 
     if not formats:
         raise ValueError("formats list cannot be empty")
 
-    valid_formats = ['png', 'pdf', 'svg', 'jpg', 'jpeg', 'eps', 'ps', 'tiff']
+    valid_formats = ["png", "pdf", "svg", "jpg", "jpeg", "eps", "ps", "tiff"]
     for fmt in formats:
         if not isinstance(fmt, str):
             raise TypeError(f"format must be a string, got {type(fmt).__name__}")
 
         if fmt.lower() not in valid_formats:
-            raise ValueError(
-                f"Invalid format '{fmt}', must be one of {valid_formats}"
-            )
+            raise ValueError(f"Invalid format '{fmt}', must be one of {valid_formats}")
 
-    logger.debug(
-        f"Saving figure to multiple formats {formats} with dpi={dpi}"
-    )
+    logger.debug(f"Saving figure to multiple formats {formats} with dpi={dpi}")
 
     # Prepare base path
     base_path = Path(base_filepath)
 
     # Remove extension if present
     if base_path.suffix:
-        base_path = base_path.with_suffix('')
+        base_path = base_path.with_suffix("")
 
     # Create parent directory
     base_path.parent.mkdir(parents=True, exist_ok=True)
@@ -125,12 +122,12 @@ def save_multiple_formats(
     saved_paths = []
 
     for fmt in formats:
-        output_path = base_path.with_suffix(f'.{fmt.lower()}')
+        output_path = base_path.with_suffix(f".{fmt.lower()}")
 
         fig.savefig(
             output_path,
             dpi=dpi,
-            bbox_inches='tight',
+            bbox_inches="tight",
             transparent=transparent,
         )
 
@@ -141,4 +138,4 @@ def save_multiple_formats(
     return saved_paths
 
 
-__all__ = ['save_multiple_formats']
+__all__ = ["save_multiple_formats"]

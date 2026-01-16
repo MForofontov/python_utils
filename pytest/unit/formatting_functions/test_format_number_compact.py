@@ -70,7 +70,7 @@ def test_format_number_compact_precision() -> None:
     """
     # Arrange
     number = 1567000
-    
+
     # Act & Assert
     assert format_number_compact(number, precision=0) == "2M"
     assert format_number_compact(number, precision=1) == "1.6M"
@@ -134,11 +134,11 @@ def test_format_number_compact_boundary_values() -> None:
     # Thousand boundary
     assert format_number_compact(999) == "999"
     assert format_number_compact(1000) == "1K"
-    
+
     # Million boundary
     assert format_number_compact(999999) == "1000K"
     assert format_number_compact(1000000) == "1M"
-    
+
     # Billion boundary
     assert format_number_compact(999999999) == "1000M"
     assert format_number_compact(1000000000) == "1B"
@@ -150,7 +150,7 @@ def test_format_number_compact_invalid_type_number() -> None:
     """
     # Arrange
     expected_message = "number must be a number, got str"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         format_number_compact("1500")
@@ -162,7 +162,7 @@ def test_format_number_compact_invalid_type_precision() -> None:
     """
     # Arrange
     expected_message = "precision must be an integer, got str"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         format_number_compact(1500, precision="2")
@@ -174,7 +174,7 @@ def test_format_number_compact_invalid_type_threshold() -> None:
     """
     # Arrange
     expected_message = "threshold must be an integer, got float"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         format_number_compact(1500, threshold=1000.5)
@@ -186,7 +186,7 @@ def test_format_number_compact_negative_precision() -> None:
     """
     # Arrange
     expected_message = "precision must be non-negative"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         format_number_compact(1500, precision=-1)
@@ -198,7 +198,7 @@ def test_format_number_compact_negative_threshold() -> None:
     """
     # Arrange
     expected_message = "threshold must be non-negative"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         format_number_compact(1500, threshold=-100)

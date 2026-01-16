@@ -56,32 +56,34 @@ def paginate_links(
     if not isinstance(base_url, str):
         raise TypeError(f"base_url must be a string, got {type(base_url).__name__}")
     if not isinstance(start_page, int):
-        raise TypeError(f"start_page must be an integer, got {type(start_page).__name__}")
+        raise TypeError(
+            f"start_page must be an integer, got {type(start_page).__name__}"
+        )
     if not isinstance(end_page, int):
         raise TypeError(f"end_page must be an integer, got {type(end_page).__name__}")
     if not isinstance(page_param, str):
         raise TypeError(f"page_param must be a string, got {type(page_param).__name__}")
-    
+
     if not base_url.strip():
         raise ValueError("base_url cannot be empty")
-    
+
     if start_page <= 0:
         raise ValueError(f"start_page must be positive, got {start_page}")
-    
+
     if end_page <= 0:
         raise ValueError(f"end_page must be positive, got {end_page}")
-    
+
     if start_page > end_page:
         raise ValueError(f"start_page ({start_page}) must be <= end_page ({end_page})")
-    
+
     urls = []
     separator = "&" if "?" in base_url else "?"
-    
+
     for page in range(start_page, end_page + 1):
         url = f"{base_url}{separator}{page_param}={page}"
         urls.append(url)
-    
+
     return urls
 
 
-__all__ = ['paginate_links']
+__all__ = ["paginate_links"]

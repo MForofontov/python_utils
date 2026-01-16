@@ -46,7 +46,7 @@ def parse_size(size_str: str, binary: bool = True) -> int:
     Supported units (case-insensitive):
     - Binary (1024-based): B, K/KB/KiB, M/MB/MiB, G/GB/GiB, T/TB/TiB, P/PB/PiB, E/EB/EiB, Z/ZB/ZiB, Y/YB/YiB
     - Decimal (1000-based): B, K/KB, M/MB, G/GB, T/TB, P/PB, E/EB, Z/ZB, Y/YB
-    
+
     If no unit is specified, bytes are assumed.
 
     Complexity

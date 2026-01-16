@@ -3,7 +3,6 @@ Tests for merge_query_params function.
 """
 
 import pytest
-
 from url_functions.merge_query_params import merge_query_params
 
 
@@ -14,7 +13,7 @@ def test_merge_query_params_add_to_empty() -> None:
     # Arrange
     base_url = "http://example.com/path"
     params = {"a": "1", "b": "2"}
-    
+
     # Act
     result = merge_query_params(base_url, params)
 
@@ -31,7 +30,7 @@ def test_merge_query_params_merge_existing() -> None:
     # Arrange
     base_url = "http://example.com?a=1"
     params = {"b": "2"}
-    
+
     # Act
     result = merge_query_params(base_url, params)
 
@@ -48,7 +47,7 @@ def test_merge_query_params_replace_mode() -> None:
     base_url = "http://example.com?a=1&b=2"
     params = {"c": "3"}
     expected = "http://example.com?c=3"
-    
+
     # Act
     result = merge_query_params(base_url, params, replace=True)
 
@@ -63,7 +62,7 @@ def test_merge_query_params_list_values() -> None:
     # Arrange
     base_url = "http://example.com"
     params = {"tags": ["python", "web", "api"]}
-    
+
     # Act
     result = merge_query_params(base_url, params)
 
@@ -80,7 +79,7 @@ def test_merge_query_params_list_with_separator() -> None:
     # Arrange
     base_url = "http://example.com"
     params = {"tags": ["python", "web"]}
-    
+
     # Act
     result = merge_query_params(base_url, params, list_separator=",")
 
@@ -95,7 +94,7 @@ def test_merge_query_params_nested_dict() -> None:
     # Arrange
     base_url = "http://example.com"
     params = {"filter": {"status": "active", "type": "user"}}
-    
+
     # Act
     result = merge_query_params(base_url, params)
 
@@ -111,7 +110,7 @@ def test_merge_query_params_none_values_skipped() -> None:
     # Arrange
     base_url = "http://example.com"
     params = {"a": "1", "b": None, "c": "3"}
-    
+
     # Act
     result = merge_query_params(base_url, params)
 
@@ -128,7 +127,7 @@ def test_merge_query_params_integer_values() -> None:
     # Arrange
     base_url = "http://example.com"
     params = {"page": 2, "limit": 10}
-    
+
     # Act
     result = merge_query_params(base_url, params)
 
@@ -144,7 +143,7 @@ def test_merge_query_params_override_existing() -> None:
     # Arrange
     base_url = "http://example.com?page=1"
     params = {"page": "2"}
-    
+
     # Act
     result = merge_query_params(base_url, params)
 
@@ -160,7 +159,7 @@ def test_merge_query_params_preserve_fragment() -> None:
     # Arrange
     base_url = "http://example.com/path#section"
     params = {"a": "1"}
-    
+
     # Act
     result = merge_query_params(base_url, params)
 
@@ -218,7 +217,7 @@ def test_merge_query_params_empty_list() -> None:
     # Arrange
     base_url = "http://example.com"
     params = {"tags": []}
-    
+
     # Act
     result = merge_query_params(base_url, params)
 
@@ -234,7 +233,7 @@ def test_merge_query_params_boolean_values() -> None:
     # Arrange
     base_url = "http://example.com"
     params = {"active": True, "verified": False}
-    
+
     # Act
     result = merge_query_params(base_url, params)
 

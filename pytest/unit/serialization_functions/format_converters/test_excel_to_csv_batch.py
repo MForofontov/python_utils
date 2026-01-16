@@ -2,12 +2,12 @@
 Unit tests for excel_to_csv_batch function.
 """
 
-import csv
-from pathlib import Path
 import tempfile
+from pathlib import Path
+
+import openpyxl
 
 import pytest
-import openpyxl
 from serialization_functions.format_converters.excel_to_csv_batch import (
     excel_to_csv_batch,
 )
@@ -170,7 +170,7 @@ def test_excel_to_csv_batch_custom_encoding() -> None:
         excel_to_csv_batch(excel_file, output_dir, encoding="utf-8")
 
         csv_file = next(output_dir.glob("*.csv"))
-        with open(csv_file, "r", encoding="utf-8") as f:
+        with open(csv_file, encoding="utf-8") as f:
             content = f.read()
             assert "Café" in content
 

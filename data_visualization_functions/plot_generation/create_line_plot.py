@@ -95,9 +95,13 @@ def create_line_plot(
     """
     # Type validation
     if not isinstance(x_data, (list, np.ndarray)):
-        raise TypeError(f"x_data must be a list or numpy array, got {type(x_data).__name__}")
+        raise TypeError(
+            f"x_data must be a list or numpy array, got {type(x_data).__name__}"
+        )
     if not isinstance(y_data, (list, np.ndarray)):
-        raise TypeError(f"y_data must be a list or numpy array, got {type(y_data).__name__}")
+        raise TypeError(
+            f"y_data must be a list or numpy array, got {type(y_data).__name__}"
+        )
     if not isinstance(title, str):
         raise TypeError(f"title must be a string, got {type(title).__name__}")
     if not isinstance(xlabel, str):
@@ -113,11 +117,11 @@ def create_line_plot(
 
     # Convert to numpy arrays
     x_data = np.asarray(x_data)
-    
+
     # Value validation
     if len(x_data) == 0:
         raise ValueError("x_data cannot be empty")
-    
+
     if figsize[0] <= 0 or figsize[1] <= 0:
         raise ValueError(f"figsize dimensions must be positive, got {figsize}")
 
@@ -146,62 +150,74 @@ def create_line_plot(
         if not isinstance(labels, list):
             raise TypeError(f"labels must be a list, got {type(labels).__name__}")
         if len(labels) != num_series:
-            raise ValueError(f"Number of labels ({len(labels)}) must match number of series ({num_series})")
-    
+            raise ValueError(
+                f"Number of labels ({len(labels)}) must match number of series ({num_series})"
+            )
+
     if colors is not None:
         if not isinstance(colors, list):
             raise TypeError(f"colors must be a list, got {type(colors).__name__}")
         if len(colors) != num_series:
-            raise ValueError(f"Number of colors ({len(colors)}) must match number of series ({num_series})")
-    
+            raise ValueError(
+                f"Number of colors ({len(colors)}) must match number of series ({num_series})"
+            )
+
     if line_styles is not None:
         if not isinstance(line_styles, list):
-            raise TypeError(f"line_styles must be a list, got {type(line_styles).__name__}")
+            raise TypeError(
+                f"line_styles must be a list, got {type(line_styles).__name__}"
+            )
         if len(line_styles) != num_series:
-            raise ValueError(f"Number of line_styles ({len(line_styles)}) must match number of series ({num_series})")
-    
+            raise ValueError(
+                f"Number of line_styles ({len(line_styles)}) must match number of series ({num_series})"
+            )
+
     if markers is not None:
         if not isinstance(markers, list):
             raise TypeError(f"markers must be a list, got {type(markers).__name__}")
         if len(markers) != num_series:
-            raise ValueError(f"Number of markers ({len(markers)}) must match number of series ({num_series})")
+            raise ValueError(
+                f"Number of markers ({len(markers)}) must match number of series ({num_series})"
+            )
 
     # Create plot
     fig, ax = plt.subplots(figsize=figsize)
-    
+
     for i, y in enumerate(y_series):
         plot_kwargs: dict[str, Any] = {}
-        
+
         if labels is not None:
-            plot_kwargs['label'] = labels[i]
+            plot_kwargs["label"] = labels[i]
         if colors is not None:
-            plot_kwargs['color'] = colors[i]
+            plot_kwargs["color"] = colors[i]
         if line_styles is not None:
-            plot_kwargs['linestyle'] = line_styles[i]
+            plot_kwargs["linestyle"] = line_styles[i]
         if markers is not None:
-            plot_kwargs['marker'] = markers[i]
-        
+            plot_kwargs["marker"] = markers[i]
+
         ax.plot(x_data, y, **plot_kwargs)
-    
+
     # Customize plot
     if title:
-        ax.set_title(title, fontsize=14, fontweight='bold')
+        ax.set_title(title, fontsize=14, fontweight="bold")
     if xlabel:
         ax.set_xlabel(xlabel, fontsize=12)
     if ylabel:
         ax.set_ylabel(ylabel, fontsize=12)
-    
+
     if grid:
-        ax.grid(True, alpha=0.3, linestyle='--')
-    
+        ax.grid(True, alpha=0.3, linestyle="--")
+
     if legend and labels is not None:
-        ax.legend(loc='best', framealpha=0.9)
-    
+        ax.legend(loc="best", framealpha=0.9)
+
     plt.tight_layout()
-    
-    logger.debug(f"Created line plot with {num_series} series and {len(x_data)} data points")
-    
+
+    logger.debug(
+        f"Created line plot with {num_series} series and {len(x_data)} data points"
+    )
+
     return fig, ax
 
 
-__all__ = ['create_line_plot']
+__all__ = ["create_line_plot"]

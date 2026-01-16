@@ -2,11 +2,12 @@
 Unit tests for transpose_excel_data function.
 """
 
-from pathlib import Path
 import tempfile
+from pathlib import Path
+
+import openpyxl
 
 import pytest
-import openpyxl
 from serialization_functions.excel_operations.transpose_excel_data import (
     transpose_excel_data,
 )

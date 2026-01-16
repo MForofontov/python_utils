@@ -77,10 +77,12 @@ def test_format_duration_precision_variations() -> None:
     assert format_duration(3665, precision=1) == "1h"
     assert format_duration(90061, precision=1) == "1d"
     assert format_duration(691261, precision=1) == "1w"
-    
+
     # Precision = 3 (three units)
     assert format_duration(90061, precision=3) == "1d 1h 1m"
-    assert format_duration(90061, precision=3, long_format=True) == "1 day 1 hour 1 minute"
+    assert (
+        format_duration(90061, precision=3, long_format=True) == "1 day 1 hour 1 minute"
+    )
 
 
 def test_format_duration_long_format_pluralization() -> None:
@@ -134,9 +136,11 @@ def test_format_duration_large_values() -> None:
     # Arrange & Act & Assert
     # 10 years
     assert format_duration(315360000) == "10y"
-    
+
     # Multiple years with all units
-    large_duration = (2 * 365 * 24 * 60 * 60) + (3 * 7 * 24 * 60 * 60) + (4 * 24 * 60 * 60)
+    large_duration = (
+        (2 * 365 * 24 * 60 * 60) + (3 * 7 * 24 * 60 * 60) + (4 * 24 * 60 * 60)
+    )
     result = format_duration(large_duration, precision=3)
     assert result == "2y 3w 4d"
 
@@ -148,7 +152,7 @@ def test_format_duration_invalid_type_seconds() -> None:
     """
     # Arrange
     expected_message = "seconds must be a number, got str"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         format_duration("90")
@@ -160,7 +164,7 @@ def test_format_duration_invalid_type_precision() -> None:
     """
     # Arrange
     expected_message = "precision must be an integer, got str"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         format_duration(90, precision="2")
@@ -172,7 +176,7 @@ def test_format_duration_invalid_type_long_format() -> None:
     """
     # Arrange
     expected_message = "long_format must be a boolean, got str"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         format_duration(90, long_format="true")
@@ -184,7 +188,7 @@ def test_format_duration_negative_seconds() -> None:
     """
     # Arrange
     expected_message = "seconds must be non-negative"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         format_duration(-90)
@@ -196,10 +200,10 @@ def test_format_duration_invalid_precision() -> None:
     """
     # Arrange
     expected_message = "precision must be at least 1"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         format_duration(90, precision=0)
-    
+
     with pytest.raises(ValueError, match=expected_message):
         format_duration(90, precision=-1)

@@ -3,9 +3,7 @@ Tests for match_url_pattern and validate_url_format functions.
 """
 
 import pytest
-
 from url_functions.match_url_pattern import match_url_pattern, validate_url_format
-
 
 # Tests for match_url_pattern
 
@@ -18,7 +16,7 @@ def test_match_url_pattern_simple_match() -> None:
     url = "/users/123"
     pattern = "/users/{user_id}"
     expected = {"user_id": "123"}
-    
+
     # Act
     result = match_url_pattern(url, pattern)
 
@@ -34,7 +32,7 @@ def test_match_url_pattern_multiple_variables() -> None:
     url = "/users/123/posts/456"
     pattern = "/users/{user_id}/posts/{post_id}"
     expected = {"user_id": "123", "post_id": "456"}
-    
+
     # Act
     result = match_url_pattern(url, pattern)
 
@@ -49,7 +47,7 @@ def test_match_url_pattern_no_match() -> None:
     # Arrange
     url = "/products/123"
     pattern = "/users/{user_id}"
-    
+
     # Act
     result = match_url_pattern(url, pattern)
 
@@ -65,7 +63,7 @@ def test_match_url_pattern_typed_int() -> None:
     url = "/users/123"
     pattern = "/users/{user_id:int}"
     expected = {"user_id": "123"}
-    
+
     # Act
     result = match_url_pattern(url, pattern)
 
@@ -80,7 +78,7 @@ def test_match_url_pattern_typed_int_no_match() -> None:
     # Arrange
     url = "/users/abc"
     pattern = "/users/{user_id:int}"
-    
+
     # Act
     result = match_url_pattern(url, pattern)
 
@@ -96,7 +94,7 @@ def test_match_url_pattern_path_type() -> None:
     url = "/files/docs/user/readme.txt"
     pattern = "/files/{path:path}"
     expected = {"path": "docs/user/readme.txt"}
-    
+
     # Act
     result = match_url_pattern(url, pattern)
 
@@ -111,7 +109,7 @@ def test_match_url_pattern_case_insensitive() -> None:
     # Arrange
     url = "/Users/123"
     pattern = "/users/{id}"
-    
+
     # Act
     result = match_url_pattern(url, pattern, case_sensitive=False)
 
@@ -127,7 +125,7 @@ def test_match_url_pattern_case_sensitive() -> None:
     # Arrange
     url = "/Users/123"
     pattern = "/users/{id}"
-    
+
     # Act
     result = match_url_pattern(url, pattern, case_sensitive=True)
 
@@ -143,7 +141,7 @@ def test_match_url_pattern_empty_url_raises_error() -> None:
     url = ""
     pattern = "/users/{id}"
     expected_message = "url cannot be empty"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         match_url_pattern(url, pattern)
@@ -157,7 +155,7 @@ def test_match_url_pattern_empty_pattern_raises_error() -> None:
     url = "/users/123"
     pattern = ""
     expected_message = "pattern cannot be empty"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         match_url_pattern(url, pattern)
@@ -171,7 +169,7 @@ def test_match_url_pattern_invalid_url_type_raises_error() -> None:
     url = 123
     pattern = "/users/{id}"
     expected_message = "url must be a string, got int"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         match_url_pattern(url, pattern)  # type: ignore
@@ -186,7 +184,7 @@ def test_validate_url_format_valid_https() -> None:
     """
     # Arrange
     url = "https://example.com/path"
-    
+
     # Act
     result = validate_url_format(url)
 
@@ -200,7 +198,7 @@ def test_validate_url_format_valid_http() -> None:
     """
     # Arrange
     url = "http://example.com/path"
-    
+
     # Act
     result = validate_url_format(url)
 
@@ -214,7 +212,7 @@ def test_validate_url_format_relative_url_with_scheme_required() -> None:
     """
     # Arrange
     url = "/path/to/resource"
-    
+
     # Act
     result = validate_url_format(url, require_scheme=True)
 
@@ -228,7 +226,7 @@ def test_validate_url_format_relative_url_scheme_not_required() -> None:
     """
     # Arrange
     url = "/path/to/resource"
-    
+
     # Act
     result = validate_url_format(url, require_scheme=False, require_netloc=False)
 
@@ -243,7 +241,7 @@ def test_validate_url_format_allowed_schemes() -> None:
     # Arrange
     url = "ftp://example.com/file"
     allowed_schemes = ["http", "https"]
-    
+
     # Act
     result = validate_url_format(url, allowed_schemes=allowed_schemes)
 
@@ -258,7 +256,7 @@ def test_validate_url_format_allowed_schemes_match() -> None:
     # Arrange
     url = "https://example.com"
     allowed_schemes = ["http", "https"]
-    
+
     # Act
     result = validate_url_format(url, allowed_schemes=allowed_schemes)
 
@@ -272,7 +270,7 @@ def test_validate_url_format_empty_url() -> None:
     """
     # Arrange
     url = ""
-    
+
     # Act
     result = validate_url_format(url)
 
@@ -287,7 +285,7 @@ def test_validate_url_format_invalid_type_raises_error() -> None:
     # Arrange
     url = 123
     expected_message = "url must be a string, got int"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         validate_url_format(url)  # type: ignore
@@ -299,7 +297,7 @@ def test_validate_url_format_invalid_port() -> None:
     """
     # Arrange
     url = "http://example.com:99999/path"
-    
+
     # Act
     result = validate_url_format(url)
 

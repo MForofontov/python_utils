@@ -9,13 +9,13 @@ def test_rotate_user_agent_basic_rotation() -> None:
     # Arrange
     user_agents = ["UA1", "UA2", "UA3"]
     rotator = rotate_user_agent(user_agents)
-    
+
     # Act
     result1 = next(rotator)
     result2 = next(rotator)
     result3 = next(rotator)
     result4 = next(rotator)
-    
+
     # Assert
     assert result1 == "UA1"
     assert result2 == "UA2"
@@ -30,11 +30,11 @@ def test_rotate_user_agent_single_user_agent() -> None:
     # Arrange
     user_agents = ["Mozilla/5.0"]
     rotator = rotate_user_agent(user_agents)
-    
+
     # Act
     result1 = next(rotator)
     result2 = next(rotator)
-    
+
     # Assert
     assert result1 == "Mozilla/5.0"
     assert result2 == "Mozilla/5.0"
@@ -47,10 +47,10 @@ def test_rotate_user_agent_infinite_cycling() -> None:
     # Arrange
     user_agents = ["UA1", "UA2"]
     rotator = rotate_user_agent(user_agents)
-    
+
     # Act
     results = [next(rotator) for _ in range(8)]
-    
+
     # Assert
     assert results == ["UA1", "UA2"] * 4
 
@@ -63,11 +63,11 @@ def test_rotate_user_agent_list_not_modified() -> None:
     user_agents = ["UA1", "UA2", "UA3"]
     original_uas = user_agents.copy()
     rotator = rotate_user_agent(user_agents)
-    
+
     # Act
     next(rotator)
     next(rotator)
-    
+
     # Assert
     assert user_agents == original_uas
 
@@ -99,14 +99,14 @@ def test_rotate_user_agent_realistic_user_agents() -> None:
     # Arrange
     user_agents = [
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
     ]
     rotator = rotate_user_agent(user_agents)
-    
+
     # Act
     result1 = next(rotator)
     result2 = next(rotator)
-    
+
     # Assert
     assert "Windows NT 10.0" in result1
     assert "Macintosh" in result2

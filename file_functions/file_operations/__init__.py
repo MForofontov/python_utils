@@ -20,4 +20,3 @@ __all__ = [
     "write_lines",
     "write_to_file",
 ]
-

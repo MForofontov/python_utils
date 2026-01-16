@@ -78,7 +78,9 @@ def count_code_lines(file_path: str | Path) -> CodeLineCount:
     """
     # Input validation
     if not isinstance(file_path, (str, Path)):
-        raise TypeError(f"file_path must be str or Path, got {type(file_path).__name__}")
+        raise TypeError(
+            f"file_path must be str or Path, got {type(file_path).__name__}"
+        )
 
     file_path = Path(file_path)
 

@@ -143,4 +143,3 @@ def test_modify_years_invalid_years_type() -> None:
 
     with pytest.raises(TypeError):
         modify_years(test_date, None)
-

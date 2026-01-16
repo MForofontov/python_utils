@@ -5,7 +5,7 @@ Get statistical information about table columns for data profiling.
 import logging
 from typing import Any
 
-from sqlalchemy import MetaData, Table, select, func, and_
+from sqlalchemy import MetaData, func, select
 
 logger = logging.getLogger(__name__)
 
@@ -77,15 +77,17 @@ def get_column_statistics(
     if not table_name.strip():
         raise ValueError("table_name cannot be empty")
     if column_name is not None and not isinstance(column_name, str):
-        raise TypeError(f"column_name must be str or None, got {type(column_name).__name__}")
+        raise TypeError(
+            f"column_name must be str or None, got {type(column_name).__name__}"
+        )
     if schema is not None and not isinstance(schema, str):
         raise TypeError(f"schema must be str or None, got {type(schema).__name__}")
 
     from sqlalchemy import inspect
-    
+
     inspector = inspect(connection)
     columns = inspector.get_columns(table_name, schema=schema)
-    
+
     if column_name:
         columns = [c for c in columns if c["name"] == column_name]
         if not columns:
@@ -94,10 +96,10 @@ def get_column_statistics(
     # Reflect table metadata for SQLAlchemy queries
     metadata = MetaData()
     metadata.reflect(bind=connection, schema=schema, only=[table_name])
-    
+
     if table_name not in metadata.tables:
         raise ValueError(f"Table {table_name} not found")
-    
+
     table = metadata.tables[table_name]
 
     # Get total row count using SQLAlchemy
@@ -105,11 +107,11 @@ def get_column_statistics(
     total_rows = connection.execute(total_query).scalar()
 
     stats = {}
-    
+
     for col in columns:
         col_name = col["name"]
         col_obj = table.c[col_name]
-        
+
         col_stats = {
             "total_rows": total_rows,
             "null_count": 0,
@@ -120,20 +122,30 @@ def get_column_statistics(
 
         try:
             # NULL count using SQLAlchemy
-            null_query = select(func.count()).select_from(table).where(col_obj.is_(None))
+            null_query = (
+                select(func.count()).select_from(table).where(col_obj.is_(None))
+            )
             null_count = connection.execute(null_query).scalar()
             col_stats["null_count"] = null_count
-            col_stats["null_percentage"] = (null_count / total_rows * 100) if total_rows > 0 else 0.0
+            col_stats["null_percentage"] = (
+                (null_count / total_rows * 100) if total_rows > 0 else 0.0
+            )
 
             # Distinct count using SQLAlchemy
-            distinct_query = select(func.count(func.distinct(col_obj))).select_from(table)
+            distinct_query = select(func.count(func.distinct(col_obj))).select_from(
+                table
+            )
             distinct_count = connection.execute(distinct_query).scalar()
             col_stats["distinct_count"] = distinct_count
-            col_stats["cardinality_ratio"] = (distinct_count / total_rows) if total_rows > 0 else 0.0
+            col_stats["cardinality_ratio"] = (
+                (distinct_count / total_rows) if total_rows > 0 else 0.0
+            )
 
             # Min/Max for numeric/date columns
             try:
-                minmax_query = select(func.min(col_obj), func.max(col_obj)).select_from(table)
+                minmax_query = select(func.min(col_obj), func.max(col_obj)).select_from(
+                    table
+                )
                 minmax = connection.execute(minmax_query).fetchone()
                 if minmax and minmax[0] is not None:
                     col_stats["min_value"] = str(minmax[0])
@@ -145,7 +157,7 @@ def get_column_statistics(
             # Top values using SQLAlchemy
             try:
                 top_query = (
-                    select(col_obj, func.count().label('cnt'))
+                    select(col_obj, func.count().label("cnt"))
                     .where(col_obj.isnot(None))
                     .group_by(col_obj)
                     .order_by(func.count().desc())
@@ -153,7 +165,11 @@ def get_column_statistics(
                 )
                 top_results = connection.execute(top_query).fetchall()
                 col_stats["top_values"] = [
-                    {"value": str(row[0]), "count": row[1], "percentage": (row[1] / total_rows * 100)}
+                    {
+                        "value": str(row[0]),
+                        "count": row[1],
+                        "percentage": (row[1] / total_rows * 100),
+                    }
                     for row in top_results
                 ]
             except Exception as e:
@@ -169,4 +185,4 @@ def get_column_statistics(
     return stats
 
 
-__all__ = ['get_column_statistics']
+__all__ = ["get_column_statistics"]

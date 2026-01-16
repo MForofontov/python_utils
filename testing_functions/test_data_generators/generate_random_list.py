@@ -3,8 +3,9 @@ Generate random list for testing.
 """
 
 from typing import Any
-from .generate_random_int import generate_random_int
+
 from .generate_random_float import generate_random_float
+from .generate_random_int import generate_random_int
 from .generate_random_string import generate_random_string
 
 
@@ -56,23 +57,32 @@ def generate_random_list(
     if not isinstance(length, int):
         raise TypeError(f"length must be an integer, got {type(length).__name__}")
     if not isinstance(element_type, str):
-        raise TypeError(f"element_type must be a string, got {type(element_type).__name__}")
+        raise TypeError(
+            f"element_type must be a string, got {type(element_type).__name__}"
+        )
     if not isinstance(min_value, (int, float)):
         raise TypeError(f"min_value must be a number, got {type(min_value).__name__}")
     if not isinstance(max_value, (int, float)):
         raise TypeError(f"max_value must be a number, got {type(max_value).__name__}")
-    
+
     if length < 0:
         raise ValueError(f"length must be non-negative, got {length}")
     if element_type not in ("int", "float", "str"):
-        raise ValueError(f"element_type must be 'int', 'float', or 'str', got {element_type}")
-    
+        raise ValueError(
+            f"element_type must be 'int', 'float', or 'str', got {element_type}"
+        )
+
     if element_type == "int":
-        return [generate_random_int(int(min_value), int(max_value)) for _ in range(length)]
+        return [
+            generate_random_int(int(min_value), int(max_value)) for _ in range(length)
+        ]
     elif element_type == "float":
-        return [generate_random_float(float(min_value), float(max_value)) for _ in range(length)]
+        return [
+            generate_random_float(float(min_value), float(max_value))
+            for _ in range(length)
+        ]
     else:  # str
         return [generate_random_string() for _ in range(length)]
 
 
-__all__ = ['generate_random_list']
+__all__ = ["generate_random_list"]

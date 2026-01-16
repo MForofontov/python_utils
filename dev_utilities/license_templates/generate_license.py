@@ -62,9 +62,7 @@ def generate_license(
     """
     # Input validation
     if not isinstance(license_type, str):
-        raise TypeError(
-            f"license_type must be str, got {type(license_type).__name__}"
-        )
+        raise TypeError(f"license_type must be str, got {type(license_type).__name__}")
 
     valid_licenses = {"MIT", "Apache-2.0", "GPL-3.0", "BSD-3-Clause", "BSD-2-Clause"}
     if license_type not in valid_licenses:
@@ -155,9 +153,7 @@ limitations under the License.
 """
 
 
-def _generate_gpl_license(
-    author: str, year: int, project_name: str | None
-) -> str:
+def _generate_gpl_license(author: str, year: int, project_name: str | None) -> str:
     """Generate GPL 3.0 license text."""
     project_line = f"{project_name} - " if project_name else ""
     return f"""{project_line}Copyright (C) {year} {author}
@@ -177,9 +173,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 
-def _generate_bsd3_license(
-    author: str, year: int, project_name: str | None
-) -> str:
+def _generate_bsd3_license(author: str, year: int, project_name: str | None) -> str:
     """Generate BSD 3-Clause license text."""
     project_line = f" for {project_name}" if project_name else ""
     return f"""BSD 3-Clause License
@@ -214,9 +208,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
 
-def _generate_bsd2_license(
-    author: str, year: int, project_name: str | None
-) -> str:
+def _generate_bsd2_license(author: str, year: int, project_name: str | None) -> str:
     """Generate BSD 2-Clause license text."""
     project_line = f" for {project_name}" if project_name else ""
     return f"""BSD 2-Clause License

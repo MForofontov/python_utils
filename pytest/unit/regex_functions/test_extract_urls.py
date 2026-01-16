@@ -10,7 +10,7 @@ def test_extract_urls_basic() -> None:
     """Test basic URL extraction."""
     text = "Visit https://example.com"
     result = extract_urls(text)
-    assert result == ['https://example.com']
+    assert result == ["https://example.com"]
 
 
 def test_extract_urls_multiple_schemes() -> None:
@@ -23,15 +23,15 @@ def test_extract_urls_multiple_schemes() -> None:
 def test_extract_urls_filter_https_only() -> None:
     """Test filtering by specific scheme."""
     text = "Links: https://secure.com and http://insecure.com"
-    result = extract_urls(text, include_schemes=['https'])
-    assert result == ['https://secure.com']
+    result = extract_urls(text, include_schemes=["https"])
+    assert result == ["https://secure.com"]
 
 
 def test_extract_urls_unique() -> None:
     """Test unique URL extraction."""
     text = "Link: https://example.com and https://example.com"
     result = extract_urls(text, unique=True)
-    assert result == ['https://example.com']
+    assert result == ["https://example.com"]
 
 
 def test_extract_urls_non_unique() -> None:
@@ -46,7 +46,7 @@ def test_extract_urls_with_paths() -> None:
     text = "API: https://api.example.com/v1/users?id=123&sort=asc"
     result = extract_urls(text)
     assert len(result) == 1
-    assert 'api.example.com' in result[0]
+    assert "api.example.com" in result[0]
 
 
 def test_extract_urls_no_matches() -> None:

@@ -1,12 +1,13 @@
 """Tests for find_missing_tests module."""
 
-import pytest
 from pathlib import Path
+
+import pytest
 from dev_utilities.project_validation.find_missing_tests import (
+    CoverageReport,
+    MissingTest,
     find_missing_tests,
     format_coverage_report,
-    MissingTest,
-    CoverageReport,
 )
 
 
@@ -175,7 +176,9 @@ def test_find_missing_tests_path_is_file_raises_error(tmp_path: Path) -> None:
         find_missing_tests(file_path)
 
 
-def test_find_missing_tests_invalid_source_dirs_type_raises_error(tmp_path: Path) -> None:
+def test_find_missing_tests_invalid_source_dirs_type_raises_error(
+    tmp_path: Path,
+) -> None:
     """
     Test TypeError for invalid source_dirs type.
     """
@@ -188,7 +191,9 @@ def test_find_missing_tests_invalid_source_dirs_type_raises_error(tmp_path: Path
         find_missing_tests(tmp_path, source_dirs=invalid_dirs)
 
 
-def test_find_missing_tests_invalid_test_base_dir_type_raises_error(tmp_path: Path) -> None:
+def test_find_missing_tests_invalid_test_base_dir_type_raises_error(
+    tmp_path: Path,
+) -> None:
     """
     Test TypeError for invalid test_base_dir type.
     """
@@ -201,7 +206,9 @@ def test_find_missing_tests_invalid_test_base_dir_type_raises_error(tmp_path: Pa
         find_missing_tests(tmp_path, test_base_dir=invalid_dir)
 
 
-def test_find_missing_tests_invalid_exclude_init_type_raises_error(tmp_path: Path) -> None:
+def test_find_missing_tests_invalid_exclude_init_type_raises_error(
+    tmp_path: Path,
+) -> None:
     """
     Test TypeError for invalid exclude_init type.
     """
@@ -266,7 +273,10 @@ def test_format_coverage_report_basic_output() -> None:
         module="utils",
     )
     report = CoverageReport(
-        total_source_files=5, files_with_tests=4, missing_tests=[missing], coverage_percentage=80.0
+        total_source_files=5,
+        files_with_tests=4,
+        missing_tests=[missing],
+        coverage_percentage=80.0,
     )
 
     # Act
@@ -349,7 +359,10 @@ def test_format_coverage_report_invalid_verbose_type_raises_error() -> None:
     """
     # Arrange
     report = CoverageReport(
-        total_source_files=0, files_with_tests=0, missing_tests=[], coverage_percentage=0.0
+        total_source_files=0,
+        files_with_tests=0,
+        missing_tests=[],
+        coverage_percentage=0.0,
     )
     expected_message = "verbose must be bool, got str"
 
@@ -364,7 +377,10 @@ def test_format_coverage_report_invalid_show_limit_type_raises_error() -> None:
     """
     # Arrange
     report = CoverageReport(
-        total_source_files=0, files_with_tests=0, missing_tests=[], coverage_percentage=0.0
+        total_source_files=0,
+        files_with_tests=0,
+        missing_tests=[],
+        coverage_percentage=0.0,
     )
     expected_message = "show_limit must be int, got str"
 

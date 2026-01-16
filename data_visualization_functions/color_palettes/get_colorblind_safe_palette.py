@@ -56,18 +56,18 @@ def get_colorblind_safe_palette(n_colors: int) -> list[str]:
 
     # Paul Tol's colorblind-safe palette
     colorblind_safe = [
-        '#4477AA',  # Blue
-        '#EE6677',  # Red
-        '#228833',  # Green
-        '#CCBB44',  # Yellow
-        '#66CCEE',  # Cyan
-        '#AA3377',  # Purple
-        '#BBBBBB',  # Grey
-        '#EE7733',  # Orange
-        '#009988',  # Teal
-        '#CC3311',  # Dark red
-        '#33BBEE',  # Light blue
-        '#EE3377',  # Magenta
+        "#4477AA",  # Blue
+        "#EE6677",  # Red
+        "#228833",  # Green
+        "#CCBB44",  # Yellow
+        "#66CCEE",  # Cyan
+        "#AA3377",  # Purple
+        "#BBBBBB",  # Grey
+        "#EE7733",  # Orange
+        "#009988",  # Teal
+        "#CC3311",  # Dark red
+        "#33BBEE",  # Light blue
+        "#EE3377",  # Magenta
     ]
 
     if n_colors > len(colorblind_safe):
@@ -81,4 +81,4 @@ def get_colorblind_safe_palette(n_colors: int) -> list[str]:
     return colors
 
 
-__all__ = ['get_colorblind_safe_palette']
+__all__ = ["get_colorblind_safe_palette"]

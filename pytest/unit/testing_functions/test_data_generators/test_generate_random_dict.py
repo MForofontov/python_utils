@@ -10,7 +10,7 @@ def test_generate_random_dict_default_parameters() -> None:
     """
     # Act
     result = generate_random_dict()
-    
+
     # Assert
     assert isinstance(result, dict)
     assert len(result) == 5
@@ -24,7 +24,7 @@ def test_generate_random_dict_custom_num_keys() -> None:
     """
     # Act
     result = generate_random_dict(3)
-    
+
     # Assert
     assert len(result) == 3
 
@@ -35,7 +35,7 @@ def test_generate_random_dict_custom_key_prefix() -> None:
     """
     # Act
     result = generate_random_dict(5, "test")
-    
+
     # Assert
     assert all(k.startswith("test_") for k in result.keys())
 
@@ -46,7 +46,7 @@ def test_generate_random_dict_float_values() -> None:
     """
     # Act
     result = generate_random_dict(5, "key", "float")
-    
+
     # Assert
     assert all(isinstance(v, float) for v in result.values())
 
@@ -57,7 +57,7 @@ def test_generate_random_dict_string_values() -> None:
     """
     # Act
     result = generate_random_dict(5, "key", "str")
-    
+
     # Assert
     assert all(isinstance(v, str) for v in result.values())
 
@@ -68,7 +68,7 @@ def test_generate_random_dict_empty_dict() -> None:
     """
     # Act
     result = generate_random_dict(0)
-    
+
     # Assert
     assert result == {}
 

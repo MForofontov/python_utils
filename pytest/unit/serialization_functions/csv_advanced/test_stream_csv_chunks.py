@@ -1,7 +1,8 @@
 """Tests for stream_csv_chunks module."""
 
-import pytest
 from pathlib import Path
+
+import pytest
 from serialization_functions.csv_advanced.stream_csv_chunks import stream_csv_chunks
 
 

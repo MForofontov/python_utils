@@ -2,12 +2,13 @@
 Unit tests for partition_parquet_by_column function.
 """
 
-from pathlib import Path
 import tempfile
+from pathlib import Path
 
-import pytest
 import pyarrow as pa
 import pyarrow.parquet as pq
+
+import pytest
 from serialization_functions.parquet_operations.partition_parquet_by_column import (
     partition_parquet_by_column,
 )

@@ -1,5 +1,6 @@
-import pytest
 import time
+
+import pytest
 from web_scraping_functions.rate_limiting.create_rate_limiter import (
     create_rate_limiter,
 )
@@ -11,13 +12,13 @@ def test_create_rate_limiter_basic_rate_limiting() -> None:
     """
     # Arrange
     limiter = create_rate_limiter(calls_per_second=10)
-    
+
     # Act
     start_time = time.time()
     limiter.wait()
     limiter.wait()
     elapsed = time.time() - start_time
-    
+
     # Assert
     assert elapsed >= 0.1  # At least 0.1 seconds between calls
 
@@ -28,13 +29,13 @@ def test_create_rate_limiter_multiple_waits() -> None:
     """
     # Arrange
     limiter = create_rate_limiter(calls_per_second=5)
-    
+
     # Act
     start_time = time.time()
     for _ in range(3):
         limiter.wait()
     elapsed = time.time() - start_time
-    
+
     # Assert
     assert elapsed >= 0.4  # At least 0.4 seconds for 3 calls at 5/sec
 
@@ -45,13 +46,13 @@ def test_create_rate_limiter_fast_rate() -> None:
     """
     # Arrange
     limiter = create_rate_limiter(calls_per_second=100)
-    
+
     # Act
     start_time = time.time()
     limiter.wait()
     limiter.wait()
     elapsed = time.time() - start_time
-    
+
     # Assert
     assert elapsed >= 0.01  # At least 0.01 seconds between calls
 
@@ -62,13 +63,13 @@ def test_create_rate_limiter_slow_rate() -> None:
     """
     # Arrange
     limiter = create_rate_limiter(calls_per_second=1)
-    
+
     # Act
     start_time = time.time()
     limiter.wait()
     limiter.wait()
     elapsed = time.time() - start_time
-    
+
     # Assert
     assert elapsed >= 1.0  # At least 1 second between calls
 
@@ -79,9 +80,9 @@ def test_create_rate_limiter_calls_per_second_attribute() -> None:
     """
     # Arrange
     limiter = create_rate_limiter(calls_per_second=5)
-    
+
     # Act & Assert
-    assert hasattr(limiter, 'calls_per_second')
+    assert hasattr(limiter, "calls_per_second")
     assert limiter.calls_per_second == 5
 
 
@@ -118,12 +119,12 @@ def test_create_rate_limiter_fractional_rate() -> None:
     """
     # Arrange
     limiter = create_rate_limiter(calls_per_second=2.5)
-    
+
     # Act
     start_time = time.time()
     limiter.wait()
     limiter.wait()
     elapsed = time.time() - start_time
-    
+
     # Assert
     assert elapsed >= 0.4  # At least 0.4 seconds (1/2.5)

@@ -3,7 +3,6 @@ Tests for slugify_url function.
 """
 
 import pytest
-
 from url_functions.slugify_url import slugify_url
 
 

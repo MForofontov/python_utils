@@ -52,7 +52,7 @@ def format_duration(
     Notes
     -----
     Time units used: years (365 days), weeks, days, hours, minutes, seconds
-    
+
     Complexity
     ----------
     Time: O(1), Space: O(1)

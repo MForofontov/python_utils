@@ -146,7 +146,12 @@ def test_partition_set_by_predicate_mixed_types() -> None:
     Test case 10: Partition set with mixed types.
     """
     # Arrange
-    mixed_set = {1, "a", 2.5, None}  # Note: 1 and True are same in set, only True remains
+    mixed_set = {
+        1,
+        "a",
+        2.5,
+        None,
+    }  # Note: 1 and True are same in set, only True remains
 
     # Act
     true_set, false_set = partition_set_by_predicate(

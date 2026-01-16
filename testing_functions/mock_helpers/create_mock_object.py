@@ -40,4 +40,4 @@ def create_mock_object(
     return mock
 
 
-__all__ = ['create_mock_object']
+__all__ = ["create_mock_object"]

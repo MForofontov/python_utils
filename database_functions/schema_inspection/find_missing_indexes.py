@@ -77,86 +77,99 @@ def find_missing_indexes(
     if schema is not None and not isinstance(schema, str):
         raise TypeError(f"schema must be str or None, got {type(schema).__name__}")
     if not isinstance(check_foreign_keys, bool):
-        raise TypeError(f"check_foreign_keys must be bool, got {type(check_foreign_keys).__name__}")
+        raise TypeError(
+            f"check_foreign_keys must be bool, got {type(check_foreign_keys).__name__}"
+        )
     if not isinstance(check_nullable_columns, bool):
-        raise TypeError(f"check_nullable_columns must be bool, got {type(check_nullable_columns).__name__}")
+        raise TypeError(
+            f"check_nullable_columns must be bool, got {type(check_nullable_columns).__name__}"
+        )
 
     # Reflect metadata
     from sqlalchemy import inspect
+
     metadata = MetaData()
     inspector = inspect(connection)
     if tables:
         metadata.reflect(bind=connection, schema=schema, only=tables)
     else:
         metadata.reflect(bind=connection, schema=schema)
-    
+
     table_names = tables if tables else inspector.get_table_names(schema=schema)
-    
+
     recommendations = []
-    
+
     for table_name in table_names:
         if table_name not in metadata.tables:
             continue
-            
+
         table = metadata.tables[table_name]
-        
+
         # Get existing indexes
         try:
             indexes = inspector.get_indexes(table_name, schema=schema)
             indexed_columns = set()
             for idx in indexes:
                 # Handle both single and multi-column indexes
-                if idx.get('column_names'):
+                if idx.get("column_names"):
                     # First column of index
-                    indexed_columns.add(idx['column_names'][0])
-            
+                    indexed_columns.add(idx["column_names"][0])
+
             # Also consider primary key as indexed
             for col in table.primary_key.columns:
                 indexed_columns.add(col.name)
-                
+
         except Exception as e:
             logger.error(f"Error getting indexes for {table_name}: {e}")
             continue
-        
+
         # Check foreign keys for missing indexes
         if check_foreign_keys:
             try:
                 foreign_keys = inspector.get_foreign_keys(table_name, schema=schema)
-                
+
                 for fk in foreign_keys:
-                    constrained_columns = fk.get('constrained_columns', [])
-                    
+                    constrained_columns = fk.get("constrained_columns", [])
+
                     for col_name in constrained_columns:
                         if col_name not in indexed_columns:
-                            recommendations.append({
-                                "table_name": table_name,
-                                "column_name": col_name,
-                                "reason": f"Foreign key to {fk.get('referred_table', 'unknown')}",
-                                "priority": "high",
-                                "estimated_benefit": "Improves JOIN performance and DELETE/UPDATE on referenced table",
-                            })
-                            
+                            recommendations.append(
+                                {
+                                    "table_name": table_name,
+                                    "column_name": col_name,
+                                    "reason": f"Foreign key to {fk.get('referred_table', 'unknown')}",
+                                    "priority": "high",
+                                    "estimated_benefit": "Improves JOIN performance and DELETE/UPDATE on referenced table",
+                                }
+                            )
+
             except Exception as e:
                 logger.error(f"Error checking foreign keys for {table_name}: {e}")
-        
+
         # Check nullable columns (optional - can indicate filtering)
         if check_nullable_columns:
             for col in table.columns:
-                if col.name not in indexed_columns and col.nullable and not col.primary_key:
+                if (
+                    col.name not in indexed_columns
+                    and col.nullable
+                    and not col.primary_key
+                ):
                     # Nullable columns are often used in WHERE clauses (IS NULL, IS NOT NULL)
-                    recommendations.append({
-                        "table_name": table_name,
-                        "column_name": col.name,
-                        "reason": "Nullable column - may be used for filtering",
-                        "priority": "low",
-                        "estimated_benefit": "May improve WHERE IS NULL/IS NOT NULL queries",
-                    })
-    
+                    recommendations.append(
+                        {
+                            "table_name": table_name,
+                            "column_name": col.name,
+                            "reason": "Nullable column - may be used for filtering",
+                            "priority": "low",
+                            "estimated_benefit": "May improve WHERE IS NULL/IS NOT NULL queries",
+                        }
+                    )
+
     # Sort by priority (high first)
     priority_order = {"high": 0, "medium": 1, "low": 2}
     recommendations.sort(key=lambda x: priority_order.get(x["priority"], 3))
-    
+
     return recommendations
 
 
-__all__ = ['find_missing_indexes']
+__all__ = ["find_missing_indexes"]

@@ -2,8 +2,8 @@
 Append data to existing Parquet file.
 """
 
-from typing import Any
 from pathlib import Path
+from typing import Any
 
 import pyarrow as pa
 import pyarrow.parquet as pq
@@ -56,53 +56,55 @@ def append_parquet(
     """
     if not isinstance(data, list):
         raise TypeError(f"data must be a list, got {type(data).__name__}")
-    
+
     if not data:
         raise ValueError("data cannot be empty")
-    
+
     if not all(isinstance(item, dict) for item in data):
         raise TypeError("all elements in data must be dictionaries")
-    
+
     if not isinstance(file_path, str):
         raise TypeError(f"file_path must be a string, got {type(file_path).__name__}")
-    
+
     if not isinstance(compression, str):
-        raise TypeError(f"compression must be a string, got {type(compression).__name__}")
-    
+        raise TypeError(
+            f"compression must be a string, got {type(compression).__name__}"
+        )
+
     # Create parent directories
     Path(file_path).parent.mkdir(parents=True, exist_ok=True)
-    
+
     # Convert new data to table
     try:
         new_table = pa.Table.from_pylist(data)
     except Exception as e:
         raise ValueError(f"Failed to convert data to Arrow table: {e}") from e
-    
+
     # Check if file exists
     file_exists = Path(file_path).exists()
-    
+
     if file_exists:
         # Read existing data
         existing_table = pq.read_table(file_path)
-        
+
         # Validate schema compatibility
         if existing_table.schema.names != new_table.schema.names:
             raise ValueError(
                 f"Schema mismatch. Existing: {existing_table.schema.names}, "
                 f"New: {new_table.schema.names}"
             )
-        
+
         # Concatenate tables
         combined_table = pa.concat_tables([existing_table, new_table])
     else:
         combined_table = new_table
-    
+
     # Write combined table
     pq.write_table(
         combined_table,
         file_path,
-        compression=compression.upper() if compression != 'none' else None
+        compression=compression.upper() if compression != "none" else None,
     )
 
 
-__all__ = ['append_parquet']
+__all__ = ["append_parquet"]

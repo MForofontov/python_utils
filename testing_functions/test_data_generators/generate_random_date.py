@@ -46,20 +46,22 @@ def generate_random_date(
     Time: O(1), Space: O(1)
     """
     if not isinstance(start_year, int):
-        raise TypeError(f"start_year must be an integer, got {type(start_year).__name__}")
+        raise TypeError(
+            f"start_year must be an integer, got {type(start_year).__name__}"
+        )
     if not isinstance(end_year, int):
         raise TypeError(f"end_year must be an integer, got {type(end_year).__name__}")
-    
+
     if start_year > end_year:
         raise ValueError(f"start_year ({start_year}) must be <= end_year ({end_year})")
-    
+
     start_date = date(start_year, 1, 1)
     end_date = date(end_year, 12, 31)
-    
+
     days_between = (end_date - start_date).days
     random_days = random.randint(0, days_between)
-    
+
     return start_date + timedelta(days=random_days)
 
 
-__all__ = ['generate_random_date']
+__all__ = ["generate_random_date"]

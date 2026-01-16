@@ -1,11 +1,12 @@
 """Tests for filter_parquet module."""
 
-import pytest
 from pathlib import Path
-from serialization_functions.parquet_operations.filter_parquet import filter_parquet
 
 import pyarrow as pa
 import pyarrow.parquet as pq
+
+import pytest
+from serialization_functions.parquet_operations.filter_parquet import filter_parquet
 
 
 def test_filter_parquet_equal_operator(tmp_path: Path) -> None:

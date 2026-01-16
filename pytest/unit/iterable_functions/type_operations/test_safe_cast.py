@@ -305,6 +305,7 @@ def test_safe_cast_scalar_to_tuple() -> None:
     result = safe_cast(42, tuple)
     assert result == (42,)
 
+
 def test_safe_cast_type_error_non_type() -> None:
     """
     Test case 28: TypeError when target_type is not a type.

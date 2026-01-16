@@ -68,26 +68,32 @@ def execute_command(
     Space: O(m) where m is output size
     """
     if not isinstance(command, (str, list)):
-        raise TypeError(f"command must be a string or list, got {type(command).__name__}")
-    
+        raise TypeError(
+            f"command must be a string or list, got {type(command).__name__}"
+        )
+
     if timeout is not None and not isinstance(timeout, (int, float)):
-        raise TypeError(f"timeout must be a number or None, got {type(timeout).__name__}")
-    
+        raise TypeError(
+            f"timeout must be a number or None, got {type(timeout).__name__}"
+        )
+
     if timeout is not None and timeout < 0:
         raise ValueError(f"timeout must be non-negative, got {timeout}")
 
     if not isinstance(shell, bool):
         raise TypeError(f"shell must be a boolean, got {type(shell).__name__}")
-    
+
     if not isinstance(capture_output, bool):
-        raise TypeError(f"capture_output must be a boolean, got {type(capture_output).__name__}")
-    
+        raise TypeError(
+            f"capture_output must be a boolean, got {type(capture_output).__name__}"
+        )
+
     if not isinstance(check, bool):
         raise TypeError(f"check must be a boolean, got {type(check).__name__}")
-    
+
     if cwd is not None and not isinstance(cwd, str):
         raise TypeError(f"cwd must be a string or None, got {type(cwd).__name__}")
-    
+
     if env is not None and not isinstance(env, dict):
         raise TypeError(f"env must be a dictionary or None, got {type(env).__name__}")
 
@@ -106,7 +112,7 @@ def execute_command(
             env=env,
             text=True,
         )
-        
+
         return {
             "return_code": result.returncode,
             "stdout": result.stdout if capture_output else None,
@@ -116,19 +122,19 @@ def execute_command(
     except subprocess.TimeoutExpired as e:
         return {
             "return_code": -1,
-            "stdout": e.stdout if hasattr(e, 'stdout') else None,
-            "stderr": e.stderr if hasattr(e, 'stderr') else None,
+            "stdout": e.stdout if hasattr(e, "stdout") else None,
+            "stderr": e.stderr if hasattr(e, "stderr") else None,
             "success": False,
             "error": "timeout",
         }
     except subprocess.CalledProcessError as e:
         return {
             "return_code": e.returncode,
-            "stdout": e.stdout if hasattr(e, 'stdout') else None,
-            "stderr": e.stderr if hasattr(e, 'stderr') else None,
+            "stdout": e.stdout if hasattr(e, "stdout") else None,
+            "stderr": e.stderr if hasattr(e, "stderr") else None,
             "success": False,
             "error": "non_zero_exit",
         }
 
 
-__all__ = ['execute_command']
+__all__ = ["execute_command"]

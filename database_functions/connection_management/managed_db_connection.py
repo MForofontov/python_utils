@@ -71,11 +71,15 @@ def managed_db_connection(
     if max_retries < 1:
         raise ValueError(f"max_retries must be at least 1, got {max_retries}")
     if not isinstance(retry_delay, (int, float)):
-        raise TypeError(f"retry_delay must be a number, got {type(retry_delay).__name__}")
+        raise TypeError(
+            f"retry_delay must be a number, got {type(retry_delay).__name__}"
+        )
     if retry_delay <= 0:
         raise ValueError(f"retry_delay must be positive, got {retry_delay}")
     if health_check_query is not None and not isinstance(health_check_query, str):
-        raise TypeError(f"health_check_query must be str or None, got {type(health_check_query).__name__}")
+        raise TypeError(
+            f"health_check_query must be str or None, got {type(health_check_query).__name__}"
+        )
 
     connection = None
     last_error = None
@@ -90,7 +94,9 @@ def managed_db_connection(
                 try:
                     connection.execute(health_check_query)
                 except Exception as health_error:
-                    logger.warning(f"Health check failed on attempt {attempt + 1}: {health_error}")
+                    logger.warning(
+                        f"Health check failed on attempt {attempt + 1}: {health_error}"
+                    )
                     try:
                         connection.close()
                     except Exception:

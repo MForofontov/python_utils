@@ -72,7 +72,7 @@ def safe_truncate_tables(
     # Get dependency order
     deps = get_foreign_key_dependencies(connection, schema=schema)
     ordered_tables = deps["ordered_tables"]
-    
+
     # Filter to requested tables if specified
     if tables is not None:
         tables_set = set(tables)
@@ -80,26 +80,28 @@ def safe_truncate_tables(
 
     truncated = []
     errors = []
-    
+
     # Truncate in reverse order (dependents first)
     for table in reversed(ordered_tables):
         try:
             # Try TRUNCATE first
             cascade_clause = " CASCADE" if cascade else ""
             truncate_sql = f"TRUNCATE TABLE {table}{cascade_clause}"
-            
+
             try:
                 connection.execute(text(truncate_sql))
                 truncated.append(table)
                 logger.info(f"Truncated table: {table}")
             except Exception as truncate_error:
                 # Fall back to DELETE if TRUNCATE not supported
-                logger.warning(f"TRUNCATE failed for {table}, using DELETE: {truncate_error}")
+                logger.warning(
+                    f"TRUNCATE failed for {table}, using DELETE: {truncate_error}"
+                )
                 delete_sql = f"DELETE FROM {table}"
                 connection.execute(text(delete_sql))
                 truncated.append(table)
                 logger.info(f"Deleted all rows from table: {table}")
-                
+
         except Exception as e:
             error_msg = f"Failed to truncate {table}: {e}"
             logger.error(error_msg)
@@ -107,7 +109,7 @@ def safe_truncate_tables(
 
     # Commit if in transaction
     try:
-        if hasattr(connection, 'commit'):
+        if hasattr(connection, "commit"):
             connection.commit()
     except Exception:
         pass  # Already in autocommit mode
@@ -116,8 +118,8 @@ def safe_truncate_tables(
         "truncated": truncated,
         "order_used": list(reversed(ordered_tables)),
         "errors": errors,
-        "success": len(errors) == 0
+        "success": len(errors) == 0,
     }
 
 
-__all__ = ['safe_truncate_tables']
+__all__ = ["safe_truncate_tables"]

@@ -25,7 +25,7 @@ def test_assert_list_equal_unordered_string_lists() -> None:
     Test case 3: Assert string lists ignoring order.
     """
     # Act & Assert
-    assert_list_equal_unordered(['a', 'b', 'c'], ['c', 'b', 'a'])
+    assert_list_equal_unordered(["a", "b", "c"], ["c", "b", "a"])
 
 
 def test_assert_list_equal_unordered_empty_lists() -> None:

@@ -40,7 +40,7 @@ def get_network_info() -> dict[str, dict[str, list[dict[str, str | int]]]]:
     """
     interfaces = psutil.net_if_addrs()
     result = {}
-    
+
     for interface_name, addresses in interfaces.items():
         interface_info: dict[str, list[dict[str, str | int]]] = {
             "ipv4": [],
@@ -48,15 +48,15 @@ def get_network_info() -> dict[str, dict[str, list[dict[str, str | int]]]]:
             "mac": [],
             "other": [],
         }
-        
+
         for addr in addresses:
             addr_dict = {
                 "address": addr.address,
                 "netmask": addr.netmask,
                 "broadcast": addr.broadcast,
-                "ptp": addr.ptp if hasattr(addr, 'ptp') else None,
+                "ptp": addr.ptp if hasattr(addr, "ptp") else None,
             }
-            
+
             # Categorize by address family
             if addr.family == 2:  # AF_INET (IPv4)
                 interface_info["ipv4"].append(addr_dict)
@@ -66,10 +66,10 @@ def get_network_info() -> dict[str, dict[str, list[dict[str, str | int]]]]:
                 interface_info["mac"].append(addr_dict)
             else:
                 interface_info["other"].append(addr_dict)
-        
+
         result[interface_name] = interface_info
-    
+
     return result
 
 
-__all__ = ['get_network_info']
+__all__ = ["get_network_info"]

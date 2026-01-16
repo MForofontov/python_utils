@@ -42,12 +42,14 @@ def assert_dict_contains(
     if not isinstance(actual_dict, dict):
         raise TypeError(f"actual_dict must be a dict, got {type(actual_dict).__name__}")
     if not isinstance(expected_subset, dict):
-        raise TypeError(f"expected_subset must be a dict, got {type(expected_subset).__name__}")
-    
+        raise TypeError(
+            f"expected_subset must be a dict, got {type(expected_subset).__name__}"
+        )
+
     for key, expected_value in expected_subset.items():
         if key not in actual_dict:
             raise AssertionError(f"Key '{key}' not found in actual dictionary")
-        
+
         actual_value = actual_dict[key]
         if actual_value != expected_value:
             raise AssertionError(
@@ -56,4 +58,4 @@ def assert_dict_contains(
             )
 
 
-__all__ = ['assert_dict_contains']
+__all__ = ["assert_dict_contains"]

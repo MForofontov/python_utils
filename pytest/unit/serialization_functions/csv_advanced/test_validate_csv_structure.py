@@ -3,8 +3,8 @@ Unit tests for validate_csv_structure function.
 """
 
 import csv
-from pathlib import Path
 import tempfile
+from pathlib import Path
 
 import pytest
 from serialization_functions.csv_advanced.validate_csv_structure import (

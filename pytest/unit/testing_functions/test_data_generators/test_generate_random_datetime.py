@@ -12,7 +12,7 @@ def test_generate_random_datetime_default_parameters() -> None:
     """
     # Act
     result = generate_random_datetime()
-    
+
     # Assert
     assert isinstance(result, datetime)
     assert 2000 <= result.year <= 2025
@@ -27,7 +27,7 @@ def test_generate_random_datetime_custom_year_range() -> None:
     """
     # Act
     result = generate_random_datetime(2020, 2021)
-    
+
     # Assert
     assert 2020 <= result.year <= 2021
 
@@ -38,7 +38,7 @@ def test_generate_random_datetime_same_start_end_year() -> None:
     """
     # Act
     result = generate_random_datetime(2022, 2022)
-    
+
     # Assert
     assert result.year == 2022
 
@@ -49,7 +49,7 @@ def test_generate_random_datetime_has_time_component() -> None:
     """
     # Act
     results = [generate_random_datetime() for _ in range(10)]
-    
+
     # Assert - at least one should have non-zero time
     has_time = any(r.hour != 0 or r.minute != 0 or r.second != 0 for r in results)
     assert has_time

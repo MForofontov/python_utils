@@ -120,8 +120,6 @@ def test_parse_url_ftp_scheme():
     assert result["scheme"] == "ftp"
 
 
-import pytest
-from http_functions.parse_url import parse_url
 
 
 def test_parse_simple_https_url():

@@ -3,9 +3,9 @@ Create temporary file fixture for testing.
 """
 
 import tempfile
+from collections.abc import Generator
 from contextlib import contextmanager
 from pathlib import Path
-from collections.abc import Generator
 
 
 @contextmanager
@@ -52,11 +52,11 @@ def create_temp_file_fixture(
         raise TypeError(f"content must be a string, got {type(content).__name__}")
     if not isinstance(suffix, str):
         raise TypeError(f"suffix must be a string, got {type(suffix).__name__}")
-    
-    with tempfile.NamedTemporaryFile(mode='w', suffix=suffix, delete=False) as f:
+
+    with tempfile.NamedTemporaryFile(mode="w", suffix=suffix, delete=False) as f:
         f.write(content)
         temp_path = Path(f.name)
-    
+
     try:
         yield temp_path
     finally:
@@ -64,4 +64,4 @@ def create_temp_file_fixture(
             temp_path.unlink()
 
 
-__all__ = ['create_temp_file_fixture']
+__all__ = ["create_temp_file_fixture"]

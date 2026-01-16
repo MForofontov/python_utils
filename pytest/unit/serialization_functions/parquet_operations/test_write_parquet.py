@@ -1,11 +1,11 @@
 """Tests for write_parquet module."""
 
-import pytest
 from pathlib import Path
-from serialization_functions.parquet_operations.write_parquet import write_parquet
 
-import pyarrow as pa
 import pyarrow.parquet as pq
+
+import pytest
+from serialization_functions.parquet_operations.write_parquet import write_parquet
 
 
 def test_write_parquet_basic(tmp_path: Path) -> None:

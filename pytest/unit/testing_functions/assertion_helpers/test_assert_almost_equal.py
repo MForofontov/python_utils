@@ -77,5 +77,7 @@ def test_assert_almost_equal_assertion_error_exceeds_tolerance() -> None:
     Test case 10: AssertionError when difference exceeds tolerance.
     """
     # Act & Assert
-    with pytest.raises(AssertionError, match="Values differ by .* which exceeds tolerance"):
+    with pytest.raises(
+        AssertionError, match="Values differ by .* which exceeds tolerance"
+    ):
         assert_almost_equal(1.0, 2.0, 0.1)

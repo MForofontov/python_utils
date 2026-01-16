@@ -48,14 +48,14 @@ def assert_in_range(
         raise TypeError(f"min_value must be a number, got {type(min_value).__name__}")
     if not isinstance(max_value, (int, float)):
         raise TypeError(f"max_value must be a number, got {type(max_value).__name__}")
-    
+
     if min_value > max_value:
         raise ValueError(f"min_value ({min_value}) must be <= max_value ({max_value})")
-    
+
     if not (min_value <= value <= max_value):
         raise AssertionError(
             f"Value {value} is not in range [{min_value}, {max_value}]"
         )
 
 
-__all__ = ['assert_in_range']
+__all__ = ["assert_in_range"]

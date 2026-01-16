@@ -62,7 +62,9 @@ def detect_schema_drift(
     if connection is None:
         raise TypeError("connection cannot be None")
     if not isinstance(expected_schema, dict):
-        raise TypeError(f"expected_schema must be dict, got {type(expected_schema).__name__}")
+        raise TypeError(
+            f"expected_schema must be dict, got {type(expected_schema).__name__}"
+        )
     if schema is not None and not isinstance(schema, str):
         raise TypeError(f"schema must be str or None, got {type(schema).__name__}")
 
@@ -79,8 +81,7 @@ def detect_schema_drift(
     for table_name in common_tables:
         expected_info = expected_schema[table_name]
         actual_cols = {
-            col["name"]: col
-            for col in inspector.get_columns(table_name, schema=schema)
+            col["name"]: col for col in inspector.get_columns(table_name, schema=schema)
         }
         expected_cols = {col["name"]: col for col in expected_info["columns"]}
 

@@ -68,13 +68,13 @@ def extract_urls(
         )
 
     # URL pattern with optional scheme
-    pattern = r'(?:(?:https?|ftp|ftps|file)://)?(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&/=]*)'
-    
+    pattern = r"(?:(?:https?|ftp|ftps|file)://)?(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&/=]*)"
+
     # More specific pattern for URLs with schemes
-    pattern_with_scheme = r'\b(?:https?|ftp|ftps|file)://[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&/=]*)'
-    
+    pattern_with_scheme = r"\b(?:https?|ftp|ftps|file)://[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&/=]*)"
+
     matches = re.findall(pattern_with_scheme, text)
-    
+
     # Filter by schemes if specified
     if include_schemes is not None:
         filtered = []
@@ -84,7 +84,7 @@ def extract_urls(
                     filtered.append(url)
                     break
         matches = filtered
-    
+
     if unique:
         # Preserve order while removing duplicates
         seen = set()
@@ -94,8 +94,8 @@ def extract_urls(
                 seen.add(url)
                 result.append(url)
         return result
-    
+
     return matches
 
 
-__all__ = ['extract_urls']
+__all__ = ["extract_urls"]

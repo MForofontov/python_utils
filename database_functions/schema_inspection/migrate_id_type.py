@@ -7,14 +7,12 @@ handling all foreign key relationships.
 """
 
 import logging
-import uuid
 from collections.abc import Callable
 from typing import Any
 
-from sqlalchemy import Column, ForeignKey, MetaData, Table, inspect, text
+from sqlalchemy import MetaData, inspect, text
 from sqlalchemy.engine import Engine
 from sqlalchemy.exc import SQLAlchemyError
-from sqlalchemy.types import TypeEngine, String, Integer, BigInteger, UUID
 
 
 def migrate_id_type(
@@ -75,7 +73,7 @@ def migrate_id_type(
     >>> from sqlalchemy import create_engine
     >>> import uuid
     >>> engine = create_engine("sqlite:///:memory:")
-    >>> 
+    >>>
     >>> # Example 1: Migrate UUID v4 to v7
     >>> def generate_uuid7():
     ...     from uuid6 import uuid7
@@ -88,7 +86,7 @@ def migrate_id_type(
     ... )
     >>> result['rows_migrated']
     100
-    >>> 
+    >>>
     >>> # Example 2: Migrate integer IDs to UUID strings
     >>> result = migrate_id_type(
     ...     engine,
@@ -96,7 +94,7 @@ def migrate_id_type(
     ...     id_column="product_id",
     ...     id_generator=lambda: str(uuid.uuid4())
     ... )
-    >>> 
+    >>>
     >>> # Example 3: Custom value converter for integer IDs
     >>> result = migrate_id_type(
     ...     engine,
@@ -136,7 +134,9 @@ def migrate_id_type(
     """
     # Input validation
     if not isinstance(engine, Engine):
-        raise TypeError(f"engine must be an SQLAlchemy Engine, got {type(engine).__name__}")
+        raise TypeError(
+            f"engine must be an SQLAlchemy Engine, got {type(engine).__name__}"
+        )
     if not isinstance(table_name, str):
         raise TypeError(f"table_name must be a string, got {type(table_name).__name__}")
     if not isinstance(id_column, str):
@@ -144,7 +144,9 @@ def migrate_id_type(
     if not callable(id_generator):
         raise TypeError("id_generator must be callable")
     if not isinstance(batch_size, int):
-        raise TypeError(f"batch_size must be an integer, got {type(batch_size).__name__}")
+        raise TypeError(
+            f"batch_size must be an integer, got {type(batch_size).__name__}"
+        )
     if value_converter is not None and not callable(value_converter):
         raise TypeError("value_converter must be callable or None")
     if not isinstance(logger, (logging.Logger, type(None))):
@@ -207,7 +209,12 @@ def migrate_id_type(
                 # Step 1: Create ID mapping for all records
                 logger.info("Creating ID mapping...")
                 id_mapping = _create_id_mapping(
-                    conn, table_name, id_column, id_generator, value_converter, batch_size
+                    conn,
+                    table_name,
+                    id_column,
+                    id_generator,
+                    value_converter,
+                    batch_size,
                 )
                 result["id_mapping"] = id_mapping
                 logger.info(f"Created mapping for {len(id_mapping)} IDs")
@@ -235,7 +242,7 @@ def migrate_id_type(
                     result["fk_relationships_updated"] += fk_rows
                     if fk_table not in result["tables_affected"]:
                         result["tables_affected"].append(fk_table)
-                    
+
                     # Track rows per table (accumulate if multiple FK columns in same table)
                     if fk_table in result["rows_per_table"]:
                         result["rows_per_table"][fk_table] += fk_rows
@@ -463,7 +470,7 @@ def _execute_batch_update(
         Name of the column to update.
     batch : list[tuple[str, str]]
         List of (new_id, old_id) tuples.
-        
+
     Returns
     -------
     int

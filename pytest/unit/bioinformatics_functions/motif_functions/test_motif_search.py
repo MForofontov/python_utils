@@ -73,7 +73,13 @@ def test_motif_search_ambiguous_r() -> None:
     # Arrange
     seq = "ATGCGTAG"
     motif = "R"
-    expected = [0, 2, 4, 6, 7]  # Positions with A or G (A at 0, G at 2, G at 4, A at 6, G at 7)
+    expected = [
+        0,
+        2,
+        4,
+        6,
+        7,
+    ]  # Positions with A or G (A at 0, G at 2, G at 4, A at 6, G at 7)
 
     # Act
     result = motif_search(seq, motif)

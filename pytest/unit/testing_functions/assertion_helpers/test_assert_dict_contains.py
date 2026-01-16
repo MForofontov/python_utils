@@ -9,7 +9,7 @@ def test_assert_dict_contains_exact_match() -> None:
     Test case 1: Assert dict contains exact match.
     """
     # Act & Assert
-    assert_dict_contains({'a': 1, 'b': 2}, {'a': 1, 'b': 2})
+    assert_dict_contains({"a": 1, "b": 2}, {"a": 1, "b": 2})
 
 
 def test_assert_dict_contains_subset() -> None:
@@ -17,7 +17,7 @@ def test_assert_dict_contains_subset() -> None:
     Test case 2: Assert dict contains subset.
     """
     # Act & Assert
-    assert_dict_contains({'a': 1, 'b': 2, 'c': 3}, {'a': 1, 'b': 2})
+    assert_dict_contains({"a": 1, "b": 2, "c": 3}, {"a": 1, "b": 2})
 
 
 def test_assert_dict_contains_single_key() -> None:
@@ -25,7 +25,7 @@ def test_assert_dict_contains_single_key() -> None:
     Test case 3: Assert dict contains single key.
     """
     # Act & Assert
-    assert_dict_contains({'x': 'y', 'z': 'w'}, {'x': 'y'})
+    assert_dict_contains({"x": "y", "z": "w"}, {"x": "y"})
 
 
 def test_assert_dict_contains_empty_subset() -> None:
@@ -33,7 +33,7 @@ def test_assert_dict_contains_empty_subset() -> None:
     Test case 4: Assert dict contains empty subset.
     """
     # Act & Assert
-    assert_dict_contains({'a': 1}, {})
+    assert_dict_contains({"a": 1}, {})
 
 
 def test_assert_dict_contains_nested_values() -> None:
@@ -41,7 +41,7 @@ def test_assert_dict_contains_nested_values() -> None:
     Test case 5: Assert dict contains with nested values.
     """
     # Act & Assert
-    assert_dict_contains({'a': [1, 2], 'b': {'x': 1}}, {'a': [1, 2]})
+    assert_dict_contains({"a": [1, 2], "b": {"x": 1}}, {"a": [1, 2]})
 
 
 def test_assert_dict_contains_type_error_actual_dict() -> None:
@@ -50,7 +50,7 @@ def test_assert_dict_contains_type_error_actual_dict() -> None:
     """
     # Act & Assert
     with pytest.raises(TypeError, match="actual_dict must be a dict"):
-        assert_dict_contains("not a dict", {'a': 1})
+        assert_dict_contains("not a dict", {"a": 1})
 
 
 def test_assert_dict_contains_type_error_expected_subset() -> None:
@@ -59,7 +59,7 @@ def test_assert_dict_contains_type_error_expected_subset() -> None:
     """
     # Act & Assert
     with pytest.raises(TypeError, match="expected_subset must be a dict"):
-        assert_dict_contains({'a': 1}, "not a dict")
+        assert_dict_contains({"a": 1}, "not a dict")
 
 
 def test_assert_dict_contains_assertion_error_missing_key() -> None:
@@ -68,7 +68,7 @@ def test_assert_dict_contains_assertion_error_missing_key() -> None:
     """
     # Act & Assert
     with pytest.raises(AssertionError, match="Key .* not found in actual dictionary"):
-        assert_dict_contains({'a': 1}, {'b': 2})
+        assert_dict_contains({"a": 1}, {"b": 2})
 
 
 def test_assert_dict_contains_assertion_error_value_mismatch() -> None:
@@ -77,4 +77,4 @@ def test_assert_dict_contains_assertion_error_value_mismatch() -> None:
     """
     # Act & Assert
     with pytest.raises(AssertionError, match="Value mismatch for key"):
-        assert_dict_contains({'a': 1, 'b': 2}, {'a': 1, 'b': 3})
+        assert_dict_contains({"a": 1, "b": 2}, {"a": 1, "b": 3})

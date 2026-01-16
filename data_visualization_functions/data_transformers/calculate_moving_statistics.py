@@ -3,6 +3,7 @@ Calculate moving statistics for timeseries data.
 """
 
 import logging
+
 import numpy as np
 from numpy.typing import ArrayLike
 
@@ -64,10 +65,14 @@ def calculate_moving_statistics(
     """
     # Type validation
     if not isinstance(window_size, int):
-        raise TypeError(f"window_size must be an integer, got {type(window_size).__name__}")
+        raise TypeError(
+            f"window_size must be an integer, got {type(window_size).__name__}"
+        )
 
     if statistics is not None and not isinstance(statistics, list):
-        raise TypeError(f"statistics must be a list or None, got {type(statistics).__name__}")
+        raise TypeError(
+            f"statistics must be a list or None, got {type(statistics).__name__}"
+        )
 
     # Convert to numpy array
     try:
@@ -89,12 +94,14 @@ def calculate_moving_statistics(
 
     # Default statistics
     if statistics is None:
-        statistics = ['mean', 'std']
+        statistics = ["mean", "std"]
 
-    valid_stats = ['mean', 'std', 'min', 'max', 'median']
+    valid_stats = ["mean", "std", "min", "max", "median"]
     for stat in statistics:
         if stat not in valid_stats:
-            raise ValueError(f"Invalid statistic '{stat}', must be one of {valid_stats}")
+            raise ValueError(
+                f"Invalid statistic '{stat}', must be one of {valid_stats}"
+            )
 
     logger.debug(
         f"Calculating moving statistics {statistics} with window_size={window_size}"
@@ -114,15 +121,15 @@ def calculate_moving_statistics(
             window_data = data_array[start:end]
 
             # Calculate statistic
-            if stat == 'mean':
+            if stat == "mean":
                 values[i] = np.mean(window_data)
-            elif stat == 'std':
+            elif stat == "std":
                 values[i] = np.std(window_data)
-            elif stat == 'min':
+            elif stat == "min":
                 values[i] = np.min(window_data)
-            elif stat == 'max':
+            elif stat == "max":
                 values[i] = np.max(window_data)
-            elif stat == 'median':
+            elif stat == "median":
                 values[i] = np.median(window_data)
 
         result[stat] = values
@@ -131,4 +138,4 @@ def calculate_moving_statistics(
     return result
 
 
-__all__ = ['calculate_moving_statistics']
+__all__ = ["calculate_moving_statistics"]

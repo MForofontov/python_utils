@@ -1,8 +1,10 @@
 """Tests for read_excel_range module."""
 
-import pytest
 from pathlib import Path
+
 from openpyxl import Workbook
+
+import pytest
 from serialization_functions.excel_operations.read_excel_range import read_excel_range
 
 

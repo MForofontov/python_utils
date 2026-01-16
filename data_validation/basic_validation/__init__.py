@@ -20,4 +20,3 @@ __all__ = [
     "validate_string",
     "validate_email",
 ]
-

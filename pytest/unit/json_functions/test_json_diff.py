@@ -59,4 +59,3 @@ def test_json_diff_second_list_longer() -> None:
 
     assert ("[2]", None, "gamma") in result
     assert ("[3]", None, "delta") in result
-

@@ -167,7 +167,7 @@ def test_find_files_by_mtime_no_criteria_error() -> None:
         with pytest.raises(
             ValueError, match="At least one time criterion must be specified"
         ):
-                        find_files_by_mtime(temp_dir)
+            find_files_by_mtime(temp_dir)
 
 
 def test_find_files_by_mtime_path_is_file_not_directory() -> None:

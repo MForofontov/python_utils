@@ -65,23 +65,23 @@ def remove_html_tags(
         raise TypeError(f"keep_text must be bool, got {type(keep_text).__name__}")
 
     # Remove comments
-    text = re.sub(r'<!--.*?-->', '', text, flags=re.DOTALL)
-    
+    text = re.sub(r"<!--.*?-->", "", text, flags=re.DOTALL)
+
     # Remove CDATA sections
-    text = re.sub(r'<!\[CDATA\[.*?\]\]>', '', text, flags=re.DOTALL)
-    
+    text = re.sub(r"<!\[CDATA\[.*?\]\]>", "", text, flags=re.DOTALL)
+
     # Remove script and style tags with their content
-    text = re.sub(r'<script.*?</script>', '', text, flags=re.DOTALL | re.IGNORECASE)
-    text = re.sub(r'<style.*?</style>', '', text, flags=re.DOTALL | re.IGNORECASE)
-    
+    text = re.sub(r"<script.*?</script>", "", text, flags=re.DOTALL | re.IGNORECASE)
+    text = re.sub(r"<style.*?</style>", "", text, flags=re.DOTALL | re.IGNORECASE)
+
     # Remove all other HTML tags
-    text = re.sub(r'<[^>]+>', '', text)
-    
+    text = re.sub(r"<[^>]+>", "", text)
+
     if keep_text:
         # Clean up extra whitespace
-        text = re.sub(r'\s+', ' ', text).strip()
-    
+        text = re.sub(r"\s+", " ", text).strip()
+
     return text
 
 
-__all__ = ['remove_html_tags']
+__all__ = ["remove_html_tags"]

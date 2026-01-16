@@ -87,13 +87,17 @@ def check_sequence_health(
     if schema is not None and not isinstance(schema, str):
         raise TypeError(f"schema must be str or None, got {type(schema).__name__}")
     if not isinstance(warn_percentage, (int, float)):
-        raise TypeError(f"warn_percentage must be float, got {type(warn_percentage).__name__}")
+        raise TypeError(
+            f"warn_percentage must be float, got {type(warn_percentage).__name__}"
+        )
     if not 0 < warn_percentage <= 100:
-        raise ValueError(f"warn_percentage must be between 0 and 100, got {warn_percentage}")
+        raise ValueError(
+            f"warn_percentage must be between 0 and 100, got {warn_percentage}"
+        )
 
     # Get database dialect
     db_dialect = connection.dialect.name.lower()
-    
+
     # Reflect metadata
     metadata = MetaData()
     if tables:
@@ -123,15 +127,17 @@ def check_sequence_health(
 
             # Determine max value based on data type
             type_name = str(column.type).upper()
-            is_bigint = 'BIGINT' in type_name or 'INT8' in type_name
-            
+            is_bigint = "BIGINT" in type_name or "INT8" in type_name
+
             if is_bigint:
                 max_value = 9223372036854775807  # 2^63 - 1
-            elif 'INT' in type_name:
+            elif "INT" in type_name:
                 max_value = 2147483647  # 2^31 - 1
             else:
                 # Non-integer auto-increment (rare), skip
-                logger.debug(f"Skipping non-integer auto-increment column: {table_name}.{column.name}")
+                logger.debug(
+                    f"Skipping non-integer auto-increment column: {table_name}.{column.name}"
+                )
                 continue
 
             try:
@@ -156,28 +162,37 @@ def check_sequence_health(
                     recommendation = f"Plan migration to BIGINT soon. {remaining_values:,} IDs remaining."
                 elif usage_percentage >= warn_percentage:
                     severity = "medium"
-                    recommendation = f"Monitor closely. {remaining_values:,} IDs remaining."
+                    recommendation = (
+                        f"Monitor closely. {remaining_values:,} IDs remaining."
+                    )
                 else:
                     severity = "low"
                     recommendation = f"Healthy. {remaining_values:,} IDs remaining."
 
                 # Only include if above threshold or if critical info
-                if usage_percentage >= warn_percentage or severity in ["critical", "high"]:
-                    results.append({
-                        "table_name": table_name,
-                        "column_name": column.name,
-                        "current_value": current_value,
-                        "max_value": max_value,
-                        "usage_percentage": round(usage_percentage, 2),
-                        "remaining_values": remaining_values,
-                        "severity": severity,
-                        "data_type": type_name,
-                        "is_bigint": is_bigint,
-                        "recommendation": recommendation,
-                    })
+                if usage_percentage >= warn_percentage or severity in [
+                    "critical",
+                    "high",
+                ]:
+                    results.append(
+                        {
+                            "table_name": table_name,
+                            "column_name": column.name,
+                            "current_value": current_value,
+                            "max_value": max_value,
+                            "usage_percentage": round(usage_percentage, 2),
+                            "remaining_values": remaining_values,
+                            "severity": severity,
+                            "data_type": type_name,
+                            "is_bigint": is_bigint,
+                            "recommendation": recommendation,
+                        }
+                    )
 
             except Exception as e:
-                logger.warning(f"Could not check sequence for {table_name}.{column.name}: {e}")
+                logger.warning(
+                    f"Could not check sequence for {table_name}.{column.name}: {e}"
+                )
                 continue
 
     # Sort by severity (critical first) then usage percentage
@@ -187,4 +202,4 @@ def check_sequence_health(
     return results
 
 
-__all__ = ['check_sequence_health']
+__all__ = ["check_sequence_health"]

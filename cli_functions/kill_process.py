@@ -52,4 +52,4 @@ def kill_process(pid: int, signal_type: int = signal.SIGTERM) -> bool:
         return False
 
 
-__all__ = ['kill_process']
+__all__ = ["kill_process"]

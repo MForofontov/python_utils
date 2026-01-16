@@ -4,12 +4,12 @@ Unit tests for perform_t_test function.
 Tests cover normal operation, edge cases, and error conditions.
 """
 
-import pytest
 import numpy as np
+
+import pytest
 from scientific_computing_functions.statistical_analysis.perform_t_test import (
     perform_t_test,
 )
-
 
 # Normal operation tests
 
@@ -19,17 +19,17 @@ def test_perform_t_test_equal_variances() -> None:
     # Arrange
     group1 = [1, 2, 3, 4, 5]
     group2 = [3, 4, 5, 6, 7]
-    
+
     # Act
     result = perform_t_test(group1, group2, equal_var=True)
-    
+
     # Assert
-    assert 'statistic' in result
-    assert 'pvalue' in result
-    assert 'significant' in result
-    assert 'cohens_d' in result
-    assert 'effect_size_interpretation' in result
-    assert result['statistic'] < 0  # group1 mean < group2 mean
+    assert "statistic" in result
+    assert "pvalue" in result
+    assert "significant" in result
+    assert "cohens_d" in result
+    assert "effect_size_interpretation" in result
+    assert result["statistic"] < 0  # group1 mean < group2 mean
 
 
 def test_perform_t_test_unequal_variances() -> None:
@@ -37,14 +37,14 @@ def test_perform_t_test_unequal_variances() -> None:
     # Arrange
     group1 = [1, 2, 3, 4, 5]
     group2 = [10, 20, 30, 40, 50]
-    
+
     # Act
     result = perform_t_test(group1, group2, equal_var=False)
-    
+
     # Assert
-    assert result['statistic'] < 0  # group1 mean < group2 mean
-    assert result['pvalue'] < 0.05  # Significant difference
-    assert result['significant'] == True
+    assert result["statistic"] < 0  # group1 mean < group2 mean
+    assert result["pvalue"] < 0.05  # Significant difference
+    assert result["significant"] == True
 
 
 def test_perform_t_test_two_sided() -> None:
@@ -52,13 +52,13 @@ def test_perform_t_test_two_sided() -> None:
     # Arrange
     group1 = [10, 12, 14, 16, 18]
     group2 = [11, 13, 15, 17, 19]
-    
+
     # Act
-    result = perform_t_test(group1, group2, alternative='two-sided')
-    
+    result = perform_t_test(group1, group2, alternative="two-sided")
+
     # Assert
-    assert result['pvalue'] > 0  # Valid p-value
-    assert 'cohens_d' in result
+    assert result["pvalue"] > 0  # Valid p-value
+    assert "cohens_d" in result
 
 
 def test_perform_t_test_greater_alternative() -> None:
@@ -66,13 +66,13 @@ def test_perform_t_test_greater_alternative() -> None:
     # Arrange
     group1 = [10, 11, 12, 13, 14]
     group2 = [5, 6, 7, 8, 9]
-    
+
     # Act
-    result = perform_t_test(group1, group2, alternative='greater')
-    
+    result = perform_t_test(group1, group2, alternative="greater")
+
     # Assert
-    assert result['statistic'] > 0  # group1 mean > group2 mean
-    assert result['pvalue'] < 0.05  # Significant
+    assert result["statistic"] > 0  # group1 mean > group2 mean
+    assert result["pvalue"] < 0.05  # Significant
 
 
 def test_perform_t_test_less_alternative() -> None:
@@ -80,13 +80,13 @@ def test_perform_t_test_less_alternative() -> None:
     # Arrange
     group1 = [1, 2, 3, 4, 5]
     group2 = [6, 7, 8, 9, 10]
-    
+
     # Act
-    result = perform_t_test(group1, group2, alternative='less')
-    
+    result = perform_t_test(group1, group2, alternative="less")
+
     # Assert
-    assert result['statistic'] < 0  # group1 mean < group2 mean
-    assert result['pvalue'] < 0.05  # Significant
+    assert result["statistic"] < 0  # group1 mean < group2 mean
+    assert result["pvalue"] < 0.05  # Significant
 
 
 def test_perform_t_test_numpy_arrays() -> None:
@@ -94,13 +94,13 @@ def test_perform_t_test_numpy_arrays() -> None:
     # Arrange
     group1 = np.array([1.0, 2.0, 3.0, 4.0, 5.0])
     group2 = np.array([3.0, 4.0, 5.0, 6.0, 7.0])
-    
+
     # Act
     result = perform_t_test(group1, group2)
-    
+
     # Assert
-    assert isinstance(result['statistic'], (float, np.floating))
-    assert isinstance(result['pvalue'], (float, np.floating))
+    assert isinstance(result["statistic"], (float, np.floating))
+    assert isinstance(result["pvalue"], (float, np.floating))
 
 
 # Edge case tests
@@ -111,14 +111,14 @@ def test_perform_t_test_identical_groups() -> None:
     # Arrange
     group1 = [5, 5, 5, 5, 5]
     group2 = [5, 5, 5, 5, 5]
-    
+
     # Act
     result = perform_t_test(group1, group2)
-    
+
     # Assert
-    assert np.isnan(result['statistic'])  # Undefined for identical groups
-    assert np.isnan(result['pvalue'])  # p-value also undefined
-    assert result['significant'] == False
+    assert np.isnan(result["statistic"])  # Undefined for identical groups
+    assert np.isnan(result["pvalue"])  # p-value also undefined
+    assert result["significant"] == False
 
 
 def test_perform_t_test_small_sample() -> None:
@@ -126,13 +126,13 @@ def test_perform_t_test_small_sample() -> None:
     # Arrange
     group1 = [1.0, 2.0]
     group2 = [3.0, 4.0]
-    
+
     # Act
     result = perform_t_test(group1, group2)
-    
+
     # Assert
-    assert 'statistic' in result
-    assert 'pvalue' in result
+    assert "statistic" in result
+    assert "pvalue" in result
 
 
 def test_perform_t_test_large_effect_size() -> None:
@@ -140,13 +140,13 @@ def test_perform_t_test_large_effect_size() -> None:
     # Arrange
     group1 = [1, 2, 3, 4, 5]
     group2 = [100, 200, 300, 400, 500]
-    
+
     # Act
     result = perform_t_test(group1, group2)
-    
+
     # Assert
-    assert abs(result['cohens_d']) > 0.8  # Large effect size
-    assert result['effect_size_interpretation'] in ['medium', 'large']
+    assert abs(result["cohens_d"]) > 0.8  # Large effect size
+    assert result["effect_size_interpretation"] in ["medium", "large"]
 
 
 def test_perform_t_test_high_variance_group() -> None:
@@ -154,13 +154,13 @@ def test_perform_t_test_high_variance_group() -> None:
     # Arrange
     group1 = [5, 5, 5, 5, 5]  # No variance
     group2 = [1, 10, 1, 10, 5]  # High variance
-    
+
     # Act
     result = perform_t_test(group1, group2, equal_var=False)
-    
+
     # Assert
     assert result is not None
-    assert 'statistic' in result
+    assert "statistic" in result
 
 
 def test_perform_t_test_different_sizes() -> None:
@@ -168,13 +168,13 @@ def test_perform_t_test_different_sizes() -> None:
     # Arrange
     group1 = [1, 2, 3]
     group2 = [4, 5, 6, 7, 8]
-    
+
     # Act
     result = perform_t_test(group1, group2)
-    
+
     # Assert
-    assert result['statistic'] < 0
-    assert 'cohens_d' in result
+    assert result["statistic"] < 0
+    assert "cohens_d" in result
 
 
 def test_perform_t_test_negative_values() -> None:
@@ -182,13 +182,13 @@ def test_perform_t_test_negative_values() -> None:
     # Arrange
     group1 = [-5, -4, -3, -2, -1]
     group2 = [-2, -1, 0, 1, 2]
-    
+
     # Act
     result = perform_t_test(group1, group2)
-    
+
     # Assert
-    assert result['statistic'] < 0
-    assert result['pvalue'] < 0.05
+    assert result["statistic"] < 0
+    assert result["pvalue"] < 0.05
 
 
 def test_perform_t_test_alpha_01() -> None:
@@ -196,13 +196,13 @@ def test_perform_t_test_alpha_01() -> None:
     # Arrange
     group1 = [10, 11, 12, 13, 14]
     group2 = [10.5, 11.5, 12.5, 13.5, 14.5]
-    
+
     # Act
     result = perform_t_test(group1, group2, alpha=0.01)
-    
+
     # Assert
-    assert 'significant' in result
-    assert result['pvalue'] > 0.01  # Likely not significant at 0.01
+    assert "significant" in result
+    assert result["pvalue"] > 0.01  # Likely not significant at 0.01
 
 
 # Error case tests
@@ -214,7 +214,7 @@ def test_perform_t_test_invalid_group1_type() -> None:
     invalid_group1 = "not_a_list"
     group2 = [1, 2, 3, 4, 5]
     expected_message = "group1 must be a list or numpy array"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         perform_t_test(invalid_group1, group2)
@@ -226,7 +226,7 @@ def test_perform_t_test_invalid_group2_type() -> None:
     group1 = [1, 2, 3, 4, 5]
     invalid_group2 = 123
     expected_message = "group2 must be a list or numpy array"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         perform_t_test(group1, invalid_group2)
@@ -238,7 +238,7 @@ def test_perform_t_test_empty_group1() -> None:
     empty_group1 = []
     group2 = [1, 2, 3, 4, 5]
     expected_message = "group1 cannot be empty"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         perform_t_test(empty_group1, group2)
@@ -250,7 +250,7 @@ def test_perform_t_test_empty_group2() -> None:
     group1 = [1, 2, 3, 4, 5]
     empty_group2 = []
     expected_message = "group2 cannot be empty"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         perform_t_test(group1, empty_group2)
@@ -263,7 +263,7 @@ def test_perform_t_test_invalid_alternative_type() -> None:
     group2 = [3, 4, 5, 6, 7]
     invalid_alternative = 123
     expected_message = "alternative must be a string"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         perform_t_test(group1, group2, alternative=invalid_alternative)
@@ -276,7 +276,7 @@ def test_perform_t_test_invalid_alternative_value() -> None:
     group2 = [3, 4, 5, 6, 7]
     invalid_alternative = "invalid"
     expected_message = "alternative must be"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         perform_t_test(group1, group2, alternative=invalid_alternative)
@@ -289,7 +289,7 @@ def test_perform_t_test_invalid_equal_var_type() -> None:
     group2 = [3, 4, 5, 6, 7]
     invalid_equal_var = "true"
     expected_message = "equal_var must be a boolean"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         perform_t_test(group1, group2, equal_var=invalid_equal_var)
@@ -302,7 +302,7 @@ def test_perform_t_test_invalid_alpha_type() -> None:
     group2 = [3, 4, 5, 6, 7]
     invalid_alpha = "0.05"
     expected_message = "alpha must be a number"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         perform_t_test(group1, group2, alpha=invalid_alpha)
@@ -315,7 +315,7 @@ def test_perform_t_test_alpha_out_of_range_low() -> None:
     group2 = [3, 4, 5, 6, 7]
     invalid_alpha = 0.0
     expected_message = "alpha must be between 0 and 1"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         perform_t_test(group1, group2, alpha=invalid_alpha)
@@ -328,7 +328,7 @@ def test_perform_t_test_alpha_out_of_range_high() -> None:
     group2 = [3, 4, 5, 6, 7]
     invalid_alpha = 1.0
     expected_message = "alpha must be between 0 and 1"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         perform_t_test(group1, group2, alpha=invalid_alpha)
@@ -340,7 +340,7 @@ def test_perform_t_test_non_numeric_group1() -> None:
     invalid_group1 = [1, 2, "three", 4, 5]
     group2 = [3, 4, 5, 6, 7]
     expected_message = "groups contain non-numeric values"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         perform_t_test(invalid_group1, group2)
@@ -352,7 +352,7 @@ def test_perform_t_test_non_numeric_group2() -> None:
     group1 = [1, 2, 3, 4, 5]
     invalid_group2 = [3, 4, "five", 6, 7]
     expected_message = "groups contain non-numeric values"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         perform_t_test(group1, invalid_group2)

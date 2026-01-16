@@ -1,11 +1,11 @@
 """Solve boundary value problems using shooting and collocation methods."""
 
-from typing import Any, Callable, Literal
+from collections.abc import Callable
+from typing import Any, Literal
 
 import numpy as np
 from numpy.typing import NDArray
-from scipy.integrate import solve_ivp, solve_bvp
-from scipy.optimize import root_scalar
+from scipy.integrate import solve_bvp, solve_ivp
 
 
 def solve_boundary_value_problem(
@@ -104,11 +104,15 @@ def solve_boundary_value_problem(
     if not callable(func):
         raise TypeError(f"func must be callable, got {type(func).__name__}")
     if not callable(boundary_conditions):
-        raise TypeError(f"boundary_conditions must be callable, got {type(boundary_conditions).__name__}")
+        raise TypeError(
+            f"boundary_conditions must be callable, got {type(boundary_conditions).__name__}"
+        )
     if not isinstance(x_span, tuple) or len(x_span) != 2:
         raise TypeError("x_span must be a tuple of (start, end)")
     if not isinstance(y_init, (np.ndarray, list)):
-        raise TypeError(f"y_init must be a numpy array or list, got {type(y_init).__name__}")
+        raise TypeError(
+            f"y_init must be a numpy array or list, got {type(y_init).__name__}"
+        )
     if not isinstance(method, str):
         raise TypeError(f"method must be a string, got {type(method).__name__}")
     if not isinstance(n_points, int):
@@ -127,7 +131,9 @@ def solve_boundary_value_problem(
         raise ValueError(f"x_start must be < x_end, got {x_start} >= {x_end}")
 
     if method not in ["shooting", "collocation"]:
-        raise ValueError(f"Invalid method: {method}. Must be 'shooting' or 'collocation'")
+        raise ValueError(
+            f"Invalid method: {method}. Must be 'shooting' or 'collocation'"
+        )
     if n_points < 2:
         raise ValueError(f"n_points must be >= 2, got {n_points}")
     if tol <= 0:
@@ -146,7 +152,9 @@ def solve_boundary_value_problem(
             y_mesh = np.zeros((n_vars, n_points))
             # Linear interpolation between boundaries
             for i in range(n_vars):
-                y_mesh[i] = np.linspace(y_init_array[i], y_init_array[i + n_vars], n_points)
+                y_mesh[i] = np.linspace(
+                    y_init_array[i], y_init_array[i + n_vars], n_points
+                )
         else:
             # Use provided guess
             if y_init_array.shape[1] != n_points:
@@ -161,7 +169,9 @@ def solve_boundary_value_problem(
                 y_mesh = y_init_array
 
         # Solve using collocation
-        sol = solve_bvp(func, boundary_conditions, x_mesh, y_mesh, tol=tol, max_nodes=n_points * 10)
+        sol = solve_bvp(
+            func, boundary_conditions, x_mesh, y_mesh, tol=tol, max_nodes=n_points * 10
+        )
 
         # Calculate residual
         bc_residual = boundary_conditions(sol.y[:, 0], sol.y[:, -1])
@@ -178,7 +188,9 @@ def solve_boundary_value_problem(
 
     else:  # shooting method
         # Shooting method: guess missing initial conditions
-        n_vars = y_init_array.shape[0] if y_init_array.ndim > 1 else len(y_init_array) // 2
+        n_vars = (
+            y_init_array.shape[0] if y_init_array.ndim > 1 else len(y_init_array) // 2
+        )
 
         def shooting_objective(guess: NDArray[Any]) -> float:
             """Objective for root finding in shooting method."""
@@ -211,7 +223,11 @@ def solve_boundary_value_problem(
 
         # Try multiple starting guesses
         for trial in range(min(5, max_iter)):
-            guess = initial_guess + np.random.randn(n_vars - 1) * 0.1 if trial > 0 else initial_guess
+            guess = (
+                initial_guess + np.random.randn(n_vars - 1) * 0.1
+                if trial > 0
+                else initial_guess
+            )
 
             residual = shooting_objective(guess)
 
@@ -220,14 +236,21 @@ def solve_boundary_value_problem(
 
                 # Reconstruct solution
                 y0 = np.zeros(n_vars)
-                y0[0] = y_init_array[0] if y_init_array.ndim == 1 else y_init_array[0, 0]
+                y0[0] = (
+                    y_init_array[0] if y_init_array.ndim == 1 else y_init_array[0, 0]
+                )
                 y0[1:] = guess
                 sol = solve_ivp(func, x_span, y0, dense_output=True, rtol=tol, atol=tol)
 
                 if sol.success:
                     x_mesh = np.linspace(x_start, x_end, n_points)
                     y_mesh = sol.sol(x_mesh)
-                    best_solution = (x_mesh, y_mesh, sol.success, "Shooting method converged")
+                    best_solution = (
+                        x_mesh,
+                        y_mesh,
+                        sol.success,
+                        "Shooting method converged",
+                    )
 
             if best_residual < tol:
                 break

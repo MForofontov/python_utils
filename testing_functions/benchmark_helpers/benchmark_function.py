@@ -3,8 +3,8 @@ Benchmark function execution time.
 """
 
 import time
-from typing import Any
 from collections.abc import Callable
+from typing import Any
 
 
 def benchmark_function(
@@ -54,25 +54,27 @@ def benchmark_function(
     if not callable(func):
         raise TypeError(f"func must be callable, got {type(func).__name__}")
     if not isinstance(iterations, int):
-        raise TypeError(f"iterations must be an integer, got {type(iterations).__name__}")
-    
+        raise TypeError(
+            f"iterations must be an integer, got {type(iterations).__name__}"
+        )
+
     if iterations <= 0:
         raise ValueError(f"iterations must be positive, got {iterations}")
-    
+
     times = []
-    
+
     for _ in range(iterations):
         start_time = time.perf_counter()
         func(*args, **kwargs)
         end_time = time.perf_counter()
         times.append(end_time - start_time)
-    
+
     return {
-        'total_time': sum(times),
-        'avg_time': sum(times) / len(times),
-        'min_time': min(times),
-        'max_time': max(times),
+        "total_time": sum(times),
+        "avg_time": sum(times) / len(times),
+        "min_time": min(times),
+        "max_time": max(times),
     }
 
 
-__all__ = ['benchmark_function']
+__all__ = ["benchmark_function"]

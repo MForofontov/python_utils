@@ -2,12 +2,13 @@
 Unit tests for merge_parquet_files function.
 """
 
-from pathlib import Path
 import tempfile
+from pathlib import Path
 
-import pytest
 import pyarrow as pa
 import pyarrow.parquet as pq
+
+import pytest
 from serialization_functions.parquet_operations.merge_parquet_files import (
     merge_parquet_files,
 )

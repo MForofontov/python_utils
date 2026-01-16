@@ -1,5 +1,6 @@
-import pytest
 from bs4 import BeautifulSoup
+
+import pytest
 from web_scraping_functions.html_parsing.parse_html import parse_html
 
 
@@ -9,13 +10,13 @@ def test_parse_html_simple_html() -> None:
     """
     # Arrange
     html = "<html><body><p>Hello World</p></body></html>"
-    
+
     # Act
     result = parse_html(html)
-    
+
     # Assert
     assert isinstance(result, BeautifulSoup)
-    assert result.find('p').text == "Hello World"
+    assert result.find("p").text == "Hello World"
 
 
 def test_parse_html_with_lxml_parser() -> None:
@@ -24,13 +25,13 @@ def test_parse_html_with_lxml_parser() -> None:
     """
     # Arrange
     html = "<html><body><div>Content</div></body></html>"
-    
+
     # Act
     result = parse_html(html, parser="lxml")
-    
+
     # Assert
     assert isinstance(result, BeautifulSoup)
-    assert result.find('div').text == "Content"
+    assert result.find("div").text == "Content"
 
 
 def test_parse_html_complex_structure() -> None:
@@ -39,13 +40,13 @@ def test_parse_html_complex_structure() -> None:
     """
     # Arrange
     html = "<html><head><title>Test</title></head><body><div class='main'><p>Text</p></div></body></html>"
-    
+
     # Act
     result = parse_html(html)
-    
+
     # Assert
     assert result.title.text == "Test"
-    assert result.find('div', class_='main') is not None
+    assert result.find("div", class_="main") is not None
 
 
 def test_parse_html_default_parser() -> None:
@@ -54,12 +55,12 @@ def test_parse_html_default_parser() -> None:
     """
     # Arrange
     html = "<html><body>Test</body></html>"
-    
+
     # Act
     result = parse_html(html)
-    
+
     # Assert
-    assert result.name == '[document]'
+    assert result.name == "[document]"
 
 
 def test_parse_html_type_error_html() -> None:
@@ -77,7 +78,7 @@ def test_parse_html_type_error_parser() -> None:
     """
     # Arrange
     html = "<html><body>Test</body></html>"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match="parser must be a string"):
         parse_html(html, parser=123)
@@ -107,7 +108,7 @@ def test_parse_html_value_error_invalid_parser() -> None:
     """
     # Arrange
     html = "<html><body>Test</body></html>"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match="parser must be one of"):
         parse_html(html, parser="invalid_parser")

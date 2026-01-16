@@ -144,7 +144,9 @@ def apply_filter(
             )
         cutoff_norm = cutoff / nyquist
         if cutoff_norm <= 0 or cutoff_norm >= 1:
-            raise ValueError(f"normalized cutoff must be between 0 and 1, got {cutoff_norm}")
+            raise ValueError(
+                f"normalized cutoff must be between 0 and 1, got {cutoff_norm}"
+            )
 
     # Design filter
     try:

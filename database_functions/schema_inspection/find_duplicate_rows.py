@@ -5,7 +5,7 @@ Find duplicate rows in a table based on specified columns.
 import logging
 from typing import Any
 
-from sqlalchemy import MetaData, select, func
+from sqlalchemy import MetaData, func, select
 
 logger = logging.getLogger(__name__)
 
@@ -78,7 +78,9 @@ def find_duplicate_rows(
     if len(columns) == 0:
         raise ValueError("columns list cannot be empty")
     if not isinstance(min_duplicates, int):
-        raise TypeError(f"min_duplicates must be int, got {type(min_duplicates).__name__}")
+        raise TypeError(
+            f"min_duplicates must be int, got {type(min_duplicates).__name__}"
+        )
     if min_duplicates < 2:
         raise ValueError("min_duplicates must be at least 2")
     if schema is not None and not isinstance(schema, str):
@@ -87,12 +89,12 @@ def find_duplicate_rows(
     # Reflect table metadata
     metadata = MetaData()
     metadata.reflect(bind=connection, schema=schema, only=[table_name])
-    
+
     if table_name not in metadata.tables:
         raise ValueError(f"Table {table_name} not found")
-    
+
     table = metadata.tables[table_name]
-    
+
     # Validate columns exist
     for col_name in columns:
         if col_name not in table.c:
@@ -100,49 +102,47 @@ def find_duplicate_rows(
 
     # Build duplicate detection query
     col_objs = [table.c[col_name] for col_name in columns]
-    
+
     # Find groups with duplicates
     dup_query = (
-        select(*col_objs, func.count().label('dup_count'))
+        select(*col_objs, func.count().label("dup_count"))
         .group_by(*col_objs)
         .having(func.count() >= min_duplicates)
         .order_by(func.count().desc())
     )
-    
+
     result = connection.execute(dup_query)
     duplicates = []
-    
+
     for row in result:
         dup_info = {
             "count": row[-1],  # Last column is dup_count
         }
-        
+
         # Add column values
         for i, col_name in enumerate(columns):
             dup_info[col_name] = row[i]
-        
+
         # Try to get sample IDs if primary key exists
         try:
             pk_cols = [col for col in table.primary_key.columns]
             if pk_cols:
                 # Build WHERE clause for this duplicate group
-                where_conditions = [table.c[col_name] == row[i] for i, col_name in enumerate(columns)]
-                
-                sample_query = (
-                    select(*pk_cols)
-                    .where(*where_conditions)
-                    .limit(10)
-                )
-                
+                where_conditions = [
+                    table.c[col_name] == row[i] for i, col_name in enumerate(columns)
+                ]
+
+                sample_query = select(*pk_cols).where(*where_conditions).limit(10)
+
                 sample_result = connection.execute(sample_query)
                 sample_ids = [r[0] for r in sample_result]
                 dup_info["sample_ids"] = sample_ids
         except Exception as e:
             logger.debug(f"Could not fetch sample IDs: {e}")
-        
+
         duplicates.append(dup_info)
 
     return duplicates
 
 
-__all__ = ['find_duplicate_rows']
+__all__ = ["find_duplicate_rows"]
