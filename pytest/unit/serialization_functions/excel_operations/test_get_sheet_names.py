@@ -129,7 +129,7 @@ def test_get_sheet_names_invalid_file_format_raises_error(tmp_path: Path) -> Non
     file_path.write_text("This is not an Excel file")
 
     # Act & Assert
-    with pytest.raises(Exception):  # openpyxl raises various exceptions
+    with pytest.raises(Exception):  # noqa: B017 - openpyxl raises various exceptions
         get_sheet_names(str(file_path))
 
 

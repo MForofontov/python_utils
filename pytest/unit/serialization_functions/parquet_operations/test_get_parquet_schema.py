@@ -127,7 +127,7 @@ def test_get_parquet_schema_nonexistent_file_raises_error(tmp_path: Path) -> Non
     nonexistent = tmp_path / "does_not_exist.parquet"
 
     # Act & Assert
-    with pytest.raises(Exception):  # pyarrow raises FileNotFoundError
+    with pytest.raises(Exception):  # noqa: B017 - pyarrow raises FileNotFoundError
         get_parquet_schema(str(nonexistent))
 
 
@@ -140,7 +140,7 @@ def test_get_parquet_schema_invalid_file_format_raises_error(tmp_path: Path) -> 
     file_path.write_text("not a parquet file")
 
     # Act & Assert
-    with pytest.raises(Exception):  # pyarrow raises various exceptions
+    with pytest.raises(Exception):  # noqa: B017 - pyarrow raises various exceptions
         get_parquet_schema(str(file_path))
 
 

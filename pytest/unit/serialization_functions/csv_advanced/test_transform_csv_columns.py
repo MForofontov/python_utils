@@ -101,7 +101,8 @@ def test_transform_csv_columns_filter_rows() -> None:
             writer.writerow(["Bob", "17"])
             writer.writerow(["Charlie", "25"])
 
-        filter_func = lambda row: int(row["age"]) >= 18
+        def filter_func(row):
+            return int(row["age"]) >= 18
         rows = transform_csv_columns(input_file, output_file, filter_func=filter_func)
 
         assert rows == 2  # Only adults

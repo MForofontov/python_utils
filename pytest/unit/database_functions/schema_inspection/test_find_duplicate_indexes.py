@@ -91,7 +91,7 @@ def test_find_duplicate_indexes_no_duplicates(memory_engine) -> None:
     assert isinstance(result["redundant"], list)
 
 
-def test_find_duplicate_indexes_identifies_redundant(memory_engine) -> None:
+def test_find_duplicate_indexes_detects_redundant(memory_engine) -> None:
     """
     Test case 4: Identify redundant indexes (prefix of another).
     """

@@ -125,7 +125,9 @@ def transpose_excel_data(
     max_cols = original_cols
     padded_data = [list(row) + [None] * (max_cols - len(row)) for row in data]
 
-    transposed_data = list(zip(*padded_data)) if padded_data else []
+    transposed_data = (
+        list(zip(*padded_data, strict=False)) if padded_data else []
+    )
 
     # Create output workbook
     output_wb = Workbook()

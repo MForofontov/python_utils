@@ -70,11 +70,8 @@ def assert_raises_with_message(
         if message_pattern not in str(e):
             raise AssertionError(
                 f"Exception message '{str(e)}' does not contain expected pattern '{message_pattern}'"
-            )
+            ) from None
     except Exception as e:
         raise AssertionError(
             f"Expected {exception_type.__name__}, but got {type(e).__name__}: {str(e)}"
-        )
-
-
-__all__ = ["assert_raises_with_message"]
+        ) from None

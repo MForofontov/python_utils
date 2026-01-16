@@ -147,7 +147,6 @@ def adaptive_filter(
     # RLS-specific initialization
     if algorithm == "rls":
         P = np.eye(filter_length) / 0.01  # Inverse correlation matrix
-        delta = 0.01  # Small regularization
 
     convergence_iteration = None
     convergence_threshold = 0.01

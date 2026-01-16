@@ -67,9 +67,6 @@ def extract_urls(
             f"include_schemes must be list or None, got {type(include_schemes).__name__}"
         )
 
-    # URL pattern with optional scheme
-    pattern = r"(?:(?:https?|ftp|ftps|file)://)?(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&/=]*)"
-
     # More specific pattern for URLs with schemes
     pattern_with_scheme = r"\b(?:https?|ftp|ftps|file)://[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&/=]*)"
 

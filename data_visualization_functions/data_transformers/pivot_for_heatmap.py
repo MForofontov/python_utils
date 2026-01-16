@@ -119,7 +119,7 @@ def pivot_for_heatmap(
 
     cell_values = defaultdict(list)
 
-    for value, row, col in zip(data_array, row_array, col_array):
+    for value, row, col in zip(data_array, row_array, col_array, strict=False):
         cell_values[(row, col)].append(value)
 
     # Apply aggregation function

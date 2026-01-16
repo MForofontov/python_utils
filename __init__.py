@@ -578,6 +578,7 @@ __author__ = "Python Utils Contributors"
 __license__ = "MIT"
 
 __all__ = [
+    "__version__",
     "async_await_with_error_handling",
     "async_batch",
     "async_cancellable_task",
@@ -628,6 +629,9 @@ __all__ = [
     "format_currency",
     # Dev utilities
     "count_code_lines",
+    "CoverageReport",
+    "find_missing_tests",
+    "format_coverage_report",
     "format_statistics",
     "format_validation_result",
     "generate_dependency_graph",
@@ -637,6 +641,7 @@ __all__ = [
     "validate_project_structure",
     "CodeLineCount",
     "CodeStatistics",
+    "MissingTest",
     "ValidationIssue",
     "ValidationResult",
     "calculate_age",
@@ -1020,6 +1025,7 @@ __all__ = [
     # Network functions
     "ping_host",
     "get_local_ip",
+    "get_public_ip",
     "check_port_open",
     "resolve_hostname",
     "get_mac_address",

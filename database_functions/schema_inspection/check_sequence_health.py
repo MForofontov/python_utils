@@ -96,7 +96,7 @@ def check_sequence_health(
         )
 
     # Get database dialect
-    db_dialect = connection.dialect.name.lower()
+    connection.dialect.name.lower()
 
     # Reflect metadata
     metadata = MetaData()

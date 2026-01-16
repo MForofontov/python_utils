@@ -110,7 +110,7 @@ def get_table_sizes(
         try:
             # Get row count (database-agnostic)
             if table_name in metadata.tables:
-                table = metadata.tables[table_name]
+                metadata.tables[table_name]
                 count_query = text(f"SELECT COUNT(*) FROM {table_name}")
                 result = connection.execute(count_query)
                 table_info["row_count"] = result.scalar() or 0

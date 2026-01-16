@@ -133,7 +133,7 @@ def create_scatter_plot(
     # Create plot
     fig, ax = plt.subplots(figsize=figsize)
 
-    scatter = ax.scatter(x_data, y_data, c=colors, s=sizes, alpha=alpha, marker=marker)
+    ax.scatter(x_data, y_data, c=colors, s=sizes, alpha=alpha, marker=marker)
 
     # Customize plot
     if title:

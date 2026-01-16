@@ -144,7 +144,10 @@ def extract_feature_importance(
         importances = importances / importances.sum()
 
     # Create result dictionary
-    result = {name: float(imp) for name, imp in zip(feature_names, importances)}
+    result = {
+        name: float(imp)
+        for name, imp in zip(feature_names, importances, strict=True)
+    }
 
     return result
 

@@ -121,7 +121,7 @@ def test_get_parquet_metadata_nonexistent_file_raises_error(tmp_path: Path) -> N
     nonexistent = tmp_path / "does_not_exist.parquet"
 
     # Act & Assert
-    with pytest.raises(Exception):  # pyarrow raises various exceptions
+    with pytest.raises(Exception):  # noqa: B017 - pyarrow raises various exceptions
         get_parquet_metadata(str(nonexistent))
 
 
@@ -134,7 +134,7 @@ def test_get_parquet_metadata_invalid_file_format_raises_error(tmp_path: Path) -
     file_path.write_text("not a parquet file")
 
     # Act & Assert
-    with pytest.raises(Exception):  # pyarrow raises various exceptions
+    with pytest.raises(Exception):  # noqa: B017 - pyarrow raises various exceptions
         get_parquet_metadata(str(file_path))
 
 

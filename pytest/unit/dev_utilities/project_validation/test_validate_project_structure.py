@@ -152,7 +152,7 @@ def test_validate_project_structure_with_tests() -> None:
 
         # Assert
         # With tests present, should not have test-related warnings
-        test_issues = [
+        [
             i
             for i in result.issues
             if i.category == "testing" and i.severity == "warning"

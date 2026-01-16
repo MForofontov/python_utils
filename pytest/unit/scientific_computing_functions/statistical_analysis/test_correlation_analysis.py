@@ -26,7 +26,7 @@ def test_correlation_analysis_pearson_positive() -> None:
     # Assert
     assert result["correlation"] == pytest.approx(1.0, abs=0.01)
     assert result["pvalue"] < 0.05
-    assert result["significant"] == True
+    assert result["significant"]
     assert result["method"] == "pearson"
     assert result["interpretation"] == "strong"
 
@@ -43,7 +43,7 @@ def test_correlation_analysis_pearson_negative() -> None:
     # Assert
     assert result["correlation"] < 0
     assert abs(result["correlation"]) == pytest.approx(1.0, abs=0.01)
-    assert result["significant"] == True
+    assert result["significant"]
 
 
 def test_correlation_analysis_spearman() -> None:

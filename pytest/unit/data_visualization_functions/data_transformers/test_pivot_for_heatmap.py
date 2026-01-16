@@ -142,9 +142,9 @@ def test_pivot_for_heatmap_duplicate_coordinates():
     assert matrix[0, 0] == 60.0  # Sum of 10, 20, 30
 
 
-def test_pivot_for_heatmap_invalid_type_raises_error():
+def test_pivot_for_heatmap_invalid_data_type_raises_error():
     """
-    Test case 7: TypeError for invalid input type.
+    Test case 9: TypeError for invalid input type (second variant).
     """
     # Arrange
     expected_message = "Cannot convert data to numeric array"
@@ -154,7 +154,7 @@ def test_pivot_for_heatmap_invalid_type_raises_error():
         pivot_for_heatmap("not_a_list", ["A"], ["X"])
 
 
-def test_pivot_for_heatmap_duplicate_coordinates():
+def test_pivot_for_heatmap_handles_duplicate_coordinates():
     """
     Test case 8: Handle duplicate row/col coordinates.
     """

@@ -91,7 +91,7 @@ def test_excel_to_csv_batch_skip_empty() -> None:
         ws1.append(["ID"])
         ws1.append([1])
 
-        ws2 = wb.create_sheet("Empty")
+        wb.create_sheet("Empty")
         # Empty sheet - max_row will be 0 so it should be skipped
 
         wb.save(excel_file)

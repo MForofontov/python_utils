@@ -154,7 +154,7 @@ def csv_to_parquet(
             if reader.fieldnames is None:
                 raise ValueError("CSV file has no header")
 
-            fieldnames = list(reader.fieldnames)
+            list(reader.fieldnames)
             chunk: list[dict[str, Any]] = []
 
             for row in reader:

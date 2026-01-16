@@ -101,7 +101,7 @@ def test_save_multiple_formats_custom_dpi():
         formats = ["png"]
 
         # Act
-        result = save_multiple_formats(fig, base_path, formats=formats, dpi=300)
+        save_multiple_formats(fig, base_path, formats=formats, dpi=300)
 
         # Assert
         assert os.path.exists(f"{base_path}.png")

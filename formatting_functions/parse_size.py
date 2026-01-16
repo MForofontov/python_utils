@@ -75,7 +75,7 @@ def parse_size(size_str: str, binary: bool = True) -> int:
     try:
         number = float(number_str)
     except ValueError:
-        raise ValueError(f"Invalid number in size string: {number_str}")
+        raise ValueError(f"Invalid number in size string: {number_str}") from None
 
     if number < 0:
         raise ValueError(f"Size cannot be negative: {number}")

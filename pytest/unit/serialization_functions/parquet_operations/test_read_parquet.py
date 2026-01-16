@@ -158,5 +158,5 @@ def test_read_parquet_nonexistent_file_raises_error(tmp_path: Path) -> None:
     nonexistent = tmp_path / "does_not_exist.parquet"
 
     # Act & Assert
-    with pytest.raises(Exception):  # pyarrow raises FileNotFoundError
+    with pytest.raises(Exception):  # noqa: B017 - pyarrow raises FileNotFoundError
         read_parquet(str(nonexistent))

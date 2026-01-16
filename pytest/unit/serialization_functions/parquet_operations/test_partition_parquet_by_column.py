@@ -121,7 +121,7 @@ def test_partition_parquet_by_column_safe_filenames() -> None:
         table = pa.Table.from_pylist(data)
         pq.write_table(table, input_file)
 
-        counts = partition_parquet_by_column(input_file, output_dir, "path")
+        partition_parquet_by_column(input_file, output_dir, "path")
 
         # Check that files were created with safe names
         files = list(output_dir.glob("*.parquet"))

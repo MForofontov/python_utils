@@ -282,7 +282,6 @@ def test_solve_linear_system_singular_matrix() -> None:
     # Arrange
     A = [[1, 2], [2, 4]]  # Singular
     b = [1, 2]
-    expected_message = "matrix is singular"
 
     # Act & Assert
     with pytest.raises((ValueError, np.linalg.LinAlgError)):

@@ -604,7 +604,7 @@ def test_numerical_integration_return_structure_trapz() -> None:
     assert "error" not in result or result.get("error") is None
 
 
-def test_numerical_integration_romberg_missing_func() -> None:
+def test_numerical_integration_romberg_requires_func() -> None:
     """Test case 41: ValueError for romberg without func."""
     # Arrange
     expected_message = "func is required for romberg method"

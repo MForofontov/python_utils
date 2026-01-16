@@ -154,7 +154,7 @@ def analyze_predictions(
         per_class_total = {}
         per_class_accuracy = {}
 
-        for cls, label in zip(classes, class_labels):
+        for cls, label in zip(classes, class_labels, strict=True):
             mask = y_true == cls
             if np.sum(mask) > 0:
                 per_class_total[label] = int(np.sum(mask))
@@ -194,7 +194,7 @@ def analyze_predictions(
 
         # Class balance in errors
         error_class_dist = {}
-        for cls, label in zip(classes, class_labels):
+        for cls, label in zip(classes, class_labels, strict=True):
             error_mask = errors & (y_true == cls)
             error_class_dist[label] = int(np.sum(error_mask))
         result["errors_by_true_class"] = error_class_dist

@@ -474,7 +474,7 @@ def test_migrate_id_type_performance_uuid_generation(
     assert result["rows_per_table"]["users"] == 10000
 
     # All IDs should be valid UUIDs (contain hyphens)
-    for old_id, new_id in result["id_mapping"].items():
+    for _old_id, new_id in result["id_mapping"].items():
         assert "-" in new_id, f"Generated ID {new_id} doesn't look like a UUID"
 
     # Memory measurement
@@ -500,7 +500,7 @@ def test_migrate_id_type_performance_uuid_generation(
     assert result["rows_per_table"]["users"] == 10000
 
     # All IDs should be valid UUIDs (contain hyphens)
-    for old_id, new_id in result["id_mapping"].items():
+    for _old_id, new_id in result["id_mapping"].items():
         assert "-" in new_id, f"Generated ID {new_id} doesn't look like a UUID"
 
     # Performance assertion
@@ -554,9 +554,11 @@ def test_migrate_id_type_performance_batch_size_comparison(
 
         id_counter = [0]
 
-        def generate_new_id() -> str:
-            id_counter[0] += 1
-            return f"new-item-{batch_size}-{id_counter[0]}"
+        def generate_new_id(  # noqa: B023 - intentional closure over loop variables
+            _batch_size: int = batch_size, _counter: list[int] = id_counter
+        ) -> str:
+            _counter[0] += 1
+            return f"new-item-{_batch_size}-{_counter[0]}"
 
         # Get process for memory measurement
         process = psutil.Process()
@@ -564,7 +566,7 @@ def test_migrate_id_type_performance_batch_size_comparison(
 
         # Act
         start_time = time.time()
-        result = migrate_id_type(
+        migrate_id_type(
             engine=engine,
             table_name="items",
             id_generator=generate_new_id,
@@ -725,7 +727,6 @@ def test_migrate_id_type_performance_stress_test_1m_rows(
                 print(f"  Inserted {batch_start:,} FK rows per table...")
 
             # Each FK table gets 400K rows
-            user_id_offset = batch_start
 
             orders_data = [
                 {"order_id": i, "user_id": f"user-{i}", "amount": (i * 100) % 10000}

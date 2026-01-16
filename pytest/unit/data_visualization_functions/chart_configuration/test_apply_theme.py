@@ -106,7 +106,7 @@ def test_apply_theme_none_raises_error():
     Test case 6: TypeError for None theme.
     """
     # Arrange
-    expected_message = "theme cannot be None"
+    expected_message = "theme must be a ChartTheme instance"
 
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
@@ -128,18 +128,6 @@ def test_apply_theme_grid_settings():
     # Assert
     assert plt.rcParams["grid.color"] == "lightgray"
     assert plt.rcParams["grid.alpha"] == 0.5
-
-
-def test_apply_theme_none_raises_error():
-    """
-    Test case 8: TypeError when theme_name is None.
-    """
-    # Arrange
-    expected_message = "theme must be|cannot be None"
-
-    # Act & Assert
-    with pytest.raises((TypeError, ValueError), match=expected_message):
-        apply_theme(None)
 
 
 __all__ = ["test_apply_theme_basic"]

@@ -101,7 +101,7 @@ def verify_referential_integrity(
 
             try:
                 # Build subquery for valid references
-                valid_refs = select(ref_column).subquery()
+                select(ref_column).subquery()
 
                 # Find orphaned records using SQLAlchemy expressions
                 orphaned_query = (

@@ -97,10 +97,10 @@ def test_connection_pool_manager_max_connections() -> None:
     pool = ConnectionPoolManager(create_conn, max_connections=1)
 
     # Act - Acquire first connection
-    with pool.get_connection() as conn1:
+    with pool.get_connection():
         # Try to get second connection while first is active
         try:
-            with pool.get_connection() as conn2:
+            with pool.get_connection():
                 pass
         except RuntimeError as e:
             # Assert

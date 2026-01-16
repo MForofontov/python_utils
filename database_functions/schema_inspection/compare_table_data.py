@@ -302,7 +302,7 @@ def compare_table_data(
 
     # If counts match and all checksums match, we're done
     all_checksums_match = all(
-        v.get("match") == True
+        v.get("match")
         for v in result["column_checksums"].values()
         if v.get("match") is not None
     )

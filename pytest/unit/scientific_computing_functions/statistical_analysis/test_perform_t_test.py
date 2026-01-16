@@ -44,7 +44,7 @@ def test_perform_t_test_unequal_variances() -> None:
     # Assert
     assert result["statistic"] < 0  # group1 mean < group2 mean
     assert result["pvalue"] < 0.05  # Significant difference
-    assert result["significant"] == True
+    assert result["significant"]
 
 
 def test_perform_t_test_two_sided() -> None:
@@ -118,7 +118,7 @@ def test_perform_t_test_identical_groups() -> None:
     # Assert
     assert np.isnan(result["statistic"])  # Undefined for identical groups
     assert np.isnan(result["pvalue"])  # p-value also undefined
-    assert result["significant"] == False
+    assert not result["significant"]
 
 
 def test_perform_t_test_small_sample() -> None:

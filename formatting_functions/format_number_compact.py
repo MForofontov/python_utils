@@ -78,7 +78,6 @@ def format_number_compact(
         return "0"
 
     # Handle negative numbers
-    negative = number < 0
     abs_number = abs(number)
 
     # If below threshold, return as-is

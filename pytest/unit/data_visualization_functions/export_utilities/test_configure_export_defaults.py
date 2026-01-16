@@ -56,7 +56,7 @@ def test_configure_export_defaults_transparent():
     configure_export_defaults(transparent=True)
 
     # Assert
-    assert plt.rcParams["savefig.transparent"] == True
+    assert plt.rcParams["savefig.transparent"]
 
 
 def test_configure_export_defaults_bbox_tight():

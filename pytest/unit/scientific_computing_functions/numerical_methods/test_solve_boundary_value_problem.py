@@ -43,7 +43,7 @@ def test_solve_bvp_collocation_method() -> None:
     def bc(ya, yb):
         return np.array([ya[0] - 1, yb[0]])
 
-    x_mesh = np.linspace(0, 1, 20)
+    np.linspace(0, 1, 20)
     y_mesh = np.zeros((2, 20))
     y_mesh[0] = np.linspace(1, 0, 20)
 
@@ -71,7 +71,7 @@ def test_solve_bvp_shooting_method() -> None:
         return np.array([ya[0] - 1.0])
 
     # Initial guess mesh
-    x_init = np.linspace(0, 1, 10)
+    np.linspace(0, 1, 10)
     y_init = np.ones((1, 10))  # Shape: (n_states=1, n_points=10)
 
     # Act - Use collocation method which is more robust
@@ -210,7 +210,7 @@ def test_solve_bvp_minimum_points() -> None:
         return np.array([ya[0], yb[0]])
 
     # Initial mesh with 2 points
-    x_mesh = np.array([0, 1])
+    np.array([0, 1])
     # Initial guess: y has 2 components, each evaluated at 2 mesh points
     y_init = np.zeros((2, 2))  # Shape: (n_states, n_points)
 
