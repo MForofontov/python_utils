@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61"]
+requires = ["setuptools>=61", "setuptools-scm>=8.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -81,8 +81,10 @@ playwright = [
 where = ["."]
 exclude = ["pytest*"]
 
-[tool.setuptools.dynamic]
-version = {attr = "_version.__version__"}
+[tool.setuptools_scm]
+# Don't write version to source file - only in built package
+write_to = "_version.py"
+write_to_template = "__version__ = '{version}'"
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
