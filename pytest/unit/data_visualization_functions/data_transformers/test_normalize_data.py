@@ -2,10 +2,21 @@
 Unit tests for normalize_data function.
 """
 
-import numpy as np
-
 import pytest
-from data_visualization_functions.data_transformers import normalize_data
+
+# Try to import numpy - tests will be skipped if not available
+try:
+    import numpy as np
+
+    from data_visualization_functions.data_transformers import normalize_data
+
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    np = None  # type: ignore
+    normalize_data = None  # type: ignore
+
+pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed")
 
 
 def test_normalize_data_minmax_default():

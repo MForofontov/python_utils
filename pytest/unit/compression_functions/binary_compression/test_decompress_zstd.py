@@ -1,7 +1,15 @@
-import zstandard as zstd
+try:
+    import zstandard as zstd
+
+    ZSTANDARD_AVAILABLE = True
+except ImportError:
+    ZSTANDARD_AVAILABLE = False
+    zstd = None  # type: ignore
 
 import pytest
 from compression_functions.binary_compression.decompress_zstd import decompress_zstd
+
+pytestmark = pytest.mark.skipif(not ZSTANDARD_AVAILABLE, reason="zstandard not installed")
 
 
 def test_decompress_zstd_basic() -> None:

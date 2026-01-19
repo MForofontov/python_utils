@@ -2,13 +2,25 @@
 Unit tests for generate_categorical_colors function.
 """
 
-import matplotlib
-
 import pytest
 
-matplotlib.use("Agg")  # Use non-GUI backend for testing
-from data_visualization_functions.color_palettes.generate_categorical_colors import (
-    generate_categorical_colors,
+# Try to import matplotlib - tests will be skipped if not available
+try:
+    import matplotlib
+
+    matplotlib.use("Agg")  # Use non-GUI backend for testing
+    from data_visualization_functions.color_palettes.generate_categorical_colors import (
+        generate_categorical_colors,
+    )
+
+    MATPLOTLIB_AVAILABLE = True
+except ImportError:
+    MATPLOTLIB_AVAILABLE = False
+    matplotlib = None  # type: ignore
+    generate_categorical_colors = None  # type: ignore
+
+pytestmark = pytest.mark.skipif(
+    not MATPLOTLIB_AVAILABLE, reason="matplotlib not installed"
 )
 
 

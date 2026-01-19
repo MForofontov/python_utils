@@ -2,16 +2,31 @@
 Unit tests for reset_theme function.
 """
 
-import matplotlib
-
 import pytest
 
-matplotlib.use("Agg")  # Use non-GUI backend for testing
-import matplotlib.pyplot as plt
+# Try to import matplotlib - tests will be skipped if not available
+try:
+    import matplotlib
 
-from data_visualization_functions.chart_configuration.apply_theme import apply_theme
-from data_visualization_functions.chart_configuration.chart_theme import ChartTheme
-from data_visualization_functions.chart_configuration.reset_theme import reset_theme
+    matplotlib.use("Agg")  # Use non-GUI backend for testing
+    import matplotlib.pyplot as plt
+
+    from data_visualization_functions.chart_configuration.apply_theme import apply_theme
+    from data_visualization_functions.chart_configuration.chart_theme import ChartTheme
+    from data_visualization_functions.chart_configuration.reset_theme import reset_theme
+
+    MATPLOTLIB_AVAILABLE = True
+except ImportError:
+    MATPLOTLIB_AVAILABLE = False
+    matplotlib = None  # type: ignore
+    plt = None  # type: ignore
+    apply_theme = None  # type: ignore
+    ChartTheme = None  # type: ignore
+    reset_theme = None  # type: ignore
+
+pytestmark = pytest.mark.skipif(
+    not MATPLOTLIB_AVAILABLE, reason="matplotlib not installed"
+)
 
 
 def test_reset_theme_restores_defaults():

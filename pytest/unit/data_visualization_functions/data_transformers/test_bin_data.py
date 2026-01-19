@@ -2,13 +2,27 @@
 Unit tests for bin_data function.
 """
 
-import matplotlib
-import numpy as np
-
 import pytest
 
-matplotlib.use("Agg")  # Use non-GUI backend for testing
-from data_visualization_functions.data_transformers.bin_data import bin_data
+# Try to import matplotlib and numpy - tests will be skipped if not available
+try:
+    import matplotlib
+
+    matplotlib.use("Agg")  # Use non-GUI backend for testing
+    import numpy as np
+
+    from data_visualization_functions.data_transformers.bin_data import bin_data
+
+    DEPENDENCIES_AVAILABLE = True
+except ImportError:
+    DEPENDENCIES_AVAILABLE = False
+    matplotlib = None  # type: ignore
+    np = None  # type: ignore
+    bin_data = None  # type: ignore
+
+pytestmark = pytest.mark.skipif(
+    not DEPENDENCIES_AVAILABLE, reason="matplotlib and numpy not installed"
+)
 
 
 def test_bin_data_basic():

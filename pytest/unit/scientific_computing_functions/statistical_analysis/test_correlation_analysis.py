@@ -4,12 +4,20 @@ Unit tests for correlation_analysis function.
 Tests cover normal operation, edge cases, and error conditions.
 """
 
-import numpy as np
+try:
+    import numpy as np
+
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    np = None  # type: ignore
 
 import pytest
 from scientific_computing_functions.statistical_analysis.correlation_analysis import (
     correlation_analysis,
 )
+
+pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed")
 
 # Normal operation tests
 

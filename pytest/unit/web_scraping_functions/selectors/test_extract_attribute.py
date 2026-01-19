@@ -1,7 +1,17 @@
-from bs4 import BeautifulSoup
-
 import pytest
-from web_scraping_functions.selectors.extract_attribute import extract_attribute
+
+# Try to import BeautifulSoup - tests will be skipped if not available
+try:
+    from bs4 import BeautifulSoup, Tag
+    from web_scraping_functions.selectors.extract_attribute import extract_attribute
+    BS4_AVAILABLE = True
+except ImportError:
+    BS4_AVAILABLE = False
+    BeautifulSoup = None  # type: ignore
+    Tag = None  # type: ignore
+    extract_attribute = None  # type: ignore
+
+pytestmark = pytest.mark.skipif(not BS4_AVAILABLE, reason="beautifulsoup4 not installed")
 
 
 def test_extract_attribute_simple_attribute() -> None:

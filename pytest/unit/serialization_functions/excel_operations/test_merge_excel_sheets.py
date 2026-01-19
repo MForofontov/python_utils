@@ -5,12 +5,19 @@ Unit tests for merge_excel_sheets function.
 import tempfile
 from pathlib import Path
 
-import openpyxl
+try:
+    import openpyxl
+    OPENPYXL_AVAILABLE = True
+except ImportError:
+    OPENPYXL_AVAILABLE = False
+    openpyxl = None  # type: ignore
 
 import pytest
 from serialization_functions.excel_operations.merge_excel_sheets import (
     merge_excel_sheets,
 )
+
+pytestmark = pytest.mark.skipif(not OPENPYXL_AVAILABLE, reason="openpyxl not installed")
 
 
 def test_merge_excel_sheets_basic_merge() -> None:

@@ -7,10 +7,19 @@ Tests cover:
 - Error cases: invalid types, empty data, invalid parameters
 """
 
-import numpy as np
+try:
+    import numpy as np
+    import scipy
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    np = None  # type: ignore
+    scipy = None  # type: ignore
 
 import pytest
 from scientific_computing_functions.signal_processing.apply_filter import apply_filter
+
+pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy/scipy not installed")
 
 # ========== Normal Operation Tests ==========
 

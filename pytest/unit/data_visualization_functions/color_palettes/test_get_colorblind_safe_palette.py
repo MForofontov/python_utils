@@ -2,13 +2,25 @@
 Unit tests for get_colorblind_safe_palette function.
 """
 
-import matplotlib
-
 import pytest
 
-matplotlib.use("Agg")  # Use non-GUI backend for testing
-from data_visualization_functions.color_palettes.get_colorblind_safe_palette import (
-    get_colorblind_safe_palette,
+# Try to import matplotlib - tests will be skipped if not available
+try:
+    import matplotlib
+
+    matplotlib.use("Agg")  # Use non-GUI backend for testing
+    from data_visualization_functions.color_palettes.get_colorblind_safe_palette import (
+        get_colorblind_safe_palette,
+    )
+
+    MATPLOTLIB_AVAILABLE = True
+except ImportError:
+    MATPLOTLIB_AVAILABLE = False
+    matplotlib = None  # type: ignore
+    get_colorblind_safe_palette = None  # type: ignore
+
+pytestmark = pytest.mark.skipif(
+    not MATPLOTLIB_AVAILABLE, reason="matplotlib not installed"
 )
 
 

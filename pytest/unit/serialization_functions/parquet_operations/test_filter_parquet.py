@@ -2,11 +2,19 @@
 
 from pathlib import Path
 
-import pyarrow as pa
-import pyarrow.parquet as pq
+try:
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+    PYARROW_AVAILABLE = True
+except ImportError:
+    PYARROW_AVAILABLE = False
+    pa = None  # type: ignore
+    pq = None  # type: ignore
 
 import pytest
 from serialization_functions.parquet_operations.filter_parquet import filter_parquet
+
+pytestmark = pytest.mark.skipif(not PYARROW_AVAILABLE, reason="pyarrow not installed")
 
 
 def test_filter_parquet_equal_operator(tmp_path: Path) -> None:

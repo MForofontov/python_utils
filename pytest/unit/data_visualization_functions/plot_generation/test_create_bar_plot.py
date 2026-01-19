@@ -2,14 +2,27 @@
 Unit tests for create_bar_plot function.
 """
 
-import matplotlib
-
 import pytest
 
-matplotlib.use("Agg")  # Use non-GUI backend for testing
-import matplotlib.pyplot as plt
+# Try to import matplotlib - tests will be skipped if not available
+try:
+    import matplotlib
 
-from data_visualization_functions.plot_generation.create_bar_plot import create_bar_plot
+    matplotlib.use("Agg")  # Use non-GUI backend for testing
+    import matplotlib.pyplot as plt
+
+    from data_visualization_functions.plot_generation.create_bar_plot import create_bar_plot
+
+    MATPLOTLIB_AVAILABLE = True
+except ImportError:
+    MATPLOTLIB_AVAILABLE = False
+    matplotlib = None  # type: ignore
+    plt = None  # type: ignore
+    create_bar_plot = None  # type: ignore
+
+pytestmark = pytest.mark.skipif(
+    not MATPLOTLIB_AVAILABLE, reason="matplotlib not installed"
+)
 
 
 def test_create_bar_plot_basic():

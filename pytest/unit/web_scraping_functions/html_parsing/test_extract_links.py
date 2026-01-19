@@ -1,7 +1,16 @@
-from bs4 import BeautifulSoup
-
 import pytest
-from web_scraping_functions.html_parsing.extract_links import extract_links
+
+# Try to import BeautifulSoup - tests will be skipped if not available
+try:
+    from bs4 import BeautifulSoup
+    from web_scraping_functions.html_parsing.extract_links import extract_links
+    BS4_AVAILABLE = True
+except ImportError:
+    BS4_AVAILABLE = False
+    BeautifulSoup = None  # type: ignore
+    extract_links = None  # type: ignore
+
+pytestmark = pytest.mark.skipif(not BS4_AVAILABLE, reason="beautifulsoup4 not installed")
 
 
 def test_extract_links_simple_links() -> None:

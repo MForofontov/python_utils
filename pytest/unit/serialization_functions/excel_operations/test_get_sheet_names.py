@@ -2,10 +2,17 @@
 
 from pathlib import Path
 
-from openpyxl import Workbook
+try:
+    from openpyxl import Workbook
+    OPENPYXL_AVAILABLE = True
+except ImportError:
+    OPENPYXL_AVAILABLE = False
+    Workbook = None  # type: ignore
 
 import pytest
 from serialization_functions.excel_operations.get_sheet_names import get_sheet_names
+
+pytestmark = pytest.mark.skipif(not OPENPYXL_AVAILABLE, reason="openpyxl not installed")
 
 
 def test_get_sheet_names_single_sheet(tmp_path: Path) -> None:

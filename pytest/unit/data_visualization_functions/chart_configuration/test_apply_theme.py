@@ -2,15 +2,29 @@
 Unit tests for apply_theme function.
 """
 
-import matplotlib
-
 import pytest
 
-matplotlib.use("Agg")  # Use non-GUI backend for testing
-import matplotlib.pyplot as plt
+# Try to import matplotlib - tests will be skipped if not available
+try:
+    import matplotlib
 
-from data_visualization_functions.chart_configuration.apply_theme import apply_theme
-from data_visualization_functions.chart_configuration.chart_theme import ChartTheme
+    matplotlib.use("Agg")  # Use non-GUI backend for testing
+    import matplotlib.pyplot as plt
+
+    from data_visualization_functions.chart_configuration.apply_theme import apply_theme
+    from data_visualization_functions.chart_configuration.chart_theme import ChartTheme
+
+    MATPLOTLIB_AVAILABLE = True
+except ImportError:
+    MATPLOTLIB_AVAILABLE = False
+    matplotlib = None  # type: ignore
+    plt = None  # type: ignore
+    apply_theme = None  # type: ignore
+    ChartTheme = None  # type: ignore
+
+pytestmark = pytest.mark.skipif(
+    not MATPLOTLIB_AVAILABLE, reason="matplotlib not installed"
+)
 
 
 def test_apply_theme_basic():

@@ -1,9 +1,18 @@
-from bs4 import BeautifulSoup
-
 import pytest
-from web_scraping_functions.html_parsing.find_elements_by_id import (
-    find_elements_by_id,
-)
+
+# Try to import BeautifulSoup - tests will be skipped if not available
+try:
+    from bs4 import BeautifulSoup
+    from web_scraping_functions.html_parsing.find_elements_by_id import (
+        find_elements_by_id,
+    )
+    BS4_AVAILABLE = True
+except ImportError:
+    BS4_AVAILABLE = False
+    BeautifulSoup = None  # type: ignore
+    find_elements_by_id = None  # type: ignore
+
+pytestmark = pytest.mark.skipif(not BS4_AVAILABLE, reason="beautifulsoup4 not installed")
 
 
 def test_find_elements_by_id_simple_id() -> None:

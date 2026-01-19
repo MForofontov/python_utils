@@ -2,13 +2,25 @@
 Unit tests for aggregate_by_group function.
 """
 
-import matplotlib
-
 import pytest
 
-matplotlib.use("Agg")  # Use non-GUI backend for testing
-from data_visualization_functions.data_transformers.aggregate_by_group import (
-    aggregate_by_group,
+# Try to import matplotlib - tests will be skipped if not available
+try:
+    import matplotlib
+
+    matplotlib.use("Agg")  # Use non-GUI backend for testing
+    from data_visualization_functions.data_transformers.aggregate_by_group import (
+        aggregate_by_group,
+    )
+
+    MATPLOTLIB_AVAILABLE = True
+except ImportError:
+    MATPLOTLIB_AVAILABLE = False
+    matplotlib = None  # type: ignore
+    aggregate_by_group = None  # type: ignore
+
+pytestmark = pytest.mark.skipif(
+    not MATPLOTLIB_AVAILABLE, reason="matplotlib not installed"
 )
 
 

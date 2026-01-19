@@ -2,10 +2,18 @@
 
 from pathlib import Path
 
-from openpyxl import Workbook, load_workbook
+try:
+    from openpyxl import Workbook, load_workbook
+    OPENPYXL_AVAILABLE = True
+except ImportError:
+    OPENPYXL_AVAILABLE = False
+    Workbook = None  # type: ignore
+    load_workbook = None  # type: ignore
 
 import pytest
 from serialization_functions.excel_operations.write_excel_sheet import write_excel_sheet
+
+pytestmark = pytest.mark.skipif(not OPENPYXL_AVAILABLE, reason="openpyxl not installed")
 
 
 def test_write_excel_sheet_basic_write(tmp_path: Path) -> None:

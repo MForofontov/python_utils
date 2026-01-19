@@ -1,7 +1,15 @@
-from lxml import etree
+try:
+    from lxml import etree
+
+    LXML_AVAILABLE = True
+except ImportError:
+    LXML_AVAILABLE = False
+    etree = None  # type: ignore
 
 import pytest
 from web_scraping_functions.selectors.select_by_xpath import select_by_xpath
+
+pytestmark = pytest.mark.skipif(not LXML_AVAILABLE, reason="lxml not installed")
 
 
 def test_select_by_xpath_simple_xpath() -> None:

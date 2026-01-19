@@ -6,11 +6,19 @@ import csv
 import tempfile
 from pathlib import Path
 
-import pyarrow as pa
-import pyarrow.parquet as pq
+try:
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+    PYARROW_AVAILABLE = True
+except ImportError:
+    PYARROW_AVAILABLE = False
+    pa = None  # type: ignore
+    pq = None  # type: ignore
 
 import pytest
 from serialization_functions.format_converters.csv_to_parquet import csv_to_parquet
+
+pytestmark = pytest.mark.skipif(not PYARROW_AVAILABLE, reason="pyarrow not installed")
 
 
 def test_csv_to_parquet_basic() -> None:

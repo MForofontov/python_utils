@@ -5,15 +5,28 @@ Unit tests for save_multiple_formats function.
 import os
 import tempfile
 
-import matplotlib
-
 import pytest
 
-matplotlib.use("Agg")  # Use non-GUI backend for testing
-import matplotlib.pyplot as plt
+# Try to import matplotlib - tests will be skipped if not available
+try:
+    import matplotlib
 
-from data_visualization_functions.export_utilities.save_multiple_formats import (
-    save_multiple_formats,
+    matplotlib.use("Agg")  # Use non-GUI backend for testing
+    import matplotlib.pyplot as plt
+
+    from data_visualization_functions.export_utilities.save_multiple_formats import (
+        save_multiple_formats,
+    )
+
+    MATPLOTLIB_AVAILABLE = True
+except ImportError:
+    MATPLOTLIB_AVAILABLE = False
+    matplotlib = None  # type: ignore
+    plt = None  # type: ignore
+    save_multiple_formats = None  # type: ignore
+
+pytestmark = pytest.mark.skipif(
+    not MATPLOTLIB_AVAILABLE, reason="matplotlib not installed"
 )
 
 

@@ -1,9 +1,17 @@
-import numpy as np
+try:
+    import numpy as np
+
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    np = None  # type: ignore
 
 import pytest
 from bioinformatics_functions.clustering_functions.motif_clustering import (
     motif_clustering,
 )
+
+pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed")
 
 
 def test_motif_clustering_two_clusters() -> None:

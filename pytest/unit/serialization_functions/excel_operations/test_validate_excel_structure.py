@@ -5,12 +5,19 @@ Unit tests for validate_excel_structure function.
 import tempfile
 from pathlib import Path
 
-import openpyxl
+try:
+    import openpyxl
+    OPENPYXL_AVAILABLE = True
+except ImportError:
+    OPENPYXL_AVAILABLE = False
+    openpyxl = None  # type: ignore
 
 import pytest
 from serialization_functions.excel_operations.validate_excel_structure import (
     validate_excel_structure,
 )
+
+pytestmark = pytest.mark.skipif(not OPENPYXL_AVAILABLE, reason="openpyxl not installed")
 
 
 def test_validate_excel_structure_valid() -> None:

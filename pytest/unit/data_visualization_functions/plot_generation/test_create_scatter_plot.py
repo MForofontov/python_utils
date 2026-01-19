@@ -2,11 +2,25 @@
 Unit tests for create_scatter_plot function.
 """
 
-import matplotlib.pyplot as plt
-import numpy as np
-
 import pytest
-from data_visualization_functions.plot_generation import create_scatter_plot
+
+# Try to import matplotlib and numpy - tests will be skipped if not available
+try:
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    from data_visualization_functions.plot_generation import create_scatter_plot
+
+    MATPLOTLIB_AVAILABLE = True
+except ImportError:
+    MATPLOTLIB_AVAILABLE = False
+    plt = None  # type: ignore
+    np = None  # type: ignore
+    create_scatter_plot = None  # type: ignore
+
+pytestmark = pytest.mark.skipif(
+    not MATPLOTLIB_AVAILABLE, reason="matplotlib or numpy not installed"
+)
 
 
 def test_create_scatter_plot_basic():

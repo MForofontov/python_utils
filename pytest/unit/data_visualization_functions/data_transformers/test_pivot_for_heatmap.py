@@ -2,14 +2,28 @@
 Unit tests for pivot_for_heatmap function.
 """
 
-import matplotlib
-import numpy as np
-
 import pytest
 
-matplotlib.use("Agg")  # Use non-GUI backend for testing
-from data_visualization_functions.data_transformers.pivot_for_heatmap import (
-    pivot_for_heatmap,
+# Try to import matplotlib and numpy - tests will be skipped if not available
+try:
+    import matplotlib
+
+    matplotlib.use("Agg")  # Use non-GUI backend for testing
+    import numpy as np
+
+    from data_visualization_functions.data_transformers.pivot_for_heatmap import (
+        pivot_for_heatmap,
+    )
+
+    DEPENDENCIES_AVAILABLE = True
+except ImportError:
+    DEPENDENCIES_AVAILABLE = False
+    matplotlib = None  # type: ignore
+    np = None  # type: ignore
+    pivot_for_heatmap = None  # type: ignore
+
+pytestmark = pytest.mark.skipif(
+    not DEPENDENCIES_AVAILABLE, reason="matplotlib and numpy not installed"
 )
 
 

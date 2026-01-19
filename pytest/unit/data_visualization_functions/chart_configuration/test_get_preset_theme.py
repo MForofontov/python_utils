@@ -2,14 +2,27 @@
 Unit tests for get_preset_theme function.
 """
 
-import matplotlib
-
 import pytest
 
-matplotlib.use("Agg")  # Use non-GUI backend for testing
-from data_visualization_functions.chart_configuration.chart_theme import ChartTheme
-from data_visualization_functions.chart_configuration.get_preset_theme import (
-    get_preset_theme,
+# Try to import matplotlib - tests will be skipped if not available
+try:
+    import matplotlib
+
+    matplotlib.use("Agg")  # Use non-GUI backend for testing
+    from data_visualization_functions.chart_configuration.chart_theme import ChartTheme
+    from data_visualization_functions.chart_configuration.get_preset_theme import (
+        get_preset_theme,
+    )
+
+    MATPLOTLIB_AVAILABLE = True
+except ImportError:
+    MATPLOTLIB_AVAILABLE = False
+    matplotlib = None  # type: ignore
+    ChartTheme = None  # type: ignore
+    get_preset_theme = None  # type: ignore
+
+pytestmark = pytest.mark.skipif(
+    not MATPLOTLIB_AVAILABLE, reason="matplotlib not installed"
 )
 
 

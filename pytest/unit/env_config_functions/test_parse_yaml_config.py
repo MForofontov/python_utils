@@ -1,7 +1,15 @@
-import yaml
+try:
+    import yaml
+
+    YAML_AVAILABLE = True
+except ImportError:
+    YAML_AVAILABLE = False
+    yaml = None  # type: ignore
 
 import pytest
 from env_config_functions.parse_yaml_config import parse_yaml_config
+
+pytestmark = pytest.mark.skipif(not YAML_AVAILABLE, reason="pyyaml not installed")
 
 
 def write_yaml_file(data, path):

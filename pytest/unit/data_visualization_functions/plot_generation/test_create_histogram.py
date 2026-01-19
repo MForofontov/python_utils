@@ -2,16 +2,31 @@
 Unit tests for create_histogram function.
 """
 
-import matplotlib
-import numpy as np
-
 import pytest
 
-matplotlib.use("Agg")  # Use non-GUI backend for testing
-import matplotlib.pyplot as plt
+# Try to import matplotlib and numpy - tests will be skipped if not available
+try:
+    import matplotlib
+    import numpy as np
 
-from data_visualization_functions.plot_generation.create_histogram import (
-    create_histogram,
+    matplotlib.use("Agg")  # Use non-GUI backend for testing
+    import matplotlib.pyplot as plt
+
+    from data_visualization_functions.plot_generation.create_histogram import (
+        create_histogram,
+    )
+
+    MATPLOTLIB_AVAILABLE = True
+except ImportError:
+    MATPLOTLIB_AVAILABLE = False
+    matplotlib = None  # type: ignore
+    numpy = None  # type: ignore
+    np = None  # type: ignore
+    plt = None  # type: ignore
+    create_histogram = None  # type: ignore
+
+pytestmark = pytest.mark.skipif(
+    not MATPLOTLIB_AVAILABLE, reason="matplotlib or numpy not installed"
 )
 
 

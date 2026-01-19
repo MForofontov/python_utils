@@ -5,15 +5,28 @@ Unit tests for export_current_figure function.
 import os
 import tempfile
 
-import matplotlib
-
 import pytest
 
-matplotlib.use("Agg")  # Use non-GUI backend for testing
-import matplotlib.pyplot as plt
+# Try to import matplotlib - tests will be skipped if not available
+try:
+    import matplotlib
 
-from data_visualization_functions.export_utilities.export_current_figure import (
-    export_current_figure,
+    matplotlib.use("Agg")  # Use non-GUI backend for testing
+    import matplotlib.pyplot as plt
+
+    from data_visualization_functions.export_utilities.export_current_figure import (
+        export_current_figure,
+    )
+
+    MATPLOTLIB_AVAILABLE = True
+except ImportError:
+    MATPLOTLIB_AVAILABLE = False
+    matplotlib = None  # type: ignore
+    plt = None  # type: ignore
+    export_current_figure = None  # type: ignore
+
+pytestmark = pytest.mark.skipif(
+    not MATPLOTLIB_AVAILABLE, reason="matplotlib not installed"
 )
 
 

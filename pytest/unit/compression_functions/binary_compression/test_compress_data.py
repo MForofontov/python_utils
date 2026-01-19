@@ -2,11 +2,22 @@ import bz2
 import gzip
 import lzma
 
-import snappy
-import zstandard as zstd
+try:
+    import snappy
+    import zstandard as zstd
+
+    COMPRESSION_LIBS_AVAILABLE = True
+except ImportError:
+    COMPRESSION_LIBS_AVAILABLE = False
+    snappy = None  # type: ignore
+    zstd = None  # type: ignore
 
 import pytest
 from compression_functions.binary_compression.compress_data import compress_data
+
+pytestmark = pytest.mark.skipif(
+    not COMPRESSION_LIBS_AVAILABLE, reason="snappy/zstandard not installed"
+)
 
 
 def test_compress_data_gzip() -> None:

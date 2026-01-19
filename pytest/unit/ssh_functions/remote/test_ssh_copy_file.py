@@ -2,8 +2,17 @@
 
 from unittest.mock import MagicMock, patch
 
+try:
+    import paramiko  # noqa: F401
+
+    PARAMIKO_AVAILABLE = True
+except ImportError:
+    PARAMIKO_AVAILABLE = False
+
 import pytest
 from ssh_functions.remote.ssh_copy_file import ssh_copy_file
+
+pytestmark = pytest.mark.skipif(not PARAMIKO_AVAILABLE, reason="paramiko not installed")
 
 
 def test_ssh_copy_file_successful_with_password() -> None:

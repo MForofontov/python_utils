@@ -5,12 +5,19 @@ Unit tests for auto_format_excel_columns function.
 import tempfile
 from pathlib import Path
 
-import openpyxl
+try:
+    import openpyxl
+    OPENPYXL_AVAILABLE = True
+except ImportError:
+    OPENPYXL_AVAILABLE = False
+    openpyxl = None  # type: ignore
 
 import pytest
 from serialization_functions.excel_operations.auto_format_excel_columns import (
     auto_format_excel_columns,
 )
+
+pytestmark = pytest.mark.skipif(not OPENPYXL_AVAILABLE, reason="openpyxl not installed")
 
 
 def test_auto_format_excel_columns_basic() -> None:

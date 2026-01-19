@@ -1,11 +1,20 @@
 """Unit tests for solve_boundary_value_problem function."""
 
-import numpy as np
+try:
+    import numpy as np
+    import scipy
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    np = None  # type: ignore
+    scipy = None  # type: ignore
 
 import pytest
 from scientific_computing_functions.numerical_methods.solve_boundary_value_problem import (
     solve_boundary_value_problem,
 )
+
+pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy/scipy not installed")
 
 
 # Normal operation tests

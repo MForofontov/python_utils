@@ -1,11 +1,20 @@
 """Unit tests for adaptive_filter function."""
 
-import numpy as np
+try:
+    import numpy as np
+    import scipy
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    np = None  # type: ignore
+    scipy = None  # type: ignore
 
 import pytest
 from scientific_computing_functions.signal_processing.adaptive_filter import (
     adaptive_filter,
 )
+
+pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy/scipy not installed")
 
 
 # Normal operation tests

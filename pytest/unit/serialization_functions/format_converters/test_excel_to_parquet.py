@@ -5,11 +5,21 @@ Unit tests for excel_to_parquet function.
 import tempfile
 from pathlib import Path
 
-import openpyxl
-import pyarrow.parquet as pq
+try:
+    import openpyxl
+    import pyarrow
+    import pyarrow.parquet as pq
+    DEPENDENCIES_AVAILABLE = True
+except ImportError:
+    DEPENDENCIES_AVAILABLE = False
+    openpyxl = None  # type: ignore
+    pyarrow = None  # type: ignore
+    pq = None  # type: ignore
 
 import pytest
 from serialization_functions.format_converters.excel_to_parquet import excel_to_parquet
+
+pytestmark = pytest.mark.skipif(not DEPENDENCIES_AVAILABLE, reason="openpyxl/pyarrow not installed")
 
 
 def test_excel_to_parquet_basic() -> None:

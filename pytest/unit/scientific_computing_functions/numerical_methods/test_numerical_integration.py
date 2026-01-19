@@ -7,12 +7,21 @@ Tests cover:
 - Error cases: invalid parameters, missing required params
 """
 
-import numpy as np
+try:
+    import numpy as np
+    import scipy
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    np = None  # type: ignore
+    scipy = None  # type: ignore
 
 import pytest
 from scientific_computing_functions.numerical_methods.numerical_integration import (
     numerical_integration,
 )
+
+pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy/scipy not installed")
 
 # ========== Normal Operation Tests ==========
 

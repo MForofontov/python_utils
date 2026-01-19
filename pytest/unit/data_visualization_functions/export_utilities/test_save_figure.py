@@ -6,10 +6,23 @@ import shutil
 import tempfile
 from pathlib import Path
 
-import matplotlib.pyplot as plt
-
 import pytest
-from data_visualization_functions.export_utilities import save_figure
+
+# Try to import matplotlib - tests will be skipped if not available
+try:
+    import matplotlib.pyplot as plt
+
+    from data_visualization_functions.export_utilities import save_figure
+
+    MATPLOTLIB_AVAILABLE = True
+except ImportError:
+    MATPLOTLIB_AVAILABLE = False
+    plt = None  # type: ignore
+    save_figure = None  # type: ignore
+
+pytestmark = pytest.mark.skipif(
+    not MATPLOTLIB_AVAILABLE, reason="matplotlib not installed"
+)
 
 
 def test_save_figure_png():

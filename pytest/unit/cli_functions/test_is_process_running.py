@@ -1,5 +1,14 @@
+try:
+    import psutil  # noqa: F401
+
+    PSUTIL_AVAILABLE = True
+except ImportError:
+    PSUTIL_AVAILABLE = False
+
 import pytest
 from cli_functions.is_process_running import is_process_running
+
+pytestmark = pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed")
 
 
 def test_is_process_running_valid_process() -> None:
