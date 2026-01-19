@@ -159,26 +159,31 @@ def test_get_temp_dir_info_file_access_error_handling() -> None:
     """
     # Arrange
     with tempfile.TemporaryDirectory() as controlled_temp:
-        # Create a test file
-        test_file = Path(controlled_temp) / "test.txt"
-        test_file.write_text("test content")
+        # Create accessible and inaccessible test files
+        accessible_file = Path(controlled_temp) / "accessible.txt"
+        inaccessible_file = Path(controlled_temp) / "inaccessible.txt"
+        accessible_file.write_text("accessible content")
+        inaccessible_file.write_text("inaccessible content")
 
-        # Mock stat to raise OSError for some files, and accept *args, **kwargs
+        # Mock stat to raise OSError for inaccessible file
         original_stat = Path.stat
 
         def mock_stat(self, *args, **kwargs):
-            if self.name == "test.txt":
+            if self.name == "inaccessible.txt":
                 raise OSError("Permission denied")
             return original_stat(self, *args, **kwargs)
 
         with patch("tempfile.gettempdir", return_value=controlled_temp):
             with patch.object(Path, "stat", mock_stat):
-                # Act & Assert
-                with pytest.raises(
-                    OSError,
-                    match="Error accessing temporary directory: Permission denied",
-                ):
-                    get_temp_dir_info()
+                # Act - should handle error gracefully and skip inaccessible files
+                result = get_temp_dir_info()
+
+                # Assert - should return info but only count accessible file
+                assert result["path"] == controlled_temp
+                assert result["exists"] is True
+                assert result["total_files"] == 1  # Only accessible file counted
+                assert result["total_size_bytes"] == len("accessible content")
+
 
 
 def test_get_temp_dir_info_directory_access_error() -> None:

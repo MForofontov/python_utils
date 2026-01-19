@@ -10,9 +10,10 @@ def test_compress_gzip_basic() -> None:
     """
     data: bytes = b"hello world"
     compressed_data: bytes = compress_gzip(data)
-    expected_compressed_data: bytes = gzip.compress(data)
-    assert compressed_data == expected_compressed_data, (
-        "Compressed data should match expected gzip compression"
+    # Decompress and compare the original data (gzip headers include timestamps)
+    decompressed: bytes = gzip.decompress(compressed_data)
+    assert decompressed == data, (
+        "Decompressed data should match original data"
     )
 
 
@@ -22,9 +23,10 @@ def test_compress_gzip_empty() -> None:
     """
     data: bytes = b""
     compressed_data: bytes = compress_gzip(data)
-    expected_compressed_data: bytes = gzip.compress(data)
-    assert compressed_data == expected_compressed_data, (
-        "Compressed data should match expected gzip compression"
+    # Decompress and compare the original data (gzip headers include timestamps)
+    decompressed: bytes = gzip.decompress(compressed_data)
+    assert decompressed == data, (
+        "Decompressed data should match original data"
     )
 
 
@@ -34,9 +36,10 @@ def test_compress_gzip_large_data() -> None:
     """
     data: bytes = b"a" * 1000000  # 1 MB of data
     compressed_data: bytes = compress_gzip(data)
-    expected_compressed_data: bytes = gzip.compress(data)
-    assert compressed_data == expected_compressed_data, (
-        "Compressed data should match expected gzip compression"
+    # Decompress and compare the original data (gzip headers include timestamps)
+    decompressed: bytes = gzip.decompress(compressed_data)
+    assert decompressed == data, (
+        "Decompressed data should match original data"
     )
 
 
@@ -46,9 +49,10 @@ def test_compress_gzip_special_characters() -> None:
     """
     data: bytes = b"!@#$%^&*()_+-=[]{}|;':,.<>/?"
     compressed_data: bytes = compress_gzip(data)
-    expected_compressed_data: bytes = gzip.compress(data)
-    assert compressed_data == expected_compressed_data, (
-        "Compressed data should match expected gzip compression"
+    # Decompress and compare the original data (gzip headers include timestamps)
+    decompressed: bytes = gzip.decompress(compressed_data)
+    assert decompressed == data, (
+        "Decompressed data should match original data"
     )
 
 
@@ -58,9 +62,10 @@ def test_compress_gzip_binary_data() -> None:
     """
     data: bytes = bytes(range(256))
     compressed_data: bytes = compress_gzip(data)
-    expected_compressed_data: bytes = gzip.compress(data)
-    assert compressed_data == expected_compressed_data, (
-        "Compressed data should match expected gzip compression"
+    # Decompress and compare the original data (gzip headers include timestamps)
+    decompressed: bytes = gzip.decompress(compressed_data)
+    assert decompressed == data, (
+        "Decompressed data should match original data"
     )
 
 
@@ -70,9 +75,10 @@ def test_compress_gzip_small_data() -> None:
     """
     data: bytes = b"a"
     compressed_data: bytes = compress_gzip(data)
-    expected_compressed_data: bytes = gzip.compress(data)
-    assert compressed_data == expected_compressed_data, (
-        "Compressed data should match expected gzip compression"
+    # Decompress and compare the original data (gzip headers include timestamps)
+    decompressed: bytes = gzip.decompress(compressed_data)
+    assert decompressed == data, (
+        "Decompressed data should match original data"
     )
 
 
@@ -82,9 +88,10 @@ def test_compress_gzip_already_compressed_data() -> None:
     """
     data: bytes = gzip.compress(b"hello world")
     compressed_data: bytes = compress_gzip(data)
-    expected_compressed_data: bytes = gzip.compress(data)
-    assert compressed_data == expected_compressed_data, (
-        "Compressed data should match expected gzip compression"
+    # Decompress and compare the original data (gzip headers include timestamps)
+    decompressed: bytes = gzip.decompress(compressed_data)
+    assert decompressed == data, (
+        "Decompressed data should match original data"
     )
 
 
@@ -94,9 +101,10 @@ def test_compress_gzip_unicode_data() -> None:
     """
     data: bytes = "你好，世界".encode()
     compressed_data: bytes = compress_gzip(data)
-    expected_compressed_data: bytes = gzip.compress(data)
-    assert compressed_data == expected_compressed_data, (
-        "Compressed data should match expected gzip compression"
+    # Decompress and compare the original data (gzip headers include timestamps)
+    decompressed: bytes = gzip.decompress(compressed_data)
+    assert decompressed == data, (
+        "Decompressed data should match original data"
     )
 
 

@@ -182,22 +182,31 @@ def test_cleanup_temp_files_file_access_error_handling() -> None:
     """
     # Arrange
     with tempfile.TemporaryDirectory() as temp_dir:
-        test_file = Path(temp_dir) / "test.txt"
-        test_file.write_text("content")
+        # Create two test files
+        accessible_file = Path(temp_dir) / "accessible.txt"
+        inaccessible_file = Path(temp_dir) / "inaccessible.txt"
+        accessible_file.write_text("content")
+        inaccessible_file.write_text("content")
 
-        # Set file to be old
+        # Set files to be old
         old_time = time.time() - (2 * 3600)
-        os.utime(test_file, (old_time, old_time))
+        os.utime(accessible_file, (old_time, old_time))
+        os.utime(inaccessible_file, (old_time, old_time))
 
-        # Mock stat to raise OSError for some files
+        # Mock stat to raise OSError for inaccessible file
         original_stat = Path.stat
 
         def mock_stat(self, *args, **kwargs) -> os.stat_result:
-            if self.name == "test.txt":
+            if self.name == "inaccessible.txt":
                 raise OSError("Permission denied")
             return original_stat(self, *args, **kwargs)
 
         with patch.object(Path, "stat", mock_stat):
-            # Act & Assert
-            with pytest.raises(OSError, match="Permission denied"):
-                cleanup_temp_files(temp_dir, max_age_hours=1.0)
+            # Act - cleanup should handle the error gracefully and skip inaccessible file
+            deleted_files = cleanup_temp_files(temp_dir, max_age_hours=1)
+
+            # Assert - only accessible file should be deleted
+            assert len(deleted_files) == 1
+            assert "accessible.txt" in deleted_files[0]
+            assert inaccessible_file.exists()  # Inaccessible file still exists
+

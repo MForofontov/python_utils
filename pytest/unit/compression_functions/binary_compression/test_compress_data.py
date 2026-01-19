@@ -15,9 +15,10 @@ def test_compress_data_gzip() -> None:
     """
     data: bytes = b"hello world"
     compressed_data: bytes = compress_data(data, algorithm="gzip")
-    expected_compressed_data: bytes = gzip.compress(data)
-    assert compressed_data == expected_compressed_data, (
-        "Compressed data should match expected gzip compression"
+    # Decompress and compare original data (gzip headers include timestamps)
+    decompressed_data: bytes = gzip.decompress(compressed_data)
+    assert decompressed_data == data, (
+        "Decompressed data should match original data"
     )
 
 
