@@ -3,7 +3,7 @@ import lzma
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.compression]
-from compression_functions.binary_compression.compress_lzma import compress_lzma
+from python_utils.compression_functions.binary_compression.compress_lzma import compress_lzma
 
 
 def test_compress_lzma_basic() -> None:

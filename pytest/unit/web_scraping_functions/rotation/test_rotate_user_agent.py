@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.web_scraping]
-from web_scraping_functions.rotation.rotate_user_agent import rotate_user_agent
+from python_utils.web_scraping_functions.rotation.rotate_user_agent import rotate_user_agent
 
 
 def test_rotate_user_agent_basic_rotation() -> None:

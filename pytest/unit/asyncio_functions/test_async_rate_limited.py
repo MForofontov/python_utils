@@ -4,7 +4,7 @@ import time
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.asyncio_functions]
-from asyncio_functions.async_rate_limited import async_rate_limited
+from python_utils.asyncio_functions.async_rate_limited import async_rate_limited
 
 
 async def echo(value: int) -> int:

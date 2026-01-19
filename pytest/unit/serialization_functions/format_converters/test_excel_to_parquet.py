@@ -17,7 +17,7 @@ except ImportError:
     pq = None  # type: ignore
 
 import pytest
-from serialization_functions.format_converters.excel_to_parquet import excel_to_parquet
+from python_utils.serialization_functions.format_converters.excel_to_parquet import excel_to_parquet
 
 pytestmark = pytest.mark.skipif(not DEPENDENCIES_AVAILABLE, reason="openpyxl/pyarrow not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]

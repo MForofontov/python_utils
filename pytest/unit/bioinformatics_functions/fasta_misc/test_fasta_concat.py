@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.fasta_misc.fasta_concat import fasta_concat
+from python_utils.bioinformatics_functions.fasta_misc.fasta_concat import fasta_concat
 
 
 def test_fasta_concat_basic() -> None:

@@ -15,7 +15,7 @@ except ImportError:
     pq = None  # type: ignore
 
 import pytest
-from serialization_functions.format_converters.parquet_to_csv import parquet_to_csv
+from python_utils.serialization_functions.format_converters.parquet_to_csv import parquet_to_csv
 
 pytestmark = pytest.mark.skipif(not PYARROW_AVAILABLE, reason="pyarrow not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]

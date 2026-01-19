@@ -3,7 +3,7 @@ from datetime import datetime
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.datetime]
-from datetime_functions.get_date_parts import get_date_parts
+from python_utils.datetime_functions.get_date_parts import get_date_parts
 
 
 def test_get_date_parts_basic() -> None:

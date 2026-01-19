@@ -10,7 +10,7 @@ except ImportError:
     scipy = None  # type: ignore
 
 import pytest
-from scientific_computing_functions.linear_algebra.constrained_least_squares import (
+from python_utils.scientific_computing_functions.linear_algebra.constrained_least_squares import (
     constrained_least_squares,
 )
 

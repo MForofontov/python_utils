@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
-from network_functions.ping_host import ping_host
+from python_utils.network_functions.ping_host import ping_host
 
 
 def test_ping_host_success() -> None:

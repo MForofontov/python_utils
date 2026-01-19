@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.gc_functions.sequence_gc_profile import (
+from python_utils.bioinformatics_functions.gc_functions.sequence_gc_profile import (
     sequence_gc_profile,
 )
 

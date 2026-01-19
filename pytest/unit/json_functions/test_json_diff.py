@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.json_functions]
-from json_functions.json_diff import json_diff
+from python_utils.json_functions.json_diff import json_diff
 
 
 def test_json_diff_dicts() -> None:

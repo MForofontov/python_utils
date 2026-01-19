@@ -3,7 +3,7 @@ import pytest
 pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
 from unittest.mock import mock_open, patch
 
-from network_functions.get_dns_servers import get_dns_servers
+from python_utils.network_functions.get_dns_servers import get_dns_servers
 
 
 def test_get_dns_servers_normal() -> None:

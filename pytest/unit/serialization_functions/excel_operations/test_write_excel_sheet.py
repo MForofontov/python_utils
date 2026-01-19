@@ -11,7 +11,7 @@ except ImportError:
     load_workbook = None  # type: ignore
 
 import pytest
-from serialization_functions.excel_operations.write_excel_sheet import write_excel_sheet
+from python_utils.serialization_functions.excel_operations.write_excel_sheet import write_excel_sheet
 
 pytestmark = pytest.mark.skipif(not OPENPYXL_AVAILABLE, reason="openpyxl not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]

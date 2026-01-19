@@ -4,7 +4,7 @@ import time
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.decorators]
-from decorators.time_function import time_function
+from python_utils.decorators.time_function import time_function
 
 # Configure test_logger
 test_logger = logging.getLogger("test_logger")

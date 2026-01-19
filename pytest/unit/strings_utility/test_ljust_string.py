@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.ljust_string import ljust_string
+from python_utils.strings_utility.ljust_string import ljust_string
 
 
 def test_ljust_string_default_fill() -> None:

@@ -12,7 +12,7 @@ except ImportError:
     pq = None  # type: ignore
 
 import pytest
-from serialization_functions.parquet_operations.append_parquet import append_parquet
+from python_utils.serialization_functions.parquet_operations.append_parquet import append_parquet
 
 pytestmark = pytest.mark.skipif(not PYARROW_AVAILABLE, reason="pyarrow not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]

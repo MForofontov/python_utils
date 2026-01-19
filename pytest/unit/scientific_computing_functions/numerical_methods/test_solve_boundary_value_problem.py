@@ -10,7 +10,7 @@ except ImportError:
     scipy = None  # type: ignore
 
 import pytest
-from scientific_computing_functions.numerical_methods.solve_boundary_value_problem import (
+from python_utils.scientific_computing_functions.numerical_methods.solve_boundary_value_problem import (
     solve_boundary_value_problem,
 )
 

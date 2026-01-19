@@ -2,7 +2,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.cli_functions]
-from cli_functions.execute_command import execute_command
+from python_utils.cli_functions.execute_command import execute_command
 
 
 def test_execute_command_simple_echo() -> None:

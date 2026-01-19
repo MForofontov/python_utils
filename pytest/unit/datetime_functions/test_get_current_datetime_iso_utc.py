@@ -9,7 +9,7 @@ except ImportError:
     pytz = None  # type: ignore
 
 import pytest
-from datetime_functions.get_current_datetime_iso_utc import get_current_datetime_iso_utc
+from python_utils.datetime_functions.get_current_datetime_iso_utc import get_current_datetime_iso_utc
 
 pytestmark = pytest.mark.skipif(not PYTZ_AVAILABLE, reason="pytz not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.datetime]

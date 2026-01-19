@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.sequence_statistics.codon_adaptation_index import (
+from python_utils.bioinformatics_functions.sequence_statistics.codon_adaptation_index import (
     codon_adaptation_index,
 )
 

@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from file_functions import compare_file_hashes
+from python_utils.file_functions import compare_file_hashes
 
 
 def test_compare_file_hashes_identical_files() -> None:

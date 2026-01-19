@@ -5,7 +5,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.asyncio_functions]
-from asyncio_functions.async_download import async_download
+from python_utils.asyncio_functions.async_download import async_download
 
 
 @pytest.mark.asyncio

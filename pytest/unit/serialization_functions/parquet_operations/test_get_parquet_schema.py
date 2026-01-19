@@ -12,7 +12,7 @@ except ImportError:
     pq = None  # type: ignore
 
 import pytest
-from serialization_functions.parquet_operations.get_parquet_schema import (
+from python_utils.serialization_functions.parquet_operations.get_parquet_schema import (
     get_parquet_schema,
 )
 

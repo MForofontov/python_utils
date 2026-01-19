@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.cli_functions]
-from cli_functions.get_cpu_info import get_cpu_info
+from python_utils.cli_functions.get_cpu_info import get_cpu_info
 
 
 def test_get_cpu_info_returns_valid_dict() -> None:

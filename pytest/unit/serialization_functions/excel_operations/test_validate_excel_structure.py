@@ -13,7 +13,7 @@ except ImportError:
     openpyxl = None  # type: ignore
 
 import pytest
-from serialization_functions.excel_operations.validate_excel_structure import (
+from python_utils.serialization_functions.excel_operations.validate_excel_structure import (
     validate_excel_structure,
 )
 

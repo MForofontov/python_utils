@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.motif_functions.motif_search import motif_search
+from python_utils.bioinformatics_functions.motif_functions.motif_search import motif_search
 
 
 def test_motif_search_exact_match() -> None:

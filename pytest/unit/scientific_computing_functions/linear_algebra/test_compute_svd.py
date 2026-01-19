@@ -14,7 +14,7 @@ except ImportError:
     scipy = None  # type: ignore
 
 import pytest
-from scientific_computing_functions.linear_algebra.compute_svd import compute_svd
+from python_utils.scientific_computing_functions.linear_algebra.compute_svd import compute_svd
 
 pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy/scipy not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.scientific_computing]

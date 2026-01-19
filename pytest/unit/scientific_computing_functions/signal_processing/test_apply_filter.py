@@ -17,7 +17,7 @@ except ImportError:
     scipy = None  # type: ignore
 
 import pytest
-from scientific_computing_functions.signal_processing.apply_filter import apply_filter
+from python_utils.scientific_computing_functions.signal_processing.apply_filter import apply_filter
 
 pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy/scipy not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.scientific_computing]

@@ -3,7 +3,7 @@ from datetime import date, datetime
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.datetime]
-from datetime_functions.modify_years import modify_years
+from python_utils.datetime_functions.modify_years import modify_years
 
 
 def test_modify_years_add_to_date_object() -> None:

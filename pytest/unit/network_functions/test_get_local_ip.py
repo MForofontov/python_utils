@@ -3,7 +3,7 @@ import pytest
 pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
 from unittest.mock import MagicMock, patch
 
-from network_functions.get_local_ip import get_local_ip
+from python_utils.network_functions.get_local_ip import get_local_ip
 
 
 @patch("socket.socket")

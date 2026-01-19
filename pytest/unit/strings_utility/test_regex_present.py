@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.regex_present import regex_present
+from python_utils.strings_utility.regex_present import regex_present
 
 
 def test_regex_present_success() -> None:

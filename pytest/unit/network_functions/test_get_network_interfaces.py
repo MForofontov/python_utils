@@ -3,7 +3,7 @@ from unittest.mock import patch
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
-from network_functions.get_network_interfaces import get_network_interfaces
+from python_utils.network_functions.get_network_interfaces import get_network_interfaces
 
 
 def test_get_network_interfaces_type() -> None:

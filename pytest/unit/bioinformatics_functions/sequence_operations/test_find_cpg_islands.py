@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.sequence_operations.find_cpg_islands import (
+from python_utils.bioinformatics_functions.sequence_operations.find_cpg_islands import (
     find_cpg_islands,
 )
 

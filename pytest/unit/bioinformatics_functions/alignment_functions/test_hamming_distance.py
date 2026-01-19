@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.alignment_functions.hamming_distance import (
+from python_utils.bioinformatics_functions.alignment_functions.hamming_distance import (
     hamming_distance,
 )
 

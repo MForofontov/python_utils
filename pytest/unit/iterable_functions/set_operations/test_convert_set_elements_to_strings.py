@@ -3,7 +3,7 @@ from typing import Any
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from iterable_functions.set_operations.convert_set_elements_to_strings import (
+from python_utils.iterable_functions.set_operations.convert_set_elements_to_strings import (
     convert_set_elements_to_strings,
 )
 

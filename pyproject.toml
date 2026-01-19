@@ -77,13 +77,12 @@ playwright = [
     "playwright>=1.40.0",
 ]
 
-[tool.setuptools.packages.find]
-where = ["."]
-exclude = ["pytest*"]
+[tool.setuptools]
+packages = { find = { where = ["."], include = ["python_utils", "python_utils.*"] } }
 
 [tool.setuptools_scm]
-# Don't write version to source file - only in built package
-write_to = "_version.py"
+# Write version file inside the package
+write_to = "python_utils/_version.py"
 write_to_template = "__version__ = '{version}'"
 
 [tool.pytest.ini_options]

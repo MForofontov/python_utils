@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.replace_multiple_substrings import replace_multiple_substrings
+from python_utils.strings_utility.replace_multiple_substrings import replace_multiple_substrings
 
 
 def test_replace_single_substring() -> None:

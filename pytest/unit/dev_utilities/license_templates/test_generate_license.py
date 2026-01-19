@@ -9,7 +9,7 @@ from pathlib import Path
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.dev_utilities]
-from dev_utilities.license_templates.generate_license import (
+from python_utils.dev_utilities.license_templates.generate_license import (
     generate_license,
     save_license_file,
 )

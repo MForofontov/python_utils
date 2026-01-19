@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.web_scraping]
-from web_scraping_functions.rotation.get_random_proxy import get_random_proxy
+from python_utils.web_scraping_functions.rotation.get_random_proxy import get_random_proxy
 
 
 def test_get_random_proxy_returns_from_list() -> None:

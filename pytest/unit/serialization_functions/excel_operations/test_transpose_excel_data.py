@@ -13,7 +13,7 @@ except ImportError:
     openpyxl = None  # type: ignore
 
 import pytest
-from serialization_functions.excel_operations.transpose_excel_data import (
+from python_utils.serialization_functions.excel_operations.transpose_excel_data import (
     transpose_excel_data,
 )
 

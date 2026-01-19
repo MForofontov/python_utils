@@ -17,7 +17,7 @@ except ImportError:
     scipy = None  # type: ignore
 
 import pytest
-from scientific_computing_functions.numerical_methods.numerical_integration import (
+from python_utils.scientific_computing_functions.numerical_methods.numerical_integration import (
     numerical_integration,
 )
 

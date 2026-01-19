@@ -4,7 +4,7 @@ import tempfile
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.cli_functions]
-from cli_functions.list_files import list_files
+from python_utils.cli_functions.list_files import list_files
 
 
 def test_list_files_valid_directory() -> None:

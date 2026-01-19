@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.web_scraping]
-from web_scraping_functions.pagination.paginate_links import paginate_links
+from python_utils.web_scraping_functions.pagination.paginate_links import paginate_links
 
 
 def test_paginate_links_simple_pagination() -> None:

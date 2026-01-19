@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from file_functions import create_directory
+from python_utils.file_functions import create_directory
 
 
 def test_create_new_directory(tmp_path: Path) -> None:

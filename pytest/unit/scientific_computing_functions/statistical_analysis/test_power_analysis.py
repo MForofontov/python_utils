@@ -10,7 +10,7 @@ except ImportError:
     scipy = None  # type: ignore
 
 import pytest
-from scientific_computing_functions.statistical_analysis.power_analysis import (
+from python_utils.scientific_computing_functions.statistical_analysis.power_analysis import (
     power_analysis,
 )
 

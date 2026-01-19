@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.fasta_misc.fasta_subsample import fasta_subsample
+from python_utils.bioinformatics_functions.fasta_misc.fasta_subsample import fasta_subsample
 
 
 def test_fasta_subsample_basic() -> None:

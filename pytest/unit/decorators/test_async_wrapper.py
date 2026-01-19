@@ -3,7 +3,7 @@ import logging
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.decorators]
-from decorators.async_wrapper import async_wrapper
+from python_utils.decorators.async_wrapper import async_wrapper
 
 # Configure test_logger
 test_logger = logging.getLogger("test_logger")

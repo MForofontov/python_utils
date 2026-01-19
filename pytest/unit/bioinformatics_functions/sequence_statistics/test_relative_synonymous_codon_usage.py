@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.sequence_statistics.relative_synonymous_codon_usage import (
+from python_utils.bioinformatics_functions.sequence_statistics.relative_synonymous_codon_usage import (
     relative_synonymous_codon_usage,
 )
 

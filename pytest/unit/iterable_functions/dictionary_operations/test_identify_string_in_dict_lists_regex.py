@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from iterable_functions.dictionary_operations.identify_string_in_dict_lists_regex import (
+from python_utils.iterable_functions.dictionary_operations.identify_string_in_dict_lists_regex import (
     identify_string_in_dict_lists_regex,
 )
 

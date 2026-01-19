@@ -5,7 +5,7 @@ Tests for slugify_url function.
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.url_functions]
-from url_functions.slugify_url import slugify_url
+from python_utils.url_functions.slugify_url import slugify_url
 
 
 def test_slugify_url_basic_text() -> None:

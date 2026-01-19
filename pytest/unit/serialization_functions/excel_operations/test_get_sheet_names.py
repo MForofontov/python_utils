@@ -10,7 +10,7 @@ except ImportError:
     Workbook = None  # type: ignore
 
 import pytest
-from serialization_functions.excel_operations.get_sheet_names import get_sheet_names
+from python_utils.serialization_functions.excel_operations.get_sheet_names import get_sheet_names
 
 pytestmark = pytest.mark.skipif(not OPENPYXL_AVAILABLE, reason="openpyxl not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]

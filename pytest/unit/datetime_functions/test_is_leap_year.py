@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.datetime]
-from datetime_functions.is_leap_year import is_leap_year
+from python_utils.datetime_functions.is_leap_year import is_leap_year
 
 
 def test_is_leap_year_true_cases() -> None:

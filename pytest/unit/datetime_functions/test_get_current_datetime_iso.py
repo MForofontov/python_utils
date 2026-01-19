@@ -3,7 +3,7 @@ import pytest
 pytestmark = [pytest.mark.unit, pytest.mark.datetime]
 from datetime import datetime
 
-from datetime_functions.get_current_datetime_iso import get_current_datetime_iso
+from python_utils.datetime_functions.get_current_datetime_iso import get_current_datetime_iso
 
 
 def test_get_current_datetime_iso_format() -> None:

@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.gc_functions.gc_content_windows import gc_content_windows
+from python_utils.bioinformatics_functions.gc_functions.gc_content_windows import gc_content_windows
 
 
 def test_gc_content_windows_non_overlapping() -> None:

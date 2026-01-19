@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from iterable_functions.set_operations.get_permutations import get_permutations
+from python_utils.iterable_functions.set_operations.get_permutations import get_permutations
 
 
 def test_get_permutations_normal_case() -> None:

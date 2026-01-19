@@ -3,7 +3,7 @@ from typing import Any
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from iterable_functions.dictionary_operations.filter_dict_by_keys import (
+from python_utils.iterable_functions.dictionary_operations.filter_dict_by_keys import (
     filter_dict_by_keys,
 )
 

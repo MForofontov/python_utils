@@ -4,7 +4,7 @@ from unittest.mock import patch
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
-from network_functions.resolve_hostname import resolve_hostname
+from python_utils.network_functions.resolve_hostname import resolve_hostname
 
 
 def test_resolve_hostname_success() -> None:

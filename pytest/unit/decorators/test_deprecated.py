@@ -3,7 +3,7 @@ import logging
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.decorators]
-from decorators.deprecated import deprecated
+from python_utils.decorators.deprecated import deprecated
 
 # Configure test_logger
 test_logger = logging.getLogger("test_logger")

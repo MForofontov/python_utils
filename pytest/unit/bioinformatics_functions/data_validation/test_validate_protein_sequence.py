@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.data_validation.validate_protein_sequence import (
+from python_utils.bioinformatics_functions.data_validation.validate_protein_sequence import (
     validate_protein_sequence,
 )
 

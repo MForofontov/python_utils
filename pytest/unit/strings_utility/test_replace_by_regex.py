@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.replace_by_regex import replace_by_regex
+from python_utils.strings_utility.replace_by_regex import replace_by_regex
 
 
 def test_replace_by_regex_success() -> None:

@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.datetime]
-from datetime_functions.get_days_of_week import get_days_of_week
+from python_utils.datetime_functions.get_days_of_week import get_days_of_week
 
 
 def test_get_days_of_week_full_names() -> None:

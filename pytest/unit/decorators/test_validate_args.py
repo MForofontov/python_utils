@@ -3,7 +3,7 @@ import logging
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.decorators]
-from decorators.validate_args import validate_args
+from python_utils.decorators.validate_args import validate_args
 
 # Configure test_logger
 test_logger = logging.getLogger("test_logger")

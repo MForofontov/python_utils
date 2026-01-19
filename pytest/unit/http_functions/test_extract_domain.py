@@ -3,7 +3,7 @@ from unittest.mock import patch
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.http_functions]
-from http_functions.extract_domain import extract_domain
+from python_utils.http_functions.extract_domain import extract_domain
 
 
 @patch("http_functions.extract_domain.is_valid_url")

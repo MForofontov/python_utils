@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.swapcase_string import swapcase_string
+from python_utils.strings_utility.swapcase_string import swapcase_string
 
 
 def test_swapcase_string_basic() -> None:

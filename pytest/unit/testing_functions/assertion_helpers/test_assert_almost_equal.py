@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.testing]
-from testing_functions.assertion_helpers.assert_almost_equal import (
+from python_utils.testing_functions.assertion_helpers.assert_almost_equal import (
     assert_almost_equal,
 )
 

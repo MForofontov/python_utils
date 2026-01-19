@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.repeat_functions.palindromic_sequence_finder import (
+from python_utils.bioinformatics_functions.repeat_functions.palindromic_sequence_finder import (
     palindromic_sequence_finder,
 )
 

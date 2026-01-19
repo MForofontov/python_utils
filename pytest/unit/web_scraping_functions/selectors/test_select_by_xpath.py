@@ -7,7 +7,7 @@ except ImportError:
     etree = None  # type: ignore
 
 import pytest
-from web_scraping_functions.selectors.select_by_xpath import select_by_xpath
+from python_utils.web_scraping_functions.selectors.select_by_xpath import select_by_xpath
 
 pytestmark = pytest.mark.skipif(not LXML_AVAILABLE, reason="lxml not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.web_scraping]

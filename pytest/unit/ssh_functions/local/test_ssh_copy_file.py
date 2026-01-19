@@ -6,7 +6,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.ssh_functions]
-from ssh_functions.local.ssh_copy_file import ssh_copy_file
+from python_utils.ssh_functions.local.ssh_copy_file import ssh_copy_file
 
 
 def test_ssh_copy_file_successful() -> None:

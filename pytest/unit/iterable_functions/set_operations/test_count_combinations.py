@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from iterable_functions.set_operations.count_combinations import count_combinations
+from python_utils.iterable_functions.set_operations.count_combinations import count_combinations
 
 
 def test_count_combinations_normal_case() -> None:

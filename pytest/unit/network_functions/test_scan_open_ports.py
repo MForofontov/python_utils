@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
-from network_functions.scan_open_ports import scan_open_ports
+from python_utils.network_functions.scan_open_ports import scan_open_ports
 
 
 def test_scan_open_ports_normal() -> None:

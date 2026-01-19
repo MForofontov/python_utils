@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.ends_with import ends_with
+from python_utils.strings_utility.ends_with import ends_with
 
 
 def test_string_ends_with_suffix() -> None:

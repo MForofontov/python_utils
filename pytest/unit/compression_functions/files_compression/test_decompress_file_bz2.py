@@ -4,7 +4,7 @@ import os
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.compression]
-from compression_functions.files_compression.decompress_file_bz2 import (
+from python_utils.compression_functions.files_compression.decompress_file_bz2 import (
     decompress_file_bz2,
 )
 

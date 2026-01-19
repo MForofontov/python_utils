@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from file_functions import file_basename
+from python_utils.file_functions import file_basename
 
 
 def test_file_basename_default_mode() -> None:

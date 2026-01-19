@@ -4,7 +4,7 @@ import os
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.compression]
-from compression_functions.files_compression.compress_file_bz2 import compress_file_bz2
+from python_utils.compression_functions.files_compression.compress_file_bz2 import compress_file_bz2
 
 
 def test_compress_file_bz2_basic(tmp_path) -> None:

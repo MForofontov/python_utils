@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.decorators]
-from decorators.conditional_execute import conditional_execute
+from python_utils.decorators.conditional_execute import conditional_execute
 
 
 # Example predicate functions

@@ -9,7 +9,7 @@ except ImportError:
     psutil = None  # type: ignore
 
 import pytest
-from network_functions.is_port_listening import is_port_listening
+from python_utils.network_functions.is_port_listening import is_port_listening
 
 pytestmark = pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.network_functions]

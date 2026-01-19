@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.fasta_misc.write_fasta import write_fasta
+from python_utils.bioinformatics_functions.fasta_misc.write_fasta import write_fasta
 
 
 def test_write_fasta_basic() -> None:

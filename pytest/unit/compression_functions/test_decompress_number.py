@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.compression]
-from compression_functions.decompress_number import decompress_number
+from python_utils.compression_functions.decompress_number import decompress_number
 
 
 def test_decompress_number_basic_value() -> None:

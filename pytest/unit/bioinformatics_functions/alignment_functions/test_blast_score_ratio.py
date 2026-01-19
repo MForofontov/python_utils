@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.alignment_functions.blast_score_ratio import (
+from python_utils.bioinformatics_functions.alignment_functions.blast_score_ratio import (
     blast_score_ratio,
 )
 

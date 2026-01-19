@@ -7,7 +7,7 @@ except ImportError:
     np = None  # type: ignore
 
 import pytest
-from bioinformatics_functions.sequence_statistics.sequence_logo import (
+from python_utils.bioinformatics_functions.sequence_statistics.sequence_logo import (
     sequence_logo_matrix,
 )
 

@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from file_functions import get_paths_in_directory
+from python_utils.file_functions import get_paths_in_directory
 
 
 def test_get_paths_in_directory_files_only(tmp_path: Path) -> None:

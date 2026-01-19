@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.sequence_statistics.sequence_entropy import (
+from python_utils.bioinformatics_functions.sequence_statistics.sequence_entropy import (
     sequence_entropy,
 )
 

@@ -3,7 +3,7 @@ from unittest.mock import MagicMock
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.print_functions]
-from print_functions.print_message import print_message
+from python_utils.print_functions.print_message import print_message
 
 
 def test_print_message_info(capsys: pytest.CaptureFixture[str]) -> None:

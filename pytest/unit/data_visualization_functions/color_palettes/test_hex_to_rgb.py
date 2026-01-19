@@ -5,7 +5,7 @@ Unit tests for hex_to_rgb function.
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.data_visualization]
-from data_visualization_functions.color_palettes import hex_to_rgb
+from python_utils.data_visualization_functions.color_palettes import hex_to_rgb
 
 
 def test_hex_to_rgb_with_hash():

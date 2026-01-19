@@ -4,7 +4,7 @@ import zipfile
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.compression]
-from compression_functions.files_compression.compress_zip import compress_zip
+from python_utils.compression_functions.files_compression.compress_zip import compress_zip
 
 
 def test_compress_zip_basic_file_compression(tmp_path) -> None:

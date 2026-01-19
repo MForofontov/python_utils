@@ -3,7 +3,7 @@ import pytest
 pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
 from unittest.mock import patch
 
-from network_functions.get_default_gateway import get_default_gateway
+from python_utils.network_functions.get_default_gateway import get_default_gateway
 
 
 def test_get_default_gateway_normal() -> None:

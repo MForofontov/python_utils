@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.testing]
-from testing_functions.test_data_generators.generate_random_url import (
+from python_utils.testing_functions.test_data_generators.generate_random_url import (
     generate_random_url,
 )
 

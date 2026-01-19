@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.motif_functions.find_motif_positions import (
+from python_utils.bioinformatics_functions.motif_functions.find_motif_positions import (
     find_motif_positions,
 )
 

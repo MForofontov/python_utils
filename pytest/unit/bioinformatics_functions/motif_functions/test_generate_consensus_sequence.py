@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.motif_functions.generate_consensus_sequence import (
+from python_utils.bioinformatics_functions.motif_functions.generate_consensus_sequence import (
     generate_consensus_sequence,
 )
 

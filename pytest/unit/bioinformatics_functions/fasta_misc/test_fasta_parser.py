@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.fasta_misc.fasta_parser import parse_fasta
+from python_utils.bioinformatics_functions.fasta_misc.fasta_parser import parse_fasta
 
 
 def test_parse_fasta_single_sequence() -> None:

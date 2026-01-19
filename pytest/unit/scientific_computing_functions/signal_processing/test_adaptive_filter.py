@@ -10,7 +10,7 @@ except ImportError:
     scipy = None  # type: ignore
 
 import pytest
-from scientific_computing_functions.signal_processing.adaptive_filter import (
+from python_utils.scientific_computing_functions.signal_processing.adaptive_filter import (
     adaptive_filter,
 )
 

@@ -5,7 +5,7 @@ from unittest.mock import patch
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from file_functions import get_temp_dir_info
+from python_utils.file_functions import get_temp_dir_info
 
 
 def test_get_temp_dir_info_normal_operation() -> None:

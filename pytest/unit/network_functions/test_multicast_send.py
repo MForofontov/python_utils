@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
-from network_functions.multicast_send import multicast_send
+from python_utils.network_functions.multicast_send import multicast_send
 
 
 def test_multicast_send_normal() -> None:

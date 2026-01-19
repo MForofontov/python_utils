@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.fasta_misc.fasta_filter import fasta_filter
+from python_utils.bioinformatics_functions.fasta_misc.fasta_filter import fasta_filter
 
 
 def test_fasta_filter_basic() -> None:

@@ -3,7 +3,7 @@ from datetime import datetime
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.datetime]
-from datetime_functions.get_days_in_month import get_days_in_month
+from python_utils.datetime_functions.get_days_in_month import get_days_in_month
 
 
 def test_get_days_in_month_january() -> None:

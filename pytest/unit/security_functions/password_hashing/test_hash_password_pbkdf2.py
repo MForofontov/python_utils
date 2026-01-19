@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.security]
-from security_functions.password_hashing.hash_password_pbkdf2 import (
+from python_utils.security_functions.password_hashing.hash_password_pbkdf2 import (
     hash_password_pbkdf2,
 )
 

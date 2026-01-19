@@ -13,7 +13,7 @@ except ImportError:
     zstd = None  # type: ignore
 
 import pytest
-from compression_functions.binary_compression.compress_data import compress_data
+from python_utils.compression_functions.binary_compression.compress_data import compress_data
 
 pytestmark = pytest.mark.skipif(
     not COMPRESSION_LIBS_AVAILABLE, reason="snappy/zstandard not installed"

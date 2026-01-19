@@ -14,7 +14,7 @@ except ImportError:
     scipy = None  # type: ignore
 
 import pytest
-from scientific_computing_functions.statistical_analysis.perform_t_test import (
+from python_utils.scientific_computing_functions.statistical_analysis.perform_t_test import (
     perform_t_test,
 )
 

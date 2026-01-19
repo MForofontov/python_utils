@@ -15,7 +15,7 @@ except ImportError:
     pq = None  # type: ignore
 
 import pytest
-from serialization_functions.parquet_operations.partition_parquet_by_column import (
+from python_utils.serialization_functions.parquet_operations.partition_parquet_by_column import (
     partition_parquet_by_column,
 )
 

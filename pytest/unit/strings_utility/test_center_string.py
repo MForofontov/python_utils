@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.center_string import center_string
+from python_utils.strings_utility.center_string import center_string
 
 
 def test_center_string_default_fill() -> None:

@@ -13,7 +13,7 @@ except ImportError:
     openpyxl = None  # type: ignore
 
 import pytest
-from serialization_functions.format_converters.excel_to_csv_batch import (
+from python_utils.serialization_functions.format_converters.excel_to_csv_batch import (
     excel_to_csv_batch,
 )
 

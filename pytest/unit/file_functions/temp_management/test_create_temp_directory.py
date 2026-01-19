@@ -6,7 +6,7 @@ from unittest.mock import patch
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from file_functions import create_temp_directory
+from python_utils.file_functions import create_temp_directory
 
 
 def test_create_temp_directory_normal_operation() -> None:

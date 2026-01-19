@@ -7,7 +7,7 @@ from conftest import Base
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.database]
-from database_functions.schema_inspection import find_missing_indexes
+from python_utils.database_functions.schema_inspection import find_missing_indexes
 
 
 def test_find_missing_indexes_detects_unindexed_fk(memory_engine) -> None:

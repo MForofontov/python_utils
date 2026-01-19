@@ -5,7 +5,7 @@ from unittest.mock import patch
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from file_functions import find_files_by_pattern
+from python_utils.file_functions import find_files_by_pattern
 
 
 def test_find_files_by_pattern_wildcard_pattern() -> None:

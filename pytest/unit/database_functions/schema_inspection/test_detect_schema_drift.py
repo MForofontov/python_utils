@@ -10,7 +10,7 @@ from sqlalchemy.orm import declarative_base
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.database]
-from database_functions import detect_schema_drift
+from python_utils.database_functions import detect_schema_drift
 
 
 @pytest.fixture

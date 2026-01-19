@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.is_anagram import is_anagram
+from python_utils.strings_utility.is_anagram import is_anagram
 
 
 def test_is_anagram_basic() -> None:

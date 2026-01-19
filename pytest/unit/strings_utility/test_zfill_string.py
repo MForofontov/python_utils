@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.zfill_string import zfill_string
+from python_utils.strings_utility.zfill_string import zfill_string
 
 
 def test_zfill_string_basic() -> None:

@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.repeat_string import repeat_string
+from python_utils.strings_utility.repeat_string import repeat_string
 
 
 def test_repeat_string_multiple_times() -> None:

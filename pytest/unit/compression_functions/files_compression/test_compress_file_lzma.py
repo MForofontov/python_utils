@@ -4,7 +4,7 @@ import os
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.compression]
-from compression_functions.files_compression.compress_file_lzma import (
+from python_utils.compression_functions.files_compression.compress_file_lzma import (
     compress_file_lzma,
 )
 

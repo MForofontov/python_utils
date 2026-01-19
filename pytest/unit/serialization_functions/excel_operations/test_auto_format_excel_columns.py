@@ -13,7 +13,7 @@ except ImportError:
     openpyxl = None  # type: ignore
 
 import pytest
-from serialization_functions.excel_operations.auto_format_excel_columns import (
+from python_utils.serialization_functions.excel_operations.auto_format_excel_columns import (
     auto_format_excel_columns,
 )
 

@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.fasta_misc.fasta_to_dict import fasta_to_dict
+from python_utils.bioinformatics_functions.fasta_misc.fasta_to_dict import fasta_to_dict
 
 
 def test_fasta_to_dict_basic() -> None:

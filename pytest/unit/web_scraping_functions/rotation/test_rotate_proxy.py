@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.web_scraping]
-from web_scraping_functions.rotation.rotate_proxy import rotate_proxy
+from python_utils.web_scraping_functions.rotation.rotate_proxy import rotate_proxy
 
 
 def test_rotate_proxy_basic_rotation() -> None:

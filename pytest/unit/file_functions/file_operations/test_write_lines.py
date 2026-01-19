@@ -4,7 +4,7 @@ import tempfile
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from file_functions import write_lines
+from python_utils.file_functions import write_lines
 
 
 def test_write_lines_default_joiner() -> None:

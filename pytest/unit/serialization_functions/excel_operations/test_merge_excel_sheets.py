@@ -13,7 +13,7 @@ except ImportError:
     openpyxl = None  # type: ignore
 
 import pytest
-from serialization_functions.excel_operations.merge_excel_sheets import (
+from python_utils.serialization_functions.excel_operations.merge_excel_sheets import (
     merge_excel_sheets,
 )
 

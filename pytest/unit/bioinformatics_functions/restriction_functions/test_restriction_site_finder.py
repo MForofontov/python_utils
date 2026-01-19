@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.restriction_functions.restriction_site_finder import (
+from python_utils.bioinformatics_functions.restriction_functions.restriction_site_finder import (
     restriction_site_finder,
 )
 

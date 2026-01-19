@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.cli_functions]
-from cli_functions.get_current_user import get_current_user
+from python_utils.cli_functions.get_current_user import get_current_user
 
 
 def test_get_current_user_returns_string() -> None:

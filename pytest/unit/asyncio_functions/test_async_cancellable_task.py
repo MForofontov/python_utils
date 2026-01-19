@@ -3,7 +3,7 @@ import asyncio
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.asyncio_functions]
-from asyncio_functions.async_cancellable_task import async_cancellable_task
+from python_utils.asyncio_functions.async_cancellable_task import async_cancellable_task
 
 
 @pytest.mark.asyncio

@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.database]
-from database_functions.schema_inspection import check_sequence_health
+from python_utils.database_functions.schema_inspection import check_sequence_health
 
 
 def test_check_sequence_health_normal_usage(memory_engine) -> None:

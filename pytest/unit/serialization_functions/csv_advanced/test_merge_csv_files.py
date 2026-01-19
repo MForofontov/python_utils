@@ -9,7 +9,7 @@ from pathlib import Path
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.serialization]
-from serialization_functions.csv_advanced.merge_csv_files import merge_csv_files
+from python_utils.serialization_functions.csv_advanced.merge_csv_files import merge_csv_files
 
 
 def test_merge_csv_files_basic_merge() -> None:

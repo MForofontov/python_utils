@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.translation_functions.rna_to_dna import rna_to_dna
+from python_utils.bioinformatics_functions.translation_functions.rna_to_dna import rna_to_dna
 
 
 def test_rna_to_dna_normal_conversion() -> None:

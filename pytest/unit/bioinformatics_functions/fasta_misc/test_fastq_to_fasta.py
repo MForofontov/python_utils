@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.fasta_misc.fastq_to_fasta import fastq_to_fasta
+from python_utils.bioinformatics_functions.fasta_misc.fastq_to_fasta import fastq_to_fasta
 
 
 def test_fastq_to_fasta_single_sequence() -> None:

@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.cli_functions]
-from cli_functions.get_network_info import get_network_info
+from python_utils.cli_functions.get_network_info import get_network_info
 
 
 def test_get_network_info_returns_dict() -> None:

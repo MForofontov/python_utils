@@ -4,7 +4,7 @@ import tempfile
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.cli_functions]
-from cli_functions.get_file_size import get_file_size
+from python_utils.cli_functions.get_file_size import get_file_size
 
 
 def test_get_file_size_valid_file() -> None:

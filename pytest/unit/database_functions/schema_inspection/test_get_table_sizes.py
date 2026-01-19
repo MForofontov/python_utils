@@ -8,7 +8,7 @@ from sqlalchemy import create_engine
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.database]
-from database_functions.schema_inspection import get_table_sizes
+from python_utils.database_functions.schema_inspection import get_table_sizes
 
 
 def test_get_table_sizes_returns_all_tables() -> None:

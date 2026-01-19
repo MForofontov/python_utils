@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.fasta_misc.validate_fasta import validate_fasta
+from python_utils.bioinformatics_functions.fasta_misc.validate_fasta import validate_fasta
 
 
 def test_validate_fasta_valid_format() -> None:

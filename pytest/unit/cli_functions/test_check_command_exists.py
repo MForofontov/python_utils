@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.cli_functions]
-from cli_functions.check_command_exists import check_command_exists
+from python_utils.cli_functions.check_command_exists import check_command_exists
 
 
 def test_check_command_exists_python_exists() -> None:

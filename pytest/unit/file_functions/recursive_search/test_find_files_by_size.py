@@ -6,7 +6,7 @@ from unittest.mock import patch
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from file_functions import find_files_by_size
+from python_utils.file_functions import find_files_by_size
 
 
 def test_find_files_by_size_normal_operation() -> None:

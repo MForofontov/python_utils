@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.web_scraping]
-from web_scraping_functions.pagination.paginate_with_callback import (
+from python_utils.web_scraping_functions.pagination.paginate_with_callback import (
     paginate_with_callback,
 )
 

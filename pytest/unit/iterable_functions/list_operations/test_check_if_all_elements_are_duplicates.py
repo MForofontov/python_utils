@@ -3,7 +3,7 @@ from typing import Any
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from iterable_functions.list_operations.check_if_all_elements_are_duplicates import (
+from python_utils.iterable_functions.list_operations.check_if_all_elements_are_duplicates import (
     check_if_all_elements_are_duplicates,
 )
 

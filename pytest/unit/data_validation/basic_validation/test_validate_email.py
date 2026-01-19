@@ -4,7 +4,7 @@ from unittest.mock import patch
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.data_validation]
-from data_validation import validate_email
+from python_utils.data_validation import validate_email
 
 
 def test_validate_email_valid_emails() -> None:

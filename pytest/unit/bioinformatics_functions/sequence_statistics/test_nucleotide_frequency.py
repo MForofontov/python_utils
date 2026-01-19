@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.sequence_statistics.nucleotide_frequency import (
+from python_utils.bioinformatics_functions.sequence_statistics.nucleotide_frequency import (
     nucleotide_frequency,
 )
 

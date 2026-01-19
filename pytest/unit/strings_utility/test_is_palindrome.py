@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.is_palindrome import is_palindrome
+from python_utils.strings_utility.is_palindrome import is_palindrome
 
 
 def test_palindrome_odd_length() -> None:

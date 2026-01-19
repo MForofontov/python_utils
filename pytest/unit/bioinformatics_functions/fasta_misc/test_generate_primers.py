@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.fasta_misc.generate_primers import generate_primers
+from python_utils.bioinformatics_functions.fasta_misc.generate_primers import generate_primers
 
 
 def test_generate_primers_valid_sequence() -> None:

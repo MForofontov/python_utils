@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.env_config]
-from env_config_functions.get_env_var import get_env_var
+from python_utils.env_config_functions.get_env_var import get_env_var
 
 
 def test_get_env_var_basic(monkeypatch):

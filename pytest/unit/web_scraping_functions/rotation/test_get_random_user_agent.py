@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.web_scraping]
-from web_scraping_functions.rotation.get_random_user_agent import (
+from python_utils.web_scraping_functions.rotation.get_random_user_agent import (
     get_random_user_agent,
 )
 

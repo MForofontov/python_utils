@@ -3,7 +3,7 @@ import gzip
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.compression]
-from compression_functions.binary_compression.compress_gzip import compress_gzip
+from python_utils.compression_functions.binary_compression.compress_gzip import compress_gzip
 
 
 def test_compress_gzip_basic() -> None:

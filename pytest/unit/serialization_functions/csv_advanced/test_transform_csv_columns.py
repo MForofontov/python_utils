@@ -9,7 +9,7 @@ from pathlib import Path
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.serialization]
-from serialization_functions.csv_advanced.transform_csv_columns import (
+from python_utils.serialization_functions.csv_advanced.transform_csv_columns import (
     transform_csv_columns,
 )
 

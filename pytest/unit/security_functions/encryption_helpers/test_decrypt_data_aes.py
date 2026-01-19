@@ -1,8 +1,8 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.security]
-from security_functions.encryption_helpers.decrypt_data_aes import decrypt_data_aes
-from security_functions.encryption_helpers.encrypt_data_aes import encrypt_data_aes
+from python_utils.security_functions.encryption_helpers.decrypt_data_aes import decrypt_data_aes
+from python_utils.security_functions.encryption_helpers.encrypt_data_aes import encrypt_data_aes
 
 
 def test_decrypt_data_aes_basic_decryption() -> None:

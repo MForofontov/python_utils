@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.sequence_operations.reverse_complement import (
+from python_utils.bioinformatics_functions.sequence_operations.reverse_complement import (
     reverse_complement,
 )
 

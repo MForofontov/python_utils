@@ -3,7 +3,7 @@ import asyncio
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.asyncio_functions]
-from asyncio_functions.async_retry_with_backoff import async_retry_with_backoff
+from python_utils.asyncio_functions.async_retry_with_backoff import async_retry_with_backoff
 
 
 @pytest.mark.asyncio

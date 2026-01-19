@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.security]
-from security_functions.encryption_helpers.encrypt_xor import encrypt_xor
+from python_utils.security_functions.encryption_helpers.encrypt_xor import encrypt_xor
 
 
 def test_encrypt_xor_basic_encryption() -> None:

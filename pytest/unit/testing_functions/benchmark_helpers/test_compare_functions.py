@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.testing]
-from testing_functions.benchmark_helpers.compare_functions import compare_functions
+from python_utils.testing_functions.benchmark_helpers.compare_functions import compare_functions
 
 
 def test_compare_functions_equal_functions() -> None:

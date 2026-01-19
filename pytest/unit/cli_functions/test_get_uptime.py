@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.cli_functions]
-from cli_functions.get_uptime import get_uptime
+from python_utils.cli_functions.get_uptime import get_uptime
 
 
 def test_get_uptime_returns_positive_float() -> None:

@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.sequence_operations.find_orfs import find_orfs
+from python_utils.bioinformatics_functions.sequence_operations.find_orfs import find_orfs
 
 
 def test_find_orfs_basic() -> None:

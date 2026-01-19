@@ -13,7 +13,7 @@ except ImportError:
     np = None  # type: ignore
 
 import pytest
-from scientific_computing_functions.statistical_analysis.correlation_analysis import (
+from python_utils.scientific_computing_functions.statistical_analysis.correlation_analysis import (
     correlation_analysis,
 )
 

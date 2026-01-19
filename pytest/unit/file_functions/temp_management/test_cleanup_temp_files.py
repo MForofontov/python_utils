@@ -7,7 +7,7 @@ from unittest.mock import patch
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from file_functions import cleanup_temp_files
+from python_utils.file_functions import cleanup_temp_files
 
 
 def test_cleanup_temp_files_normal_operation() -> None:

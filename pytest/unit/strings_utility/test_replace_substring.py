@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.replace_substring import replace_substring
+from python_utils.strings_utility.replace_substring import replace_substring
 
 
 def test_replace_substring_basic() -> None:

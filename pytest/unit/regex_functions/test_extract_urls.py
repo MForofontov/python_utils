@@ -5,7 +5,7 @@ Tests for extract_urls function.
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.regex]
-from regex_functions.extract_urls import extract_urls
+from python_utils.regex_functions.extract_urls import extract_urls
 
 
 def test_extract_urls_basic() -> None:

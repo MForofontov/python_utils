@@ -3,7 +3,7 @@ from datetime import datetime
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.datetime]
-from datetime_functions.compare_dates import compare_dates
+from python_utils.datetime_functions.compare_dates import compare_dates
 
 
 def test_compare_dates_first_earlier() -> None:

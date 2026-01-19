@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from file_functions import tsv_to_dict
+from python_utils.file_functions import tsv_to_dict
 
 
 def test_tsv_to_dict_basic(tmp_path: Path) -> None:

@@ -5,7 +5,7 @@ Tests for remove_extra_whitespace function.
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.regex]
-from regex_functions.remove_extra_whitespace import remove_extra_whitespace
+from python_utils.regex_functions.remove_extra_whitespace import remove_extra_whitespace
 
 
 def test_remove_extra_whitespace_multiple_spaces() -> None:

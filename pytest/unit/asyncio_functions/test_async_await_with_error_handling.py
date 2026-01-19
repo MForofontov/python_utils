@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.asyncio_functions]
-from asyncio_functions.async_await_with_error_handling import (
+from python_utils.asyncio_functions.async_await_with_error_handling import (
     async_await_with_error_handling,
 )
 

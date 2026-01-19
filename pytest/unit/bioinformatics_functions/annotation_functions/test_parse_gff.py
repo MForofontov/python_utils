@@ -4,7 +4,7 @@ import tempfile
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.annotation_functions.parse_gff import parse_gff
+from python_utils.bioinformatics_functions.annotation_functions.parse_gff import parse_gff
 
 
 def test_parse_gff_typical() -> None:

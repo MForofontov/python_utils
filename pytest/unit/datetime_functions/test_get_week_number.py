@@ -3,7 +3,7 @@ from datetime import date, datetime
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.datetime]
-from datetime_functions.get_week_number import get_week_number
+from python_utils.datetime_functions.get_week_number import get_week_number
 
 
 def test_get_week_number_first_week() -> None:

@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.security]
-from security_functions.token_generation.generate_jwt_token import generate_jwt_token
+from python_utils.security_functions.token_generation.generate_jwt_token import generate_jwt_token
 
 
 def test_generate_jwt_token_basic_token() -> None:

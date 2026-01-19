@@ -4,7 +4,7 @@ import tarfile
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.compression]
-from compression_functions.files_compression.compress_tar import compress_tar
+from python_utils.compression_functions.files_compression.compress_tar import compress_tar
 
 
 def test_compress_tar_basic_file_compression(tmp_path) -> None:

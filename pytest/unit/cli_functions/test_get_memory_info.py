@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.cli_functions]
-from cli_functions.get_memory_info import get_memory_info
+from python_utils.cli_functions.get_memory_info import get_memory_info
 
 
 def test_get_memory_info_returns_valid_dict() -> None:

@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from file_functions import read_lines
+from python_utils.file_functions import read_lines
 
 
 def test_read_lines_entire_file_with_stripping(tmp_path: Path) -> None:

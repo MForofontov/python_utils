@@ -3,7 +3,7 @@ from datetime import datetime
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.datetime]
-from datetime_functions.days_between import days_between
+from python_utils.datetime_functions.days_between import days_between
 
 
 def test_days_between_positive_difference() -> None:

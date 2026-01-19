@@ -4,7 +4,7 @@ import tempfile
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.annotation_functions.parse_bed import parse_bed
+from python_utils.bioinformatics_functions.annotation_functions.parse_bed import parse_bed
 
 
 def test_parse_bed_typical() -> None:

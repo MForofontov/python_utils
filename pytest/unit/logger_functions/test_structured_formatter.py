@@ -4,7 +4,7 @@ pytestmark = [pytest.mark.unit, pytest.mark.logger_functions]
 import logging
 from datetime import datetime
 
-from logger_functions.structured_formatter import structured_formatter
+from python_utils.logger_functions.structured_formatter import structured_formatter
 
 
 def test_structured_formatter_basic():

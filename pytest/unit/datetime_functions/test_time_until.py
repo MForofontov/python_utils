@@ -3,7 +3,7 @@ from datetime import datetime
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.datetime]
-from datetime_functions.time_until import time_until
+from python_utils.datetime_functions.time_until import time_until
 
 
 def test_time_until_seconds() -> None:

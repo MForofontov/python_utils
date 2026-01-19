@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.multiprocessing_functions]
-from multiprocessing_functions.parallel_sort import parallel_sort
+from python_utils.multiprocessing_functions.parallel_sort import parallel_sort
 
 
 def test_parallel_sort_basic() -> None:

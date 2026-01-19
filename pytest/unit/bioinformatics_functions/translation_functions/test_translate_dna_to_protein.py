@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.translation_functions.translate_dna_to_protein import (
+from python_utils.bioinformatics_functions.translation_functions.translate_dna_to_protein import (
     translate_dna_to_protein,
 )
 

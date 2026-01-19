@@ -3,7 +3,7 @@ from typing import Any
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from iterable_functions.dictionary_operations.flatten_dict import flatten_dict
+from python_utils.iterable_functions.dictionary_operations.flatten_dict import flatten_dict
 
 
 def test_flatten_dict_basic_flat_dictionary() -> None:

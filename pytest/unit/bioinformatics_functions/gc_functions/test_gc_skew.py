@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.gc_functions.gc_skew import gc_skew
+from python_utils.bioinformatics_functions.gc_functions.gc_skew import gc_skew
 
 
 def test_gc_skew_equal_g_and_c() -> None:

@@ -3,7 +3,7 @@ from unittest.mock import patch
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
-from network_functions.get_mac_address import get_mac_address
+from python_utils.network_functions.get_mac_address import get_mac_address
 
 
 def test_get_mac_address_type() -> None:

@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.fasta_misc.genbank_to_fasta import genbank_to_fasta
+from python_utils.bioinformatics_functions.fasta_misc.genbank_to_fasta import genbank_to_fasta
 
 
 def test_genbank_to_fasta_simple() -> None:

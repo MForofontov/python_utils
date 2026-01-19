@@ -6,7 +6,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.ssh_functions]
-from ssh_functions.local.ssh_check_connection import ssh_check_connection
+from python_utils.ssh_functions.local.ssh_check_connection import ssh_check_connection
 
 
 def test_ssh_check_connection_successful() -> None:

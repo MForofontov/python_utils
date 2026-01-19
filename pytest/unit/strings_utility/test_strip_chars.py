@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.strip_chars import strip_chars
+from python_utils.strings_utility.strip_chars import strip_chars
 
 
 def test_strip_chars_single_character() -> None:

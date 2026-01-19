@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.remove_digits import remove_digits
+from python_utils.strings_utility.remove_digits import remove_digits
 
 
 def test_remove_digits_basic() -> None:

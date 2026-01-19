@@ -1,10 +1,10 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from iterable_functions.set_operations.get_unique_elements_across_sets import (
+from python_utils.iterable_functions.set_operations.get_unique_elements_across_sets import (
     get_unique_elements_across_sets,
 )
-from iterable_functions.set_operations.set_symmetric_difference import (
+from python_utils.iterable_functions.set_operations.set_symmetric_difference import (
     set_symmetric_difference,
 )
 

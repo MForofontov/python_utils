@@ -6,7 +6,7 @@ from unittest.mock import patch
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from file_functions import calculate_md5_hash
+from python_utils.file_functions import calculate_md5_hash
 
 
 def test_calculate_md5_hash_normal_operation() -> None:

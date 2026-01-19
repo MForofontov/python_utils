@@ -14,7 +14,7 @@ except ImportError:
     scipy = None  # type: ignore
 
 import pytest
-from scientific_computing_functions.linear_algebra.solve_linear_system import (
+from python_utils.scientific_computing_functions.linear_algebra.solve_linear_system import (
     solve_linear_system,
 )
 

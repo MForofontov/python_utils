@@ -7,7 +7,7 @@ except ImportError:
     np = None  # type: ignore
 
 import pytest
-from bioinformatics_functions.clustering_functions.motif_clustering import (
+from python_utils.bioinformatics_functions.clustering_functions.motif_clustering import (
     motif_clustering,
 )
 

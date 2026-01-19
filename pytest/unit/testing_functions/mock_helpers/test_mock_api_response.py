@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.testing]
-from testing_functions.mock_helpers.mock_api_response import mock_api_response
+from python_utils.testing_functions.mock_helpers.mock_api_response import mock_api_response
 
 
 def test_mock_api_response_default_parameters() -> None:

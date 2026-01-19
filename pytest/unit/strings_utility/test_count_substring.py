@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.count_substring import count_substring
+from python_utils.strings_utility.count_substring import count_substring
 
 
 def test_count_substring_multiple_occurrences() -> None:

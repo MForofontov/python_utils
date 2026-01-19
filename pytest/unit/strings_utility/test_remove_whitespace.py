@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.remove_whitespace import remove_whitespace
+from python_utils.strings_utility.remove_whitespace import remove_whitespace
 
 
 def test_remove_whitespace_mixed_characters() -> None:

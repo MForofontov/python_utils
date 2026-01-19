@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.cli_functions]
-from cli_functions.kill_process import kill_process
+from python_utils.cli_functions.kill_process import kill_process
 
 
 def test_kill_process_nonexistent_pid() -> None:

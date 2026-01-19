@@ -16,10 +16,10 @@ except ImportError:
 
     ValidationError = Exception  # type: ignore
 
-from data_validation import validate_pydantic_schema
+from python_utils.data_validation import validate_pydantic_schema
 
 validate_pydantic_schema_module = importlib.import_module(
-    "data_validation.schema_validation.validate_pydantic_schema"
+    "python_utils.data_validation.schema_validation.validate_pydantic_schema"
 )
 
 pytestmark = pytest.mark.skipif(not PYDANTIC_AVAILABLE, reason="Pydantic not installed")

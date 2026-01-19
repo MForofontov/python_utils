@@ -3,7 +3,7 @@ from collections.abc import AsyncIterator
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.asyncio_functions]
-from asyncio_functions.async_stream_processor import async_stream_processor
+from python_utils.asyncio_functions.async_stream_processor import async_stream_processor
 
 
 @pytest.mark.asyncio

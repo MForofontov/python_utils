@@ -3,7 +3,7 @@ from collections import OrderedDict
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from iterable_functions.dictionary_operations.sort_subdict_by_tuple import (
+from python_utils.iterable_functions.dictionary_operations.sort_subdict_by_tuple import (
     sort_subdict_by_tuple,
 )
 

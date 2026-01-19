@@ -4,7 +4,7 @@ import time
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.decorators]
-from decorators.timeout import TimeoutException, timeout
+from python_utils.decorators.timeout import TimeoutException, timeout
 
 # Configure test_logger
 test_logger = logging.getLogger("test_logger")

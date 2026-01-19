@@ -3,7 +3,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.formatting]
-from formatting_functions.format_currency import format_currency
+from python_utils.formatting_functions.format_currency import format_currency
 
 
 def test_format_currency_default_usd() -> None:

@@ -5,7 +5,7 @@ from unittest.mock import patch
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.asyncio_functions]
-from asyncio_functions.async_parallel_download import async_parallel_download
+from python_utils.asyncio_functions.async_parallel_download import async_parallel_download
 
 
 @pytest.mark.asyncio

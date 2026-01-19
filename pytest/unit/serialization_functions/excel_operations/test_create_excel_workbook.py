@@ -10,7 +10,7 @@ except ImportError:
     load_workbook = None  # type: ignore
 
 import pytest
-from serialization_functions.excel_operations.create_excel_workbook import (
+from python_utils.serialization_functions.excel_operations.create_excel_workbook import (
     create_excel_workbook,
 )
 

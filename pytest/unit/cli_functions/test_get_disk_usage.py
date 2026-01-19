@@ -3,7 +3,7 @@ import tempfile
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.cli_functions]
-from cli_functions.get_disk_usage import get_disk_usage
+from python_utils.cli_functions.get_disk_usage import get_disk_usage
 
 
 def test_get_disk_usage_valid_path() -> None:

@@ -4,7 +4,7 @@ from collections.abc import AsyncGenerator
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.asyncio_functions]
-from asyncio_functions.async_throttle import async_throttle
+from python_utils.asyncio_functions.async_throttle import async_throttle
 
 
 @pytest.mark.asyncio

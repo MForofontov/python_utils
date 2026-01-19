@@ -7,7 +7,7 @@ import sqlite3
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.database]
-from database_functions import stream_query_results
+from python_utils.database_functions import stream_query_results
 
 
 def test_stream_query_results_basic_streaming() -> None:

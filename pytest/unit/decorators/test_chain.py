@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.decorators]
-from decorators.chain import chain
+from python_utils.decorators.chain import chain
 
 
 class Chainable:

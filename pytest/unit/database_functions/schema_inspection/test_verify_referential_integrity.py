@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.database]
-from database_functions.schema_inspection import verify_referential_integrity
+from python_utils.database_functions.schema_inspection import verify_referential_integrity
 
 
 def test_verify_referential_integrity_no_violations(memory_engine) -> None:

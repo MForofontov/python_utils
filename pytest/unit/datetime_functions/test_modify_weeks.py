@@ -3,7 +3,7 @@ from datetime import date, datetime
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.datetime]
-from datetime_functions.modify_weeks import modify_weeks
+from python_utils.datetime_functions.modify_weeks import modify_weeks
 
 
 def test_modify_weeks_add_to_date_object() -> None:

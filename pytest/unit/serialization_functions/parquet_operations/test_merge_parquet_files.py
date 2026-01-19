@@ -15,7 +15,7 @@ except ImportError:
     pq = None  # type: ignore
 
 import pytest
-from serialization_functions.parquet_operations.merge_parquet_files import (
+from python_utils.serialization_functions.parquet_operations.merge_parquet_files import (
     merge_parquet_files,
 )
 

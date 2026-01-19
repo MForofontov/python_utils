@@ -9,7 +9,7 @@ except ImportError:
     requests = None  # type: ignore
 
 import pytest
-from network_functions.get_public_ip import get_public_ip
+from python_utils.network_functions.get_public_ip import get_public_ip
 
 pytestmark = pytest.mark.skipif(not REQUESTS_AVAILABLE, reason="requests not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.network_functions]

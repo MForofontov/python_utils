@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.alignment_functions.smith_waterman import smith_waterman
+from python_utils.bioinformatics_functions.alignment_functions.smith_waterman import smith_waterman
 
 
 def test_smith_waterman_identical() -> None:

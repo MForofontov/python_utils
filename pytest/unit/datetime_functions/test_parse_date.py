@@ -3,7 +3,7 @@ from datetime import date, datetime
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.datetime]
-from datetime_functions.parse_date import parse_date
+from python_utils.datetime_functions.parse_date import parse_date
 
 
 def test_parse_date_with_default_formats() -> None:

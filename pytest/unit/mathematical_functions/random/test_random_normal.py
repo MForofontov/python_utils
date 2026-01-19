@@ -3,7 +3,7 @@ import math
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.mathematical_functions]
-from mathematical_functions.random.random_normal import random_normal
+from python_utils.mathematical_functions.random.random_normal import random_normal
 
 
 def test_random_normal_default_parameters() -> None:

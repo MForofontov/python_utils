@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.fasta_misc.fasta_split import fasta_split
+from python_utils.bioinformatics_functions.fasta_misc.fasta_split import fasta_split
 
 
 def test_fasta_split_basic() -> None:

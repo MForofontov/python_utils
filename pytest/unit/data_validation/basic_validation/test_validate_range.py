@@ -4,7 +4,7 @@ from decimal import Decimal
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.data_validation]
-from data_validation import validate_range
+from python_utils.data_validation import validate_range
 
 
 def test_validate_range_numeric_ranges() -> None:

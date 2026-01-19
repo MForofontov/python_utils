@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
-from network_functions.get_network_speed import get_network_speed
+from python_utils.network_functions.get_network_speed import get_network_speed
 
 
 def test_get_network_speed_normal() -> None:

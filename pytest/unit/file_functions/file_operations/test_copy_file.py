@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from file_functions.file_operations.copy_file import copy_file
+from python_utils.file_functions.file_operations.copy_file import copy_file
 
 
 def test_copy_file_basic_copy() -> None:

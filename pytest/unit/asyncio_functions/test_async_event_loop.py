@@ -3,7 +3,7 @@ import asyncio
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.asyncio_functions]
-from asyncio_functions.async_event_loop import async_event_loop
+from python_utils.asyncio_functions.async_event_loop import async_event_loop
 
 
 def test_async_event_loop_simple_async_function() -> None:

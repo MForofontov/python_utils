@@ -10,7 +10,7 @@ except ImportError:
     scipy = None  # type: ignore
 
 import pytest
-from scientific_computing_functions.statistical_analysis.detect_outliers import (
+from python_utils.scientific_computing_functions.statistical_analysis.detect_outliers import (
     detect_outliers,
 )
 

@@ -3,7 +3,7 @@ from typing import Any
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from iterable_functions.list_operations.is_nested_list_empty import is_nested_list_empty
+from python_utils.iterable_functions.list_operations.is_nested_list_empty import is_nested_list_empty
 
 
 def test_is_list_empty_success() -> None:

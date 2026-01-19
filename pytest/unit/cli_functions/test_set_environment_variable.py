@@ -3,7 +3,7 @@ import os
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.cli_functions]
-from cli_functions.set_environment_variable import set_environment_variable
+from python_utils.cli_functions.set_environment_variable import set_environment_variable
 
 
 def test_set_environment_variable_simple_set() -> None:

@@ -3,7 +3,7 @@ from datetime import datetime
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.formatting]
-from formatting_functions.format_date import format_date
+from python_utils.formatting_functions.format_date import format_date
 
 
 def test_format_date_with_default_format() -> None:

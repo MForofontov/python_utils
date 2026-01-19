@@ -10,7 +10,7 @@ except ImportError:
     paramiko = None  # type: ignore
 
 import pytest
-from ssh_functions.remote.ssh_execute_script import ssh_execute_script
+from python_utils.ssh_functions.remote.ssh_execute_script import ssh_execute_script
 
 pytestmark = pytest.mark.skipif(not PARAMIKO_AVAILABLE, reason="paramiko not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.ssh_functions]
