@@ -1,3 +1,6 @@
+import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.datetime]
 from datetime import datetime
 
 from datetime_functions.get_current_datetime_iso import get_current_datetime_iso

@@ -18,6 +18,7 @@ from serialization_functions.format_converters.excel_to_csv_batch import (
 )
 
 pytestmark = pytest.mark.skipif(not OPENPYXL_AVAILABLE, reason="openpyxl not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]
 
 
 def test_excel_to_csv_batch_all_sheets() -> None:

@@ -19,6 +19,7 @@ from scientific_computing_functions.linear_algebra.solve_linear_system import (
 )
 
 pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy/scipy not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.scientific_computing]
 
 # Normal operation tests
 

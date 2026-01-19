@@ -1,6 +1,8 @@
 import math
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.mathematical_functions]
 from mathematical_functions.random.random_normal import random_normal
 
 

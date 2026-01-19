@@ -3,6 +3,8 @@ from pathlib import Path
 from unittest.mock import MagicMock, Mock, mock_open, patch
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.http_functions]
 from http_functions.download_file import download_file
 
 

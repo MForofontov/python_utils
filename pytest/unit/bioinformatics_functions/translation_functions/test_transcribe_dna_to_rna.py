@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
 from bioinformatics_functions.translation_functions.transcribe_dna_to_rna import (
     transcribe_dna_to_rna,
 )

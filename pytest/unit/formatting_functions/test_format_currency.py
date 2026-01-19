@@ -1,6 +1,8 @@
 """Unit tests for format_currency function."""
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.formatting]
 from formatting_functions.format_currency import format_currency
 
 

@@ -7,6 +7,8 @@ import tempfile
 from pathlib import Path
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.serialization]
 from serialization_functions.csv_advanced.merge_csv_files import merge_csv_files
 
 

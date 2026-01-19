@@ -6,6 +6,8 @@ from conftest import Base, Order, Product
 from sqlalchemy import create_engine
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.database]
 from database_functions.schema_inspection import get_table_sizes
 
 

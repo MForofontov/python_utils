@@ -1,6 +1,8 @@
 import string
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.security]
 from security_functions.token_generation.generate_secure_token import (
     generate_secure_token,
 )

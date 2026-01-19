@@ -3,6 +3,8 @@ Tests for extract_emails function.
 """
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.regex]
 from regex_functions.extract_emails import extract_emails
 
 

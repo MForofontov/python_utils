@@ -12,6 +12,7 @@ import pytest
 from network_functions.is_port_listening import is_port_listening
 
 pytestmark = pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.network_functions]
 
 
 def test_is_port_listening_true() -> None:

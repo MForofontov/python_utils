@@ -1,6 +1,8 @@
 from unittest.mock import Mock
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.batch_processing]
 from batch_processing_functions.chunked_processor import (
     ChunkedProcessor,
     chunked_processor,

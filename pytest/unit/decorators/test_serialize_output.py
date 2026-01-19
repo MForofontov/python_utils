@@ -2,6 +2,8 @@ import json
 import logging
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.decorators]
 from decorators.serialize_output import serialize_output
 
 # Configure test_logger

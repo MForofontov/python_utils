@@ -2,6 +2,8 @@ import socket
 from unittest.mock import patch
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.data_validation]
 from data_validation import validate_email
 
 

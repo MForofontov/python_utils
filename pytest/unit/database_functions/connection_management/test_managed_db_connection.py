@@ -5,6 +5,8 @@ Unit tests for managed_db_connection function.
 import sqlite3
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.database]
 from database_functions import managed_db_connection
 
 

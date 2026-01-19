@@ -18,6 +18,7 @@ from serialization_functions.excel_operations.merge_excel_sheets import (
 )
 
 pytestmark = pytest.mark.skipif(not OPENPYXL_AVAILABLE, reason="openpyxl not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]
 
 
 def test_merge_excel_sheets_basic_merge() -> None:

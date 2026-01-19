@@ -1,6 +1,8 @@
 from unittest.mock import patch
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.print_functions]
 from print_functions.print_system_info_in_terminal import print_system_info_in_terminal
 
 

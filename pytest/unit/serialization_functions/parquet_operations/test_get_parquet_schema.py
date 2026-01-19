@@ -17,6 +17,7 @@ from serialization_functions.parquet_operations.get_parquet_schema import (
 )
 
 pytestmark = pytest.mark.skipif(not PYARROW_AVAILABLE, reason="pyarrow not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]
 
 
 def test_get_parquet_schema_basic(tmp_path: Path) -> None:

@@ -20,6 +20,7 @@ import pytest
 from serialization_functions.format_converters.parquet_to_excel import parquet_to_excel
 
 pytestmark = pytest.mark.skipif(not DEPENDENCIES_AVAILABLE, reason="openpyxl/pyarrow not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]
 
 
 def test_parquet_to_excel_basic() -> None:

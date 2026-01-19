@@ -9,6 +9,7 @@ import pytest
 from cli_functions.is_process_running import is_process_running
 
 pytestmark = pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.cli_functions]
 
 
 def test_is_process_running_valid_process() -> None:

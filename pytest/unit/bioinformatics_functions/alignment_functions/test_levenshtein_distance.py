@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
 from bioinformatics_functions.alignment_functions.levenshtein_distance import (
     levenshtein_distance,
 )

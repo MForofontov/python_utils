@@ -13,6 +13,7 @@ import pytest
 from serialization_functions.excel_operations.read_excel_range import read_excel_range
 
 pytestmark = pytest.mark.skipif(not OPENPYXL_AVAILABLE, reason="openpyxl not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]
 
 
 def test_read_excel_range_specific_range(tmp_path: Path) -> None:

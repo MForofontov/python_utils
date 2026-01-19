@@ -1,6 +1,8 @@
 import os
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.env_config]
 from env_config_functions.load_dotenv import load_dotenv
 
 

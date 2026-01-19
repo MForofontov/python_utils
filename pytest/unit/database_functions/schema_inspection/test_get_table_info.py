@@ -7,6 +7,8 @@ from sqlalchemy import Index
 from sqlalchemy.engine import Engine
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.database]
 from database_functions import get_table_info
 
 # Add index to User table for testing

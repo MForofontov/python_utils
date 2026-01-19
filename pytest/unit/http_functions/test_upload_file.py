@@ -2,6 +2,8 @@ import urllib.error
 from unittest.mock import MagicMock, Mock, mock_open, patch
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.http_functions]
 from http_functions.upload_file import upload_file
 
 

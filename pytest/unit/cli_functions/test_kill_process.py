@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.cli_functions]
 from cli_functions.kill_process import kill_process
 
 

@@ -3,6 +3,8 @@ Tests for extract_urls function.
 """
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.regex]
 from regex_functions.extract_urls import extract_urls
 
 

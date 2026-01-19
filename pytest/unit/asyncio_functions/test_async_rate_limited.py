@@ -2,6 +2,8 @@ import asyncio
 import time
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.asyncio_functions]
 from asyncio_functions.async_rate_limited import async_rate_limited
 
 

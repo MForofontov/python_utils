@@ -1,6 +1,8 @@
 import logging
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.logger_functions]
 from logger_functions.logger import get_logger, validate_logger
 
 

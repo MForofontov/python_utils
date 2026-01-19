@@ -11,6 +11,7 @@ except ImportError:
     parse_html = None  # type: ignore
 
 pytestmark = pytest.mark.skipif(not BS4_AVAILABLE, reason="beautifulsoup4 not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.web_scraping]
 
 
 def test_parse_html_simple_html() -> None:

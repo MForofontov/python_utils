@@ -12,6 +12,7 @@ except ImportError:
     extract_attribute = None  # type: ignore
 
 pytestmark = pytest.mark.skipif(not BS4_AVAILABLE, reason="beautifulsoup4 not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.web_scraping]
 
 
 def test_extract_attribute_simple_attribute() -> None:

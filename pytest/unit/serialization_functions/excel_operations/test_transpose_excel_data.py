@@ -18,6 +18,7 @@ from serialization_functions.excel_operations.transpose_excel_data import (
 )
 
 pytestmark = pytest.mark.skipif(not OPENPYXL_AVAILABLE, reason="openpyxl not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]
 
 
 def test_transpose_excel_data_basic() -> None:

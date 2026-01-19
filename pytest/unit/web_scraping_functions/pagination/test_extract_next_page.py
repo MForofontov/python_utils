@@ -11,6 +11,7 @@ except ImportError:
     extract_next_page = None  # type: ignore
 
 pytestmark = pytest.mark.skipif(not BS4_AVAILABLE, reason="beautifulsoup4 not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.web_scraping]
 
 
 def test_extract_next_page_simple_next_link() -> None:

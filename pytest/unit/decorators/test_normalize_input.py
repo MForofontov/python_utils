@@ -2,6 +2,8 @@ import logging
 from typing import Any
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.decorators]
 from decorators.normalize_input import normalize_input
 
 # Configure test_logger

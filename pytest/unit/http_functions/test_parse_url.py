@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.http_functions]
 from http_functions.parse_url import parse_url
 
 

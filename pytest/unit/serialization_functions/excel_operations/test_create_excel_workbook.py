@@ -15,6 +15,7 @@ from serialization_functions.excel_operations.create_excel_workbook import (
 )
 
 pytestmark = pytest.mark.skipif(not OPENPYXL_AVAILABLE, reason="openpyxl not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]
 
 
 def test_create_excel_workbook_empty(tmp_path: Path) -> None:

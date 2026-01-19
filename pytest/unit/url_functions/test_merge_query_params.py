@@ -3,6 +3,8 @@ Tests for merge_query_params function.
 """
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.url_functions]
 from url_functions.merge_query_params import merge_query_params
 
 

@@ -1,6 +1,8 @@
 import gzip
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.compression]
 from compression_functions.binary_compression.decompress_gzip import decompress_gzip
 
 

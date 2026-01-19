@@ -5,6 +5,8 @@ Unit tests for stream_query_results function.
 import sqlite3
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.database]
 from database_functions import stream_query_results
 
 

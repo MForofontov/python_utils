@@ -1,6 +1,8 @@
 from datetime import date
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.testing]
 from testing_functions.test_data_generators.generate_random_date import (
     generate_random_date,
 )

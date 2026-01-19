@@ -12,6 +12,7 @@ import pytest
 from datetime_functions.convert_timezone import convert_timezone
 
 pytestmark = pytest.mark.skipif(not PYTZ_AVAILABLE, reason="pytz not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.datetime]
 
 
 def test_convert_timezone_naive_to_timezone() -> None:

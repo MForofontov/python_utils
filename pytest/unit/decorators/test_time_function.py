@@ -2,6 +2,8 @@ import logging
 import time
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.decorators]
 from decorators.time_function import time_function
 
 # Configure test_logger

@@ -6,6 +6,8 @@ from conftest import Base, User
 from sqlalchemy.engine import Engine
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.database]
 from database_functions.schema_inspection import compare_table_data
 
 

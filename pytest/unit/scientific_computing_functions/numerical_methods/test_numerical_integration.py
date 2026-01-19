@@ -22,6 +22,7 @@ from scientific_computing_functions.numerical_methods.numerical_integration impo
 )
 
 pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy/scipy not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.scientific_computing]
 
 # ========== Normal Operation Tests ==========
 

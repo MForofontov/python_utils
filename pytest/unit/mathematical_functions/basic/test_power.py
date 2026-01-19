@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.mathematical_functions]
 from mathematical_functions.basic.power import power
 
 

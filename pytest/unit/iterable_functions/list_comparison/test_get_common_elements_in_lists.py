@@ -1,6 +1,8 @@
 from typing import Any
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
 from iterable_functions.list_comparison.get_common_elements_in_lists import (
     get_common_elements_in_lists,
 )

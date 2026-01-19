@@ -5,6 +5,8 @@ Unit tests for savepoint_context function.
 import sqlite3
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.database]
 from database_functions import savepoint_context
 
 

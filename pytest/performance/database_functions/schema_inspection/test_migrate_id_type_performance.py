@@ -36,6 +36,9 @@ from sqlalchemy.engine import Engine
 import pytest
 from database_functions.schema_inspection.migrate_id_type import migrate_id_type
 
+# Apply performance marker to all tests in this module
+pytestmark = pytest.mark.performance
+
 
 @pytest.fixture
 def performance_engine() -> Generator[Engine, None, None]:
@@ -60,7 +63,6 @@ def performance_engine() -> Generator[Engine, None, None]:
     engine.dispose()
 
 
-@pytest.mark.performance
 def test_migrate_id_type_performance_10k_rows(performance_engine: Engine) -> None:
     """
     Test case 1: Performance with 10,000 rows in main table and 2 FK tables.
@@ -169,7 +171,6 @@ def test_migrate_id_type_performance_10k_rows(performance_engine: Engine) -> Non
     print(f"  Memory used: {mem_used:.2f} MB")
 
 
-@pytest.mark.performance
 def test_migrate_id_type_performance_100k_rows(performance_engine: Engine) -> None:
     """
     Test case 2: Performance with 100,000 rows in main table.
@@ -243,7 +244,6 @@ def test_migrate_id_type_performance_100k_rows(performance_engine: Engine) -> No
     print(f"  Memory used: {mem_used:.2f} MB")
 
 
-@pytest.mark.performance
 def test_migrate_id_type_performance_complex_fk_relationships(
     performance_engine: Engine,
 ) -> None:
@@ -363,7 +363,6 @@ def test_migrate_id_type_performance_complex_fk_relationships(
     print(f"  Memory used: {mem_used:.2f} MB")
 
 
-@pytest.mark.performance
 def test_migrate_id_type_performance_small_batch_size(
     performance_engine: Engine,
 ) -> None:
@@ -429,7 +428,6 @@ def test_migrate_id_type_performance_small_batch_size(
     print(f"  Memory used: {mem_used:.2f} MB")
 
 
-@pytest.mark.performance
 def test_migrate_id_type_performance_uuid_generation(
     performance_engine: Engine,
 ) -> None:
@@ -511,7 +509,6 @@ def test_migrate_id_type_performance_uuid_generation(
     print(f"  Memory used: {mem_used:.2f} MB")
 
 
-@pytest.mark.performance
 def test_migrate_id_type_performance_batch_size_comparison(
     performance_engine: Engine,
 ) -> None:
@@ -626,7 +623,6 @@ def test_migrate_id_type_performance_batch_size_comparison(
     print("   • Batch sizes 1000-5000 recommended for balanced performance")
 
 
-@pytest.mark.performance
 @pytest.mark.slow
 def test_migrate_id_type_performance_stress_test_1m_rows(
     performance_engine: Engine,

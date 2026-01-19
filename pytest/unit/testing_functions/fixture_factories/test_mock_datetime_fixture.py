@@ -1,6 +1,8 @@
 from datetime import datetime
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.testing]
 from testing_functions.fixture_factories.mock_datetime_fixture import (
     mock_datetime_fixture,
 )

@@ -1,6 +1,8 @@
 from typing import Any
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
 from bioinformatics_functions.annotation_functions.merge_annotations import (
     merge_annotations,
 )

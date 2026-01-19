@@ -1,6 +1,8 @@
 from datetime import datetime
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.datetime]
 from datetime_functions.compare_dates import compare_dates
 
 

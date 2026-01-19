@@ -2,6 +2,8 @@ import urllib.error
 from unittest.mock import Mock, patch
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.http_functions]
 from http_functions.http_get import http_get
 
 

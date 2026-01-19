@@ -18,6 +18,7 @@ from serialization_functions.excel_operations.validate_excel_structure import (
 )
 
 pytestmark = pytest.mark.skipif(not OPENPYXL_AVAILABLE, reason="openpyxl not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]
 
 
 def test_validate_excel_structure_valid() -> None:

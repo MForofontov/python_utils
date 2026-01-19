@@ -1,6 +1,8 @@
 import time
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.web_scraping]
 from web_scraping_functions.rate_limiting.rate_limited_scraper import (
     rate_limited_scraper,
 )

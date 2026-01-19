@@ -3,6 +3,8 @@ Tests for normalize_url function.
 """
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.url_functions]
 from url_functions.normalize_url import normalize_url
 
 

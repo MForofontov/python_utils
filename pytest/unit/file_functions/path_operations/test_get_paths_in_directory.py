@@ -2,6 +2,8 @@ import os
 from pathlib import Path
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
 from file_functions import get_paths_in_directory
 
 

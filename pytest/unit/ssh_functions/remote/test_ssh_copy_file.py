@@ -13,6 +13,7 @@ import pytest
 from ssh_functions.remote.ssh_copy_file import ssh_copy_file
 
 pytestmark = pytest.mark.skipif(not PARAMIKO_AVAILABLE, reason="paramiko not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.ssh_functions]
 
 
 def test_ssh_copy_file_successful_with_password() -> None:

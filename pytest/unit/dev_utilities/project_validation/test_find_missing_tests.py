@@ -3,6 +3,8 @@
 from pathlib import Path
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.dev_utilities]
 from dev_utilities.project_validation.find_missing_tests import (
     CoverageReport,
     MissingTest,

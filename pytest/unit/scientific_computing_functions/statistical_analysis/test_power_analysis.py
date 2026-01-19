@@ -15,6 +15,7 @@ from scientific_computing_functions.statistical_analysis.power_analysis import (
 )
 
 pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy/scipy not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.scientific_computing]
 
 
 # Normal operation tests

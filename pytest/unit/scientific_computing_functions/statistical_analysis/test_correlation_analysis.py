@@ -18,6 +18,7 @@ from scientific_computing_functions.statistical_analysis.correlation_analysis im
 )
 
 pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.scientific_computing]
 
 # Normal operation tests
 

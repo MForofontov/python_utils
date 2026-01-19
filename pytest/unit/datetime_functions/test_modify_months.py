@@ -1,6 +1,8 @@
 from datetime import date, datetime
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.datetime]
 from datetime_functions.modify_months import modify_months
 
 

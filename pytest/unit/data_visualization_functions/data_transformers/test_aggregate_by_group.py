@@ -22,6 +22,7 @@ except ImportError:
 pytestmark = pytest.mark.skipif(
     not MATPLOTLIB_AVAILABLE, reason="matplotlib not installed"
 )
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.data_visualization]
 
 
 def test_aggregate_by_group_mean():

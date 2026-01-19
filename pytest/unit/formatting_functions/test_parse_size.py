@@ -1,6 +1,8 @@
 """Unit tests for parse_size function."""
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.formatting]
 from formatting_functions.parse_size import parse_size
 
 

@@ -13,6 +13,7 @@ import pytest
 from serialization_functions.excel_operations.get_sheet_names import get_sheet_names
 
 pytestmark = pytest.mark.skipif(not OPENPYXL_AVAILABLE, reason="openpyxl not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]
 
 
 def test_get_sheet_names_single_sheet(tmp_path: Path) -> None:

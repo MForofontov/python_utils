@@ -17,6 +17,7 @@ except ImportError:
     normalize_data = None  # type: ignore
 
 pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.data_visualization]
 
 
 def test_normalize_data_minmax_default():

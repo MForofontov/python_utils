@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
 from iterable_functions.set_operations.get_combinations_with_replacement import (
     get_combinations_with_replacement,
 )

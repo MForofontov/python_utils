@@ -21,6 +21,7 @@ from scientific_computing_functions.statistical_analysis.robust_statistics impor
 )
 
 pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy/scipy not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.scientific_computing]
 
 # Normal operation tests
 

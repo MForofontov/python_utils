@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
 from bioinformatics_functions.sequence_operations.sequence_to_kmers import (
     sequence_to_kmers,
 )

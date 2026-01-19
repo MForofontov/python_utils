@@ -5,6 +5,8 @@ Unit tests for nested_transaction function.
 import sqlite3
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.database]
 from database_functions import nested_transaction
 
 

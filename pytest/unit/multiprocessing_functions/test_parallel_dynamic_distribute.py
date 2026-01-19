@@ -1,3 +1,6 @@
+import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.multiprocessing_functions]
 from multiprocessing_functions.parallel_dynamic_distribute import (
     parallel_dynamic_distribute,
 )

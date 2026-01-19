@@ -10,6 +10,7 @@ import pytest
 from compression_functions.binary_compression.decompress_zstd import decompress_zstd
 
 pytestmark = pytest.mark.skipif(not ZSTANDARD_AVAILABLE, reason="zstandard not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.compression]
 
 
 def test_decompress_zstd_basic() -> None:

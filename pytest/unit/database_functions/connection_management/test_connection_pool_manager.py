@@ -5,6 +5,8 @@ Unit tests for ConnectionPoolManager class.
 import sqlite3
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.database]
 from database_functions import ConnectionPoolManager
 
 

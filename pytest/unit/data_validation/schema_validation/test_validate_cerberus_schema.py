@@ -15,6 +15,7 @@ except ImportError:
     validate_cerberus_schema = None
 
 pytestmark = pytest.mark.skipif(not CERBERUS_AVAILABLE, reason="Cerberus not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.data_validation]
 
 
 def test_validate_cerberus_schema_simple_valid_data() -> None:

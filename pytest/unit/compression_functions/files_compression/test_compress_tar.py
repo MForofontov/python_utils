@@ -2,6 +2,8 @@ import os
 import tarfile
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.compression]
 from compression_functions.files_compression.compress_tar import compress_tar
 
 

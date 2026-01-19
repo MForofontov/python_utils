@@ -1,6 +1,8 @@
 """Unit tests for format_duration function."""
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.formatting]
 from formatting_functions.format_duration import format_duration
 
 

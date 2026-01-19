@@ -6,6 +6,8 @@ from conftest import Base
 from sqlalchemy import Column, ForeignKey, Integer, String
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.database]
 from database_functions.schema_inspection import get_foreign_key_dependencies
 
 

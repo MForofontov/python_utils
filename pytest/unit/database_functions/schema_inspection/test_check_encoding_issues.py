@@ -7,6 +7,8 @@ from sqlalchemy import Column, Integer, Text, create_engine
 from sqlalchemy.engine import Engine
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.database]
 from database_functions.schema_inspection import check_encoding_issues
 
 

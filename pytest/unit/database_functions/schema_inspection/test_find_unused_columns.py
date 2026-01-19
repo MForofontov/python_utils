@@ -6,6 +6,8 @@ from conftest import Base, Transaction
 from sqlalchemy.orm import Session
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.database]
 from database_functions.schema_inspection import find_unused_columns
 
 

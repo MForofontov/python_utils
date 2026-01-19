@@ -6,6 +6,8 @@ from conftest import Base, Invoice, Order, Product, User
 from sqlalchemy import Column, Integer, String
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.database]
 from database_functions.schema_inspection import safe_truncate_tables
 
 

@@ -3,6 +3,8 @@
 from pathlib import Path
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.serialization]
 from serialization_functions.csv_advanced.stream_csv_chunks import stream_csv_chunks
 
 

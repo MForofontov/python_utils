@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
 from bioinformatics_functions.data_validation.validate_dna_sequence import (
     validate_dna_sequence,
 )

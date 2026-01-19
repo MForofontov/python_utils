@@ -1,3 +1,6 @@
+import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
 from bioinformatics_functions.fasta_misc.fasta_rename_headers import (
     fasta_rename_headers,
 )

@@ -3,6 +3,8 @@
 import csv
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.serialization]
 from serialization_functions.csv_advanced.register_csv_dialect import (
     register_csv_dialect,
 )

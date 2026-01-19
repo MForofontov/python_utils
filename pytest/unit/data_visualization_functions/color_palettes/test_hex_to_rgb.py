@@ -3,6 +3,8 @@ Unit tests for hex_to_rgb function.
 """
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.data_visualization]
 from data_visualization_functions.color_palettes import hex_to_rgb
 
 

@@ -3,6 +3,8 @@ Tests for expand_url_template function.
 """
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.url_functions]
 from url_functions.expand_url_template import expand_url_template
 
 

@@ -15,6 +15,7 @@ import pytest
 from serialization_functions.parquet_operations.filter_parquet import filter_parquet
 
 pytestmark = pytest.mark.skipif(not PYARROW_AVAILABLE, reason="pyarrow not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]
 
 
 def test_filter_parquet_equal_operator(tmp_path: Path) -> None:

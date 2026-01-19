@@ -1,6 +1,8 @@
 import os
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.cli_functions]
 from cli_functions.get_environment_variable import get_environment_variable
 
 

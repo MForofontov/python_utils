@@ -6,6 +6,8 @@ import tempfile
 from pathlib import Path
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.dev_utilities]
 from dev_utilities.code_analysis.count_code_lines import (
     CodeLineCount,
     count_code_lines,

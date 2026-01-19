@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
 from iterable_functions.dictionary_operations.remove_empty_dicts_recursive import (
     remove_empty_dicts_recursive,
 )

@@ -23,6 +23,7 @@ validate_pydantic_schema_module = importlib.import_module(
 )
 
 pytestmark = pytest.mark.skipif(not PYDANTIC_AVAILABLE, reason="Pydantic not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.data_validation]
 
 
 class SimpleUserSchema(BaseModel):

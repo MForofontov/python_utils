@@ -1,3 +1,6 @@
+import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.testing]
 from testing_functions.mock_helpers.create_mock_object import create_mock_object
 
 

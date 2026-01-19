@@ -1,5 +1,7 @@
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.cli_functions]
 from cli_functions.execute_command import execute_command
 
 

@@ -1,6 +1,8 @@
 """Unit tests for format_number_compact function."""
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.formatting]
 from formatting_functions.format_number_compact import format_number_compact
 
 

@@ -11,6 +11,7 @@ except ImportError:
     select_by_css = None  # type: ignore
 
 pytestmark = pytest.mark.skipif(not BS4_AVAILABLE, reason="beautifulsoup4 not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.web_scraping]
 
 
 def test_select_by_css_simple_selector() -> None:

@@ -12,6 +12,7 @@ import pytest
 from datetime_functions.get_current_datetime_iso_utc import get_current_datetime_iso_utc
 
 pytestmark = pytest.mark.skipif(not PYTZ_AVAILABLE, reason="pytz not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.datetime]
 
 
 def test_get_current_datetime_iso_utc_format() -> None:

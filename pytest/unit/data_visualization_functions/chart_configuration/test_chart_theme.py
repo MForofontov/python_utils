@@ -3,6 +3,8 @@ Unit tests for ChartTheme dataclass.
 """
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.data_visualization]
 from data_visualization_functions.chart_configuration import ChartTheme
 
 

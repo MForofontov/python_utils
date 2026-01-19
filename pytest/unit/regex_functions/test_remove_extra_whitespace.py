@@ -3,6 +3,8 @@ Tests for remove_extra_whitespace function.
 """
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.regex]
 from regex_functions.remove_extra_whitespace import remove_extra_whitespace
 
 

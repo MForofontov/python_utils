@@ -18,6 +18,7 @@ from compression_functions.binary_compression.compress_data import compress_data
 pytestmark = pytest.mark.skipif(
     not COMPRESSION_LIBS_AVAILABLE, reason="snappy/zstandard not installed"
 )
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.compression]
 
 
 def test_compress_data_gzip() -> None:

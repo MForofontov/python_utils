@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.env_config]
 from env_config_functions.get_env_var import get_env_var
 
 

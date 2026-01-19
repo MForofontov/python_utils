@@ -1,3 +1,6 @@
+import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
 from unittest.mock import MagicMock, patch
 
 from network_functions.is_internet_available import is_internet_available

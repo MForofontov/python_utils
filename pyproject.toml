@@ -83,12 +83,46 @@ version = {attr = "_version.__version__"}
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
-testpaths = ["pytest/unit"]
+testpaths = ["pytest/unit", "pytest/performance"]
 # optional, if you use asyncio tests
 # asyncio_mode = "auto"
 markers = [
+    "unit: marks tests as unit tests (deselect with '-m \"not unit\"')",
     "performance: marks tests as performance tests (deselect with '-m \"not performance\"')",
     "slow: marks tests as slow running tests (deselect with '-m \"not slow\"')",
+    # Module-based markers for selective test execution
+    "asyncio_functions: tests for asyncio utilities",
+    "batch_processing: tests for batch processing functions",
+    "bioinformatics: tests for bioinformatics functions",
+    "cli_functions: tests for CLI and system utilities",
+    "compression: tests for compression functions",
+    "data_validation: tests for data validation functions",
+    "data_visualization: tests for data visualization functions",
+    "database: tests for database functions",
+    "datetime: tests for datetime utilities",
+    "decorators: tests for function decorators",
+    "dev_utilities: tests for development utilities",
+    "env_config: tests for environment configuration",
+    "file_functions: tests for file operations",
+    "formatting: tests for formatting functions",
+    "http_functions: tests for HTTP utilities",
+    "iterable_functions: tests for iterable operations",
+    "json_functions: tests for JSON utilities",
+    "logger_functions: tests for logging utilities",
+    "machine_learning: tests for machine learning functions",
+    "mathematical_functions: tests for mathematical operations",
+    "multiprocessing_functions: tests for parallel processing",
+    "network_functions: tests for network utilities",
+    "print_functions: tests for enhanced console output",
+    "regex: tests for regex functions",
+    "scientific_computing: tests for scientific computing functions",
+    "security: tests for security and cryptography functions",
+    "serialization: tests for data serialization (parquet, excel, etc.)",
+    "ssh_functions: tests for SSH operations",
+    "strings_utility: tests for string manipulation",
+    "testing: tests for testing utilities",
+    "url_functions: tests for URL utilities",
+    "web_scraping: tests for web scraping utilities",
 ]
 
 [tool.ruff]

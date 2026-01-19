@@ -12,6 +12,7 @@ import pytest
 from network_functions.get_public_ip import get_public_ip
 
 pytestmark = pytest.mark.skipif(not REQUESTS_AVAILABLE, reason="requests not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.network_functions]
 
 
 def test_get_public_ip_type() -> None:

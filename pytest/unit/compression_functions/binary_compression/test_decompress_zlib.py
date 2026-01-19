@@ -2,6 +2,8 @@ import base64
 import zlib
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.compression]
 from compression_functions.binary_compression.decompress_zlib import decompress_zlib
 
 

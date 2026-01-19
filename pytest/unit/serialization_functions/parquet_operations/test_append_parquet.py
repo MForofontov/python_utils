@@ -15,6 +15,7 @@ import pytest
 from serialization_functions.parquet_operations.append_parquet import append_parquet
 
 pytestmark = pytest.mark.skipif(not PYARROW_AVAILABLE, reason="pyarrow not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]
 
 
 def test_append_parquet_to_new_file(tmp_path: Path) -> None:

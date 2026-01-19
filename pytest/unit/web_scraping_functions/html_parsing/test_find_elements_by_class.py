@@ -13,6 +13,7 @@ except ImportError:
     find_elements_by_class = None  # type: ignore
 
 pytestmark = pytest.mark.skipif(not BS4_AVAILABLE, reason="beautifulsoup4 not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.web_scraping]
 
 
 def test_find_elements_by_class_single_class() -> None:

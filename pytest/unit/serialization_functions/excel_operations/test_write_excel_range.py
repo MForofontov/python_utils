@@ -14,6 +14,7 @@ import pytest
 from serialization_functions.excel_operations.write_excel_range import write_excel_range
 
 pytestmark = pytest.mark.skipif(not OPENPYXL_AVAILABLE, reason="openpyxl not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]
 
 
 def test_write_excel_range_basic_write(tmp_path: Path) -> None:

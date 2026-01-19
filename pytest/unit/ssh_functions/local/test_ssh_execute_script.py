@@ -4,6 +4,8 @@ import subprocess
 from unittest.mock import MagicMock, mock_open, patch
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.ssh_functions]
 from ssh_functions.local.ssh_execute_script import ssh_execute_script
 
 

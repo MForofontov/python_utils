@@ -12,6 +12,7 @@ from bioinformatics_functions.sequence_statistics.sequence_logo import (
 )
 
 pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.bioinformatics]
 
 
 def test_sequence_logo_matrix_basic() -> None:

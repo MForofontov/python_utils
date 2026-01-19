@@ -2,6 +2,8 @@ from datetime import date, datetime
 from unittest.mock import patch
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.datetime]
 from datetime_functions.is_today import is_today
 
 

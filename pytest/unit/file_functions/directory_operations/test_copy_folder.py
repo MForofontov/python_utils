@@ -1,3 +1,6 @@
+import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
 import tempfile
 from pathlib import Path
 

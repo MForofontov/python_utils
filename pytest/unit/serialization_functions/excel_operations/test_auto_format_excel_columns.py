@@ -18,6 +18,7 @@ from serialization_functions.excel_operations.auto_format_excel_columns import (
 )
 
 pytestmark = pytest.mark.skipif(not OPENPYXL_AVAILABLE, reason="openpyxl not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]
 
 
 def test_auto_format_excel_columns_basic() -> None:

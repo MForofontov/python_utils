@@ -20,6 +20,7 @@ from serialization_functions.parquet_operations.merge_parquet_files import (
 )
 
 pytestmark = pytest.mark.skipif(not PYARROW_AVAILABLE, reason="pyarrow not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]
 
 
 def test_merge_parquet_files_basic() -> None:

@@ -20,6 +20,7 @@ from serialization_functions.parquet_operations.partition_parquet_by_column impo
 )
 
 pytestmark = pytest.mark.skipif(not PYARROW_AVAILABLE, reason="pyarrow not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]
 
 
 def test_partition_parquet_by_column_basic() -> None:

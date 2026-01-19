@@ -2,6 +2,8 @@ import bz2
 import os
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.compression]
 from compression_functions.files_compression.compress_file_bz2 import compress_file_bz2
 
 

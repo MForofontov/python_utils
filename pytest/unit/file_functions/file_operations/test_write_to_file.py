@@ -2,6 +2,8 @@ import os
 import tempfile
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
 from file_functions import write_to_file
 
 

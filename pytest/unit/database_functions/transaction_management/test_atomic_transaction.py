@@ -5,6 +5,8 @@ Unit tests for atomic_transaction function.
 import sqlite3
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.database]
 from database_functions import atomic_transaction
 
 

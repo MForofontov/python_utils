@@ -5,6 +5,8 @@ Unit tests for execute_bulk_chunked function.
 import sqlite3
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.database]
 from database_functions import execute_bulk_chunked
 
 

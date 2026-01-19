@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
 from bioinformatics_functions.sequence_operations.remove_low_complexity_regions import (
     remove_low_complexity_regions,
 )

@@ -7,6 +7,8 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import Session
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.database]
 from database_functions.schema_inspection import verify_referential_integrity
 
 

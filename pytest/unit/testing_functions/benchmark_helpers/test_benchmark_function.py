@@ -1,6 +1,8 @@
 import time
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.testing]
 from testing_functions.benchmark_helpers.benchmark_function import benchmark_function
 
 
