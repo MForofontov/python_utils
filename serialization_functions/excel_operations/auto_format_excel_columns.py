@@ -5,7 +5,7 @@ Auto-format Excel columns with width adjustment and styling.
 from pathlib import Path
 
 import openpyxl
-from openpyxl.styles import Font, PatternFill, Alignment
+from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 
 
@@ -114,7 +114,7 @@ def auto_format_excel_columns(
     # Value validation
     if not Path(file_path).exists():
         raise FileNotFoundError(f"Excel file not found: {file_path}")
-    if align_text not in ('left', 'center', 'right'):
+    if align_text not in ("left", "center", "right"):
         raise ValueError(
             f"align_text must be 'left', 'center', or 'right', got '{align_text}'"
         )
@@ -134,10 +134,10 @@ def auto_format_excel_columns(
 
     # Freeze header row
     if freeze_header:
-        ws.freeze_panes = 'A2'
+        ws.freeze_panes = "A2"
 
     # Calculate column widths and format
-    if auto_width or bold_header or header_fill_color or align_text != 'left':
+    if auto_width or bold_header or header_fill_color or align_text != "left":
         # Get dimensions
         max_row = ws.max_row
         max_col = ws.max_column
@@ -171,12 +171,14 @@ def auto_format_excel_columns(
                         cell.fill = PatternFill(
                             start_color=header_fill_color,
                             end_color=header_fill_color,
-                            fill_type="solid"
+                            fill_type="solid",
                         )
 
             # Apply text alignment to all cells
-            if align_text != 'left':
-                for row in ws.iter_rows(min_row=1, max_row=max_row, min_col=1, max_col=max_col):
+            if align_text != "left":
+                for row in ws.iter_rows(
+                    min_row=1, max_row=max_row, min_col=1, max_col=max_col
+                ):
                     for cell in row:
                         cell.alignment = Alignment(horizontal=align_text)
 
@@ -184,4 +186,4 @@ def auto_format_excel_columns(
     wb.save(file_path)
 
 
-__all__ = ['auto_format_excel_columns']
+__all__ = ["auto_format_excel_columns"]

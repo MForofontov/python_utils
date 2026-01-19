@@ -3,6 +3,8 @@ Tests for remove_html_tags function.
 """
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.regex]
 from regex_functions.remove_html_tags import remove_html_tags
 
 

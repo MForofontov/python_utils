@@ -1,3 +1,6 @@
+import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
 from bioinformatics_functions.fasta_misc.fasta_reverse_complement import (
     fasta_reverse_complement,
 )

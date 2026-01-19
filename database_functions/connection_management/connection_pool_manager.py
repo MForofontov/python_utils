@@ -64,15 +64,23 @@ class ConnectionPoolManager:
         if not callable(connection_factory):
             raise TypeError("connection_factory must be callable")
         if not isinstance(max_connections, int):
-            raise TypeError(f"max_connections must be int, got {type(max_connections).__name__}")
+            raise TypeError(
+                f"max_connections must be int, got {type(max_connections).__name__}"
+            )
         if max_connections <= 0:
             raise ValueError(f"max_connections must be positive, got {max_connections}")
         if health_check_query is not None and not isinstance(health_check_query, str):
-            raise TypeError(f"health_check_query must be str or None, got {type(health_check_query).__name__}")
+            raise TypeError(
+                f"health_check_query must be str or None, got {type(health_check_query).__name__}"
+            )
         if not isinstance(health_check_interval, (int, float)):
-            raise TypeError(f"health_check_interval must be a number, got {type(health_check_interval).__name__}")
+            raise TypeError(
+                f"health_check_interval must be a number, got {type(health_check_interval).__name__}"
+            )
         if health_check_interval <= 0:
-            raise ValueError(f"health_check_interval must be positive, got {health_check_interval}")
+            raise ValueError(
+                f"health_check_interval must be positive, got {health_check_interval}"
+            )
 
         self._connection_factory = connection_factory
         self._max_connections = max_connections

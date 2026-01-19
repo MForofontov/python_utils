@@ -73,36 +73,46 @@ def read_excel_sheet(
     """
     if not isinstance(file_path, str):
         raise TypeError(f"file_path must be a string, got {type(file_path).__name__}")
-    
+
     if not isinstance(sheet_name, (str, int)):
-        raise TypeError(f"sheet_name must be str or int, got {type(sheet_name).__name__}")
-    
+        raise TypeError(
+            f"sheet_name must be str or int, got {type(sheet_name).__name__}"
+        )
+
     if not isinstance(values_only, bool):
-        raise TypeError(f"values_only must be a boolean, got {type(values_only).__name__}")
-    
+        raise TypeError(
+            f"values_only must be a boolean, got {type(values_only).__name__}"
+        )
+
     # Validate row/column indices
     for param_name, param_value in [
-        ("min_row", min_row), ("max_row", max_row),
-        ("min_col", min_col), ("max_col", max_col)
+        ("min_row", min_row),
+        ("max_row", max_row),
+        ("min_col", min_col),
+        ("max_col", max_col),
     ]:
         if param_value is not None:
             if not isinstance(param_value, int):
-                raise TypeError(f"{param_name} must be int or None, got {type(param_value).__name__}")
+                raise TypeError(
+                    f"{param_name} must be int or None, got {type(param_value).__name__}"
+                )
             if param_value < 1:
                 raise ValueError(f"{param_name} must be >= 1, got {param_value}")
-    
+
     # Load workbook and sheet
     wb = load_workbook(file_path, read_only=True, data_only=values_only)
-    
+
     if isinstance(sheet_name, int):
         if sheet_name < 0 or sheet_name >= len(wb.sheetnames):
-            raise ValueError(f"sheet_name index {sheet_name} out of range (0-{len(wb.sheetnames)-1})")
+            raise ValueError(
+                f"sheet_name index {sheet_name} out of range (0-{len(wb.sheetnames) - 1})"
+            )
         ws = wb.worksheets[sheet_name]
     else:
         if sheet_name not in wb.sheetnames:
             raise ValueError(f"sheet_name '{sheet_name}' not found in workbook")
         ws = wb[sheet_name]
-    
+
     # Read data
     data = []
     for row in ws.iter_rows(
@@ -110,12 +120,12 @@ def read_excel_sheet(
         max_row=max_row,
         min_col=min_col,
         max_col=max_col,
-        values_only=values_only
+        values_only=values_only,
     ):
         data.append(list(row))
-    
+
     wb.close()
     return data
 
 
-__all__ = ['read_excel_sheet']
+__all__ = ["read_excel_sheet"]

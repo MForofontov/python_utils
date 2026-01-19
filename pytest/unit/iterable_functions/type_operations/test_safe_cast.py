@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
 from iterable_functions.type_operations.safe_cast import is_numeric, safe_cast
 
 
@@ -304,6 +306,7 @@ def test_safe_cast_scalar_to_tuple() -> None:
     """Test case 27: Convert scalar value to single-element tuple."""
     result = safe_cast(42, tuple)
     assert result == (42,)
+
 
 def test_safe_cast_type_error_non_type() -> None:
     """

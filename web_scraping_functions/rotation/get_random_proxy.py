@@ -45,12 +45,12 @@ def get_random_proxy(
     """
     if not isinstance(proxies, list):
         raise TypeError(f"proxies must be a list, got {type(proxies).__name__}")
-    
+
     if not proxies:
         raise ValueError("proxies list cannot be empty")
-    
+
     proxy = random.choice(proxies)
     return {"http": proxy, "https": proxy}
 
 
-__all__ = ['get_random_proxy']
+__all__ = ["get_random_proxy"]

@@ -1,8 +1,21 @@
 """Unit tests for power_analysis function."""
 
-import pytest
+try:
+    import numpy as np
+    import scipy
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    np = None  # type: ignore
+    scipy = None  # type: ignore
 
-from scientific_computing_functions.statistical_analysis.power_analysis import power_analysis
+import pytest
+from scientific_computing_functions.statistical_analysis.power_analysis import (
+    power_analysis,
+)
+
+pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy/scipy not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.scientific_computing]
 
 
 # Normal operation tests
@@ -12,18 +25,18 @@ def test_power_analysis_ttest_medium_effect() -> None:
     effect_size = 0.5  # Medium effect (Cohen's d)
     alpha = 0.05
     power = 0.8
-    
+
     # Act
     result = power_analysis(effect_size, alpha, power, test_type="t-test")
-    
+
     # Assert
-    assert result['required_sample_size'] > 0
-    assert result['total_sample_size'] == result['required_sample_size'] * 2
-    assert result['effect_size'] == effect_size
-    assert result['alpha'] == alpha
-    assert result['power'] == power
+    assert result["required_sample_size"] > 0
+    assert result["total_sample_size"] == result["required_sample_size"] * 2
+    assert result["effect_size"] == effect_size
+    assert result["alpha"] == alpha
+    assert result["power"] == power
     # Allow for rounding variation (±2 samples)
-    assert 62 <= result['required_sample_size'] <= 66
+    assert 62 <= result["required_sample_size"] <= 66
 
 
 def test_power_analysis_ttest_small_effect() -> None:
@@ -32,13 +45,13 @@ def test_power_analysis_ttest_small_effect() -> None:
     effect_size = 0.2  # Small effect
     alpha = 0.05
     power = 0.8
-    
+
     # Act
     result = power_analysis(effect_size, alpha, power, test_type="t-test")
-    
+
     # Assert
-    assert result['required_sample_size'] > 300  # Small effects need large samples
-    assert result['total_sample_size'] > 600
+    assert result["required_sample_size"] > 300  # Small effects need large samples
+    assert result["total_sample_size"] > 600
 
 
 def test_power_analysis_ttest_large_effect() -> None:
@@ -47,14 +60,14 @@ def test_power_analysis_ttest_large_effect() -> None:
     effect_size = 0.8  # Large effect
     alpha = 0.05
     power = 0.8
-    
+
     # Act
     result = power_analysis(effect_size, alpha, power, test_type="t-test")
-    
+
     # Assert
-    assert result['required_sample_size'] < 30  # Large effects need small samples
+    assert result["required_sample_size"] < 30  # Large effects need small samples
     # Allow for rounding variation (24-27 samples)
-    assert 24 <= result['required_sample_size'] <= 27
+    assert 24 <= result["required_sample_size"] <= 27
 
 
 def test_power_analysis_anova() -> None:
@@ -64,17 +77,15 @@ def test_power_analysis_anova() -> None:
     alpha = 0.05
     power = 0.8
     n_groups = 3
-    
+
     # Act
     result = power_analysis(
-        effect_size, alpha, power,
-        test_type="anova",
-        n_groups=n_groups
+        effect_size, alpha, power, test_type="anova", n_groups=n_groups
     )
-    
+
     # Assert
-    assert result['required_sample_size'] > 0
-    assert result['total_sample_size'] == result['required_sample_size'] * n_groups
+    assert result["required_sample_size"] > 0
+    assert result["total_sample_size"] == result["required_sample_size"] * n_groups
 
 
 def test_power_analysis_proportion() -> None:
@@ -83,13 +94,13 @@ def test_power_analysis_proportion() -> None:
     effect_size = 0.5  # Cohen's h (medium effect for proportions)
     alpha = 0.05
     power = 0.8
-    
+
     # Act
     result = power_analysis(effect_size, alpha, power, test_type="proportion")
-    
+
     # Assert
-    assert result['required_sample_size'] > 0
-    assert result['total_sample_size'] == result['required_sample_size'] * 2
+    assert result["required_sample_size"] > 0
+    assert result["total_sample_size"] == result["required_sample_size"] * 2
 
 
 def test_power_analysis_correlation() -> None:
@@ -98,13 +109,15 @@ def test_power_analysis_correlation() -> None:
     effect_size = 0.3  # Correlation coefficient (medium effect)
     alpha = 0.05
     power = 0.8
-    
+
     # Act
     result = power_analysis(effect_size, alpha, power, test_type="correlation")
-    
+
     # Assert
-    assert result['required_sample_size'] > 60
-    assert result['total_sample_size'] == result['required_sample_size']  # Single sample
+    assert result["required_sample_size"] > 60
+    assert (
+        result["total_sample_size"] == result["required_sample_size"]
+    )  # Single sample
 
 
 def test_power_analysis_one_sided_greater() -> None:
@@ -113,19 +126,19 @@ def test_power_analysis_one_sided_greater() -> None:
     effect_size = 0.5
     alpha = 0.05
     power = 0.8
-    
+
     # Act
     result = power_analysis(
-        effect_size, alpha, power,
-        test_type="t-test",
-        alternative="greater"
+        effect_size, alpha, power, test_type="t-test", alternative="greater"
     )
-    
+
     # Assert
-    assert result['required_sample_size'] > 0
+    assert result["required_sample_size"] > 0
     # One-sided tests require smaller samples than two-sided
-    result_two_sided = power_analysis(effect_size, alpha, power, test_type="t-test", alternative="two-sided")
-    assert result['required_sample_size'] < result_two_sided['required_sample_size']
+    result_two_sided = power_analysis(
+        effect_size, alpha, power, test_type="t-test", alternative="two-sided"
+    )
+    assert result["required_sample_size"] < result_two_sided["required_sample_size"]
 
 
 def test_power_analysis_one_sided_less() -> None:
@@ -134,16 +147,14 @@ def test_power_analysis_one_sided_less() -> None:
     effect_size = 0.5
     alpha = 0.05
     power = 0.8
-    
+
     # Act
     result = power_analysis(
-        effect_size, alpha, power,
-        test_type="t-test",
-        alternative="less"
+        effect_size, alpha, power, test_type="t-test", alternative="less"
     )
-    
+
     # Assert
-    assert result['required_sample_size'] > 0
+    assert result["required_sample_size"] > 0
 
 
 # Edge case tests
@@ -153,12 +164,12 @@ def test_power_analysis_very_small_effect() -> None:
     effect_size = 0.01  # Very small effect
     alpha = 0.05
     power = 0.8
-    
+
     # Act
     result = power_analysis(effect_size, alpha, power, test_type="t-test")
-    
+
     # Assert
-    assert result['required_sample_size'] > 10000  # Very large sample needed
+    assert result["required_sample_size"] > 10000  # Very large sample needed
 
 
 def test_power_analysis_high_power() -> None:
@@ -167,14 +178,14 @@ def test_power_analysis_high_power() -> None:
     effect_size = 0.5
     alpha = 0.05
     power = 0.95  # High power
-    
+
     # Act
     result = power_analysis(effect_size, alpha, power, test_type="t-test")
-    
+
     # Assert
     # Higher power requires larger sample than 0.8
     result_80 = power_analysis(effect_size, alpha, 0.8, test_type="t-test")
-    assert result['required_sample_size'] > result_80['required_sample_size']
+    assert result["required_sample_size"] > result_80["required_sample_size"]
 
 
 def test_power_analysis_strict_alpha() -> None:
@@ -183,14 +194,14 @@ def test_power_analysis_strict_alpha() -> None:
     effect_size = 0.5
     alpha = 0.01  # Stricter than typical 0.05
     power = 0.8
-    
+
     # Act
     result = power_analysis(effect_size, alpha, power, test_type="t-test")
-    
+
     # Assert
     # Stricter alpha requires larger sample
     result_005 = power_analysis(effect_size, 0.05, power, test_type="t-test")
-    assert result['required_sample_size'] > result_005['required_sample_size']
+    assert result["required_sample_size"] > result_005["required_sample_size"]
 
 
 def test_power_analysis_anova_many_groups() -> None:
@@ -200,16 +211,14 @@ def test_power_analysis_anova_many_groups() -> None:
     alpha = 0.05
     power = 0.8
     n_groups = 10
-    
+
     # Act
     result = power_analysis(
-        effect_size, alpha, power,
-        test_type="anova",
-        n_groups=n_groups
+        effect_size, alpha, power, test_type="anova", n_groups=n_groups
     )
-    
+
     # Assert
-    assert result['total_sample_size'] == result['required_sample_size'] * 10
+    assert result["total_sample_size"] == result["required_sample_size"] * 10
 
 
 def test_power_analysis_low_power() -> None:
@@ -218,15 +227,15 @@ def test_power_analysis_low_power() -> None:
     effect_size = 0.5
     alpha = 0.05
     power = 0.5  # Low power
-    
+
     # Act
     result = power_analysis(effect_size, alpha, power, test_type="t-test")
-    
+
     # Assert
-    assert result['required_sample_size'] > 0
+    assert result["required_sample_size"] > 0
     # Lower power requires smaller sample
     result_80 = power_analysis(effect_size, alpha, 0.8, test_type="t-test")
-    assert result['required_sample_size'] < result_80['required_sample_size']
+    assert result["required_sample_size"] < result_80["required_sample_size"]
 
 
 def test_power_analysis_large_correlation() -> None:
@@ -235,12 +244,12 @@ def test_power_analysis_large_correlation() -> None:
     effect_size = 0.8  # Strong correlation
     alpha = 0.05
     power = 0.8
-    
+
     # Act
     result = power_analysis(effect_size, alpha, power, test_type="correlation")
-    
+
     # Assert
-    assert result['required_sample_size'] < 20  # Small sample for large effect
+    assert result["required_sample_size"] < 20  # Small sample for large effect
 
 
 # Error case tests
@@ -249,7 +258,7 @@ def test_power_analysis_invalid_effect_size_type() -> None:
     # Arrange
     invalid_effect_size = "0.5"
     expected_message = "effect_size must be a number"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         power_analysis(invalid_effect_size)
@@ -260,7 +269,7 @@ def test_power_analysis_negative_effect_size() -> None:
     # Arrange
     invalid_effect_size = -0.5
     expected_message = "effect_size must be positive"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         power_analysis(invalid_effect_size)
@@ -271,7 +280,7 @@ def test_power_analysis_zero_effect_size() -> None:
     # Arrange
     invalid_effect_size = 0.0
     expected_message = "effect_size must be positive"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         power_analysis(invalid_effect_size)
@@ -283,7 +292,7 @@ def test_power_analysis_invalid_alpha_type() -> None:
     effect_size = 0.5
     invalid_alpha = "0.05"
     expected_message = "alpha must be a number"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         power_analysis(effect_size, alpha=invalid_alpha)
@@ -295,7 +304,7 @@ def test_power_analysis_alpha_out_of_range_zero() -> None:
     effect_size = 0.5
     invalid_alpha = 0.0
     expected_message = "alpha must be in \\(0, 1\\)"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         power_analysis(effect_size, alpha=invalid_alpha)
@@ -307,7 +316,7 @@ def test_power_analysis_alpha_out_of_range_one() -> None:
     effect_size = 0.5
     invalid_alpha = 1.0
     expected_message = "alpha must be in \\(0, 1\\)"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         power_analysis(effect_size, alpha=invalid_alpha)
@@ -319,7 +328,7 @@ def test_power_analysis_invalid_power_type() -> None:
     effect_size = 0.5
     invalid_power = "0.8"
     expected_message = "power must be a number"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         power_analysis(effect_size, power=invalid_power)
@@ -331,7 +340,7 @@ def test_power_analysis_power_out_of_range() -> None:
     effect_size = 0.5
     invalid_power = 1.5
     expected_message = "power must be in \\(0, 1\\)"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         power_analysis(effect_size, power=invalid_power)
@@ -343,7 +352,7 @@ def test_power_analysis_invalid_test_type() -> None:
     effect_size = 0.5
     invalid_test_type = "invalid-test"
     expected_message = "Invalid test_type"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         power_analysis(effect_size, test_type=invalid_test_type)
@@ -355,7 +364,7 @@ def test_power_analysis_invalid_alternative() -> None:
     effect_size = 0.5
     invalid_alternative = "invalid"
     expected_message = "Invalid alternative"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         power_analysis(effect_size, alternative=invalid_alternative)
@@ -367,7 +376,7 @@ def test_power_analysis_invalid_n_groups_type() -> None:
     effect_size = 0.5
     invalid_n_groups = 2.5
     expected_message = "n_groups must be an integer"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         power_analysis(effect_size, test_type="anova", n_groups=invalid_n_groups)
@@ -379,7 +388,7 @@ def test_power_analysis_n_groups_less_than_two() -> None:
     effect_size = 0.5
     invalid_n_groups = 1
     expected_message = "n_groups must be >= 2"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         power_analysis(effect_size, test_type="anova", n_groups=invalid_n_groups)
@@ -391,7 +400,7 @@ def test_power_analysis_invalid_test_type_type() -> None:
     effect_size = 0.5
     invalid_test_type = 123
     expected_message = "test_type must be a string"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         power_analysis(effect_size, test_type=invalid_test_type)
@@ -403,7 +412,7 @@ def test_power_analysis_invalid_alternative_type() -> None:
     effect_size = 0.5
     invalid_alternative = 123
     expected_message = "alternative must be a string"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         power_analysis(effect_size, alternative=invalid_alternative)

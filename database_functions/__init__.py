@@ -12,26 +12,26 @@ Key Focus Areas:
 - Schema inspection and comparison utilities
 """
 
-from .connection_management import ConnectionPoolManager, managed_db_connection
 from .bulk_operations import (
     BulkOperationResult,
     execute_bulk_chunked,
 )
+from .connection_management import ConnectionPoolManager, managed_db_connection
 from .query_execution import (
     stream_query_results,
+)
+from .schema_inspection import (
+    ColumnInfo,
+    SchemaComparison,
+    TableInfo,
+    compare_schemas,
+    detect_schema_drift,
+    get_table_info,
 )
 from .transaction_management import (
     atomic_transaction,
     nested_transaction,
     savepoint_context,
-)
-from .schema_inspection import (
-    ColumnInfo,
-    TableInfo,
-    SchemaComparison,
-    get_table_info,
-    compare_schemas,
-    detect_schema_drift,
 )
 
 __all__ = [
@@ -55,4 +55,3 @@ __all__ = [
     "compare_schemas",
     "detect_schema_drift",
 ]
-

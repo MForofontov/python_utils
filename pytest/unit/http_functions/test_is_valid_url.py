@@ -1,3 +1,6 @@
+import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.http_functions]
 from http_functions.is_valid_url import is_valid_url
 
 
@@ -303,5 +306,3 @@ def test_is_valid_url_file_scheme_with_whitespace_path():
     Test case 42: Is_valid_url function returns False when the file path only contains whitespace.
     """
     assert is_valid_url("file:///   ") is False
-
-

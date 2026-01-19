@@ -2,6 +2,8 @@ import os
 import tempfile
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
 from bioinformatics_functions.annotation_functions.parse_bed import parse_bed
 
 

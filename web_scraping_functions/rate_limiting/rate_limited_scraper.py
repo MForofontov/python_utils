@@ -5,7 +5,7 @@ Rate-limited scraper decorator.
 import time
 from collections.abc import Callable
 from functools import wraps
-from typing import TypeVar, ParamSpec
+from typing import ParamSpec, TypeVar
 
 P = ParamSpec("P")
 R = TypeVar("R")
@@ -55,26 +55,26 @@ def rate_limited_scraper(
         raise TypeError(
             f"calls_per_second must be a number, got {type(calls_per_second).__name__}"
         )
-    
+
     if calls_per_second <= 0:
         raise ValueError(f"calls_per_second must be positive, got {calls_per_second}")
-    
+
     min_interval = 1.0 / calls_per_second
     last_called = [0.0]  # Use list to allow modification in closure
-    
+
     def decorator(func: Callable[P, R]) -> Callable[P, R]:
         @wraps(func)
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             elapsed = time.time() - last_called[0]
             if elapsed < min_interval:
                 time.sleep(min_interval - elapsed)
-            
+
             last_called[0] = time.time()
             return func(*args, **kwargs)
-        
+
         return wrapper
-    
+
     return decorator
 
 
-__all__ = ['rate_limited_scraper']
+__all__ = ["rate_limited_scraper"]

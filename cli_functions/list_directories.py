@@ -53,4 +53,4 @@ def list_directories(directory_path: str, include_hidden: bool = False) -> list[
     return sorted(directories)
 
 
-__all__ = ['list_directories']
+__all__ = ["list_directories"]

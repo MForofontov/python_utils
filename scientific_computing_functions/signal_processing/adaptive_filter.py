@@ -87,17 +87,25 @@ def adaptive_filter(
     """
     # Input validation
     if not isinstance(signal, (list, np.ndarray)):
-        raise TypeError(f"signal must be a list or numpy array, got {type(signal).__name__}")
+        raise TypeError(
+            f"signal must be a list or numpy array, got {type(signal).__name__}"
+        )
     if reference is not None and not isinstance(reference, (list, np.ndarray)):
-        raise TypeError(f"reference must be a list, numpy array, or None, got {type(reference).__name__}")
+        raise TypeError(
+            f"reference must be a list, numpy array, or None, got {type(reference).__name__}"
+        )
     if not isinstance(filter_length, int):
-        raise TypeError(f"filter_length must be an integer, got {type(filter_length).__name__}")
+        raise TypeError(
+            f"filter_length must be an integer, got {type(filter_length).__name__}"
+        )
     if not isinstance(algorithm, str):
         raise TypeError(f"algorithm must be a string, got {type(algorithm).__name__}")
     if not isinstance(step_size, (int, float)):
         raise TypeError(f"step_size must be a number, got {type(step_size).__name__}")
     if not isinstance(forgetting_factor, (int, float)):
-        raise TypeError(f"forgetting_factor must be a number, got {type(forgetting_factor).__name__}")
+        raise TypeError(
+            f"forgetting_factor must be a number, got {type(forgetting_factor).__name__}"
+        )
 
     signal_array = np.asarray(signal, dtype=float)
 
@@ -108,13 +116,19 @@ def adaptive_filter(
     if filter_length <= 0:
         raise ValueError(f"filter_length must be positive, got {filter_length}")
     if filter_length > len(signal_array):
-        raise ValueError(f"filter_length ({filter_length}) cannot exceed signal length ({len(signal_array)})")
+        raise ValueError(
+            f"filter_length ({filter_length}) cannot exceed signal length ({len(signal_array)})"
+        )
     if algorithm not in ["lms", "nlms", "rls"]:
-        raise ValueError(f"Invalid algorithm: {algorithm}. Must be 'lms', 'nlms', or 'rls'")
+        raise ValueError(
+            f"Invalid algorithm: {algorithm}. Must be 'lms', 'nlms', or 'rls'"
+        )
     if step_size <= 0:
         raise ValueError(f"step_size must be positive, got {step_size}")
     if not 0 < forgetting_factor <= 1:
-        raise ValueError(f"forgetting_factor must be in (0, 1], got {forgetting_factor}")
+        raise ValueError(
+            f"forgetting_factor must be in (0, 1], got {forgetting_factor}"
+        )
 
     # Create reference signal if not provided (use delayed signal)
     if reference is None:
@@ -133,7 +147,6 @@ def adaptive_filter(
     # RLS-specific initialization
     if algorithm == "rls":
         P = np.eye(filter_length) / 0.01  # Inverse correlation matrix
-        delta = 0.01  # Small regularization
 
     convergence_iteration = None
     convergence_threshold = 0.01

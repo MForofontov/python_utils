@@ -3,6 +3,7 @@ Bin continuous data into discrete intervals.
 """
 
 import logging
+
 import numpy as np
 from numpy.typing import ArrayLike
 
@@ -110,8 +111,10 @@ def bin_data(
     # Clamp to valid range [0, n_bins-1]
     binned_indices = np.clip(binned_indices, 0, n_bins - 1)
 
-    logger.debug(f"Binned data: min_bin={binned_indices.min()}, max_bin={binned_indices.max()}")
+    logger.debug(
+        f"Binned data: min_bin={binned_indices.min()}, max_bin={binned_indices.max()}"
+    )
     return binned_indices, bin_edges
 
 
-__all__ = ['bin_data']
+__all__ = ["bin_data"]

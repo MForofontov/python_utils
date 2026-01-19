@@ -2,9 +2,8 @@
 Merge multiple Parquet files into one.
 """
 
-from pathlib import Path
-from typing import Any
 from collections.abc import Sequence
+from pathlib import Path
 
 import pyarrow as pa
 import pyarrow.parquet as pq
@@ -96,7 +95,7 @@ def merge_parquet_files(
     if len(input_files) == 0:
         raise ValueError("input_files cannot be empty")
 
-    valid_compressions = {'snappy', 'gzip', 'brotli', 'lz4', 'zstd', 'none'}
+    valid_compressions = {"snappy", "gzip", "brotli", "lz4", "zstd", "none"}
     if compression not in valid_compressions:
         raise ValueError(
             f"compression must be one of {valid_compressions}, got '{compression}'"
@@ -134,13 +133,9 @@ def merge_parquet_files(
     merged_table = pa.concat_tables(tables)
 
     # Write merged table
-    pq.write_table(
-        merged_table,
-        output_file,
-        compression=compression
-    )
+    pq.write_table(merged_table, output_file, compression=compression)
 
     return len(merged_table)
 
 
-__all__ = ['merge_parquet_files']
+__all__ = ["merge_parquet_files"]

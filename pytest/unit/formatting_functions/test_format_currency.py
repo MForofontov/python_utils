@@ -1,6 +1,8 @@
 """Unit tests for format_currency function."""
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.formatting]
 from formatting_functions.format_currency import format_currency
 
 
@@ -78,7 +80,7 @@ def test_format_currency_integer_and_float_amounts() -> None:
     assert format_currency(100) == "$100.00"
     assert format_currency(1000) == "$1,000.00"
     assert format_currency(1000000) == "$1,000,000.00"
-    
+
     # Float amounts
     assert format_currency(12.3) == "$12.30"
     assert format_currency(12.34) == "$12.34"
@@ -150,7 +152,7 @@ def test_format_currency_invalid_type_amount() -> None:
     """
     # Arrange
     expected_message = "amount must be a number, got str"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         format_currency("100")
@@ -162,7 +164,7 @@ def test_format_currency_invalid_type_currency() -> None:
     """
     # Arrange
     expected_message = "currency must be a string, got int"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         format_currency(100, currency=840)  # USD numeric code
@@ -174,7 +176,7 @@ def test_format_currency_invalid_type_locale() -> None:
     """
     # Arrange
     expected_message = "locale must be a string or None, got int"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         format_currency(100, locale=123)
@@ -186,13 +188,13 @@ def test_format_currency_invalid_currency_code_length() -> None:
     """
     # Arrange
     expected_message = "currency must be a 3-letter ISO 4217 code"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         format_currency(100, currency="US")
-    
+
     with pytest.raises(ValueError, match=expected_message):
         format_currency(100, currency="USDA")
-    
+
     with pytest.raises(ValueError, match=expected_message):
         format_currency(100, currency="")

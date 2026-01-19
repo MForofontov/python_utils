@@ -67,7 +67,9 @@ def compare_schemas(
     if target_connection is None:
         raise TypeError("target_connection cannot be None")
     if ignore_tables is not None and not isinstance(ignore_tables, set):
-        raise TypeError(f"ignore_tables must be set or None, got {type(ignore_tables).__name__}")
+        raise TypeError(
+            f"ignore_tables must be set or None, got {type(ignore_tables).__name__}"
+        )
     if schema is not None and not isinstance(schema, str):
         raise TypeError(f"schema must be str or None, got {type(schema).__name__}")
 

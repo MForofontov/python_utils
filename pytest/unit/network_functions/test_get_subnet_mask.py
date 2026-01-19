@@ -2,6 +2,8 @@ import socket
 from unittest.mock import patch
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
 from network_functions.get_subnet_mask import get_subnet_mask
 
 

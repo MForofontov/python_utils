@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 def create_model_report(
     results: dict[str, dict[str, float]],
-    sort_by: str = 'test_score',
+    sort_by: str = "test_score",
     ascending: bool = False,
 ) -> str:
     """
@@ -54,7 +54,7 @@ def create_model_report(
     Notes
     -----
     Creates a nicely formatted table for easy model comparison.
-    
+
     Use battle-tested libraries: Pure Python string formatting.
     Adds value through: readable reporting and automatic ranking.
 
@@ -77,13 +77,13 @@ def create_model_report(
     # Check that sort_by metric exists
     first_model = next(iter(results.values()))
     if sort_by not in first_model:
-        raise ValueError(f"Metric '{sort_by}' not found in results. Available: {list(first_model.keys())}")
+        raise ValueError(
+            f"Metric '{sort_by}' not found in results. Available: {list(first_model.keys())}"
+        )
 
     # Sort models by specified metric
     sorted_models = sorted(
-        results.items(),
-        key=lambda x: x[1][sort_by],
-        reverse=not ascending
+        results.items(), key=lambda x: x[1][sort_by], reverse=not ascending
     )
 
     # Create report
@@ -101,10 +101,10 @@ def create_model_report(
 
     # Model rows
     for rank, (name, metrics) in enumerate(sorted_models, 1):
-        train = metrics.get('train_score', 0)
-        test = metrics.get('test_score', 0)
-        cv_mean = metrics.get('cv_mean', 0)
-        cv_std = metrics.get('cv_std', 0)
+        train = metrics.get("train_score", 0)
+        test = metrics.get("test_score", 0)
+        cv_mean = metrics.get("cv_mean", 0)
+        cv_std = metrics.get("cv_std", 0)
 
         row = f"{rank:<6} {name:<20} {train:>8.4f}  {test:>8.4f}  {cv_mean:>10.4f}  {cv_std:>8.4f}"
         lines.append(row)
@@ -116,7 +116,9 @@ def create_model_report(
     lines.append("")
     lines.append(f"Best Model: {best_name}")
     lines.append(f"Test Score: {best_metrics.get('test_score', 0):.4f}")
-    lines.append(f"CV Score:   {best_metrics.get('cv_mean', 0):.4f} ± {best_metrics.get('cv_std', 0):.4f}")
+    lines.append(
+        f"CV Score:   {best_metrics.get('cv_mean', 0):.4f} ± {best_metrics.get('cv_std', 0):.4f}"
+    )
 
     report = "\n".join(lines)
 
@@ -125,4 +127,4 @@ def create_model_report(
     return report
 
 
-__all__ = ['create_model_report']
+__all__ = ["create_model_report"]

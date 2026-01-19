@@ -3,6 +3,8 @@ from pathlib import Path
 from unittest.mock import patch
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
 from file_functions import find_files_by_pattern
 
 

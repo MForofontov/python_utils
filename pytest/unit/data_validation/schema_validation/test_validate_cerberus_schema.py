@@ -1,5 +1,6 @@
-import pytest
 import sys
+
+import pytest
 
 # Try to import cerberus - tests will be skipped if not available
 try:
@@ -14,6 +15,7 @@ except ImportError:
     validate_cerberus_schema = None
 
 pytestmark = pytest.mark.skipif(not CERBERUS_AVAILABLE, reason="Cerberus not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.data_validation]
 
 
 def test_validate_cerberus_schema_simple_valid_data() -> None:
@@ -368,27 +370,36 @@ def test_validate_cerberus_schema_custom_param_name() -> None:
 def test_validate_cerberus_schema_cerberus_not_available() -> None:
     """Test case 20: ImportError when Cerberus is not available."""
     # Save the original module if it exists
-    original_module = sys.modules.get('data_validation.schema_validation.validate_cerberus_schema')
-    
+    original_module = sys.modules.get(
+        "data_validation.schema_validation.validate_cerberus_schema"
+    )
+
     try:
         # Temporarily remove and reimport with CERBERUS_AVAILABLE = False
-        if 'data_validation.schema_validation.validate_cerberus_schema' in sys.modules:
-            del sys.modules['data_validation.schema_validation.validate_cerberus_schema']
-        
+        if "data_validation.schema_validation.validate_cerberus_schema" in sys.modules:
+            del sys.modules[
+                "data_validation.schema_validation.validate_cerberus_schema"
+            ]
+
         # Mock the module
         import data_validation.schema_validation.validate_cerberus_schema as module
+
         original_available = module.CERBERUS_AVAILABLE
         module.CERBERUS_AVAILABLE = False
-        
-        with pytest.raises(ImportError, match="Cerberus is required for schema validation"):
+
+        with pytest.raises(
+            ImportError, match="Cerberus is required for schema validation"
+        ):
             module.validate_cerberus_schema({}, {})
-        
+
         # Restore
         module.CERBERUS_AVAILABLE = original_available
     finally:
         # Restore the original module
         if original_module:
-            sys.modules['data_validation.schema_validation.validate_cerberus_schema'] = original_module
+            sys.modules[
+                "data_validation.schema_validation.validate_cerberus_schema"
+            ] = original_module
 
 
 def test_validate_cerberus_schema_normalize_type_error() -> None:

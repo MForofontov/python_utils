@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.web_scraping]
 from web_scraping_functions.rotation.get_random_user_agent import (
     get_random_user_agent,
 )
@@ -10,10 +12,10 @@ def test_get_random_user_agent_returns_from_list() -> None:
     """
     # Arrange
     user_agents = ["UA1", "UA2", "UA3"]
-    
+
     # Act
     result = get_random_user_agent(user_agents)
-    
+
     # Assert
     assert result in user_agents
 
@@ -24,10 +26,10 @@ def test_get_random_user_agent_single_user_agent() -> None:
     """
     # Arrange
     user_agents = ["Mozilla/5.0"]
-    
+
     # Act
     result = get_random_user_agent(user_agents)
-    
+
     # Assert
     assert result == "Mozilla/5.0"
 
@@ -38,10 +40,10 @@ def test_get_random_user_agent_randomness() -> None:
     """
     # Arrange
     user_agents = ["UA1", "UA2", "UA3", "UA4", "UA5"]
-    
+
     # Act
     results = {get_random_user_agent(user_agents) for _ in range(50)}
-    
+
     # Assert - should get at least 2 different UAs in 50 calls
     assert len(results) >= 2
 
@@ -52,7 +54,7 @@ def test_get_random_user_agent_default_user_agents() -> None:
     """
     # Act
     result = get_random_user_agent()
-    
+
     # Assert
     assert isinstance(result, str)
     assert len(result) > 0
@@ -66,10 +68,10 @@ def test_get_random_user_agent_list_not_modified() -> None:
     # Arrange
     user_agents = ["UA1", "UA2", "UA3"]
     original_uas = user_agents.copy()
-    
+
     # Act
     get_random_user_agent(user_agents)
-    
+
     # Assert
     assert user_agents == original_uas
 
@@ -99,12 +101,12 @@ def test_get_random_user_agent_realistic_user_agents() -> None:
     # Arrange
     user_agents = [
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
     ]
-    
+
     # Act
     result = get_random_user_agent(user_agents)
-    
+
     # Assert
     assert result in user_agents
     assert "Mozilla/5.0" in result

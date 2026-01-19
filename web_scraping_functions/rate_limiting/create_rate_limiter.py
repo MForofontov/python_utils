@@ -7,11 +7,11 @@ import time
 
 class RateLimiter:
     """Rate limiter using token bucket algorithm."""
-    
+
     def __init__(self, calls_per_second: float) -> None:
         """
         Initialize rate limiter.
-        
+
         Parameters
         ----------
         calls_per_second : float
@@ -20,7 +20,7 @@ class RateLimiter:
         self.calls_per_second = calls_per_second
         self.min_interval = 1.0 / calls_per_second
         self.last_called = 0.0
-    
+
     def wait(self) -> None:
         """Wait if necessary to respect rate limit."""
         elapsed = time.time() - self.last_called
@@ -71,11 +71,11 @@ def create_rate_limiter(
         raise TypeError(
             f"calls_per_second must be a number, got {type(calls_per_second).__name__}"
         )
-    
+
     if calls_per_second <= 0:
         raise ValueError(f"calls_per_second must be positive, got {calls_per_second}")
-    
+
     return RateLimiter(calls_per_second)
 
 
-__all__ = ['create_rate_limiter', 'RateLimiter']
+__all__ = ["create_rate_limiter", "RateLimiter"]

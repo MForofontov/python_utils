@@ -3,6 +3,7 @@ Smooth timeseries data using various methods.
 """
 
 import logging
+
 import numpy as np
 from numpy.typing import ArrayLike
 
@@ -11,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 def smooth_timeseries(
     data: ArrayLike,
-    method: str = 'moving_average',
+    method: str = "moving_average",
     window_size: int = 5,
     polynomial_order: int = 2,
 ) -> np.ndarray:
@@ -68,7 +69,9 @@ def smooth_timeseries(
     if not isinstance(method, str):
         raise TypeError(f"method must be a string, got {type(method).__name__}")
     if not isinstance(window_size, int):
-        raise TypeError(f"window_size must be an integer, got {type(window_size).__name__}")
+        raise TypeError(
+            f"window_size must be an integer, got {type(window_size).__name__}"
+        )
     if not isinstance(polynomial_order, int):
         raise TypeError(
             f"polynomial_order must be an integer, got {type(polynomial_order).__name__}"
@@ -84,34 +87,36 @@ def smooth_timeseries(
         raise ValueError("data cannot be empty")
 
     # Validate parameters
-    valid_methods = ['moving_average', 'exponential', 'savgol']
+    valid_methods = ["moving_average", "exponential", "savgol"]
     if method not in valid_methods:
         raise ValueError(f"method must be one of {valid_methods}, got '{method}'")
 
     if window_size < 1:
         raise ValueError(f"window_size must be positive, got {window_size}")
 
-    if method == 'savgol' and window_size % 2 == 0:
-        raise ValueError(f"window_size must be odd for savgol method, got {window_size}")
+    if method == "savgol" and window_size % 2 == 0:
+        raise ValueError(
+            f"window_size must be odd for savgol method, got {window_size}"
+        )
 
-    if method == 'savgol' and polynomial_order >= window_size:
+    if method == "savgol" and polynomial_order >= window_size:
         raise ValueError(
             f"polynomial_order ({polynomial_order}) must be < window_size ({window_size})"
         )
 
     logger.debug(f"Smoothing {data_array.size} values with method='{method}'")
 
-    if method == 'moving_average':
+    if method == "moving_average":
         # Use convolution for moving average
         kernel = np.ones(window_size) / window_size
-        smoothed = np.convolve(data_array, kernel, mode='same')
+        smoothed = np.convolve(data_array, kernel, mode="same")
 
         # Fix edge effects by using original values
         half_window = window_size // 2
         smoothed[:half_window] = data_array[:half_window]
         smoothed[-half_window:] = data_array[-half_window:]
 
-    elif method == 'exponential':
+    elif method == "exponential":
         # Exponential moving average
         alpha = 2.0 / (window_size + 1)
         smoothed = np.zeros_like(data_array)
@@ -130,9 +135,11 @@ def smooth_timeseries(
 
         smoothed = savgol_filter(data_array, window_size, polynomial_order)
 
-    logger.debug(f"Smoothed timeseries: original_std={data_array.std():.3f}, "
-                f"smoothed_std={smoothed.std():.3f}")
+    logger.debug(
+        f"Smoothed timeseries: original_std={data_array.std():.3f}, "
+        f"smoothed_std={smoothed.std():.3f}"
+    )
     return smoothed
 
 
-__all__ = ['smooth_timeseries']
+__all__ = ["smooth_timeseries"]

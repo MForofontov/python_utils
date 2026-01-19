@@ -3,7 +3,8 @@ Adjust the brightness of a color.
 """
 
 import logging
-from matplotlib.colors import to_rgb, to_hex
+
+from matplotlib.colors import to_hex, to_rgb
 
 logger = logging.getLogger(__name__)
 
@@ -87,4 +88,4 @@ def adjust_brightness(color: str, factor: float) -> str:
     return adjusted_color
 
 
-__all__ = ['adjust_brightness']
+__all__ = ["adjust_brightness"]

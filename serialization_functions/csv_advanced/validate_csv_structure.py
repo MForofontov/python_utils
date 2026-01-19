@@ -3,9 +3,9 @@ Validate CSV file structure and schema.
 """
 
 import csv
+from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
-from collections.abc import Sequence
 
 
 def validate_csv_structure(
@@ -16,7 +16,7 @@ def validate_csv_structure(
     max_rows: int | None = None,
     required_columns: Sequence[str] | None = None,
     allow_extra_columns: bool = True,
-    encoding: str = 'utf-8',
+    encoding: str = "utf-8",
     **kwargs: Any,
 ) -> tuple[bool, list[str]]:
     """
@@ -87,7 +87,9 @@ def validate_csv_structure(
     """
     # Type validation
     if not isinstance(file_path, (str, Path)):
-        raise TypeError(f"file_path must be str or Path, got {type(file_path).__name__}")
+        raise TypeError(
+            f"file_path must be str or Path, got {type(file_path).__name__}"
+        )
     if expected_columns is not None and not isinstance(expected_columns, (list, tuple)):
         raise TypeError(
             f"expected_columns must be a sequence or None, got {type(expected_columns).__name__}"
@@ -120,7 +122,7 @@ def validate_csv_structure(
     errors: list[str] = []
 
     try:
-        with open(file_path, 'r', encoding=encoding, newline='') as csvfile:
+        with open(file_path, encoding=encoding, newline="") as csvfile:
             reader = csv.DictReader(csvfile, **kwargs)
 
             # Get actual columns
@@ -170,4 +172,4 @@ def validate_csv_structure(
     return is_valid, errors
 
 
-__all__ = ['validate_csv_structure']
+__all__ = ["validate_csv_structure"]

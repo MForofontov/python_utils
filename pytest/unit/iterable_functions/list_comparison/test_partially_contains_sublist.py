@@ -1,6 +1,8 @@
 from typing import Any
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
 from iterable_functions.list_comparison.partially_contains_sublist import (
     partially_contains_sublist,
 )

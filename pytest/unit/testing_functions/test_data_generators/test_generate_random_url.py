@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.testing]
 from testing_functions.test_data_generators.generate_random_url import (
     generate_random_url,
 )
@@ -10,11 +12,11 @@ def test_generate_random_url_default_parameters() -> None:
     """
     # Act
     result = generate_random_url()
-    
+
     # Assert
     assert isinstance(result, str)
-    assert result.startswith('https://example.com/')
-    assert result.count('/') >= 3
+    assert result.startswith("https://example.com/")
+    assert result.count("/") >= 3
 
 
 def test_generate_random_url_custom_protocol() -> None:
@@ -23,9 +25,9 @@ def test_generate_random_url_custom_protocol() -> None:
     """
     # Act
     result = generate_random_url("http")
-    
+
     # Assert
-    assert result.startswith('http://')
+    assert result.startswith("http://")
 
 
 def test_generate_random_url_custom_domain() -> None:
@@ -34,9 +36,9 @@ def test_generate_random_url_custom_domain() -> None:
     """
     # Act
     result = generate_random_url("https", "test.org")
-    
+
     # Assert
-    assert 'test.org' in result
+    assert "test.org" in result
 
 
 def test_generate_random_url_zero_path_length() -> None:
@@ -45,7 +47,7 @@ def test_generate_random_url_zero_path_length() -> None:
     """
     # Act
     result = generate_random_url("https", "example.com", 0)
-    
+
     # Assert
     assert result == "https://example.com"
 
@@ -56,10 +58,10 @@ def test_generate_random_url_custom_path_length() -> None:
     """
     # Act
     result = generate_random_url("https", "example.com", 5)
-    
+
     # Assert
     path = result.replace("https://example.com/", "")
-    assert path.count('/') == 4  # 5 segments means 4 slashes
+    assert path.count("/") == 4  # 5 segments means 4 slashes
 
 
 def test_generate_random_url_type_error_protocol() -> None:

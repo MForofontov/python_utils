@@ -32,16 +32,16 @@ def get_memory_info() -> dict[str, int | float]:
     Time: O(1), Space: O(1)
     """
     memory = psutil.virtual_memory()
-    
+
     return {
         "total": memory.total,
         "available": memory.available,
         "used": memory.used,
         "free": memory.free,
         "percent_used": memory.percent,
-        "cached": memory.cached if hasattr(memory, 'cached') else None,
-        "buffers": memory.buffers if hasattr(memory, 'buffers') else None,
+        "cached": memory.cached if hasattr(memory, "cached") else None,
+        "buffers": memory.buffers if hasattr(memory, "buffers") else None,
     }
 
 
-__all__ = ['get_memory_info']
+__all__ = ["get_memory_info"]

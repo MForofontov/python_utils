@@ -58,11 +58,11 @@ def find_elements_by_id(
         )
     if not isinstance(element_id, str):
         raise TypeError(f"element_id must be a string, got {type(element_id).__name__}")
-    
+
     if not element_id.strip():
         raise ValueError("element_id cannot be empty")
-    
+
     return element.find(id=element_id)
 
 
-__all__ = ['find_elements_by_id']
+__all__ = ["find_elements_by_id"]

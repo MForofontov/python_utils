@@ -49,11 +49,13 @@ def hex_to_rgb(hex_color: str) -> tuple[int, int, int]:
         raise TypeError(f"hex_color must be a string, got {type(hex_color).__name__}")
 
     # Remove '#' if present
-    hex_color = hex_color.lstrip('#')
+    hex_color = hex_color.lstrip("#")
 
     # Value validation
     if len(hex_color) != 6:
-        raise ValueError(f"hex_color must be 6 characters (excluding #), got '{hex_color}'")
+        raise ValueError(
+            f"hex_color must be 6 characters (excluding #), got '{hex_color}'"
+        )
 
     try:
         r = int(hex_color[0:2], 16)
@@ -66,4 +68,4 @@ def hex_to_rgb(hex_color: str) -> tuple[int, int, int]:
     return (r, g, b)
 
 
-__all__ = ['hex_to_rgb']
+__all__ = ["hex_to_rgb"]

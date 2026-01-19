@@ -44,4 +44,3 @@ __all__ = [
     "list_files",
     "list_directories",
 ]
-

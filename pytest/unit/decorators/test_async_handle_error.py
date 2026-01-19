@@ -1,6 +1,8 @@
 import logging
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.decorators]
 from decorators.async_handle_error import async_handle_error
 
 # Configure test_logger

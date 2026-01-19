@@ -3,6 +3,8 @@ from typing import Any
 from unittest.mock import MagicMock, patch
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.asyncio_functions]
 from asyncio_functions.async_download import async_download
 
 

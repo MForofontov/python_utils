@@ -53,4 +53,4 @@ def list_files(directory_path: str, include_hidden: bool = False) -> list[str]:
     return sorted(files)
 
 
-__all__ = ['list_files']
+__all__ = ["list_files"]

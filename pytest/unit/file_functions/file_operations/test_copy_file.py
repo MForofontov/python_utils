@@ -2,6 +2,8 @@ import tempfile
 from pathlib import Path
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
 from file_functions.file_operations.copy_file import copy_file
 
 

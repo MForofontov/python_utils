@@ -32,4 +32,4 @@ def reset_theme() -> None:
     logger.info("Reset theme to matplotlib defaults")
 
 
-__all__ = ['reset_theme']
+__all__ = ["reset_theme"]

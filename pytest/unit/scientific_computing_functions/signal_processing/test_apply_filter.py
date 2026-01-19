@@ -7,11 +7,20 @@ Tests cover:
 - Error cases: invalid types, empty data, invalid parameters
 """
 
-import numpy as np
-import pytest
+try:
+    import numpy as np
+    import scipy
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    np = None  # type: ignore
+    scipy = None  # type: ignore
 
+import pytest
 from scientific_computing_functions.signal_processing.apply_filter import apply_filter
 
+pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy/scipy not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.scientific_computing]
 
 # ========== Normal Operation Tests ==========
 
@@ -20,10 +29,10 @@ def test_apply_filter_lowpass_default() -> None:
     """Test case 1: Lowpass filter with default parameters."""
     # Arrange
     data = [1, 2, 3, 4, 5, 4, 3, 2, 1]
-    
+
     # Act
     result = apply_filter(data, order=1)
-    
+
     # Assert
     assert "filtered_signal" in result
     assert "filter_b" in result
@@ -38,10 +47,10 @@ def test_apply_filter_highpass() -> None:
     """Test case 2: Highpass filter."""
     # Arrange
     data = [1, 2, 3, 4, 5, 4, 3, 2, 1]
-    
+
     # Act
     result = apply_filter(data, filter_type="highpass", cutoff=0.3, order=1)
-    
+
     # Assert
     assert len(result["filtered_signal"]) == len(data)
     assert np.all(np.isfinite(result["filtered_signal"]))
@@ -52,10 +61,10 @@ def test_apply_filter_bandpass() -> None:
     # Arrange
     data = [1, 2, 3, 4, 5, 5, 4, 3, 2, 1]
     cutoff = (0.1, 0.4)
-    
+
     # Act
     result = apply_filter(data, filter_type="bandpass", cutoff=cutoff, order=1)
-    
+
     # Assert
     assert len(result["filtered_signal"]) == len(data)
     assert np.all(np.isfinite(result["filtered_signal"]))
@@ -66,10 +75,10 @@ def test_apply_filter_bandstop() -> None:
     # Arrange
     data = [1, 2, 3, 4, 5, 5, 4, 3, 2, 1]
     cutoff = (0.2, 0.4)
-    
+
     # Act
     result = apply_filter(data, filter_type="bandstop", cutoff=cutoff, order=1)
-    
+
     # Assert
     assert len(result["filtered_signal"]) == len(data)
     assert np.all(np.isfinite(result["filtered_signal"]))
@@ -79,10 +88,10 @@ def test_apply_filter_cheby1_method() -> None:
     """Test case 5: Chebyshev type 1 filter."""
     # Arrange
     data = [1, 2, 3, 4, 5, 4, 3, 2, 1]
-    
+
     # Act
     result = apply_filter(data, filter_method="cheby1", order=1)
-    
+
     # Assert
     assert len(result["filtered_signal"]) == len(data)
     assert np.all(np.isfinite(result["filtered_signal"]))
@@ -92,10 +101,10 @@ def test_apply_filter_cheby2_method() -> None:
     """Test case 6: Chebyshev type 2 filter."""
     # Arrange
     data = [1, 2, 3, 4, 5, 4, 3, 2, 1]
-    
+
     # Act
     result = apply_filter(data, filter_method="cheby2", order=1)
-    
+
     # Assert
     assert len(result["filtered_signal"]) == len(data)
     assert np.all(np.isfinite(result["filtered_signal"]))
@@ -105,10 +114,10 @@ def test_apply_filter_ellip_method() -> None:
     """Test case 7: Elliptic filter."""
     # Arrange
     data = [1, 2, 3, 4, 5, 4, 3, 2, 1]
-    
+
     # Act
     result = apply_filter(data, filter_method="ellip", order=1)
-    
+
     # Assert
     assert len(result["filtered_signal"]) == len(data)
     assert np.all(np.isfinite(result["filtered_signal"]))
@@ -118,10 +127,10 @@ def test_apply_filter_numpy_array() -> None:
     """Test case 8: Filter with numpy array input."""
     # Arrange
     data = np.array([1.0, 2.0, 3.0, 4.0, 5.0, 4.0, 3.0, 2.0, 1.0])
-    
+
     # Act
     result = apply_filter(data, order=1)
-    
+
     # Assert
     assert len(result["filtered_signal"]) == len(data)
     assert np.all(np.isfinite(result["filtered_signal"]))
@@ -133,10 +142,10 @@ def test_apply_filter_custom_sampling_rate() -> None:
     data = [1, 2, 3, 4, 5, 4, 3, 2, 1]
     sampling_rate = 1000.0
     cutoff_hz = 100.0  # 100 Hz cutoff
-    
+
     # Act
     result = apply_filter(data, cutoff=cutoff_hz, sampling_rate=sampling_rate, order=1)
-    
+
     # Assert
     assert len(result["filtered_signal"]) == len(data)
     assert np.all(np.isfinite(result["filtered_signal"]))
@@ -150,10 +159,10 @@ def test_apply_filter_minimum_valid_signal() -> None:
     # Arrange
     # scipy filtfilt requires minimum length > 3 * max(len(a), len(b))
     data = [1.0, 2.0, 3.0, 4.0, 5.0, 4.0, 3.0, 2.0, 1.0, 0.5]
-    
+
     # Act
     result = apply_filter(data, order=1)
-    
+
     # Assert
     assert len(result["filtered_signal"]) == len(data)
     assert np.all(np.isfinite(result["filtered_signal"]))
@@ -162,11 +171,11 @@ def test_apply_filter_minimum_valid_signal() -> None:
 def test_apply_filter_small_signal() -> None:
     """Test case 11: Edge case with small signal."""
     # Arrange
-    data = list(np.sin(np.linspace(0, 2*np.pi, 20)))
-    
+    data = list(np.sin(np.linspace(0, 2 * np.pi, 20)))
+
     # Act
     result = apply_filter(data, order=1)
-    
+
     # Assert
     assert len(result["filtered_signal"]) == len(data)
     assert np.all(np.isfinite(result["filtered_signal"]))
@@ -177,10 +186,10 @@ def test_apply_filter_very_low_cutoff() -> None:
     # Arrange
     data = list(np.sin(np.linspace(0, 10, 100)))
     cutoff = 0.05  # Low cutoff
-    
+
     # Act
     result = apply_filter(data, cutoff=cutoff, order=2)
-    
+
     # Assert
     assert len(result["filtered_signal"]) == len(data)
     assert np.all(np.isfinite(result["filtered_signal"]))
@@ -191,10 +200,10 @@ def test_apply_filter_very_high_cutoff() -> None:
     # Arrange
     data = [1, 2, 3, 4, 5, 4, 3, 2, 1]
     cutoff = 0.45  # Moderate-high cutoff (below Nyquist)
-    
+
     # Act
     result = apply_filter(data, cutoff=cutoff, order=1)
-    
+
     # Assert
     assert len(result["filtered_signal"]) == len(data)
     assert np.all(np.isfinite(result["filtered_signal"]))
@@ -204,10 +213,10 @@ def test_apply_filter_high_order() -> None:
     """Test case 14: Edge case with high filter order."""
     # Arrange
     data = list(np.sin(np.linspace(0, 10, 100)))
-    
+
     # Act
     result = apply_filter(data, order=10)
-    
+
     # Assert
     assert len(result["filtered_signal"]) == len(data)
     assert np.all(np.isfinite(result["filtered_signal"]))
@@ -217,10 +226,10 @@ def test_apply_filter_large_signal() -> None:
     """Test case 15: Performance test with large signal."""
     # Arrange
     data = list(np.random.randn(10000))
-    
+
     # Act
     result = apply_filter(data)
-    
+
     # Assert
     assert len(result["filtered_signal"]) == len(data)
     assert np.all(np.isfinite(result["filtered_signal"]))
@@ -230,10 +239,10 @@ def test_apply_filter_data_with_nan() -> None:
     """Test case 16: Edge case with NaN values in longer signal."""
     # Arrange
     data = [1.0, 2.0, np.nan, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0]
-    
+
     # Act
     result = apply_filter(data, order=2)
-    
+
     # Assert
     # NaN values should be removed, resulting in shorter signal
     assert len(result["filtered_signal"]) == 11  # 12 - 1 NaN
@@ -248,7 +257,7 @@ def test_apply_filter_invalid_data_type() -> None:
     # Arrange
     invalid_data = "not a list"
     expected_message = "data must be a list or numpy array"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         apply_filter(invalid_data)
@@ -260,7 +269,7 @@ def test_apply_filter_invalid_filter_type_type() -> None:
     data = [1, 2, 3, 4, 5]
     invalid_type = 123
     expected_message = "filter_type must be a string"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         apply_filter(data, filter_type=invalid_type)  # type: ignore
@@ -272,7 +281,7 @@ def test_apply_filter_invalid_filter_type_value() -> None:
     data = [1, 2, 3, 4, 5]
     invalid_type = "invalid"
     expected_message = "filter_type must be"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         apply_filter(data, filter_type=invalid_type)  # type: ignore
@@ -284,7 +293,7 @@ def test_apply_filter_invalid_cutoff_type() -> None:
     data = [1, 2, 3, 4, 5]
     invalid_cutoff = "invalid"
     expected_message = "cutoff must be a number or tuple"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         apply_filter(data, cutoff=invalid_cutoff)  # type: ignore
@@ -296,7 +305,7 @@ def test_apply_filter_invalid_order_type() -> None:
     data = [1, 2, 3, 4, 5]
     invalid_order = 5.5
     expected_message = "order must be an integer"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         apply_filter(data, order=invalid_order)  # type: ignore
@@ -308,7 +317,7 @@ def test_apply_filter_invalid_order_value() -> None:
     data = [1, 2, 3, 4, 5]
     invalid_order = 0
     expected_message = "order must be >= 1"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         apply_filter(data, order=invalid_order)
@@ -320,7 +329,7 @@ def test_apply_filter_negative_order() -> None:
     data = [1, 2, 3, 4, 5]
     invalid_order = -1
     expected_message = "order must be >= 1"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         apply_filter(data, order=invalid_order)
@@ -332,7 +341,7 @@ def test_apply_filter_invalid_filter_method_type() -> None:
     data = [1, 2, 3, 4, 5]
     invalid_method = 123
     expected_message = "filter_method must be a string"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         apply_filter(data, filter_method=invalid_method)  # type: ignore
@@ -344,7 +353,7 @@ def test_apply_filter_invalid_filter_method_value() -> None:
     data = [1, 2, 3, 4, 5]
     invalid_method = "invalid"
     expected_message = "filter_method must be"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         apply_filter(data, filter_method=invalid_method)  # type: ignore
@@ -356,7 +365,7 @@ def test_apply_filter_invalid_sampling_rate_type() -> None:
     data = [1, 2, 3, 4, 5]
     invalid_rate = "invalid"
     expected_message = "sampling_rate must be a number"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         apply_filter(data, sampling_rate=invalid_rate)  # type: ignore
@@ -368,7 +377,7 @@ def test_apply_filter_negative_sampling_rate() -> None:
     data = [1, 2, 3, 4, 5]
     invalid_rate = -1.0
     expected_message = "sampling_rate must be positive"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         apply_filter(data, sampling_rate=invalid_rate)
@@ -380,7 +389,7 @@ def test_apply_filter_zero_sampling_rate() -> None:
     data = [1, 2, 3, 4, 5]
     invalid_rate = 0.0
     expected_message = "sampling_rate must be positive"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         apply_filter(data, sampling_rate=invalid_rate)
@@ -391,7 +400,7 @@ def test_apply_filter_empty_data() -> None:
     # Arrange
     empty_data: list[float] = []
     expected_message = "data cannot be empty"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         apply_filter(empty_data)
@@ -402,7 +411,7 @@ def test_apply_filter_all_nan_data() -> None:
     # Arrange
     nan_data = [np.nan, np.nan, np.nan]
     expected_message = "data contains only NaN values"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         apply_filter(nan_data)
@@ -413,7 +422,7 @@ def test_apply_filter_non_numeric_data() -> None:
     # Arrange
     invalid_data = ["a", "b", "c"]
     expected_message = "data contains non-numeric values"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         apply_filter(invalid_data)
@@ -425,7 +434,7 @@ def test_apply_filter_bandpass_scalar_cutoff() -> None:
     data = [1, 2, 3, 4, 5]
     cutoff = 0.3  # Scalar instead of tuple
     expected_message = "cutoff must be a tuple for bandpass filter"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         apply_filter(data, filter_type="bandpass", cutoff=cutoff)
@@ -437,7 +446,7 @@ def test_apply_filter_bandstop_scalar_cutoff() -> None:
     data = [1, 2, 3, 4, 5]
     cutoff = 0.3  # Scalar instead of tuple
     expected_message = "cutoff must be a tuple for bandstop filter"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         apply_filter(data, filter_type="bandstop", cutoff=cutoff)
@@ -449,7 +458,7 @@ def test_apply_filter_bandpass_wrong_tuple_length() -> None:
     data = [1, 2, 3, 4, 5]
     cutoff = (0.1, 0.2, 0.3)  # 3 elements instead of 2
     expected_message = "cutoff must have 2 elements"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         apply_filter(data, filter_type="bandpass", cutoff=cutoff)
@@ -461,7 +470,7 @@ def test_apply_filter_bandpass_inverted_cutoff() -> None:
     data = [1, 2, 3, 4, 5]
     cutoff = (0.4, 0.2)  # Low > High
     expected_message = "cutoff\\[0\\] must be < cutoff\\[1\\]"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         apply_filter(data, filter_type="bandpass", cutoff=cutoff)
@@ -473,7 +482,7 @@ def test_apply_filter_bandpass_equal_cutoff() -> None:
     data = [1, 2, 3, 4, 5]
     cutoff = (0.3, 0.3)  # Low == High
     expected_message = "cutoff\\[0\\] must be < cutoff\\[1\\]"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         apply_filter(data, filter_type="bandpass", cutoff=cutoff)
@@ -485,7 +494,7 @@ def test_apply_filter_lowpass_tuple_cutoff() -> None:
     data = [1, 2, 3, 4, 5]
     cutoff = (0.2, 0.4)  # Tuple instead of scalar
     expected_message = "cutoff must be a scalar for lowpass filter"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         apply_filter(data, filter_type="lowpass", cutoff=cutoff)
@@ -497,7 +506,7 @@ def test_apply_filter_highpass_tuple_cutoff() -> None:
     data = [1, 2, 3, 4, 5]
     cutoff = (0.2, 0.4)  # Tuple instead of scalar
     expected_message = "cutoff must be a scalar for highpass filter"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         apply_filter(data, filter_type="highpass", cutoff=cutoff)
@@ -509,7 +518,7 @@ def test_apply_filter_cutoff_out_of_range_low() -> None:
     data = [1, 2, 3, 4, 5]
     cutoff = 0.0  # Zero normalized cutoff
     expected_message = "normalized cutoff must be between 0 and 1"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         apply_filter(data, cutoff=cutoff)
@@ -521,7 +530,7 @@ def test_apply_filter_cutoff_out_of_range_high() -> None:
     data = [1, 2, 3, 4, 5]
     cutoff = 1.0  # Equals Nyquist
     expected_message = "normalized cutoff must be between 0 and 1"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         apply_filter(data, cutoff=cutoff)
@@ -533,7 +542,7 @@ def test_apply_filter_bandpass_cutoff_out_of_range() -> None:
     data = [1, 2, 3, 4, 5]
     cutoff = (0.0, 0.5)  # Low frequency is 0
     expected_message = "normalized cutoff frequencies must be between 0 and 1"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         apply_filter(data, filter_type="bandpass", cutoff=cutoff)

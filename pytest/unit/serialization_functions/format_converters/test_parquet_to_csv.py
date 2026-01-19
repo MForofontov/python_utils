@@ -2,13 +2,23 @@
 Unit tests for parquet_to_csv function.
 """
 
-from pathlib import Path
 import tempfile
+from pathlib import Path
+
+try:
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+    PYARROW_AVAILABLE = True
+except ImportError:
+    PYARROW_AVAILABLE = False
+    pa = None  # type: ignore
+    pq = None  # type: ignore
 
 import pytest
-import pyarrow as pa
-import pyarrow.parquet as pq
 from serialization_functions.format_converters.parquet_to_csv import parquet_to_csv
+
+pytestmark = pytest.mark.skipif(not PYARROW_AVAILABLE, reason="pyarrow not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]
 
 
 def test_parquet_to_csv_basic() -> None:
@@ -33,7 +43,7 @@ def test_parquet_to_csv_basic() -> None:
         assert csv_file.exists()
 
         # Verify CSV content
-        with open(csv_file, "r") as f:
+        with open(csv_file) as f:
             lines = f.readlines()
             assert len(lines) == 3  # header + 2 rows
             assert "id,name,age" in lines[0]
@@ -56,7 +66,7 @@ def test_parquet_to_csv_select_columns() -> None:
 
         assert rows == 1
 
-        with open(csv_file, "r") as f:
+        with open(csv_file) as f:
             header = f.readline()
             assert "id,name" in header
             assert "email" not in header
@@ -116,7 +126,7 @@ def test_parquet_to_csv_no_header() -> None:
 
         parquet_to_csv(parquet_file, csv_file, include_header=False)
 
-        with open(csv_file, "r") as f:
+        with open(csv_file) as f:
             lines = f.readlines()
             assert len(lines) == 1  # only data row, no header
             assert "id" not in lines[0]
@@ -137,7 +147,7 @@ def test_parquet_to_csv_custom_delimiter() -> None:
 
         parquet_to_csv(parquet_file, tsv_file, delimiter="\t")
 
-        with open(tsv_file, "r") as f:
+        with open(tsv_file) as f:
             header = f.readline()
             assert "\t" in header
             assert "," not in header

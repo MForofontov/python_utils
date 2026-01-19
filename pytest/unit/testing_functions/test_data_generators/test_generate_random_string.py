@@ -1,6 +1,8 @@
 import string
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.testing]
 from testing_functions.test_data_generators.generate_random_string import (
     generate_random_string,
 )
@@ -12,7 +14,7 @@ def test_generate_random_string_default_parameters() -> None:
     """
     # Act
     result = generate_random_string()
-    
+
     # Assert
     assert isinstance(result, str)
     assert len(result) == 10
@@ -25,10 +27,10 @@ def test_generate_random_string_custom_length() -> None:
     """
     # Arrange
     length = 20
-    
+
     # Act
     result = generate_random_string(length)
-    
+
     # Assert
     assert len(result) == 20
 
@@ -39,10 +41,10 @@ def test_generate_random_string_custom_charset() -> None:
     """
     # Arrange
     charset = "ABC123"
-    
+
     # Act
     result = generate_random_string(10, charset)
-    
+
     # Assert
     assert all(c in charset for c in result)
 
@@ -53,7 +55,7 @@ def test_generate_random_string_single_character() -> None:
     """
     # Act
     result = generate_random_string(1)
-    
+
     # Assert
     assert len(result) == 1
 

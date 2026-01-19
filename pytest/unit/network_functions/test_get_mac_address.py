@@ -1,6 +1,8 @@
 from unittest.mock import patch
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
 from network_functions.get_mac_address import get_mac_address
 
 

@@ -3,11 +3,29 @@ Unit tests for apply_theme function.
 """
 
 import pytest
-import matplotlib
-matplotlib.use('Agg')  # Use non-GUI backend for testing
-import matplotlib.pyplot as plt
-from data_visualization_functions.chart_configuration.apply_theme import apply_theme
-from data_visualization_functions.chart_configuration.chart_theme import ChartTheme
+
+# Try to import matplotlib - tests will be skipped if not available
+try:
+    import matplotlib
+
+    matplotlib.use("Agg")  # Use non-GUI backend for testing
+    import matplotlib.pyplot as plt
+
+    from data_visualization_functions.chart_configuration.apply_theme import apply_theme
+    from data_visualization_functions.chart_configuration.chart_theme import ChartTheme
+
+    MATPLOTLIB_AVAILABLE = True
+except ImportError:
+    MATPLOTLIB_AVAILABLE = False
+    matplotlib = None  # type: ignore
+    plt = None  # type: ignore
+    apply_theme = None  # type: ignore
+    ChartTheme = None  # type: ignore
+
+pytestmark = pytest.mark.skipif(
+    not MATPLOTLIB_AVAILABLE, reason="matplotlib not installed"
+)
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.data_visualization]
 
 
 def test_apply_theme_basic():
@@ -16,18 +34,15 @@ def test_apply_theme_basic():
     """
     # Arrange
     theme = ChartTheme(
-        name='test',
-        background_color='white',
-        grid_color='gray',
-        title_fontsize=14
+        name="test", background_color="white", grid_color="gray", title_fontsize=14
     )
-    
+
     # Act
     apply_theme(theme)
-    
+
     # Assert
-    assert plt.rcParams['figure.facecolor'] == 'white'
-    assert plt.rcParams['axes.titlesize'] == 14
+    assert plt.rcParams["figure.facecolor"] == "white"
+    assert plt.rcParams["axes.titlesize"] == 14
 
 
 def test_apply_theme_dark():
@@ -36,18 +51,15 @@ def test_apply_theme_dark():
     """
     # Arrange
     theme = ChartTheme(
-        name='dark',
-        background_color='black',
-        grid_color='#333333',
-        title_fontsize=16
+        name="dark", background_color="black", grid_color="#333333", title_fontsize=16
     )
-    
+
     # Act
     apply_theme(theme)
-    
+
     # Assert
-    assert plt.rcParams['figure.facecolor'] == 'black'
-    assert plt.rcParams['axes.titlesize'] == 16
+    assert plt.rcParams["figure.facecolor"] == "black"
+    assert plt.rcParams["axes.titlesize"] == 16
 
 
 def test_apply_theme_custom_fonts():
@@ -56,21 +68,21 @@ def test_apply_theme_custom_fonts():
     """
     # Arrange
     theme = ChartTheme(
-        name='custom',
-        background_color='white',
-        grid_color='gray',
+        name="custom",
+        background_color="white",
+        grid_color="gray",
         title_fontsize=18,
         label_fontsize=14,
-        tick_fontsize=12
+        tick_fontsize=12,
     )
-    
+
     # Act
     apply_theme(theme)
-    
+
     # Assert
-    assert plt.rcParams['axes.titlesize'] == 18
-    assert plt.rcParams['axes.labelsize'] == 14
-    assert plt.rcParams['xtick.labelsize'] == 12
+    assert plt.rcParams["axes.titlesize"] == 18
+    assert plt.rcParams["axes.labelsize"] == 14
+    assert plt.rcParams["xtick.labelsize"] == 12
 
 
 def test_apply_theme_color_cycle():
@@ -78,20 +90,17 @@ def test_apply_theme_color_cycle():
     Test case 4: Apply theme with custom color cycle.
     """
     # Arrange
-    colors = ['#FF0000', '#00FF00', '#0000FF']
+    colors = ["#FF0000", "#00FF00", "#0000FF"]
     theme = ChartTheme(
-        name='colors',
-        background_color='white',
-        grid_color='gray',
-        color_cycle=colors
+        name="colors", background_color="white", grid_color="gray", color_cycle=colors
     )
-    
+
     # Act
     apply_theme(theme)
-    
+
     # Assert
     # Color cycle is set in rcParams
-    assert 'axes.prop_cycle' in plt.rcParams
+    assert "axes.prop_cycle" in plt.rcParams
 
 
 def test_apply_theme_invalid_type_raises_error():
@@ -99,9 +108,9 @@ def test_apply_theme_invalid_type_raises_error():
     Test case 5: TypeError for invalid theme type.
     """
     # Arrange
-    invalid_theme = {'name': 'dict'}
+    invalid_theme = {"name": "dict"}
     expected_message = "theme must be a ChartTheme instance"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         apply_theme(invalid_theme)
@@ -112,8 +121,8 @@ def test_apply_theme_none_raises_error():
     Test case 6: TypeError for None theme.
     """
     # Arrange
-    expected_message = "theme cannot be None"
-    
+    expected_message = "theme must be a ChartTheme instance"
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         apply_theme(None)
@@ -125,30 +134,15 @@ def test_apply_theme_grid_settings():
     """
     # Arrange
     theme = ChartTheme(
-        name='grid',
-        background_color='white',
-        grid_color='lightgray',
-        grid_alpha=0.5
+        name="grid", background_color="white", grid_color="lightgray", grid_alpha=0.5
     )
-    
+
     # Act
     apply_theme(theme)
-    
+
     # Assert
-    assert plt.rcParams['grid.color'] == 'lightgray'
-    assert plt.rcParams['grid.alpha'] == 0.5
+    assert plt.rcParams["grid.color"] == "lightgray"
+    assert plt.rcParams["grid.alpha"] == 0.5
 
 
-def test_apply_theme_none_raises_error():
-    """
-    Test case 8: TypeError when theme_name is None.
-    """
-    # Arrange
-    expected_message = "theme must be|cannot be None"
-    
-    # Act & Assert
-    with pytest.raises((TypeError, ValueError), match=expected_message):
-        apply_theme(None)
-
-
-__all__ = ['test_apply_theme_basic']
+__all__ = ["test_apply_theme_basic"]

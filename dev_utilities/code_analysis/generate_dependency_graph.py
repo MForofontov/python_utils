@@ -2,7 +2,6 @@
 
 import ast
 from pathlib import Path
-from typing import Any
 
 
 def generate_dependency_graph(
@@ -144,7 +143,7 @@ def generate_dependency_graph(
 
 def _generate_dot_format(dependencies: dict[str, set[str]]) -> str:
     """Generate DOT format for Graphviz."""
-    lines = ["digraph dependencies {", '    rankdir="LR";', '    node [shape=box];', ""]
+    lines = ["digraph dependencies {", '    rankdir="LR";', "    node [shape=box];", ""]
 
     for module, imports in sorted(dependencies.items()):
         for imported in sorted(imports):
@@ -159,7 +158,9 @@ def _generate_json_format(dependencies: dict[str, set[str]]) -> str:
     import json
 
     # Convert sets to lists for JSON serialization
-    json_deps = {module: sorted(list(imports)) for module, imports in dependencies.items()}
+    json_deps = {
+        module: sorted(list(imports)) for module, imports in dependencies.items()
+    }
     return json.dumps(json_deps, indent=2)
 
 

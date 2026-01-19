@@ -37,10 +37,10 @@ def restriction_site_finder(
     """
     if not sites:
         raise ValueError("sites cannot be empty")
-    
+
     # Convert sequence and sites to uppercase for case-insensitive matching
     sequence_upper = sequence.upper()
-    
+
     results: dict[str, list[int]] = {}
     for site in sites:
         site_upper = site.upper()
@@ -53,7 +53,7 @@ def restriction_site_finder(
             positions.append(idx)
             start = idx + 1
         results[site_upper] = positions
-    
+
     return results
 
 

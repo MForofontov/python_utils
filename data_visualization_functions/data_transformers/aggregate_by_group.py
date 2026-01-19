@@ -3,9 +3,10 @@ Aggregate data by group with various statistics.
 """
 
 import logging
-import numpy as np
 from collections.abc import Callable
 from typing import Any
+
+import numpy as np
 
 logger = logging.getLogger(__name__)
 
@@ -13,7 +14,7 @@ logger = logging.getLogger(__name__)
 def aggregate_by_group(
     data: list[float] | np.ndarray,
     groups: list[Any] | np.ndarray,
-    agg_func: str | Callable = 'mean',
+    agg_func: str | Callable = "mean",
 ) -> dict[Any, float]:
     """
     Aggregate data by group with various statistics.
@@ -90,13 +91,13 @@ def aggregate_by_group(
     # Get aggregation function
     if isinstance(agg_func, str):
         agg_functions = {
-            'mean': np.mean,
-            'sum': np.sum,
-            'median': np.median,
-            'min': np.min,
-            'max': np.max,
-            'std': np.std,
-            'count': len,
+            "mean": np.mean,
+            "sum": np.sum,
+            "median": np.median,
+            "min": np.min,
+            "max": np.max,
+            "std": np.std,
+            "count": len,
         }
 
         if agg_func not in agg_functions:
@@ -128,4 +129,4 @@ def aggregate_by_group(
     return result
 
 
-__all__ = ['aggregate_by_group']
+__all__ = ["aggregate_by_group"]

@@ -1,3 +1,6 @@
+import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.logger_functions]
 import logging
 import re
 import time

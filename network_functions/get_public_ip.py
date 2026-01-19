@@ -5,7 +5,6 @@ from typing import Final
 
 import requests
 
-
 _PUBLIC_IP_ENDPOINT: Final[str] = "https://api.ipify.org"
 
 

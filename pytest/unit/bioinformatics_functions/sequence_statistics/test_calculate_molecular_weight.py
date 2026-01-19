@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
 from bioinformatics_functions.sequence_statistics.calculate_molecular_weight import (
     calculate_molecular_weight,
 )

@@ -5,8 +5,8 @@ Filter Parquet file by column values.
 from typing import Any
 
 import pyarrow as pa
-import pyarrow.parquet as pq
 import pyarrow.compute as pc
+import pyarrow.parquet as pq
 
 
 def filter_parquet(
@@ -61,14 +61,16 @@ def filter_parquet(
     """
     if not isinstance(file_path, str):
         raise TypeError(f"file_path must be a string, got {type(file_path).__name__}")
-    
+
     if not isinstance(filters, list):
         raise TypeError(f"filters must be a list, got {type(filters).__name__}")
-    
+
     if columns is not None:
         if not isinstance(columns, list):
-            raise TypeError(f"columns must be a list or None, got {type(columns).__name__}")
-    
+            raise TypeError(
+                f"columns must be a list or None, got {type(columns).__name__}"
+            )
+
     # Validate filters
     for f in filters:
         if not isinstance(f, tuple) or len(f) != 3:
@@ -78,54 +80,58 @@ def filter_parquet(
             raise ValueError("Filter column must be a string")
         if not isinstance(op, str):
             raise ValueError("Filter operator must be a string")
-    
+
     # Read table (without column selection initially to allow filtering on all columns)
     table = pq.read_table(file_path)
-    
+
     # Apply filters
     mask = None
     for col, op, val in filters:
         column = table.column(col)
-        
-        if op == '=':
+
+        if op == "=":
             condition = pc.equal(column, val)
-        elif op == '!=':
+        elif op == "!=":
             condition = pc.not_equal(column, val)
-        elif op == '<':
+        elif op == "<":
             condition = pc.less(column, val)
-        elif op == '>':
+        elif op == ">":
             condition = pc.greater(column, val)
-        elif op == '<=':
+        elif op == "<=":
             condition = pc.less_equal(column, val)
-        elif op == '>=':
+        elif op == ">=":
             condition = pc.greater_equal(column, val)
-        elif op == 'in':
+        elif op == "in":
             if not isinstance(val, (list, tuple)):
-                raise ValueError(f"Value for 'in' operator must be list or tuple, got {type(val).__name__}")
+                raise ValueError(
+                    f"Value for 'in' operator must be list or tuple, got {type(val).__name__}"
+                )
             condition = pc.is_in(column, pa.array(val))
-        elif op == 'not in':
+        elif op == "not in":
             if not isinstance(val, (list, tuple)):
-                raise ValueError(f"Value for 'not in' operator must be list or tuple, got {type(val).__name__}")
+                raise ValueError(
+                    f"Value for 'not in' operator must be list or tuple, got {type(val).__name__}"
+                )
             condition = pc.invert(pc.is_in(column, pa.array(val)))
         else:
             raise ValueError(f"Unsupported operator: {op}")
-        
+
         if mask is None:
             mask = condition
         else:
             mask = pc.and_(mask, condition)
-    
+
     # Filter table
     if mask is not None:
         filtered_table = table.filter(mask)
     else:
         filtered_table = table
-    
+
     # Select columns if specified
     if columns is not None:
         filtered_table = filtered_table.select(columns)
-    
+
     return filtered_table.to_pylist()  # type: ignore[no-any-return]
 
 
-__all__ = ['filter_parquet']
+__all__ = ["filter_parquet"]

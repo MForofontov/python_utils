@@ -1,6 +1,8 @@
 import asyncio
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.asyncio_functions]
 from asyncio_functions.async_event_loop import async_event_loop
 
 

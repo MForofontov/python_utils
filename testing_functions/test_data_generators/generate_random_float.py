@@ -53,14 +53,14 @@ def generate_random_float(
         raise TypeError(f"max_value must be a number, got {type(max_value).__name__}")
     if not isinstance(precision, int):
         raise TypeError(f"precision must be an integer, got {type(precision).__name__}")
-    
+
     if min_value > max_value:
         raise ValueError(f"min_value ({min_value}) must be <= max_value ({max_value})")
     if precision < 0:
         raise ValueError(f"precision must be non-negative, got {precision}")
-    
+
     value = random.uniform(min_value, max_value)
     return round(value, precision)
 
 
-__all__ = ['generate_random_float']
+__all__ = ["generate_random_float"]

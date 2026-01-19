@@ -18,4 +18,3 @@ __all__ = [
     "get_paths_in_directory_with_suffix",
     "join_paths",
 ]
-

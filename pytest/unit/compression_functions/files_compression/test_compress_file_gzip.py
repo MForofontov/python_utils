@@ -2,6 +2,8 @@ import gzip
 import os
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.compression]
 from compression_functions.files_compression.compress_file_gzip import (
     compress_file_gzip,
 )

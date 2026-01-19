@@ -48,10 +48,10 @@ def assert_almost_equal(
         raise TypeError(f"expected must be a number, got {type(expected).__name__}")
     if not isinstance(tolerance, (int, float)):
         raise TypeError(f"tolerance must be a number, got {type(tolerance).__name__}")
-    
+
     if tolerance < 0:
         raise ValueError(f"tolerance must be non-negative, got {tolerance}")
-    
+
     diff = abs(actual - expected)
     if diff > tolerance:
         raise AssertionError(
@@ -60,4 +60,4 @@ def assert_almost_equal(
         )
 
 
-__all__ = ['assert_almost_equal']
+__all__ = ["assert_almost_equal"]

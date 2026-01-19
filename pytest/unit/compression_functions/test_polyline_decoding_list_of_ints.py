@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.compression]
 from compression_functions.polyline_decoding_list_of_ints import (
     polyline_decoding_list_of_ints,
 )

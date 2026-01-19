@@ -4,6 +4,8 @@ import subprocess
 from unittest.mock import MagicMock, patch
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.ssh_functions]
 from ssh_functions.local.ssh_check_connection import ssh_check_connection
 
 
@@ -12,9 +14,7 @@ def test_ssh_check_connection_successful() -> None:
     Test case 1: Successful connection check.
     """
     with patch("subprocess.run") as mock_run:
-        mock_run.return_value = MagicMock(
-            stdout="", stderr="", returncode=0
-        )
+        mock_run.return_value = MagicMock(stdout="", stderr="", returncode=0)
         result = ssh_check_connection("host", user="user")
         assert result["success"] is True
         assert result["exit_code"] == 0
@@ -25,9 +25,7 @@ def test_ssh_check_connection_failed() -> None:
     Test case 2: Failed connection check.
     """
     with patch("subprocess.run") as mock_run:
-        mock_run.return_value = MagicMock(
-            stdout="", stderr="error", returncode=1
-        )
+        mock_run.return_value = MagicMock(stdout="", stderr="error", returncode=1)
         result = ssh_check_connection("host", user="user")
         assert result["success"] is False
         assert result["exit_code"] == 1
@@ -38,9 +36,7 @@ def test_ssh_check_connection_with_custom_port() -> None:
     Test case 3: Connection check with custom port.
     """
     with patch("subprocess.run") as mock_run:
-        mock_run.return_value = MagicMock(
-            stdout="", stderr="", returncode=0
-        )
+        mock_run.return_value = MagicMock(stdout="", stderr="", returncode=0)
         result = ssh_check_connection("host", user="user", port=2222)
         assert result["success"] is True
 
@@ -50,9 +46,7 @@ def test_ssh_check_connection_without_user() -> None:
     Test case 4: Connection check without specifying user.
     """
     with patch("subprocess.run") as mock_run:
-        mock_run.return_value = MagicMock(
-            stdout="", stderr="", returncode=0
-        )
+        mock_run.return_value = MagicMock(stdout="", stderr="", returncode=0)
         result = ssh_check_connection("host")
         assert result["success"] is True
 
@@ -62,9 +56,7 @@ def test_ssh_check_connection_boundary_port_min() -> None:
     Test case 5: Connection check with minimum port value.
     """
     with patch("subprocess.run") as mock_run:
-        mock_run.return_value = MagicMock(
-            stdout="", stderr="", returncode=0
-        )
+        mock_run.return_value = MagicMock(stdout="", stderr="", returncode=0)
         result = ssh_check_connection("host", port=1)
         assert result["success"] is True
 
@@ -74,9 +66,7 @@ def test_ssh_check_connection_boundary_port_max() -> None:
     Test case 6: Connection check with maximum port value.
     """
     with patch("subprocess.run") as mock_run:
-        mock_run.return_value = MagicMock(
-            stdout="", stderr="", returncode=0
-        )
+        mock_run.return_value = MagicMock(stdout="", stderr="", returncode=0)
         result = ssh_check_connection("host", port=65535)
         assert result["success"] is True
 

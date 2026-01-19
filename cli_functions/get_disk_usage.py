@@ -49,4 +49,4 @@ def get_disk_usage(path: str = "/") -> dict[str, int | float]:
     }
 
 
-__all__ = ['get_disk_usage']
+__all__ = ["get_disk_usage"]

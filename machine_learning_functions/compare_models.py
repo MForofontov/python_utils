@@ -4,6 +4,7 @@ Compare multiple models on the same dataset.
 
 import logging
 from typing import Any
+
 import numpy as np
 from sklearn.model_selection import cross_val_score
 
@@ -17,7 +18,7 @@ def compare_models(
     X_test: np.ndarray,
     y_test: np.ndarray,
     cv_folds: int = 5,
-    scoring: str = 'accuracy',
+    scoring: str = "accuracy",
 ) -> dict[str, dict[str, float]]:
     """
     Compare multiple models on the same dataset with train/test and CV scores.
@@ -75,7 +76,7 @@ def compare_models(
     Notes
     -----
     Fits each model and evaluates with train, test, and cross-validation scores.
-    
+
     Use battle-tested libraries: Built on sklearn's cross_val_score and scoring.
     Adds value through: convenient comparison interface and comprehensive metrics.
 
@@ -104,18 +105,24 @@ def compare_models(
     if len(models) == 0:
         raise ValueError("models dictionary cannot be empty")
     if X_train.shape[0] != y_train.shape[0]:
-        raise ValueError(f"X_train and y_train must have same number of samples: {X_train.shape[0]} != {y_train.shape[0]}")
+        raise ValueError(
+            f"X_train and y_train must have same number of samples: {X_train.shape[0]} != {y_train.shape[0]}"
+        )
     if X_test.shape[0] != y_test.shape[0]:
-        raise ValueError(f"X_test and y_test must have same number of samples: {X_test.shape[0]} != {y_test.shape[0]}")
+        raise ValueError(
+            f"X_test and y_test must have same number of samples: {X_test.shape[0]} != {y_test.shape[0]}"
+        )
     if X_train.shape[1] != X_test.shape[1]:
-        raise ValueError(f"X_train and X_test must have same number of features: {X_train.shape[1]} != {X_test.shape[1]}")
+        raise ValueError(
+            f"X_train and X_test must have same number of features: {X_train.shape[1]} != {X_test.shape[1]}"
+        )
     if cv_folds < 2:
         raise ValueError(f"cv_folds must be >= 2, got {cv_folds}")
 
     results = {}
 
     for name, model in models.items():
-        if not hasattr(model, 'fit') or not hasattr(model, 'score'):
+        if not hasattr(model, "fit") or not hasattr(model, "score"):
             raise ValueError(f"Model '{name}' must have fit and score methods")
 
         # Fit model
@@ -126,18 +133,22 @@ def compare_models(
         test_score = model.score(X_test, y_test)
 
         # Cross-validation
-        cv_scores = cross_val_score(model, X_train, y_train, cv=cv_folds, scoring=scoring)
+        cv_scores = cross_val_score(
+            model, X_train, y_train, cv=cv_folds, scoring=scoring
+        )
 
         results[name] = {
-            'train_score': float(train_score),
-            'test_score': float(test_score),
-            'cv_mean': float(np.mean(cv_scores)),
-            'cv_std': float(np.std(cv_scores)),
+            "train_score": float(train_score),
+            "test_score": float(test_score),
+            "cv_mean": float(np.mean(cv_scores)),
+            "cv_std": float(np.std(cv_scores)),
         }
 
-        logger.debug(f"Model '{name}': test={test_score:.4f}, cv={np.mean(cv_scores):.4f}±{np.std(cv_scores):.4f}")
+        logger.debug(
+            f"Model '{name}': test={test_score:.4f}, cv={np.mean(cv_scores):.4f}±{np.std(cv_scores):.4f}"
+        )
 
     return results
 
 
-__all__ = ['compare_models']
+__all__ = ["compare_models"]

@@ -3,8 +3,9 @@ Pivot data for heatmap visualization.
 """
 
 import logging
-import numpy as np
 from typing import Any
+
+import numpy as np
 
 logger = logging.getLogger(__name__)
 
@@ -13,7 +14,7 @@ def pivot_for_heatmap(
     data: list[float] | np.ndarray,
     row_labels: list[Any] | np.ndarray,
     col_labels: list[Any] | np.ndarray,
-    agg_func: str = 'mean',
+    agg_func: str = "mean",
 ) -> tuple[np.ndarray, list[Any], list[Any]]:
     """
     Pivot data for heatmap visualization.
@@ -96,7 +97,7 @@ def pivot_for_heatmap(
         )
 
     # Validate aggregation function
-    valid_funcs = ['mean', 'sum', 'median', 'min', 'max', 'count']
+    valid_funcs = ["mean", "sum", "median", "min", "max", "count"]
     if agg_func not in valid_funcs:
         raise ValueError(f"agg_func must be one of {valid_funcs}, got '{agg_func}'")
 
@@ -115,19 +116,20 @@ def pivot_for_heatmap(
 
     # Aggregate data into cells
     from collections import defaultdict
+
     cell_values = defaultdict(list)
 
-    for value, row, col in zip(data_array, row_array, col_array):
+    for value, row, col in zip(data_array, row_array, col_array, strict=False):
         cell_values[(row, col)].append(value)
 
     # Apply aggregation function
     agg_functions = {
-        'mean': np.mean,
-        'sum': np.sum,
-        'median': np.median,
-        'min': np.min,
-        'max': np.max,
-        'count': len,
+        "mean": np.mean,
+        "sum": np.sum,
+        "median": np.median,
+        "min": np.min,
+        "max": np.max,
+        "count": len,
     }
     func = agg_functions[agg_func]
 
@@ -140,4 +142,4 @@ def pivot_for_heatmap(
     return matrix, unique_rows, unique_cols
 
 
-__all__ = ['pivot_for_heatmap']
+__all__ = ["pivot_for_heatmap"]

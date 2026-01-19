@@ -2,12 +2,12 @@
 Assert value is of expected type.
 """
 
-from typing import Any, Type
+from typing import Any
 
 
 def assert_type_match(
     value: Any,
-    expected_type: Type[Any],
+    expected_type: type[Any],
 ) -> None:
     """
     Assert that a value is of the expected type.
@@ -40,8 +40,10 @@ def assert_type_match(
     Time: O(1), Space: O(1)
     """
     if not isinstance(expected_type, type):
-        raise TypeError(f"expected_type must be a type, got {type(expected_type).__name__}")
-    
+        raise TypeError(
+            f"expected_type must be a type, got {type(expected_type).__name__}"
+        )
+
     if not isinstance(value, expected_type):
         raise AssertionError(
             f"Type mismatch: expected {expected_type.__name__}, "
@@ -49,4 +51,4 @@ def assert_type_match(
         )
 
 
-__all__ = ['assert_type_match']
+__all__ = ["assert_type_match"]

@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.security]
 from security_functions.password_hashing.hash_password_bcrypt import (
     hash_password_bcrypt,
 )
@@ -105,17 +107,21 @@ def test_verify_password_bcrypt_special_characters() -> None:
 
 def test_verify_password_bcrypt_long_password() -> None:
     """
-    Test case 7: Handle very long password verification.
+    Test case 7: Handle very long password verification (bcrypt rejects >72 bytes).
     """
     # Arrange
-    password = "a" * 1000  # Very long password
-    hashed = hash_password_bcrypt(password, rounds=4)  # Use low rounds for speed
+    password = "a" * 1000  # Very long password (exceeds 72-byte limit)
+    # Create a valid hash for verification with a password within the limit
+    short_password = "a" * 72
+    hashed = hash_password_bcrypt(short_password)
 
-    # Act
+    # Act & Assert - bcrypt.checkpw raises ValueError for passwords >72 bytes
+    # The verify function catches this and returns False
     result = verify_password_bcrypt(password, hashed)
-
-    # Assert
-    assert result is True
+    
+    # Assert - bcrypt library now rejects long passwords during verification
+    # The verify function catches the exception and returns False
+    assert result is False
 
 
 def test_verify_password_bcrypt_timing_attack_resistance() -> None:

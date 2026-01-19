@@ -1,13 +1,23 @@
 """Tests for get_parquet_metadata module."""
 
-import pytest
 from pathlib import Path
+
+try:
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+    PYARROW_AVAILABLE = True
+except ImportError:
+    PYARROW_AVAILABLE = False
+    pa = None  # type: ignore
+    pq = None  # type: ignore
+
+import pytest
 from serialization_functions.parquet_operations.get_parquet_metadata import (
     get_parquet_metadata,
 )
 
-import pyarrow as pa
-import pyarrow.parquet as pq
+pytestmark = pytest.mark.skipif(not PYARROW_AVAILABLE, reason="pyarrow not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]
 
 
 def test_get_parquet_metadata_basic(tmp_path: Path) -> None:
@@ -120,7 +130,7 @@ def test_get_parquet_metadata_nonexistent_file_raises_error(tmp_path: Path) -> N
     nonexistent = tmp_path / "does_not_exist.parquet"
 
     # Act & Assert
-    with pytest.raises(Exception):  # pyarrow raises various exceptions
+    with pytest.raises(Exception):  # noqa: B017 - pyarrow raises various exceptions
         get_parquet_metadata(str(nonexistent))
 
 
@@ -133,7 +143,7 @@ def test_get_parquet_metadata_invalid_file_format_raises_error(tmp_path: Path) -
     file_path.write_text("not a parquet file")
 
     # Act & Assert
-    with pytest.raises(Exception):  # pyarrow raises various exceptions
+    with pytest.raises(Exception):  # noqa: B017 - pyarrow raises various exceptions
         get_parquet_metadata(str(file_path))
 
 

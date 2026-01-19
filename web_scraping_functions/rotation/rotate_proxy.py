@@ -2,7 +2,7 @@
 Rotate proxies for requests.
 """
 
-from typing import Iterator
+from collections.abc import Iterator
 
 
 def rotate_proxy(
@@ -47,10 +47,10 @@ def rotate_proxy(
     """
     if not isinstance(proxies, list):
         raise TypeError(f"proxies must be a list, got {type(proxies).__name__}")
-    
+
     if not proxies:
         raise ValueError("proxies list cannot be empty")
-    
+
     index = 0
     while True:
         proxy = proxies[index % len(proxies)]
@@ -58,4 +58,4 @@ def rotate_proxy(
         index += 1
 
 
-__all__ = ['rotate_proxy']
+__all__ = ["rotate_proxy"]

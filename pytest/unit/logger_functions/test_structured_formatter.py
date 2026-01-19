@@ -1,3 +1,6 @@
+import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.logger_functions]
 import logging
 from datetime import datetime
 

@@ -2,15 +2,25 @@
 Unit tests for partition_parquet_by_column function.
 """
 
-from pathlib import Path
 import tempfile
+from pathlib import Path
+
+try:
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+    PYARROW_AVAILABLE = True
+except ImportError:
+    PYARROW_AVAILABLE = False
+    pa = None  # type: ignore
+    pq = None  # type: ignore
 
 import pytest
-import pyarrow as pa
-import pyarrow.parquet as pq
 from serialization_functions.parquet_operations.partition_parquet_by_column import (
     partition_parquet_by_column,
 )
+
+pytestmark = pytest.mark.skipif(not PYARROW_AVAILABLE, reason="pyarrow not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]
 
 
 def test_partition_parquet_by_column_basic() -> None:
@@ -120,7 +130,7 @@ def test_partition_parquet_by_column_safe_filenames() -> None:
         table = pa.Table.from_pylist(data)
         pq.write_table(table, input_file)
 
-        counts = partition_parquet_by_column(input_file, output_dir, "path")
+        partition_parquet_by_column(input_file, output_dir, "path")
 
         # Check that files were created with safe names
         files = list(output_dir.glob("*.parquet"))

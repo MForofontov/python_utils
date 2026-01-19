@@ -2,8 +2,9 @@
 Compare performance of two functions.
 """
 
-from typing import Any
 from collections.abc import Callable
+from typing import Any
+
 from .benchmark_function import benchmark_function
 
 
@@ -65,24 +66,32 @@ def compare_functions(
     if not isinstance(args2, tuple):
         raise TypeError(f"args2 must be a tuple, got {type(args2).__name__}")
     if not isinstance(iterations, int):
-        raise TypeError(f"iterations must be an integer, got {type(iterations).__name__}")
-    
+        raise TypeError(
+            f"iterations must be an integer, got {type(iterations).__name__}"
+        )
+
     if iterations <= 0:
         raise ValueError(f"iterations must be positive, got {iterations}")
-    
+
     result1 = benchmark_function(func1, *args1, iterations=iterations)
     result2 = benchmark_function(func2, *args2, iterations=iterations)
-    
-    speedup = result2['avg_time'] / result1['avg_time'] if result1['avg_time'] > 0 else float('inf')
-    
+
+    speedup = (
+        result2["avg_time"] / result1["avg_time"]
+        if result1["avg_time"] > 0
+        else float("inf")
+    )
+
     return {
-        'func1_avg_time': result1['avg_time'],
-        'func1_total_time': result1['total_time'],
-        'func2_avg_time': result2['avg_time'],
-        'func2_total_time': result2['total_time'],
-        'speedup': speedup,
-        'faster_function': 'func1' if result1['avg_time'] < result2['avg_time'] else 'func2',
+        "func1_avg_time": result1["avg_time"],
+        "func1_total_time": result1["total_time"],
+        "func2_avg_time": result2["avg_time"],
+        "func2_total_time": result2["total_time"],
+        "speedup": speedup,
+        "faster_function": "func1"
+        if result1["avg_time"] < result2["avg_time"]
+        else "func2",
     }
 
 
-__all__ = ['compare_functions']
+__all__ = ["compare_functions"]

@@ -3,7 +3,6 @@ Register custom CSV dialect.
 """
 
 import csv
-from typing import Any
 
 
 def register_csv_dialect(
@@ -64,31 +63,37 @@ def register_csv_dialect(
     """
     if not isinstance(name, str):
         raise TypeError(f"name must be a string, got {type(name).__name__}")
-    
+
     if not isinstance(delimiter, str):
         raise TypeError(f"delimiter must be a string, got {type(delimiter).__name__}")
-    
+
     if not isinstance(quotechar, str):
         raise TypeError(f"quotechar must be a string, got {type(quotechar).__name__}")
-    
+
     if not isinstance(doublequote, bool):
-        raise TypeError(f"doublequote must be a boolean, got {type(doublequote).__name__}")
-    
+        raise TypeError(
+            f"doublequote must be a boolean, got {type(doublequote).__name__}"
+        )
+
     if not isinstance(skipinitialspace, bool):
-        raise TypeError(f"skipinitialspace must be a boolean, got {type(skipinitialspace).__name__}")
-    
+        raise TypeError(
+            f"skipinitialspace must be a boolean, got {type(skipinitialspace).__name__}"
+        )
+
     if not isinstance(lineterminator, str):
-        raise TypeError(f"lineterminator must be a string, got {type(lineterminator).__name__}")
-    
+        raise TypeError(
+            f"lineterminator must be a string, got {type(lineterminator).__name__}"
+        )
+
     if not isinstance(quoting, int):
         raise TypeError(f"quoting must be an integer, got {type(quoting).__name__}")
-    
+
     if len(delimiter) != 1:
         raise ValueError(f"delimiter must be a single character, got '{delimiter}'")
-    
+
     if len(quotechar) != 1:
         raise ValueError(f"quotechar must be a single character, got '{quotechar}'")
-    
+
     csv.register_dialect(
         name,
         delimiter=delimiter,
@@ -100,4 +105,4 @@ def register_csv_dialect(
     )
 
 
-__all__ = ['register_csv_dialect']
+__all__ = ["register_csv_dialect"]

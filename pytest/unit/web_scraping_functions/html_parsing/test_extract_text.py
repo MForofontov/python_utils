@@ -1,6 +1,17 @@
 import pytest
-from bs4 import BeautifulSoup
-from web_scraping_functions.html_parsing.extract_text import extract_text
+
+# Try to import BeautifulSoup - tests will be skipped if not available
+try:
+    from bs4 import BeautifulSoup
+    from web_scraping_functions.html_parsing.extract_text import extract_text
+    BS4_AVAILABLE = True
+except ImportError:
+    BS4_AVAILABLE = False
+    BeautifulSoup = None  # type: ignore
+    extract_text = None  # type: ignore
+
+pytestmark = pytest.mark.skipif(not BS4_AVAILABLE, reason="beautifulsoup4 not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.web_scraping]
 
 
 def test_extract_text_simple_text() -> None:
@@ -10,10 +21,10 @@ def test_extract_text_simple_text() -> None:
     # Arrange
     html = "<div>Hello World</div>"
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act
     result = extract_text(soup)
-    
+
     # Assert
     assert result == "Hello World"
 
@@ -25,10 +36,10 @@ def test_extract_text_nested_elements() -> None:
     # Arrange
     html = "<div>Hello <span>Beautiful</span> World</div>"
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act
     result = extract_text(soup)
-    
+
     # Assert
     assert result == "Hello Beautiful World"
 
@@ -40,10 +51,10 @@ def test_extract_text_with_whitespace() -> None:
     # Arrange
     html = "<div>  Hello  <span>  World  </span>  </div>"
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act
     result = extract_text(soup, strip=True)
-    
+
     # Assert
     assert result == "Hello World"
 
@@ -55,10 +66,10 @@ def test_extract_text_no_strip() -> None:
     # Arrange
     html = "<div>  Hello  </div>"
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act
     result = extract_text(soup, strip=False)
-    
+
     # Assert
     assert "  Hello  " in result
 
@@ -70,10 +81,10 @@ def test_extract_text_custom_separator() -> None:
     # Arrange
     html = "<div>Hello<br/>World</div>"
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act
     result = extract_text(soup, separator="-")
-    
+
     # Assert
     assert "Hello" in result and "World" in result
 
@@ -94,7 +105,7 @@ def test_extract_text_type_error_strip() -> None:
     # Arrange
     html = "<div>Test</div>"
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match="strip must be a boolean"):
         extract_text(soup, strip="yes")
@@ -107,7 +118,7 @@ def test_extract_text_type_error_separator() -> None:
     # Arrange
     html = "<div>Test</div>"
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match="separator must be a string"):
         extract_text(soup, separator=123)

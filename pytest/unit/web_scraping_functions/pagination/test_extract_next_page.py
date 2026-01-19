@@ -1,6 +1,17 @@
 import pytest
-from bs4 import BeautifulSoup
-from web_scraping_functions.pagination.extract_next_page import extract_next_page
+
+# Try to import BeautifulSoup - tests will be skipped if not available
+try:
+    from bs4 import BeautifulSoup
+    from web_scraping_functions.pagination.extract_next_page import extract_next_page
+    BS4_AVAILABLE = True
+except ImportError:
+    BS4_AVAILABLE = False
+    BeautifulSoup = None  # type: ignore
+    extract_next_page = None  # type: ignore
+
+pytestmark = pytest.mark.skipif(not BS4_AVAILABLE, reason="beautifulsoup4 not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.web_scraping]
 
 
 def test_extract_next_page_simple_next_link() -> None:
@@ -10,10 +21,10 @@ def test_extract_next_page_simple_next_link() -> None:
     # Arrange
     html = '<a href="/page2" class="next">Next</a>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act
     result = extract_next_page(soup, selector=".next")
-    
+
     # Assert
     assert result == "/page2"
 
@@ -25,10 +36,10 @@ def test_extract_next_page_relative_url() -> None:
     # Arrange
     html = '<a href="/page2" class="next">Next</a>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act
     result = extract_next_page(soup, selector=".next")
-    
+
     # Assert
     assert result == "/page2"
 
@@ -40,10 +51,10 @@ def test_extract_next_page_no_match() -> None:
     # Arrange
     html = '<a href="/page2" class="prev">Previous</a>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act
     result = extract_next_page(soup, selector=".next")
-    
+
     # Assert
     assert result is None
 
@@ -55,10 +66,10 @@ def test_extract_next_page_no_href() -> None:
     # Arrange
     html = '<a class="next">Next</a>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act
     result = extract_next_page(soup, selector=".next")
-    
+
     # Assert
     assert result is None
 
@@ -70,10 +81,10 @@ def test_extract_next_page_attribute_selector() -> None:
     # Arrange
     html = '<a href="/page2" rel="next">Next</a>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act
     result = extract_next_page(soup, selector='a[rel="next"]')
-    
+
     # Assert
     assert result == "/page2"
 
@@ -94,7 +105,7 @@ def test_extract_next_page_type_error_selector() -> None:
     # Arrange
     html = '<a href="/page2">Next</a>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match="selector must be a string"):
         extract_next_page(soup, selector=123)
@@ -107,7 +118,7 @@ def test_extract_next_page_value_error_empty_selector() -> None:
     # Arrange
     html = '<a href="/page2">Next</a>'
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match="selector cannot be empty"):
         extract_next_page(soup, selector="")

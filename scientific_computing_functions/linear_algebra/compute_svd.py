@@ -129,7 +129,7 @@ def compute_svd(
         Vt_k = Vt[:low_rank_k, :]
 
         approximation = U_k @ np.diag(s_k) @ Vt_k
-        error = np.linalg.norm(mat - approximation, 'fro')
+        error = np.linalg.norm(mat - approximation, "fro")
 
         result["approximation"] = approximation
         result["approximation_error"] = float(error)

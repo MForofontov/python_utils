@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.cli_functions]
 from cli_functions.get_current_user import get_current_user
 
 
@@ -42,7 +44,7 @@ def test_get_current_user_valid_characters() -> None:
     """
     user = get_current_user()
     # Username should contain alphanumeric or common special chars
-    assert any(c.isalnum() or c in '_-.' for c in user)
+    assert any(c.isalnum() or c in "_-." for c in user)
 
 
 def test_get_current_user_multiple_calls() -> None:

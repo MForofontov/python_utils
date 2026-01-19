@@ -2,6 +2,8 @@ import os
 import tempfile
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.cli_functions]
 from cli_functions.list_directories import list_directories
 
 

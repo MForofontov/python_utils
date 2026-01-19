@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
 from iterable_functions.set_operations.get_unique_elements_across_sets import (
     get_unique_elements_across_sets,
 )
@@ -139,12 +141,7 @@ def test_get_unique_elements_across_sets_value_error() -> None:
 
 def test_get_unique_elements_across_sets_four_sets_iteration() -> None:
     """Test case 13: Test with four sets to exercise full iteration logic."""
-    result = get_unique_elements_across_sets(
-        {1, 2, 3},
-        {2, 3, 4},
-        {3, 4, 5},
-        {4, 5, 6}
-    )
+    result = get_unique_elements_across_sets({1, 2, 3}, {2, 3, 4}, {3, 4, 5}, {4, 5, 6})
     # Elements unique across all symmetric differences
     assert isinstance(result, list)
     assert len(result) > 0

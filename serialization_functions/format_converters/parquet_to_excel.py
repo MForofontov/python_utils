@@ -3,12 +3,11 @@ Convert Parquet to Excel with formatting.
 """
 
 from pathlib import Path
-from typing import Any
 
-import pyarrow.parquet as pq
 import openpyxl
-from openpyxl.workbook import Workbook
+import pyarrow.parquet as pq
 from openpyxl.styles import Font, PatternFill
+from openpyxl.workbook import Workbook
 
 
 def parquet_to_excel(
@@ -101,13 +100,9 @@ def parquet_to_excel(
     if not isinstance(sheet_name, str):
         raise TypeError(f"sheet_name must be str, got {type(sheet_name).__name__}")
     if columns is not None and not isinstance(columns, list):
-        raise TypeError(
-            f"columns must be list or None, got {type(columns).__name__}"
-        )
+        raise TypeError(f"columns must be list or None, got {type(columns).__name__}")
     if max_rows is not None and not isinstance(max_rows, int):
-        raise TypeError(
-            f"max_rows must be int or None, got {type(max_rows).__name__}"
-        )
+        raise TypeError(f"max_rows must be int or None, got {type(max_rows).__name__}")
     if not isinstance(auto_format, bool):
         raise TypeError(f"auto_format must be bool, got {type(auto_format).__name__}")
 
@@ -176,13 +171,11 @@ def parquet_to_excel(
         for cell in ws[1]:
             cell.font = Font(bold=True)
             cell.fill = PatternFill(
-                start_color="CCCCCC",
-                end_color="CCCCCC",
-                fill_type="solid"
+                start_color="CCCCCC", end_color="CCCCCC", fill_type="solid"
             )
 
         # Freeze header row
-        ws.freeze_panes = 'A2'
+        ws.freeze_panes = "A2"
 
         # Auto-size columns
         for col_idx, col_name in enumerate(column_names, start=1):
@@ -194,7 +187,9 @@ def parquet_to_excel(
                     max_length = max(max_length, len(str(cell_value)))
 
             adjusted_width = min(max_length + 2, 50)
-            ws.column_dimensions[openpyxl.utils.get_column_letter(col_idx)].width = adjusted_width
+            ws.column_dimensions[
+                openpyxl.utils.get_column_letter(col_idx)
+            ].width = adjusted_width
 
     # Save workbook
     wb.save(output_file)
@@ -202,4 +197,4 @@ def parquet_to_excel(
     return len(data)
 
 
-__all__ = ['parquet_to_excel']
+__all__ = ["parquet_to_excel"]

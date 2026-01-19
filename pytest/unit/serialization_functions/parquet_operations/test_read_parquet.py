@@ -1,11 +1,22 @@
 """Tests for read_parquet module."""
 
-import pytest
 from pathlib import Path
+
+try:
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+
+    PYARROW_AVAILABLE = True
+except ImportError:
+    PYARROW_AVAILABLE = False
+    pa = None  # type: ignore
+    pq = None  # type: ignore
+
+import pytest
 from serialization_functions.parquet_operations.read_parquet import read_parquet
 
-import pyarrow as pa
-import pyarrow.parquet as pq
+pytestmark = pytest.mark.skipif(not PYARROW_AVAILABLE, reason="pyarrow not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]
 
 
 def test_read_parquet_basic(tmp_path: Path) -> None:
@@ -157,5 +168,5 @@ def test_read_parquet_nonexistent_file_raises_error(tmp_path: Path) -> None:
     nonexistent = tmp_path / "does_not_exist.parquet"
 
     # Act & Assert
-    with pytest.raises(Exception):  # pyarrow raises FileNotFoundError
+    with pytest.raises(Exception):  # noqa: B017 - pyarrow raises FileNotFoundError
         read_parquet(str(nonexistent))

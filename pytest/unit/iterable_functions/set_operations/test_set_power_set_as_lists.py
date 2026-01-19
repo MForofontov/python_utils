@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
 from iterable_functions.set_operations.set_power_set_as_lists import (
     set_power_set_as_lists,
 )

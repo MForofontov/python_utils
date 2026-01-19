@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.decorators]
 from decorators.cache import cache
 
 call_counts = {"add": 0, "concat": 0}
@@ -72,7 +74,9 @@ def test_cache_concat_different_args():
     assert concat("a", "b", "c") == "abc"
     # Different arguments, should not use cache
     assert concat("x", "y", "z") == "xyz"
-    assert call_counts["concat"] == 2  # Function should be called twice (different args)
+    assert (
+        call_counts["concat"] == 2
+    )  # Function should be called twice (different args)
     concat.cache_clear()
     call_counts["concat"] = 0
 

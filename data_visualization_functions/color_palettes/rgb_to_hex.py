@@ -69,4 +69,4 @@ def rgb_to_hex(r: int, g: int, b: int) -> str:
     return hex_color
 
 
-__all__ = ['rgb_to_hex']
+__all__ = ["rgb_to_hex"]

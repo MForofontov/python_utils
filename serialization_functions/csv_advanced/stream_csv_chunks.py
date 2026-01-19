@@ -64,36 +64,38 @@ def stream_csv_chunks(
     """
     if not isinstance(input_path, str):
         raise TypeError(f"input_path must be a string, got {type(input_path).__name__}")
-    
+
     if not isinstance(chunk_size, int):
-        raise TypeError(f"chunk_size must be an integer, got {type(chunk_size).__name__}")
-    
+        raise TypeError(
+            f"chunk_size must be an integer, got {type(chunk_size).__name__}"
+        )
+
     if not isinstance(encoding, str):
         raise TypeError(f"encoding must be a string, got {type(encoding).__name__}")
-    
+
     if not isinstance(use_dict, bool):
         raise TypeError(f"use_dict must be a boolean, got {type(use_dict).__name__}")
-    
+
     if chunk_size <= 0:
         raise ValueError(f"chunk_size must be positive, got {chunk_size}")
-    
-    with open(input_path, 'r', encoding=encoding, newline='') as csvfile:
+
+    with open(input_path, encoding=encoding, newline="") as csvfile:
         reader: Any
         if use_dict:
             reader = csv.DictReader(csvfile, **kwargs)
         else:
             reader = csv.reader(csvfile, **kwargs)
-        
+
         chunk: list[Any] = []
         for row in reader:
             chunk.append(row)
             if len(chunk) >= chunk_size:
                 yield chunk
                 chunk = []
-        
+
         # Yield remaining rows
         if chunk:
             yield chunk
 
 
-__all__ = ['stream_csv_chunks']
+__all__ = ["stream_csv_chunks"]

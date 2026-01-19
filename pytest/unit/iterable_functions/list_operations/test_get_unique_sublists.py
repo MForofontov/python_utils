@@ -1,6 +1,8 @@
 from typing import Any
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
 from iterable_functions.list_operations.get_unique_sublists import get_unique_sublists
 
 

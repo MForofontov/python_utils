@@ -48,11 +48,11 @@ def generate_random_int(
         raise TypeError(f"min_value must be an integer, got {type(min_value).__name__}")
     if not isinstance(max_value, int):
         raise TypeError(f"max_value must be an integer, got {type(max_value).__name__}")
-    
+
     if min_value > max_value:
         raise ValueError(f"min_value ({min_value}) must be <= max_value ({max_value})")
-    
+
     return random.randint(min_value, max_value)
 
 
-__all__ = ['generate_random_int']
+__all__ = ["generate_random_int"]

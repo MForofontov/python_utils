@@ -2,15 +2,23 @@
 Unit tests for excel_to_csv_batch function.
 """
 
-import csv
-from pathlib import Path
 import tempfile
+from pathlib import Path
+
+try:
+    import openpyxl
+    OPENPYXL_AVAILABLE = True
+except ImportError:
+    OPENPYXL_AVAILABLE = False
+    openpyxl = None  # type: ignore
 
 import pytest
-import openpyxl
 from serialization_functions.format_converters.excel_to_csv_batch import (
     excel_to_csv_batch,
 )
+
+pytestmark = pytest.mark.skipif(not OPENPYXL_AVAILABLE, reason="openpyxl not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]
 
 
 def test_excel_to_csv_batch_all_sheets() -> None:
@@ -91,7 +99,7 @@ def test_excel_to_csv_batch_skip_empty() -> None:
         ws1.append(["ID"])
         ws1.append([1])
 
-        ws2 = wb.create_sheet("Empty")
+        wb.create_sheet("Empty")
         # Empty sheet - max_row will be 0 so it should be skipped
 
         wb.save(excel_file)
@@ -170,7 +178,7 @@ def test_excel_to_csv_batch_custom_encoding() -> None:
         excel_to_csv_batch(excel_file, output_dir, encoding="utf-8")
 
         csv_file = next(output_dir.glob("*.csv"))
-        with open(csv_file, "r", encoding="utf-8") as f:
+        with open(csv_file, encoding="utf-8") as f:
             content = f.read()
             assert "Café" in content
 

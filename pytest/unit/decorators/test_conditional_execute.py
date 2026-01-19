@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.decorators]
 from decorators.conditional_execute import conditional_execute
 
 

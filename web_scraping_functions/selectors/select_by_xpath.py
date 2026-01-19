@@ -2,7 +2,8 @@
 Select elements using XPath selectors.
 """
 
-from lxml import etree, html as lxml_html
+from lxml import etree
+from lxml import html as lxml_html
 
 
 def select_by_xpath(
@@ -55,21 +56,21 @@ def select_by_xpath(
         raise TypeError(f"html must be a string, got {type(html).__name__}")
     if not isinstance(xpath, str):
         raise TypeError(f"xpath must be a string, got {type(xpath).__name__}")
-    
+
     if not html.strip():
         raise ValueError("html cannot be empty")
-    
+
     if not xpath.strip():
         raise ValueError("xpath cannot be empty")
-    
+
     tree = lxml_html.fromstring(html)
     elements = tree.xpath(xpath)
-    
+
     # Ensure we return a list
     if not isinstance(elements, list):
         elements = [elements]
-    
+
     return elements
 
 
-__all__ = ['select_by_xpath']
+__all__ = ["select_by_xpath"]

@@ -1,6 +1,8 @@
 from unittest.mock import patch
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.print_functions]
 from print_functions.print_system_info_in_terminal import print_system_info_in_terminal
 
 
@@ -123,7 +125,11 @@ def test_print_system_info_in_terminal_lscpu_without_model_name(
         ),
         patch(
             "print_functions.print_system_info_in_terminal.subprocess.run",
-            return_value=type("Result", (), {"stdout": "Architecture: x86_64\nCPU op-mode(s): 32-bit, 64-bit"})(),
+            return_value=type(
+                "Result",
+                (),
+                {"stdout": "Architecture: x86_64\nCPU op-mode(s): 32-bit, 64-bit"},
+            )(),
         ),
     ):
         mock_vm.return_value.total = 32 * 1024 * 1024

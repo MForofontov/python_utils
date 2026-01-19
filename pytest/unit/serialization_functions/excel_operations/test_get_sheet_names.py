@@ -1,9 +1,19 @@
 """Tests for get_sheet_names module."""
 
-import pytest
 from pathlib import Path
-from openpyxl import Workbook, load_workbook
+
+try:
+    from openpyxl import Workbook
+    OPENPYXL_AVAILABLE = True
+except ImportError:
+    OPENPYXL_AVAILABLE = False
+    Workbook = None  # type: ignore
+
+import pytest
 from serialization_functions.excel_operations.get_sheet_names import get_sheet_names
+
+pytestmark = pytest.mark.skipif(not OPENPYXL_AVAILABLE, reason="openpyxl not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]
 
 
 def test_get_sheet_names_single_sheet(tmp_path: Path) -> None:
@@ -127,7 +137,7 @@ def test_get_sheet_names_invalid_file_format_raises_error(tmp_path: Path) -> Non
     file_path.write_text("This is not an Excel file")
 
     # Act & Assert
-    with pytest.raises(Exception):  # openpyxl raises various exceptions
+    with pytest.raises(Exception):  # noqa: B017 - openpyxl raises various exceptions
         get_sheet_names(str(file_path))
 
 

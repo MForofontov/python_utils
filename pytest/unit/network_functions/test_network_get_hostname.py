@@ -1,3 +1,6 @@
+import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
 from unittest.mock import MagicMock, patch
 
 from network_functions.get_hostname import get_hostname

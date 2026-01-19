@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.compression]
 from compression_functions.binary_compression.compress_bz2 import compress_bz2
 from compression_functions.binary_compression.compress_gzip import compress_gzip
 from compression_functions.binary_compression.compress_lzma import compress_lzma

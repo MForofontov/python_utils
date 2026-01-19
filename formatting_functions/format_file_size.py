@@ -56,9 +56,7 @@ def format_file_size(
     """
     # Input validation
     if not isinstance(size_bytes, (int, float)):
-        raise TypeError(
-            f"size_bytes must be a number, got {type(size_bytes).__name__}"
-        )
+        raise TypeError(f"size_bytes must be a number, got {type(size_bytes).__name__}")
     if not isinstance(binary, bool):
         raise TypeError(f"binary must be a boolean, got {type(binary).__name__}")
     if not isinstance(precision, int):

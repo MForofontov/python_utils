@@ -60,24 +60,24 @@ def paginate_with_callback(
         raise TypeError(f"callback must be callable, got {type(callback).__name__}")
     if not isinstance(max_pages, int):
         raise TypeError(f"max_pages must be an integer, got {type(max_pages).__name__}")
-    
+
     if not start_url.strip():
         raise ValueError("start_url cannot be empty")
-    
+
     if max_pages <= 0:
         raise ValueError(f"max_pages must be positive, got {max_pages}")
-    
+
     results = []
     current_url: str | None = start_url
     pages_fetched = 0
-    
+
     while current_url and pages_fetched < max_pages:
         data, next_url = callback(current_url)
         results.append(data)
         current_url = next_url
         pages_fetched += 1
-    
+
     return results
 
 
-__all__ = ['paginate_with_callback']
+__all__ = ["paginate_with_callback"]

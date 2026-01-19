@@ -3,6 +3,8 @@ import urllib.error
 from unittest.mock import Mock, patch
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.http_functions]
 from http_functions.http_post import http_post
 
 
@@ -176,10 +178,12 @@ def test_http_post_complex_nested_data(mock_urlopen):
 def test_http_post_url_error(mock_urlopen):
     """Test case 9: Test HTTP POST request handles URLError correctly."""
     from urllib.error import URLError
-    
+
     mock_urlopen.side_effect = URLError("Connection refused")
-    
-    with pytest.raises(URLError, match="Failed to reach https://example.com: Connection refused"):
+
+    with pytest.raises(
+        URLError, match="Failed to reach https://example.com: Connection refused"
+    ):
         http_post("https://example.com", data={"test": "data"})
 
 

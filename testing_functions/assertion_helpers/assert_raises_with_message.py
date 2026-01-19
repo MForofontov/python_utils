@@ -2,13 +2,13 @@
 Assert function raises exception with specific message pattern.
 """
 
-from typing import Any, Type
 from collections.abc import Callable
+from typing import Any
 
 
 def assert_raises_with_message(
     func: Callable[..., Any],
-    exception_type: Type[Exception],
+    exception_type: type[Exception],
     message_pattern: str,
     *args: Any,
     **kwargs: Any,
@@ -52,23 +52,26 @@ def assert_raises_with_message(
     """
     if not callable(func):
         raise TypeError(f"func must be callable, got {type(func).__name__}")
-    if not isinstance(exception_type, type) or not issubclass(exception_type, Exception):
-        raise TypeError(f"exception_type must be an Exception type")
+    if not isinstance(exception_type, type) or not issubclass(
+        exception_type, Exception
+    ):
+        raise TypeError("exception_type must be an Exception type")
     if not isinstance(message_pattern, str):
-        raise TypeError(f"message_pattern must be a string, got {type(message_pattern).__name__}")
-    
+        raise TypeError(
+            f"message_pattern must be a string, got {type(message_pattern).__name__}"
+        )
+
     try:
         func(*args, **kwargs)
-        raise AssertionError(f"Expected {exception_type.__name__} to be raised, but no exception was raised")
+        raise AssertionError(
+            f"Expected {exception_type.__name__} to be raised, but no exception was raised"
+        )
     except exception_type as e:
         if message_pattern not in str(e):
             raise AssertionError(
                 f"Exception message '{str(e)}' does not contain expected pattern '{message_pattern}'"
-            )
+            ) from None
     except Exception as e:
         raise AssertionError(
             f"Expected {exception_type.__name__}, but got {type(e).__name__}: {str(e)}"
-        )
-
-
-__all__ = ['assert_raises_with_message']
+        ) from None

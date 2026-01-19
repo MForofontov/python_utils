@@ -3,6 +3,8 @@ import json
 from datetime import datetime, timezone
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.security]
 from security_functions.token_generation.generate_jwt_token import generate_jwt_token
 
 

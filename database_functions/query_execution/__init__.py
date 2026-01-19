@@ -10,4 +10,3 @@ from .stream_query_results import stream_query_results
 __all__ = [
     "stream_query_results",
 ]
-

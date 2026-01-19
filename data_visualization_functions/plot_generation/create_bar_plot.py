@@ -111,7 +111,9 @@ def create_bar_plot(
     if not isinstance(ylabel, str):
         raise TypeError(f"ylabel must be a string, got {type(ylabel).__name__}")
     if not isinstance(horizontal, bool):
-        raise TypeError(f"horizontal must be a boolean, got {type(horizontal).__name__}")
+        raise TypeError(
+            f"horizontal must be a boolean, got {type(horizontal).__name__}"
+        )
     if not isinstance(stacked, bool):
         raise TypeError(f"stacked must be a boolean, got {type(stacked).__name__}")
     if not isinstance(grid, bool):
@@ -149,36 +151,40 @@ def create_bar_plot(
         if not isinstance(labels, list):
             raise TypeError(f"labels must be a list, got {type(labels).__name__}")
         if len(labels) != num_series:
-            raise ValueError(f"Number of labels ({len(labels)}) must match number of series ({num_series})")
-    
+            raise ValueError(
+                f"Number of labels ({len(labels)}) must match number of series ({num_series})"
+            )
+
     if colors is not None:
         if not isinstance(colors, list):
             raise TypeError(f"colors must be a list, got {type(colors).__name__}")
         if len(colors) != num_series:
-            raise ValueError(f"Number of colors ({len(colors)}) must match number of series ({num_series})")
+            raise ValueError(
+                f"Number of colors ({len(colors)}) must match number of series ({num_series})"
+            )
 
     # Create plot
     fig, ax = plt.subplots(figsize=figsize)
-    
+
     x = np.arange(len(categories))
     width = 0.8 / num_series if not stacked else 0.8
-    
+
     if stacked:
         # Stacked bars
         bottom = np.zeros(len(categories))
         for i, series in enumerate(value_series):
             plot_kwargs: dict[str, Any] = {}
             if labels is not None:
-                plot_kwargs['label'] = labels[i]
+                plot_kwargs["label"] = labels[i]
             if colors is not None:
-                plot_kwargs['color'] = colors[i]
-            
+                plot_kwargs["color"] = colors[i]
+
             if horizontal:
                 # barh uses 'height' parameter instead of 'width'
                 ax.barh(x, series, height=width, left=bottom, **plot_kwargs)
             else:
                 ax.bar(x, series, width=width, bottom=bottom, **plot_kwargs)
-            
+
             bottom += np.array(series)
     else:
         # Grouped bars
@@ -186,16 +192,16 @@ def create_bar_plot(
             offset = (i - num_series / 2 + 0.5) * width
             plot_kwargs: dict[str, Any] = {}
             if labels is not None:
-                plot_kwargs['label'] = labels[i]
+                plot_kwargs["label"] = labels[i]
             if colors is not None:
-                plot_kwargs['color'] = colors[i]
-            
+                plot_kwargs["color"] = colors[i]
+
             if horizontal:
                 # barh uses 'height' parameter instead of 'width'
                 ax.barh(x + offset, series, height=width, **plot_kwargs)
             else:
                 ax.bar(x + offset, series, width=width, **plot_kwargs)
-    
+
     # Set ticks and labels
     if horizontal:
         ax.set_yticks(x)
@@ -205,28 +211,30 @@ def create_bar_plot(
         if ylabel:
             ax.set_ylabel(ylabel, fontsize=12)
         if grid:
-            ax.grid(True, alpha=0.3, linestyle='--', axis='x')
+            ax.grid(True, alpha=0.3, linestyle="--", axis="x")
     else:
         ax.set_xticks(x)
-        ax.set_xticklabels(categories, rotation=45, ha='right')
+        ax.set_xticklabels(categories, rotation=45, ha="right")
         if xlabel:
             ax.set_xlabel(xlabel, fontsize=12)
         if ylabel:
             ax.set_ylabel(ylabel, fontsize=12)
         if grid:
-            ax.grid(True, alpha=0.3, linestyle='--', axis='y')
-    
+            ax.grid(True, alpha=0.3, linestyle="--", axis="y")
+
     if title:
-        ax.set_title(title, fontsize=14, fontweight='bold')
-    
+        ax.set_title(title, fontsize=14, fontweight="bold")
+
     if legend and labels is not None:
-        ax.legend(loc='best', framealpha=0.9)
-    
+        ax.legend(loc="best", framealpha=0.9)
+
     plt.tight_layout()
-    
-    logger.debug(f"Created bar plot with {len(categories)} categories and {num_series} series")
-    
+
+    logger.debug(
+        f"Created bar plot with {len(categories)} categories and {num_series} series"
+    )
+
     return fig, ax
 
 
-__all__ = ['create_bar_plot']
+__all__ = ["create_bar_plot"]

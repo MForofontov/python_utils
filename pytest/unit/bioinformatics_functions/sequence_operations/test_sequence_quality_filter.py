@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
 from bioinformatics_functions.sequence_operations.sequence_quality_filter import (
     sequence_quality_filter,
 )

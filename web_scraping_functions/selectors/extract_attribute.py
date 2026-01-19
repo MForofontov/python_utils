@@ -62,12 +62,14 @@ def extract_attribute(
     if not isinstance(attribute, str):
         raise TypeError(f"attribute must be a string, got {type(attribute).__name__}")
     if default is not None and not isinstance(default, str):
-        raise TypeError(f"default must be a string or None, got {type(default).__name__}")
-    
+        raise TypeError(
+            f"default must be a string or None, got {type(default).__name__}"
+        )
+
     if not attribute.strip():
         raise ValueError("attribute cannot be empty")
-    
+
     return element.get(attribute, default)  # type: ignore[return-value]
 
 
-__all__ = ['extract_attribute']
+__all__ = ["extract_attribute"]

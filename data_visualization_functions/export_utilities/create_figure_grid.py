@@ -4,6 +4,7 @@ Create a grid of subplots with figures.
 
 import logging
 from typing import Any
+
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 
@@ -89,9 +90,7 @@ def create_figure_grid(
         if figsize[0] <= 0 or figsize[1] <= 0:
             raise ValueError(f"figsize values must be positive, got {figsize}")
 
-    logger.debug(
-        f"Creating figure grid: {nrows}x{ncols}, figsize={figsize}"
-    )
+    logger.debug(f"Creating figure grid: {nrows}x{ncols}, figsize={figsize}")
 
     # Create subplots
     fig, axes = plt.subplots(
@@ -105,4 +104,4 @@ def create_figure_grid(
     return fig, axes
 
 
-__all__ = ['create_figure_grid']
+__all__ = ["create_figure_grid"]

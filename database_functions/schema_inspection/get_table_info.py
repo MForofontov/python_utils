@@ -84,7 +84,9 @@ def get_table_info(
     # Check if table exists
     tables = inspector.get_table_names(schema=schema)
     if table_name not in tables:
-        raise ValueError(f"Table '{table_name}' not found in schema '{schema or 'default'}'")
+        raise ValueError(
+            f"Table '{table_name}' not found in schema '{schema or 'default'}'"
+        )
 
     # Get column information
     columns_raw = inspector.get_columns(table_name, schema=schema)

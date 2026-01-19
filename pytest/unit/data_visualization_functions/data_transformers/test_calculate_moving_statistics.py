@@ -3,10 +3,29 @@ Unit tests for calculate_moving_statistics function.
 """
 
 import pytest
-import numpy as np
-import matplotlib
-matplotlib.use('Agg')  # Use non-GUI backend for testing
-from data_visualization_functions.data_transformers.calculate_moving_statistics import calculate_moving_statistics
+
+# Try to import matplotlib and numpy - tests will be skipped if not available
+try:
+    import matplotlib
+
+    matplotlib.use("Agg")  # Use non-GUI backend for testing
+    import numpy as np
+
+    from data_visualization_functions.data_transformers.calculate_moving_statistics import (
+        calculate_moving_statistics,
+    )
+
+    DEPENDENCIES_AVAILABLE = True
+except ImportError:
+    DEPENDENCIES_AVAILABLE = False
+    matplotlib = None  # type: ignore
+    np = None  # type: ignore
+    calculate_moving_statistics = None  # type: ignore
+
+pytestmark = pytest.mark.skipif(
+    not DEPENDENCIES_AVAILABLE, reason="matplotlib and numpy not installed"
+)
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.data_visualization]
 
 
 def test_calculate_moving_statistics_mean():
@@ -16,14 +35,16 @@ def test_calculate_moving_statistics_mean():
     # Arrange
     data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     window_size = 3
-    
+
     # Act
-    result = calculate_moving_statistics(data, window_size=window_size, statistics=['mean'])
-    
+    result = calculate_moving_statistics(
+        data, window_size=window_size, statistics=["mean"]
+    )
+
     # Assert
     assert isinstance(result, dict)
-    assert 'mean' in result
-    assert len(result['mean']) == len(data)
+    assert "mean" in result
+    assert len(result["mean"]) == len(data)
 
 
 def test_calculate_moving_statistics_median():
@@ -33,14 +54,16 @@ def test_calculate_moving_statistics_median():
     # Arrange
     data = [10, 1, 10, 2, 10, 3, 10, 4]
     window_size = 3
-    
+
     # Act
-    result = calculate_moving_statistics(data, window_size=window_size, statistics=['median'])
-    
+    result = calculate_moving_statistics(
+        data, window_size=window_size, statistics=["median"]
+    )
+
     # Assert
     assert isinstance(result, dict)
-    assert 'median' in result
-    assert len(result['median']) == len(data)
+    assert "median" in result
+    assert len(result["median"]) == len(data)
 
 
 def test_calculate_moving_statistics_std():
@@ -50,15 +73,17 @@ def test_calculate_moving_statistics_std():
     # Arrange
     data = np.random.randn(100)
     window_size = 10
-    
+
     # Act
-    result = calculate_moving_statistics(data, window_size=window_size, statistics=['std'])
-    
+    result = calculate_moving_statistics(
+        data, window_size=window_size, statistics=["std"]
+    )
+
     # Assert
     assert isinstance(result, dict)
-    assert 'std' in result
-    assert len(result['std']) == len(data)
-    assert all(v >= 0 for v in result['std'])  # Standard deviation is non-negative
+    assert "std" in result
+    assert len(result["std"]) == len(data)
+    assert all(v >= 0 for v in result["std"])  # Standard deviation is non-negative
 
 
 def test_calculate_moving_statistics_max():
@@ -68,14 +93,16 @@ def test_calculate_moving_statistics_max():
     # Arrange
     data = [3, 1, 4, 1, 5, 9, 2, 6]
     window_size = 3
-    
+
     # Act
-    result = calculate_moving_statistics(data, window_size=window_size, statistics=['max'])
-    
+    result = calculate_moving_statistics(
+        data, window_size=window_size, statistics=["max"]
+    )
+
     # Assert
     assert isinstance(result, dict)
-    assert 'max' in result
-    assert len(result['max']) == len(data)
+    assert "max" in result
+    assert len(result["max"]) == len(data)
 
 
 def test_calculate_moving_statistics_min():
@@ -85,14 +112,16 @@ def test_calculate_moving_statistics_min():
     # Arrange
     data = [3, 1, 4, 1, 5, 9, 2, 6]
     window_size = 3
-    
+
     # Act
-    result = calculate_moving_statistics(data, window_size=window_size, statistics=['min'])
-    
+    result = calculate_moving_statistics(
+        data, window_size=window_size, statistics=["min"]
+    )
+
     # Assert
     assert isinstance(result, dict)
-    assert 'min' in result
-    assert len(result['min']) == len(data)
+    assert "min" in result
+    assert len(result["min"]) == len(data)
 
 
 def test_calculate_moving_statistics_empty_raises_error():
@@ -101,7 +130,7 @@ def test_calculate_moving_statistics_empty_raises_error():
     """
     # Arrange
     expected_message = "data cannot be empty"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         calculate_moving_statistics([], window_size=3)
@@ -114,7 +143,7 @@ def test_calculate_moving_statistics_invalid_window_raises_error():
     # Arrange
     data = [1, 2, 3, 4, 5]
     expected_message = "window_size must be positive"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         calculate_moving_statistics(data, window_size=-1)
@@ -127,10 +156,10 @@ def test_calculate_moving_statistics_invalid_statistic_raises_error():
     # Arrange
     data = [1, 2, 3, 4, 5]
     expected_message = "Unknown statistic|invalid"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
-        calculate_moving_statistics(data, window_size=3, statistics=['invalid'])
+        calculate_moving_statistics(data, window_size=3, statistics=["invalid"])
 
 
 def test_calculate_moving_statistics_invalid_type_raises_error():
@@ -139,10 +168,10 @@ def test_calculate_moving_statistics_invalid_type_raises_error():
     """
     # Arrange
     expected_message = "Cannot convert|could not convert|must be"
-    
+
     # Act & Assert
     with pytest.raises((TypeError, ValueError), match=expected_message):
         calculate_moving_statistics("not_a_list", window_size=3)
 
 
-__all__ = ['test_calculate_moving_statistics_mean']
+__all__ = ["test_calculate_moving_statistics_mean"]

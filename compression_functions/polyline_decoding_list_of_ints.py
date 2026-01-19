@@ -51,7 +51,9 @@ def polyline_decoding_list_of_ints(encoded_text: str) -> list[float]:
 
     # Adjust numbers for precision
     scale_factor: float = 10 ** (-precision)
-    return [float(round(number * scale_factor, precision)) for number in decoded_numbers]
+    return [
+        float(round(number * scale_factor, precision)) for number in decoded_numbers
+    ]
 
 
 __all__ = ["polyline_decoding_list_of_ints"]

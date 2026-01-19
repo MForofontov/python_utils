@@ -1,6 +1,8 @@
 import logging
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.decorators]
 from decorators.validate_args import validate_args
 
 # Configure test_logger

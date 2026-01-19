@@ -94,7 +94,9 @@ def ssh_execute_script(
     if timeout <= 0:
         raise ValueError(f"timeout must be positive, got {timeout}")
     if not isinstance(interpreter, str):
-        raise TypeError(f"interpreter must be a string, got {type(interpreter).__name__}")
+        raise TypeError(
+            f"interpreter must be a string, got {type(interpreter).__name__}"
+        )
 
     # Check if script file exists
     if not os.path.exists(script_path):
@@ -121,7 +123,7 @@ def ssh_execute_script(
         )
 
         # Read the script content
-        with open(script_path, "r", encoding="utf-8") as script_file:
+        with open(script_path, encoding="utf-8") as script_file:
             script_content = script_file.read()
 
         # Execute the script by piping it to the interpreter

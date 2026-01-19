@@ -1,6 +1,8 @@
 from typing import Any
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
 from iterable_functions.dictionary_operations.deep_get import deep_get
 
 

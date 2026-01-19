@@ -2,10 +2,10 @@
 Mock datetime fixture that freezes time.
 """
 
+from collections.abc import Generator
 from contextlib import contextmanager
 from datetime import datetime
 from unittest.mock import patch
-from collections.abc import Generator
 
 
 @contextmanager
@@ -71,14 +71,14 @@ def mock_datetime_fixture(
         raise TypeError(f"minute must be an integer, got {type(minute).__name__}")
     if not isinstance(second, int):
         raise TypeError(f"second must be an integer, got {type(second).__name__}")
-    
+
     mock_dt = datetime(year, month, day, hour, minute, second)
-    
-    with patch('datetime.datetime') as mock_datetime:
+
+    with patch("datetime.datetime") as mock_datetime:
         mock_datetime.now.return_value = mock_dt
         mock_datetime.utcnow.return_value = mock_dt
         mock_datetime.side_effect = lambda *args, **kwargs: datetime(*args, **kwargs)
         yield mock_dt
 
 
-__all__ = ['mock_datetime_fixture']
+__all__ = ["mock_datetime_fixture"]

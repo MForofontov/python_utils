@@ -5,10 +5,9 @@ This module provides workflow logic for efficiently handling large-scale databas
 operations with features like automatic chunking, error recovery, and progress tracking.
 """
 
-from .execute_bulk_chunked import execute_bulk_chunked, BulkOperationResult
+from .execute_bulk_chunked import BulkOperationResult, execute_bulk_chunked
 
 __all__ = [
     "BulkOperationResult",
     "execute_bulk_chunked",
 ]
-

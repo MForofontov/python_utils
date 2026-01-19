@@ -80,7 +80,9 @@ def merge_query_params(
     if not isinstance(replace, bool):
         raise TypeError(f"replace must be a bool, got {type(replace).__name__}")
     if list_separator is not None and not isinstance(list_separator, str):
-        raise TypeError(f"list_separator must be str or None, got {type(list_separator).__name__}")
+        raise TypeError(
+            f"list_separator must be str or None, got {type(list_separator).__name__}"
+        )
 
     if not base_url:
         raise ValueError("base_url cannot be empty")
@@ -133,14 +135,16 @@ def merge_query_params(
     query_string = urlencode(final_params)
 
     # Reconstruct URL
-    result = urlunparse((
-        parsed.scheme,
-        parsed.netloc,
-        parsed.path,
-        parsed.params,
-        query_string,
-        parsed.fragment,
-    ))
+    result = urlunparse(
+        (
+            parsed.scheme,
+            parsed.netloc,
+            parsed.path,
+            parsed.params,
+            query_string,
+            parsed.fragment,
+        )
+    )
 
     return result
 

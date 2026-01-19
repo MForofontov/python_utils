@@ -18,14 +18,14 @@ from .write_excel_range import write_excel_range
 from .write_excel_sheet import write_excel_sheet
 
 __all__ = [
-    'auto_format_excel_columns',
-    'create_excel_workbook',
-    'get_sheet_names',
-    'merge_excel_sheets',
-    'read_excel_range',
-    'read_excel_sheet',
-    'transpose_excel_data',
-    'validate_excel_structure',
-    'write_excel_range',
-    'write_excel_sheet',
+    "auto_format_excel_columns",
+    "create_excel_workbook",
+    "get_sheet_names",
+    "merge_excel_sheets",
+    "read_excel_range",
+    "read_excel_sheet",
+    "transpose_excel_data",
+    "validate_excel_structure",
+    "write_excel_range",
+    "write_excel_sheet",
 ]

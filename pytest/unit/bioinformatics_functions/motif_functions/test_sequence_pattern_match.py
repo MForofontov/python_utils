@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
 from bioinformatics_functions.motif_functions.sequence_pattern_match import (
     sequence_pattern_match,
 )

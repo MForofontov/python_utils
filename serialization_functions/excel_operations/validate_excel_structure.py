@@ -17,10 +17,10 @@ def validate_excel_structure(
 ) -> dict[str, Any]:
     """
     Validate Excel sheet structure against requirements.
-    
+
     Checks Excel sheet for required columns, row counts, and data integrity.
     Returns detailed validation results with errors and warnings.
-    
+
     Parameters
     ----------
     file_path : str | Path
@@ -35,7 +35,7 @@ def validate_excel_structure(
         Maximum allowed data rows (by default None for unlimited).
     strict_columns : bool, optional
         Require exact column match with no extras (by default False).
-    
+
     Returns
     -------
     dict[str, Any]
@@ -45,7 +45,7 @@ def validate_excel_structure(
         - 'columns': list[str] - Found column names
         - 'errors': list[str] - Validation errors
         - 'warnings': list[str] - Validation warnings
-    
+
     Raises
     ------
     TypeError
@@ -54,14 +54,14 @@ def validate_excel_structure(
         If file doesn't exist.
     ValueError
         If parameters have invalid values.
-    
+
     Examples
     --------
     >>> # Basic validation
     >>> result = validate_excel_structure('data.xlsx')
     >>> result['valid']
     True
-    
+
     >>> # Check required columns
     >>> result = validate_excel_structure(
     ...     'data.xlsx',
@@ -69,21 +69,21 @@ def validate_excel_structure(
     ... )
     >>> result['errors']
     []
-    
+
     >>> # Validate row count range
     >>> result = validate_excel_structure(
     ...     'data.xlsx',
     ...     min_rows=10,
     ...     max_rows=1000
     ... )
-    
+
     >>> # Strict column matching
     >>> result = validate_excel_structure(
     ...     'data.xlsx',
     ...     required_columns=['ID', 'Name'],
     ...     strict_columns=True
     ... )
-    
+
     Notes
     -----
     Validation checks:
@@ -91,7 +91,7 @@ def validate_excel_structure(
     - Row count within limits
     - Empty/duplicate columns
     - Formula errors in cells
-    
+
     Complexity
     ----------
     Time: O(n*m) where n=rows, m=columns
@@ -113,142 +113,138 @@ def validate_excel_structure(
     if not isinstance(min_rows, int):
         raise TypeError(f"min_rows must be int, got {type(min_rows).__name__}")
     if max_rows is not None and not isinstance(max_rows, int):
-        raise TypeError(
-            f"max_rows must be int or None, got {type(max_rows).__name__}"
-        )
+        raise TypeError(f"max_rows must be int or None, got {type(max_rows).__name__}")
     if not isinstance(strict_columns, bool):
         raise TypeError(
             f"strict_columns must be bool, got {type(strict_columns).__name__}"
         )
-    
+
     # Value validation
     file_path = Path(file_path)
     if not file_path.exists():
         raise FileNotFoundError(f"Excel file not found: {file_path}")
-    
+
     if min_rows < 0:
         raise ValueError(f"min_rows must be non-negative, got {min_rows}")
-    
+
     if max_rows is not None and max_rows < min_rows:
         raise ValueError(f"max_rows ({max_rows}) must be >= min_rows ({min_rows})")
-    
+
     # Load workbook
     wb = openpyxl.load_workbook(file_path, read_only=True, data_only=False)
-    
+
     result: dict[str, Any] = {
-        'valid': True,
-        'row_count': 0,
-        'columns': [],
-        'errors': [],
-        'warnings': [],
+        "valid": True,
+        "row_count": 0,
+        "columns": [],
+        "errors": [],
+        "warnings": [],
     }
-    
+
     try:
         # Select sheet
         if sheet_name is None:
             ws = wb.active
         else:
             if sheet_name not in wb.sheetnames:
-                result['errors'].append(f"Sheet '{sheet_name}' not found")
-                result['valid'] = False
+                result["errors"].append(f"Sheet '{sheet_name}' not found")
+                result["valid"] = False
                 return result
             ws = wb[sheet_name]
-        
+
         # Get header row
         rows_iter = ws.iter_rows(values_only=True)
         header = next(rows_iter, None)
-        
+
         if header is None:
-            result['errors'].append("Sheet is empty - no header row found")
-            result['valid'] = False
+            result["errors"].append("Sheet is empty - no header row found")
+            result["valid"] = False
             return result
-        
+
         # Clean and validate header
         columns = []
         for i, col in enumerate(header):
             if col is None:
-                result['warnings'].append(f"Empty column header at position {i}")
+                result["warnings"].append(f"Empty column header at position {i}")
                 columns.append(f"Column{i}")
             else:
                 col_str = str(col).strip()
                 if not col_str:
-                    result['warnings'].append(f"Empty column header at position {i}")
+                    result["warnings"].append(f"Empty column header at position {i}")
                     columns.append(f"Column{i}")
                 else:
                     columns.append(col_str)
-        
-        result['columns'] = columns
-        
+
+        result["columns"] = columns
+
         # Check for duplicate columns
         seen_cols: set[str] = set()
         for col in columns:
             if col in seen_cols:
-                result['warnings'].append(f"Duplicate column name: '{col}'")
+                result["warnings"].append(f"Duplicate column name: '{col}'")
             seen_cols.add(col)
-        
+
         # Validate required columns
         if required_columns is not None:
             missing_cols = set(required_columns) - set(columns)
             if missing_cols:
-                result['errors'].append(
+                result["errors"].append(
                     f"Missing required columns: {sorted(missing_cols)}"
                 )
-                result['valid'] = False
-        
+                result["valid"] = False
+
         # Check strict column matching
         if strict_columns and required_columns is not None:
             extra_cols = set(columns) - set(required_columns)
             if extra_cols:
-                result['errors'].append(
+                result["errors"].append(
                     f"Extra columns not allowed (strict mode): {sorted(extra_cols)}"
                 )
-                result['valid'] = False
-        
+                result["valid"] = False
+
         # Count data rows
         row_count = 0
         for _ in rows_iter:
             row_count += 1
-        
-        result['row_count'] = row_count
-        
+
+        result["row_count"] = row_count
+
         # Validate row count
         if row_count < min_rows:
-            result['errors'].append(
+            result["errors"].append(
                 f"Insufficient rows: found {row_count}, minimum required {min_rows}"
             )
-            result['valid'] = False
-        
+            result["valid"] = False
+
         if max_rows is not None and row_count > max_rows:
-            result['errors'].append(
+            result["errors"].append(
                 f"Too many rows: found {row_count}, maximum allowed {max_rows}"
             )
-            result['valid'] = False
-        
+            result["valid"] = False
+
         # Check for formula errors (reload with data_only=False)
         wb_formulas = openpyxl.load_workbook(file_path, read_only=True, data_only=False)
         ws_formulas = wb_formulas[ws.title]
-        
+
         error_count = 0
         for row in ws_formulas.iter_rows(min_row=2):  # Skip header
             for cell in row:
-                if isinstance(cell.value, str) and cell.value.startswith('#'):
+                if isinstance(cell.value, str) and cell.value.startswith("#"):
                     error_count += 1
                     if error_count <= 3:  # Limit error messages
-                        result['warnings'].append(
+                        result["warnings"].append(
                             f"Formula error in cell {cell.coordinate}: {cell.value}"
                         )
-        
+
         if error_count > 3:
-            result['warnings'].append(
-                f"... and {error_count - 3} more formula errors"
-            )
-        
+            result["warnings"].append(f"... and {error_count - 3} more formula errors")
+
         wb_formulas.close()
-    
+
     finally:
         wb.close()
-    
+
     return result
 
 
-__all__ = ['validate_excel_structure']
+__all__ = ["validate_excel_structure"]

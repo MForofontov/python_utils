@@ -1,6 +1,8 @@
 from datetime import date
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.testing]
 from testing_functions.test_data_generators.generate_random_date import (
     generate_random_date,
 )
@@ -12,7 +14,7 @@ def test_generate_random_date_default_parameters() -> None:
     """
     # Act
     result = generate_random_date()
-    
+
     # Assert
     assert isinstance(result, date)
     assert 2000 <= result.year <= 2025
@@ -24,7 +26,7 @@ def test_generate_random_date_custom_year_range() -> None:
     """
     # Act
     result = generate_random_date(2020, 2021)
-    
+
     # Assert
     assert 2020 <= result.year <= 2021
 
@@ -35,7 +37,7 @@ def test_generate_random_date_same_start_end_year() -> None:
     """
     # Act
     result = generate_random_date(2022, 2022)
-    
+
     # Assert
     assert result.year == 2022
 
@@ -46,7 +48,7 @@ def test_generate_random_date_wide_range() -> None:
     """
     # Act
     result = generate_random_date(1900, 2100)
-    
+
     # Assert
     assert 1900 <= result.year <= 2100
 

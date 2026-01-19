@@ -63,13 +63,13 @@ def select_by_css(
         raise TypeError(f"selector must be a string, got {type(selector).__name__}")
     if limit is not None and not isinstance(limit, int):
         raise TypeError(f"limit must be an integer or None, got {type(limit).__name__}")
-    
+
     if not selector.strip():
         raise ValueError("selector cannot be empty")
-    
+
     if limit is not None and limit <= 0:
         raise ValueError(f"limit must be positive, got {limit}")
-    
+
     if limit is not None:
         results = element.select(selector, limit=limit)
     else:
@@ -77,4 +77,4 @@ def select_by_css(
     return results
 
 
-__all__ = ['select_by_css']
+__all__ = ["select_by_css"]

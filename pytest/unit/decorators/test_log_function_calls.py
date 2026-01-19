@@ -2,6 +2,8 @@ import logging
 from typing import Any
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.decorators]
 from decorators.log_function_calls import log_function_calls
 
 # Configure test_logger

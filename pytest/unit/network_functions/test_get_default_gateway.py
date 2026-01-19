@@ -1,3 +1,6 @@
+import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
 from unittest.mock import patch
 
 from network_functions.get_default_gateway import get_default_gateway

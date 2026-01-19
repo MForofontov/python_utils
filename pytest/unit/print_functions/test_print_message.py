@@ -1,6 +1,8 @@
 from unittest.mock import MagicMock
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.print_functions]
 from print_functions.print_message import print_message
 
 

@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
 from bioinformatics_functions.fasta_misc.fastq_to_fasta import fastq_to_fasta
 
 

@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.web_scraping]
 from web_scraping_functions.pagination.paginate_links import paginate_links
 
 
@@ -8,15 +10,15 @@ def test_paginate_links_simple_pagination() -> None:
     """
     # Arrange
     base_url = "https://example.com/page"
-    
+
     # Act
     result = paginate_links(base_url, start_page=1, end_page=3)
-    
+
     # Assert
     assert result == [
         "https://example.com/page?page=1",
         "https://example.com/page?page=2",
-        "https://example.com/page?page=3"
+        "https://example.com/page?page=3",
     ]
 
 
@@ -26,15 +28,12 @@ def test_paginate_links_custom_param() -> None:
     """
     # Arrange
     base_url = "https://example.com/items"
-    
+
     # Act
     result = paginate_links(base_url, start_page=1, end_page=2, page_param="p")
-    
+
     # Assert
-    assert result == [
-        "https://example.com/items?p=1",
-        "https://example.com/items?p=2"
-    ]
+    assert result == ["https://example.com/items?p=1", "https://example.com/items?p=2"]
 
 
 def test_paginate_links_existing_query_params() -> None:
@@ -43,14 +42,14 @@ def test_paginate_links_existing_query_params() -> None:
     """
     # Arrange
     base_url = "https://example.com/search?q=test"
-    
+
     # Act
     result = paginate_links(base_url, start_page=1, end_page=2)
-    
+
     # Assert
     assert result == [
         "https://example.com/search?q=test&page=1",
-        "https://example.com/search?q=test&page=2"
+        "https://example.com/search?q=test&page=2",
     ]
 
 
@@ -60,10 +59,10 @@ def test_paginate_links_single_page() -> None:
     """
     # Arrange
     base_url = "https://example.com/page"
-    
+
     # Act
     result = paginate_links(base_url, start_page=5, end_page=5)
-    
+
     # Assert
     assert result == ["https://example.com/page?page=5"]
 
@@ -74,10 +73,10 @@ def test_paginate_links_start_page_one() -> None:
     """
     # Arrange
     base_url = "https://example.com/items"
-    
+
     # Act
     result = paginate_links(base_url, start_page=1, end_page=3)
-    
+
     # Assert
     assert len(result) == 3
     assert "page=1" in result[0]

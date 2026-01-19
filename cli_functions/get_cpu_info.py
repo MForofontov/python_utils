@@ -40,4 +40,4 @@ def get_cpu_info(interval: float = 0.1) -> dict[str, int | float | list[float]]:
     }
 
 
-__all__ = ['get_cpu_info']
+__all__ = ["get_cpu_info"]

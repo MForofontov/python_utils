@@ -63,10 +63,10 @@ def extract_text(
         raise TypeError(f"strip must be a boolean, got {type(strip).__name__}")
     if not isinstance(separator, str):
         raise TypeError(f"separator must be a string, got {type(separator).__name__}")
-    
+
     if strip:
         return element.get_text(separator=separator, strip=True)
     return element.get_text(separator=separator)
 
 
-__all__ = ['extract_text']
+__all__ = ["extract_text"]

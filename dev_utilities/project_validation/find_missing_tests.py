@@ -152,7 +152,11 @@ def find_missing_tests(
             # Construct expected test file path
             test_file_name = f"test_{py_file.stem}.py"
             test_path = (
-                project_path / test_base_dir / source_dir / rel_path.parent / test_file_name
+                project_path
+                / test_base_dir
+                / source_dir
+                / rel_path.parent
+                / test_file_name
             )
 
             if not test_path.exists():
@@ -232,9 +236,7 @@ def format_coverage_report(
     where n is the number of missing tests
     """
     if not isinstance(report, CoverageReport):
-        raise TypeError(
-            f"report must be CoverageReport, got {type(report).__name__}"
-        )
+        raise TypeError(f"report must be CoverageReport, got {type(report).__name__}")
     if not isinstance(verbose, bool):
         raise TypeError(f"verbose must be bool, got {type(verbose).__name__}")
     if not isinstance(show_limit, int):

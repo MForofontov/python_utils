@@ -1,7 +1,16 @@
-import snappy
+try:
+    import snappy
+
+    SNAPPY_AVAILABLE = True
+except ImportError:
+    SNAPPY_AVAILABLE = False
+    snappy = None  # type: ignore
 
 import pytest
 from compression_functions.binary_compression.compress_snappy import compress_snappy
+
+pytestmark = pytest.mark.skipif(not SNAPPY_AVAILABLE, reason="python-snappy not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.compression]
 
 
 def test_compress_snappy_basic() -> None:

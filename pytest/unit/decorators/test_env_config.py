@@ -1,6 +1,8 @@
 import logging
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.decorators]
 from decorators.env_config import env_config
 
 # Configure test_logger

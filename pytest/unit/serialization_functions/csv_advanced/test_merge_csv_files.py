@@ -3,10 +3,12 @@ Unit tests for merge_csv_files function.
 """
 
 import csv
-from pathlib import Path
 import tempfile
+from pathlib import Path
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.serialization]
 from serialization_functions.csv_advanced.merge_csv_files import merge_csv_files
 
 
@@ -39,7 +41,7 @@ def test_merge_csv_files_basic_merge() -> None:
         assert output.exists()
 
         # Verify merged content
-        with open(output, "r", newline="") as f:
+        with open(output, newline="") as f:
             reader = csv.reader(f)
             data = list(reader)
             assert len(data) == 4  # header + 3 rows
@@ -66,7 +68,7 @@ def test_merge_csv_files_three_files() -> None:
         rows = merge_csv_files(files, output)
 
         assert rows == 3
-        with open(output, "r", newline="") as f:
+        with open(output, newline="") as f:
             reader = csv.reader(f)
             data = list(reader)
             assert len(data) == 4  # header + 3 rows
@@ -96,7 +98,7 @@ def test_merge_csv_files_skip_duplicates() -> None:
         rows = merge_csv_files([file1, file2], output, skip_duplicates=True)
 
         assert rows == 3  # Only unique rows
-        with open(output, "r", newline="") as f:
+        with open(output, newline="") as f:
             reader = csv.reader(f)
             data = list(reader)
             assert len(data) == 4  # header + 3 unique rows
@@ -123,7 +125,7 @@ def test_merge_csv_files_no_header() -> None:
         rows = merge_csv_files([file1, file2], output, has_header=False)
 
         assert rows == 3
-        with open(output, "r", newline="") as f:
+        with open(output, newline="") as f:
             reader = csv.reader(f)
             data = list(reader)
             assert len(data) == 3  # No header, just data

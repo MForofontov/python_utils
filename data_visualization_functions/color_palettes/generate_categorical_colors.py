@@ -3,6 +3,7 @@ Generate visually distinct categorical colors.
 """
 
 import logging
+
 import numpy as np
 from matplotlib.colors import to_hex
 
@@ -95,4 +96,4 @@ def generate_categorical_colors(n_colors: int) -> list[str]:
     return colors
 
 
-__all__ = ['generate_categorical_colors']
+__all__ = ["generate_categorical_colors"]

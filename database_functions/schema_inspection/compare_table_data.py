@@ -5,7 +5,7 @@ Compare data between two tables for differences.
 import logging
 from typing import Any
 
-from sqlalchemy import MetaData, select, func, text
+from sqlalchemy import MetaData, func, select, text
 
 logger = logging.getLogger(__name__)
 
@@ -89,15 +89,25 @@ def compare_table_data(
     if not source_table.strip():
         raise ValueError("source_table cannot be empty")
     if target_table is not None and not isinstance(target_table, str):
-        raise TypeError(f"target_table must be str or None, got {type(target_table).__name__}")
+        raise TypeError(
+            f"target_table must be str or None, got {type(target_table).__name__}"
+        )
     if source_schema is not None and not isinstance(source_schema, str):
-        raise TypeError(f"source_schema must be str or None, got {type(source_schema).__name__}")
+        raise TypeError(
+            f"source_schema must be str or None, got {type(source_schema).__name__}"
+        )
     if target_schema is not None and not isinstance(target_schema, str):
-        raise TypeError(f"target_schema must be str or None, got {type(target_schema).__name__}")
+        raise TypeError(
+            f"target_schema must be str or None, got {type(target_schema).__name__}"
+        )
     if compare_columns is not None and not isinstance(compare_columns, list):
-        raise TypeError(f"compare_columns must be list or None, got {type(compare_columns).__name__}")
+        raise TypeError(
+            f"compare_columns must be list or None, got {type(compare_columns).__name__}"
+        )
     if not isinstance(sample_differences, int):
-        raise TypeError(f"sample_differences must be int, got {type(sample_differences).__name__}")
+        raise TypeError(
+            f"sample_differences must be int, got {type(sample_differences).__name__}"
+        )
     if sample_differences < 0:
         raise ValueError("sample_differences must be non-negative")
 
@@ -107,12 +117,13 @@ def compare_table_data(
 
     # Verify tables exist before reflecting
     from sqlalchemy import inspect
+
     source_inspector = inspect(source_connection)
     target_inspector = inspect(target_connection)
-    
+
     source_tables = source_inspector.get_table_names(schema=source_schema)
     target_tables = target_inspector.get_table_names(schema=target_schema)
-    
+
     if source_table not in source_tables:
         raise ValueError(f"Source table {source_table} not found")
     if target_table not in target_tables:
@@ -120,34 +131,38 @@ def compare_table_data(
 
     # Reflect source and target tables
     source_metadata = MetaData()
-    source_metadata.reflect(bind=source_connection, schema=source_schema, only=[source_table])
-    
+    source_metadata.reflect(
+        bind=source_connection, schema=source_schema, only=[source_table]
+    )
+
     target_metadata = MetaData()
-    target_metadata.reflect(bind=target_connection, schema=target_schema, only=[target_table])
-    
+    target_metadata.reflect(
+        bind=target_connection, schema=target_schema, only=[target_table]
+    )
+
     if source_table not in source_metadata.tables:
         raise ValueError(f"Source table {source_table} not found in metadata")
     if target_table not in target_metadata.tables:
         raise ValueError(f"Target table {target_table} not found")
-    
+
     src_table = source_metadata.tables[source_table]
     tgt_table = target_metadata.tables[target_table]
-    
+
     # Find common columns
     src_columns = {col.name for col in src_table.columns}
     tgt_columns = {col.name for col in tgt_table.columns}
     common_columns = list(src_columns & tgt_columns)
-    
+
     if compare_columns:
         # Validate requested columns exist
         for col in compare_columns:
             if col not in common_columns:
                 raise ValueError(f"Column {col} not found in both tables")
         common_columns = compare_columns
-    
+
     if not common_columns:
         raise ValueError("No common columns found between tables")
-    
+
     result = {
         "source_count": 0,
         "target_count": 0,
@@ -156,27 +171,27 @@ def compare_table_data(
         "column_checksums": {},
         "sample_differences": [],
     }
-    
+
     # Compare row counts
     try:
         src_count_query = select(func.count()).select_from(src_table)
         src_result = source_connection.execute(src_count_query)
         result["source_count"] = src_result.scalar() or 0
-        
+
         tgt_count_query = select(func.count()).select_from(tgt_table)
         tgt_result = target_connection.execute(tgt_count_query)
         result["target_count"] = tgt_result.scalar() or 0
-        
+
         result["count_match"] = result["source_count"] == result["target_count"]
-        
+
     except Exception as e:
         logger.error(f"Error comparing row counts: {e}")
         return result
-    
+
     # Compare column checksums (if possible)
     db_dialect = source_connection.dialect.name.lower()
     tgt_dialect = target_connection.dialect.name.lower()
-    
+
     for col_name in common_columns:
         try:
             if db_dialect == "postgresql" and tgt_dialect == "postgresql":
@@ -189,10 +204,10 @@ def compare_table_data(
                     SELECT MD5(STRING_AGG(CAST({col_name} AS TEXT), ',' ORDER BY {col_name}))
                     FROM {target_table}
                 """)
-                
+
                 src_checksum = source_connection.execute(src_checksum_query).scalar()
                 tgt_checksum = target_connection.execute(tgt_checksum_query).scalar()
-                
+
                 result["column_checksums"][col_name] = {
                     "match": src_checksum == tgt_checksum,
                     "source_checksum": src_checksum,
@@ -208,16 +223,19 @@ def compare_table_data(
                     SELECT MD5(GROUP_CONCAT(CAST({col_name} AS CHAR) ORDER BY {col_name} SEPARATOR ','))
                     FROM {target_table}
                 """)
-                
+
                 src_checksum = source_connection.execute(src_checksum_query).scalar()
                 tgt_checksum = target_connection.execute(tgt_checksum_query).scalar()
-                
+
                 result["column_checksums"][col_name] = {
                     "match": src_checksum == tgt_checksum,
                     "source_checksum": src_checksum,
                     "target_checksum": tgt_checksum,
                 }
-            elif db_dialect in ("mssql", "microsoft") and tgt_dialect in ("mssql", "microsoft"):
+            elif db_dialect in ("mssql", "microsoft") and tgt_dialect in (
+                "mssql",
+                "microsoft",
+            ):
                 # SQL Server CHECKSUM_AGG (approximate)
                 src_checksum_query = text(f"""
                     SELECT CHECKSUM_AGG(CHECKSUM({col_name}))
@@ -227,10 +245,10 @@ def compare_table_data(
                     SELECT CHECKSUM_AGG(CHECKSUM({col_name}))
                     FROM {target_table}
                 """)
-                
+
                 src_checksum = source_connection.execute(src_checksum_query).scalar()
                 tgt_checksum = target_connection.execute(tgt_checksum_query).scalar()
-                
+
                 result["column_checksums"][col_name] = {
                     "match": src_checksum == tgt_checksum,
                     "source_checksum": src_checksum,
@@ -248,10 +266,14 @@ def compare_table_data(
                         SELECT STANDARD_HASH(LISTAGG(TO_CHAR({col_name}), ',') WITHIN GROUP (ORDER BY {col_name}), 'MD5')
                         FROM {target_table}
                     """)
-                    
-                    src_checksum = source_connection.execute(src_checksum_query).scalar()
-                    tgt_checksum = target_connection.execute(tgt_checksum_query).scalar()
-                    
+
+                    src_checksum = source_connection.execute(
+                        src_checksum_query
+                    ).scalar()
+                    tgt_checksum = target_connection.execute(
+                        tgt_checksum_query
+                    ).scalar()
+
                     result["column_checksums"][col_name] = {
                         "match": src_checksum == tgt_checksum,
                         "source_checksum": src_checksum,
@@ -270,55 +292,59 @@ def compare_table_data(
                     "match": None,
                     "note": f"Checksum comparison between {db_dialect} and {tgt_dialect} not supported",
                 }
-                
+
         except Exception as e:
             logger.debug(f"Error comparing checksums for {col_name}: {e}")
             result["column_checksums"][col_name] = {
                 "match": None,
                 "error": str(e),
             }
-    
+
     # If counts match and all checksums match, we're done
     all_checksums_match = all(
-        v.get("match") == True 
-        for v in result["column_checksums"].values() 
+        v.get("match")
+        for v in result["column_checksums"].values()
         if v.get("match") is not None
     )
-    
+
     if result["count_match"] and all_checksums_match:
         logger.info("Tables match exactly")
         return result
-    
+
     # Sample differences (if primary key exists)
     try:
         src_pk_cols = [col for col in src_table.primary_key.columns]
         tgt_pk_cols = [col for col in tgt_table.primary_key.columns]
-        
+
         if src_pk_cols and tgt_pk_cols and len(src_pk_cols) == len(tgt_pk_cols):
             # Get sample IDs from source not in target
             src_pk = src_pk_cols[0]
             tgt_pk = tgt_pk_cols[0]
-            
+
             # Get sample source IDs
             src_ids_query = select(src_pk).limit(sample_differences * 2)
             src_ids_result = source_connection.execute(src_ids_query)
             src_ids = [row[0] for row in src_ids_result]
-            
+
             # Check which exist in target
             for src_id in src_ids[:sample_differences]:
-                tgt_exists_query = select(func.count()).select_from(tgt_table).where(tgt_pk == src_id)
+                tgt_exists_query = (
+                    select(func.count()).select_from(tgt_table).where(tgt_pk == src_id)
+                )
                 tgt_exists = target_connection.execute(tgt_exists_query).scalar()
-                
+
                 if not tgt_exists:
-                    result["sample_differences"].append({
-                        "type": "missing_in_target",
-                        "primary_key": src_id,
-                    })
-                    
+                    result["sample_differences"].append(
+                        {
+                            "type": "missing_in_target",
+                            "primary_key": src_id,
+                        }
+                    )
+
     except Exception as e:
         logger.debug(f"Error sampling differences: {e}")
-    
+
     return result
 
 
-__all__ = ['compare_table_data']
+__all__ = ["compare_table_data"]

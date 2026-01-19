@@ -4,6 +4,8 @@ from pathlib import Path
 from unittest.mock import patch
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
 from file_functions import calculate_sha1_hash
 
 

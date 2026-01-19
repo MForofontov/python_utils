@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.testing]
 from testing_functions.test_data_generators.generate_random_float import (
     generate_random_float,
 )
@@ -10,7 +12,7 @@ def test_generate_random_float_default_parameters() -> None:
     """
     # Act
     result = generate_random_float()
-    
+
     # Assert
     assert isinstance(result, float)
     assert 0.0 <= result <= 1.0
@@ -22,7 +24,7 @@ def test_generate_random_float_custom_range() -> None:
     """
     # Act
     result = generate_random_float(5.0, 10.0)
-    
+
     # Assert
     assert 5.0 <= result <= 10.0
 
@@ -33,11 +35,11 @@ def test_generate_random_float_custom_precision() -> None:
     """
     # Act
     result = generate_random_float(0.0, 1.0, 4)
-    
+
     # Assert
     result_str = str(result)
-    if '.' in result_str:
-        decimal_places = len(result_str.split('.')[1])
+    if "." in result_str:
+        decimal_places = len(result_str.split(".")[1])
         assert decimal_places <= 4
 
 
@@ -47,7 +49,7 @@ def test_generate_random_float_zero_precision() -> None:
     """
     # Act
     result = generate_random_float(0.0, 10.0, 0)
-    
+
     # Assert
     assert result == int(result)
 

@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.web_scraping]
 from web_scraping_functions.rotation.rotate_proxy import rotate_proxy
 
 
@@ -9,13 +11,13 @@ def test_rotate_proxy_basic_rotation() -> None:
     # Arrange
     proxies = ["proxy1", "proxy2", "proxy3"]
     rotator = rotate_proxy(proxies)
-    
+
     # Act
     result1 = next(rotator)
     result2 = next(rotator)
     result3 = next(rotator)
     result4 = next(rotator)
-    
+
     # Assert
     assert result1 == {"http": "proxy1", "https": "proxy1"}
     assert result2 == {"http": "proxy2", "https": "proxy2"}
@@ -30,11 +32,11 @@ def test_rotate_proxy_single_proxy() -> None:
     # Arrange
     proxies = ["only_proxy"]
     rotator = rotate_proxy(proxies)
-    
+
     # Act
     result1 = next(rotator)
     result2 = next(rotator)
-    
+
     # Assert
     assert result1 == {"http": "only_proxy", "https": "only_proxy"}
     assert result2 == {"http": "only_proxy", "https": "only_proxy"}
@@ -47,12 +49,15 @@ def test_rotate_proxy_infinite_cycling() -> None:
     # Arrange
     proxies = ["proxy1", "proxy2"]
     rotator = rotate_proxy(proxies)
-    
+
     # Act
     results = [next(rotator) for _ in range(10)]
-    
+
     # Assert
-    expected = [{"http": "proxy1", "https": "proxy1"}, {"http": "proxy2", "https": "proxy2"}] * 5
+    expected = [
+        {"http": "proxy1", "https": "proxy1"},
+        {"http": "proxy2", "https": "proxy2"},
+    ] * 5
     assert results == expected
 
 
@@ -64,11 +69,11 @@ def test_rotate_proxy_list_not_modified() -> None:
     proxies = ["proxy1", "proxy2", "proxy3"]
     original_proxies = proxies.copy()
     rotator = rotate_proxy(proxies)
-    
+
     # Act
     next(rotator)
     next(rotator)
-    
+
     # Assert
     assert proxies == original_proxies
 
@@ -101,14 +106,20 @@ def test_rotate_proxy_mixed_proxy_formats() -> None:
     proxies = [
         "http://proxy1.com:8080",
         "https://proxy2.com:3128",
-        "socks5://proxy3.com:1080"
+        "socks5://proxy3.com:1080",
     ]
     rotator = rotate_proxy(proxies)
-    
+
     # Act
     result1 = next(rotator)
     result2 = next(rotator)
-    
+
     # Assert
-    assert result1 == {"http": "http://proxy1.com:8080", "https": "http://proxy1.com:8080"}
-    assert result2 == {"http": "https://proxy2.com:3128", "https": "https://proxy2.com:3128"}
+    assert result1 == {
+        "http": "http://proxy1.com:8080",
+        "https": "http://proxy1.com:8080",
+    }
+    assert result2 == {
+        "http": "https://proxy2.com:3128",
+        "https": "https://proxy2.com:3128",
+    }

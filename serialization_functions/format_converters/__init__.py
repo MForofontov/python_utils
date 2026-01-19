@@ -12,9 +12,9 @@ from .parquet_to_csv import parquet_to_csv
 from .parquet_to_excel import parquet_to_excel
 
 __all__ = [
-    'csv_to_parquet',
-    'excel_to_csv_batch',
-    'excel_to_parquet',
-    'parquet_to_csv',
-    'parquet_to_excel',
+    "csv_to_parquet",
+    "excel_to_csv_batch",
+    "excel_to_parquet",
+    "parquet_to_csv",
+    "parquet_to_excel",
 ]

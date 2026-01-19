@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
 from bioinformatics_functions.repeat_functions.tandem_repeat_finder import (
     tandem_repeat_finder,
 )

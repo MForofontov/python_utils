@@ -241,9 +241,7 @@ def format_statistics(stats: CodeStatistics, title: str = "Code Statistics") -> 
     Time: O(1), Space: O(1)
     """
     if not isinstance(stats, CodeStatistics):
-        raise TypeError(
-            f"stats must be CodeStatistics, got {type(stats).__name__}"
-        )
+        raise TypeError(f"stats must be CodeStatistics, got {type(stats).__name__}")
     if not isinstance(title, str):
         raise TypeError(f"title must be str, got {type(title).__name__}")
 

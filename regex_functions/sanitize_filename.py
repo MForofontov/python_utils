@@ -75,15 +75,13 @@ def sanitize_filename(
     if max_length < 1:
         raise ValueError(f"max_length must be positive, got {max_length}")
     if len(replacement) > 1:
-        raise ValueError(
-            f"replacement must be single character, got '{replacement}'"
-        )
+        raise ValueError(f"replacement must be single character, got '{replacement}'")
 
     # Remove path separators and get just the filename
-    filename = filename.replace('\\', '/').split('/')[-1]
+    filename = filename.replace("\\", "/").split("/")[-1]
 
     # Remove control characters (ASCII 0-31)
-    filename = re.sub(r'[\x00-\x1f]', replacement, filename)
+    filename = re.sub(r"[\x00-\x1f]", replacement, filename)
 
     # Replace invalid filesystem characters
     # Windows: < > : " / \ | ? *
@@ -92,31 +90,50 @@ def sanitize_filename(
     filename = re.sub(invalid_chars, replacement, filename)
 
     # Remove leading/trailing spaces and dots
-    filename = filename.strip('. ')
+    filename = filename.strip(". ")
 
     # Replace multiple replacement characters with single
     if replacement:
-        pattern = re.escape(replacement) + '+'
+        pattern = re.escape(replacement) + "+"
         filename = re.sub(pattern, replacement, filename)
 
     # Check for reserved Windows names
     reserved_names = {
-        'CON', 'PRN', 'AUX', 'NUL',
-        'COM1', 'COM2', 'COM3', 'COM4', 'COM5', 'COM6', 'COM7', 'COM8', 'COM9',
-        'LPT1', 'LPT2', 'LPT3', 'LPT4', 'LPT5', 'LPT6', 'LPT7', 'LPT8', 'LPT9',
+        "CON",
+        "PRN",
+        "AUX",
+        "NUL",
+        "COM1",
+        "COM2",
+        "COM3",
+        "COM4",
+        "COM5",
+        "COM6",
+        "COM7",
+        "COM8",
+        "COM9",
+        "LPT1",
+        "LPT2",
+        "LPT3",
+        "LPT4",
+        "LPT5",
+        "LPT6",
+        "LPT7",
+        "LPT8",
+        "LPT9",
     }
-    name_without_ext = filename.rsplit('.', 1)[0].upper()
+    name_without_ext = filename.rsplit(".", 1)[0].upper()
     if name_without_ext in reserved_names:
         filename = replacement + filename
 
     # Truncate to max_length while preserving extension
     if len(filename) > max_length:
-        if '.' in filename:
-            name, ext = filename.rsplit('.', 1)
+        if "." in filename:
+            name, ext = filename.rsplit(".", 1)
             # Reserve space for extension and dot
             available = max_length - len(ext) - 1
             if available > 0:
-                filename = name[:available] + '.' + ext
+                filename = name[:available] + "." + ext
             else:
                 filename = filename[:max_length]
         else:
@@ -129,4 +146,4 @@ def sanitize_filename(
     return filename
 
 
-__all__ = ['sanitize_filename']
+__all__ = ["sanitize_filename"]

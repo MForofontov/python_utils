@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.datetime]
 from datetime_functions.is_leap_year import is_leap_year
 
 

@@ -58,24 +58,26 @@ def extract_tables(
             f"element must be BeautifulSoup or Tag, got {type(element).__name__}"
         )
     if not isinstance(header_row, bool):
-        raise TypeError(f"header_row must be a boolean, got {type(header_row).__name__}")
-    
+        raise TypeError(
+            f"header_row must be a boolean, got {type(header_row).__name__}"
+        )
+
     tables = []
-    
-    for table in element.find_all('table'):
+
+    for table in element.find_all("table"):
         rows = []
-        for tr in table.find_all('tr'):
+        for tr in table.find_all("tr"):
             cells = []
             # Extract both th and td cells
-            for cell in tr.find_all(['th', 'td']):
+            for cell in tr.find_all(["th", "td"]):
                 cells.append(cell.get_text(strip=True))
             if cells:
                 rows.append(cells)
-        
+
         if rows:
             tables.append(rows)
-    
+
     return tables
 
 
-__all__ = ['extract_tables']
+__all__ = ["extract_tables"]

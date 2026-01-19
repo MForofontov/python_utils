@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
 from strings_utility.zfill_string import zfill_string
 
 

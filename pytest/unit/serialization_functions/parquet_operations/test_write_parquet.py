@@ -1,11 +1,21 @@
 """Tests for write_parquet module."""
 
-import pytest
 from pathlib import Path
+
+try:
+    import pyarrow
+    import pyarrow.parquet as pq
+    PYARROW_AVAILABLE = True
+except ImportError:
+    PYARROW_AVAILABLE = False
+    pyarrow = None  # type: ignore
+    pq = None  # type: ignore
+
+import pytest
 from serialization_functions.parquet_operations.write_parquet import write_parquet
 
-import pyarrow as pa
-import pyarrow.parquet as pq
+pytestmark = pytest.mark.skipif(not PYARROW_AVAILABLE, reason="pyarrow not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]
 
 
 def test_write_parquet_basic(tmp_path: Path) -> None:

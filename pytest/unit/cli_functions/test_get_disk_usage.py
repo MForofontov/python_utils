@@ -1,6 +1,8 @@
 import tempfile
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.cli_functions]
 from cli_functions.get_disk_usage import get_disk_usage
 
 
@@ -63,8 +65,10 @@ def test_get_disk_usage_percent_calculation() -> None:
     Test case 5: Verify percent_used calculation is accurate.
     """
     disk_info = get_disk_usage("/")
-    
-    expected_percent = (disk_info["used"] / disk_info["total"]) * 100 if disk_info["total"] > 0 else 0
+
+    expected_percent = (
+        (disk_info["used"] / disk_info["total"]) * 100 if disk_info["total"] > 0 else 0
+    )
     assert abs(disk_info["percent_used"] - expected_percent) < 0.01
 
 
@@ -76,7 +80,7 @@ def test_get_disk_usage_multiple_paths() -> None:
         with tempfile.TemporaryDirectory() as temp_dir2:
             disk_info1 = get_disk_usage(temp_dir1)
             disk_info2 = get_disk_usage(temp_dir2)
-            
+
             # Both should return valid data
             assert disk_info1["total"] > 0
             assert disk_info2["total"] > 0

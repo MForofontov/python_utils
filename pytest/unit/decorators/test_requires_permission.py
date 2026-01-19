@@ -2,6 +2,8 @@ import logging
 import re
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.decorators]
 from decorators.requires_permission import requires_permission
 
 # Configure test_logger

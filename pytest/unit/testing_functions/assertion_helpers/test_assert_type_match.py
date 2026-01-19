@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.testing]
 from testing_functions.assertion_helpers.assert_type_match import assert_type_match
 
 
@@ -31,7 +33,7 @@ def test_assert_type_match_dict_type() -> None:
     Test case 4: Assert dict type match.
     """
     # Act & Assert
-    assert_type_match({'a': 1}, dict)
+    assert_type_match({"a": 1}, dict)
 
 
 def test_assert_type_match_float_type() -> None:

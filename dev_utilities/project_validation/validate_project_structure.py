@@ -260,7 +260,7 @@ def _check_init_files(project_path: Path, issues: list[ValidationIssue]) -> None
                 ValidationIssue(
                     severity="warning",
                     category="structure",
-                    message=f"Package directory missing __init__.py",
+                    message="Package directory missing __init__.py",
                     path=str(py_dir),
                 )
             )
@@ -365,9 +365,7 @@ def format_validation_result(result: ValidationResult, verbose: bool = True) -> 
     where n is the number of validation issues
     """
     if not isinstance(result, ValidationResult):
-        raise TypeError(
-            f"result must be ValidationResult, got {type(result).__name__}"
-        )
+        raise TypeError(f"result must be ValidationResult, got {type(result).__name__}")
     if not isinstance(verbose, bool):
         raise TypeError(f"verbose must be bool, got {type(verbose).__name__}")
 

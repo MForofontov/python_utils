@@ -1,4 +1,4 @@
-"""  
+"""
 Explicit savepoint context manager with error handling.
 """
 
@@ -21,7 +21,7 @@ def savepoint_context(
 ) -> Generator[Any, None, None]:
     """
     Context manager for explicit savepoint management with error handling.
-    
+
     This is library-agnostic - you provide the savepoint control functions for your database library.
 
     Parameters
@@ -66,7 +66,7 @@ def savepoint_context(
     >>> with savepoint_context(cursor, "before_risky_operation"):
     ...     cursor.execute("DELETE FROM users WHERE inactive = true")
     >>> # If DELETE fails, automatically rollback to savepoint
-    >>> 
+    >>>
     >>> # Example 2: With explicit callable functions
     >>> with savepoint_context(
     ...     cursor,
@@ -78,7 +78,7 @@ def savepoint_context(
     ... ):
     ...     cursor.execute("INSERT INTO logs VALUES ('optional entry')")
     >>> # If INSERT fails, error is ignored (no rollback)
-    >>> 
+    >>>
     >>> # Example 3: MySQL with mysql.connector
     >>> import mysql.connector
     >>> conn = mysql.connector.connect(host="localhost", database="mydb")
@@ -102,7 +102,9 @@ def savepoint_context(
     if connection is None:
         raise TypeError("connection cannot be None")
     if not isinstance(savepoint_name, str):
-        raise TypeError(f"savepoint_name must be str, got {type(savepoint_name).__name__}")
+        raise TypeError(
+            f"savepoint_name must be str, got {type(savepoint_name).__name__}"
+        )
     if not savepoint_name:
         raise ValueError("savepoint_name cannot be empty")
     if on_error not in ("rollback", "ignore"):
@@ -118,7 +120,9 @@ def savepoint_context(
         # Create savepoint
         if create_savepoint_func is not None:
             create_savepoint_func(savepoint_name)
-            logger.debug(f"Savepoint '{savepoint_name}' created via create_savepoint_func")
+            logger.debug(
+                f"Savepoint '{savepoint_name}' created via create_savepoint_func"
+            )
         else:
             connection.execute(f"SAVEPOINT {savepoint_name}")
             logger.debug(f"Savepoint '{savepoint_name}' created via SQL")
@@ -128,7 +132,9 @@ def savepoint_context(
         # Release savepoint on success
         if release_savepoint_func is not None:
             release_savepoint_func(savepoint_name)
-            logger.debug(f"Savepoint '{savepoint_name}' released via release_savepoint_func")
+            logger.debug(
+                f"Savepoint '{savepoint_name}' released via release_savepoint_func"
+            )
         else:
             connection.execute(f"RELEASE SAVEPOINT {savepoint_name}")
             logger.debug(f"Savepoint '{savepoint_name}' released via SQL")
@@ -139,7 +145,9 @@ def savepoint_context(
             try:
                 if rollback_savepoint_func is not None:
                     rollback_savepoint_func(savepoint_name)
-                    logger.debug(f"Rolled back to savepoint '{savepoint_name}' via rollback_savepoint_func")
+                    logger.debug(
+                        f"Rolled back to savepoint '{savepoint_name}' via rollback_savepoint_func"
+                    )
                 else:
                     connection.execute(f"ROLLBACK TO SAVEPOINT {savepoint_name}")
                     logger.debug(f"Rolled back to savepoint '{savepoint_name}' via SQL")

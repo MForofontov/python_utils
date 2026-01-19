@@ -1,6 +1,8 @@
 from unittest.mock import MagicMock, patch
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
 from network_functions.scan_open_ports import scan_open_ports
 
 

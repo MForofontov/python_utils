@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.testing]
 from testing_functions.test_data_generators.generate_random_email import (
     generate_random_email,
 )
@@ -10,11 +12,11 @@ def test_generate_random_email_default_parameters() -> None:
     """
     # Act
     result = generate_random_email()
-    
+
     # Assert
     assert isinstance(result, str)
-    assert '@example.com' in result
-    assert len(result.split('@')[0]) == 10
+    assert "@example.com" in result
+    assert len(result.split("@")[0]) == 10
 
 
 def test_generate_random_email_custom_domain() -> None:
@@ -23,9 +25,9 @@ def test_generate_random_email_custom_domain() -> None:
     """
     # Act
     result = generate_random_email("test.org")
-    
+
     # Assert
-    assert '@test.org' in result
+    assert "@test.org" in result
 
 
 def test_generate_random_email_custom_username_length() -> None:
@@ -34,9 +36,9 @@ def test_generate_random_email_custom_username_length() -> None:
     """
     # Act
     result = generate_random_email("example.com", 5)
-    
+
     # Assert
-    username = result.split('@')[0]
+    username = result.split("@")[0]
     assert len(username) == 5
 
 
@@ -46,9 +48,9 @@ def test_generate_random_email_valid_format() -> None:
     """
     # Act
     result = generate_random_email()
-    
+
     # Assert
-    parts = result.split('@')
+    parts = result.split("@")
     assert len(parts) == 2
     assert len(parts[0]) > 0
     assert len(parts[1]) > 0

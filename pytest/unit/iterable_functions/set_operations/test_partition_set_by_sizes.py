@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
 from iterable_functions.set_operations.partition_set_by_sizes import (
     partition_set_by_sizes,
 )

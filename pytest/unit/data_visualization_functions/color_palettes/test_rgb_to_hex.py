@@ -3,6 +3,8 @@ Unit tests for rgb_to_hex function.
 """
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.data_visualization]
 from data_visualization_functions.color_palettes import rgb_to_hex
 
 
@@ -12,11 +14,11 @@ def test_rgb_to_hex_red():
     """
     # Arrange
     r, g, b = 255, 0, 0
-    expected = '#FF0000'
-    
+    expected = "#FF0000"
+
     # Act
     result = rgb_to_hex(r, g, b)
-    
+
     # Assert
     assert result == expected
 
@@ -27,11 +29,11 @@ def test_rgb_to_hex_green():
     """
     # Arrange
     r, g, b = 0, 255, 0
-    expected = '#00FF00'
-    
+    expected = "#00FF00"
+
     # Act
     result = rgb_to_hex(r, g, b)
-    
+
     # Assert
     assert result == expected
 
@@ -42,11 +44,11 @@ def test_rgb_to_hex_mixed():
     """
     # Arrange
     r, g, b = 128, 64, 192
-    expected = '#8040C0'
-    
+    expected = "#8040C0"
+
     # Act
     result = rgb_to_hex(r, g, b)
-    
+
     # Assert
     assert result == expected
 
@@ -57,11 +59,11 @@ def test_rgb_to_hex_black():
     """
     # Arrange
     r, g, b = 0, 0, 0
-    expected = '#000000'
-    
+    expected = "#000000"
+
     # Act
     result = rgb_to_hex(r, g, b)
-    
+
     # Assert
     assert result == expected
 
@@ -72,11 +74,11 @@ def test_rgb_to_hex_white():
     """
     # Arrange
     r, g, b = 255, 255, 255
-    expected = '#FFFFFF'
-    
+    expected = "#FFFFFF"
+
     # Act
     result = rgb_to_hex(r, g, b)
-    
+
     # Assert
     assert result == expected
 
@@ -88,7 +90,7 @@ def test_rgb_to_hex_r_out_of_range_raises_error():
     # Arrange
     r, g, b = 256, 0, 0
     expected_message = "r must be in range"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         rgb_to_hex(r, g, b)
@@ -101,7 +103,7 @@ def test_rgb_to_hex_negative_value_raises_error():
     # Arrange
     r, g, b = 100, -1, 100
     expected_message = "g must be in range"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         rgb_to_hex(r, g, b)
@@ -114,7 +116,7 @@ def test_rgb_to_hex_invalid_type_raises_error():
     # Arrange
     r, g, b = "255", 0, 0
     expected_message = "r must be an integer"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         rgb_to_hex(r, g, b)

@@ -70,19 +70,19 @@ def remove_extra_whitespace(
 
     if preserve_newlines:
         # Replace multiple newlines with single newline
-        text = re.sub(r'\n\s*\n+', '\n', text)
+        text = re.sub(r"\n\s*\n+", "\n", text)
         # Replace multiple spaces/tabs with single space (but not newlines)
-        text = re.sub(r'[^\S\n]+', ' ', text)
+        text = re.sub(r"[^\S\n]+", " ", text)
         # Strip each line
-        lines = text.split('\n')
-        text = '\n'.join(line.strip() for line in lines)
+        lines = text.split("\n")
+        text = "\n".join(line.strip() for line in lines)
     else:
         # Replace all whitespace (including newlines) with single space
-        text = re.sub(r'\s+', ' ', text)
+        text = re.sub(r"\s+", " ", text)
         # Strip leading and trailing whitespace
         text = text.strip()
 
     return text
 
 
-__all__ = ['remove_extra_whitespace']
+__all__ = ["remove_extra_whitespace"]

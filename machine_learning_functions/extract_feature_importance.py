@@ -2,6 +2,7 @@
 
 import logging
 from typing import Any
+
 import numpy as np
 from sklearn.inspection import permutation_importance
 
@@ -66,9 +67,9 @@ def extract_feature_importance(
     -----
     Provides unified interface across different model types:
     - Tree-based: Uses feature_importances_ attribute
-    - Linear models: Uses abs(coef_) 
+    - Linear models: Uses abs(coef_)
     - Any model: Falls back to permutation importance
-    
+
     Use battle-tested libraries: Built on sklearn's permutation_importance.
     Adds value through: unified API, automatic method detection, normalization.
 
@@ -82,35 +83,41 @@ def extract_feature_importance(
     if not isinstance(y, np.ndarray):
         raise TypeError(f"y must be numpy array, got {type(y).__name__}")
     if feature_names is not None and not isinstance(feature_names, list):
-        raise TypeError(f"feature_names must be list or None, got {type(feature_names).__name__}")
+        raise TypeError(
+            f"feature_names must be list or None, got {type(feature_names).__name__}"
+        )
     if not isinstance(method, str):
         raise TypeError(f"method must be str, got {type(method).__name__}")
-    if method not in ['auto', 'native', 'permutation']:
-        raise ValueError(f"method must be 'auto', 'native', or 'permutation', got {method}")
+    if method not in ["auto", "native", "permutation"]:
+        raise ValueError(
+            f"method must be 'auto', 'native', or 'permutation', got {method}"
+        )
     if not isinstance(n_repeats, int):
         raise TypeError(f"n_repeats must be int, got {type(n_repeats).__name__}")
     if n_repeats < 1:
         raise ValueError(f"n_repeats must be positive, got {n_repeats}")
 
     n_features = X.shape[1]
-    
+
     if feature_names is None:
         feature_names = [f"feature_{i}" for i in range(n_features)]
-    
+
     if len(feature_names) != n_features:
-        raise ValueError(f"feature_names length ({len(feature_names)}) must match X columns ({n_features})")
+        raise ValueError(
+            f"feature_names length ({len(feature_names)}) must match X columns ({n_features})"
+        )
 
     # Extract importances based on method
     importances = None
-    
-    if method in ['auto', 'native']:
+
+    if method in ["auto", "native"]:
         # Try tree-based feature_importances_
-        if hasattr(model, 'feature_importances_'):
+        if hasattr(model, "feature_importances_"):
             importances = model.feature_importances_
             logger.debug("Using tree-based feature_importances_")
-        
+
         # Try linear model coef_
-        elif hasattr(model, 'coef_'):
+        elif hasattr(model, "coef_"):
             coef = model.coef_
             # Handle multi-class case (average across classes)
             if coef.ndim > 1:
@@ -118,11 +125,11 @@ def extract_feature_importance(
             else:
                 importances = np.abs(coef)
             logger.debug("Using linear model coefficients")
-        
+
         # If auto and no native method found, use permutation
-        elif method == 'auto':
-            method = 'permutation'
-    
+        elif method == "auto":
+            method = "permutation"
+
     # Use permutation importance if requested or no native method
     if importances is None:
         logger.debug("Using permutation importance")
@@ -130,16 +137,19 @@ def extract_feature_importance(
             model, X, y, n_repeats=n_repeats, random_state=42
         )
         importances = perm_importance.importances_mean
-    
+
     # Normalize to 0-1 range
     importances = np.asarray(importances)
     if importances.sum() > 0:
         importances = importances / importances.sum()
-    
+
     # Create result dictionary
-    result = {name: float(imp) for name, imp in zip(feature_names, importances)}
-    
+    result = {
+        name: float(imp)
+        for name, imp in zip(feature_names, importances, strict=True)
+    }
+
     return result
 
 
-__all__ = ['extract_feature_importance']
+__all__ = ["extract_feature_importance"]

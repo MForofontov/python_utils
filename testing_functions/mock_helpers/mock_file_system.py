@@ -40,26 +40,26 @@ def mock_file_system(
     """
     if not isinstance(files, dict):
         raise TypeError(f"files must be a dict, got {type(files).__name__}")
-    
+
     mock_fs = Mock()
-    
+
     def mock_read(path: str) -> str:
         if path not in files:
             raise FileNotFoundError(f"File not found: {path}")
         return files[path]
-    
+
     def mock_exists(path: str) -> bool:
         return path in files
-    
+
     def mock_listdir(path: str) -> list[str]:
         return [f for f in files.keys() if f.startswith(path)]
-    
+
     mock_fs.read = mock_read
     mock_fs.exists = mock_exists
     mock_fs.listdir = mock_listdir
     mock_fs.files = files
-    
+
     return mock_fs
 
 
-__all__ = ['mock_file_system']
+__all__ = ["mock_file_system"]

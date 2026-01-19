@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.testing]
 from testing_functions.test_data_generators.generate_random_list import (
     generate_random_list,
 )
@@ -10,7 +12,7 @@ def test_generate_random_list_default_parameters() -> None:
     """
     # Act
     result = generate_random_list()
-    
+
     # Assert
     assert isinstance(result, list)
     assert len(result) == 10
@@ -23,7 +25,7 @@ def test_generate_random_list_custom_length() -> None:
     """
     # Act
     result = generate_random_list(5)
-    
+
     # Assert
     assert len(result) == 5
 
@@ -34,7 +36,7 @@ def test_generate_random_list_float_type() -> None:
     """
     # Act
     result = generate_random_list(10, "float")
-    
+
     # Assert
     assert all(isinstance(x, float) for x in result)
 
@@ -45,7 +47,7 @@ def test_generate_random_list_string_type() -> None:
     """
     # Act
     result = generate_random_list(10, "str")
-    
+
     # Assert
     assert all(isinstance(x, str) for x in result)
 
@@ -56,7 +58,7 @@ def test_generate_random_list_custom_range() -> None:
     """
     # Act
     result = generate_random_list(10, "int", 1, 10)
-    
+
     # Assert
     assert all(1 <= x <= 10 for x in result)
 
@@ -67,7 +69,7 @@ def test_generate_random_list_empty_list() -> None:
     """
     # Act
     result = generate_random_list(0)
-    
+
     # Assert
     assert result == []
 
@@ -104,5 +106,7 @@ def test_generate_random_list_value_error_invalid_element_type() -> None:
     Test case 10: ValueError for invalid element_type value.
     """
     # Act & Assert
-    with pytest.raises(ValueError, match="element_type must be 'int', 'float', or 'str'"):
+    with pytest.raises(
+        ValueError, match="element_type must be 'int', 'float', or 'str'"
+    ):
         generate_random_list(10, "boolean")

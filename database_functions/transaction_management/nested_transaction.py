@@ -21,7 +21,7 @@ def nested_transaction(
 ) -> Generator[Any, None, None]:
     """
     Context manager for nested transactions using savepoints.
-    
+
     This is library-agnostic - you provide the savepoint control functions for your database library.
 
     Parameters
@@ -33,7 +33,7 @@ def nested_transaction(
     create_savepoint_func : Callable[[str], None] | None, optional
         Function to create a savepoint, receives savepoint name (by default None).
         If None, attempts to call connection.begin_nested() or execute SAVEPOINT SQL.
-        Examples: 
+        Examples:
         - lambda name: cursor.execute(f"SAVEPOINT {name}")
         - lambda name: connection.begin_nested()
     release_savepoint_func : Callable[[str], None] | None, optional
@@ -63,7 +63,7 @@ def nested_transaction(
     >>> cursor = conn.cursor()
     >>> with atomic_transaction(conn, commit_func=lambda: conn.commit(), rollback_func=lambda: conn.rollback()):
     ...     cursor.execute("INSERT INTO users VALUES (1, 'Alice')")
-    ...     
+    ...
     ...     try:
     ...         with nested_transaction(
     ...             cursor,
@@ -75,17 +75,17 @@ def nested_transaction(
     ...             raise ValueError("Bob's insert failed")
     ...     except ValueError:
     ...         pass  # Bob's insert rolled back to savepoint
-    ...     
+    ...
     ...     cursor.execute("INSERT INTO users VALUES (3, 'Charlie')")
     >>> # Alice and Charlie inserted, Bob rolled back
-    >>> 
+    >>>
     >>> # Example 2: SQLAlchemy with nested transaction support
     >>> from sqlalchemy import create_engine
     >>> engine = create_engine("postgresql://user:pass@localhost/db")
     >>> conn = engine.connect()
     >>> with atomic_transaction(conn, commit_func=lambda: conn.commit(), rollback_func=lambda: conn.rollback()):
     ...     conn.execute("INSERT INTO users VALUES (1, 'Alice')")
-    ...     
+    ...
     ...     with nested_transaction(conn):  # Uses connection.begin_nested() by default
     ...         conn.execute("INSERT INTO users VALUES (2, 'Bob')")
 
@@ -105,7 +105,9 @@ def nested_transaction(
     if connection is None:
         raise TypeError("connection cannot be None")
     if savepoint_name is not None and not isinstance(savepoint_name, str):
-        raise TypeError(f"savepoint_name must be str or None, got {type(savepoint_name).__name__}")
+        raise TypeError(
+            f"savepoint_name must be str or None, got {type(savepoint_name).__name__}"
+        )
     if create_savepoint_func is not None and not callable(create_savepoint_func):
         raise TypeError("create_savepoint_func must be callable or None")
     if release_savepoint_func is not None and not callable(release_savepoint_func):
@@ -122,7 +124,9 @@ def nested_transaction(
         if create_savepoint_func is not None:
             try:
                 create_savepoint_func(savepoint_name)
-                logger.debug(f"Savepoint '{savepoint_name}' created via create_savepoint_func")
+                logger.debug(
+                    f"Savepoint '{savepoint_name}' created via create_savepoint_func"
+                )
             except Exception as e:
                 logger.error(f"Failed to create savepoint: {e}")
                 raise
@@ -130,7 +134,9 @@ def nested_transaction(
             # Fallback: try connection.begin_nested() or manual SQL
             try:
                 connection.begin_nested()
-                logger.debug(f"Savepoint '{savepoint_name}' created via connection.begin_nested()")
+                logger.debug(
+                    f"Savepoint '{savepoint_name}' created via connection.begin_nested()"
+                )
             except AttributeError:
                 try:
                     connection.execute(f"SAVEPOINT {savepoint_name}")
@@ -145,7 +151,9 @@ def nested_transaction(
         if release_savepoint_func is not None:
             try:
                 release_savepoint_func(savepoint_name)
-                logger.debug(f"Savepoint '{savepoint_name}' released via release_savepoint_func")
+                logger.debug(
+                    f"Savepoint '{savepoint_name}' released via release_savepoint_func"
+                )
             except Exception as e:
                 logger.warning(f"Failed to release savepoint: {e}")
         else:
@@ -153,7 +161,9 @@ def nested_transaction(
             try:
                 # For SQLAlchemy, commit releases the nested transaction
                 connection.commit()
-                logger.debug(f"Savepoint '{savepoint_name}' released via connection.commit()")
+                logger.debug(
+                    f"Savepoint '{savepoint_name}' released via connection.commit()"
+                )
             except AttributeError:
                 try:
                     connection.execute(f"RELEASE SAVEPOINT {savepoint_name}")
@@ -163,26 +173,32 @@ def nested_transaction(
 
     except Exception as e:
         # Rollback to savepoint on error
-        logger.warning(f"Nested transaction failed, rolling back to savepoint '{savepoint_name}': {e}")
-        
+        logger.warning(
+            f"Nested transaction failed, rolling back to savepoint '{savepoint_name}': {e}"
+        )
+
         if rollback_savepoint_func is not None:
             try:
                 rollback_savepoint_func(savepoint_name)
-                logger.debug(f"Rolled back to savepoint '{savepoint_name}' via rollback_savepoint_func")
+                logger.debug(
+                    f"Rolled back to savepoint '{savepoint_name}' via rollback_savepoint_func"
+                )
             except Exception as rollback_error:
                 logger.error(f"Savepoint rollback failed: {rollback_error}")
         else:
             # Fallback: try connection method or manual SQL
             try:
                 connection.rollback()
-                logger.debug(f"Rolled back to savepoint '{savepoint_name}' via connection.rollback()")
+                logger.debug(
+                    f"Rolled back to savepoint '{savepoint_name}' via connection.rollback()"
+                )
             except AttributeError:
                 try:
                     connection.execute(f"ROLLBACK TO SAVEPOINT {savepoint_name}")
                     logger.debug(f"Rolled back to savepoint '{savepoint_name}' via SQL")
                 except Exception as rollback_error:
                     logger.error(f"Savepoint rollback failed: {rollback_error}")
-        
+
         raise
 
 

@@ -18,4 +18,3 @@ __all__ = [
     "write_dict_to_json",
     "write_dict_to_tsv",
 ]
-

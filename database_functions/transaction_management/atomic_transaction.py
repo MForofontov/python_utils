@@ -20,7 +20,7 @@ def atomic_transaction(
 ) -> Generator[Any, None, None]:
     """
     Context manager for atomic database transactions with automatic rollback.
-    
+
     This is library-agnostic - you provide the transaction control functions for your database library.
 
     Parameters
@@ -66,7 +66,7 @@ def atomic_transaction(
     ...     trans_conn.execute("INSERT INTO users VALUES (1, 'Alice')")
     ...     trans_conn.execute("INSERT INTO users VALUES (2, 'Bob')")
     >>> # Automatically committed
-    >>> 
+    >>>
     >>> # Example 2: psycopg2 with manual transaction control
     >>> import psycopg2
     >>> conn = psycopg2.connect("dbname=mydb user=postgres")
@@ -78,7 +78,7 @@ def atomic_transaction(
     ... ):
     ...     cursor.execute("INSERT INTO users VALUES (1, 'Alice')")
     ...     cursor.execute("INSERT INTO users VALUES (2, 'Bob')")
-    >>> 
+    >>>
     >>> # Example 3: psycopg3 with BEGIN statement
     >>> import psycopg
     >>> conn = psycopg.connect("dbname=mydb user=postgres")
@@ -90,7 +90,7 @@ def atomic_transaction(
     ...     rollback_func=lambda: conn.rollback()
     ... ):
     ...     cursor.execute("INSERT INTO users VALUES (1, 'Alice')")
-    >>> 
+    >>>
     >>> # Example 4: Rollback on error
     >>> try:
     ...     with atomic_transaction(
@@ -155,7 +155,9 @@ def atomic_transaction(
                     connection.commit()
                     logger.debug("Transaction committed via connection.commit()")
                 except AttributeError:
-                    logger.warning("No commit_func provided and connection.commit() not available")
+                    logger.warning(
+                        "No commit_func provided and connection.commit() not available"
+                    )
                 except Exception as commit_error:
                     logger.error(f"Failed to commit transaction: {commit_error}")
                     raise
@@ -163,7 +165,7 @@ def atomic_transaction(
     except Exception as e:
         # Rollback on error
         logger.warning(f"Transaction failed, rolling back: {e}")
-        
+
         if rollback_func is not None:
             try:
                 rollback_func()
@@ -176,10 +178,12 @@ def atomic_transaction(
                 connection.rollback()
                 logger.debug("Transaction rolled back via connection.rollback()")
             except AttributeError:
-                logger.warning("No rollback_func provided and connection.rollback() not available")
+                logger.warning(
+                    "No rollback_func provided and connection.rollback() not available"
+                )
             except Exception as rollback_error:
                 logger.error(f"Rollback failed: {rollback_error}")
-        
+
         raise
 
 

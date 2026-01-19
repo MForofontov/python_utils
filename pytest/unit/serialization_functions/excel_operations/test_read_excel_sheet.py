@@ -1,9 +1,20 @@
 """Tests for read_excel_sheet module."""
 
-import pytest
 from pathlib import Path
-from openpyxl import Workbook
+
+try:
+    from openpyxl import Workbook
+
+    OPENPYXL_AVAILABLE = True
+except ImportError:
+    OPENPYXL_AVAILABLE = False
+    Workbook = None  # type: ignore
+
+import pytest
 from serialization_functions.excel_operations.read_excel_sheet import read_excel_sheet
+
+pytestmark = pytest.mark.skipif(not OPENPYXL_AVAILABLE, reason="openpyxl not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]
 
 
 def test_read_excel_sheet_entire_sheet(tmp_path: Path) -> None:

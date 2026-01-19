@@ -3,10 +3,29 @@ Unit tests for pivot_for_heatmap function.
 """
 
 import pytest
-import numpy as np
-import matplotlib
-matplotlib.use('Agg')  # Use non-GUI backend for testing
-from data_visualization_functions.data_transformers.pivot_for_heatmap import pivot_for_heatmap
+
+# Try to import matplotlib and numpy - tests will be skipped if not available
+try:
+    import matplotlib
+
+    matplotlib.use("Agg")  # Use non-GUI backend for testing
+    import numpy as np
+
+    from data_visualization_functions.data_transformers.pivot_for_heatmap import (
+        pivot_for_heatmap,
+    )
+
+    DEPENDENCIES_AVAILABLE = True
+except ImportError:
+    DEPENDENCIES_AVAILABLE = False
+    matplotlib = None  # type: ignore
+    np = None  # type: ignore
+    pivot_for_heatmap = None  # type: ignore
+
+pytestmark = pytest.mark.skipif(
+    not DEPENDENCIES_AVAILABLE, reason="matplotlib and numpy not installed"
+)
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.data_visualization]
 
 
 def test_pivot_for_heatmap_basic():
@@ -15,17 +34,17 @@ def test_pivot_for_heatmap_basic():
     """
     # Arrange
     data = [10, 20, 30, 40]
-    rows = ['A', 'A', 'B', 'B']
-    cols = ['X', 'Y', 'X', 'Y']
-    
+    rows = ["A", "A", "B", "B"]
+    cols = ["X", "Y", "X", "Y"]
+
     # Act
     matrix, row_labels, col_labels = pivot_for_heatmap(data, rows, cols)
-    
+
     # Assert
     assert isinstance(matrix, np.ndarray)
     assert matrix.shape == (2, 2)
-    assert list(row_labels) == ['A', 'B']
-    assert list(col_labels) == ['X', 'Y']
+    assert list(row_labels) == ["A", "B"]
+    assert list(col_labels) == ["X", "Y"]
 
 
 def test_pivot_for_heatmap_larger_grid():
@@ -34,16 +53,16 @@ def test_pivot_for_heatmap_larger_grid():
     """
     # Arrange
     data = [10, 20, 30, 40, 50, 60]
-    rows = ['R1', 'R1', 'R1', 'R2', 'R2', 'R2']
-    cols = ['C1', 'C2', 'C3', 'C1', 'C2', 'C3']
-    
+    rows = ["R1", "R1", "R1", "R2", "R2", "R2"]
+    cols = ["C1", "C2", "C3", "C1", "C2", "C3"]
+
     # Act
     matrix, row_labels, col_labels = pivot_for_heatmap(data, rows, cols)
-    
+
     # Assert
     assert matrix.shape == (2, 3)
-    assert list(row_labels) == ['R1', 'R2']
-    assert list(col_labels) == ['C1', 'C2', 'C3']
+    assert list(row_labels) == ["R1", "R2"]
+    assert list(col_labels) == ["C1", "C2", "C3"]
 
 
 def test_pivot_for_heatmap_missing_combinations():
@@ -52,12 +71,12 @@ def test_pivot_for_heatmap_missing_combinations():
     """
     # Arrange
     data = [1, 2, 3]
-    rows = ['A', 'A', 'B']
-    cols = ['X', 'Y', 'X']
-    
+    rows = ["A", "A", "B"]
+    cols = ["X", "Y", "X"]
+
     # Act
     matrix, row_labels, col_labels = pivot_for_heatmap(data, rows, cols)
-    
+
     # Assert
     assert isinstance(matrix, np.ndarray)
     assert matrix.shape == (2, 2)
@@ -71,12 +90,12 @@ def test_pivot_for_heatmap_single_cell():
     """
     # Arrange
     data = [42]
-    rows = ['A']
-    cols = ['X']
-    
+    rows = ["A"]
+    cols = ["X"]
+
     # Act
     matrix, row_labels, col_labels = pivot_for_heatmap(data, rows, cols)
-    
+
     # Assert
     assert matrix.shape == (1, 1)
     assert matrix[0, 0] == 42
@@ -88,7 +107,7 @@ def test_pivot_for_heatmap_empty_raises_error():
     """
     # Arrange
     expected_message = "data cannot be empty"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         pivot_for_heatmap([], [], [])
@@ -100,10 +119,10 @@ def test_pivot_for_heatmap_mismatched_lengths_raises_error():
     """
     # Arrange
     data = [1, 2]
-    rows = ['A', 'B']
-    cols = ['X']
+    rows = ["A", "B"]
+    cols = ["X"]
     expected_message = "data.*row_labels.*col_labels.*same length|length.*mismatch"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         pivot_for_heatmap(data, rows, cols)
@@ -115,10 +134,10 @@ def test_pivot_for_heatmap_invalid_type_raises_error():
     """
     # Arrange
     expected_message = "data must be|Cannot convert|could not convert"
-    
+
     # Act & Assert
     with pytest.raises((TypeError, ValueError), match=expected_message):
-        pivot_for_heatmap("not_a_list", ['A'], ['X'])
+        pivot_for_heatmap("not_a_list", ["A"], ["X"])
 
 
 def test_pivot_for_heatmap_duplicate_coordinates():
@@ -127,42 +146,43 @@ def test_pivot_for_heatmap_duplicate_coordinates():
     """
     # Arrange
     data = [10, 20, 30]
-    rows = ['A', 'A', 'A']
-    cols = ['X', 'X', 'X']
-    
+    rows = ["A", "A", "A"]
+    cols = ["X", "X", "X"]
+
     # Act - aggregate duplicates using sum
-    matrix, row_labels, col_labels = pivot_for_heatmap(data, rows, cols, agg_func='sum')
-    
+    matrix, row_labels, col_labels = pivot_for_heatmap(data, rows, cols, agg_func="sum")
+
     # Assert
     assert matrix.shape == (1, 1)
     assert matrix[0, 0] == 60.0  # Sum of 10, 20, 30
 
 
-
-def test_pivot_for_heatmap_invalid_type_raises_error():
+def test_pivot_for_heatmap_invalid_data_type_raises_error():
     """
-    Test case 7: TypeError for invalid input type.
+    Test case 9: TypeError for invalid input type (second variant).
     """
     # Arrange
     expected_message = "Cannot convert data to numeric array"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
-        pivot_for_heatmap("not_a_list", ['A'], ['X'])
+        pivot_for_heatmap("not_a_list", ["A"], ["X"])
 
 
-def test_pivot_for_heatmap_duplicate_coordinates():
+def test_pivot_for_heatmap_handles_duplicate_coordinates():
     """
     Test case 8: Handle duplicate row/col coordinates.
     """
     # Arrange
-    rows = ['A', 'A']
-    cols = ['X', 'X']
+    rows = ["A", "A"]
+    cols = ["X", "X"]
     values = [10, 20]
-    
+
     # Act
-    matrix, row_labels, col_labels = pivot_for_heatmap(values, rows, cols, agg_func='mean')
-    
+    matrix, row_labels, col_labels = pivot_for_heatmap(
+        values, rows, cols, agg_func="mean"
+    )
+
     # Assert
     assert matrix.shape == (1, 1)
     assert matrix[0, 0] == 15.0  # Mean of 10 and 20
@@ -170,4 +190,4 @@ def test_pivot_for_heatmap_duplicate_coordinates():
     assert len(col_labels) == 1
 
 
-__all__ = ['test_pivot_for_heatmap_basic']
+__all__ = ["test_pivot_for_heatmap_basic"]

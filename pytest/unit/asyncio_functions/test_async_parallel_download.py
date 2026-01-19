@@ -3,6 +3,8 @@ from typing import Any
 from unittest.mock import patch
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.asyncio_functions]
 from asyncio_functions.async_parallel_download import async_parallel_download
 
 

@@ -2,6 +2,8 @@ import json
 import logging
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.decorators]
 from decorators.serialize_output import serialize_output
 
 # Configure test_logger
@@ -70,7 +72,9 @@ def test_serialize_invalid_logger():
     """
     Test case 5: Invalid logger
     """
-    with pytest.raises(TypeError, match="logger must be an instance of logging.Logger or None"):
+    with pytest.raises(
+        TypeError, match="logger must be an instance of logging.Logger or None"
+    ):
 
         @serialize_output("json", logger="invalid_logger")
         def invalid_logger_function() -> None:

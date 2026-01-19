@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
 from strings_utility.replace_multiple_substrings import replace_multiple_substrings
 
 
@@ -144,9 +146,13 @@ def test_replace_invalid_key_value_types() -> None:
     Test case 16: Test TypeError when replacements dict has non-string keys or values.
     """
     # Test non-string key
-    with pytest.raises(TypeError, match="Both keys and values in replacements must be strings"):
+    with pytest.raises(
+        TypeError, match="Both keys and values in replacements must be strings"
+    ):
         replace_multiple_substrings("hello", {123: "world"})
-    
+
     # Test non-string value
-    with pytest.raises(TypeError, match="Both keys and values in replacements must be strings"):
+    with pytest.raises(
+        TypeError, match="Both keys and values in replacements must be strings"
+    ):
         replace_multiple_substrings("hello", {"hello": 456})

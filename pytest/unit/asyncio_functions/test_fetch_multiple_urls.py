@@ -1,6 +1,8 @@
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.asyncio_functions]
 from asyncio_functions.fetch_multiple_urls import fetch_multiple_urls
 
 

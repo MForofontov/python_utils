@@ -16,4 +16,3 @@ __all__ = [
     "create_directory",
     "merge_folders",
 ]
-

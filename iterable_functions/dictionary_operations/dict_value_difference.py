@@ -1,7 +1,5 @@
 """Calculate differences between two dictionaries."""
 
-"""Dictionary value difference comparison."""
-
 from typing import Any
 
 

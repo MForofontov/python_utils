@@ -3,7 +3,7 @@ Chunked processor with backpressure control for large dataset processing.
 """
 
 from collections.abc import Callable, Generator, Iterable
-from typing import Any, TypeVar
+from typing import TypeVar
 
 T = TypeVar("T")
 R = TypeVar("R")
@@ -82,7 +82,9 @@ def chunked_processor(
         raise TypeError(f"processor must be callable, got {type(processor).__name__}")
 
     if not isinstance(chunk_size, int):
-        raise TypeError(f"chunk_size must be an integer, got {type(chunk_size).__name__}")
+        raise TypeError(
+            f"chunk_size must be an integer, got {type(chunk_size).__name__}"
+        )
 
     if max_memory_mb is not None and not isinstance(max_memory_mb, int):
         raise TypeError(
@@ -97,50 +99,52 @@ def chunked_processor(
         raise ValueError(f"max_memory_mb must be positive, got {max_memory_mb}")
 
     chunk: list[T] = []
-    
+
     for item in items:
         chunk.append(item)
-        
+
         if len(chunk) >= chunk_size:
             # Process chunk
             results = processor(chunk)
-            
+
             # Validate processor output
             if not isinstance(results, list):
                 raise TypeError(
                     f"processor must return a list, got {type(results).__name__}"
                 )
-            
+
             # Yield results one by one (backpressure control)
             for result in results:
                 yield result
-            
+
             # Clear chunk for next batch
             chunk.clear()
-            
+
             # Optional memory check
             if max_memory_mb is not None:
                 import psutil
+
                 process = psutil.Process()
                 memory_mb = process.memory_info().rss / 1024 / 1024
-                
+
                 if memory_mb > max_memory_mb:
-                    import time
                     import gc
+                    import time
+
                     # Force garbage collection
                     gc.collect()
                     # Brief pause to allow memory to be freed
                     time.sleep(0.1)
-    
+
     # Process remaining items in final chunk
     if chunk:
         results = processor(chunk)
-        
+
         if not isinstance(results, list):
             raise TypeError(
                 f"processor must return a list, got {type(results).__name__}"
             )
-        
+
         for result in results:
             yield result
 

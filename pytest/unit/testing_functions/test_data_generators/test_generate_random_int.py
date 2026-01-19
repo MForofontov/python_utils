@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.testing]
 from testing_functions.test_data_generators.generate_random_int import (
     generate_random_int,
 )
@@ -10,7 +12,7 @@ def test_generate_random_int_default_parameters() -> None:
     """
     # Act
     result = generate_random_int()
-    
+
     # Assert
     assert isinstance(result, int)
     assert 0 <= result <= 100
@@ -22,7 +24,7 @@ def test_generate_random_int_custom_range() -> None:
     """
     # Act
     result = generate_random_int(10, 20)
-    
+
     # Assert
     assert 10 <= result <= 20
 
@@ -33,7 +35,7 @@ def test_generate_random_int_same_min_max() -> None:
     """
     # Act
     result = generate_random_int(5, 5)
-    
+
     # Assert
     assert result == 5
 
@@ -44,7 +46,7 @@ def test_generate_random_int_negative_range() -> None:
     """
     # Act
     result = generate_random_int(-10, -5)
-    
+
     # Assert
     assert -10 <= result <= -5
 

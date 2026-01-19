@@ -133,9 +133,11 @@ def numerical_derivative(
             for i in range(x_arr.size - 2):
                 h1 = x_arr[i + 1] - x_arr[i]
                 h2 = x_arr[i + 2] - x_arr[i + 1]
-                derivative[i] = (2 * y_arr[i] / (h1 * (h1 + h2)) -
-                                 2 * y_arr[i + 1] / (h1 * h2) +
-                                 2 * y_arr[i + 2] / (h2 * (h1 + h2)))
+                derivative[i] = (
+                    2 * y_arr[i] / (h1 * (h1 + h2))
+                    - 2 * y_arr[i + 1] / (h1 * h2)
+                    + 2 * y_arr[i + 2] / (h2 * (h1 + h2))
+                )
             # Use backward for last two points
             derivative[-2] = derivative[-3]
             derivative[-1] = derivative[-3]
@@ -154,9 +156,11 @@ def numerical_derivative(
             for i in range(2, x_arr.size):
                 h1 = x_arr[i] - x_arr[i - 1]
                 h2 = x_arr[i - 1] - x_arr[i - 2]
-                derivative[i] = (2 * y_arr[i] / (h1 * (h1 + h2)) -
-                                 2 * y_arr[i - 1] / (h1 * h2) +
-                                 2 * y_arr[i - 2] / (h2 * (h1 + h2)))
+                derivative[i] = (
+                    2 * y_arr[i] / (h1 * (h1 + h2))
+                    - 2 * y_arr[i - 1] / (h1 * h2)
+                    + 2 * y_arr[i - 2] / (h2 * (h1 + h2))
+                )
             # Use forward for first two points
             derivative[0] = derivative[2]
             derivative[1] = derivative[2]
@@ -169,8 +173,10 @@ def numerical_derivative(
             for i in range(1, x_arr.size - 1):
                 h_forward = x_arr[i + 1] - x_arr[i]
                 h_backward = x_arr[i] - x_arr[i - 1]
-                derivative[i] = ((y_arr[i + 1] - y_arr[i]) / h_forward +
-                                 (y_arr[i] - y_arr[i - 1]) / h_backward) / 2
+                derivative[i] = (
+                    (y_arr[i + 1] - y_arr[i]) / h_forward
+                    + (y_arr[i] - y_arr[i - 1]) / h_backward
+                ) / 2
             # Forward for first, backward for last
             derivative[0] = (y_arr[1] - y_arr[0]) / (x_arr[1] - x_arr[0])
             derivative[-1] = (y_arr[-1] - y_arr[-2]) / (x_arr[-1] - x_arr[-2])
@@ -179,9 +185,11 @@ def numerical_derivative(
             for i in range(1, x_arr.size - 1):
                 h_forward = x_arr[i + 1] - x_arr[i]
                 h_backward = x_arr[i] - x_arr[i - 1]
-                derivative[i] = (2 * (y_arr[i + 1] / (h_forward * (h_forward + h_backward)) -
-                                      y_arr[i] / (h_forward * h_backward) +
-                                      y_arr[i - 1] / (h_backward * (h_forward + h_backward))))
+                derivative[i] = 2 * (
+                    y_arr[i + 1] / (h_forward * (h_forward + h_backward))
+                    - y_arr[i] / (h_forward * h_backward)
+                    + y_arr[i - 1] / (h_backward * (h_forward + h_backward))
+                )
             # Use adjacent values for boundaries
             derivative[0] = derivative[1]
             derivative[-1] = derivative[-2]

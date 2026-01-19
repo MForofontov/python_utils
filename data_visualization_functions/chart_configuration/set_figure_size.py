@@ -66,10 +66,10 @@ def set_figure_size(
     if dpi <= 0:
         raise ValueError(f"dpi must be positive, got {dpi}")
 
-    plt.rcParams['figure.figsize'] = (width, height)
-    plt.rcParams['figure.dpi'] = dpi
+    plt.rcParams["figure.figsize"] = (width, height)
+    plt.rcParams["figure.dpi"] = dpi
 
     logger.info(f"Set default figure size to {width}x{height} inches at {dpi} DPI")
 
 
-__all__ = ['set_figure_size']
+__all__ = ["set_figure_size"]

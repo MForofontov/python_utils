@@ -12,4 +12,3 @@ __all__ = [
     "ConnectionPoolManager",
     "managed_db_connection",
 ]
-

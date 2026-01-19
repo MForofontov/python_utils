@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
 from iterable_functions.list_operations.add_strings_to_subsets import (
     add_strings_to_subsets,
 )

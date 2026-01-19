@@ -1,6 +1,8 @@
 from datetime import datetime
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.formatting]
 from formatting_functions.format_date import format_date
 
 

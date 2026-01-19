@@ -48,20 +48,22 @@ def mock_api_response(
     Time: O(1), Space: O(1)
     """
     if not isinstance(status_code, int):
-        raise TypeError(f"status_code must be an integer, got {type(status_code).__name__}")
+        raise TypeError(
+            f"status_code must be an integer, got {type(status_code).__name__}"
+        )
     if headers is not None and not isinstance(headers, dict):
         raise TypeError(f"headers must be a dict or None, got {type(headers).__name__}")
-    
+
     if not (100 <= status_code < 600):
         raise ValueError(f"status_code must be between 100 and 599, got {status_code}")
-    
+
     mock_response = Mock()
     mock_response.status_code = status_code
     mock_response.headers = headers or {}
     mock_response.json.return_value = data
     mock_response.text = str(data) if data is not None else ""
-    
+
     return mock_response
 
 
-__all__ = ['mock_api_response']
+__all__ = ["mock_api_response"]

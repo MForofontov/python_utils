@@ -1,9 +1,21 @@
 """Unit tests for adaptive_filter function."""
 
-import numpy as np
-import pytest
+try:
+    import numpy as np
+    import scipy
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    np = None  # type: ignore
+    scipy = None  # type: ignore
 
-from scientific_computing_functions.signal_processing.adaptive_filter import adaptive_filter
+import pytest
+from scientific_computing_functions.signal_processing.adaptive_filter import (
+    adaptive_filter,
+)
+
+pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy/scipy not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.scientific_computing]
 
 
 # Normal operation tests
@@ -11,31 +23,33 @@ def test_adaptive_filter_nlms_basic() -> None:
     """Test case 1: Normal operation with NLMS algorithm."""
     # Arrange
     np.random.seed(42)
-    signal = np.sin(np.linspace(0, 4*np.pi, 100)) + 0.1 * np.random.randn(100)
-    
+    signal = np.sin(np.linspace(0, 4 * np.pi, 100)) + 0.1 * np.random.randn(100)
+
     # Act
-    result = adaptive_filter(signal, filter_length=16, algorithm='nlms', step_size=0.1)
-    
+    result = adaptive_filter(signal, filter_length=16, algorithm="nlms", step_size=0.1)
+
     # Assert
-    assert len(result['filtered_signal']) == 100
-    assert len(result['error_signal']) == 100
-    assert len(result['filter_weights']) == 16
-    assert len(result['mse_history']) > 0
-    assert result['convergence_iteration'] is None or result['convergence_iteration'] > 16
+    assert len(result["filtered_signal"]) == 100
+    assert len(result["error_signal"]) == 100
+    assert len(result["filter_weights"]) == 16
+    assert len(result["mse_history"]) > 0
+    assert (
+        result["convergence_iteration"] is None or result["convergence_iteration"] > 16
+    )
 
 
 def test_adaptive_filter_lms_algorithm() -> None:
     """Test case 2: Normal operation with LMS algorithm."""
     # Arrange
     signal = [0.5, 0.3, 0.8, 0.2] * 25  # 100 samples
-    
+
     # Act
-    result = adaptive_filter(signal, filter_length=8, algorithm='lms', step_size=0.01)
-    
+    result = adaptive_filter(signal, filter_length=8, algorithm="lms", step_size=0.01)
+
     # Assert
-    assert len(result['filtered_signal']) == 100
-    assert len(result['filter_weights']) == 8
-    assert result['mse_history'].shape[0] > 0
+    assert len(result["filtered_signal"]) == 100
+    assert len(result["filter_weights"]) == 8
+    assert result["mse_history"].shape[0] > 0
 
 
 def test_adaptive_filter_rls_algorithm() -> None:
@@ -43,16 +57,18 @@ def test_adaptive_filter_rls_algorithm() -> None:
     # Arrange
     np.random.seed(42)
     signal = np.random.randn(100)
-    
+
     # Act
-    result = adaptive_filter(signal, filter_length=16, algorithm='rls', forgetting_factor=0.99)
-    
+    result = adaptive_filter(
+        signal, filter_length=16, algorithm="rls", forgetting_factor=0.99
+    )
+
     # Assert
-    assert len(result['filtered_signal']) == 100
-    assert len(result['filter_weights']) == 16
+    assert len(result["filtered_signal"]) == 100
+    assert len(result["filter_weights"]) == 16
     # RLS should converge faster
-    if result['convergence_iteration'] is not None:
-        assert result['convergence_iteration'] < 100
+    if result["convergence_iteration"] is not None:
+        assert result["convergence_iteration"] < 100
 
 
 def test_adaptive_filter_with_reference_signal() -> None:
@@ -61,53 +77,57 @@ def test_adaptive_filter_with_reference_signal() -> None:
     np.random.seed(42)
     signal = np.random.randn(100)
     reference = np.roll(signal, 10)  # Delayed version
-    
+
     # Act
-    result = adaptive_filter(signal, reference=reference, filter_length=32, algorithm='nlms')
-    
+    result = adaptive_filter(
+        signal, reference=reference, filter_length=32, algorithm="nlms"
+    )
+
     # Assert
-    assert len(result['filtered_signal']) == 100
-    assert len(result['error_signal']) == 100
+    assert len(result["filtered_signal"]) == 100
+    assert len(result["error_signal"]) == 100
 
 
 def test_adaptive_filter_small_step_size() -> None:
     """Test case 5: Normal operation with small step size (slow convergence)."""
     # Arrange
     signal = [1.0] * 50 + [0.5] * 50
-    
+
     # Act
-    result = adaptive_filter(signal, filter_length=8, algorithm='nlms', step_size=0.001)
-    
+    result = adaptive_filter(signal, filter_length=8, algorithm="nlms", step_size=0.001)
+
     # Assert
-    assert len(result['mse_history']) > 0
+    assert len(result["mse_history"]) > 0
     # Small step size should take longer to converge (may not converge at all within signal length)
-    assert result['convergence_iteration'] is None or result['convergence_iteration'] > 15
+    assert (
+        result["convergence_iteration"] is None or result["convergence_iteration"] > 15
+    )
 
 
 def test_adaptive_filter_large_step_size() -> None:
     """Test case 6: Normal operation with large step size (fast but potentially unstable)."""
     # Arrange
     signal = np.linspace(0, 1, 100).tolist()
-    
+
     # Act
-    result = adaptive_filter(signal, filter_length=8, algorithm='nlms', step_size=0.5)
-    
+    result = adaptive_filter(signal, filter_length=8, algorithm="nlms", step_size=0.5)
+
     # Assert
-    assert len(result['filtered_signal']) == 100
-    assert not np.any(np.isnan(result['filtered_signal']))  # Should not diverge
+    assert len(result["filtered_signal"]) == 100
+    assert not np.any(np.isnan(result["filtered_signal"]))  # Should not diverge
 
 
 def test_adaptive_filter_numpy_array_input() -> None:
     """Test case 7: Normal operation with numpy array input."""
     # Arrange
     signal = np.array([0.5, 0.3, 0.8, 0.2] * 25)
-    
+
     # Act
-    result = adaptive_filter(signal, filter_length=16, algorithm='nlms')
-    
+    result = adaptive_filter(signal, filter_length=16, algorithm="nlms")
+
     # Assert
-    assert isinstance(result['filtered_signal'], np.ndarray)
-    assert isinstance(result['error_signal'], np.ndarray)
+    assert isinstance(result["filtered_signal"], np.ndarray)
+    assert isinstance(result["error_signal"], np.ndarray)
 
 
 def test_adaptive_filter_different_forgetting_factors() -> None:
@@ -115,16 +135,20 @@ def test_adaptive_filter_different_forgetting_factors() -> None:
     # Arrange
     np.random.seed(42)
     signal = np.random.randn(100)
-    
+
     # Act
-    result_099 = adaptive_filter(signal, filter_length=8, algorithm='rls', forgetting_factor=0.99)
-    result_095 = adaptive_filter(signal, filter_length=8, algorithm='rls', forgetting_factor=0.95)
-    
+    result_099 = adaptive_filter(
+        signal, filter_length=8, algorithm="rls", forgetting_factor=0.99
+    )
+    result_095 = adaptive_filter(
+        signal, filter_length=8, algorithm="rls", forgetting_factor=0.95
+    )
+
     # Assert
-    assert len(result_099['filtered_signal']) == 100
-    assert len(result_095['filtered_signal']) == 100
+    assert len(result_099["filtered_signal"]) == 100
+    assert len(result_095["filtered_signal"]) == 100
     # Different forgetting factors should produce different results
-    assert not np.allclose(result_099['filter_weights'], result_095['filter_weights'])
+    assert not np.allclose(result_099["filter_weights"], result_095["filter_weights"])
 
 
 # Edge case tests
@@ -133,53 +157,57 @@ def test_adaptive_filter_minimum_signal_length() -> None:
     # Arrange
     filter_length = 8
     signal = [1.0] * (filter_length + 5)  # Just above minimum
-    
+
     # Act
-    result = adaptive_filter(signal, filter_length=filter_length, algorithm='nlms')
-    
+    result = adaptive_filter(signal, filter_length=filter_length, algorithm="nlms")
+
     # Assert
-    assert len(result['filtered_signal']) == filter_length + 5
-    assert len(result['filter_weights']) == filter_length
+    assert len(result["filtered_signal"]) == filter_length + 5
+    assert len(result["filter_weights"]) == filter_length
 
 
 def test_adaptive_filter_single_variable_filter() -> None:
     """Test case 10: Edge case with filter_length=1."""
     # Arrange
     signal = [0.5, 0.3, 0.8, 0.2] * 10
-    
+
     # Act
-    result = adaptive_filter(signal, filter_length=1, algorithm='nlms')
-    
+    result = adaptive_filter(signal, filter_length=1, algorithm="nlms")
+
     # Assert
-    assert len(result['filter_weights']) == 1
-    assert len(result['filtered_signal']) == 40
+    assert len(result["filter_weights"]) == 1
+    assert len(result["filtered_signal"]) == 40
 
 
 def test_adaptive_filter_constant_signal() -> None:
     """Test case 11: Edge case with constant signal."""
     # Arrange
     signal = [5.0] * 100
-    
+
     # Act
-    result = adaptive_filter(signal, filter_length=8, algorithm='nlms')
-    
+    result = adaptive_filter(signal, filter_length=8, algorithm="nlms")
+
     # Assert
-    assert len(result['filtered_signal']) == 100
+    assert len(result["filtered_signal"]) == 100
     # Should converge quickly for constant signal
-    assert result['convergence_iteration'] is None or result['convergence_iteration'] < 100
+    assert (
+        result["convergence_iteration"] is None or result["convergence_iteration"] < 100
+    )
 
 
 def test_adaptive_filter_forgetting_factor_one() -> None:
     """Test case 12: Edge case with forgetting factor = 1.0 (no forgetting)."""
     # Arrange
     signal = np.random.randn(50).tolist()
-    
+
     # Act
-    result = adaptive_filter(signal, filter_length=8, algorithm='rls', forgetting_factor=1.0)
-    
+    result = adaptive_filter(
+        signal, filter_length=8, algorithm="rls", forgetting_factor=1.0
+    )
+
     # Assert
-    assert len(result['filtered_signal']) == 50
-    assert len(result['filter_weights']) == 8
+    assert len(result["filtered_signal"]) == 50
+    assert len(result["filter_weights"]) == 8
 
 
 def test_adaptive_filter_long_signal() -> None:
@@ -187,15 +215,18 @@ def test_adaptive_filter_long_signal() -> None:
     # Arrange
     np.random.seed(42)
     signal = np.random.randn(1000)
-    
+
     # Act
-    result = adaptive_filter(signal, filter_length=32, algorithm='nlms')
-    
+    result = adaptive_filter(signal, filter_length=32, algorithm="nlms")
+
     # Assert
-    assert len(result['filtered_signal']) == 1000
-    assert len(result['mse_history']) > 0
+    assert len(result["filtered_signal"]) == 1000
+    assert len(result["mse_history"]) > 0
     # Should eventually converge with enough samples
-    assert result['convergence_iteration'] is None or result['convergence_iteration'] <= 1000
+    assert (
+        result["convergence_iteration"] is None
+        or result["convergence_iteration"] <= 1000
+    )
 
 
 def test_adaptive_filter_large_filter_length() -> None:
@@ -203,13 +234,13 @@ def test_adaptive_filter_large_filter_length() -> None:
     # Arrange
     signal = np.random.randn(200).tolist()
     filter_length = 64
-    
+
     # Act
-    result = adaptive_filter(signal, filter_length=filter_length, algorithm='nlms')
-    
+    result = adaptive_filter(signal, filter_length=filter_length, algorithm="nlms")
+
     # Assert
-    assert len(result['filter_weights']) == filter_length
-    assert len(result['filtered_signal']) == 200
+    assert len(result["filter_weights"]) == filter_length
+    assert len(result["filtered_signal"]) == 200
 
 
 # Error case tests
@@ -218,7 +249,7 @@ def test_adaptive_filter_invalid_signal_type() -> None:
     # Arrange
     invalid_signal = "not a signal"
     expected_message = "signal must be a list or numpy array"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         adaptive_filter(invalid_signal)
@@ -230,7 +261,7 @@ def test_adaptive_filter_invalid_reference_type() -> None:
     signal = [1, 2, 3, 4] * 10
     invalid_reference = "not a signal"
     expected_message = "reference must be a list, numpy array, or None"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         adaptive_filter(signal, reference=invalid_reference)
@@ -241,7 +272,7 @@ def test_adaptive_filter_empty_signal() -> None:
     # Arrange
     empty_signal = []
     expected_message = "signal cannot be empty"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         adaptive_filter(empty_signal)
@@ -252,7 +283,7 @@ def test_adaptive_filter_multidimensional_signal() -> None:
     # Arrange
     invalid_signal = [[1, 2], [3, 4]]
     expected_message = "signal must be 1D"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         adaptive_filter(invalid_signal)
@@ -263,7 +294,7 @@ def test_adaptive_filter_negative_filter_length() -> None:
     # Arrange
     signal = [1, 2, 3, 4] * 10
     expected_message = "filter_length must be positive"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         adaptive_filter(signal, filter_length=-8)
@@ -274,7 +305,7 @@ def test_adaptive_filter_zero_filter_length() -> None:
     # Arrange
     signal = [1, 2, 3, 4] * 10
     expected_message = "filter_length must be positive"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         adaptive_filter(signal, filter_length=0)
@@ -285,7 +316,7 @@ def test_adaptive_filter_filter_length_exceeds_signal() -> None:
     # Arrange
     signal = [1, 2, 3, 4, 5]
     expected_message = "filter_length .* cannot exceed signal length"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         adaptive_filter(signal, filter_length=10)
@@ -296,10 +327,10 @@ def test_adaptive_filter_invalid_algorithm() -> None:
     # Arrange
     signal = [1, 2, 3, 4] * 10
     expected_message = "Invalid algorithm"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
-        adaptive_filter(signal, algorithm='invalid')
+        adaptive_filter(signal, algorithm="invalid")
 
 
 def test_adaptive_filter_negative_step_size() -> None:
@@ -307,7 +338,7 @@ def test_adaptive_filter_negative_step_size() -> None:
     # Arrange
     signal = [1, 2, 3, 4] * 10
     expected_message = "step_size must be positive"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         adaptive_filter(signal, step_size=-0.1)
@@ -318,7 +349,7 @@ def test_adaptive_filter_zero_step_size() -> None:
     # Arrange
     signal = [1, 2, 3, 4] * 10
     expected_message = "step_size must be positive"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         adaptive_filter(signal, step_size=0.0)
@@ -329,10 +360,10 @@ def test_adaptive_filter_invalid_forgetting_factor_zero() -> None:
     # Arrange
     signal = [1, 2, 3, 4] * 10
     expected_message = "forgetting_factor must be in \\(0, 1\\]"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
-        adaptive_filter(signal, algorithm='rls', forgetting_factor=0.0)
+        adaptive_filter(signal, algorithm="rls", forgetting_factor=0.0)
 
 
 def test_adaptive_filter_invalid_forgetting_factor_above_one() -> None:
@@ -340,10 +371,10 @@ def test_adaptive_filter_invalid_forgetting_factor_above_one() -> None:
     # Arrange
     signal = [1, 2, 3, 4] * 10
     expected_message = "forgetting_factor must be in \\(0, 1\\]"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
-        adaptive_filter(signal, algorithm='rls', forgetting_factor=1.5)
+        adaptive_filter(signal, algorithm="rls", forgetting_factor=1.5)
 
 
 def test_adaptive_filter_reference_length_mismatch() -> None:
@@ -352,7 +383,7 @@ def test_adaptive_filter_reference_length_mismatch() -> None:
     signal = [1, 2, 3, 4] * 10
     reference = [1, 2, 3]  # Different length
     expected_message = "reference must have same length as signal"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         adaptive_filter(signal, reference=reference)
@@ -363,7 +394,7 @@ def test_adaptive_filter_invalid_filter_length_type() -> None:
     # Arrange
     signal = [1, 2, 3, 4] * 10
     expected_message = "filter_length must be an integer"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         adaptive_filter(signal, filter_length=8.5)
@@ -374,7 +405,7 @@ def test_adaptive_filter_invalid_algorithm_type() -> None:
     # Arrange
     signal = [1, 2, 3, 4] * 10
     expected_message = "algorithm must be a string"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         adaptive_filter(signal, algorithm=123)
@@ -385,7 +416,7 @@ def test_adaptive_filter_invalid_step_size_type() -> None:
     # Arrange
     signal = [1, 2, 3, 4] * 10
     expected_message = "step_size must be a number"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         adaptive_filter(signal, step_size="0.1")
@@ -396,7 +427,7 @@ def test_adaptive_filter_invalid_forgetting_factor_type() -> None:
     # Arrange
     signal = [1, 2, 3, 4] * 10
     expected_message = "forgetting_factor must be a number"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         adaptive_filter(signal, forgetting_factor="0.99")

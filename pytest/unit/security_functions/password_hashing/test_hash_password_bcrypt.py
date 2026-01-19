@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.security]
 from security_functions.password_hashing.hash_password_bcrypt import (
     hash_password_bcrypt,
 )
@@ -120,18 +122,15 @@ def test_hash_password_bcrypt_unicode_password() -> None:
 
 def test_hash_password_bcrypt_long_password() -> None:
     """
-    Test case 8: Handle very long password.
+    Test case 8: ValueError for password longer than 72 bytes (bcrypt limit).
     """
     # Arrange
-    password = "a" * 1000  # Very long password
+    password = "a" * 1000  # Very long password (exceeds 72-byte limit)
+    expected_message = "password cannot be longer than 72 bytes"
 
-    # Act
-    hashed = hash_password_bcrypt(password)
-
-    # Assert
-    assert isinstance(hashed, str)
-    assert len(hashed) == 60
-    assert hashed.startswith("$2b$")
+    # Act & Assert
+    with pytest.raises(ValueError, match=expected_message):
+        hash_password_bcrypt(password)
 
 
 def test_hash_password_bcrypt_special_characters() -> None:

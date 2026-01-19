@@ -23,6 +23,7 @@ validate_pydantic_schema_module = importlib.import_module(
 )
 
 pytestmark = pytest.mark.skipif(not PYDANTIC_AVAILABLE, reason="Pydantic not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.data_validation]
 
 
 class SimpleUserSchema(BaseModel):
@@ -325,4 +326,3 @@ def test_validate_pydantic_schema_custom_param_name() -> None:
 
     with pytest.raises(ValueError, match="user_data validation failed"):
         validate_pydantic_schema(data, SimpleUserSchema, param_name="user_data")
-        

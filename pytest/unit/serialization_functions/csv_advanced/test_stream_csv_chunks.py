@@ -1,7 +1,10 @@
 """Tests for stream_csv_chunks module."""
 
-import pytest
 from pathlib import Path
+
+import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.serialization]
 from serialization_functions.csv_advanced.stream_csv_chunks import stream_csv_chunks
 
 

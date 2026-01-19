@@ -2,6 +2,8 @@ import socket
 from unittest.mock import patch
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.data_validation]
 from data_validation import validate_email
 
 
@@ -316,7 +318,9 @@ def test_validate_email_local_part_too_long() -> None:
 
 def test_validate_email_non_ascii_unicode_disabled() -> None:
     """Test case 20: ValueError for non-ASCII characters with allow_unicode=False."""
-    with pytest.raises(ValueError, match="contains non-ASCII characters but allow_unicode=False"):
+    with pytest.raises(
+        ValueError, match="contains non-ASCII characters but allow_unicode=False"
+    ):
         validate_email("tëst@example.com", allow_unicode=False)
 
 

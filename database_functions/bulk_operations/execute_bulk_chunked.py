@@ -38,11 +38,11 @@ def execute_bulk_chunked(
     statement_executor : Callable[[Sequence[dict[str, Any]]], Any]
         Function that takes a chunk of data and executes the database operation.
         This is library-agnostic - you provide the execution logic for your chosen library.
-        
+
         For "skip" or "continue" error handling, include commit logic in your executor if needed:
         - With commit: lambda chunk: (cursor.executemany(..., chunk), conn.commit())
         - Without commit: lambda chunk: cursor.executemany(..., chunk)  # Caller commits at end
-        
+
         Examples by library:
         - SQLAlchemy: lambda chunk: conn.execute(table.insert(), chunk)
         - psycopg2: lambda chunk: execute_values(cursor, "INSERT INTO ...", [(r['col1'], r['col2']) for r in chunk])
@@ -98,7 +98,7 @@ def execute_bulk_chunked(
     ...         data,
     ...         on_error="fail_fast"  # Raises on error, context manager rolls back
     ...     )
-    >>> 
+    >>>
     >>> # Example 2: psycopg2 - INSERT with automatic per-chunk commit (skip errors)
     >>> import psycopg2
     >>> from psycopg2.extras import execute_values
@@ -117,7 +117,7 @@ def execute_bulk_chunked(
     ...     commit_func=lambda: conn.commit(),  # Auto-commit after each chunk
     ...     rollback_func=lambda: conn.rollback()  # Auto-rollback failed chunks
     ... )  # Successful chunks already committed
-    >>> 
+    >>>
     >>> # Example 3: psycopg3 - INSERT with continue on error (per-row commit)
     >>> import psycopg
     >>> conn = psycopg.connect("dbname=mydb user=postgres")
@@ -134,7 +134,7 @@ def execute_bulk_chunked(
     ...     rollback_func=lambda: conn.rollback()
     ... )
     >>> conn.close()
-    >>> 
+    >>>
     >>> # Example 4: pymongo - INSERT
     >>> from pymongo import MongoClient
     >>> client = MongoClient("mongodb://localhost:27017/")
@@ -145,7 +145,7 @@ def execute_bulk_chunked(
     ...     lambda chunk: collection.insert_many(chunk),
     ...     data
     ... )
-    >>> 
+    >>>
     >>> # Example 5: MySQL Connector - INSERT
     >>> import mysql.connector
     >>> conn = mysql.connector.connect(host="localhost", user="root", database="mydb")
@@ -159,7 +159,7 @@ def execute_bulk_chunked(
     ...     data
     ... )
     >>> conn.commit()
-    >>> 
+    >>>
     >>> # Example 6: SQLAlchemy - UPSERT with continue on error
     >>> from sqlalchemy.dialects.postgresql import insert
     >>> with engine.begin() as conn:
@@ -203,7 +203,9 @@ def execute_bulk_chunked(
     if chunk_size <= 0:
         raise ValueError(f"chunk_size must be positive, got {chunk_size}")
     if on_error not in ("fail_fast", "skip", "continue"):
-        raise ValueError(f"on_error must be 'fail_fast', 'skip', or 'continue', got {on_error!r}")
+        raise ValueError(
+            f"on_error must be 'fail_fast', 'skip', or 'continue', got {on_error!r}"
+        )
     if commit_func is not None and not callable(commit_func):
         raise TypeError("commit_func must be callable or None")
     if rollback_func is not None and not callable(rollback_func):
@@ -227,15 +229,19 @@ def execute_bulk_chunked(
             # Execute operation for this chunk
             statement_executor(chunk)
             successful += len(chunk)
-            logger.debug(f"Chunk {chunk_number} processed successfully ({len(chunk)} rows)")
-            
+            logger.debug(
+                f"Chunk {chunk_number} processed successfully ({len(chunk)} rows)"
+            )
+
             # Commit after successful chunk for error-tolerant modes
             if on_error in ("skip", "continue") and commit_func is not None:
                 try:
                     commit_func()
                     logger.debug(f"Chunk {chunk_number} committed")
                 except Exception as commit_error:
-                    logger.error(f"Failed to commit chunk {chunk_number}: {commit_error}")
+                    logger.error(
+                        f"Failed to commit chunk {chunk_number}: {commit_error}"
+                    )
                     raise
 
         except Exception as e:
@@ -246,11 +252,17 @@ def execute_bulk_chunked(
                 if rollback_func is not None:
                     try:
                         rollback_func()
-                        logger.debug(f"Rolled back transaction for failed chunk {chunk_number}")
+                        logger.debug(
+                            f"Rolled back transaction for failed chunk {chunk_number}"
+                        )
                     except Exception as rollback_error:
-                        logger.error(f"Failed to rollback transaction: {rollback_error}")
-                
-                logger.error(f"Bulk operation failed at chunk {chunk_number}, failing fast")
+                        logger.error(
+                            f"Failed to rollback transaction: {rollback_error}"
+                        )
+
+                logger.error(
+                    f"Bulk operation failed at chunk {chunk_number}, failing fast"
+                )
                 raise
 
             elif on_error == "skip":
@@ -260,16 +272,20 @@ def execute_bulk_chunked(
                         rollback_func()
                         logger.debug(f"Rolled back failed chunk {chunk_number}")
                     except Exception as rollback_error:
-                        logger.warning(f"Failed to rollback chunk {chunk_number}: {rollback_error}")
-                
+                        logger.warning(
+                            f"Failed to rollback chunk {chunk_number}: {rollback_error}"
+                        )
+
                 # Skip entire chunk and record error
                 failed += len(chunk)
-                errors.append({
-                    "chunk_index": chunk_number,
-                    "row_indices": list(range(chunk_idx, chunk_end)),
-                    "error": str(e),
-                    "error_type": type(e).__name__,
-                })
+                errors.append(
+                    {
+                        "chunk_index": chunk_number,
+                        "row_indices": list(range(chunk_idx, chunk_end)),
+                        "error": str(e),
+                        "error_type": type(e).__name__,
+                    }
+                )
                 logger.warning(f"Skipped chunk {chunk_number} ({len(chunk)} rows)")
 
             elif on_error == "continue":
@@ -279,47 +295,59 @@ def execute_bulk_chunked(
                         rollback_func()
                         logger.debug(f"Rolled back failed chunk {chunk_number}")
                     except Exception as rollback_error:
-                        logger.warning(f"Failed to rollback chunk {chunk_number}: {rollback_error}")
-                
+                        logger.warning(
+                            f"Failed to rollback chunk {chunk_number}: {rollback_error}"
+                        )
+
                 # Try executing rows individually
-                logger.debug(f"Attempting individual operations for chunk {chunk_number}")
+                logger.debug(
+                    f"Attempting individual operations for chunk {chunk_number}"
+                )
                 for row_offset, row in enumerate(chunk):
                     row_index = chunk_idx + row_offset
                     try:
                         statement_executor([row])
                         successful += 1
-                        
+
                         # Commit each successful row if commit_func provided
                         if commit_func is not None:
                             try:
                                 commit_func()
                             except Exception as commit_error:
-                                logger.warning(f"Failed to commit row {row_index}: {commit_error}")
+                                logger.warning(
+                                    f"Failed to commit row {row_index}: {commit_error}"
+                                )
                                 # Treat as failed if commit fails
                                 successful -= 1
                                 failed += 1
-                                errors.append({
-                                    "row_index": row_index,
-                                    "row_data": row,
-                                    "error": f"Commit failed: {commit_error}",
-                                    "error_type": "CommitError",
-                                })
+                                errors.append(
+                                    {
+                                        "row_index": row_index,
+                                        "row_data": row,
+                                        "error": f"Commit failed: {commit_error}",
+                                        "error_type": "CommitError",
+                                    }
+                                )
                     except Exception as row_error:
                         failed += 1
-                        errors.append({
-                            "row_index": row_index,
-                            "row_data": row,
-                            "error": str(row_error),
-                            "error_type": type(row_error).__name__,
-                        })
+                        errors.append(
+                            {
+                                "row_index": row_index,
+                                "row_data": row,
+                                "error": str(row_error),
+                                "error_type": type(row_error).__name__,
+                            }
+                        )
                         logger.debug(f"Row {row_index} failed: {row_error}")
-                        
+
                         # Rollback failed row if rollback_func provided
                         if rollback_func is not None:
                             try:
                                 rollback_func()
                             except Exception as rollback_error:
-                                logger.warning(f"Failed to rollback row {row_index}: {rollback_error}")
+                                logger.warning(
+                                    f"Failed to rollback row {row_index}: {rollback_error}"
+                                )
 
         # Call progress callback
         if progress_callback is not None:

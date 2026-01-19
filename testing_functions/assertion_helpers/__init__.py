@@ -10,10 +10,10 @@ from .assert_raises_with_message import assert_raises_with_message
 from .assert_type_match import assert_type_match
 
 __all__ = [
-    'assert_almost_equal',
-    'assert_in_range',
-    'assert_list_equal_unordered',
-    'assert_dict_contains',
-    'assert_type_match',
-    'assert_raises_with_message',
+    "assert_almost_equal",
+    "assert_in_range",
+    "assert_list_equal_unordered",
+    "assert_dict_contains",
+    "assert_type_match",
+    "assert_raises_with_message",
 ]

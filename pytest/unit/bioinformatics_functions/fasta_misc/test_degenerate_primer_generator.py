@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
 from bioinformatics_functions.fasta_misc.degenerate_primer_generator import (
     degenerate_primer_generator,
 )

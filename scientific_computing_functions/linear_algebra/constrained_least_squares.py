@@ -4,7 +4,7 @@ from typing import Any, Literal
 
 import numpy as np
 from numpy.typing import NDArray
-from scipy.optimize import lsq_linear, least_squares
+from scipy.optimize import lsq_linear
 
 
 def constrained_least_squares(
@@ -111,7 +111,9 @@ def constrained_least_squares(
             f"Incompatible dimensions: A has {A_array.shape[0]} rows, b has {b_array.shape[0]} elements"
         )
     if method not in ["trf", "bvls", "dogbox"]:
-        raise ValueError(f"Invalid method: {method}. Must be 'trf', 'bvls', or 'dogbox'")
+        raise ValueError(
+            f"Invalid method: {method}. Must be 'trf', 'bvls', or 'dogbox'"
+        )
     if max_iter <= 0:
         raise ValueError(f"max_iter must be positive, got {max_iter}")
     if tol <= 0:
@@ -129,9 +131,13 @@ def constrained_least_squares(
         ub = np.asarray(ub, dtype=float)
 
     if lb.shape[0] != A_array.shape[1]:
-        raise ValueError(f"Lower bounds size {lb.shape[0]} doesn't match number of variables {A_array.shape[1]}")
+        raise ValueError(
+            f"Lower bounds size {lb.shape[0]} doesn't match number of variables {A_array.shape[1]}"
+        )
     if ub.shape[0] != A_array.shape[1]:
-        raise ValueError(f"Upper bounds size {ub.shape[0]} doesn't match number of variables {A_array.shape[1]}")
+        raise ValueError(
+            f"Upper bounds size {ub.shape[0]} doesn't match number of variables {A_array.shape[1]}"
+        )
     if np.any(lb > ub):
         raise ValueError("Lower bounds must be <= upper bounds")
 

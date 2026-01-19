@@ -1,6 +1,8 @@
 import asyncio
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.asyncio_functions]
 from asyncio_functions.async_periodic import async_periodic
 
 

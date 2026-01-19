@@ -2,6 +2,8 @@ from datetime import date, datetime
 from decimal import Decimal
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.data_validation]
 from data_validation import validate_range
 
 

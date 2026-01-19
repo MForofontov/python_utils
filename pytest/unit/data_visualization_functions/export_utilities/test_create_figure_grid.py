@@ -3,10 +3,29 @@ Unit tests for create_figure_grid function.
 """
 
 import pytest
-import matplotlib
-matplotlib.use('Agg')  # Use non-GUI backend for testing
-import matplotlib.pyplot as plt
-from data_visualization_functions.export_utilities.create_figure_grid import create_figure_grid
+
+# Try to import matplotlib - tests will be skipped if not available
+try:
+    import matplotlib
+
+    matplotlib.use("Agg")  # Use non-GUI backend for testing
+    import matplotlib.pyplot as plt
+
+    from data_visualization_functions.export_utilities.create_figure_grid import (
+        create_figure_grid,
+    )
+
+    MATPLOTLIB_AVAILABLE = True
+except ImportError:
+    MATPLOTLIB_AVAILABLE = False
+    matplotlib = None  # type: ignore
+    plt = None  # type: ignore
+    create_figure_grid = None  # type: ignore
+
+pytestmark = pytest.mark.skipif(
+    not MATPLOTLIB_AVAILABLE, reason="matplotlib not installed"
+)
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.data_visualization]
 
 
 def test_create_figure_grid_basic():
@@ -15,13 +34,13 @@ def test_create_figure_grid_basic():
     """
     # Act
     fig, axes = create_figure_grid(nrows=2, ncols=2)
-    
+
     # Assert
     assert fig is not None
     assert axes is not None
     assert len(axes) == 2
     assert len(axes[0]) == 2
-    
+
     # Cleanup
     plt.close(fig)
 
@@ -32,10 +51,10 @@ def test_create_figure_grid_single_row():
     """
     # Act
     fig, axes = create_figure_grid(nrows=1, ncols=4)
-    
+
     # Assert
     assert axes.shape == (1, 4) or len(axes) == 4
-    
+
     # Cleanup
     plt.close(fig)
 
@@ -46,10 +65,10 @@ def test_create_figure_grid_single_col():
     """
     # Act
     fig, axes = create_figure_grid(nrows=3, ncols=1)
-    
+
     # Assert
     assert axes.shape == (3, 1) or len(axes) == 3
-    
+
     # Cleanup
     plt.close(fig)
 
@@ -60,11 +79,11 @@ def test_create_figure_grid_large():
     """
     # Act
     fig, axes = create_figure_grid(nrows=4, ncols=5)
-    
+
     # Assert
     assert len(axes) == 4
     assert len(axes[0]) == 5
-    
+
     # Cleanup
     plt.close(fig)
 
@@ -75,12 +94,12 @@ def test_create_figure_grid_custom_size():
     """
     # Act
     fig, axes = create_figure_grid(nrows=2, ncols=2, figsize=(12, 8))
-    
+
     # Assert
     size = fig.get_size_inches()
     assert size[0] == 12
     assert size[1] == 8
-    
+
     # Cleanup
     plt.close(fig)
 
@@ -91,7 +110,7 @@ def test_create_figure_grid_zero_rows_raises_error():
     """
     # Arrange
     expected_message = "nrows must be positive"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         create_figure_grid(nrows=0, ncols=2)
@@ -103,7 +122,7 @@ def test_create_figure_grid_zero_cols_raises_error():
     """
     # Arrange
     expected_message = "ncols must be positive"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         create_figure_grid(nrows=2, ncols=0)
@@ -115,7 +134,7 @@ def test_create_figure_grid_invalid_type_raises_error():
     """
     # Arrange
     expected_message = "nrows must be an integer"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         create_figure_grid(nrows="2", ncols=2)
@@ -127,10 +146,10 @@ def test_create_figure_grid_invalid_figsize_raises_error():
     """
     # Arrange
     expected_message = "figsize must be a tuple of .* positive numbers|must be positive"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         create_figure_grid(nrows=2, ncols=2, figsize=(10, -5))
 
 
-__all__ = ['test_create_figure_grid_basic']
+__all__ = ["test_create_figure_grid_basic"]

@@ -1,3 +1,6 @@
+import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.json_functions]
 from json_functions.json_diff import json_diff
 
 
@@ -59,4 +62,3 @@ def test_json_diff_second_list_longer() -> None:
 
     assert ("[2]", None, "gamma") in result
     assert ("[3]", None, "delta") in result
-

@@ -60,26 +60,28 @@ def extract_links(
     if not isinstance(absolute, bool):
         raise TypeError(f"absolute must be a boolean, got {type(absolute).__name__}")
     if base_url is not None and not isinstance(base_url, str):
-        raise TypeError(f"base_url must be a string or None, got {type(base_url).__name__}")
-    
+        raise TypeError(
+            f"base_url must be a string or None, got {type(base_url).__name__}"
+        )
+
     if absolute and base_url is None:
         raise ValueError("base_url must be provided when absolute is True")
-    
+
     links = []
-    for tag in element.find_all('a', href=True):
-        href = tag['href']
+    for tag in element.find_all("a", href=True):
+        href = tag["href"]
         if absolute and base_url:
             # Simple absolute URL construction
-            if href.startswith('http://') or href.startswith('https://'):  # type: ignore[union-attr]
+            if href.startswith("http://") or href.startswith("https://"):  # type: ignore[union-attr]
                 links.append(href)
-            elif href.startswith('/'):  # type: ignore[union-attr]
-                links.append(base_url.rstrip('/') + href)  # type: ignore[operator]
+            elif href.startswith("/"):  # type: ignore[union-attr]
+                links.append(base_url.rstrip("/") + href)  # type: ignore[operator]
             else:
-                links.append(base_url.rstrip('/') + '/' + href)  # type: ignore[operator]
+                links.append(base_url.rstrip("/") + "/" + href)  # type: ignore[operator]
         else:
             links.append(href)
-    
+
     return links  # type: ignore[return-value]
 
 
-__all__ = ['extract_links']
+__all__ = ["extract_links"]

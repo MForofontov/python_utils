@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.json_functions]
 from json_functions.json_merge import json_merge
 
 

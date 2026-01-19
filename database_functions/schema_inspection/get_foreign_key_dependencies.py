@@ -93,10 +93,10 @@ def get_foreign_key_dependencies(
             return
 
         temp_visited.add(table)
-        
+
         for dep in dependencies[table]:
             visit(dep)
-        
+
         temp_visited.remove(table)
         visited.add(table)
         ordered.append(table)
@@ -109,8 +109,8 @@ def get_foreign_key_dependencies(
         "ordered_tables": ordered,
         "dependencies": {k: list(v) for k, v in dependencies.items()},
         "dependents": {k: list(v) for k, v in dependents.items()},
-        "circular": list(circular)
+        "circular": list(circular),
     }
 
 
-__all__ = ['get_foreign_key_dependencies']
+__all__ = ["get_foreign_key_dependencies"]

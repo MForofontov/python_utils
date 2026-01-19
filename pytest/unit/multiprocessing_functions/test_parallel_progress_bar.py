@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.multiprocessing_functions]
 from multiprocessing_functions.parallel_progress_bar import parallel_progress_bar
 
 

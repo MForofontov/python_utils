@@ -78,17 +78,27 @@ def detect_outliers(
     """
     # Input validation
     if not isinstance(data, (list, np.ndarray)):
-        raise TypeError(f"data must be a list or numpy array, got {type(data).__name__}")
+        raise TypeError(
+            f"data must be a list or numpy array, got {type(data).__name__}"
+        )
     if methods is not None and not isinstance(methods, list):
         raise TypeError(f"methods must be a list or None, got {type(methods).__name__}")
     if not isinstance(zscore_threshold, (int, float)):
-        raise TypeError(f"zscore_threshold must be a number, got {type(zscore_threshold).__name__}")
+        raise TypeError(
+            f"zscore_threshold must be a number, got {type(zscore_threshold).__name__}"
+        )
     if not isinstance(iqr_multiplier, (int, float)):
-        raise TypeError(f"iqr_multiplier must be a number, got {type(iqr_multiplier).__name__}")
+        raise TypeError(
+            f"iqr_multiplier must be a number, got {type(iqr_multiplier).__name__}"
+        )
     if not isinstance(mad_threshold, (int, float)):
-        raise TypeError(f"mad_threshold must be a number, got {type(mad_threshold).__name__}")
+        raise TypeError(
+            f"mad_threshold must be a number, got {type(mad_threshold).__name__}"
+        )
     if not isinstance(consensus_threshold, (int, float)):
-        raise TypeError(f"consensus_threshold must be a number, got {type(consensus_threshold).__name__}")
+        raise TypeError(
+            f"consensus_threshold must be a number, got {type(consensus_threshold).__name__}"
+        )
 
     data_array = np.asarray(data, dtype=float)
 
@@ -101,7 +111,9 @@ def detect_outliers(
     if mad_threshold <= 0:
         raise ValueError(f"mad_threshold must be positive, got {mad_threshold}")
     if not 0 < consensus_threshold <= 1:
-        raise ValueError(f"consensus_threshold must be in (0, 1], got {consensus_threshold}")
+        raise ValueError(
+            f"consensus_threshold must be in (0, 1], got {consensus_threshold}"
+        )
 
     if methods is None:
         methods = ["zscore", "iqr", "mad"]
@@ -109,7 +121,9 @@ def detect_outliers(
     valid_methods = {"zscore", "iqr", "mad", "isolation"}
     for method in methods:
         if method not in valid_methods:
-            raise ValueError(f"Invalid method '{method}'. Valid methods: {valid_methods}")
+            raise ValueError(
+                f"Invalid method '{method}'. Valid methods: {valid_methods}"
+            )
 
     method_results: dict[str, NDArray[np.bool_]] = {}
 

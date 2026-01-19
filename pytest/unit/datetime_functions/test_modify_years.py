@@ -1,6 +1,8 @@
 from datetime import date, datetime
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.datetime]
 from datetime_functions.modify_years import modify_years
 
 
@@ -143,4 +145,3 @@ def test_modify_years_invalid_years_type() -> None:
 
     with pytest.raises(TypeError):
         modify_years(test_date, None)
-

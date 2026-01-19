@@ -4,6 +4,7 @@ Tests for normalize_url function.
 
 import pytest
 
+pytestmark = [pytest.mark.unit, pytest.mark.url_functions]
 from url_functions.normalize_url import normalize_url
 
 
@@ -190,7 +191,7 @@ def test_normalize_url_multiple_query_params_same_key() -> None:
     # Arrange
     url = "http://example.com?tag=python&tag=web&tag=api"
     # Should preserve all values and sort by key
-    
+
     # Act
     result = normalize_url(url)
 
@@ -207,7 +208,7 @@ def test_normalize_url_no_sorting() -> None:
     # Arrange
     url = "http://example.com?z=3&a=1"
     # urlunparse may add trailing slash for paths
-    
+
     # Act
     result = normalize_url(url, sort_query_params=False)
 

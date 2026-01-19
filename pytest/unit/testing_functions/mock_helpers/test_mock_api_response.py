@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.testing]
 from testing_functions.mock_helpers.mock_api_response import mock_api_response
 
 
@@ -8,7 +10,7 @@ def test_mock_api_response_default_parameters() -> None:
     """
     # Act
     response = mock_api_response()
-    
+
     # Assert
     assert response.status_code == 200
     assert response.headers == {}
@@ -21,7 +23,7 @@ def test_mock_api_response_custom_status_code() -> None:
     """
     # Act
     response = mock_api_response(404)
-    
+
     # Assert
     assert response.status_code == 404
 
@@ -32,10 +34,10 @@ def test_mock_api_response_with_data() -> None:
     """
     # Arrange
     data = {"key": "value", "count": 42}
-    
+
     # Act
     response = mock_api_response(200, data)
-    
+
     # Assert
     assert response.json() == data
     assert "key" in response.json()
@@ -47,10 +49,10 @@ def test_mock_api_response_with_headers() -> None:
     """
     # Arrange
     headers = {"Content-Type": "application/json", "Authorization": "Bearer token"}
-    
+
     # Act
     response = mock_api_response(200, None, headers)
-    
+
     # Assert
     assert response.headers == headers
 
@@ -61,10 +63,10 @@ def test_mock_api_response_text_attribute() -> None:
     """
     # Arrange
     data = {"message": "Hello"}
-    
+
     # Act
     response = mock_api_response(200, data)
-    
+
     # Assert
     assert "message" in response.text
 
@@ -76,7 +78,7 @@ def test_mock_api_response_error_status_codes() -> None:
     # Act
     response_400 = mock_api_response(400)
     response_500 = mock_api_response(500)
-    
+
     # Assert
     assert response_400.status_code == 400
     assert response_500.status_code == 500

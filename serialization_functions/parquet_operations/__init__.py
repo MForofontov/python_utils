@@ -16,12 +16,12 @@ from .read_parquet import read_parquet
 from .write_parquet import write_parquet
 
 __all__ = [
-    'append_parquet',
-    'filter_parquet',
-    'get_parquet_metadata',
-    'get_parquet_schema',
-    'merge_parquet_files',
-    'partition_parquet_by_column',
-    'read_parquet',
-    'write_parquet',
+    "append_parquet",
+    "filter_parquet",
+    "get_parquet_metadata",
+    "get_parquet_schema",
+    "merge_parquet_files",
+    "partition_parquet_by_column",
+    "read_parquet",
+    "write_parquet",
 ]

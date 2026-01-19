@@ -2,11 +2,23 @@ import bz2
 import gzip
 import lzma
 
-import snappy
-import zstandard as zstd
+try:
+    import snappy
+    import zstandard as zstd
+
+    COMPRESSION_LIBS_AVAILABLE = True
+except ImportError:
+    COMPRESSION_LIBS_AVAILABLE = False
+    snappy = None  # type: ignore
+    zstd = None  # type: ignore
 
 import pytest
 from compression_functions.binary_compression.compress_data import compress_data
+
+pytestmark = pytest.mark.skipif(
+    not COMPRESSION_LIBS_AVAILABLE, reason="snappy/zstandard not installed"
+)
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.compression]
 
 
 def test_compress_data_gzip() -> None:
@@ -15,9 +27,10 @@ def test_compress_data_gzip() -> None:
     """
     data: bytes = b"hello world"
     compressed_data: bytes = compress_data(data, algorithm="gzip")
-    expected_compressed_data: bytes = gzip.compress(data)
-    assert compressed_data == expected_compressed_data, (
-        "Compressed data should match expected gzip compression"
+    # Decompress and compare original data (gzip headers include timestamps)
+    decompressed_data: bytes = gzip.decompress(compressed_data)
+    assert decompressed_data == data, (
+        "Decompressed data should match original data"
     )
 
 

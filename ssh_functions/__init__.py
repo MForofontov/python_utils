@@ -7,7 +7,7 @@ Includes both local (subprocess-based) and remote (paramiko-based) implementatio
 Usage:
     # For local SSH execution (using system ssh/scp commands)
     from ssh_functions.local import ssh_execute_command, ssh_copy_file
-    
+
     # For remote SSH execution (using paramiko library)
     from ssh_functions.remote import ssh_execute_command, ssh_copy_file
 """
@@ -29,4 +29,3 @@ __all__ = [
     "local",
     "remote",
 ]
-

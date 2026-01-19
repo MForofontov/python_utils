@@ -59,15 +59,15 @@ def parse_html(
         raise TypeError(f"html must be a string, got {type(html).__name__}")
     if not isinstance(parser, str):
         raise TypeError(f"parser must be a string, got {type(parser).__name__}")
-    
+
     if not html.strip():
         raise ValueError("html cannot be empty")
-    
+
     valid_parsers = {"html.parser", "lxml", "html5lib", "xml"}
     if parser not in valid_parsers:
         raise ValueError(f"parser must be one of {valid_parsers}, got {parser}")
-    
+
     return BeautifulSoup(html, parser)
 
 
-__all__ = ['parse_html']
+__all__ = ["parse_html"]

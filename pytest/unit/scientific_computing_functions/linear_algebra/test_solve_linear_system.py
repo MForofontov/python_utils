@@ -4,12 +4,22 @@ Unit tests for solve_linear_system function.
 Tests cover normal operation, edge cases, and error conditions.
 """
 
+try:
+    import numpy as np
+    import scipy
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    np = None  # type: ignore
+    scipy = None  # type: ignore
+
 import pytest
-import numpy as np
 from scientific_computing_functions.linear_algebra.solve_linear_system import (
     solve_linear_system,
 )
 
+pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy/scipy not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.scientific_computing]
 
 # Normal operation tests
 
@@ -19,16 +29,16 @@ def test_solve_linear_system_basic() -> None:
     # Arrange
     A = [[2, 1], [1, 3]]
     b = [1, 2]
-    
+
     # Act
     result = solve_linear_system(A, b)
-    
+
     # Assert
-    assert 'solution' in result
-    assert 'residual_norm' in result
-    assert 'condition_number' in result
-    assert 'well_conditioned' in result
-    assert result['residual_norm'] < 1e-10
+    assert "solution" in result
+    assert "residual_norm" in result
+    assert "condition_number" in result
+    assert "well_conditioned" in result
+    assert result["residual_norm"] < 1e-10
 
 
 def test_solve_linear_system_identity() -> None:
@@ -36,13 +46,13 @@ def test_solve_linear_system_identity() -> None:
     # Arrange
     A = np.eye(3)
     b = [1, 2, 3]
-    
+
     # Act
     result = solve_linear_system(A, b)
-    
+
     # Assert
-    assert np.allclose(result['solution'], [1, 2, 3])
-    assert result['residual_norm'] < 1e-10
+    assert np.allclose(result["solution"], [1, 2, 3])
+    assert result["residual_norm"] < 1e-10
 
 
 def test_solve_linear_system_3x3() -> None:
@@ -50,13 +60,13 @@ def test_solve_linear_system_3x3() -> None:
     # Arrange
     A = [[3, 2, -1], [2, -2, 4], [-1, 0.5, -1]]
     b = [1, -2, 0]
-    
+
     # Act
     result = solve_linear_system(A, b)
-    
+
     # Assert
-    assert len(result['solution']) == 3
-    assert result['residual_norm'] < 1e-8
+    assert len(result["solution"]) == 3
+    assert result["residual_norm"] < 1e-8
 
 
 def test_solve_linear_system_numpy_arrays() -> None:
@@ -64,13 +74,13 @@ def test_solve_linear_system_numpy_arrays() -> None:
     # Arrange
     A = np.array([[4.0, 1.0], [1.0, 3.0]])
     b = np.array([1.0, 2.0])
-    
+
     # Act
     result = solve_linear_system(A, b)
-    
+
     # Assert
-    assert isinstance(result['solution'], np.ndarray)
-    assert result['residual_norm'] < 1e-10
+    assert isinstance(result["solution"], np.ndarray)
+    assert result["residual_norm"] < 1e-10
 
 
 def test_solve_linear_system_without_condition_check() -> None:
@@ -78,13 +88,13 @@ def test_solve_linear_system_without_condition_check() -> None:
     # Arrange
     A = [[2, 1], [1, 3]]
     b = [1, 2]
-    
+
     # Act
     result = solve_linear_system(A, b, check_condition=False)
-    
+
     # Assert
-    assert 'solution' in result
-    assert 'condition_number' not in result
+    assert "solution" in result
+    assert "condition_number" not in result
 
 
 def test_solve_linear_system_well_conditioned() -> None:
@@ -92,13 +102,13 @@ def test_solve_linear_system_well_conditioned() -> None:
     # Arrange
     A = [[10, 1], [1, 10]]
     b = [1, 1]
-    
+
     # Act
     result = solve_linear_system(A, b)
-    
+
     # Assert
-    assert result['well_conditioned'] is True
-    assert result['condition_number'] < 100
+    assert result["well_conditioned"] is True
+    assert result["condition_number"] < 100
 
 
 # Edge case tests
@@ -111,13 +121,13 @@ def test_solve_linear_system_large_system() -> None:
     A = np.random.randn(n, n)
     A = A + A.T  # Make symmetric for better conditioning
     b = np.random.randn(n)
-    
+
     # Act
     result = solve_linear_system(A, b)
-    
+
     # Assert
-    assert len(result['solution']) == n
-    assert result['residual_norm'] < 1e-6
+    assert len(result["solution"]) == n
+    assert result["residual_norm"] < 1e-6
 
 
 def test_solve_linear_system_diagonal_matrix() -> None:
@@ -125,12 +135,12 @@ def test_solve_linear_system_diagonal_matrix() -> None:
     # Arrange
     A = np.diag([2, 3, 4])
     b = [2, 6, 12]
-    
+
     # Act
     result = solve_linear_system(A, b)
-    
+
     # Assert
-    assert np.allclose(result['solution'], [1, 2, 3])
+    assert np.allclose(result["solution"], [1, 2, 3])
 
 
 def test_solve_linear_system_sparse_solution() -> None:
@@ -138,12 +148,12 @@ def test_solve_linear_system_sparse_solution() -> None:
     # Arrange
     A = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
     b = [0, 0, 5]
-    
+
     # Act
     result = solve_linear_system(A, b)
-    
+
     # Assert
-    assert np.allclose(result['solution'], [0, 0, 5])
+    assert np.allclose(result["solution"], [0, 0, 5])
 
 
 def test_solve_linear_system_ill_conditioned() -> None:
@@ -151,13 +161,13 @@ def test_solve_linear_system_ill_conditioned() -> None:
     # Arrange
     A = [[1, 1], [1, 1.0001]]  # Nearly singular
     b = [2, 2]
-    
+
     # Act
     result = solve_linear_system(A, b, condition_threshold=1e3)
-    
+
     # Assert
-    assert result['well_conditioned'] is False
-    assert result['condition_number'] > 1e3
+    assert result["well_conditioned"] is False
+    assert result["condition_number"] > 1e3
 
 
 def test_solve_linear_system_negative_values() -> None:
@@ -165,13 +175,13 @@ def test_solve_linear_system_negative_values() -> None:
     # Arrange
     A = [[-2, 1], [1, -3]]
     b = [-1, -2]
-    
+
     # Act
     result = solve_linear_system(A, b)
-    
+
     # Assert
-    assert len(result['solution']) == 2
-    assert result['residual_norm'] < 1e-10
+    assert len(result["solution"]) == 2
+    assert result["residual_norm"] < 1e-10
 
 
 def test_solve_linear_system_zero_rhs() -> None:
@@ -179,12 +189,12 @@ def test_solve_linear_system_zero_rhs() -> None:
     # Arrange
     A = [[2, 1], [1, 3]]
     b = [0, 0]
-    
+
     # Act
     result = solve_linear_system(A, b)
-    
+
     # Assert
-    assert np.allclose(result['solution'], [0, 0])
+    assert np.allclose(result["solution"], [0, 0])
 
 
 def test_solve_linear_system_single_equation() -> None:
@@ -192,12 +202,12 @@ def test_solve_linear_system_single_equation() -> None:
     # Arrange
     A = [[5.0]]
     b = [10.0]
-    
+
     # Act
     result = solve_linear_system(A, b)
-    
+
     # Assert
-    assert np.allclose(result['solution'], [2.0])
+    assert np.allclose(result["solution"], [2.0])
 
 
 # Error case tests
@@ -209,7 +219,7 @@ def test_solve_linear_system_invalid_A_type() -> None:
     invalid_A = "not_a_matrix"
     b = [1, 2]
     expected_message = "A must be a list or numpy array"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         solve_linear_system(invalid_A, b)
@@ -221,7 +231,7 @@ def test_solve_linear_system_invalid_b_type() -> None:
     A = [[1, 2], [3, 4]]
     invalid_b = "not_a_vector"
     expected_message = "b must be a list or numpy array"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         solve_linear_system(A, invalid_b)
@@ -234,7 +244,7 @@ def test_solve_linear_system_invalid_check_condition_type() -> None:
     b = [1, 2]
     invalid_check = "true"
     expected_message = "check_condition must be a boolean"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         solve_linear_system(A, b, check_condition=invalid_check)
@@ -247,7 +257,7 @@ def test_solve_linear_system_invalid_threshold_type() -> None:
     b = [1, 2]
     invalid_threshold = "1e10"
     expected_message = "condition_threshold must be a number"
-    
+
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):
         solve_linear_system(A, b, condition_threshold=invalid_threshold)
@@ -259,7 +269,7 @@ def test_solve_linear_system_non_square_A() -> None:
     A = [[1, 2, 3], [4, 5, 6]]
     b = [1, 2]
     expected_message = "A must be square"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         solve_linear_system(A, b)
@@ -271,7 +281,7 @@ def test_solve_linear_system_dimension_mismatch() -> None:
     A = [[1, 2], [3, 4]]
     b = [1, 2, 3]
     expected_message = "incompatible dimensions"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         solve_linear_system(A, b)
@@ -282,8 +292,7 @@ def test_solve_linear_system_singular_matrix() -> None:
     # Arrange
     A = [[1, 2], [2, 4]]  # Singular
     b = [1, 2]
-    expected_message = "matrix is singular"
-    
+
     # Act & Assert
     with pytest.raises((ValueError, np.linalg.LinAlgError)):
         solve_linear_system(A, b)
@@ -295,7 +304,7 @@ def test_solve_linear_system_empty_A() -> None:
     empty_A = []
     b = []
     expected_message = "A must be 2-dimensional"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         solve_linear_system(empty_A, b)
@@ -307,7 +316,7 @@ def test_solve_linear_system_nan_in_A() -> None:
     A = [[1, 2], [np.nan, 4]]
     b = [1, 2]
     expected_message = "A contains NaN or Inf values"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         solve_linear_system(A, b)
@@ -319,7 +328,7 @@ def test_solve_linear_system_inf_in_A() -> None:
     A = [[1, 2], [3, np.inf]]
     b = [1, 2]
     expected_message = "A contains NaN or Inf values"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         solve_linear_system(A, b)
@@ -331,7 +340,7 @@ def test_solve_linear_system_nan_in_b() -> None:
     A = [[1, 2], [3, 4]]
     b = [1, np.nan]
     expected_message = "b contains NaN or Inf values"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         solve_linear_system(A, b)
@@ -342,15 +351,16 @@ def test_solve_linear_system_negative_threshold() -> None:
     # Arrange
     A = [[1, 2], [3, 4]]
     b = [1, 2]
-    
+
     # Act - function may accept negative threshold or raise error
     try:
         result = solve_linear_system(A, b, condition_threshold=-1.0)
         # If it succeeds, verify solution exists
-        assert 'solution' in result
+        assert "solution" in result
     except ValueError:
         # If it raises, that's also acceptable
         pass
+
 
 def test_solve_linear_system_non_numeric_in_A() -> None:
     """Test case 26: ValueError for non-numeric values in A."""
@@ -358,7 +368,7 @@ def test_solve_linear_system_non_numeric_in_A() -> None:
     invalid_A = [[1, "two"], [3, 4]]
     b = [1, 2]
     expected_message = "arrays contain non-numeric values"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         solve_linear_system(invalid_A, b)
@@ -370,7 +380,7 @@ def test_solve_linear_system_non_numeric_in_b() -> None:
     A = [[1, 2], [3, 4]]
     invalid_b = [1, "two"]
     expected_message = "arrays contain non-numeric values"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         solve_linear_system(A, invalid_b)
@@ -382,7 +392,7 @@ def test_solve_linear_system_1d_A() -> None:
     invalid_A = [1, 2, 3, 4]
     b = [1, 2]
     expected_message = "A must be 2-dimensional"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         solve_linear_system(invalid_A, b)
@@ -393,13 +403,13 @@ def test_solve_linear_system_condition_check_singular_matrix() -> None:
     # Arrange - Create a nearly singular matrix that may cause LinAlgError during condition number computation
     A = [[1e-10, 0], [0, 1e-10]]
     b = [1, 1]
-    
+
     # Act - This should handle the LinAlgError gracefully and set well_conditioned=False
     try:
         result = solve_linear_system(A, b, check_condition=True)
         # If it succeeds, verify result structure
-        assert 'solution' in result
-        assert 'well_conditioned' in result
+        assert "solution" in result
+        assert "well_conditioned" in result
     except ValueError:
         # Singular matrix may also raise ValueError during solve
         pass
@@ -411,7 +421,7 @@ def test_solve_linear_system_invalid_b_dimension() -> None:
     A = [[1, 2], [3, 4]]
     invalid_b = [[1], [2]]  # 2D array instead of 1D
     expected_message = "b must be 1-dimensional"
-    
+
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):
         solve_linear_system(A, invalid_b)

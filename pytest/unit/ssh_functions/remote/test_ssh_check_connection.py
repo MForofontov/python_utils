@@ -2,19 +2,34 @@
 
 from unittest.mock import MagicMock, patch
 
+try:
+    import paramiko
+    PARAMIKO_AVAILABLE = True
+except ImportError:
+    PARAMIKO_AVAILABLE = False
+    paramiko = None  # type: ignore
+
 import pytest
 from ssh_functions.remote.ssh_check_connection import ssh_check_connection
+
+pytestmark = pytest.mark.skipif(not PARAMIKO_AVAILABLE, reason="paramiko not installed")
+pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.ssh_functions]
 
 
 def test_ssh_check_connection_successful_with_password() -> None:
     """
     Test case 1: Successful connection check with password authentication.
     """
-    with patch("ssh_functions.remote.ssh_check_connection.paramiko.SSHClient") as mock_client:
-        with patch("ssh_functions.remote.ssh_check_connection.getpass.getuser", return_value="testuser"):
+    with patch(
+        "ssh_functions.remote.ssh_check_connection.paramiko.SSHClient"
+    ) as mock_client:
+        with patch(
+            "ssh_functions.remote.ssh_check_connection.getpass.getuser",
+            return_value="testuser",
+        ):
             mock_ssh = MagicMock()
             mock_client.return_value = mock_ssh
-            
+
             result = ssh_check_connection("host", user="user", password="pass")
             assert result["success"] is True
             assert result["message"] == "Connection successful"
@@ -25,12 +40,19 @@ def test_ssh_check_connection_successful_with_key_file() -> None:
     """
     Test case 2: Successful connection check with key file authentication.
     """
-    with patch("ssh_functions.remote.ssh_check_connection.paramiko.SSHClient") as mock_client:
-        with patch("ssh_functions.remote.ssh_check_connection.getpass.getuser", return_value="testuser"):
+    with patch(
+        "ssh_functions.remote.ssh_check_connection.paramiko.SSHClient"
+    ) as mock_client:
+        with patch(
+            "ssh_functions.remote.ssh_check_connection.getpass.getuser",
+            return_value="testuser",
+        ):
             mock_ssh = MagicMock()
             mock_client.return_value = mock_ssh
-            
-            result = ssh_check_connection("host", user="user", key_filename="/path/to/key")
+
+            result = ssh_check_connection(
+                "host", user="user", key_filename="/path/to/key"
+            )
             assert result["success"] is True
             assert result["message"] == "Connection successful"
 
@@ -39,16 +61,27 @@ def test_ssh_check_connection_with_custom_port() -> None:
     """
     Test case 3: Connection check with custom port.
     """
-    with patch("ssh_functions.remote.ssh_check_connection.paramiko.SSHClient") as mock_client:
-        with patch("ssh_functions.remote.ssh_check_connection.getpass.getuser", return_value="testuser"):
+    with patch(
+        "ssh_functions.remote.ssh_check_connection.paramiko.SSHClient"
+    ) as mock_client:
+        with patch(
+            "ssh_functions.remote.ssh_check_connection.getpass.getuser",
+            return_value="testuser",
+        ):
             mock_ssh = MagicMock()
             mock_client.return_value = mock_ssh
-            
-            result = ssh_check_connection("host", user="user", password="pass", port=2222)
+
+            result = ssh_check_connection(
+                "host", user="user", password="pass", port=2222
+            )
             assert result["success"] is True
             mock_ssh.connect.assert_called_once_with(
-                hostname="host", port=2222, username="user", password="pass", 
-                key_filename=None, timeout=10.0
+                hostname="host",
+                port=2222,
+                username="user",
+                password="pass",
+                key_filename=None,
+                timeout=10.0,
             )
 
 
@@ -56,16 +89,25 @@ def test_ssh_check_connection_default_user() -> None:
     """
     Test case 4: Connection check with default user from getpass.
     """
-    with patch("ssh_functions.remote.ssh_check_connection.paramiko.SSHClient") as mock_client:
-        with patch("ssh_functions.remote.ssh_check_connection.getpass.getuser", return_value="currentuser"):
+    with patch(
+        "ssh_functions.remote.ssh_check_connection.paramiko.SSHClient"
+    ) as mock_client:
+        with patch(
+            "ssh_functions.remote.ssh_check_connection.getpass.getuser",
+            return_value="currentuser",
+        ):
             mock_ssh = MagicMock()
             mock_client.return_value = mock_ssh
-            
+
             result = ssh_check_connection("host", password="pass")
             assert result["success"] is True
             mock_ssh.connect.assert_called_once_with(
-                hostname="host", port=22, username="currentuser", password="pass", 
-                key_filename=None, timeout=10.0
+                hostname="host",
+                port=22,
+                username="currentuser",
+                password="pass",
+                key_filename=None,
+                timeout=10.0,
             )
 
 
@@ -73,16 +115,27 @@ def test_ssh_check_connection_with_custom_timeout() -> None:
     """
     Test case 5: Connection check with custom timeout.
     """
-    with patch("ssh_functions.remote.ssh_check_connection.paramiko.SSHClient") as mock_client:
-        with patch("ssh_functions.remote.ssh_check_connection.getpass.getuser", return_value="testuser"):
+    with patch(
+        "ssh_functions.remote.ssh_check_connection.paramiko.SSHClient"
+    ) as mock_client:
+        with patch(
+            "ssh_functions.remote.ssh_check_connection.getpass.getuser",
+            return_value="testuser",
+        ):
             mock_ssh = MagicMock()
             mock_client.return_value = mock_ssh
-            
-            result = ssh_check_connection("host", user="user", password="pass", timeout=30.0)
+
+            result = ssh_check_connection(
+                "host", user="user", password="pass", timeout=30.0
+            )
             assert result["success"] is True
             mock_ssh.connect.assert_called_once_with(
-                hostname="host", port=22, username="user", password="pass", 
-                key_filename=None, timeout=30.0
+                hostname="host",
+                port=22,
+                username="user",
+                password="pass",
+                key_filename=None,
+                timeout=30.0,
             )
 
 
@@ -90,11 +143,16 @@ def test_ssh_check_connection_boundary_port_min() -> None:
     """
     Test case 6: Connection check with minimum port value.
     """
-    with patch("ssh_functions.remote.ssh_check_connection.paramiko.SSHClient") as mock_client:
-        with patch("ssh_functions.remote.ssh_check_connection.getpass.getuser", return_value="testuser"):
+    with patch(
+        "ssh_functions.remote.ssh_check_connection.paramiko.SSHClient"
+    ) as mock_client:
+        with patch(
+            "ssh_functions.remote.ssh_check_connection.getpass.getuser",
+            return_value="testuser",
+        ):
             mock_ssh = MagicMock()
             mock_client.return_value = mock_ssh
-            
+
             result = ssh_check_connection("host", user="user", password="pass", port=1)
             assert result["success"] is True
 
@@ -103,12 +161,19 @@ def test_ssh_check_connection_boundary_port_max() -> None:
     """
     Test case 7: Connection check with maximum port value.
     """
-    with patch("ssh_functions.remote.ssh_check_connection.paramiko.SSHClient") as mock_client:
-        with patch("ssh_functions.remote.ssh_check_connection.getpass.getuser", return_value="testuser"):
+    with patch(
+        "ssh_functions.remote.ssh_check_connection.paramiko.SSHClient"
+    ) as mock_client:
+        with patch(
+            "ssh_functions.remote.ssh_check_connection.getpass.getuser",
+            return_value="testuser",
+        ):
             mock_ssh = MagicMock()
             mock_client.return_value = mock_ssh
-            
-            result = ssh_check_connection("host", user="user", password="pass", port=65535)
+
+            result = ssh_check_connection(
+                "host", user="user", password="pass", port=65535
+            )
             assert result["success"] is True
 
 
@@ -196,13 +261,21 @@ def test_ssh_check_connection_auth_failure() -> None:
     """
     Test case 18: Authentication failure returns failure status.
     """
-    with patch("ssh_functions.remote.ssh_check_connection.paramiko.SSHClient") as mock_client:
-        with patch("ssh_functions.remote.ssh_check_connection.getpass.getuser", return_value="testuser"):
+    with patch(
+        "ssh_functions.remote.ssh_check_connection.paramiko.SSHClient"
+    ) as mock_client:
+        with patch(
+            "ssh_functions.remote.ssh_check_connection.getpass.getuser",
+            return_value="testuser",
+        ):
             mock_ssh = MagicMock()
             mock_client.return_value = mock_ssh
             import paramiko
-            mock_ssh.connect.side_effect = paramiko.AuthenticationException("Auth failed")
-            
+
+            mock_ssh.connect.side_effect = paramiko.AuthenticationException(
+                "Auth failed"
+            )
+
             result = ssh_check_connection("host", user="user", password="badpass")
             assert result["success"] is False
             assert result["message"] == "Authentication failed"
@@ -213,13 +286,19 @@ def test_ssh_check_connection_ssh_exception() -> None:
     """
     Test case 19: SSH exception returns failure status.
     """
-    with patch("ssh_functions.remote.ssh_check_connection.paramiko.SSHClient") as mock_client:
-        with patch("ssh_functions.remote.ssh_check_connection.getpass.getuser", return_value="testuser"):
+    with patch(
+        "ssh_functions.remote.ssh_check_connection.paramiko.SSHClient"
+    ) as mock_client:
+        with patch(
+            "ssh_functions.remote.ssh_check_connection.getpass.getuser",
+            return_value="testuser",
+        ):
             mock_ssh = MagicMock()
             mock_client.return_value = mock_ssh
             import paramiko
+
             mock_ssh.connect.side_effect = paramiko.SSHException("SSH error")
-            
+
             result = ssh_check_connection("host", user="user", password="pass")
             assert result["success"] is False
             assert result["message"] == "SSH connection error"
@@ -229,13 +308,20 @@ def test_ssh_check_connection_timeout() -> None:
     """
     Test case 20: Timeout returns failure status.
     """
-    with patch("ssh_functions.remote.ssh_check_connection.paramiko.SSHClient") as mock_client:
-        with patch("ssh_functions.remote.ssh_check_connection.getpass.getuser", return_value="testuser"):
+    with patch(
+        "ssh_functions.remote.ssh_check_connection.paramiko.SSHClient"
+    ) as mock_client:
+        with patch(
+            "ssh_functions.remote.ssh_check_connection.getpass.getuser",
+            return_value="testuser",
+        ):
             mock_ssh = MagicMock()
             mock_client.return_value = mock_ssh
             mock_ssh.connect.side_effect = TimeoutError("Connection timed out")
-            
-            result = ssh_check_connection("host", user="user", password="pass", timeout=5.0)
+
+            result = ssh_check_connection(
+                "host", user="user", password="pass", timeout=5.0
+            )
             assert result["success"] is False
             assert "timed out after 5.0 seconds" in result["message"]
 
@@ -244,12 +330,17 @@ def test_ssh_check_connection_general_failure() -> None:
     """
     Test case 21: General exception returns failure status.
     """
-    with patch("ssh_functions.remote.ssh_check_connection.paramiko.SSHClient") as mock_client:
-        with patch("ssh_functions.remote.ssh_check_connection.getpass.getuser", return_value="testuser"):
+    with patch(
+        "ssh_functions.remote.ssh_check_connection.paramiko.SSHClient"
+    ) as mock_client:
+        with patch(
+            "ssh_functions.remote.ssh_check_connection.getpass.getuser",
+            return_value="testuser",
+        ):
             mock_ssh = MagicMock()
             mock_client.return_value = mock_ssh
             mock_ssh.connect.side_effect = Exception("Connection refused")
-            
+
             result = ssh_check_connection("host", user="user", password="pass")
             assert result["success"] is False
             assert result["message"] == "Connection failed"

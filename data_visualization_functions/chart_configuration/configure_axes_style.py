@@ -16,7 +16,7 @@ def configure_axes_style(
     title_fontsize: int | None = None,
     label_fontsize: int | None = None,
     grid: bool = True,
-    grid_style: str = '--',
+    grid_style: str = "--",
     grid_alpha: float = 0.3,
     spine_visibility: dict[str, bool] | None = None,
 ) -> None:
@@ -83,9 +83,13 @@ def configure_axes_style(
     if not isinstance(ylabel, str):
         raise TypeError(f"ylabel must be a string, got {type(ylabel).__name__}")
     if title_fontsize is not None and not isinstance(title_fontsize, int):
-        raise TypeError(f"title_fontsize must be an integer or None, got {type(title_fontsize).__name__}")
+        raise TypeError(
+            f"title_fontsize must be an integer or None, got {type(title_fontsize).__name__}"
+        )
     if label_fontsize is not None and not isinstance(label_fontsize, int):
-        raise TypeError(f"label_fontsize must be an integer or None, got {type(label_fontsize).__name__}")
+        raise TypeError(
+            f"label_fontsize must be an integer or None, got {type(label_fontsize).__name__}"
+        )
     if not isinstance(grid, bool):
         raise TypeError(f"grid must be a boolean, got {type(grid).__name__}")
     if not isinstance(grid_style, str):
@@ -93,7 +97,9 @@ def configure_axes_style(
     if not isinstance(grid_alpha, (int, float)):
         raise TypeError(f"grid_alpha must be a number, got {type(grid_alpha).__name__}")
     if spine_visibility is not None and not isinstance(spine_visibility, dict):
-        raise TypeError(f"spine_visibility must be a dict or None, got {type(spine_visibility).__name__}")
+        raise TypeError(
+            f"spine_visibility must be a dict or None, got {type(spine_visibility).__name__}"
+        )
 
     # Value validation
     if title_fontsize is not None and title_fontsize <= 0:
@@ -105,21 +111,21 @@ def configure_axes_style(
 
     # Apply title and labels
     if title:
-        kwargs = {'fontweight': 'bold'}
+        kwargs = {"fontweight": "bold"}
         if title_fontsize is not None:
-            kwargs['fontsize'] = title_fontsize
+            kwargs["fontsize"] = title_fontsize
         ax.set_title(title, **kwargs)
 
     if xlabel:
         kwargs = {}
         if label_fontsize is not None:
-            kwargs['fontsize'] = label_fontsize
+            kwargs["fontsize"] = label_fontsize
         ax.set_xlabel(xlabel, **kwargs)
 
     if ylabel:
         kwargs = {}
         if label_fontsize is not None:
-            kwargs['fontsize'] = label_fontsize
+            kwargs["fontsize"] = label_fontsize
         ax.set_ylabel(ylabel, **kwargs)
 
     # Configure grid
@@ -131,11 +137,11 @@ def configure_axes_style(
     # Configure spines
     if spine_visibility is not None:
         for spine_name, visible in spine_visibility.items():
-            if spine_name not in ['top', 'bottom', 'left', 'right']:
+            if spine_name not in ["top", "bottom", "left", "right"]:
                 raise ValueError(f"Invalid spine name: {spine_name}")
             ax.spines[spine_name].set_visible(visible)
 
     logger.debug(f"Configured axes style with title='{title}'")
 
 
-__all__ = ['configure_axes_style']
+__all__ = ["configure_axes_style"]

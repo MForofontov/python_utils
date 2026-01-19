@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
 from bioinformatics_functions.annotation_functions.annotation_to_gtf import (
     annotation_to_gtf,
 )

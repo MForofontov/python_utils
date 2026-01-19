@@ -3,6 +3,8 @@ Tests for sanitize_filename function.
 """
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.regex]
 from regex_functions.sanitize_filename import sanitize_filename
 
 

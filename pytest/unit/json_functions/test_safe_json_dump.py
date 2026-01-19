@@ -1,3 +1,6 @@
+import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.json_functions]
 import json
 
 from json_functions.safe_json_dump import safe_json_dump

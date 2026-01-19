@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.security]
 from security_functions.token_generation.generate_url_safe_token import (
     generate_url_safe_token,
 )

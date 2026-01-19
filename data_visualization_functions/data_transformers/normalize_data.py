@@ -3,6 +3,7 @@ Normalize data to a specified range.
 """
 
 import logging
+
 import numpy as np
 from numpy.typing import ArrayLike
 
@@ -11,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 def normalize_data(
     data: ArrayLike,
-    method: str = 'minmax',
+    method: str = "minmax",
     feature_range: tuple[float, float] = (0.0, 1.0),
 ) -> np.ndarray:
     """
@@ -76,7 +77,7 @@ def normalize_data(
         raise ValueError("data cannot be empty")
 
     # Value validation
-    valid_methods = ['minmax', 'zscore', 'robust']
+    valid_methods = ["minmax", "zscore", "robust"]
     if method not in valid_methods:
         raise ValueError(f"method must be one of {valid_methods}, got '{method}'")
 
@@ -88,7 +89,7 @@ def normalize_data(
 
     logger.debug(f"Normalizing data with method='{method}'")
 
-    if method == 'minmax':
+    if method == "minmax":
         data_min = np.min(data_array)
         data_max = np.max(data_array)
 
@@ -99,7 +100,7 @@ def normalize_data(
         normalized = (data_array - data_min) / (data_max - data_min)
         normalized = normalized * (max_val - min_val) + min_val
 
-    elif method == 'zscore':
+    elif method == "zscore":
         mean = np.mean(data_array)
         std = np.std(data_array)
 
@@ -122,4 +123,4 @@ def normalize_data(
     return normalized
 
 
-__all__ = ['normalize_data']
+__all__ = ["normalize_data"]

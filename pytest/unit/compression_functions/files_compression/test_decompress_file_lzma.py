@@ -2,6 +2,8 @@ import lzma
 import os
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.compression]
 from compression_functions.files_compression.decompress_file_lzma import (
     decompress_file_lzma,
 )

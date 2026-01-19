@@ -39,14 +39,14 @@ def set_environment_variable(var_name: str, value: str) -> None:
     """
     if not isinstance(var_name, str):
         raise TypeError(f"var_name must be a string, got {type(var_name).__name__}")
-    
+
     if not isinstance(value, str):
         raise TypeError(f"value must be a string, got {type(value).__name__}")
-    
+
     if not var_name:
         raise ValueError("var_name cannot be empty")
-    
+
     os.environ[var_name] = value
 
 
-__all__ = ['set_environment_variable']
+__all__ = ["set_environment_variable"]

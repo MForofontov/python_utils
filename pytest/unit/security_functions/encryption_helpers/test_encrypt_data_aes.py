@@ -1,6 +1,8 @@
 import base64
 
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.security]
 from security_functions.encryption_helpers.encrypt_data_aes import encrypt_data_aes
 
 

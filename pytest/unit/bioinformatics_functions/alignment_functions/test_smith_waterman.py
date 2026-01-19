@@ -1,4 +1,6 @@
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
 from bioinformatics_functions.alignment_functions.smith_waterman import smith_waterman
 
 
@@ -44,7 +46,9 @@ def test_smith_waterman_insertion_path() -> None:
     """Test case 6: Test traceback with insertion (gap in seq1)."""
     # Create sequences where insertion path is optimal
     # Use a gap penalty that makes insertions more favorable
-    score, aligned1, aligned2 = smith_waterman("ACGT", "ACGTTTT", match=2, mismatch=-3, gap=-1)
+    score, aligned1, aligned2 = smith_waterman(
+        "ACGT", "ACGTTTT", match=2, mismatch=-3, gap=-1
+    )
     assert score > 0
     assert len(aligned1) == len(aligned2)
     # Should have gaps in aligned1 for the extra T's
@@ -54,7 +58,9 @@ def test_smith_waterman_insertion_path() -> None:
 def test_smith_waterman_deletion_path() -> None:
     """Test case 7: Test traceback with deletion (gap in seq2)."""
     # Create sequences where deletion path is optimal
-    score, aligned1, aligned2 = smith_waterman("ACGTTTT", "ACGT", match=2, mismatch=-3, gap=-1)
+    score, aligned1, aligned2 = smith_waterman(
+        "ACGTTTT", "ACGT", match=2, mismatch=-3, gap=-1
+    )
     assert score > 0
     assert len(aligned1) == len(aligned2)
     # Should have gaps in aligned2 for the missing T's

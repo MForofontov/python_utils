@@ -8,7 +8,7 @@ more appropriate types to reduce storage and improve performance.
 import logging
 from typing import Any
 
-from sqlalchemy import MetaData, select, func, Integer, String
+from sqlalchemy import MetaData, func, select
 
 logger = logging.getLogger(__name__)
 
@@ -95,32 +95,32 @@ def suggest_data_type_optimizations(
     # Reflect metadata
     metadata = MetaData()
     metadata.reflect(bind=connection, schema=schema, only=tables)
-    
+
     table_names = tables if tables else [t for t in metadata.tables.keys()]
-    
+
     suggestions = []
-    
+
     for table_name in table_names:
         if table_name not in metadata.tables:
             continue
-            
+
         table = metadata.tables[table_name]
-        
+
         # Get total row count
         count_query = select(func.count()).select_from(table)
         result = connection.execute(count_query)
         total_rows = result.scalar() or 0
-        
+
         if total_rows == 0:
             logger.debug(f"Table {table_name} is empty, skipping")
             continue
-        
+
         for column in table.columns:
             try:
                 type_str = str(column.type).upper()
-                
+
                 # Check VARCHAR/CHAR columns
-                if 'VARCHAR' in type_str or 'CHAR' in type_str or 'TEXT' in type_str:
+                if "VARCHAR" in type_str or "CHAR" in type_str or "TEXT" in type_str:
                     # Get max length of actual data
                     max_len_query = (
                         select(func.max(func.length(column)))
@@ -130,28 +130,38 @@ def suggest_data_type_optimizations(
                     )
                     result = connection.execute(max_len_query)
                     actual_max_length = result.scalar() or 0
-                    
+
                     # Extract declared length from type
-                    if 'VARCHAR' in type_str and '(' in type_str:
-                        declared_length = int(type_str.split('(')[1].split(')')[0])
-                        
+                    if "VARCHAR" in type_str and "(" in type_str:
+                        declared_length = int(type_str.split("(")[1].split(")")[0])
+
                         # If actual max is much smaller than declared
                         if actual_max_length < declared_length * 0.25:
-                            suggested_length = max(actual_max_length * 2, 10)  # 2x headroom, min 10
-                            savings_per_row = (declared_length - suggested_length) * 0.8  # Approximate
-                            total_savings_mb = (savings_per_row * total_rows) / (1024 * 1024)
-                            
-                            suggestions.append({
-                                "table_name": table_name,
-                                "column_name": column.name,
-                                "current_type": f"VARCHAR({declared_length})",
-                                "issue": f"Declared length {declared_length} but actual max is only {actual_max_length}",
-                                "suggested_type": f"VARCHAR({int(suggested_length)})",
-                                "reasoning": f"Reduce size while keeping 2x headroom. Max actual: {actual_max_length}",
-                                "potential_savings_mb": round(total_savings_mb, 2),
-                                "severity": "medium" if total_savings_mb > 10 else "low",
-                            })
-                    
+                            suggested_length = max(
+                                actual_max_length * 2, 10
+                            )  # 2x headroom, min 10
+                            savings_per_row = (
+                                declared_length - suggested_length
+                            ) * 0.8  # Approximate
+                            total_savings_mb = (savings_per_row * total_rows) / (
+                                1024 * 1024
+                            )
+
+                            suggestions.append(
+                                {
+                                    "table_name": table_name,
+                                    "column_name": column.name,
+                                    "current_type": f"VARCHAR({declared_length})",
+                                    "issue": f"Declared length {declared_length} but actual max is only {actual_max_length}",
+                                    "suggested_type": f"VARCHAR({int(suggested_length)})",
+                                    "reasoning": f"Reduce size while keeping 2x headroom. Max actual: {actual_max_length}",
+                                    "potential_savings_mb": round(total_savings_mb, 2),
+                                    "severity": "medium"
+                                    if total_savings_mb > 10
+                                    else "low",
+                                }
+                            )
+
                     # Check if numeric data stored as string
                     if actual_max_length > 0:
                         # Sample some values to check if they're numeric
@@ -163,88 +173,130 @@ def suggest_data_type_optimizations(
                         )
                         result = connection.execute(sample_query)
                         sample_values = [row[0] for row in result if row[0]]
-                        
+
                         if sample_values:
                             # Check if all values are numeric
                             all_numeric = all(
-                                str(val).replace('-', '').replace('.', '').replace(',', '').isdigit()
+                                str(val)
+                                .replace("-", "")
+                                .replace(".", "")
+                                .replace(",", "")
+                                .isdigit()
                                 for val in sample_values
                             )
-                            
+
                             if all_numeric:
-                                has_decimals = any('.' in str(val) for val in sample_values)
-                                suggested_type = "NUMERIC" if has_decimals else "INTEGER"
-                                
-                                suggestions.append({
-                                    "table_name": table_name,
-                                    "column_name": column.name,
-                                    "current_type": type_str,
-                                    "issue": "Numeric data stored as string",
-                                    "suggested_type": suggested_type,
-                                    "reasoning": "Storing numbers as strings wastes space and prevents numeric operations",
-                                    "potential_savings_mb": round((actual_max_length * total_rows * 0.5) / (1024 * 1024), 2),
-                                    "severity": "high",
-                                })
-                            
+                                has_decimals = any(
+                                    "." in str(val) for val in sample_values
+                                )
+                                suggested_type = (
+                                    "NUMERIC" if has_decimals else "INTEGER"
+                                )
+
+                                suggestions.append(
+                                    {
+                                        "table_name": table_name,
+                                        "column_name": column.name,
+                                        "current_type": type_str,
+                                        "issue": "Numeric data stored as string",
+                                        "suggested_type": suggested_type,
+                                        "reasoning": "Storing numbers as strings wastes space and prevents numeric operations",
+                                        "potential_savings_mb": round(
+                                            (actual_max_length * total_rows * 0.5)
+                                            / (1024 * 1024),
+                                            2,
+                                        ),
+                                        "severity": "high",
+                                    }
+                                )
+
                             # Check if boolean data stored as string
-                            unique_values = set(str(val).upper() for val in sample_values)
-                            if unique_values <= {'TRUE', 'FALSE', 'T', 'F', 'YES', 'NO', 'Y', 'N', '1', '0'}:
-                                suggestions.append({
-                                    "table_name": table_name,
-                                    "column_name": column.name,
-                                    "current_type": type_str,
-                                    "issue": "Boolean data stored as string",
-                                    "suggested_type": "BOOLEAN",
-                                    "reasoning": f"Only contains boolean values: {unique_values}",
-                                    "potential_savings_mb": round((actual_max_length * total_rows * 0.9) / (1024 * 1024), 2),
-                                    "severity": "medium",
-                                })
-                
+                            unique_values = set(
+                                str(val).upper() for val in sample_values
+                            )
+                            if unique_values <= {
+                                "TRUE",
+                                "FALSE",
+                                "T",
+                                "F",
+                                "YES",
+                                "NO",
+                                "Y",
+                                "N",
+                                "1",
+                                "0",
+                            }:
+                                suggestions.append(
+                                    {
+                                        "table_name": table_name,
+                                        "column_name": column.name,
+                                        "current_type": type_str,
+                                        "issue": "Boolean data stored as string",
+                                        "suggested_type": "BOOLEAN",
+                                        "reasoning": f"Only contains boolean values: {unique_values}",
+                                        "potential_savings_mb": round(
+                                            (actual_max_length * total_rows * 0.9)
+                                            / (1024 * 1024),
+                                            2,
+                                        ),
+                                        "severity": "medium",
+                                    }
+                                )
+
                 # Check INTEGER columns for small value ranges
-                elif 'INTEGER' in type_str or 'INT' in type_str:
+                elif "INTEGER" in type_str or "INT" in type_str:
                     # Get min/max values
                     stats_query = (
                         select(
-                            func.min(column).label('min_val'),
-                            func.max(column).label('max_val'),
+                            func.min(column).label("min_val"),
+                            func.max(column).label("max_val"),
                         )
                         .select_from(table)
                         .where(column.is_not(None))
                     )
                     result = connection.execute(stats_query)
                     stats = result.fetchone()
-                    
+
                     if stats and stats[0] is not None and stats[1] is not None:
                         min_val = stats[0]
                         max_val = stats[1]
-                        
+
                         # Check if SMALLINT would suffice
-                        if 'INT' in type_str and 'BIGINT' not in type_str:
-                            if -32768 <= min_val <= 32767 and -32768 <= max_val <= 32767:
-                                savings_mb = round((total_rows * 2) / (1024 * 1024), 2)  # 4 bytes -> 2 bytes
+                        if "INT" in type_str and "BIGINT" not in type_str:
+                            if (
+                                -32768 <= min_val <= 32767
+                                and -32768 <= max_val <= 32767
+                            ):
+                                savings_mb = round(
+                                    (total_rows * 2) / (1024 * 1024), 2
+                                )  # 4 bytes -> 2 bytes
                                 if savings_mb > 1:
-                                    suggestions.append({
-                                        "table_name": table_name,
-                                        "column_name": column.name,
-                                        "current_type": "INTEGER",
-                                        "issue": f"Value range {min_val} to {max_val} fits in SMALLINT",
-                                        "suggested_type": "SMALLINT",
-                                        "reasoning": "Values fit in 2 bytes instead of 4 bytes",
-                                        "potential_savings_mb": savings_mb,
-                                        "severity": "low" if savings_mb < 10 else "medium",
-                                    })
-                
+                                    suggestions.append(
+                                        {
+                                            "table_name": table_name,
+                                            "column_name": column.name,
+                                            "current_type": "INTEGER",
+                                            "issue": f"Value range {min_val} to {max_val} fits in SMALLINT",
+                                            "suggested_type": "SMALLINT",
+                                            "reasoning": "Values fit in 2 bytes instead of 4 bytes",
+                                            "potential_savings_mb": savings_mb,
+                                            "severity": "low"
+                                            if savings_mb < 10
+                                            else "medium",
+                                        }
+                                    )
+
             except Exception as e:
                 logger.debug(f"Could not analyze {table_name}.{column.name}: {e}")
                 continue
-    
+
     # Sort by severity and potential savings
     severity_order = {"high": 0, "medium": 1, "low": 2}
     suggestions.sort(
         key=lambda x: (severity_order[x["severity"]], -x.get("potential_savings_mb", 0))
     )
-    
+
     return suggestions
 
 
-__all__ = ['suggest_data_type_optimizations']
+__all__ = ["suggest_data_type_optimizations"]
