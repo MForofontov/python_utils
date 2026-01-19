@@ -20,20 +20,20 @@ def test_ssh_copy_file_successful_with_password() -> None:
     """
     Test case 1: Test successful file copy with password authentication.
     """
-    with patch("ssh_functions.remote.ssh_copy_file.paramiko.SSHClient") as mock_client:
+    with patch("python_utils.ssh_functions.remote.ssh_copy_file.paramiko.SSHClient") as mock_client:
         with patch(
-            "ssh_functions.remote.ssh_copy_file.getpass.getuser",
+            "python_utils.ssh_functions.remote.ssh_copy_file.getpass.getuser",
             return_value="testuser",
         ):
             with patch(
-                "ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=True
+                "python_utils.ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=True
             ):
                 with patch(
-                    "ssh_functions.remote.ssh_copy_file.os.path.isfile",
+                    "python_utils.ssh_functions.remote.ssh_copy_file.os.path.isfile",
                     return_value=True,
                 ):
                     with patch(
-                        "ssh_functions.remote.ssh_copy_file.os.path.getsize",
+                        "python_utils.ssh_functions.remote.ssh_copy_file.os.path.getsize",
                         return_value=1024,
                     ):
                         mock_ssh = MagicMock()
@@ -60,20 +60,20 @@ def test_ssh_copy_file_successful_with_key_file() -> None:
     """
     Test case 2: Test successful file copy with key file authentication.
     """
-    with patch("ssh_functions.remote.ssh_copy_file.paramiko.SSHClient") as mock_client:
+    with patch("python_utils.ssh_functions.remote.ssh_copy_file.paramiko.SSHClient") as mock_client:
         with patch(
-            "ssh_functions.remote.ssh_copy_file.getpass.getuser",
+            "python_utils.ssh_functions.remote.ssh_copy_file.getpass.getuser",
             return_value="testuser",
         ):
             with patch(
-                "ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=True
+                "python_utils.ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=True
             ):
                 with patch(
-                    "ssh_functions.remote.ssh_copy_file.os.path.isfile",
+                    "python_utils.ssh_functions.remote.ssh_copy_file.os.path.isfile",
                     return_value=True,
                 ):
                     with patch(
-                        "ssh_functions.remote.ssh_copy_file.os.path.getsize",
+                        "python_utils.ssh_functions.remote.ssh_copy_file.os.path.getsize",
                         return_value=2048,
                     ):
                         mock_ssh = MagicMock()
@@ -96,20 +96,20 @@ def test_ssh_copy_file_with_custom_port() -> None:
     """
     Test case 3: Test file copy with custom port.
     """
-    with patch("ssh_functions.remote.ssh_copy_file.paramiko.SSHClient") as mock_client:
+    with patch("python_utils.ssh_functions.remote.ssh_copy_file.paramiko.SSHClient") as mock_client:
         with patch(
-            "ssh_functions.remote.ssh_copy_file.getpass.getuser",
+            "python_utils.ssh_functions.remote.ssh_copy_file.getpass.getuser",
             return_value="testuser",
         ):
             with patch(
-                "ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=True
+                "python_utils.ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=True
             ):
                 with patch(
-                    "ssh_functions.remote.ssh_copy_file.os.path.isfile",
+                    "python_utils.ssh_functions.remote.ssh_copy_file.os.path.isfile",
                     return_value=True,
                 ):
                     with patch(
-                        "ssh_functions.remote.ssh_copy_file.os.path.getsize",
+                        "python_utils.ssh_functions.remote.ssh_copy_file.os.path.getsize",
                         return_value=512,
                     ):
                         mock_ssh = MagicMock()
@@ -140,20 +140,20 @@ def test_ssh_copy_file_default_user() -> None:
     """
     Test case 4: Test file copy with default user from getpass.
     """
-    with patch("ssh_functions.remote.ssh_copy_file.paramiko.SSHClient") as mock_client:
+    with patch("python_utils.ssh_functions.remote.ssh_copy_file.paramiko.SSHClient") as mock_client:
         with patch(
-            "ssh_functions.remote.ssh_copy_file.getpass.getuser",
+            "python_utils.ssh_functions.remote.ssh_copy_file.getpass.getuser",
             return_value="currentuser",
         ):
             with patch(
-                "ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=True
+                "python_utils.ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=True
             ):
                 with patch(
-                    "ssh_functions.remote.ssh_copy_file.os.path.isfile",
+                    "python_utils.ssh_functions.remote.ssh_copy_file.os.path.isfile",
                     return_value=True,
                 ):
                     with patch(
-                        "ssh_functions.remote.ssh_copy_file.os.path.getsize",
+                        "python_utils.ssh_functions.remote.ssh_copy_file.os.path.getsize",
                         return_value=256,
                     ):
                         mock_ssh = MagicMock()
@@ -179,20 +179,20 @@ def test_ssh_copy_file_with_custom_timeout() -> None:
     """
     Test case 5: Test file copy with custom timeout.
     """
-    with patch("ssh_functions.remote.ssh_copy_file.paramiko.SSHClient") as mock_client:
+    with patch("python_utils.ssh_functions.remote.ssh_copy_file.paramiko.SSHClient") as mock_client:
         with patch(
-            "ssh_functions.remote.ssh_copy_file.getpass.getuser",
+            "python_utils.ssh_functions.remote.ssh_copy_file.getpass.getuser",
             return_value="testuser",
         ):
             with patch(
-                "ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=True
+                "python_utils.ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=True
             ):
                 with patch(
-                    "ssh_functions.remote.ssh_copy_file.os.path.isfile",
+                    "python_utils.ssh_functions.remote.ssh_copy_file.os.path.isfile",
                     return_value=True,
                 ):
                     with patch(
-                        "ssh_functions.remote.ssh_copy_file.os.path.getsize",
+                        "python_utils.ssh_functions.remote.ssh_copy_file.os.path.getsize",
                         return_value=4096,
                     ):
                         mock_ssh = MagicMock()
@@ -215,20 +215,20 @@ def test_ssh_copy_file_boundary_port_min() -> None:
     """
     Test case 6: Test file copy with minimum port value.
     """
-    with patch("ssh_functions.remote.ssh_copy_file.paramiko.SSHClient") as mock_client:
+    with patch("python_utils.ssh_functions.remote.ssh_copy_file.paramiko.SSHClient") as mock_client:
         with patch(
-            "ssh_functions.remote.ssh_copy_file.getpass.getuser",
+            "python_utils.ssh_functions.remote.ssh_copy_file.getpass.getuser",
             return_value="testuser",
         ):
             with patch(
-                "ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=True
+                "python_utils.ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=True
             ):
                 with patch(
-                    "ssh_functions.remote.ssh_copy_file.os.path.isfile",
+                    "python_utils.ssh_functions.remote.ssh_copy_file.os.path.isfile",
                     return_value=True,
                 ):
                     with patch(
-                        "ssh_functions.remote.ssh_copy_file.os.path.getsize",
+                        "python_utils.ssh_functions.remote.ssh_copy_file.os.path.getsize",
                         return_value=128,
                     ):
                         mock_ssh = MagicMock()
@@ -251,20 +251,20 @@ def test_ssh_copy_file_boundary_port_max() -> None:
     """
     Test case 7: Test file copy with maximum port value.
     """
-    with patch("ssh_functions.remote.ssh_copy_file.paramiko.SSHClient") as mock_client:
+    with patch("python_utils.ssh_functions.remote.ssh_copy_file.paramiko.SSHClient") as mock_client:
         with patch(
-            "ssh_functions.remote.ssh_copy_file.getpass.getuser",
+            "python_utils.ssh_functions.remote.ssh_copy_file.getpass.getuser",
             return_value="testuser",
         ):
             with patch(
-                "ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=True
+                "python_utils.ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=True
             ):
                 with patch(
-                    "ssh_functions.remote.ssh_copy_file.os.path.isfile",
+                    "python_utils.ssh_functions.remote.ssh_copy_file.os.path.isfile",
                     return_value=True,
                 ):
                     with patch(
-                        "ssh_functions.remote.ssh_copy_file.os.path.getsize",
+                        "python_utils.ssh_functions.remote.ssh_copy_file.os.path.getsize",
                         return_value=128,
                     ):
                         mock_ssh = MagicMock()
@@ -383,7 +383,7 @@ def test_ssh_copy_file_value_error_file_not_found() -> None:
     """
     Test case 20: Test ValueError when local file doesn't exist.
     """
-    with patch("ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=False):
+    with patch("python_utils.ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=False):
         with pytest.raises(ValueError, match="Local file not found"):
             ssh_copy_file(
                 "nonexistent.txt",
@@ -398,9 +398,9 @@ def test_ssh_copy_file_value_error_not_a_file() -> None:
     """
     Test case 21: Test ValueError when local path is not a file.
     """
-    with patch("ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=True):
+    with patch("python_utils.ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=True):
         with patch(
-            "ssh_functions.remote.ssh_copy_file.os.path.isfile", return_value=False
+            "python_utils.ssh_functions.remote.ssh_copy_file.os.path.isfile", return_value=False
         ):
             with pytest.raises(ValueError, match="Local path is not a file"):
                 ssh_copy_file(
@@ -416,16 +416,16 @@ def test_ssh_copy_file_runtime_error_auth_failure() -> None:
     """
     Test case 22: Test RuntimeError for authentication failure.
     """
-    with patch("ssh_functions.remote.ssh_copy_file.paramiko.SSHClient") as mock_client:
+    with patch("python_utils.ssh_functions.remote.ssh_copy_file.paramiko.SSHClient") as mock_client:
         with patch(
-            "ssh_functions.remote.ssh_copy_file.getpass.getuser",
+            "python_utils.ssh_functions.remote.ssh_copy_file.getpass.getuser",
             return_value="testuser",
         ):
             with patch(
-                "ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=True
+                "python_utils.ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=True
             ):
                 with patch(
-                    "ssh_functions.remote.ssh_copy_file.os.path.isfile",
+                    "python_utils.ssh_functions.remote.ssh_copy_file.os.path.isfile",
                     return_value=True,
                 ):
                     mock_ssh = MagicMock()
@@ -450,16 +450,16 @@ def test_ssh_copy_file_runtime_error_ssh_exception() -> None:
     """
     Test case 23: Test RuntimeError for SSH exception.
     """
-    with patch("ssh_functions.remote.ssh_copy_file.paramiko.SSHClient") as mock_client:
+    with patch("python_utils.ssh_functions.remote.ssh_copy_file.paramiko.SSHClient") as mock_client:
         with patch(
-            "ssh_functions.remote.ssh_copy_file.getpass.getuser",
+            "python_utils.ssh_functions.remote.ssh_copy_file.getpass.getuser",
             return_value="testuser",
         ):
             with patch(
-                "ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=True
+                "python_utils.ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=True
             ):
                 with patch(
-                    "ssh_functions.remote.ssh_copy_file.os.path.isfile",
+                    "python_utils.ssh_functions.remote.ssh_copy_file.os.path.isfile",
                     return_value=True,
                 ):
                     mock_ssh = MagicMock()
@@ -482,16 +482,16 @@ def test_ssh_copy_file_runtime_error_timeout() -> None:
     """
     Test case 24: Test RuntimeError for timeout.
     """
-    with patch("ssh_functions.remote.ssh_copy_file.paramiko.SSHClient") as mock_client:
+    with patch("python_utils.ssh_functions.remote.ssh_copy_file.paramiko.SSHClient") as mock_client:
         with patch(
-            "ssh_functions.remote.ssh_copy_file.getpass.getuser",
+            "python_utils.ssh_functions.remote.ssh_copy_file.getpass.getuser",
             return_value="testuser",
         ):
             with patch(
-                "ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=True
+                "python_utils.ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=True
             ):
                 with patch(
-                    "ssh_functions.remote.ssh_copy_file.os.path.isfile",
+                    "python_utils.ssh_functions.remote.ssh_copy_file.os.path.isfile",
                     return_value=True,
                 ):
                     mock_ssh = MagicMock()
@@ -512,16 +512,16 @@ def test_ssh_copy_file_runtime_error_general() -> None:
     """
     Test case 25: Test RuntimeError for general exception.
     """
-    with patch("ssh_functions.remote.ssh_copy_file.paramiko.SSHClient") as mock_client:
+    with patch("python_utils.ssh_functions.remote.ssh_copy_file.paramiko.SSHClient") as mock_client:
         with patch(
-            "ssh_functions.remote.ssh_copy_file.getpass.getuser",
+            "python_utils.ssh_functions.remote.ssh_copy_file.getpass.getuser",
             return_value="testuser",
         ):
             with patch(
-                "ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=True
+                "python_utils.ssh_functions.remote.ssh_copy_file.os.path.exists", return_value=True
             ):
                 with patch(
-                    "ssh_functions.remote.ssh_copy_file.os.path.isfile",
+                    "python_utils.ssh_functions.remote.ssh_copy_file.os.path.isfile",
                     return_value=True,
                 ):
                     mock_ssh = MagicMock()

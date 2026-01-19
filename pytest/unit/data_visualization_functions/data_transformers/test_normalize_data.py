@@ -8,7 +8,7 @@ import pytest
 try:
     import numpy as np
 
-    from data_visualization_functions.data_transformers import normalize_data
+    from python_utils.data_visualization_functions.data_transformers import normalize_data
 
     NUMPY_AVAILABLE = True
 except ImportError:

@@ -9,7 +9,7 @@ try:
     import matplotlib
 
     matplotlib.use("Agg")  # Use non-GUI backend for testing
-    from data_visualization_functions.color_palettes.adjust_brightness import (
+    from python_utils.data_visualization_functions.color_palettes.adjust_brightness import (
         adjust_brightness,
     )
 

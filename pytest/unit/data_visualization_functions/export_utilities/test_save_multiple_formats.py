@@ -14,7 +14,7 @@ try:
     matplotlib.use("Agg")  # Use non-GUI backend for testing
     import matplotlib.pyplot as plt
 
-    from data_visualization_functions.export_utilities.save_multiple_formats import (
+    from python_utils.data_visualization_functions.export_utilities.save_multiple_formats import (
         save_multiple_formats,
     )
 

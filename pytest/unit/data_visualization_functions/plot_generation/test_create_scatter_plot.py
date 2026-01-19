@@ -9,7 +9,7 @@ try:
     import matplotlib.pyplot as plt
     import numpy as np
 
-    from data_visualization_functions.plot_generation import create_scatter_plot
+    from python_utils.data_visualization_functions.plot_generation import create_scatter_plot
 
     MATPLOTLIB_AVAILABLE = True
 except ImportError:

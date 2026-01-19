@@ -3,7 +3,7 @@ import pytest
 # Try to import BeautifulSoup - tests will be skipped if not available
 try:
     from bs4 import BeautifulSoup
-    from web_scraping_functions.html_parsing.extract_tables import extract_tables
+    from python_utils.web_scraping_functions.html_parsing.extract_tables import extract_tables
     BS4_AVAILABLE = True
 except ImportError:
     BS4_AVAILABLE = False

@@ -3,7 +3,7 @@ import pytest
 # Try to import BeautifulSoup - tests will be skipped if not available
 try:
     from bs4 import BeautifulSoup
-    from web_scraping_functions.html_parsing.find_elements_by_id import (
+    from python_utils.web_scraping_functions.html_parsing.find_elements_by_id import (
         find_elements_by_id,
     )
     BS4_AVAILABLE = True

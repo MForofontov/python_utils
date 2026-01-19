@@ -7,7 +7,7 @@ from python_utils.asyncio_functions.fetch_multiple_urls import fetch_multiple_ur
 
 
 @pytest.mark.asyncio
-@patch("asyncio_functions.fetch_multiple_urls.aiohttp.ClientSession")
+@patch("python_utils.asyncio_functions.fetch_multiple_urls.aiohttp.ClientSession")
 async def test_fetch_multiple_urls_successful_fetch(
     mock_session_class: MagicMock,
 ) -> None:
@@ -43,7 +43,7 @@ async def test_fetch_multiple_urls_successful_fetch(
 
 
 @pytest.mark.asyncio
-@patch("asyncio_functions.fetch_multiple_urls.aiohttp.ClientSession")
+@patch("python_utils.asyncio_functions.fetch_multiple_urls.aiohttp.ClientSession")
 async def test_fetch_multiple_urls_empty_list(mock_session_class: MagicMock) -> None:
     """
     Test case 2: Empty URL list returns empty results.
@@ -63,7 +63,7 @@ async def test_fetch_multiple_urls_empty_list(mock_session_class: MagicMock) -> 
 
 
 @pytest.mark.asyncio
-@patch("asyncio_functions.fetch_multiple_urls.aiohttp.ClientSession")
+@patch("python_utils.asyncio_functions.fetch_multiple_urls.aiohttp.ClientSession")
 async def test_fetch_multiple_urls_single_url(mock_session_class: MagicMock) -> None:
     """
     Test case 3: Single URL in the list.
@@ -90,7 +90,7 @@ async def test_fetch_multiple_urls_single_url(mock_session_class: MagicMock) -> 
 
 
 @pytest.mark.asyncio
-@patch("asyncio_functions.fetch_multiple_urls.aiohttp.ClientSession")
+@patch("python_utils.asyncio_functions.fetch_multiple_urls.aiohttp.ClientSession")
 async def test_fetch_multiple_urls_many_urls(mock_session_class: MagicMock) -> None:
     """
     Test case 4: Fetch from many URLs concurrently.
@@ -121,7 +121,7 @@ async def test_fetch_multiple_urls_many_urls(mock_session_class: MagicMock) -> N
 
 
 @pytest.mark.asyncio
-@patch("asyncio_functions.fetch_multiple_urls.aiohttp.ClientSession")
+@patch("python_utils.asyncio_functions.fetch_multiple_urls.aiohttp.ClientSession")
 async def test_fetch_multiple_urls_different_content_types(
     mock_session_class: MagicMock,
 ) -> None:
@@ -155,7 +155,7 @@ async def test_fetch_multiple_urls_different_content_types(
 
 
 @pytest.mark.asyncio
-@patch("asyncio_functions.fetch_multiple_urls.aiohttp.ClientSession")
+@patch("python_utils.asyncio_functions.fetch_multiple_urls.aiohttp.ClientSession")
 async def test_fetch_multiple_urls_session_created(
     mock_session_class: MagicMock,
 ) -> None:

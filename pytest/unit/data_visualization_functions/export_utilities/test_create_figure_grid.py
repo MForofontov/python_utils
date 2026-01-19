@@ -11,7 +11,7 @@ try:
     matplotlib.use("Agg")  # Use non-GUI backend for testing
     import matplotlib.pyplot as plt
 
-    from data_visualization_functions.export_utilities.create_figure_grid import (
+    from python_utils.data_visualization_functions.export_utilities.create_figure_grid import (
         create_figure_grid,
     )
 

@@ -11,7 +11,7 @@ try:
     matplotlib.use("Agg")  # Use non-GUI backend for testing
     import numpy as np
 
-    from data_visualization_functions.data_transformers.bin_data import bin_data
+    from python_utils.data_visualization_functions.data_transformers.bin_data import bin_data
 
     DEPENDENCIES_AVAILABLE = True
 except ImportError:

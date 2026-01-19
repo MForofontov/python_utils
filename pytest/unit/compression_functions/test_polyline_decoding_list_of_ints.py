@@ -104,7 +104,7 @@ def test_polyline_decoding_list_of_ints_round_trip() -> None:
     Test case 7: Verify encoding and decoding are consistent.
     """
     # Arrange
-    from compression_functions.polyline_encoding_list_of_ints import (
+    from python_utils.compression_functions.polyline_encoding_list_of_ints import (
         polyline_encoding_list_of_ints,
     )
 

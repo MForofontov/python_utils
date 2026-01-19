@@ -3,7 +3,7 @@ import pytest
 # Try to import BeautifulSoup - tests will be skipped if not available
 try:
     from bs4 import BeautifulSoup
-    from web_scraping_functions.selectors.select_by_css import select_by_css
+    from python_utils.web_scraping_functions.selectors.select_by_css import select_by_css
     BS4_AVAILABLE = True
 except ImportError:
     BS4_AVAILABLE = False

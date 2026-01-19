@@ -15,7 +15,7 @@ def test_print_dependencies_info_in_terminal_installed(
     """
     Test case 1: Dependency is installed, prints version info.
     """
-    mod = sys.modules["print_functions.print_dependencies_info_in_terminal"]
+    mod = sys.modules["python_utils.print_functions.print_dependencies_info_in_terminal"]
     monkeypatch.setattr(mod, "version", lambda dep: "1.2.3")
     print_dependencies_info_in_terminal(["pytest"])
     out = capsys.readouterr().out
@@ -35,7 +35,7 @@ def test_print_dependencies_info_in_terminal_not_installed(
     def raise_not_found(dep: str) -> None:
         raise DummyException()
 
-    mod = sys.modules["print_functions.print_dependencies_info_in_terminal"]
+    mod = sys.modules["python_utils.print_functions.print_dependencies_info_in_terminal"]
     monkeypatch.setattr(mod, "version", raise_not_found)
     monkeypatch.setattr(mod, "PackageNotFoundError", DummyException)
     print_dependencies_info_in_terminal(["not_installed"])
@@ -50,7 +50,7 @@ def test_print_dependencies_info_in_terminal_separator_and_title(
     Test case 3: Prints separator and title.
     """
     with patch(
-        "print_functions.print_dependencies_info_in_terminal.version",
+        "python_utils.print_functions.print_dependencies_info_in_terminal.version",
         lambda dep: "1.0.0",
     ):
         print_dependencies_info_in_terminal(["pytest"])
