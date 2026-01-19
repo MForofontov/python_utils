@@ -73,6 +73,9 @@ dev = [
     "pluggy==1.6.0",
     "tomli==2.2.1",
 ]
+playwright = [
+    "playwright>=1.40.0",
+]
 
 [tool.setuptools.packages.find]
 where = ["."]
