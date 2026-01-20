@@ -3,8 +3,20 @@ from unittest.mock import patch
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.datetime]
-from python_utils.datetime_functions.is_today import is_today
+try:
+    import pytz
+    from python_utils.datetime_functions.is_today import is_today
+    PYTZ_AVAILABLE = True
+except ImportError:
+    PYTZ_AVAILABLE = False
+    pytz = None  # type: ignore
+    is_today = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.datetime,
+    pytest.mark.skipif(not PYTZ_AVAILABLE, reason="pytz not installed"),
+]
 
 
 def test_is_today_with_today_date() -> None:

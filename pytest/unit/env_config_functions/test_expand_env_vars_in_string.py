@@ -1,7 +1,19 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.env_config]
-from python_utils.env_config_functions.expand_env_vars_in_string import expand_env_vars_in_string
+try:
+    import yaml
+    from python_utils.env_config_functions.expand_env_vars_in_string import expand_env_vars_in_string
+    PYYAML_AVAILABLE = True
+except ImportError:
+    PYYAML_AVAILABLE = False
+    yaml = None  # type: ignore
+    expand_env_vars_in_string = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.env_config,
+    pytest.mark.skipif(not PYYAML_AVAILABLE, reason="pyyaml not installed"),
+]
 
 
 def test_expand_env_vars_basic(monkeypatch):

@@ -1,9 +1,21 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
-from unittest.mock import patch
+try:
+    from unittest.mock import patch
+    import psutil
+    from python_utils.network_functions.get_default_gateway import get_default_gateway
+    PSUTIL_AVAILABLE = True
+except ImportError:
+    PSUTIL_AVAILABLE = False
+    patch = None  # type: ignore
+    psutil = None  # type: ignore
+    get_default_gateway = None  # type: ignore
 
-from python_utils.network_functions.get_default_gateway import get_default_gateway
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.network_functions,
+    pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed"),
+]
 
 
 def test_get_default_gateway_normal() -> None:

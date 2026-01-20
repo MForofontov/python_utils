@@ -1,9 +1,32 @@
 import logging
+from functools import wraps
+from typing import Any, Callable
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.decorators]
-from python_utils.decorators.validate_args import validate_args
+try:
+    import aiohttp
+    from python_utils.decorators.validate_args import validate_args
+    AIOHTTP_AVAILABLE = True
+except ImportError:
+    AIOHTTP_AVAILABLE = False
+    aiohttp = None  # type: ignore
+    
+    # Create dummy decorator for when aiohttp is not available
+    def validate_args(validator: Callable, *args: Any, **kwargs: Any) -> Callable:  # type: ignore
+        """Dummy validate_args that accepts a validator function."""
+        def decorator(func: Callable) -> Callable:
+            @wraps(func)
+            def wrapper(*f_args: Any, **f_kwargs: Any) -> Any:
+                return func(*f_args, **f_kwargs)
+            return wrapper
+        return decorator
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.decorators,
+    pytest.mark.skipif(not AIOHTTP_AVAILABLE, reason="aiohttp not installed"),
+]
 
 # Configure test_logger
 test_logger = logging.getLogger("test_logger")

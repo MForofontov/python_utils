@@ -1,9 +1,20 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
-from unittest.mock import MagicMock, patch
+try:
+    import psutil
+    from python_utils.network_functions.get_ipv6_addresses import get_ipv6_addresses
+    PSUTIL_AVAILABLE = True
+except ImportError:
+    PSUTIL_AVAILABLE = False
+    psutil = None  # type: ignore
+    get_ipv6_addresses = None  # type: ignore
 
-from python_utils.network_functions.get_ipv6_addresses import get_ipv6_addresses
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.network_functions,
+    pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed"),
+]
+from unittest.mock import MagicMock, patch
 
 
 @patch("psutil.net_if_addrs")

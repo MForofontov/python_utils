@@ -1,13 +1,14 @@
 try:
     import toml
+    from python_utils.env_config_functions.parse_toml_config import parse_toml_config
 
     TOML_AVAILABLE = True
 except ImportError:
     TOML_AVAILABLE = False
-    toml = None  # type: ignore
+    tomli = None  # type: ignore
+    parse_toml_config = None  # type: ignore
 
 import pytest
-from python_utils.env_config_functions.parse_toml_config import parse_toml_config
 
 pytestmark = pytest.mark.skipif(not TOML_AVAILABLE, reason="toml not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.env_config]

@@ -2,8 +2,20 @@ from datetime import datetime
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.datetime]
-from python_utils.datetime_functions.get_date_parts import get_date_parts
+try:
+    import pytz
+    from python_utils.datetime_functions.get_date_parts import get_date_parts
+    PYTZ_AVAILABLE = True
+except ImportError:
+    PYTZ_AVAILABLE = False
+    pytz = None  # type: ignore
+    get_date_parts = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.datetime,
+    pytest.mark.skipif(not PYTZ_AVAILABLE, reason="pytz not installed"),
+]
 
 
 def test_get_date_parts_basic() -> None:

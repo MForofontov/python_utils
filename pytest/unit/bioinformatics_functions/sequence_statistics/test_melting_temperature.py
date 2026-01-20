@@ -1,9 +1,21 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from python_utils.bioinformatics_functions.sequence_statistics.melting_temperature import (
-    melting_temperature,
-)
+try:
+    import numpy
+    from python_utils.bioinformatics_functions.sequence_statistics.melting_temperature import (
+        melting_temperature,
+    )
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    numpy = None  # type: ignore
+    melting_temperature = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.bioinformatics,
+    pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed"),
+]
 
 
 def test_melting_temperature_basic() -> None:

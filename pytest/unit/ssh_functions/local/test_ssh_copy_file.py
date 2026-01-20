@@ -1,12 +1,26 @@
 """Tests for local SSH copy file using subprocess."""
 
-import subprocess
-from unittest.mock import MagicMock, patch
-
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.ssh_functions]
-from python_utils.ssh_functions.local.ssh_copy_file import ssh_copy_file
+try:
+    import subprocess
+    from unittest.mock import MagicMock, patch
+    import paramiko
+    from python_utils.ssh_functions.local.ssh_copy_file import ssh_copy_file
+    PARAMIKO_AVAILABLE = True
+except ImportError:
+    PARAMIKO_AVAILABLE = False
+    subprocess = None  # type: ignore
+    MagicMock = None  # type: ignore
+    patch = None  # type: ignore
+    paramiko = None  # type: ignore
+    ssh_copy_file = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.ssh_functions,
+    pytest.mark.skipif(not PARAMIKO_AVAILABLE, reason="paramiko not installed"),
+]
 
 
 def test_ssh_copy_file_successful() -> None:

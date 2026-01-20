@@ -2,8 +2,20 @@ import tempfile
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.cli_functions]
-from python_utils.cli_functions.get_disk_usage import get_disk_usage
+try:
+    import psutil
+    from python_utils.cli_functions.get_disk_usage import get_disk_usage
+    PSUTIL_AVAILABLE = True
+except ImportError:
+    PSUTIL_AVAILABLE = False
+    psutil = None  # type: ignore
+    get_disk_usage = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.cli_functions,
+    pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed"),
+]
 
 
 def test_get_disk_usage_valid_path() -> None:

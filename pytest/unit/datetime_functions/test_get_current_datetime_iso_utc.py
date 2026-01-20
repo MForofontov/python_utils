@@ -2,14 +2,15 @@ from datetime import datetime
 
 try:
     import pytz
+    from python_utils.datetime_functions.get_current_datetime_iso_utc import get_current_datetime_iso_utc
 
     PYTZ_AVAILABLE = True
 except ImportError:
     PYTZ_AVAILABLE = False
     pytz = None  # type: ignore
+    get_current_datetime_iso_utc = None  # type: ignore
 
 import pytest
-from python_utils.datetime_functions.get_current_datetime_iso_utc import get_current_datetime_iso_utc
 
 pytestmark = pytest.mark.skipif(not PYTZ_AVAILABLE, reason="pytz not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.datetime]

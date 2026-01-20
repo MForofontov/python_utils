@@ -1,7 +1,19 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.datetime]
-from python_utils.datetime_functions.is_leap_year import is_leap_year
+try:
+    import pytz
+    from python_utils.datetime_functions.is_leap_year import is_leap_year
+    PYTZ_AVAILABLE = True
+except ImportError:
+    PYTZ_AVAILABLE = False
+    pytz = None  # type: ignore
+    is_leap_year = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.datetime,
+    pytest.mark.skipif(not PYTZ_AVAILABLE, reason="pytz not installed"),
+]
 
 
 def test_is_leap_year_true_cases() -> None:

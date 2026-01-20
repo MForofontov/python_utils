@@ -3,8 +3,20 @@ from collections.abc import AsyncGenerator
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.asyncio_functions]
-from python_utils.asyncio_functions.async_throttle import async_throttle
+try:
+    import aiohttp
+    from python_utils.asyncio_functions.async_throttle import async_throttle
+    AIOHTTP_AVAILABLE = True
+except ImportError:
+    AIOHTTP_AVAILABLE = False
+    aiohttp = None  # type: ignore
+    async_throttle = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.asyncio_functions,
+    pytest.mark.skipif(not AIOHTTP_AVAILABLE, reason="aiohttp not installed"),
+]
 
 
 @pytest.mark.asyncio

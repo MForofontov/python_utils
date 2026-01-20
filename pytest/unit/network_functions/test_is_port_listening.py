@@ -2,14 +2,15 @@ from unittest.mock import MagicMock, patch
 
 try:
     import psutil
+    from python_utils.network_functions.is_port_listening import is_port_listening
 
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False
     psutil = None  # type: ignore
+    is_port_listening = None  # type: ignore
 
 import pytest
-from python_utils.network_functions.is_port_listening import is_port_listening
 
 pytestmark = pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.network_functions]

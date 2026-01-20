@@ -3,16 +3,19 @@
 try:
     import numpy as np
     import scipy
+    from python_utils.scientific_computing_functions.statistical_analysis.power_analysis import (
+        power_analysis,
+    )
     NUMPY_AVAILABLE = True
 except ImportError:
     NUMPY_AVAILABLE = False
     np = None  # type: ignore
     scipy = None  # type: ignore
+    power_analysis = None  # type: ignore
 
 import pytest
-from python_utils.scientific_computing_functions.statistical_analysis.power_analysis import (
-    power_analysis,
-)
+
+pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy and/or scipy not installed")
 
 pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy/scipy not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.scientific_computing]

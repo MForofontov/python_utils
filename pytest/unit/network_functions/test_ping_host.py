@@ -2,8 +2,20 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
-from python_utils.network_functions.ping_host import ping_host
+try:
+    import psutil
+    from python_utils.network_functions.ping_host import ping_host
+    PSUTIL_AVAILABLE = True
+except ImportError:
+    PSUTIL_AVAILABLE = False
+    psutil = None  # type: ignore
+    ping_host = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.network_functions,
+    pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed"),
+]
 
 
 def test_ping_host_success() -> None:

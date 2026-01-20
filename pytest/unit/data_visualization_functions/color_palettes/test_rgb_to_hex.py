@@ -4,8 +4,20 @@ Unit tests for rgb_to_hex function.
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.data_visualization]
-from python_utils.data_visualization_functions.color_palettes import rgb_to_hex
+try:
+    import matplotlib
+    from python_utils.data_visualization_functions.color_palettes.rgb_to_hex import rgb_to_hex
+    MATPLOTLIB_AVAILABLE = True
+except ImportError:
+    MATPLOTLIB_AVAILABLE = False
+    matplotlib = None  # type: ignore
+    rgb_to_hex = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.data_visualization,
+    pytest.mark.skipif(not MATPLOTLIB_AVAILABLE, reason="matplotlib not installed"),
+]
 
 
 def test_rgb_to_hex_red():

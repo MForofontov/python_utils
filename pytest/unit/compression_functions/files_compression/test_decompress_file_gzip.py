@@ -1,12 +1,24 @@
-import gzip
-import os
-
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.compression]
-from python_utils.compression_functions.files_compression.decompress_file_gzip import (
-    decompress_file_gzip,
-)
+try:
+    import gzip
+    import os
+    import snappy
+    from python_utils.compression_functions.files_compression.decompress_file_gzip import decompress_file_gzip
+    SNAPPY_AVAILABLE = True
+except ImportError:
+    SNAPPY_AVAILABLE = False
+    gzip = None  # type: ignore
+    os = None  # type: ignore
+    snappy = None  # type: ignore
+    decompress_file_gzip = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.compression,
+    pytest.mark.skipif(not SNAPPY_AVAILABLE, reason="python-snappy not installed"),
+]
+
 
 
 def test_decompress_file_gzip_basic(tmp_path) -> None:

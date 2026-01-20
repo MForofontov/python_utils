@@ -2,8 +2,20 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.asyncio_functions]
-from python_utils.asyncio_functions.fetch_multiple_urls import fetch_multiple_urls
+try:
+    import aiohttp
+    from python_utils.asyncio_functions.fetch_multiple_urls import fetch_multiple_urls
+    AIOHTTP_AVAILABLE = True
+except ImportError:
+    AIOHTTP_AVAILABLE = False
+    aiohttp = None  # type: ignore
+    fetch_multiple_urls = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.asyncio_functions,
+    pytest.mark.skipif(not AIOHTTP_AVAILABLE, reason="aiohttp not installed"),
+]
 
 
 @pytest.mark.asyncio

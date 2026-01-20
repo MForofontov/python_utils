@@ -1,7 +1,19 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from python_utils.bioinformatics_functions.fasta_misc.genbank_to_fasta import genbank_to_fasta
+try:
+    import numpy
+    from python_utils.bioinformatics_functions.fasta_misc.genbank_to_fasta import genbank_to_fasta
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    numpy = None  # type: ignore
+    genbank_to_fasta = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.bioinformatics,
+    pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed"),
+]
 
 
 def test_genbank_to_fasta_simple() -> None:

@@ -1,9 +1,21 @@
-import asyncio
-
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.asyncio_functions]
-from python_utils.asyncio_functions.async_cancellable_task import async_cancellable_task
+try:
+    import asyncio
+    import aiohttp
+    from python_utils.asyncio_functions.async_cancellable_task import async_cancellable_task
+    AIOHTTP_AVAILABLE = True
+except ImportError:
+    AIOHTTP_AVAILABLE = False
+    asyncio = None  # type: ignore
+    aiohttp = None  # type: ignore
+    async_cancellable_task = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.asyncio_functions,
+    pytest.mark.skipif(not AIOHTTP_AVAILABLE, reason="aiohttp not installed"),
+]
 
 
 @pytest.mark.asyncio

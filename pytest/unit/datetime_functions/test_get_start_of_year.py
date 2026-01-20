@@ -2,8 +2,20 @@ from datetime import datetime
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.datetime]
-from python_utils.datetime_functions.get_start_of_year import get_start_of_year
+try:
+    import pytz
+    from python_utils.datetime_functions.get_start_of_year import get_start_of_year
+    PYTZ_AVAILABLE = True
+except ImportError:
+    PYTZ_AVAILABLE = False
+    pytz = None  # type: ignore
+    get_start_of_year = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.datetime,
+    pytest.mark.skipif(not PYTZ_AVAILABLE, reason="pytz not installed"),
+]
 
 
 def test_get_start_of_year_mid_year() -> None:

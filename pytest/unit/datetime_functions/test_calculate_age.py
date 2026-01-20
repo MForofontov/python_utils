@@ -2,8 +2,20 @@ from datetime import datetime
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.datetime]
-from python_utils.datetime_functions.calculate_age import calculate_age
+try:
+    import pytz
+    from python_utils.datetime_functions.calculate_age import calculate_age
+    PYTZ_AVAILABLE = True
+except ImportError:
+    PYTZ_AVAILABLE = False
+    pytz = None  # type: ignore
+    calculate_age = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.datetime,
+    pytest.mark.skipif(not PYTZ_AVAILABLE, reason="pytz not installed"),
+]
 
 
 def test_calculate_age_basic() -> None:

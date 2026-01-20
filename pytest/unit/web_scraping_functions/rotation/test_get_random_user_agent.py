@@ -1,9 +1,21 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.web_scraping]
-from python_utils.web_scraping_functions.rotation.get_random_user_agent import (
-    get_random_user_agent,
-)
+try:
+    from bs4 import BeautifulSoup
+    from python_utils.web_scraping_functions.rotation.get_random_user_agent import (
+        get_random_user_agent,
+    )
+    BS4_AVAILABLE = True
+except ImportError:
+    BS4_AVAILABLE = False
+    BeautifulSoup = None  # type: ignore
+    get_random_user_agent = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.web_scraping,
+    pytest.mark.skipif(not BS4_AVAILABLE, reason="beautifulsoup4 not installed"),
+]
 
 
 def test_get_random_user_agent_returns_from_list() -> None:

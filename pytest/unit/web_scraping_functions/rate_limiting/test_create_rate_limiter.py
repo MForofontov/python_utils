@@ -1,11 +1,23 @@
-import time
-
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.web_scraping]
-from python_utils.web_scraping_functions.rate_limiting.create_rate_limiter import (
-    create_rate_limiter,
-)
+try:
+    import time
+    from bs4 import BeautifulSoup
+    from python_utils.web_scraping_functions.rate_limiting.create_rate_limiter import (
+        create_rate_limiter,
+    )
+    BS4_AVAILABLE = True
+except ImportError:
+    BS4_AVAILABLE = False
+    time = None  # type: ignore
+    BeautifulSoup = None  # type: ignore
+    create_rate_limiter = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.web_scraping,
+    pytest.mark.skipif(not BS4_AVAILABLE, reason="beautifulsoup4 not installed"),
+]
 
 
 def test_create_rate_limiter_basic_rate_limiting() -> None:

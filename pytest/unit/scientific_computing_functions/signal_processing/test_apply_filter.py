@@ -10,16 +10,17 @@ Tests cover:
 try:
     import numpy as np
     import scipy
+    from python_utils.scientific_computing_functions.signal_processing.apply_filter import apply_filter
     NUMPY_AVAILABLE = True
 except ImportError:
     NUMPY_AVAILABLE = False
     np = None  # type: ignore
     scipy = None  # type: ignore
+    apply_filter = None  # type: ignore
 
 import pytest
-from python_utils.scientific_computing_functions.signal_processing.apply_filter import apply_filter
 
-pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy/scipy not installed")
+pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy and/or scipy not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.scientific_computing]
 
 # ========== Normal Operation Tests ==========

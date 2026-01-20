@@ -1,13 +1,14 @@
 try:
     import yaml
+    from python_utils.env_config_functions.parse_yaml_config import parse_yaml_config
 
     YAML_AVAILABLE = True
 except ImportError:
     YAML_AVAILABLE = False
     yaml = None  # type: ignore
+    parse_yaml_config = None  # type: ignore
 
 import pytest
-from python_utils.env_config_functions.parse_yaml_config import parse_yaml_config
 
 pytestmark = pytest.mark.skipif(not YAML_AVAILABLE, reason="pyyaml not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.env_config]

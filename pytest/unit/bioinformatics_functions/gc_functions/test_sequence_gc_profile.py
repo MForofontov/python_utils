@@ -1,9 +1,21 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from python_utils.bioinformatics_functions.gc_functions.sequence_gc_profile import (
-    sequence_gc_profile,
-)
+try:
+    import numpy
+    from python_utils.bioinformatics_functions.gc_functions.sequence_gc_profile import (
+        sequence_gc_profile,
+    )
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    numpy = None  # type: ignore
+    sequence_gc_profile = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.bioinformatics,
+    pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed"),
+]
 
 
 def test_sequence_gc_profile_basic() -> None:

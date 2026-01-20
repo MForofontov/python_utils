@@ -2,8 +2,20 @@ import bz2
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.compression]
-from python_utils.compression_functions.binary_compression.compress_bz2 import compress_bz2
+try:
+    import snappy
+    from python_utils.compression_functions.binary_compression.compress_bz2 import compress_bz2
+    SNAPPY_AVAILABLE = True
+except ImportError:
+    SNAPPY_AVAILABLE = False
+    snappy = None  # type: ignore
+    compress_bz2 = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.compression,
+    pytest.mark.skipif(not SNAPPY_AVAILABLE, reason="python-snappy not installed"),
+]
 
 
 def test_compress_bz2_basic() -> None:

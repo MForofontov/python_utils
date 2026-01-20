@@ -5,19 +5,20 @@ Unit tests for merge_parquet_files function.
 import tempfile
 from pathlib import Path
 
+import pytest
+
 try:
     import pyarrow as pa
     import pyarrow.parquet as pq
+    from python_utils.serialization_functions.parquet_operations.merge_parquet_files import (
+        merge_parquet_files,
+    )
     PYARROW_AVAILABLE = True
 except ImportError:
     PYARROW_AVAILABLE = False
     pa = None  # type: ignore
     pq = None  # type: ignore
-
-import pytest
-from python_utils.serialization_functions.parquet_operations.merge_parquet_files import (
-    merge_parquet_files,
-)
+    merge_parquet_files = None  # type: ignore
 
 pytestmark = pytest.mark.skipif(not PYARROW_AVAILABLE, reason="pyarrow not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]

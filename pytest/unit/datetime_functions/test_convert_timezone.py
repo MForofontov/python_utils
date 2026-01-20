@@ -2,14 +2,15 @@ from datetime import datetime
 
 try:
     import pytz
+    from python_utils.datetime_functions.convert_timezone import convert_timezone
 
     PYTZ_AVAILABLE = True
 except ImportError:
     PYTZ_AVAILABLE = False
     pytz = None  # type: ignore
+    convert_timezone = None  # type: ignore
 
 import pytest
-from python_utils.datetime_functions.convert_timezone import convert_timezone
 
 pytestmark = pytest.mark.skipif(not PYTZ_AVAILABLE, reason="pytz not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.datetime]

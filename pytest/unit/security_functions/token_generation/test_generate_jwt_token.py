@@ -4,8 +4,20 @@ from datetime import datetime, timezone
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.security]
-from python_utils.security_functions.token_generation.generate_jwt_token import generate_jwt_token
+try:
+    from cryptography.fernet import Fernet
+    from python_utils.security_functions.token_generation.generate_jwt_token import generate_jwt_token
+    CRYPTOGRAPHY_AVAILABLE = True
+except ImportError:
+    CRYPTOGRAPHY_AVAILABLE = False
+    Fernet = None  # type: ignore
+    generate_jwt_token = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.security,
+    pytest.mark.skipif(not CRYPTOGRAPHY_AVAILABLE, reason="cryptography not installed"),
+]
 
 
 def test_generate_jwt_token_basic_token() -> None:

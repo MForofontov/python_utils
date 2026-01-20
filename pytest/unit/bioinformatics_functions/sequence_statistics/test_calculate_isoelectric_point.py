@@ -1,9 +1,21 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from python_utils.bioinformatics_functions.sequence_statistics.calculate_isoelectric_point import (
-    calculate_isoelectric_point,
-)
+try:
+    import numpy
+    from python_utils.bioinformatics_functions.sequence_statistics.calculate_isoelectric_point import (
+        calculate_isoelectric_point,
+    )
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    numpy = None  # type: ignore
+    calculate_isoelectric_point = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.bioinformatics,
+    pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed"),
+]
 
 
 def test_calculate_isoelectric_point_acidic_protein() -> None:

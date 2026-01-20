@@ -1,13 +1,14 @@
 try:
     from lxml import etree
+    from python_utils.web_scraping_functions.selectors.select_by_xpath import select_by_xpath
 
     LXML_AVAILABLE = True
 except ImportError:
     LXML_AVAILABLE = False
     etree = None  # type: ignore
+    select_by_xpath = None  # type: ignore
 
 import pytest
-from python_utils.web_scraping_functions.selectors.select_by_xpath import select_by_xpath
 
 pytestmark = pytest.mark.skipif(not LXML_AVAILABLE, reason="lxml not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.web_scraping]

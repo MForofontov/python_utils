@@ -6,16 +6,17 @@ Tests cover normal operation, edge cases, and error conditions.
 
 try:
     import numpy as np
+    from python_utils.scientific_computing_functions.statistical_analysis.correlation_analysis import (
+        correlation_analysis,
+    )
 
     NUMPY_AVAILABLE = True
 except ImportError:
     NUMPY_AVAILABLE = False
     np = None  # type: ignore
+    correlation_analysis = None  # type: ignore
 
 import pytest
-from python_utils.scientific_computing_functions.statistical_analysis.correlation_analysis import (
-    correlation_analysis,
-)
 
 pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.scientific_computing]

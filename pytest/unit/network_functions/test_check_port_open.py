@@ -2,8 +2,20 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
-from python_utils.network_functions.check_port_open import check_port_open
+try:
+    import psutil
+    from python_utils.network_functions.check_port_open import check_port_open
+    PSUTIL_AVAILABLE = True
+except ImportError:
+    PSUTIL_AVAILABLE = False
+    psutil = None  # type: ignore
+    check_port_open = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.network_functions,
+    pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed"),
+]
 
 
 def test_check_port_open_success() -> None:

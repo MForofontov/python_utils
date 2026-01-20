@@ -4,15 +4,16 @@ from pathlib import Path
 
 try:
     from openpyxl import load_workbook
+    from python_utils.serialization_functions.excel_operations.create_excel_workbook import (
+        create_excel_workbook,
+    )
     OPENPYXL_AVAILABLE = True
 except ImportError:
     OPENPYXL_AVAILABLE = False
     load_workbook = None  # type: ignore
+    create_excel_workbook = None  # type: ignore
 
 import pytest
-from python_utils.serialization_functions.excel_operations.create_excel_workbook import (
-    create_excel_workbook,
-)
 
 pytestmark = pytest.mark.skipif(not OPENPYXL_AVAILABLE, reason="openpyxl not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]

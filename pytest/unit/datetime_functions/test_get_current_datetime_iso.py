@@ -1,9 +1,20 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.datetime]
-from datetime import datetime
+try:
+    import pytz
+    from python_utils.datetime_functions.get_current_datetime_iso import get_current_datetime_iso
+    PYTZ_AVAILABLE = True
+except ImportError:
+    PYTZ_AVAILABLE = False
+    pytz = None  # type: ignore
+    get_current_datetime_iso = None  # type: ignore
 
-from python_utils.datetime_functions.get_current_datetime_iso import get_current_datetime_iso
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.datetime,
+    pytest.mark.skipif(not PYTZ_AVAILABLE, reason="pytz not installed"),
+]
+from datetime import datetime
 
 
 def test_get_current_datetime_iso_format() -> None:

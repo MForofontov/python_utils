@@ -1,12 +1,23 @@
-import lzma
-import os
-
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.compression]
-from python_utils.compression_functions.files_compression.compress_file_lzma import (
-    compress_file_lzma,
-)
+try:
+    import lzma
+    import os
+    import snappy
+    from python_utils.compression_functions.files_compression.compress_file_lzma import compress_file_lzma
+    SNAPPY_AVAILABLE = True
+except ImportError:
+    SNAPPY_AVAILABLE = False
+    lzma = None  # type: ignore
+    os = None  # type: ignore
+    snappy = None  # type: ignore
+    compress_file_lzma = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.compression,
+    pytest.mark.skipif(not SNAPPY_AVAILABLE, reason="python-snappy not installed"),
+]
 
 
 def test_compress_file_lzma_basic_compression(tmp_path) -> None:

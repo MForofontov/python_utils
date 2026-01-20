@@ -4,13 +4,14 @@ from unittest.mock import MagicMock, mock_open, patch
 
 try:
     import paramiko
+    from python_utils.ssh_functions.remote.ssh_execute_script import ssh_execute_script
     PARAMIKO_AVAILABLE = True
 except ImportError:
     PARAMIKO_AVAILABLE = False
     paramiko = None  # type: ignore
+    ssh_execute_script = None  # type: ignore
 
 import pytest
-from python_utils.ssh_functions.remote.ssh_execute_script import ssh_execute_script
 
 pytestmark = pytest.mark.skipif(not PARAMIKO_AVAILABLE, reason="paramiko not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.ssh_functions]

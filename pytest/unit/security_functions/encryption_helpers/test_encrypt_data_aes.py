@@ -2,8 +2,20 @@ import base64
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.security]
-from python_utils.security_functions.encryption_helpers.encrypt_data_aes import encrypt_data_aes
+try:
+    from cryptography.fernet import Fernet
+    from python_utils.security_functions.encryption_helpers.encrypt_data_aes import encrypt_data_aes
+    CRYPTOGRAPHY_AVAILABLE = True
+except ImportError:
+    CRYPTOGRAPHY_AVAILABLE = False
+    Fernet = None  # type: ignore
+    encrypt_data_aes = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.security,
+    pytest.mark.skipif(not CRYPTOGRAPHY_AVAILABLE, reason="cryptography not installed"),
+]
 
 
 def test_encrypt_data_aes_string_data_auto_key() -> None:

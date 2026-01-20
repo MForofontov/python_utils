@@ -1,9 +1,21 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from python_utils.bioinformatics_functions.translation_functions.transcribe_dna_to_rna import (
-    transcribe_dna_to_rna,
-)
+try:
+    import numpy
+    from python_utils.bioinformatics_functions.translation_functions.transcribe_dna_to_rna import (
+        transcribe_dna_to_rna,
+    )
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    numpy = None  # type: ignore
+    transcribe_dna_to_rna = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.bioinformatics,
+    pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed"),
+]
 
 
 def test_transcribe_dna_to_rna_basic() -> None:

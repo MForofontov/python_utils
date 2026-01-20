@@ -3,8 +3,20 @@ from unittest.mock import patch
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
-from python_utils.network_functions.resolve_hostname import resolve_hostname
+try:
+    import psutil
+    from python_utils.network_functions.resolve_hostname import resolve_hostname
+    PSUTIL_AVAILABLE = True
+except ImportError:
+    PSUTIL_AVAILABLE = False
+    psutil = None  # type: ignore
+    resolve_hostname = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.network_functions,
+    pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed"),
+]
 
 
 def test_resolve_hostname_success() -> None:

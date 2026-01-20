@@ -5,18 +5,18 @@ import pytest
 # Try to import pydantic - tests will be skipped if not available
 try:
     from pydantic import BaseModel, Field, ValidationError
+    from python_utils.data_validation import validate_pydantic_schema
 
     PYDANTIC_AVAILABLE = True
 except ImportError:
     PYDANTIC_AVAILABLE = False
     BaseModel = object  # type: ignore
+    validate_pydantic_schema = None  # type: ignore
 
     def Field(**kwargs):
         return None  # type: ignore
 
     ValidationError = Exception  # type: ignore
-
-from python_utils.data_validation import validate_pydantic_schema
 
 validate_pydantic_schema_module = importlib.import_module(
     "python_utils.data_validation.schema_validation.validate_pydantic_schema"

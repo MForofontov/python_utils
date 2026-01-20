@@ -5,18 +5,19 @@ import lzma
 try:
     import snappy
     import zstandard as zstd
+    from python_utils.compression_functions.binary_compression.compress_data import compress_data
 
     COMPRESSION_LIBS_AVAILABLE = True
 except ImportError:
     COMPRESSION_LIBS_AVAILABLE = False
     snappy = None  # type: ignore
     zstd = None  # type: ignore
+    compress_data = None  # type: ignore
 
 import pytest
-from python_utils.compression_functions.binary_compression.compress_data import compress_data
 
 pytestmark = pytest.mark.skipif(
-    not COMPRESSION_LIBS_AVAILABLE, reason="snappy/zstandard not installed"
+    not COMPRESSION_LIBS_AVAILABLE, reason="snappy and/or zstandard not installed"
 )
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.compression]
 

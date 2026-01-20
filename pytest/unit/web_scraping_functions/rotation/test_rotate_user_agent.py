@@ -1,7 +1,19 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.web_scraping]
-from python_utils.web_scraping_functions.rotation.rotate_user_agent import rotate_user_agent
+try:
+    from bs4 import BeautifulSoup
+    from python_utils.web_scraping_functions.rotation.rotate_user_agent import rotate_user_agent
+    BS4_AVAILABLE = True
+except ImportError:
+    BS4_AVAILABLE = False
+    BeautifulSoup = None  # type: ignore
+    rotate_user_agent = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.web_scraping,
+    pytest.mark.skipif(not BS4_AVAILABLE, reason="beautifulsoup4 not installed"),
+]
 
 
 def test_rotate_user_agent_basic_rotation() -> None:

@@ -9,16 +9,19 @@ import warnings
 try:
     import numpy as np
     import scipy
+    from python_utils.scientific_computing_functions.statistical_analysis.robust_statistics import (
+        robust_statistics,
+    )
     NUMPY_AVAILABLE = True
 except ImportError:
     NUMPY_AVAILABLE = False
     np = None  # type: ignore
     scipy = None  # type: ignore
+    robust_statistics = None  # type: ignore
 
 import pytest
-from python_utils.scientific_computing_functions.statistical_analysis.robust_statistics import (
-    robust_statistics,
-)
+
+pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy and/or scipy not installed")
 
 pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy/scipy not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.scientific_computing]

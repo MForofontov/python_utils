@@ -2,17 +2,18 @@
 
 from pathlib import Path
 
+import pytest
+
 try:
     import pyarrow
     import pyarrow.parquet as pq
+    from python_utils.serialization_functions.parquet_operations.write_parquet import write_parquet
     PYARROW_AVAILABLE = True
 except ImportError:
     PYARROW_AVAILABLE = False
     pyarrow = None  # type: ignore
     pq = None  # type: ignore
-
-import pytest
-from python_utils.serialization_functions.parquet_operations.write_parquet import write_parquet
+    write_parquet = None  # type: ignore
 
 pytestmark = pytest.mark.skipif(not PYARROW_AVAILABLE, reason="pyarrow not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]

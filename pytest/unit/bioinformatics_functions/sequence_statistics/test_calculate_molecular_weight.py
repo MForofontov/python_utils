@@ -1,9 +1,21 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from python_utils.bioinformatics_functions.sequence_statistics.calculate_molecular_weight import (
-    calculate_molecular_weight,
-)
+try:
+    import numpy
+    from python_utils.bioinformatics_functions.sequence_statistics.calculate_molecular_weight import (
+        calculate_molecular_weight,
+    )
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    numpy = None  # type: ignore
+    calculate_molecular_weight = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.bioinformatics,
+    pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed"),
+]
 
 
 def test_calculate_molecular_weight_dna_sequence() -> None:

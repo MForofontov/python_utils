@@ -10,16 +10,17 @@ Tests cover:
 try:
     import numpy as np
     import scipy
+    from python_utils.scientific_computing_functions.numerical_methods.numerical_derivative import (
+        numerical_derivative,
+    )
     NUMPY_AVAILABLE = True
 except ImportError:
     NUMPY_AVAILABLE = False
     np = None  # type: ignore
     scipy = None  # type: ignore
+    numerical_derivative = None  # type: ignore
 
 import pytest
-from python_utils.scientific_computing_functions.numerical_methods.numerical_derivative import (
-    numerical_derivative,
-)
 
 pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy/scipy not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.scientific_computing]

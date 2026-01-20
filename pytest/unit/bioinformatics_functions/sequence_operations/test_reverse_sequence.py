@@ -1,9 +1,21 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from python_utils.bioinformatics_functions.sequence_operations.reverse_sequence import (
-    reverse_sequence,
-)
+try:
+    import numpy
+    from python_utils.bioinformatics_functions.sequence_operations.reverse_sequence import (
+        reverse_sequence,
+    )
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    numpy = None  # type: ignore
+    reverse_sequence = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.bioinformatics,
+    pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed"),
+]
 
 
 def test_reverse_sequence_basic() -> None:

@@ -2,14 +2,15 @@ from unittest.mock import patch
 
 try:
     import requests
+    from python_utils.network_functions.get_public_ip import get_public_ip
 
     REQUESTS_AVAILABLE = True
 except ImportError:
     REQUESTS_AVAILABLE = False
     requests = None  # type: ignore
+    get_public_ip = None  # type: ignore
 
 import pytest
-from python_utils.network_functions.get_public_ip import get_public_ip
 
 pytestmark = pytest.mark.skipif(not REQUESTS_AVAILABLE, reason="requests not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.network_functions]

@@ -1,9 +1,21 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from python_utils.bioinformatics_functions.repeat_functions.palindromic_sequence_finder import (
-    palindromic_sequence_finder,
-)
+try:
+    import numpy
+    from python_utils.bioinformatics_functions.repeat_functions.palindromic_sequence_finder import (
+        palindromic_sequence_finder,
+    )
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    numpy = None  # type: ignore
+    palindromic_sequence_finder = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.bioinformatics,
+    pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed"),
+]
 
 
 def test_palindromic_sequence_finder_basic() -> None:

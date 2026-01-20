@@ -2,8 +2,20 @@ from unittest.mock import patch
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.print_functions]
-from python_utils.print_functions.print_system_info_in_terminal import print_system_info_in_terminal
+try:
+    import psutil
+    from python_utils.print_functions.print_system_info_in_terminal import print_system_info_in_terminal
+    PSUTIL_AVAILABLE = True
+except ImportError:
+    PSUTIL_AVAILABLE = False
+    psutil = None  # type: ignore
+    print_system_info_in_terminal = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.print_functions,
+    pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed"),
+]
 
 
 def test_print_system_info_in_terminal_basic(

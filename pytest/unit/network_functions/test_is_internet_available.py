@@ -1,9 +1,20 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
-from unittest.mock import MagicMock, patch
+try:
+    import psutil
+    from python_utils.network_functions.is_internet_available import is_internet_available
+    PSUTIL_AVAILABLE = True
+except ImportError:
+    PSUTIL_AVAILABLE = False
+    psutil = None  # type: ignore
+    is_internet_available = None  # type: ignore
 
-from python_utils.network_functions.is_internet_available import is_internet_available
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.network_functions,
+    pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed"),
+]
+from unittest.mock import MagicMock, patch
 
 
 @patch("socket.socket")

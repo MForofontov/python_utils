@@ -1,9 +1,21 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.compression]
-from python_utils.compression_functions.polyline_decoding_list_of_ints import (
-    polyline_decoding_list_of_ints,
-)
+try:
+    import snappy
+    from python_utils.compression_functions.polyline_decoding_list_of_ints import (
+        polyline_decoding_list_of_ints,
+    )
+    SNAPPY_AVAILABLE = True
+except ImportError:
+    SNAPPY_AVAILABLE = False
+    snappy = None  # type: ignore
+    polyline_decoding_list_of_ints = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.compression,
+    pytest.mark.skipif(not SNAPPY_AVAILABLE, reason="python-snappy not installed"),
+]
 
 
 def test_polyline_decoding_list_of_ints_basic_decoding() -> None:

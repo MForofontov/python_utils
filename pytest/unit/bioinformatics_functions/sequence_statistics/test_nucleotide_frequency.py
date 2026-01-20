@@ -1,9 +1,21 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from python_utils.bioinformatics_functions.sequence_statistics.nucleotide_frequency import (
-    nucleotide_frequency,
-)
+try:
+    import numpy
+    from python_utils.bioinformatics_functions.sequence_statistics.nucleotide_frequency import (
+        nucleotide_frequency,
+    )
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    numpy = None  # type: ignore
+    nucleotide_frequency = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.bioinformatics,
+    pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed"),
+]
 
 
 def test_nucleotide_frequency_balanced_sequence() -> None:

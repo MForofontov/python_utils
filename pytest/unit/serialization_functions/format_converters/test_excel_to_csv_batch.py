@@ -5,17 +5,18 @@ Unit tests for excel_to_csv_batch function.
 import tempfile
 from pathlib import Path
 
+import pytest
+
 try:
     import openpyxl
+    from python_utils.serialization_functions.format_converters.excel_to_csv_batch import (
+        excel_to_csv_batch,
+    )
     OPENPYXL_AVAILABLE = True
 except ImportError:
     OPENPYXL_AVAILABLE = False
     openpyxl = None  # type: ignore
-
-import pytest
-from python_utils.serialization_functions.format_converters.excel_to_csv_batch import (
-    excel_to_csv_batch,
-)
+    excel_to_csv_batch = None  # type: ignore
 
 pytestmark = pytest.mark.skipif(not OPENPYXL_AVAILABLE, reason="openpyxl not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]

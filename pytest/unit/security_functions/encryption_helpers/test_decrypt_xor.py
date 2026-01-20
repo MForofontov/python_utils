@@ -1,8 +1,21 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.security]
-from python_utils.security_functions.encryption_helpers.decrypt_xor import decrypt_xor
-from python_utils.security_functions.encryption_helpers.encrypt_xor import encrypt_xor
+try:
+    from cryptography.fernet import Fernet
+    from python_utils.security_functions.encryption_helpers.decrypt_xor import decrypt_xor
+    from python_utils.security_functions.encryption_helpers.encrypt_xor import encrypt_xor
+    CRYPTOGRAPHY_AVAILABLE = True
+except ImportError:
+    CRYPTOGRAPHY_AVAILABLE = False
+    Fernet = None  # type: ignore
+    decrypt_xor = None  # type: ignore
+    encrypt_xor = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.security,
+    pytest.mark.skipif(not CRYPTOGRAPHY_AVAILABLE, reason="cryptography not installed"),
+]
 
 
 def test_decrypt_xor_basic_decryption() -> None:

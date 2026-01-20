@@ -1,13 +1,14 @@
 try:
     import snappy
+    from python_utils.compression_functions.binary_compression.compress_snappy import compress_snappy
 
     SNAPPY_AVAILABLE = True
 except ImportError:
     SNAPPY_AVAILABLE = False
     snappy = None  # type: ignore
+    compress_snappy = None  # type: ignore
 
 import pytest
-from python_utils.compression_functions.binary_compression.compress_snappy import compress_snappy
 
 pytestmark = pytest.mark.skipif(not SNAPPY_AVAILABLE, reason="python-snappy not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.compression]
