@@ -10,7 +10,7 @@ Tests cover:
 try:
     import numpy as np
     import scipy
-    from python_utils.scientific_computing_functions.numerical_methods.numerical_derivative import (
+    from pyutils_collection.scientific_computing_functions.numerical_methods.numerical_derivative import (
         numerical_derivative,
     )
     NUMPY_AVAILABLE = True

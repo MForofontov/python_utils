@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from python_utils.strings_utility.truncate_string import truncate_string
+from pyutils_collection.strings_utility.truncate_string import truncate_string
 
 
 def test_truncate_string_basic() -> None:

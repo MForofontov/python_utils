@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.translation_functions.translate_dna_to_protein import (
+    from pyutils_collection.bioinformatics_functions.translation_functions.translate_dna_to_protein import (
         translate_dna_to_protein,
     )
     NUMPY_AVAILABLE = True

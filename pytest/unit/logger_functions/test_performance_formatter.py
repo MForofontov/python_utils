@@ -5,7 +5,7 @@ import logging
 import re
 import time
 
-from python_utils.logger_functions.performance_formatter import performance_formatter
+from pyutils_collection.logger_functions.performance_formatter import performance_formatter
 
 
 def test_performance_formatter_basic():

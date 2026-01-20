@@ -5,7 +5,7 @@ import pytest
 
 try:
     import psutil
-    from python_utils.network_functions.get_subnet_mask import get_subnet_mask
+    from pyutils_collection.network_functions.get_subnet_mask import get_subnet_mask
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

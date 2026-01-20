@@ -10,7 +10,7 @@ import pytest
 try:
     import pyarrow as pa
     import pyarrow.parquet as pq
-    from python_utils.serialization_functions.format_converters.parquet_to_csv import parquet_to_csv
+    from pyutils_collection.serialization_functions.format_converters.parquet_to_csv import parquet_to_csv
     PYARROW_AVAILABLE = True
 except ImportError:
     PYARROW_AVAILABLE = False

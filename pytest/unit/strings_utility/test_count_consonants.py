@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from python_utils.strings_utility.count_consonants import count_consonants
+from pyutils_collection.strings_utility.count_consonants import count_consonants
 
 
 def test_mixed_case_consonants_and_vowels() -> None:

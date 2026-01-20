@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.multiprocessing_functions]
-from python_utils.multiprocessing_functions.parallel_reduce import parallel_reduce
+from pyutils_collection.multiprocessing_functions.parallel_reduce import parallel_reduce
 
 
 def add(a: int, b: int) -> int:

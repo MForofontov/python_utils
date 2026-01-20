@@ -7,7 +7,7 @@ from pathlib import Path
 
 try:
     import openpyxl
-    from python_utils.serialization_functions.excel_operations.merge_excel_sheets import (
+    from pyutils_collection.serialization_functions.excel_operations.merge_excel_sheets import (
         merge_excel_sheets,
     )
     OPENPYXL_AVAILABLE = True

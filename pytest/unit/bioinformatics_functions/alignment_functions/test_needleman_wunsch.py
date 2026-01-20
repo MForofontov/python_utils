@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from python_utils.bioinformatics_functions.alignment_functions.needleman_wunsch import (
+from pyutils_collection.bioinformatics_functions.alignment_functions.needleman_wunsch import (
     needleman_wunsch,
 )
 

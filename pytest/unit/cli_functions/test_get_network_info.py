@@ -2,7 +2,7 @@ import pytest
 
 try:
     import psutil
-    from python_utils.cli_functions.get_network_info import get_network_info
+    from pyutils_collection.cli_functions.get_network_info import get_network_info
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

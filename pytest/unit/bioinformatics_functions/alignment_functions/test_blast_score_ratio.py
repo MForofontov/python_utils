@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.alignment_functions.blast_score_ratio import (
+    from pyutils_collection.bioinformatics_functions.alignment_functions.blast_score_ratio import (
         blast_score_ratio,
     )
     NUMPY_AVAILABLE = True

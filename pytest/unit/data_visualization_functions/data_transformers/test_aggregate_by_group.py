@@ -9,7 +9,7 @@ try:
     import matplotlib
 
     matplotlib.use("Agg")  # Use non-GUI backend for testing
-    from python_utils.data_visualization_functions.data_transformers.aggregate_by_group import (
+    from pyutils_collection.data_visualization_functions.data_transformers.aggregate_by_group import (
         aggregate_by_group,
     )
 

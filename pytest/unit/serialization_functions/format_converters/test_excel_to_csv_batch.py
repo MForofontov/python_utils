@@ -9,7 +9,7 @@ import pytest
 
 try:
     import openpyxl
-    from python_utils.serialization_functions.format_converters.excel_to_csv_batch import (
+    from pyutils_collection.serialization_functions.format_converters.excel_to_csv_batch import (
         excel_to_csv_batch,
     )
     OPENPYXL_AVAILABLE = True

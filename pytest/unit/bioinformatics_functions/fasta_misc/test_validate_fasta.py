@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.fasta_misc.validate_fasta import validate_fasta
+    from pyutils_collection.bioinformatics_functions.fasta_misc.validate_fasta import validate_fasta
     NUMPY_AVAILABLE = True
 except ImportError:
     NUMPY_AVAILABLE = False

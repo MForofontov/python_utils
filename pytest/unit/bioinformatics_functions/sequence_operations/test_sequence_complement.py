@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.sequence_operations.sequence_complement import (
+    from pyutils_collection.bioinformatics_functions.sequence_operations.sequence_complement import (
         sequence_complement,
     )
     NUMPY_AVAILABLE = True

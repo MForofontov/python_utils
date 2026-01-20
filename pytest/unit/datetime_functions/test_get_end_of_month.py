@@ -4,7 +4,7 @@ import pytest
 
 try:
     import pytz
-    from python_utils.datetime_functions.get_end_of_month import get_end_of_month
+    from pyutils_collection.datetime_functions.get_end_of_month import get_end_of_month
     PYTZ_AVAILABLE = True
 except ImportError:
     PYTZ_AVAILABLE = False

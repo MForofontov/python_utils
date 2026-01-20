@@ -2,10 +2,10 @@ import pytest
 
 try:
     from cryptography.fernet import Fernet
-    from python_utils.security_functions.password_hashing.hash_password_pbkdf2 import (
+    from pyutils_collection.security_functions.password_hashing.hash_password_pbkdf2 import (
         hash_password_pbkdf2,
     )
-    from python_utils.security_functions.password_hashing.verify_password_pbkdf2 import (
+    from pyutils_collection.security_functions.password_hashing.verify_password_pbkdf2 import (
         verify_password_pbkdf2,
     )
     CRYPTOGRAPHY_AVAILABLE = True

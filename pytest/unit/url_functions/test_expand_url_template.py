@@ -5,7 +5,7 @@ Tests for expand_url_template function.
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.url_functions]
-from python_utils.url_functions.expand_url_template import expand_url_template
+from pyutils_collection.url_functions.expand_url_template import expand_url_template
 
 
 def test_expand_url_template_simple_variable() -> None:

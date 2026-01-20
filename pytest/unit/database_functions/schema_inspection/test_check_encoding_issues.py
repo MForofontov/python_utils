@@ -9,7 +9,7 @@ from sqlalchemy.engine import Engine
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.database]
-from python_utils.database_functions.schema_inspection import check_encoding_issues
+from pyutils_collection.database_functions.schema_inspection import check_encoding_issues
 
 
 def test_check_encoding_issues_detects_null_bytes(memory_engine: Engine) -> None:

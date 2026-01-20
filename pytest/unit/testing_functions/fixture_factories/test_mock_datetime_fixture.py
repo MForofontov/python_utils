@@ -3,7 +3,7 @@ from datetime import datetime
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.testing]
-from python_utils.testing_functions.fixture_factories.mock_datetime_fixture import (
+from pyutils_collection.testing_functions.fixture_factories.mock_datetime_fixture import (
     mock_datetime_fixture,
 )
 

@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.fasta_misc.degenerate_primer_generator import (
+    from pyutils_collection.bioinformatics_functions.fasta_misc.degenerate_primer_generator import (
         degenerate_primer_generator,
     )
     NUMPY_AVAILABLE = True

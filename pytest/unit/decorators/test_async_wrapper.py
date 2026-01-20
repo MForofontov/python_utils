@@ -5,7 +5,7 @@ from typing import Any, Callable
 import pytest
 
 try:
-    from python_utils.decorators.async_wrapper import async_wrapper
+    from pyutils_collection.decorators.async_wrapper import async_wrapper
     AIOHTTP_AVAILABLE = True
 except ImportError:
     AIOHTTP_AVAILABLE = False

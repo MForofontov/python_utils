@@ -7,7 +7,7 @@ Tests cover normal operation, edge cases, and error conditions.
 try:
     import numpy as np
     import scipy
-    from python_utils.scientific_computing_functions.statistical_analysis.perform_t_test import perform_t_test
+    from pyutils_collection.scientific_computing_functions.statistical_analysis.perform_t_test import perform_t_test
     NUMPY_AVAILABLE = True
 except ImportError:
     NUMPY_AVAILABLE = False

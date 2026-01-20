@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from python_utils.file_functions import json_to_dict
+from pyutils_collection.file_functions import json_to_dict
 
 
 def test_json_to_dict_reads_valid_json(tmp_path: Path) -> None:

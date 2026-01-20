@@ -1,6 +1,6 @@
 try:
     import toml
-    from python_utils.env_config_functions.parse_toml_config import parse_toml_config
+    from pyutils_collection.env_config_functions.parse_toml_config import parse_toml_config
 
     TOML_AVAILABLE = True
 except ImportError:

@@ -4,7 +4,7 @@ from unittest.mock import Mock, patch
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.http_functions]
-from python_utils.http_functions.http_get import http_get
+from pyutils_collection.http_functions.http_get import http_get
 
 
 @patch("urllib.request.urlopen")

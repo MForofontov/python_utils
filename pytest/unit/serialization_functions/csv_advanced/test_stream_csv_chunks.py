@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.serialization]
-from python_utils.serialization_functions.csv_advanced.stream_csv_chunks import stream_csv_chunks
+from pyutils_collection.serialization_functions.csv_advanced.stream_csv_chunks import stream_csv_chunks
 
 
 def test_stream_csv_chunks_basic(tmp_path: Path) -> None:

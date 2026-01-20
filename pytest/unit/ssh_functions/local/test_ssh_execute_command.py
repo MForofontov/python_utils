@@ -5,7 +5,7 @@ import pytest
 try:
     import subprocess
     from unittest.mock import MagicMock, patch
-    from python_utils.ssh_functions.local.ssh_execute_command import ssh_execute_command
+    from pyutils_collection.ssh_functions.local.ssh_execute_command import ssh_execute_command
     PARAMIKO_AVAILABLE = True
 except ImportError:
     PARAMIKO_AVAILABLE = False

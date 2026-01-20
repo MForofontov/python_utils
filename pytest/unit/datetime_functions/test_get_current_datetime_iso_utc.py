@@ -2,7 +2,7 @@ from datetime import datetime
 
 try:
     import pytz
-    from python_utils.datetime_functions.get_current_datetime_iso_utc import get_current_datetime_iso_utc
+    from pyutils_collection.datetime_functions.get_current_datetime_iso_utc import get_current_datetime_iso_utc
 
     PYTZ_AVAILABLE = True
 except ImportError:

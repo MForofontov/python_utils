@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 try:
     import requests
-    from python_utils.network_functions.get_public_ip import get_public_ip
+    from pyutils_collection.network_functions.get_public_ip import get_public_ip
 
     REQUESTS_AVAILABLE = True
 except ImportError:

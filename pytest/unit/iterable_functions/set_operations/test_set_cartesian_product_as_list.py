@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from python_utils.iterable_functions.set_operations.set_cartesian_product_as_list import (
+from pyutils_collection.iterable_functions.set_operations.set_cartesian_product_as_list import (
     set_cartesian_product_as_list,
 )
 

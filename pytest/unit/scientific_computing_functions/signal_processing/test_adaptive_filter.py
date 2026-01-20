@@ -3,7 +3,7 @@
 try:
     import numpy as np
     import scipy
-    from python_utils.scientific_computing_functions.signal_processing.adaptive_filter import (
+    from pyutils_collection.scientific_computing_functions.signal_processing.adaptive_filter import (
         adaptive_filter,
     )
     NUMPY_AVAILABLE = True

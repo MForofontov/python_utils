@@ -5,7 +5,7 @@ Tests for remove_html_tags function.
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.regex]
-from python_utils.regex_functions.remove_html_tags import remove_html_tags
+from pyutils_collection.regex_functions.remove_html_tags import remove_html_tags
 
 
 def test_remove_html_tags_basic() -> None:

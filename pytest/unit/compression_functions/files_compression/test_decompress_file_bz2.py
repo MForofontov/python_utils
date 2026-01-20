@@ -4,7 +4,7 @@ try:
     import bz2
     import os
     import snappy
-    from python_utils.compression_functions.files_compression.decompress_file_bz2 import decompress_file_bz2
+    from pyutils_collection.compression_functions.files_compression.decompress_file_bz2 import decompress_file_bz2
     SNAPPY_AVAILABLE = True
 except ImportError:
     SNAPPY_AVAILABLE = False

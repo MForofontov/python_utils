@@ -3,7 +3,7 @@ from typing import Any
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from python_utils.iterable_functions.set_operations.get_shared_elements import get_shared_elements
+from pyutils_collection.iterable_functions.set_operations.get_shared_elements import get_shared_elements
 
 
 def test_get_shared_elements_success() -> None:

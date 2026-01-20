@@ -4,7 +4,7 @@ import pytest
 
 try:
     import pytz
-    from python_utils.datetime_functions.get_week_number import get_week_number
+    from pyutils_collection.datetime_functions.get_week_number import get_week_number
     PYTZ_AVAILABLE = True
 except ImportError:
     PYTZ_AVAILABLE = False

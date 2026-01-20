@@ -6,7 +6,7 @@ from unittest.mock import MagicMock, Mock, patch
 import pytest
 
 try:
-    from python_utils.playwright_functions.smart_screenshot import smart_screenshot
+    from pyutils_collection.playwright_functions.smart_screenshot import smart_screenshot
     PLAYWRIGHT_AVAILABLE = True
 except ImportError:
     PLAYWRIGHT_AVAILABLE = False

@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.sequence_statistics.calculate_molecular_weight import (
+    from pyutils_collection.bioinformatics_functions.sequence_statistics.calculate_molecular_weight import (
         calculate_molecular_weight,
     )
     NUMPY_AVAILABLE = True

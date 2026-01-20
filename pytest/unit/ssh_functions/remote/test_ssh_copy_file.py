@@ -4,7 +4,7 @@ from unittest.mock import MagicMock, patch
 
 try:
     import paramiko  # noqa: F401
-    from python_utils.ssh_functions.remote.ssh_copy_file import ssh_copy_file
+    from pyutils_collection.ssh_functions.remote.ssh_copy_file import ssh_copy_file
 
     PARAMIKO_AVAILABLE = True
 except ImportError:

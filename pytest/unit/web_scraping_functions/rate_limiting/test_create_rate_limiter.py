@@ -3,7 +3,7 @@ import pytest
 try:
     import time
     from bs4 import BeautifulSoup
-    from python_utils.web_scraping_functions.rate_limiting.create_rate_limiter import (
+    from pyutils_collection.web_scraping_functions.rate_limiting.create_rate_limiter import (
         create_rate_limiter,
     )
     BS4_AVAILABLE = True

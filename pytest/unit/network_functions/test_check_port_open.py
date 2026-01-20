@@ -4,7 +4,7 @@ import pytest
 
 try:
     import psutil
-    from python_utils.network_functions.check_port_open import check_port_open
+    from pyutils_collection.network_functions.check_port_open import check_port_open
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

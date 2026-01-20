@@ -1,6 +1,6 @@
 try:
     from lxml import etree
-    from python_utils.web_scraping_functions.selectors.select_by_xpath import select_by_xpath
+    from pyutils_collection.web_scraping_functions.selectors.select_by_xpath import select_by_xpath
 
     LXML_AVAILABLE = True
 except ImportError:

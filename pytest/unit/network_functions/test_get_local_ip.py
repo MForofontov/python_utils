@@ -2,7 +2,7 @@ import pytest
 
 try:
     import psutil
-    from python_utils.network_functions.get_local_ip import get_local_ip
+    from pyutils_collection.network_functions.get_local_ip import get_local_ip
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

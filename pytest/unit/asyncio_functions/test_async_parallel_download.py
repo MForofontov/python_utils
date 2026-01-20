@@ -6,7 +6,7 @@ import pytest
 
 try:
     import aiohttp
-    from python_utils.asyncio_functions.async_parallel_download import async_parallel_download
+    from pyutils_collection.asyncio_functions.async_parallel_download import async_parallel_download
     AIOHTTP_AVAILABLE = True
 except ImportError:
     AIOHTTP_AVAILABLE = False

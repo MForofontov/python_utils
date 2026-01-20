@@ -6,7 +6,7 @@ Tests cover normal operation, edge cases, and error conditions.
 
 try:
     import numpy as np
-    from python_utils.scientific_computing_functions.statistical_analysis.correlation_analysis import (
+    from pyutils_collection.scientific_computing_functions.statistical_analysis.correlation_analysis import (
         correlation_analysis,
     )
 

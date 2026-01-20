@@ -5,7 +5,7 @@ from unittest.mock import MagicMock, Mock
 import pytest
 
 try:
-    from python_utils.playwright_functions.extract_dynamic_content import extract_dynamic_content
+    from pyutils_collection.playwright_functions.extract_dynamic_content import extract_dynamic_content
     PLAYWRIGHT_AVAILABLE = True
 except ImportError:
     PLAYWRIGHT_AVAILABLE = False

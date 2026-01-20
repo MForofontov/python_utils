@@ -5,7 +5,7 @@ Tests for extract_emails function.
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.regex]
-from python_utils.regex_functions.extract_emails import extract_emails
+from pyutils_collection.regex_functions.extract_emails import extract_emails
 
 
 def test_extract_emails_basic() -> None:

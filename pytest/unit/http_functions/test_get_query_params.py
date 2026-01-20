@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.http_functions]
-from python_utils.http_functions.get_query_params import get_query_params
+from pyutils_collection.http_functions.get_query_params import get_query_params
 
 
 def test_get_query_params_no_query_simple_url():

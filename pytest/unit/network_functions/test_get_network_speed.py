@@ -4,7 +4,7 @@ import pytest
 
 try:
     import psutil
-    from python_utils.network_functions.get_network_speed import get_network_speed
+    from pyutils_collection.network_functions.get_network_speed import get_network_speed
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

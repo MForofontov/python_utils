@@ -4,7 +4,7 @@ import pytest
 
 try:
     import aiohttp
-    from python_utils.asyncio_functions.retry_async import retry_async
+    from pyutils_collection.asyncio_functions.retry_async import retry_async
     AIOHTTP_AVAILABLE = True
 except ImportError:
     AIOHTTP_AVAILABLE = False

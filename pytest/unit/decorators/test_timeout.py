@@ -7,7 +7,7 @@ import pytest
 
 try:
     import aiohttp
-    from python_utils.decorators.timeout import TimeoutException, timeout
+    from pyutils_collection.decorators.timeout import TimeoutException, timeout
     AIOHTTP_AVAILABLE = True
 except ImportError:
     AIOHTTP_AVAILABLE = False

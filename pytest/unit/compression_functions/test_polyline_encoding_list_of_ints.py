@@ -2,7 +2,7 @@ import pytest
 
 try:
     import snappy
-    from python_utils.compression_functions.polyline_encoding_list_of_ints import (
+    from pyutils_collection.compression_functions.polyline_encoding_list_of_ints import (
         polyline_encoding_list_of_ints,
     )
     SNAPPY_AVAILABLE = True

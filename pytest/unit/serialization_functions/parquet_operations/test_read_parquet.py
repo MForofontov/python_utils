@@ -7,7 +7,7 @@ import pytest
 try:
     import pyarrow as pa
     import pyarrow.parquet as pq
-    from python_utils.serialization_functions.parquet_operations.read_parquet import read_parquet
+    from pyutils_collection.serialization_functions.parquet_operations.read_parquet import read_parquet
 
     PYARROW_AVAILABLE = True
 except ImportError:

@@ -4,7 +4,7 @@ try:
     import os
     import tarfile
     import snappy
-    from python_utils.compression_functions.files_compression.decompress_file_tar import decompress_file_tar
+    from pyutils_collection.compression_functions.files_compression.decompress_file_tar import decompress_file_tar
     SNAPPY_AVAILABLE = True
 except ImportError:
     SNAPPY_AVAILABLE = False

@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.database]
-from python_utils.database_functions.schema_inspection import check_data_anomalies
+from pyutils_collection.database_functions.schema_inspection import check_data_anomalies
 
 
 def test_check_data_anomalies_all_same_value(memory_engine: Engine) -> None:

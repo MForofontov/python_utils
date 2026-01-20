@@ -4,7 +4,7 @@ import pytest
 
 try:
     import pytz
-    from python_utils.datetime_functions.days_between import days_between
+    from pyutils_collection.datetime_functions.days_between import days_between
     PYTZ_AVAILABLE = True
 except ImportError:
     PYTZ_AVAILABLE = False

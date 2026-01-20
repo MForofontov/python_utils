@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.sequence_statistics.sequence_conservation import (
+    from pyutils_collection.bioinformatics_functions.sequence_statistics.sequence_conservation import (
         sequence_conservation,
     )
     NUMPY_AVAILABLE = True

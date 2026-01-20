@@ -4,7 +4,7 @@ import pytest
 
 try:
     import psutil
-    from python_utils.network_functions.get_network_interfaces import get_network_interfaces
+    from pyutils_collection.network_functions.get_network_interfaces import get_network_interfaces
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

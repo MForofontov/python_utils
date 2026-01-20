@@ -4,7 +4,7 @@ import pytest
 
 try:
     import psutil
-    from python_utils.network_functions.get_mac_address import get_mac_address
+    from pyutils_collection.network_functions.get_mac_address import get_mac_address
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

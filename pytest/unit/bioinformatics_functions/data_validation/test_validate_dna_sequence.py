@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.data_validation.validate_dna_sequence import (
+    from pyutils_collection.bioinformatics_functions.data_validation.validate_dna_sequence import (
         validate_dna_sequence,
     )
     NUMPY_AVAILABLE = True

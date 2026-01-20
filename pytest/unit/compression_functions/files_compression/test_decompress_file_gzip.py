@@ -4,7 +4,7 @@ try:
     import gzip
     import os
     import snappy
-    from python_utils.compression_functions.files_compression.decompress_file_gzip import decompress_file_gzip
+    from pyutils_collection.compression_functions.files_compression.decompress_file_gzip import decompress_file_gzip
     SNAPPY_AVAILABLE = True
 except ImportError:
     SNAPPY_AVAILABLE = False

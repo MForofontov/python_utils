@@ -3,7 +3,7 @@ from typing import Any
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from python_utils.iterable_functions.list_operations.get_duplicates import get_duplicates
+from pyutils_collection.iterable_functions.list_operations.get_duplicates import get_duplicates
 
 
 def test_get_duplicates_success() -> None:

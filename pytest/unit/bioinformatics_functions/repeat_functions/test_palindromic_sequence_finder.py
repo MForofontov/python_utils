@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.repeat_functions.palindromic_sequence_finder import (
+    from pyutils_collection.bioinformatics_functions.repeat_functions.palindromic_sequence_finder import (
         palindromic_sequence_finder,
     )
     NUMPY_AVAILABLE = True

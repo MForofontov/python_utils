@@ -7,7 +7,7 @@ import sqlite3
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.database]
-from python_utils.database_functions import atomic_transaction
+from pyutils_collection.database_functions import atomic_transaction
 
 
 def test_atomic_transaction_successful_commit() -> None:

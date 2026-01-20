@@ -2,7 +2,7 @@ import pytest
 
 try:
     import pytz
-    from python_utils.datetime_functions.is_leap_year import is_leap_year
+    from pyutils_collection.datetime_functions.is_leap_year import is_leap_year
     PYTZ_AVAILABLE = True
 except ImportError:
     PYTZ_AVAILABLE = False

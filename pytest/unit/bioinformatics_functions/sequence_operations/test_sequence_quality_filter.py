@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.sequence_operations.sequence_quality_filter import (
+    from pyutils_collection.bioinformatics_functions.sequence_operations.sequence_quality_filter import (
         sequence_quality_filter,
     )
     NUMPY_AVAILABLE = True

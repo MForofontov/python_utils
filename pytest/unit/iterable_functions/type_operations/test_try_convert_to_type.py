@@ -3,7 +3,7 @@ from typing import Any
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from python_utils.iterable_functions.type_operations.try_convert_to_type import try_convert_to_type
+from pyutils_collection.iterable_functions.type_operations.try_convert_to_type import try_convert_to_type
 
 
 def test_try_convert_to_type_success_int() -> None:

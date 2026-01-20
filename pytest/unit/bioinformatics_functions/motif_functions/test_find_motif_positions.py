@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.motif_functions.find_motif_positions import (
+    from pyutils_collection.bioinformatics_functions.motif_functions.find_motif_positions import (
         find_motif_positions,
     )
     NUMPY_AVAILABLE = True

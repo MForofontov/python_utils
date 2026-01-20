@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from python_utils.file_functions import check_and_delete_file
+from pyutils_collection.file_functions import check_and_delete_file
 
 
 def test_check_and_delete_file_existing_file(tmp_path: Path) -> None:

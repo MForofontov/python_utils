@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.sequence_statistics.codon_adaptation_index import (
+    from pyutils_collection.bioinformatics_functions.sequence_statistics.codon_adaptation_index import (
         codon_adaptation_index,
     )
     NUMPY_AVAILABLE = True

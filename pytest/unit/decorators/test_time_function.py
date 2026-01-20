@@ -7,7 +7,7 @@ import pytest
 
 try:
     import psutil
-    from python_utils.decorators.time_function import time_function
+    from pyutils_collection.decorators.time_function import time_function
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

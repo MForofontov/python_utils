@@ -3,7 +3,7 @@ import pytest
 try:
     from unittest.mock import patch
     import psutil
-    from python_utils.network_functions.get_default_gateway import get_default_gateway
+    from pyutils_collection.network_functions.get_default_gateway import get_default_gateway
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

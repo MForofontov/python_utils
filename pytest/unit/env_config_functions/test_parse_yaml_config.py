@@ -1,6 +1,6 @@
 try:
     import yaml
-    from python_utils.env_config_functions.parse_yaml_config import parse_yaml_config
+    from pyutils_collection.env_config_functions.parse_yaml_config import parse_yaml_config
 
     YAML_AVAILABLE = True
 except ImportError:

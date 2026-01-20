@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from python_utils.strings_utility.strip_whitespace import strip_whitespace
+from pyutils_collection.strings_utility.strip_whitespace import strip_whitespace
 
 
 def test_strip_whitespace_basic() -> None:

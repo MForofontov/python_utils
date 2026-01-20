@@ -4,7 +4,7 @@ import pytest
 
 try:
     import pytz
-    from python_utils.datetime_functions.calculate_age import calculate_age
+    from pyutils_collection.datetime_functions.calculate_age import calculate_age
     PYTZ_AVAILABLE = True
 except ImportError:
     PYTZ_AVAILABLE = False

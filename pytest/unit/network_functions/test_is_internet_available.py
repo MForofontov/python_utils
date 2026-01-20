@@ -2,7 +2,7 @@ import pytest
 
 try:
     import psutil
-    from python_utils.network_functions.is_internet_available import is_internet_available
+    from pyutils_collection.network_functions.is_internet_available import is_internet_available
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

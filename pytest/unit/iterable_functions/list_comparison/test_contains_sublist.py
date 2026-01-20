@@ -3,7 +3,7 @@ from typing import Any
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from python_utils.iterable_functions.list_comparison.contains_sublist import contains_sublist
+from pyutils_collection.iterable_functions.list_comparison.contains_sublist import contains_sublist
 
 
 def test_contains_sublist_success() -> None:

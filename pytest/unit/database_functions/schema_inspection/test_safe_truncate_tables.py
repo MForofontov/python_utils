@@ -8,7 +8,7 @@ from sqlalchemy import Column, Integer, String
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.database]
-from python_utils.database_functions.schema_inspection import safe_truncate_tables
+from pyutils_collection.database_functions.schema_inspection import safe_truncate_tables
 
 
 def test_safe_truncate_tables_respects_fk_order(memory_engine) -> None:

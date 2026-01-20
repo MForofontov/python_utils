@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.batch_processing]
-from python_utils.batch_processing_functions.streaming_aggregator import StreamingAggregator
+from pyutils_collection.batch_processing_functions.streaming_aggregator import StreamingAggregator
 
 
 def test_streaming_aggregator_normal_operation() -> None:

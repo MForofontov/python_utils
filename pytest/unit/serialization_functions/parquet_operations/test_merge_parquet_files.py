@@ -10,7 +10,7 @@ import pytest
 try:
     import pyarrow as pa
     import pyarrow.parquet as pq
-    from python_utils.serialization_functions.parquet_operations.merge_parquet_files import (
+    from pyutils_collection.serialization_functions.parquet_operations.merge_parquet_files import (
         merge_parquet_files,
     )
     PYARROW_AVAILABLE = True

@@ -4,7 +4,7 @@ import pytest
 
 try:
     import psutil
-    from python_utils.network_functions.ping_host import ping_host
+    from pyutils_collection.network_functions.ping_host import ping_host
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

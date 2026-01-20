@@ -2,7 +2,7 @@ import pytest
 
 try:
     import lzma
-    from python_utils.compression_functions.binary_compression.compress_lzma import compress_lzma
+    from pyutils_collection.compression_functions.binary_compression.compress_lzma import compress_lzma
     SNAPPY_AVAILABLE = True
 except ImportError:
     SNAPPY_AVAILABLE = False

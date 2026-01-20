@@ -2,7 +2,7 @@ import pytest
 
 try:
     import pytz
-    from python_utils.datetime_functions.get_current_datetime_iso import get_current_datetime_iso
+    from pyutils_collection.datetime_functions.get_current_datetime_iso import get_current_datetime_iso
     PYTZ_AVAILABLE = True
 except ImportError:
     PYTZ_AVAILABLE = False

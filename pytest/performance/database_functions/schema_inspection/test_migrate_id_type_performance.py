@@ -34,7 +34,7 @@ from sqlalchemy import (
 from sqlalchemy.engine import Engine
 
 import pytest
-from python_utils.database_functions.schema_inspection.migrate_id_type import migrate_id_type
+from pyutils_collection.database_functions.schema_inspection.migrate_id_type import migrate_id_type
 
 # Apply performance marker to all tests in this module
 pytestmark = pytest.mark.performance

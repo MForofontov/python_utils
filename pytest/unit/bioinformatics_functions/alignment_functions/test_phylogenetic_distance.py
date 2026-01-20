@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from python_utils.bioinformatics_functions.alignment_functions.phylogenetic_distance import (
+from pyutils_collection.bioinformatics_functions.alignment_functions.phylogenetic_distance import (
     phylogenetic_distance,
 )
 

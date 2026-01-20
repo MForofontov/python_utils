@@ -2,7 +2,7 @@ import pytest
 
 try:
     import yaml
-    from python_utils.env_config_functions.expand_env_vars_in_string import expand_env_vars_in_string
+    from pyutils_collection.env_config_functions.expand_env_vars_in_string import expand_env_vars_in_string
     PYYAML_AVAILABLE = True
 except ImportError:
     PYYAML_AVAILABLE = False

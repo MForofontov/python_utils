@@ -2,7 +2,7 @@ import pytest
 
 try:
     from bs4 import BeautifulSoup
-    from python_utils.web_scraping_functions.rotation.rotate_proxy import rotate_proxy
+    from pyutils_collection.web_scraping_functions.rotation.rotate_proxy import rotate_proxy
     BS4_AVAILABLE = True
 except ImportError:
     BS4_AVAILABLE = False

@@ -2,7 +2,7 @@ import pytest
 
 try:
     from bs4 import BeautifulSoup
-    from python_utils.web_scraping_functions.rotation.get_random_user_agent import (
+    from pyutils_collection.web_scraping_functions.rotation.get_random_user_agent import (
         get_random_user_agent,
     )
     BS4_AVAILABLE = True

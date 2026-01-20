@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.motif_functions.motif_search import motif_search
+    from pyutils_collection.bioinformatics_functions.motif_functions.motif_search import motif_search
     NUMPY_AVAILABLE = True
 except ImportError:
     NUMPY_AVAILABLE = False

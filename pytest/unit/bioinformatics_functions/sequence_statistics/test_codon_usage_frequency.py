@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.sequence_statistics.codon_usage_frequency import (
+    from pyutils_collection.bioinformatics_functions.sequence_statistics.codon_usage_frequency import (
         codon_usage_frequency,
     )
     NUMPY_AVAILABLE = True

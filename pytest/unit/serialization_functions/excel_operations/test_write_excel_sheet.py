@@ -4,7 +4,7 @@ from pathlib import Path
 
 try:
     from openpyxl import Workbook, load_workbook
-    from python_utils.serialization_functions.excel_operations.write_excel_sheet import write_excel_sheet
+    from pyutils_collection.serialization_functions.excel_operations.write_excel_sheet import write_excel_sheet
     OPENPYXL_AVAILABLE = True
 except ImportError:
     OPENPYXL_AVAILABLE = False

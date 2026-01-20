@@ -6,7 +6,7 @@ import logging
 import sys
 from datetime import datetime
 
-from python_utils.logger_functions.json_formatter import json_formatter
+from pyutils_collection.logger_functions.json_formatter import json_formatter
 
 
 def test_json_formatter_basic() -> None:

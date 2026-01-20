@@ -3,7 +3,7 @@ import logging
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.logger_functions]
-from python_utils.logger_functions.logger import get_logger, validate_logger
+from pyutils_collection.logger_functions.logger import get_logger, validate_logger
 
 
 def test_get_logger_returns_logger_instance() -> None:

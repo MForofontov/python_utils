@@ -9,7 +9,7 @@ import warnings
 try:
     import numpy as np
     import scipy
-    from python_utils.scientific_computing_functions.statistical_analysis.robust_statistics import (
+    from pyutils_collection.scientific_computing_functions.statistical_analysis.robust_statistics import (
         robust_statistics,
     )
     NUMPY_AVAILABLE = True

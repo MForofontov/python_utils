@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.http_functions]
-from python_utils.http_functions.build_url import build_url
+from pyutils_collection.http_functions.build_url import build_url
 
 
 def test_build_url_simple():

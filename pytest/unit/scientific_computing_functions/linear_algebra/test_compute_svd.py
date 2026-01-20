@@ -7,7 +7,7 @@ Tests cover normal operation, edge cases, and error conditions.
 try:
     import numpy as np
     import scipy
-    from python_utils.scientific_computing_functions.linear_algebra.compute_svd import compute_svd
+    from pyutils_collection.scientific_computing_functions.linear_algebra.compute_svd import compute_svd
     NUMPY_AVAILABLE = True
 except ImportError:
     NUMPY_AVAILABLE = False

@@ -6,7 +6,7 @@ import pytest
 
 try:
     import aiohttp
-    from python_utils.decorators.validate_args import validate_args
+    from pyutils_collection.decorators.validate_args import validate_args
     AIOHTTP_AVAILABLE = True
 except ImportError:
     AIOHTTP_AVAILABLE = False

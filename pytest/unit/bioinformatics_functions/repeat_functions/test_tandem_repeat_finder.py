@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.repeat_functions.tandem_repeat_finder import (
+    from pyutils_collection.bioinformatics_functions.repeat_functions.tandem_repeat_finder import (
         tandem_repeat_finder,
     )
     NUMPY_AVAILABLE = True

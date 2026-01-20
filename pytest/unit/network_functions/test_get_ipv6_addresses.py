@@ -2,7 +2,7 @@ import pytest
 
 try:
     import psutil
-    from python_utils.network_functions.get_ipv6_addresses import get_ipv6_addresses
+    from pyutils_collection.network_functions.get_ipv6_addresses import get_ipv6_addresses
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

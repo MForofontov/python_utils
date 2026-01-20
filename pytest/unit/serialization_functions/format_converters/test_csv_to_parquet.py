@@ -11,7 +11,7 @@ import pytest
 try:
     import pyarrow as pa
     import pyarrow.parquet as pq
-    from python_utils.serialization_functions.format_converters.csv_to_parquet import csv_to_parquet
+    from pyutils_collection.serialization_functions.format_converters.csv_to_parquet import csv_to_parquet
     PYARROW_AVAILABLE = True
 except ImportError:
     PYARROW_AVAILABLE = False

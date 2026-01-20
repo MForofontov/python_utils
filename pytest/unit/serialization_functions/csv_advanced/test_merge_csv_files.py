@@ -11,7 +11,7 @@ import pytest
 pytestmark = [pytest.mark.unit, pytest.mark.serialization]
 
 try:
-    from python_utils.serialization_functions.csv_advanced.merge_csv_files import merge_csv_files
+    from pyutils_collection.serialization_functions.csv_advanced.merge_csv_files import merge_csv_files
     IMPORT_SUCCESS = True
 except ImportError:
     IMPORT_SUCCESS = False

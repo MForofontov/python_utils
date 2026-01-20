@@ -6,7 +6,7 @@ import pytest
 
 try:
     import matplotlib
-    from python_utils.data_visualization_functions.chart_configuration import ChartTheme
+    from pyutils_collection.data_visualization_functions.chart_configuration import ChartTheme
     MATPLOTLIB_AVAILABLE = True
 except ImportError:
     MATPLOTLIB_AVAILABLE = False

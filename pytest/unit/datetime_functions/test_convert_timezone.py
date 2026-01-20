@@ -2,7 +2,7 @@ from datetime import datetime
 
 try:
     import pytz
-    from python_utils.datetime_functions.convert_timezone import convert_timezone
+    from pyutils_collection.datetime_functions.convert_timezone import convert_timezone
 
     PYTZ_AVAILABLE = True
 except ImportError:

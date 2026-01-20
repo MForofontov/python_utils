@@ -7,7 +7,7 @@ from pathlib import Path
 
 try:
     import openpyxl
-    from python_utils.serialization_functions.excel_operations.validate_excel_structure import (
+    from pyutils_collection.serialization_functions.excel_operations.validate_excel_structure import (
         validate_excel_structure,
     )
     OPENPYXL_AVAILABLE = True

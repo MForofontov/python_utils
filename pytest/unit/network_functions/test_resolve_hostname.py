@@ -5,7 +5,7 @@ import pytest
 
 try:
     import psutil
-    from python_utils.network_functions.resolve_hostname import resolve_hostname
+    from pyutils_collection.network_functions.resolve_hostname import resolve_hostname
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

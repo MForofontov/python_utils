@@ -2,7 +2,7 @@ import pytest
 
 try:
     import snappy
-    from python_utils.compression_functions.decompress_number import decompress_number
+    from pyutils_collection.compression_functions.decompress_number import decompress_number
     SNAPPY_AVAILABLE = True
 except ImportError:
     SNAPPY_AVAILABLE = False

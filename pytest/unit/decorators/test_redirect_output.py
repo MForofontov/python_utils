@@ -3,7 +3,7 @@ import logging
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.decorators]
-from python_utils.decorators.redirect_output import redirect_output
+from pyutils_collection.decorators.redirect_output import redirect_output
 
 # Configure test_logger
 test_logger = logging.getLogger("test_logger")

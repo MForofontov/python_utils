@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.data_validation]
-from python_utils.data_validation import validate_type
+from pyutils_collection.data_validation import validate_type
 
 
 def test_validate_type_basic_types() -> None:

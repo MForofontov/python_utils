@@ -5,7 +5,7 @@ import pytest
 
 try:
     import psutil
-    from python_utils.cli_functions.get_file_size import get_file_size
+    from pyutils_collection.cli_functions.get_file_size import get_file_size
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

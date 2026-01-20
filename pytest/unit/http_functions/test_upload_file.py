@@ -4,7 +4,7 @@ from unittest.mock import MagicMock, Mock, mock_open, patch
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.http_functions]
-from python_utils.http_functions.upload_file import upload_file
+from pyutils_collection.http_functions.upload_file import upload_file
 
 
 @patch("pathlib.Path.exists", return_value=True)

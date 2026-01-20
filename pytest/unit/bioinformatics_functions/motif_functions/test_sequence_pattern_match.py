@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.motif_functions.sequence_pattern_match import (
+    from pyutils_collection.bioinformatics_functions.motif_functions.sequence_pattern_match import (
         sequence_pattern_match,
     )
     NUMPY_AVAILABLE = True

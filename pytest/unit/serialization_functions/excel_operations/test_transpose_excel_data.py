@@ -7,7 +7,7 @@ from pathlib import Path
 
 try:
     import openpyxl
-    from python_utils.serialization_functions.excel_operations.transpose_excel_data import (
+    from pyutils_collection.serialization_functions.excel_operations.transpose_excel_data import (
         transpose_excel_data,
     )
     OPENPYXL_AVAILABLE = True

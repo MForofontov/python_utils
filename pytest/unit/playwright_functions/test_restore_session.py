@@ -7,7 +7,7 @@ from unittest.mock import MagicMock, Mock
 import pytest
 
 try:
-    from python_utils.playwright_functions.restore_session import restore_session
+    from pyutils_collection.playwright_functions.restore_session import restore_session
     PLAYWRIGHT_AVAILABLE = True
 except ImportError:
     PLAYWRIGHT_AVAILABLE = False

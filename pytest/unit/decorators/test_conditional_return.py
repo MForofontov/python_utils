@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.decorators]
-from python_utils.decorators.conditional_return import conditional_return
+from pyutils_collection.decorators.conditional_return import conditional_return
 
 
 def test_conditional_return_true():

@@ -4,7 +4,7 @@ import pytest
 
 try:
     import pytz
-    from python_utils.datetime_functions.is_weekend import is_weekend
+    from pyutils_collection.datetime_functions.is_weekend import is_weekend
     PYTZ_AVAILABLE = True
 except ImportError:
     PYTZ_AVAILABLE = False

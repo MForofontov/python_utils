@@ -3,7 +3,7 @@ import pytest
 try:
     from unittest.mock import MagicMock
     import psutil
-    from python_utils.print_functions.print_message import print_message
+    from pyutils_collection.print_functions.print_message import print_message
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

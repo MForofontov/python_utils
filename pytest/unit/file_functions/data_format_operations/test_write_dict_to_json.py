@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from python_utils.file_functions import write_dict_to_json
+from pyutils_collection.file_functions import write_dict_to_json
 
 
 def test_write_dict_to_json_writes_expected(tmp_path: Path) -> None:

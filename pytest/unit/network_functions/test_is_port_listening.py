@@ -2,7 +2,7 @@ from unittest.mock import MagicMock, patch
 
 try:
     import psutil
-    from python_utils.network_functions.is_port_listening import is_port_listening
+    from pyutils_collection.network_functions.is_port_listening import is_port_listening
 
     PSUTIL_AVAILABLE = True
 except ImportError:

@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.sequence_operations.remove_low_complexity_regions import (
+    from pyutils_collection.bioinformatics_functions.sequence_operations.remove_low_complexity_regions import (
         remove_low_complexity_regions,
     )
     NUMPY_AVAILABLE = True

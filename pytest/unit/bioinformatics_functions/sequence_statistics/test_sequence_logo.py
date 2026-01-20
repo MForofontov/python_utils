@@ -1,6 +1,6 @@
 try:
     import numpy as np
-    from python_utils.bioinformatics_functions.sequence_statistics.sequence_logo import (
+    from pyutils_collection.bioinformatics_functions.sequence_statistics.sequence_logo import (
         sequence_logo_matrix,
     )
 

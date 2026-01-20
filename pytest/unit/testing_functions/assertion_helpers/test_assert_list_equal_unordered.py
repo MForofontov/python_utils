@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.testing]
-from python_utils.testing_functions.assertion_helpers.assert_list_equal_unordered import (
+from pyutils_collection.testing_functions.assertion_helpers.assert_list_equal_unordered import (
     assert_list_equal_unordered,
 )
 

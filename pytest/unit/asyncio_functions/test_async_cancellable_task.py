@@ -3,7 +3,7 @@ import pytest
 try:
     import asyncio
     import aiohttp
-    from python_utils.asyncio_functions.async_cancellable_task import async_cancellable_task
+    from pyutils_collection.asyncio_functions.async_cancellable_task import async_cancellable_task
     AIOHTTP_AVAILABLE = True
 except ImportError:
     AIOHTTP_AVAILABLE = False

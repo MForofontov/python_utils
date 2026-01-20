@@ -3,7 +3,7 @@ from typing import Any
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from python_utils.iterable_functions.list_comparison.find_sublist_index import find_sublist_index
+from pyutils_collection.iterable_functions.list_comparison.find_sublist_index import find_sublist_index
 
 
 def test_find_sublist_index_success() -> None:

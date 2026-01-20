@@ -3,7 +3,7 @@ from datetime import date
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.testing]
-from python_utils.testing_functions.test_data_generators.generate_random_date import (
+from pyutils_collection.testing_functions.test_data_generators.generate_random_date import (
     generate_random_date,
 )
 

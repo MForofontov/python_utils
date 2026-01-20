@@ -2,7 +2,7 @@ import pytest
 
 try:
     import psutil
-    from python_utils.cli_functions.get_uptime import get_uptime
+    from pyutils_collection.cli_functions.get_uptime import get_uptime
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

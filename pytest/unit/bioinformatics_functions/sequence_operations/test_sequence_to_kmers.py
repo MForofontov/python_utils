@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.sequence_operations.sequence_to_kmers import (
+    from pyutils_collection.bioinformatics_functions.sequence_operations.sequence_to_kmers import (
         sequence_to_kmers,
     )
     NUMPY_AVAILABLE = True

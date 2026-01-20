@@ -2,7 +2,7 @@ import pytest
 
 try:
     from cryptography.fernet import Fernet
-    from python_utils.security_functions.encryption_helpers.encrypt_xor import encrypt_xor
+    from pyutils_collection.security_functions.encryption_helpers.encrypt_xor import encrypt_xor
     CRYPTOGRAPHY_AVAILABLE = True
 except ImportError:
     CRYPTOGRAPHY_AVAILABLE = False

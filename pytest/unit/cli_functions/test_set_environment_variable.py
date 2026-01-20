@@ -4,7 +4,7 @@ import pytest
 
 try:
     import psutil
-    from python_utils.cli_functions.set_environment_variable import set_environment_variable
+    from pyutils_collection.cli_functions.set_environment_variable import set_environment_variable
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

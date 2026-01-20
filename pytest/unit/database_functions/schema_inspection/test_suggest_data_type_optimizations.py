@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.database]
-from python_utils.database_functions.schema_inspection import suggest_data_type_optimizations
+from pyutils_collection.database_functions.schema_inspection import suggest_data_type_optimizations
 
 
 def test_suggest_data_type_optimizations_oversized_varchar(memory_engine) -> None:

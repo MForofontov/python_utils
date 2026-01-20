@@ -1,7 +1,7 @@
 import pytest
 
 try:
-    from python_utils.bioinformatics_functions.alignment_functions.levenshtein_distance import (
+    from pyutils_collection.bioinformatics_functions.alignment_functions.levenshtein_distance import (
         levenshtein_distance,
     )
     NUMPY_AVAILABLE = True

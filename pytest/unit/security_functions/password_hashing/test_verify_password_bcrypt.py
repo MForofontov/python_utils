@@ -2,10 +2,10 @@ import pytest
 
 try:
     from cryptography.fernet import Fernet
-    from python_utils.security_functions.password_hashing.hash_password_bcrypt import (
+    from pyutils_collection.security_functions.password_hashing.hash_password_bcrypt import (
         hash_password_bcrypt,
     )
-    from python_utils.security_functions.password_hashing.verify_password_bcrypt import (
+    from pyutils_collection.security_functions.password_hashing.verify_password_bcrypt import (
         verify_password_bcrypt,
     )
     CRYPTOGRAPHY_AVAILABLE = True

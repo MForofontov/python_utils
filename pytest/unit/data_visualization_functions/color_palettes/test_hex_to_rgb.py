@@ -6,7 +6,7 @@ import pytest
 
 try:
     import matplotlib
-    from python_utils.data_visualization_functions.color_palettes.hex_to_rgb import hex_to_rgb
+    from pyutils_collection.data_visualization_functions.color_palettes.hex_to_rgb import hex_to_rgb
     MATPLOTLIB_AVAILABLE = True
 except ImportError:
     MATPLOTLIB_AVAILABLE = False

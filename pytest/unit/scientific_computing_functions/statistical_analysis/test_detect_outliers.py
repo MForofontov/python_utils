@@ -3,7 +3,7 @@
 try:
     import numpy as np
     import scipy
-    from python_utils.scientific_computing_functions.statistical_analysis.detect_outliers import (
+    from pyutils_collection.scientific_computing_functions.statistical_analysis.detect_outliers import (
         detect_outliers,
     )
     NUMPY_AVAILABLE = True

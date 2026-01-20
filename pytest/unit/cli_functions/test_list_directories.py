@@ -5,7 +5,7 @@ import pytest
 
 try:
     import psutil
-    from python_utils.cli_functions.list_directories import list_directories
+    from pyutils_collection.cli_functions.list_directories import list_directories
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

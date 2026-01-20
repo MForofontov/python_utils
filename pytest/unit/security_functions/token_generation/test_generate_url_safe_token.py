@@ -2,7 +2,7 @@ import pytest
 
 try:
     from cryptography.fernet import Fernet
-    from python_utils.security_functions.token_generation.generate_url_safe_token import (
+    from pyutils_collection.security_functions.token_generation.generate_url_safe_token import (
         generate_url_safe_token,
     )
     CRYPTOGRAPHY_AVAILABLE = True

@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.sequence_operations.sequence_masking import (
+    from pyutils_collection.bioinformatics_functions.sequence_operations.sequence_masking import (
         sequence_masking,
     )
     NUMPY_AVAILABLE = True

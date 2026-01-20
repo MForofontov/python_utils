@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.translation_functions.rna_to_dna import rna_to_dna
+    from pyutils_collection.bioinformatics_functions.translation_functions.rna_to_dna import rna_to_dna
     NUMPY_AVAILABLE = True
 except ImportError:
     NUMPY_AVAILABLE = False

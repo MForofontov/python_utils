@@ -1,6 +1,6 @@
 try:
     import numpy as np
-    from python_utils.bioinformatics_functions.clustering_functions.motif_clustering import (
+    from pyutils_collection.bioinformatics_functions.clustering_functions.motif_clustering import (
         motif_clustering,
     )
 

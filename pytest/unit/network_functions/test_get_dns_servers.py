@@ -2,7 +2,7 @@ import pytest
 
 try:
     from unittest.mock import mock_open, patch
-    from python_utils.network_functions.get_dns_servers import get_dns_servers
+    from pyutils_collection.network_functions.get_dns_servers import get_dns_servers
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

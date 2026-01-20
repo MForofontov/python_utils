@@ -9,7 +9,7 @@ try:
     import matplotlib
 
     matplotlib.use("Agg")  # Use non-GUI backend for testing
-    from python_utils.data_visualization_functions.color_palettes.create_gradient import create_gradient
+    from pyutils_collection.data_visualization_functions.color_palettes.create_gradient import create_gradient
 
     MATPLOTLIB_AVAILABLE = True
 except ImportError:

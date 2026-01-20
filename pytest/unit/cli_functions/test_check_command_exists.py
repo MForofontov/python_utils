@@ -2,7 +2,7 @@ import pytest
 
 try:
     import psutil
-    from python_utils.cli_functions.check_command_exists import check_command_exists
+    from pyutils_collection.cli_functions.check_command_exists import check_command_exists
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

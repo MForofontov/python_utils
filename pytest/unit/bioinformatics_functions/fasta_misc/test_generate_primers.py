@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.fasta_misc.generate_primers import generate_primers
+    from pyutils_collection.bioinformatics_functions.fasta_misc.generate_primers import generate_primers
     NUMPY_AVAILABLE = True
 except ImportError:
     NUMPY_AVAILABLE = False

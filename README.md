@@ -4,10 +4,10 @@
 
 ## 🎯 What is This?
 
-A curated collection of **400+ utility functions** across **24 specialized modules** - designed for **copy-paste reuse**. Each function is self-contained with type hints, docstrings, and handles its own dependencies gracefully.
+A curated collection of **400+ utility functions** across **24 specialized modules** - designed for **copy-paste reuse** or **pip install**. Each function is self-contained with type hints, docstrings, and handles its own dependencies gracefully.
 
 **Philosophy:**
-- 📋 **Copy-paste first** - Functions work standalone, not meant as pip package
+- 📋 **Copy-paste friendly** - Functions work standalone
 - 🔒 **Type-safe** - Complete type hints (Python 3.10+)
 - 📝 **Self-documenting** - NumPy-style docstrings with examples
 - ✅ **Well-tested** - 88%+ coverage with 5500+ test cases
@@ -16,13 +16,14 @@ A curated collection of **400+ utility functions** across **24 specialized modul
 ## 📦 Quick Start
 
 ```bash
-# Clone the repo
-git clone https://github.com/MForofontov/python-utils.git
+# Install from PyPI
+pip install pyutils_collection
 
-# Browse and copy what you need
+# Or clone and copy what you need
+git clone https://github.com/MForofontov/python-utils.git
 cd python-utils/python_utils
 
-# Or install for development/testing
+# Or install for development
 pip install -e ".[dev]"
 ```
 
@@ -244,7 +245,10 @@ MIT License - see LICENSE file for details.
 - 🗄️ **DB-agnostic** - SQLAlchemy support for PostgreSQL, MySQL, SQLite, Oracle, SQL Server� Usage Examples
 
 ```python
-# Copy decorators - stack them for powerful functionality
+# Import from installed package
+from pyutils_collection.decorators import cache, retry, timeout
+
+# Or copy decorators locally and use
 from decorators import cache, retry, timeout
 
 @cache(maxsize=128, ttl=3600)
@@ -253,21 +257,18 @@ from decorators import cache, retry, timeout
 def fetch_user_data(user_id: int) -> dict:
     return {"id": user_id, "name": "John"}
 
-# Copy async utilities - batch processing made easy
-from asyncio_functions import async_batch, fetch_multiple_urls
+from pyutils_collection.asyncio_functions import async_batch, fetch_multiple_urls
 
 urls = ["https://api.example.com/1", "https://api.example.com/2"]
 responses = await fetch_multiple_urls(urls, max_concurrent=5)
 
-# Copy database helpers - SQLAlchemy-based, DB-agnostic
-from database_functions import create_connection, atomic_transaction
+from pyutils_collection.database_functions import create_connection, atomic_transaction
 
 conn = create_connection("postgresql://user:pass@localhost/db")
 with atomic_transaction(conn) as trans:
     execute_query(trans, "INSERT INTO users VALUES (:name)", {"name": "John"})
 
-# Copy serialization - handle big files efficiently
-from serialization_functions import stream_csv_chunks, csv_to_parquet
+from pyutils_collection.serialization_functions import stream_csv_chunks, csv_to_parquet
 
 for chunk in stream_csv_chunks("large.csv", chunk_size=10000):
     process_chunk(chunk)

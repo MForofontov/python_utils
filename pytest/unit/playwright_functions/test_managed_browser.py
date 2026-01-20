@@ -5,7 +5,7 @@ from unittest.mock import MagicMock, Mock, patch
 import pytest
 
 try:
-    from python_utils.playwright_functions.managed_browser import managed_browser
+    from pyutils_collection.playwright_functions.managed_browser import managed_browser
     PLAYWRIGHT_AVAILABLE = True
 except ImportError:
     PLAYWRIGHT_AVAILABLE = False

@@ -4,7 +4,7 @@ import pytest
 
 try:
     import aiohttp
-    from python_utils.asyncio_functions.async_event_loop import async_event_loop
+    from pyutils_collection.asyncio_functions.async_event_loop import async_event_loop
     AIOHTTP_AVAILABLE = True
 except ImportError:
     AIOHTTP_AVAILABLE = False

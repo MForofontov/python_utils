@@ -5,7 +5,7 @@ from unittest.mock import MagicMock, Mock, patch
 import pytest
 
 try:
-    from python_utils.playwright_functions.parallel_scrape import parallel_scrape
+    from pyutils_collection.playwright_functions.parallel_scrape import parallel_scrape
     PLAYWRIGHT_AVAILABLE = True
 except ImportError:
     PLAYWRIGHT_AVAILABLE = False

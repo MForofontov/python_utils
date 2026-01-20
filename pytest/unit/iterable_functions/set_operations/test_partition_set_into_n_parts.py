@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from python_utils.iterable_functions.set_operations.partition_set_into_n_parts import (
+from pyutils_collection.iterable_functions.set_operations.partition_set_into_n_parts import (
     partition_set_into_n_parts,
 )
 

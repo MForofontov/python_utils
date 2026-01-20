@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.fasta_misc.fasta_rename_headers import (
+    from pyutils_collection.bioinformatics_functions.fasta_misc.fasta_rename_headers import (
         fasta_rename_headers,
     )
     NUMPY_AVAILABLE = True

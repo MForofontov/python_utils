@@ -5,7 +5,7 @@ import pytest
 
 try:
     import snappy
-    from python_utils.compression_functions.files_compression.compress_tar import compress_tar
+    from pyutils_collection.compression_functions.files_compression.compress_tar import compress_tar
     SNAPPY_AVAILABLE = True
 except ImportError:
     SNAPPY_AVAILABLE = False

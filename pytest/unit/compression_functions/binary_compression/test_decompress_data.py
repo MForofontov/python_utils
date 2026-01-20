@@ -2,11 +2,11 @@ import pytest
 
 try:
     import snappy
-    from python_utils.compression_functions.binary_compression.compress_gzip import compress_gzip
-    from python_utils.compression_functions.binary_compression.compress_lzma import compress_lzma
-    from python_utils.compression_functions.binary_compression.compress_snappy import compress_snappy
-    from python_utils.compression_functions.binary_compression.compress_zstd import compress_zstd
-    from python_utils.compression_functions.binary_compression.decompress_data import decompress_data
+    from pyutils_collection.compression_functions.binary_compression.compress_gzip import compress_gzip
+    from pyutils_collection.compression_functions.binary_compression.compress_lzma import compress_lzma
+    from pyutils_collection.compression_functions.binary_compression.compress_snappy import compress_snappy
+    from pyutils_collection.compression_functions.binary_compression.compress_zstd import compress_zstd
+    from pyutils_collection.compression_functions.binary_compression.decompress_data import decompress_data
     SNAPPY_AVAILABLE = True
 except ImportError:
     SNAPPY_AVAILABLE = False

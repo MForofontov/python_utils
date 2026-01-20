@@ -4,7 +4,7 @@ import tempfile
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from python_utils.bioinformatics_functions.annotation_functions.parse_vcf import parse_vcf
+from pyutils_collection.bioinformatics_functions.annotation_functions.parse_vcf import parse_vcf
 
 
 def test_parse_vcf_typical() -> None:

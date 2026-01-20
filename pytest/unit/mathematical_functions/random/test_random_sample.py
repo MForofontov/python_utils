@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.mathematical_functions]
-from python_utils.mathematical_functions.random.random_sample import random_sample
+from pyutils_collection.mathematical_functions.random.random_sample import random_sample
 
 
 def test_random_sample_without_replacement() -> None:

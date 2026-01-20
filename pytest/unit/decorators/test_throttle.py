@@ -4,7 +4,7 @@ import time
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.decorators]
-from python_utils.decorators.throttle import throttle
+from pyutils_collection.decorators.throttle import throttle
 
 # Configure test_logger
 test_logger = logging.getLogger("test_logger")

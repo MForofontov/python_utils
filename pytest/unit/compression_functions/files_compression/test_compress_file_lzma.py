@@ -4,7 +4,7 @@ try:
     import lzma
     import os
     import snappy
-    from python_utils.compression_functions.files_compression.compress_file_lzma import compress_file_lzma
+    from pyutils_collection.compression_functions.files_compression.compress_file_lzma import compress_file_lzma
     SNAPPY_AVAILABLE = True
 except ImportError:
     SNAPPY_AVAILABLE = False

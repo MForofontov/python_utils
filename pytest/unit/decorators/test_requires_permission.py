@@ -4,7 +4,7 @@ import re
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.decorators]
-from python_utils.decorators.requires_permission import requires_permission
+from pyutils_collection.decorators.requires_permission import requires_permission
 
 # Configure test_logger
 test_logger = logging.getLogger("test_logger")

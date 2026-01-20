@@ -4,7 +4,7 @@ import pytest
 
 try:
     import pytz
-    from python_utils.datetime_functions.parse_date import parse_date
+    from pyutils_collection.datetime_functions.parse_date import parse_date
     PYTZ_AVAILABLE = True
 except ImportError:
     PYTZ_AVAILABLE = False

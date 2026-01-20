@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.gc_functions.gc_content import gc_content
+    from pyutils_collection.bioinformatics_functions.gc_functions.gc_content import gc_content
     NUMPY_AVAILABLE = True
 except ImportError:
     NUMPY_AVAILABLE = False

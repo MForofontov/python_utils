@@ -3,7 +3,7 @@ import re
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.data_validation]
-from python_utils.data_validation import validate_string
+from pyutils_collection.data_validation import validate_string
 
 
 def test_validate_string_basic_validation() -> None:

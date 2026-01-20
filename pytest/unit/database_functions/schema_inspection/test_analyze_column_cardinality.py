@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.database]
-from python_utils.database_functions.schema_inspection import analyze_column_cardinality
+from pyutils_collection.database_functions.schema_inspection import analyze_column_cardinality
 
 
 def test_analyze_column_cardinality_identifies_low_cardinality(memory_engine) -> None:

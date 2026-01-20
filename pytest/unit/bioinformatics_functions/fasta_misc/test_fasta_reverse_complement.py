@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.fasta_misc.fasta_reverse_complement import (
+    from pyutils_collection.bioinformatics_functions.fasta_misc.fasta_reverse_complement import (
         fasta_reverse_complement,
     )
     NUMPY_AVAILABLE = True

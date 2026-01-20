@@ -4,7 +4,7 @@ from pathlib import Path
 
 try:
     from openpyxl import Workbook
-    from python_utils.serialization_functions.excel_operations.get_sheet_names import get_sheet_names
+    from pyutils_collection.serialization_functions.excel_operations.get_sheet_names import get_sheet_names
     OPENPYXL_AVAILABLE = True
 except ImportError:
     OPENPYXL_AVAILABLE = False

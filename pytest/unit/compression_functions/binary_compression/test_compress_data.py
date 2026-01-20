@@ -5,7 +5,7 @@ import lzma
 try:
     import snappy
     import zstandard as zstd
-    from python_utils.compression_functions.binary_compression.compress_data import compress_data
+    from pyutils_collection.compression_functions.binary_compression.compress_data import compress_data
 
     COMPRESSION_LIBS_AVAILABLE = True
 except ImportError:

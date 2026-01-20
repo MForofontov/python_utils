@@ -12,7 +12,7 @@ try:
     matplotlib.use("Agg")  # Use non-GUI backend for testing
     import matplotlib.pyplot as plt
 
-    from python_utils.data_visualization_functions.plot_generation.create_histogram import (
+    from pyutils_collection.data_visualization_functions.plot_generation.create_histogram import (
         create_histogram,
     )
 

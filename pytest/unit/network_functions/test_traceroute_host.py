@@ -4,7 +4,7 @@ import pytest
 
 try:
     import psutil
-    from python_utils.network_functions.traceroute_host import traceroute_host
+    from pyutils_collection.network_functions.traceroute_host import traceroute_host
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

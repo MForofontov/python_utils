@@ -3,7 +3,7 @@ requires = ["setuptools>=61", "setuptools-scm>=8.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "python_utils"
+name = "pyutils_collection"
 dynamic = ["version"]
 description = "A comprehensive collection of 200+ reusable Python utility functions across 14+ specialized modules"
 readme = "README.md"
@@ -78,11 +78,11 @@ playwright = [
 ]
 
 [tool.setuptools]
-packages = { find = { where = ["."], include = ["python_utils", "python_utils.*"] } }
+packages = { find = { where = ["."], include = ["pyutils_collection", "pyutils_collection.*"] } }
 
 [tool.setuptools_scm]
 # Write version file inside the package
-write_to = "python_utils/_version.py"
+write_to = "pyutils_collection/_version.py"
 write_to_template = "__version__ = '{version}'"
 
 [tool.pytest.ini_options]
@@ -141,7 +141,7 @@ ignore = [
 ]
 
 [tool.ruff.lint.isort]
-known-first-party = ["python_utils"]
+known-first-party = ["pyutils_collection"]
 
 [tool.ruff.format]
 # Ruff is the formatter

@@ -3,7 +3,7 @@ from typing import Any
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from python_utils.iterable_functions.dictionary_operations.identify_dict_structure import (
+from pyutils_collection.iterable_functions.dictionary_operations.identify_dict_structure import (
     identify_dict_structure,
 )
 

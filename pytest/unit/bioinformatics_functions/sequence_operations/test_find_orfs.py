@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.sequence_operations.find_orfs import find_orfs
+    from pyutils_collection.bioinformatics_functions.sequence_operations.find_orfs import find_orfs
     NUMPY_AVAILABLE = True
 except ImportError:
     NUMPY_AVAILABLE = False

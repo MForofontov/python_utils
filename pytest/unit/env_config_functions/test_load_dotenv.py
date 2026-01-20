@@ -2,7 +2,7 @@ import pytest
 
 try:
     import os
-    from python_utils.env_config_functions.load_dotenv import load_dotenv
+    from pyutils_collection.env_config_functions.load_dotenv import load_dotenv
     PYYAML_AVAILABLE = True
 except ImportError:
     PYYAML_AVAILABLE = False

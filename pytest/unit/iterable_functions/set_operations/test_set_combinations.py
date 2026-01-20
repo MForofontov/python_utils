@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from python_utils.iterable_functions.set_operations.get_combinations import get_combinations
+from pyutils_collection.iterable_functions.set_operations.get_combinations import get_combinations
 
 
 def test_get_combinations_basic_two_elements() -> None:

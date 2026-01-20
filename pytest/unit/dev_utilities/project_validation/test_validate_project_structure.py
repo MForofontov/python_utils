@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.dev_utilities]
-from python_utils.dev_utilities.project_validation.validate_project_structure import (
+from pyutils_collection.dev_utilities.project_validation.validate_project_structure import (
     ValidationIssue,
     ValidationResult,
     format_validation_result,

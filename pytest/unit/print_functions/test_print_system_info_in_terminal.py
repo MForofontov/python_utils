@@ -4,7 +4,7 @@ import pytest
 
 try:
     import psutil
-    from python_utils.print_functions.print_system_info_in_terminal import print_system_info_in_terminal
+    from pyutils_collection.print_functions.print_system_info_in_terminal import print_system_info_in_terminal
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

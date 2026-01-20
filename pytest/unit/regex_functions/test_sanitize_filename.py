@@ -5,7 +5,7 @@ Tests for sanitize_filename function.
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.regex]
-from python_utils.regex_functions.sanitize_filename import sanitize_filename
+from pyutils_collection.regex_functions.sanitize_filename import sanitize_filename
 
 
 def test_sanitize_filename_invalid_chars() -> None:

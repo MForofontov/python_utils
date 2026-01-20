@@ -3,7 +3,7 @@
 try:
     import numpy as np
     import scipy
-    from python_utils.scientific_computing_functions.linear_algebra.constrained_least_squares import (
+    from pyutils_collection.scientific_computing_functions.linear_algebra.constrained_least_squares import (
         constrained_least_squares,
     )
     NUMPY_AVAILABLE = True

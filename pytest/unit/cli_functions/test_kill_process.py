@@ -2,7 +2,7 @@ import pytest
 
 try:
     import psutil
-    from python_utils.cli_functions.kill_process import kill_process
+    from pyutils_collection.cli_functions.kill_process import kill_process
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

@@ -4,7 +4,7 @@ pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
 import tempfile
 from pathlib import Path
 
-from python_utils.file_functions.directory_operations.copy_folder import copy_folder
+from pyutils_collection.file_functions.directory_operations.copy_folder import copy_folder
 
 
 def test_copy_folder_basic_copy() -> None:

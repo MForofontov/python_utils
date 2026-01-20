@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.motif_functions.generate_consensus_sequence import (
+    from pyutils_collection.bioinformatics_functions.motif_functions.generate_consensus_sequence import (
         generate_consensus_sequence,
     )
     NUMPY_AVAILABLE = True

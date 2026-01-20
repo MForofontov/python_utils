@@ -3,7 +3,7 @@ import pytest
 pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
 from unittest.mock import MagicMock, patch
 
-from python_utils.network_functions.get_hostname import get_hostname
+from pyutils_collection.network_functions.get_hostname import get_hostname
 
 
 def test_get_hostname_returns_string() -> None:

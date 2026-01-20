@@ -11,7 +11,7 @@ try:
     import openpyxl
     import pyarrow as pa
     import pyarrow.parquet as pq
-    from python_utils.serialization_functions.format_converters.parquet_to_excel import parquet_to_excel
+    from pyutils_collection.serialization_functions.format_converters.parquet_to_excel import parquet_to_excel
     DEPENDENCIES_AVAILABLE = True
 except ImportError:
     DEPENDENCIES_AVAILABLE = False

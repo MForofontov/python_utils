@@ -2,7 +2,7 @@ import pytest
 
 try:
     import psutil
-    from python_utils.cli_functions.get_memory_info import get_memory_info
+    from pyutils_collection.cli_functions.get_memory_info import get_memory_info
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

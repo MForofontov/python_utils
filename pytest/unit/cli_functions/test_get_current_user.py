@@ -2,7 +2,7 @@ import pytest
 
 try:
     import psutil
-    from python_utils.cli_functions.get_current_user import get_current_user
+    from pyutils_collection.cli_functions.get_current_user import get_current_user
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

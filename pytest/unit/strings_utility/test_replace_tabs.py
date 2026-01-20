@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from python_utils.strings_utility.replace_tabs import replace_tabs
+from pyutils_collection.strings_utility.replace_tabs import replace_tabs
 
 
 def test_replace_tabs_default_tabsize() -> None:

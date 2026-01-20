@@ -11,9 +11,9 @@ try:
     matplotlib.use("Agg")  # Use non-GUI backend for testing
     import matplotlib.pyplot as plt
 
-    from python_utils.data_visualization_functions.chart_configuration.apply_theme import apply_theme
-    from python_utils.data_visualization_functions.chart_configuration.chart_theme import ChartTheme
-    from python_utils.data_visualization_functions.chart_configuration.reset_theme import reset_theme
+    from pyutils_collection.data_visualization_functions.chart_configuration.apply_theme import apply_theme
+    from pyutils_collection.data_visualization_functions.chart_configuration.chart_theme import ChartTheme
+    from pyutils_collection.data_visualization_functions.chart_configuration.reset_theme import reset_theme
 
     MATPLOTLIB_AVAILABLE = True
 except ImportError:

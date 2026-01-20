@@ -5,7 +5,7 @@ import csv
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.serialization]
-from python_utils.serialization_functions.csv_advanced.register_csv_dialect import (
+from pyutils_collection.serialization_functions.csv_advanced.register_csv_dialect import (
     register_csv_dialect,
 )
 

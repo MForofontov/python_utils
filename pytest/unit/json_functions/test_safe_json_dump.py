@@ -3,7 +3,7 @@ import pytest
 pytestmark = [pytest.mark.unit, pytest.mark.json_functions]
 import json
 
-from python_utils.json_functions.safe_json_dump import safe_json_dump
+from pyutils_collection.json_functions.safe_json_dump import safe_json_dump
 
 
 def test_safe_json_dump_valid():

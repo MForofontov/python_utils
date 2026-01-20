@@ -3,7 +3,7 @@
 try:
     import numpy as np
     import scipy
-    from python_utils.scientific_computing_functions.statistical_analysis.power_analysis import (
+    from pyutils_collection.scientific_computing_functions.statistical_analysis.power_analysis import (
         power_analysis,
     )
     NUMPY_AVAILABLE = True

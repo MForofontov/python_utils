@@ -4,7 +4,7 @@ import pytest
 
 try:
     import pytz
-    from python_utils.datetime_functions.time_ago import time_ago
+    from pyutils_collection.datetime_functions.time_ago import time_ago
     PYTZ_AVAILABLE = True
 except ImportError:
     PYTZ_AVAILABLE = False

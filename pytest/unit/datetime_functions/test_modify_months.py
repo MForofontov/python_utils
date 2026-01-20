@@ -4,7 +4,7 @@ import pytest
 
 try:
     import pytz
-    from python_utils.datetime_functions.modify_months import modify_months
+    from pyutils_collection.datetime_functions.modify_months import modify_months
     PYTZ_AVAILABLE = True
 except ImportError:
     PYTZ_AVAILABLE = False

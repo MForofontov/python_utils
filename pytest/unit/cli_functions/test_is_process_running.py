@@ -1,6 +1,6 @@
 try:
     import psutil  # noqa: F401
-    from python_utils.cli_functions.is_process_running import is_process_running
+    from pyutils_collection.cli_functions.is_process_running import is_process_running
 
     PSUTIL_AVAILABLE = True
 except ImportError:

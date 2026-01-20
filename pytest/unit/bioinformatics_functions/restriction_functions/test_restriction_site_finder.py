@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.restriction_functions.restriction_site_finder import (
+    from pyutils_collection.bioinformatics_functions.restriction_functions.restriction_site_finder import (
         restriction_site_finder,
     )
     NUMPY_AVAILABLE = True

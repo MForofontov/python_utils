@@ -3,7 +3,7 @@
 try:
     import numpy as np
     import scipy
-    from python_utils.scientific_computing_functions.numerical_methods.solve_boundary_value_problem import (
+    from pyutils_collection.scientific_computing_functions.numerical_methods.solve_boundary_value_problem import (
         solve_boundary_value_problem,
     )
     NUMPY_AVAILABLE = True

@@ -7,7 +7,7 @@ from pathlib import Path
 
 try:
     import openpyxl
-    from python_utils.serialization_functions.excel_operations.auto_format_excel_columns import (
+    from pyutils_collection.serialization_functions.excel_operations.auto_format_excel_columns import (
         auto_format_excel_columns,
     )
     OPENPYXL_AVAILABLE = True

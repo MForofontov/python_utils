@@ -4,7 +4,7 @@ import pytest
 
 try:
     import psutil
-    from python_utils.cli_functions.get_disk_usage import get_disk_usage
+    from pyutils_collection.cli_functions.get_disk_usage import get_disk_usage
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

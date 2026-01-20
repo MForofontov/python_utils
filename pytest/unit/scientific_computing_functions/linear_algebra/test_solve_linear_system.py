@@ -7,7 +7,7 @@ Tests cover normal operation, edge cases, and error conditions.
 try:
     import numpy as np
     import scipy
-    from python_utils.scientific_computing_functions.linear_algebra.solve_linear_system import (
+    from pyutils_collection.scientific_computing_functions.linear_algebra.solve_linear_system import (
         solve_linear_system,
     )
     NUMPY_AVAILABLE = True

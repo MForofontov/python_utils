@@ -5,7 +5,7 @@ from typing import Any
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.decorators]
-from python_utils.decorators.multi_decorator import multi_decorator
+from pyutils_collection.decorators.multi_decorator import multi_decorator
 
 # Configure test_logger
 test_logger = logging.getLogger("test_logger")

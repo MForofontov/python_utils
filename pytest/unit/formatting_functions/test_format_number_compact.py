@@ -3,7 +3,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.formatting]
-from python_utils.formatting_functions.format_number_compact import format_number_compact
+from pyutils_collection.formatting_functions.format_number_compact import format_number_compact
 
 
 def test_format_number_compact_below_threshold() -> None:

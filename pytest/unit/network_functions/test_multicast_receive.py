@@ -4,7 +4,7 @@ import pytest
 
 try:
     import psutil
-    from python_utils.network_functions.multicast_receive import multicast_receive
+    from pyutils_collection.network_functions.multicast_receive import multicast_receive
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False

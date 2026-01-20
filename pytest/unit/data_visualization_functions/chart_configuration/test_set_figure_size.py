@@ -11,7 +11,7 @@ try:
     matplotlib.use("Agg")  # Use non-GUI backend for testing
     import matplotlib.pyplot as plt
 
-    from python_utils.data_visualization_functions.chart_configuration.set_figure_size import (
+    from pyutils_collection.data_visualization_functions.chart_configuration.set_figure_size import (
         set_figure_size,
     )
 

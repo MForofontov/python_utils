@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from python_utils.file_functions import copy_file, copy_folder
+from pyutils_collection.file_functions import copy_file, copy_folder
 
 
 def test_copy_file_preserves_contents(tmp_path: Path) -> None:

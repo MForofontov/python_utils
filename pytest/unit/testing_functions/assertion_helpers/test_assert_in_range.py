@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.testing]
-from python_utils.testing_functions.assertion_helpers.assert_in_range import assert_in_range
+from pyutils_collection.testing_functions.assertion_helpers.assert_in_range import assert_in_range
 
 
 def test_assert_in_range_value_in_range() -> None:

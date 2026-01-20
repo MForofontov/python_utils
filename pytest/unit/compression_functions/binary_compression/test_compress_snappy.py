@@ -1,6 +1,6 @@
 try:
     import snappy
-    from python_utils.compression_functions.binary_compression.compress_snappy import compress_snappy
+    from pyutils_collection.compression_functions.binary_compression.compress_snappy import compress_snappy
 
     SNAPPY_AVAILABLE = True
 except ImportError:

@@ -4,7 +4,7 @@ import pytest
 
 try:
     import pytz
-    from python_utils.datetime_functions.get_days_in_month import get_days_in_month
+    from pyutils_collection.datetime_functions.get_days_in_month import get_days_in_month
     PYTZ_AVAILABLE = True
 except ImportError:
     PYTZ_AVAILABLE = False

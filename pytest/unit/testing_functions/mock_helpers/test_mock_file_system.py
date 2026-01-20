@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.testing]
-from python_utils.testing_functions.mock_helpers.mock_file_system import mock_file_system
+from pyutils_collection.testing_functions.mock_helpers.mock_file_system import mock_file_system
 
 
 def test_mock_file_system_single_file() -> None:

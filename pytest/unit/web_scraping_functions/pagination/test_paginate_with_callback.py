@@ -2,7 +2,7 @@ import pytest
 
 try:
     from bs4 import BeautifulSoup
-    from python_utils.web_scraping_functions.pagination.paginate_with_callback import (
+    from pyutils_collection.web_scraping_functions.pagination.paginate_with_callback import (
         paginate_with_callback,
     )
     BS4_AVAILABLE = True

@@ -4,7 +4,7 @@ from unittest.mock import MagicMock, mock_open, patch
 
 try:
     import paramiko
-    from python_utils.ssh_functions.remote.ssh_execute_script import ssh_execute_script
+    from pyutils_collection.ssh_functions.remote.ssh_execute_script import ssh_execute_script
     PARAMIKO_AVAILABLE = True
 except ImportError:
     PARAMIKO_AVAILABLE = False

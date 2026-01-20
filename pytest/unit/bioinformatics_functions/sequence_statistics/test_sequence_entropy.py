@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.sequence_statistics.sequence_entropy import (
+    from pyutils_collection.bioinformatics_functions.sequence_statistics.sequence_entropy import (
         sequence_entropy,
     )
     NUMPY_AVAILABLE = True

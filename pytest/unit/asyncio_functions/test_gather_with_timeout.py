@@ -4,7 +4,7 @@ import pytest
 
 try:
     import aiohttp
-    from python_utils.asyncio_functions.gather_with_timeout import gather_with_timeout
+    from pyutils_collection.asyncio_functions.gather_with_timeout import gather_with_timeout
     AIOHTTP_AVAILABLE = True
 except ImportError:
     AIOHTTP_AVAILABLE = False

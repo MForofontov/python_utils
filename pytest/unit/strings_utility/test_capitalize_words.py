@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from python_utils.strings_utility.capitalize_words import capitalize_words
+from pyutils_collection.strings_utility.capitalize_words import capitalize_words
 
 
 def test_single_word() -> None:

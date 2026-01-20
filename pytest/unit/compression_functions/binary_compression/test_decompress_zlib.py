@@ -4,7 +4,7 @@ import zlib
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.compression]
-from python_utils.compression_functions.binary_compression.decompress_zlib import decompress_zlib
+from pyutils_collection.compression_functions.binary_compression.decompress_zlib import decompress_zlib
 
 
 def test_decompress_zlib_basic() -> None:

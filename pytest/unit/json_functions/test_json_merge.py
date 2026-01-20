@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.json_functions]
-from python_utils.json_functions.json_merge import json_merge
+from pyutils_collection.json_functions.json_merge import json_merge
 
 
 def test_json_merge_dicts_shallow() -> None:

@@ -3,7 +3,7 @@ import asyncio
 import pytest
 
 try:
-    from python_utils.asyncio_functions.async_chain import async_chain
+    from pyutils_collection.asyncio_functions.async_chain import async_chain
     AIOHTTP_AVAILABLE = True
 except ImportError:
     AIOHTTP_AVAILABLE = False

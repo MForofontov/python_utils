@@ -2,7 +2,7 @@ import pytest
 
 try:
     import aiohttp
-    from python_utils.asyncio_functions.async_await_with_error_handling import (
+    from pyutils_collection.asyncio_functions.async_await_with_error_handling import (
         async_await_with_error_handling,
     )
     AIOHTTP_AVAILABLE = True

@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.sequence_statistics.calculate_isoelectric_point import (
+    from pyutils_collection.bioinformatics_functions.sequence_statistics.calculate_isoelectric_point import (
         calculate_isoelectric_point,
     )
     NUMPY_AVAILABLE = True

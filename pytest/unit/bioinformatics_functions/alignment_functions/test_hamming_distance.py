@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.alignment_functions.hamming_distance import (
+    from pyutils_collection.bioinformatics_functions.alignment_functions.hamming_distance import (
         hamming_distance,
     )
     NUMPY_AVAILABLE = True

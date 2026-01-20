@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.gc_functions.sequence_gc_profile import (
+    from pyutils_collection.bioinformatics_functions.gc_functions.sequence_gc_profile import (
         sequence_gc_profile,
     )
     NUMPY_AVAILABLE = True

@@ -4,7 +4,7 @@ import pytest
 
 try:
     import aiohttp
-    from python_utils.asyncio_functions.async_stream_processor import async_stream_processor
+    from pyutils_collection.asyncio_functions.async_stream_processor import async_stream_processor
     AIOHTTP_AVAILABLE = True
 except ImportError:
     AIOHTTP_AVAILABLE = False

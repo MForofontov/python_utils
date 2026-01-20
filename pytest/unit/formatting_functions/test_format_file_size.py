@@ -3,7 +3,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.formatting]
-from python_utils.formatting_functions.format_file_size import format_file_size
+from pyutils_collection.formatting_functions.format_file_size import format_file_size
 
 
 def test_format_file_size_binary_units() -> None:

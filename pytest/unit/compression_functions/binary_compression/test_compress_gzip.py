@@ -3,7 +3,7 @@ import pytest
 try:
     import gzip
     import snappy
-    from python_utils.compression_functions.binary_compression.compress_gzip import compress_gzip
+    from pyutils_collection.compression_functions.binary_compression.compress_gzip import compress_gzip
     SNAPPY_AVAILABLE = True
 except ImportError:
     SNAPPY_AVAILABLE = False

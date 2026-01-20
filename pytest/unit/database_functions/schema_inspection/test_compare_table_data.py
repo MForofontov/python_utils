@@ -8,7 +8,7 @@ from sqlalchemy.engine import Engine
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.database]
-from python_utils.database_functions.schema_inspection import compare_table_data
+from pyutils_collection.database_functions.schema_inspection import compare_table_data
 
 
 def test_compare_table_data_identical_tables(memory_engine: Engine) -> None:

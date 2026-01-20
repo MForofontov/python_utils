@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.multiprocessing_functions]
-from python_utils.multiprocessing_functions.parallel_filter import parallel_filter
+from pyutils_collection.multiprocessing_functions.parallel_filter import parallel_filter
 
 
 def is_even(x: int) -> bool:

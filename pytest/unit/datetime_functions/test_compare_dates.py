@@ -4,7 +4,7 @@ import pytest
 
 try:
     import pytz
-    from python_utils.datetime_functions.compare_dates import compare_dates
+    from pyutils_collection.datetime_functions.compare_dates import compare_dates
     PYTZ_AVAILABLE = True
 except ImportError:
     PYTZ_AVAILABLE = False

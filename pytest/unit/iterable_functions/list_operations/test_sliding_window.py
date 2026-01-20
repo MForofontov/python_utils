@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from python_utils.iterable_functions.list_operations.sliding_window import sliding_window
+from pyutils_collection.iterable_functions.list_operations.sliding_window import sliding_window
 
 
 def test_sliding_window_normal_case() -> None:

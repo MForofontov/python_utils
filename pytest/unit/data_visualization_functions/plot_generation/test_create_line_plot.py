@@ -9,7 +9,7 @@ try:
     import matplotlib.pyplot as plt
     import numpy as np
 
-    from python_utils.data_visualization_functions.plot_generation import create_line_plot
+    from pyutils_collection.data_visualization_functions.plot_generation import create_line_plot
 
     MATPLOTLIB_AVAILABLE = True
 except ImportError:

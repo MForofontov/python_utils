@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.http_functions]
-from python_utils.http_functions.parse_url import parse_url
+from pyutils_collection.http_functions.parse_url import parse_url
 
 
 def test_parse_simple_https_url():

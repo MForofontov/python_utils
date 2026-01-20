@@ -3,7 +3,7 @@ from typing import Any
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from python_utils.iterable_functions.list_comparison.partially_contains_sublist import (
+from pyutils_collection.iterable_functions.list_comparison.partially_contains_sublist import (
     partially_contains_sublist,
 )
 

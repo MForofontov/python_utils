@@ -3,7 +3,7 @@ import pytest
 # Try to import BeautifulSoup - tests will be skipped if not available
 try:
     from bs4 import BeautifulSoup
-    from python_utils.web_scraping_functions.pagination.extract_next_page import extract_next_page
+    from pyutils_collection.web_scraping_functions.pagination.extract_next_page import extract_next_page
     BS4_AVAILABLE = True
 except ImportError:
     BS4_AVAILABLE = False

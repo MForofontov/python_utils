@@ -1,6 +1,6 @@
 try:
     import zstandard as zstd
-    from python_utils.compression_functions.binary_compression.decompress_zstd import decompress_zstd
+    from pyutils_collection.compression_functions.binary_compression.decompress_zstd import decompress_zstd
 
     ZSTANDARD_AVAILABLE = True
 except ImportError:

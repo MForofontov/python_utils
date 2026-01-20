@@ -4,7 +4,7 @@ import pytest
 
 try:
     from cryptography.fernet import Fernet
-    from python_utils.security_functions.encryption_helpers.encrypt_data_aes import encrypt_data_aes
+    from pyutils_collection.security_functions.encryption_helpers.encrypt_data_aes import encrypt_data_aes
     CRYPTOGRAPHY_AVAILABLE = True
 except ImportError:
     CRYPTOGRAPHY_AVAILABLE = False

@@ -7,7 +7,7 @@ import pytest
 
 try:
     import paramiko
-    from python_utils.ssh_functions.local.ssh_check_connection import ssh_check_connection
+    from pyutils_collection.ssh_functions.local.ssh_check_connection import ssh_check_connection
     PARAMIKO_AVAILABLE = True
 except ImportError:
     PARAMIKO_AVAILABLE = False

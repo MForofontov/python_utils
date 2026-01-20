@@ -5,7 +5,7 @@ import pytest
 # Try to import pydantic - tests will be skipped if not available
 try:
     from pydantic import BaseModel, Field, ValidationError
-    from python_utils.data_validation import validate_pydantic_schema
+    from pyutils_collection.data_validation import validate_pydantic_schema
 
     PYDANTIC_AVAILABLE = True
 except ImportError:

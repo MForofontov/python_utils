@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from python_utils.file_functions import write_lines, write_to_file
+from pyutils_collection.file_functions import write_lines, write_to_file
 
 
 def test_write_lines_default_joiner(tmp_path: Path) -> None:

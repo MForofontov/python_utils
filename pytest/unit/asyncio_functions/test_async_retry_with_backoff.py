@@ -4,7 +4,7 @@ import pytest
 
 try:
     import aiohttp
-    from python_utils.asyncio_functions.async_retry_with_backoff import async_retry_with_backoff
+    from pyutils_collection.asyncio_functions.async_retry_with_backoff import async_retry_with_backoff
     AIOHTTP_AVAILABLE = True
 except ImportError:
     AIOHTTP_AVAILABLE = False

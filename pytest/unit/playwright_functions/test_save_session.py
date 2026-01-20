@@ -7,7 +7,7 @@ from unittest.mock import MagicMock, Mock, mock_open, patch
 import pytest
 
 try:
-    from python_utils.playwright_functions.save_session import save_session
+    from pyutils_collection.playwright_functions.save_session import save_session
     PLAYWRIGHT_AVAILABLE = True
 except ImportError:
     PLAYWRIGHT_AVAILABLE = False

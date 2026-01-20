@@ -6,7 +6,7 @@ import pytest
 
 try:
     import aiohttp
-    from python_utils.decorators.async_handle_error import async_handle_error
+    from pyutils_collection.decorators.async_handle_error import async_handle_error
     AIOHTTP_AVAILABLE = True
 except ImportError:
     AIOHTTP_AVAILABLE = False

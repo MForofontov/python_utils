@@ -5,7 +5,7 @@ import pytest
 
 try:
     import snappy
-    from python_utils.compression_functions.files_compression.compress_file_bz2 import compress_file_bz2
+    from pyutils_collection.compression_functions.files_compression.compress_file_bz2 import compress_file_bz2
     SNAPPY_AVAILABLE = True
 except ImportError:
     SNAPPY_AVAILABLE = False

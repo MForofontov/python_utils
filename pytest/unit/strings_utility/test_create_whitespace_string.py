@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from python_utils.strings_utility.create_whitespace_string import create_whitespace_string
+from pyutils_collection.strings_utility.create_whitespace_string import create_whitespace_string
 
 
 def test_create_whitespace_string_success() -> None:

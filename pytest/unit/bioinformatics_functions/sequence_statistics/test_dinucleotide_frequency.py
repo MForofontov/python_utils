@@ -2,7 +2,7 @@ import pytest
 
 try:
     import numpy
-    from python_utils.bioinformatics_functions.sequence_statistics.dinucleotide_frequency import (
+    from pyutils_collection.bioinformatics_functions.sequence_statistics.dinucleotide_frequency import (
         dinucleotide_frequency,
     )
     NUMPY_AVAILABLE = True

@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from python_utils.iterable_functions.list_operations.divide_list_into_n_chunks import (
+from pyutils_collection.iterable_functions.list_operations.divide_list_into_n_chunks import (
     divide_list_into_n_chunks,
 )
 

@@ -4,7 +4,7 @@ import pytest
 
 try:
     import aiohttp
-    from python_utils.asyncio_functions.fetch_multiple_urls import fetch_multiple_urls
+    from pyutils_collection.asyncio_functions.fetch_multiple_urls import fetch_multiple_urls
     AIOHTTP_AVAILABLE = True
 except ImportError:
     AIOHTTP_AVAILABLE = False

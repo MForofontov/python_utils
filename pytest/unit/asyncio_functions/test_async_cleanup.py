@@ -3,7 +3,7 @@ import asyncio
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.asyncio_functions]
-from python_utils.asyncio_functions.async_cleanup import async_cleanup
+from pyutils_collection.asyncio_functions.async_cleanup import async_cleanup
 
 
 @pytest.mark.asyncio

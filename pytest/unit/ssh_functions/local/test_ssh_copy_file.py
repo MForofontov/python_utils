@@ -6,7 +6,7 @@ try:
     import subprocess
     from unittest.mock import MagicMock, patch
     import paramiko
-    from python_utils.ssh_functions.local.ssh_copy_file import ssh_copy_file
+    from pyutils_collection.ssh_functions.local.ssh_copy_file import ssh_copy_file
     PARAMIKO_AVAILABLE = True
 except ImportError:
     PARAMIKO_AVAILABLE = False
