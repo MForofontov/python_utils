@@ -11,16 +11,7 @@ from contextlib import contextmanager
 from pathlib import Path
 from typing import Any, Literal
 
-try:
-    from playwright.sync_api import Browser, BrowserContext, Page, Playwright, sync_playwright
-    PLAYWRIGHT_AVAILABLE = True
-except ImportError:
-    PLAYWRIGHT_AVAILABLE = False
-    Browser = Any  # type: ignore
-    BrowserContext = Any  # type: ignore
-    Page = Any  # type: ignore
-    Playwright = Any  # type: ignore
-    sync_playwright = None  # type: ignore
+from playwright.sync_api import Browser, BrowserContext, Page, Playwright, sync_playwright
 
 
 BrowserType = Literal["chromium", "firefox", "webkit"]
@@ -101,11 +92,6 @@ def managed_browser(
     ----------
     Time: O(1) for setup/teardown, Space: O(1)
     """
-    if not PLAYWRIGHT_AVAILABLE:
-        raise ImportError(
-            "playwright is not installed. Install with: pip install 'python_utils[playwright]'"
-        )
-
     # Input validation
     if not isinstance(browser_type, str):
         raise TypeError(f"browser_type must be a string, got {type(browser_type).__name__}")

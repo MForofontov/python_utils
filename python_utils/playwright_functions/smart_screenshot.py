@@ -9,12 +9,7 @@ import logging
 from pathlib import Path
 from typing import Any, Literal
 
-try:
-    from playwright.sync_api import Page
-    PLAYWRIGHT_AVAILABLE = True
-except ImportError:
-    PLAYWRIGHT_AVAILABLE = False
-    Page = Any  # type: ignore
+from playwright.sync_api import Page
 
 
 ScreenshotType = Literal["png", "jpeg"]
@@ -121,11 +116,6 @@ def smart_screenshot(
     ----------
     Time: O(1) + network/rendering time, Space: O(image size)
     """
-    if not PLAYWRIGHT_AVAILABLE:
-        raise ImportError(
-            "playwright is not installed. Install with: pip install 'python_utils[playwright]'"
-        )
-
     # Input validation
     if not isinstance(path, str):
         raise TypeError(f"path must be a string, got {type(path).__name__}")

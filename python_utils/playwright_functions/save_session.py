@@ -10,12 +10,7 @@ import logging
 from pathlib import Path
 from typing import Any
 
-try:
-    from playwright.sync_api import BrowserContext
-    PLAYWRIGHT_AVAILABLE = True
-except ImportError:
-    PLAYWRIGHT_AVAILABLE = False
-    BrowserContext = Any  # type: ignore
+from playwright.sync_api import BrowserContext
 
 
 def save_session(
@@ -84,11 +79,6 @@ def save_session(
     ----------
     Time: O(n) where n is number of cookies/storage items, Space: O(n)
     """
-    if not PLAYWRIGHT_AVAILABLE:
-        raise ImportError(
-            "playwright is not installed. Install with: pip install 'python_utils[playwright]'"
-        )
-
     # Input validation
     if not isinstance(session_file, str):
         raise TypeError(f"session_file must be a string, got {type(session_file).__name__}")

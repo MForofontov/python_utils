@@ -10,13 +10,7 @@ from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any
 
-try:
-    from playwright.sync_api import Browser, sync_playwright
-    PLAYWRIGHT_AVAILABLE = True
-except ImportError:
-    PLAYWRIGHT_AVAILABLE = False
-    Browser = Any  # type: ignore
-    sync_playwright = None  # type: ignore
+from playwright.sync_api import Browser, sync_playwright
 
 
 def parallel_scrape(
@@ -117,11 +111,6 @@ def parallel_scrape(
     ----------
     Time: O(n/w) where n is URLs, w is workers, Space: O(n)
     """
-    if not PLAYWRIGHT_AVAILABLE:
-        raise ImportError(
-            "playwright is not installed. Install with: pip install 'python_utils[playwright]'"
-        )
-
     # Input validation
     if not isinstance(urls, list):
         raise TypeError(f"urls must be a list, got {type(urls).__name__}")

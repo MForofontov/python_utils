@@ -9,12 +9,7 @@ and flexible extraction patterns.
 import logging
 from typing import Any, Literal
 
-try:
-    from playwright.sync_api import Page
-    PLAYWRIGHT_AVAILABLE = True
-except ImportError:
-    PLAYWRIGHT_AVAILABLE = False
-    Page = Any  # type: ignore
+from playwright.sync_api import Page
 
 
 WaitStrategy = Literal["domcontentloaded", "load", "networkidle", "selector", "function"]
@@ -135,11 +130,6 @@ def extract_dynamic_content(
     ----------
     Time: O(n) where n is page content size, Space: O(n)
     """
-    if not PLAYWRIGHT_AVAILABLE:
-        raise ImportError(
-            "playwright is not installed. Install with: pip install 'python_utils[playwright]'"
-        )
-
     # Input validation
     if url is not None and not isinstance(url, str):
         raise TypeError(f"url must be a string or None, got {type(url).__name__}")
