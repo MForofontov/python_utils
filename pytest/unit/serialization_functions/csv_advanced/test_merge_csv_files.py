@@ -9,7 +9,15 @@ from pathlib import Path
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.serialization]
-from serialization_functions.csv_advanced.merge_csv_files import merge_csv_files
+
+try:
+    from pyutils_collection.serialization_functions.csv_advanced.merge_csv_files import merge_csv_files
+    IMPORT_SUCCESS = True
+except ImportError:
+    IMPORT_SUCCESS = False
+    merge_csv_files = None  # type: ignore
+
+pytestmark = [pytest.mark.skipif(not IMPORT_SUCCESS, reason="dependencies not installed"), *pytestmark]
 
 
 def test_merge_csv_files_basic_merge() -> None:

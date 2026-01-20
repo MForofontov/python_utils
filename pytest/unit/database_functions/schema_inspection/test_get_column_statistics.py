@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.database]
-from database_functions.schema_inspection import get_column_statistics
+from pyutils_collection.database_functions.schema_inspection import get_column_statistics
 
 
 def test_get_column_statistics_single_column(memory_engine) -> None:

@@ -11,7 +11,7 @@ try:
     matplotlib.use("Agg")  # Use non-GUI backend for testing
     import matplotlib.pyplot as plt
 
-    from data_visualization_functions.chart_configuration.configure_axes_style import (
+    from pyutils_collection.data_visualization_functions.chart_configuration.configure_axes_style import (
         configure_axes_style,
     )
 

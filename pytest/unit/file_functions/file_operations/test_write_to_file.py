@@ -4,7 +4,7 @@ import tempfile
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from file_functions import write_to_file
+from pyutils_collection.file_functions import write_to_file
 
 
 def test_write_to_file_basic_write() -> None:

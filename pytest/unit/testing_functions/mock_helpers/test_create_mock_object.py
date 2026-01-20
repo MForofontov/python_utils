@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.testing]
-from testing_functions.mock_helpers.create_mock_object import create_mock_object
+from pyutils_collection.testing_functions.mock_helpers.create_mock_object import create_mock_object
 
 
 def test_create_mock_object_single_attribute() -> None:

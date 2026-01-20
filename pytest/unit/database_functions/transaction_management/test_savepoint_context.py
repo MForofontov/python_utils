@@ -7,7 +7,7 @@ import sqlite3
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.database]
-from database_functions import savepoint_context
+from pyutils_collection.database_functions import savepoint_context
 
 
 def test_savepoint_context_successful_release() -> None:

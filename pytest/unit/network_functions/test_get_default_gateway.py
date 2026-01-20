@@ -1,9 +1,21 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
-from unittest.mock import patch
+try:
+    from unittest.mock import patch
+    import psutil
+    from pyutils_collection.network_functions.get_default_gateway import get_default_gateway
+    PSUTIL_AVAILABLE = True
+except ImportError:
+    PSUTIL_AVAILABLE = False
+    patch = None  # type: ignore
+    psutil = None  # type: ignore
+    get_default_gateway = None  # type: ignore
 
-from network_functions.get_default_gateway import get_default_gateway
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.network_functions,
+    pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed"),
+]
 
 
 def test_get_default_gateway_normal() -> None:
@@ -23,10 +35,10 @@ def test_get_default_gateway_fallback() -> None:
     Test case 2: Fallback returns empty string if no gateway found.
     """
     with patch(
-        "network_functions.get_default_gateway._gateway_from_proc", return_value=""
+        "python_utils.network_functions.get_default_gateway._gateway_from_proc", return_value=""
     ):
         with patch(
-            "network_functions.get_default_gateway._gateway_from_command",
+            "python_utils.network_functions.get_default_gateway._gateway_from_command",
             return_value="",
         ):
             assert get_default_gateway() == ""
@@ -45,7 +57,7 @@ def test_get_default_gateway_edge_case() -> None:
     Test case 4: Edge case with unusual system config.
     """
     with patch(
-        "network_functions.get_default_gateway._gateway_from_proc",
+        "python_utils.network_functions.get_default_gateway._gateway_from_proc",
         return_value="0.0.0.0",
     ):
         assert get_default_gateway() == "0.0.0.0"
@@ -56,7 +68,7 @@ def test_get_default_gateway_value_error() -> None:
     Test case 5: ValueError for invalid gateway format (simulate parser error).
     """
     with patch(
-        "network_functions.get_default_gateway._gateway_from_proc",
+        "python_utils.network_functions.get_default_gateway._gateway_from_proc",
         return_value="not_an_ip",
     ):
         gateway = get_default_gateway()

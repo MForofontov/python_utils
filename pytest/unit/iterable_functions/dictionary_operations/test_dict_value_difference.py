@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from iterable_functions.dictionary_operations.dict_value_difference import (
+from pyutils_collection.iterable_functions.dictionary_operations.dict_value_difference import (
     dict_value_difference,
 )
 

@@ -8,7 +8,7 @@ from sqlalchemy.orm import declarative_base
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.database]
-from database_functions import compare_schemas
+from pyutils_collection.database_functions import compare_schemas
 
 Base = declarative_base()
 

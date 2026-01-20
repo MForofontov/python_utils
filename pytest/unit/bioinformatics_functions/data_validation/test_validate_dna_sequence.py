@@ -1,9 +1,21 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.data_validation.validate_dna_sequence import (
-    validate_dna_sequence,
-)
+try:
+    import numpy
+    from pyutils_collection.bioinformatics_functions.data_validation.validate_dna_sequence import (
+        validate_dna_sequence,
+    )
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    numpy = None  # type: ignore
+    validate_dna_sequence = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.bioinformatics,
+    pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed"),
+]
 
 
 def test_validate_dna_sequence_valid() -> None:

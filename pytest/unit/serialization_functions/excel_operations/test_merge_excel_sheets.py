@@ -7,15 +7,16 @@ from pathlib import Path
 
 try:
     import openpyxl
+    from pyutils_collection.serialization_functions.excel_operations.merge_excel_sheets import (
+        merge_excel_sheets,
+    )
     OPENPYXL_AVAILABLE = True
 except ImportError:
     OPENPYXL_AVAILABLE = False
     openpyxl = None  # type: ignore
+    merge_excel_sheets = None  # type: ignore
 
 import pytest
-from serialization_functions.excel_operations.merge_excel_sheets import (
-    merge_excel_sheets,
-)
 
 pytestmark = pytest.mark.skipif(not OPENPYXL_AVAILABLE, reason="openpyxl not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]

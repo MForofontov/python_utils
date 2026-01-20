@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.remove_non_alphanumeric import remove_non_alphanumeric
+from pyutils_collection.strings_utility.remove_non_alphanumeric import remove_non_alphanumeric
 
 
 def test_remove_non_alphanumeric_mixed_characters() -> None:

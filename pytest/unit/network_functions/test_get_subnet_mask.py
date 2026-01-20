@@ -3,8 +3,20 @@ from unittest.mock import patch
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
-from network_functions.get_subnet_mask import get_subnet_mask
+try:
+    import psutil
+    from pyutils_collection.network_functions.get_subnet_mask import get_subnet_mask
+    PSUTIL_AVAILABLE = True
+except ImportError:
+    PSUTIL_AVAILABLE = False
+    psutil = None  # type: ignore
+    get_subnet_mask = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.network_functions,
+    pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed"),
+]
 
 
 def test_get_subnet_mask_normal() -> None:

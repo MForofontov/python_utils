@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.testing]
-from testing_functions.benchmark_helpers.measure_memory_usage import (
+from pyutils_collection.testing_functions.benchmark_helpers.measure_memory_usage import (
     measure_memory_usage,
 )
 

@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.verify_password import verify_password
+from pyutils_collection.strings_utility.verify_password import verify_password
 
 
 def test_verify_password_valid() -> None:

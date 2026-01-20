@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from file_functions import concat_files
+from pyutils_collection.file_functions import concat_files
 
 
 def test_concat_files_appends_two_files(tmp_path: Path) -> None:

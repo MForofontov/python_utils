@@ -3,7 +3,7 @@ from typing import Any
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from iterable_functions.list_operations.group_by import group_by
+from pyutils_collection.iterable_functions.list_operations.group_by import group_by
 
 
 def test_group_by_group_by_length() -> None:

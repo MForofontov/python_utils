@@ -3,7 +3,7 @@ from typing import Any
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from iterable_functions.set_operations.check_if_all_sets_are_same import (
+from pyutils_collection.iterable_functions.set_operations.check_if_all_sets_are_same import (
     check_if_all_sets_are_same,
 )
 

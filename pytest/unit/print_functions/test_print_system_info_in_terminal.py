@@ -2,8 +2,20 @@ from unittest.mock import patch
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.print_functions]
-from print_functions.print_system_info_in_terminal import print_system_info_in_terminal
+try:
+    import psutil
+    from pyutils_collection.print_functions.print_system_info_in_terminal import print_system_info_in_terminal
+    PSUTIL_AVAILABLE = True
+except ImportError:
+    PSUTIL_AVAILABLE = False
+    psutil = None  # type: ignore
+    print_system_info_in_terminal = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.print_functions,
+    pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed"),
+]
 
 
 def test_print_system_info_in_terminal_basic(
@@ -14,26 +26,26 @@ def test_print_system_info_in_terminal_basic(
     """
     with (
         patch(
-            "print_functions.print_system_info_in_terminal.psutil.cpu_count",
+            "python_utils.print_functions.print_system_info_in_terminal.psutil.cpu_count",
             return_value=4,
         ),
         patch(
-            "print_functions.print_system_info_in_terminal.psutil.virtual_memory"
+            "python_utils.print_functions.print_system_info_in_terminal.psutil.virtual_memory"
         ) as mock_vm,
         patch(
-            "print_functions.print_system_info_in_terminal.psutil.disk_usage",
+            "python_utils.print_functions.print_system_info_in_terminal.psutil.disk_usage",
             return_value=type("DU", (), {"percent": 50})(),
         ),
         patch(
-            "print_functions.print_system_info_in_terminal.psutil.boot_time",
+            "python_utils.print_functions.print_system_info_in_terminal.psutil.boot_time",
             return_value=0,
         ),
         patch(
-            "print_functions.print_system_info_in_terminal.platform.processor",
+            "python_utils.print_functions.print_system_info_in_terminal.platform.processor",
             return_value="TestProcessor",
         ),
         patch(
-            "print_functions.print_system_info_in_terminal.shutil.get_terminal_size",
+            "python_utils.print_functions.print_system_info_in_terminal.shutil.get_terminal_size",
             return_value=type("TS", (), {"columns": 80})(),
         ),
     ):
@@ -58,30 +70,30 @@ def test_print_system_info_in_terminal_lscpu_failure(
     """
     with (
         patch(
-            "print_functions.print_system_info_in_terminal.psutil.cpu_count",
+            "python_utils.print_functions.print_system_info_in_terminal.psutil.cpu_count",
             return_value=2,
         ),
         patch(
-            "print_functions.print_system_info_in_terminal.psutil.virtual_memory"
+            "python_utils.print_functions.print_system_info_in_terminal.psutil.virtual_memory"
         ) as mock_vm,
         patch(
-            "print_functions.print_system_info_in_terminal.psutil.disk_usage",
+            "python_utils.print_functions.print_system_info_in_terminal.psutil.disk_usage",
             return_value=type("DU", (), {"percent": 25})(),
         ),
         patch(
-            "print_functions.print_system_info_in_terminal.psutil.boot_time",
+            "python_utils.print_functions.print_system_info_in_terminal.psutil.boot_time",
             return_value=1000,
         ),
         patch(
-            "print_functions.print_system_info_in_terminal.platform.processor",
+            "python_utils.print_functions.print_system_info_in_terminal.platform.processor",
             return_value="FallbackProcessor",
         ),
         patch(
-            "print_functions.print_system_info_in_terminal.shutil.get_terminal_size",
+            "python_utils.print_functions.print_system_info_in_terminal.shutil.get_terminal_size",
             return_value=type("TS", (), {"columns": 100})(),
         ),
         patch(
-            "print_functions.print_system_info_in_terminal.subprocess.run",
+            "python_utils.print_functions.print_system_info_in_terminal.subprocess.run",
             side_effect=FileNotFoundError("lscpu not found"),
         ),
     ):
@@ -101,30 +113,30 @@ def test_print_system_info_in_terminal_lscpu_without_model_name(
     """
     with (
         patch(
-            "print_functions.print_system_info_in_terminal.psutil.cpu_count",
+            "python_utils.print_functions.print_system_info_in_terminal.psutil.cpu_count",
             return_value=8,
         ),
         patch(
-            "print_functions.print_system_info_in_terminal.psutil.virtual_memory"
+            "python_utils.print_functions.print_system_info_in_terminal.psutil.virtual_memory"
         ) as mock_vm,
         patch(
-            "print_functions.print_system_info_in_terminal.psutil.disk_usage",
+            "python_utils.print_functions.print_system_info_in_terminal.psutil.disk_usage",
             return_value=type("DU", (), {"percent": 75})(),
         ),
         patch(
-            "print_functions.print_system_info_in_terminal.psutil.boot_time",
+            "python_utils.print_functions.print_system_info_in_terminal.psutil.boot_time",
             return_value=500,
         ),
         patch(
-            "print_functions.print_system_info_in_terminal.platform.processor",
+            "python_utils.print_functions.print_system_info_in_terminal.platform.processor",
             return_value="GenericProcessor",
         ),
         patch(
-            "print_functions.print_system_info_in_terminal.shutil.get_terminal_size",
+            "python_utils.print_functions.print_system_info_in_terminal.shutil.get_terminal_size",
             return_value=type("TS", (), {"columns": 120})(),
         ),
         patch(
-            "print_functions.print_system_info_in_terminal.subprocess.run",
+            "python_utils.print_functions.print_system_info_in_terminal.subprocess.run",
             return_value=type(
                 "Result",
                 (),

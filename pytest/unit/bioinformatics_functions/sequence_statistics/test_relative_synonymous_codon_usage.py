@@ -1,9 +1,21 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.sequence_statistics.relative_synonymous_codon_usage import (
-    relative_synonymous_codon_usage,
-)
+try:
+    import numpy
+    from pyutils_collection.bioinformatics_functions.sequence_statistics.relative_synonymous_codon_usage import (
+        relative_synonymous_codon_usage,
+    )
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    numpy = None  # type: ignore
+    relative_synonymous_codon_usage = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.bioinformatics,
+    pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed"),
+]
 
 
 def test_relative_synonymous_codon_usage_single_codon() -> None:

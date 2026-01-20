@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.split_string import split_string
+from pyutils_collection.strings_utility.split_string import split_string
 
 
 def test_split_string_default_delimiter() -> None:

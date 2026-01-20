@@ -1,9 +1,20 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
-from unittest.mock import mock_open, patch
+try:
+    from unittest.mock import mock_open, patch
+    from pyutils_collection.network_functions.get_dns_servers import get_dns_servers
+    PSUTIL_AVAILABLE = True
+except ImportError:
+    PSUTIL_AVAILABLE = False
+    mock_open = None  # type: ignore
+    patch = None  # type: ignore
+    get_dns_servers = None  # type: ignore
 
-from network_functions.get_dns_servers import get_dns_servers
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.network_functions,
+    pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed"),
+]
 
 
 def test_get_dns_servers_normal() -> None:

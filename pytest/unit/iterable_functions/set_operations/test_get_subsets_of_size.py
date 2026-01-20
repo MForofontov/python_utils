@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from iterable_functions.set_operations.get_subsets_of_size import get_subsets_of_size
+from pyutils_collection.iterable_functions.set_operations.get_subsets_of_size import get_subsets_of_size
 
 
 def test_get_subsets_of_size_normal_case() -> None:

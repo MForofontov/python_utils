@@ -1,9 +1,21 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.sequence_statistics.dinucleotide_frequency import (
-    dinucleotide_frequency,
-)
+try:
+    import numpy
+    from pyutils_collection.bioinformatics_functions.sequence_statistics.dinucleotide_frequency import (
+        dinucleotide_frequency,
+    )
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    numpy = None  # type: ignore
+    dinucleotide_frequency = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.bioinformatics,
+    pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed"),
+]
 
 
 def test_dinucleotide_frequency_simple_sequence() -> None:

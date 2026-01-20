@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from file_functions import read_tabular
+from pyutils_collection.file_functions import read_tabular
 
 
 def test_read_tabular_standard_tsv(tmp_path: Path) -> None:

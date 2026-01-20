@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from iterable_functions.set_operations.set_partition import partition_set_by_predicate
+from pyutils_collection.iterable_functions.set_operations.set_partition import partition_set_by_predicate
 
 
 def test_partition_set_by_predicate_even_odd() -> None:

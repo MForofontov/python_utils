@@ -3,7 +3,7 @@ import logging
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.decorators]
-from decorators.handle_error import handle_error
+from pyutils_collection.decorators.handle_error import handle_error
 
 # Configure test_logger
 test_logger = logging.getLogger("test_logger")

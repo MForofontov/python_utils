@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.decorators]
-from decorators.cache import cache
+from pyutils_collection.decorators.cache import cache
 
 call_counts = {"add": 0, "concat": 0}
 

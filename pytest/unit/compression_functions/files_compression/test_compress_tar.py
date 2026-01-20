@@ -3,8 +3,20 @@ import tarfile
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.compression]
-from compression_functions.files_compression.compress_tar import compress_tar
+try:
+    import snappy
+    from pyutils_collection.compression_functions.files_compression.compress_tar import compress_tar
+    SNAPPY_AVAILABLE = True
+except ImportError:
+    SNAPPY_AVAILABLE = False
+    snappy = None  # type: ignore
+    compress_tar = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.compression,
+    pytest.mark.skipif(not SNAPPY_AVAILABLE, reason="python-snappy not installed"),
+]
 
 
 def test_compress_tar_basic_file_compression(tmp_path) -> None:

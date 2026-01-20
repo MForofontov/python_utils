@@ -1,9 +1,19 @@
-import os
-
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.env_config]
-from env_config_functions.load_dotenv import load_dotenv
+try:
+    import os
+    from pyutils_collection.env_config_functions.load_dotenv import load_dotenv
+    PYYAML_AVAILABLE = True
+except ImportError:
+    PYYAML_AVAILABLE = False
+    os = None  # type: ignore
+    load_dotenv = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.env_config,
+    pytest.mark.skipif(not PYYAML_AVAILABLE, reason="pyyaml not installed"),
+]
 
 
 def test_load_dotenv_basic(tmp_path):

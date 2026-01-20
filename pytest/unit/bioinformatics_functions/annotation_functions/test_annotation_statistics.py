@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.annotation_functions.annotation_statistics import (
+from pyutils_collection.bioinformatics_functions.annotation_functions.annotation_statistics import (
     annotation_statistics,
 )
 

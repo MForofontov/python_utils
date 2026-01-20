@@ -2,8 +2,20 @@ from datetime import datetime
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.datetime]
-from datetime_functions.is_weekend import is_weekend
+try:
+    import pytz
+    from pyutils_collection.datetime_functions.is_weekend import is_weekend
+    PYTZ_AVAILABLE = True
+except ImportError:
+    PYTZ_AVAILABLE = False
+    pytz = None  # type: ignore
+    is_weekend = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.datetime,
+    pytest.mark.skipif(not PYTZ_AVAILABLE, reason="pytz not installed"),
+]
 
 
 def test_is_weekend_monday() -> None:

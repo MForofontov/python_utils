@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.mathematical_functions]
-from mathematical_functions.basic.power import power
+from pyutils_collection.mathematical_functions.basic.power import power
 
 
 def test_power_positive_integers() -> None:

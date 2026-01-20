@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.rjust_string import rjust_string
+from pyutils_collection.strings_utility.rjust_string import rjust_string
 
 
 def test_rjust_string_default_fill() -> None:

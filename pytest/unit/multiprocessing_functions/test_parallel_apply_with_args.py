@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.multiprocessing_functions]
-from multiprocessing_functions.parallel_apply_with_args import parallel_apply_with_args
+from pyutils_collection.multiprocessing_functions.parallel_apply_with_args import parallel_apply_with_args
 
 
 def add_offset(x: int, offset: int) -> int:

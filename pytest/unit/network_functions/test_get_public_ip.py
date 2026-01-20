@@ -2,14 +2,15 @@ from unittest.mock import patch
 
 try:
     import requests
+    from pyutils_collection.network_functions.get_public_ip import get_public_ip
 
     REQUESTS_AVAILABLE = True
 except ImportError:
     REQUESTS_AVAILABLE = False
     requests = None  # type: ignore
+    get_public_ip = None  # type: ignore
 
 import pytest
-from network_functions.get_public_ip import get_public_ip
 
 pytestmark = pytest.mark.skipif(not REQUESTS_AVAILABLE, reason="requests not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.network_functions]
@@ -91,7 +92,7 @@ def test_get_public_ip_invalid_response_uses_fallback() -> None:
 
     with patch("requests.get", return_value=MockResponse("invalid_ip")):
         with patch(
-            "network_functions.get_public_ip._get_fallback_public_ip",
+            "python_utils.network_functions.get_public_ip._get_fallback_public_ip",
             return_value="203.0.113.5",
         ):
             ip = get_public_ip()
@@ -106,7 +107,7 @@ def test_get_public_ip_request_exception_fallback_empty() -> None:
 
     with patch("requests.get", side_effect=requests.RequestException):
         with patch(
-            "network_functions.get_public_ip._get_fallback_public_ip",
+            "python_utils.network_functions.get_public_ip._get_fallback_public_ip",
             return_value="",
         ):
             ip = get_public_ip()

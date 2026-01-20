@@ -1,7 +1,19 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.compression]
-from compression_functions.decompress_number import decompress_number
+try:
+    import snappy
+    from pyutils_collection.compression_functions.decompress_number import decompress_number
+    SNAPPY_AVAILABLE = True
+except ImportError:
+    SNAPPY_AVAILABLE = False
+    snappy = None  # type: ignore
+    decompress_number = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.compression,
+    pytest.mark.skipif(not SNAPPY_AVAILABLE, reason="python-snappy not installed"),
+]
 
 
 def test_decompress_number_basic_value() -> None:

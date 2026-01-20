@@ -5,7 +5,7 @@ import logging
 import sys
 from unittest.mock import patch
 
-from logger_functions.colored_formatter import colored_formatter
+from pyutils_collection.logger_functions.colored_formatter import colored_formatter
 
 
 def test_colored_formatter_basic():

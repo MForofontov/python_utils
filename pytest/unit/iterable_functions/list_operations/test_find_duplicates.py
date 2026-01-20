@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from iterable_functions.list_operations.find_duplicates import find_duplicates
+from pyutils_collection.iterable_functions.list_operations.find_duplicates import find_duplicates
 
 
 def test_find_duplicates_normal_case() -> None:

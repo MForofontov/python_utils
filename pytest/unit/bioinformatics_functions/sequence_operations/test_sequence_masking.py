@@ -1,9 +1,21 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.sequence_operations.sequence_masking import (
-    sequence_masking,
-)
+try:
+    import numpy
+    from pyutils_collection.bioinformatics_functions.sequence_operations.sequence_masking import (
+        sequence_masking,
+    )
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    numpy = None  # type: ignore
+    sequence_masking = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.bioinformatics,
+    pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed"),
+]
 
 
 def test_sequence_masking_basic() -> None:

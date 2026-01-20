@@ -1,7 +1,19 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.fasta_misc.generate_primers import generate_primers
+try:
+    import numpy
+    from pyutils_collection.bioinformatics_functions.fasta_misc.generate_primers import generate_primers
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    numpy = None  # type: ignore
+    generate_primers = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.bioinformatics,
+    pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed"),
+]
 
 
 def test_generate_primers_valid_sequence() -> None:

@@ -1,7 +1,19 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.web_scraping]
-from web_scraping_functions.rotation.get_random_proxy import get_random_proxy
+try:
+    from bs4 import BeautifulSoup
+    from pyutils_collection.web_scraping_functions.rotation.get_random_proxy import get_random_proxy
+    BS4_AVAILABLE = True
+except ImportError:
+    BS4_AVAILABLE = False
+    BeautifulSoup = None  # type: ignore
+    get_random_proxy = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.web_scraping,
+    pytest.mark.skipif(not BS4_AVAILABLE, reason="beautifulsoup4 not installed"),
+]
 
 
 def test_get_random_proxy_returns_from_list() -> None:

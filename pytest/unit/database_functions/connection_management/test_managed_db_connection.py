@@ -7,7 +7,7 @@ import sqlite3
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.database]
-from database_functions import managed_db_connection
+from pyutils_collection.database_functions import managed_db_connection
 
 
 def test_managed_db_connection_successful_operation() -> None:

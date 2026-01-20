@@ -1,7 +1,19 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.cli_functions]
-from cli_functions.get_current_user import get_current_user
+try:
+    import psutil
+    from pyutils_collection.cli_functions.get_current_user import get_current_user
+    PSUTIL_AVAILABLE = True
+except ImportError:
+    PSUTIL_AVAILABLE = False
+    psutil = None  # type: ignore
+    get_current_user = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.cli_functions,
+    pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed"),
+]
 
 
 def test_get_current_user_returns_string() -> None:

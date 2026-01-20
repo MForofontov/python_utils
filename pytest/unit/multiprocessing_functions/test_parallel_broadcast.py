@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.multiprocessing_functions]
-from multiprocessing_functions.parallel_broadcast import parallel_broadcast
+from pyutils_collection.multiprocessing_functions.parallel_broadcast import parallel_broadcast
 
 
 def multiply_shared(x: int, shared: int) -> int:

@@ -9,7 +9,7 @@ try:
     import matplotlib
 
     matplotlib.use("Agg")  # Use non-GUI backend for testing
-    from data_visualization_functions.color_palettes.get_colorblind_safe_palette import (
+    from pyutils_collection.data_visualization_functions.color_palettes.get_colorblind_safe_palette import (
         get_colorblind_safe_palette,
     )
 

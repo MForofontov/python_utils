@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from file_functions import join_paths
+from pyutils_collection.file_functions import join_paths
 
 
 def test_join_paths_multiple_relative_segments(tmp_path: Path) -> None:

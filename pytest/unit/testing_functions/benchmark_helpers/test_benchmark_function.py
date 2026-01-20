@@ -3,7 +3,7 @@ import time
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.testing]
-from testing_functions.benchmark_helpers.benchmark_function import benchmark_function
+from pyutils_collection.testing_functions.benchmark_helpers.benchmark_function import benchmark_function
 
 
 def test_benchmark_function_simple_function() -> None:

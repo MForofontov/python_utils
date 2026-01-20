@@ -11,7 +11,7 @@ try:
     matplotlib.use("Agg")  # Use non-GUI backend for testing
     import numpy as np
 
-    from data_visualization_functions.data_transformers.smooth_timeseries import (
+    from pyutils_collection.data_visualization_functions.data_transformers.smooth_timeseries import (
         smooth_timeseries,
     )
 

@@ -1,12 +1,24 @@
 """Tests for local SSH execute command using subprocess."""
 
-import subprocess
-from unittest.mock import MagicMock, patch
-
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.ssh_functions]
-from ssh_functions.local.ssh_execute_command import ssh_execute_command
+try:
+    import subprocess
+    from unittest.mock import MagicMock, patch
+    from pyutils_collection.ssh_functions.local.ssh_execute_command import ssh_execute_command
+    PARAMIKO_AVAILABLE = True
+except ImportError:
+    PARAMIKO_AVAILABLE = False
+    subprocess = None  # type: ignore
+    MagicMock = None  # type: ignore
+    patch = None  # type: ignore
+    ssh_execute_command = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.ssh_functions,
+    pytest.mark.skipif(not PARAMIKO_AVAILABLE, reason="paramiko not installed"),
+]
 
 
 def test_ssh_execute_command_successful_execution() -> None:

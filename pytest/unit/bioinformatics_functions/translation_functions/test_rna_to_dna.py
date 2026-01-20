@@ -1,7 +1,19 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.translation_functions.rna_to_dna import rna_to_dna
+try:
+    import numpy
+    from pyutils_collection.bioinformatics_functions.translation_functions.rna_to_dna import rna_to_dna
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    numpy = None  # type: ignore
+    rna_to_dna = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.bioinformatics,
+    pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed"),
+]
 
 
 def test_rna_to_dna_normal_conversion() -> None:

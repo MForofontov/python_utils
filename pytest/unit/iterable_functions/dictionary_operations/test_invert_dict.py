@@ -3,7 +3,7 @@ from typing import Any
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from iterable_functions.dictionary_operations.invert_dict import invert_dict
+from pyutils_collection.iterable_functions.dictionary_operations.invert_dict import invert_dict
 
 
 def test_invert_dict_basic_inversion() -> None:

@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.testing]
-from testing_functions.assertion_helpers.assert_type_match import assert_type_match
+from pyutils_collection.testing_functions.assertion_helpers.assert_type_match import assert_type_match
 
 
 def test_assert_type_match_int_type() -> None:

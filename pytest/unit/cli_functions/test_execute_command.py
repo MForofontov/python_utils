@@ -1,8 +1,19 @@
-
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.cli_functions]
-from cli_functions.execute_command import execute_command
+try:
+    import psutil
+    from pyutils_collection.cli_functions.execute_command import execute_command
+    PSUTIL_AVAILABLE = True
+except ImportError:
+    PSUTIL_AVAILABLE = False
+    psutil = None  # type: ignore
+    execute_command = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.cli_functions,
+    pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed"),
+]
 
 
 def test_execute_command_simple_echo() -> None:

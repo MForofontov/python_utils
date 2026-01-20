@@ -1,9 +1,21 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.security]
-from security_functions.password_hashing.hash_password_pbkdf2 import (
-    hash_password_pbkdf2,
-)
+try:
+    from cryptography.fernet import Fernet
+    from pyutils_collection.security_functions.password_hashing.hash_password_pbkdf2 import (
+        hash_password_pbkdf2,
+    )
+    CRYPTOGRAPHY_AVAILABLE = True
+except ImportError:
+    CRYPTOGRAPHY_AVAILABLE = False
+    Fernet = None  # type: ignore
+    hash_password_pbkdf2 = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.security,
+    pytest.mark.skipif(not CRYPTOGRAPHY_AVAILABLE, reason="cryptography not installed"),
+]
 
 
 def test_hash_password_pbkdf2_normal_operation() -> None:

@@ -1,9 +1,21 @@
-import gzip
-
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.compression]
-from compression_functions.binary_compression.compress_gzip import compress_gzip
+try:
+    import gzip
+    import snappy
+    from pyutils_collection.compression_functions.binary_compression.compress_gzip import compress_gzip
+    SNAPPY_AVAILABLE = True
+except ImportError:
+    SNAPPY_AVAILABLE = False
+    gzip = None  # type: ignore
+    snappy = None  # type: ignore
+    compress_gzip = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.compression,
+    pytest.mark.skipif(not SNAPPY_AVAILABLE, reason="python-snappy not installed"),
+]
 
 
 def test_compress_gzip_basic() -> None:

@@ -2,8 +2,20 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
-from network_functions.get_network_speed import get_network_speed
+try:
+    import psutil
+    from pyutils_collection.network_functions.get_network_speed import get_network_speed
+    PSUTIL_AVAILABLE = True
+except ImportError:
+    PSUTIL_AVAILABLE = False
+    psutil = None  # type: ignore
+    get_network_speed = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.network_functions,
+    pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed"),
+]
 
 
 def test_get_network_speed_normal() -> None:

@@ -6,7 +6,7 @@ from unittest.mock import patch
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from file_functions import calculate_sha256_hash
+from pyutils_collection.file_functions import calculate_sha256_hash
 
 
 def test_calculate_sha256_hash_normal_operation() -> None:

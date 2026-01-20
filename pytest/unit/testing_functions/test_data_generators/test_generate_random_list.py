@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.testing]
-from testing_functions.test_data_generators.generate_random_list import (
+from pyutils_collection.testing_functions.test_data_generators.generate_random_list import (
     generate_random_list,
 )
 

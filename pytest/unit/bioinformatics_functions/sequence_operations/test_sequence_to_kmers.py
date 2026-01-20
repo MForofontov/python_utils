@@ -1,9 +1,21 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.sequence_operations.sequence_to_kmers import (
-    sequence_to_kmers,
-)
+try:
+    import numpy
+    from pyutils_collection.bioinformatics_functions.sequence_operations.sequence_to_kmers import (
+        sequence_to_kmers,
+    )
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    numpy = None  # type: ignore
+    sequence_to_kmers = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.bioinformatics,
+    pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed"),
+]
 
 
 def test_sequence_to_kmers_basic() -> None:

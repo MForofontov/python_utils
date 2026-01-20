@@ -8,7 +8,7 @@ from unittest.mock import patch
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from file_functions import find_files_by_mtime
+from pyutils_collection.file_functions import find_files_by_mtime
 
 
 def test_find_files_by_mtime_newer_than_filter() -> None:

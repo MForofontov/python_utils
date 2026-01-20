@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from iterable_functions.set_operations.set_power_set import set_power_set
+from pyutils_collection.iterable_functions.set_operations.set_power_set import set_power_set
 
 
 def test_set_power_set_normal_case() -> None:

@@ -1,9 +1,21 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.motif_functions.find_motif_positions import (
-    find_motif_positions,
-)
+try:
+    import numpy
+    from pyutils_collection.bioinformatics_functions.motif_functions.find_motif_positions import (
+        find_motif_positions,
+    )
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    numpy = None  # type: ignore
+    find_motif_positions = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.bioinformatics,
+    pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed"),
+]
 
 
 def test_find_motif_positions_basic() -> None:

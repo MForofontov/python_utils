@@ -5,7 +5,7 @@ Tests for merge_query_params function.
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.url_functions]
-from url_functions.merge_query_params import merge_query_params
+from pyutils_collection.url_functions.merge_query_params import merge_query_params
 
 
 def test_merge_query_params_add_to_empty() -> None:

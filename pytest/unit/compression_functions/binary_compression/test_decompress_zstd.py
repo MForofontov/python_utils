@@ -1,13 +1,14 @@
 try:
     import zstandard as zstd
+    from pyutils_collection.compression_functions.binary_compression.decompress_zstd import decompress_zstd
 
     ZSTANDARD_AVAILABLE = True
 except ImportError:
     ZSTANDARD_AVAILABLE = False
     zstd = None  # type: ignore
+    decompress_zstd = None  # type: ignore
 
 import pytest
-from compression_functions.binary_compression.decompress_zstd import decompress_zstd
 
 pytestmark = pytest.mark.skipif(not ZSTANDARD_AVAILABLE, reason="zstandard not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.compression]

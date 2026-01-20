@@ -3,7 +3,7 @@ import logging
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.decorators]
-from decorators.rate_limit import RateLimitExceededException, rate_limit
+from pyutils_collection.decorators.rate_limit import RateLimitExceededException, rate_limit
 
 # Configure test_logger
 test_logger = logging.getLogger("test_logger")

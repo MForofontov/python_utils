@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.count_vowels import count_vowels
+from pyutils_collection.strings_utility.count_vowels import count_vowels
 
 
 @pytest.mark.parametrize(

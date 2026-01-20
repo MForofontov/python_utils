@@ -1,12 +1,14 @@
 try:
     import psutil  # noqa: F401
+    from pyutils_collection.cli_functions.is_process_running import is_process_running
 
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False
+    psutil = None  # type: ignore
+    is_process_running = None  # type: ignore
 
 import pytest
-from cli_functions.is_process_running import is_process_running
 
 pytestmark = pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.cli_functions]

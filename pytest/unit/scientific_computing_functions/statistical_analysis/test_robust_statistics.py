@@ -9,16 +9,19 @@ import warnings
 try:
     import numpy as np
     import scipy
+    from pyutils_collection.scientific_computing_functions.statistical_analysis.robust_statistics import (
+        robust_statistics,
+    )
     NUMPY_AVAILABLE = True
 except ImportError:
     NUMPY_AVAILABLE = False
     np = None  # type: ignore
     scipy = None  # type: ignore
+    robust_statistics = None  # type: ignore
 
 import pytest
-from scientific_computing_functions.statistical_analysis.robust_statistics import (
-    robust_statistics,
-)
+
+pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy and/or scipy not installed")
 
 pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy/scipy not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.scientific_computing]
@@ -274,7 +277,7 @@ def test_robust_statistics_nested_list() -> None:
     """Test case 19: TypeError for nested list."""
     # Arrange
     invalid_data = [[1, 2], [3, 4]]
-    expected_message = "only length-1 arrays can be converted"
+    expected_message = "only 0-dimensional arrays can be converted to Python scalars"
 
     # Act & Assert
     with pytest.raises(TypeError, match=expected_message):

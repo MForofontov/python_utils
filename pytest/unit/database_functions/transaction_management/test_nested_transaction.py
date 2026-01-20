@@ -7,7 +7,7 @@ import sqlite3
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.database]
-from database_functions import nested_transaction
+from pyutils_collection.database_functions import nested_transaction
 
 
 def test_nested_transaction_successful_release() -> None:

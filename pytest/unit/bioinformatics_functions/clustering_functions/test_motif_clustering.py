@@ -1,15 +1,16 @@
 try:
     import numpy as np
+    from pyutils_collection.bioinformatics_functions.clustering_functions.motif_clustering import (
+        motif_clustering,
+    )
 
     NUMPY_AVAILABLE = True
 except ImportError:
     NUMPY_AVAILABLE = False
     np = None  # type: ignore
+    motif_clustering = None  # type: ignore
 
 import pytest
-from bioinformatics_functions.clustering_functions.motif_clustering import (
-    motif_clustering,
-)
 
 pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.bioinformatics]

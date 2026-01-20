@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.file_functions]
-from file_functions import merge_folders
+from pyutils_collection.file_functions import merge_folders
 
 
 def test_merge_folders_combines_structure(tmp_path: Path) -> None:

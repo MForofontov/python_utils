@@ -9,7 +9,7 @@ from sqlalchemy.orm import declarative_base
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.database]
-from database_functions.schema_inspection import find_duplicate_indexes
+from pyutils_collection.database_functions.schema_inspection import find_duplicate_indexes
 
 
 def test_find_duplicate_indexes_identifies_redundant(memory_engine) -> None:

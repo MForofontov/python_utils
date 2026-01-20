@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.contains_substring import contains_substring
+from pyutils_collection.strings_utility.contains_substring import contains_substring
 
 
 def test_contains_substring_present() -> None:

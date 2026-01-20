@@ -3,7 +3,7 @@ from typing import Any
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from iterable_functions.list_comparison.all_match_lists import all_match_lists
+from pyutils_collection.iterable_functions.list_comparison.all_match_lists import all_match_lists
 
 
 def test_all_match_lists_success() -> None:

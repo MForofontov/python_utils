@@ -3,7 +3,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.formatting]
-from formatting_functions.format_duration import format_duration
+from pyutils_collection.formatting_functions.format_duration import format_duration
 
 
 # Normal test cases

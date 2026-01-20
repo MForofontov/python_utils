@@ -2,10 +2,22 @@ import string
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.security]
-from security_functions.token_generation.generate_secure_token import (
-    generate_secure_token,
-)
+try:
+    from cryptography.fernet import Fernet
+    from pyutils_collection.security_functions.token_generation.generate_secure_token import (
+        generate_secure_token,
+    )
+    CRYPTOGRAPHY_AVAILABLE = True
+except ImportError:
+    CRYPTOGRAPHY_AVAILABLE = False
+    Fernet = None  # type: ignore
+    generate_secure_token = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.security,
+    pytest.mark.skipif(not CRYPTOGRAPHY_AVAILABLE, reason="cryptography not installed"),
+]
 
 
 def test_generate_secure_token_default_parameters() -> None:

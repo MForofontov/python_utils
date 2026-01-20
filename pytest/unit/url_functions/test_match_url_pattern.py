@@ -5,7 +5,7 @@ Tests for match_url_pattern and validate_url_format functions.
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.url_functions]
-from url_functions.match_url_pattern import match_url_pattern, validate_url_format
+from pyutils_collection.url_functions.match_url_pattern import match_url_pattern, validate_url_format
 
 # Tests for match_url_pattern
 

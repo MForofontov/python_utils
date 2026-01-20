@@ -4,13 +4,14 @@ from pathlib import Path
 
 try:
     from openpyxl import Workbook
+    from pyutils_collection.serialization_functions.excel_operations.read_excel_range import read_excel_range
     OPENPYXL_AVAILABLE = True
 except ImportError:
     OPENPYXL_AVAILABLE = False
     Workbook = None  # type: ignore
+    read_excel_range = None  # type: ignore
 
 import pytest
-from serialization_functions.excel_operations.read_excel_range import read_excel_range
 
 pytestmark = pytest.mark.skipif(not OPENPYXL_AVAILABLE, reason="openpyxl not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]

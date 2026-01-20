@@ -3,7 +3,7 @@ import logging
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.decorators]
-from decorators.retry import retry
+from pyutils_collection.decorators.retry import retry
 
 # Configure test_logger
 test_logger = logging.getLogger("test_logger")

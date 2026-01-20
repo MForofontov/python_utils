@@ -1,12 +1,27 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.compression]
-from compression_functions.binary_compression.compress_bz2 import compress_bz2
-from compression_functions.binary_compression.compress_gzip import compress_gzip
-from compression_functions.binary_compression.compress_lzma import compress_lzma
-from compression_functions.binary_compression.compress_snappy import compress_snappy
-from compression_functions.binary_compression.compress_zstd import compress_zstd
-from compression_functions.binary_compression.decompress_data import decompress_data
+try:
+    import snappy
+    from pyutils_collection.compression_functions.binary_compression.compress_gzip import compress_gzip
+    from pyutils_collection.compression_functions.binary_compression.compress_lzma import compress_lzma
+    from pyutils_collection.compression_functions.binary_compression.compress_snappy import compress_snappy
+    from pyutils_collection.compression_functions.binary_compression.compress_zstd import compress_zstd
+    from pyutils_collection.compression_functions.binary_compression.decompress_data import decompress_data
+    SNAPPY_AVAILABLE = True
+except ImportError:
+    SNAPPY_AVAILABLE = False
+    snappy = None  # type: ignore
+    compress_gzip = None  # type: ignore
+    compress_lzma = None  # type: ignore
+    compress_snappy = None  # type: ignore
+    compress_zstd = None  # type: ignore
+    decompress_data = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.compression,
+    pytest.mark.skipif(not SNAPPY_AVAILABLE, reason="python-snappy not installed"),
+]
 
 
 def test_decompress_data_gzip() -> None:

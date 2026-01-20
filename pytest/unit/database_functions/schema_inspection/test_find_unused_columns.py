@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.database]
-from database_functions.schema_inspection import find_unused_columns
+from pyutils_collection.database_functions.schema_inspection import find_unused_columns
 
 
 def test_find_unused_columns_detects_high_null_percentage(memory_engine) -> None:

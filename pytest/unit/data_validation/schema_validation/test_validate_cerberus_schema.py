@@ -6,7 +6,7 @@ import pytest
 try:
     from cerberus import Validator
 
-    from data_validation import validate_cerberus_schema
+    from pyutils_collection.data_validation import validate_cerberus_schema
 
     CERBERUS_AVAILABLE = True
 except ImportError:

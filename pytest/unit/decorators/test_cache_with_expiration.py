@@ -3,7 +3,7 @@ import time
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.decorators]
-from decorators.cache_with_expiration import cache_with_expiration
+from pyutils_collection.decorators.cache_with_expiration import cache_with_expiration
 
 call_counts = {"add": 0, "concat": 0}
 

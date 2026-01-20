@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.testing]
-from testing_functions.assertion_helpers.assert_dict_contains import (
+from pyutils_collection.testing_functions.assertion_helpers.assert_dict_contains import (
     assert_dict_contains,
 )
 

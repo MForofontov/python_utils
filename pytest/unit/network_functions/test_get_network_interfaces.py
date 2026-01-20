@@ -2,8 +2,20 @@ from unittest.mock import patch
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.network_functions]
-from network_functions.get_network_interfaces import get_network_interfaces
+try:
+    import psutil
+    from pyutils_collection.network_functions.get_network_interfaces import get_network_interfaces
+    PSUTIL_AVAILABLE = True
+except ImportError:
+    PSUTIL_AVAILABLE = False
+    psutil = None  # type: ignore
+    get_network_interfaces = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.network_functions,
+    pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed"),
+]
 
 
 def test_get_network_interfaces_type() -> None:

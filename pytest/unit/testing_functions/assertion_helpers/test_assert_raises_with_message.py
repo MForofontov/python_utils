@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.testing]
-from testing_functions.assertion_helpers.assert_raises_with_message import (
+from pyutils_collection.testing_functions.assertion_helpers.assert_raises_with_message import (
     assert_raises_with_message,
 )
 

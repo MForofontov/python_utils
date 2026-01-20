@@ -1,9 +1,21 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.sequence_operations.sequence_quality_filter import (
-    sequence_quality_filter,
-)
+try:
+    import numpy
+    from pyutils_collection.bioinformatics_functions.sequence_operations.sequence_quality_filter import (
+        sequence_quality_filter,
+    )
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    numpy = None  # type: ignore
+    sequence_quality_filter = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.bioinformatics,
+    pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed"),
+]
 
 
 def test_sequence_quality_filter_passes_all() -> None:

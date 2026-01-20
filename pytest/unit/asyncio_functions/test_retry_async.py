@@ -2,8 +2,20 @@ import asyncio
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.asyncio_functions]
-from asyncio_functions.retry_async import retry_async
+try:
+    import aiohttp
+    from pyutils_collection.asyncio_functions.retry_async import retry_async
+    AIOHTTP_AVAILABLE = True
+except ImportError:
+    AIOHTTP_AVAILABLE = False
+    aiohttp = None  # type: ignore
+    retry_async = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.asyncio_functions,
+    pytest.mark.skipif(not AIOHTTP_AVAILABLE, reason="aiohttp not installed"),
+]
 
 
 @pytest.mark.asyncio

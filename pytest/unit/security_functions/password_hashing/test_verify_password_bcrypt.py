@@ -1,12 +1,25 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.security]
-from security_functions.password_hashing.hash_password_bcrypt import (
-    hash_password_bcrypt,
-)
-from security_functions.password_hashing.verify_password_bcrypt import (
-    verify_password_bcrypt,
-)
+try:
+    from cryptography.fernet import Fernet
+    from pyutils_collection.security_functions.password_hashing.hash_password_bcrypt import (
+        hash_password_bcrypt,
+    )
+    from pyutils_collection.security_functions.password_hashing.verify_password_bcrypt import (
+        verify_password_bcrypt,
+    )
+    CRYPTOGRAPHY_AVAILABLE = True
+except ImportError:
+    CRYPTOGRAPHY_AVAILABLE = False
+    Fernet = None  # type: ignore
+    hash_password_bcrypt = None  # type: ignore
+    verify_password_bcrypt = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.security,
+    pytest.mark.skipif(not CRYPTOGRAPHY_AVAILABLE, reason="cryptography not installed"),
+]
 
 
 def test_verify_password_bcrypt_correct_password() -> None:

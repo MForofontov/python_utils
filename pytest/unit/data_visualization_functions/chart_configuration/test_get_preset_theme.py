@@ -9,8 +9,8 @@ try:
     import matplotlib
 
     matplotlib.use("Agg")  # Use non-GUI backend for testing
-    from data_visualization_functions.chart_configuration.chart_theme import ChartTheme
-    from data_visualization_functions.chart_configuration.get_preset_theme import (
+    from pyutils_collection.data_visualization_functions.chart_configuration.chart_theme import ChartTheme
+    from pyutils_collection.data_visualization_functions.chart_configuration.get_preset_theme import (
         get_preset_theme,
     )
 

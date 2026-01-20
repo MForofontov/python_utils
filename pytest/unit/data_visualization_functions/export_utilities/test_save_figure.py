@@ -12,7 +12,7 @@ import pytest
 try:
     import matplotlib.pyplot as plt
 
-    from data_visualization_functions.export_utilities import save_figure
+    from pyutils_collection.data_visualization_functions.export_utilities import save_figure
 
     MATPLOTLIB_AVAILABLE = True
 except ImportError:

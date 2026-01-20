@@ -5,19 +5,20 @@ Unit tests for partition_parquet_by_column function.
 import tempfile
 from pathlib import Path
 
+import pytest
+
 try:
     import pyarrow as pa
     import pyarrow.parquet as pq
+    from pyutils_collection.serialization_functions.parquet_operations.partition_parquet_by_column import (
+        partition_parquet_by_column,
+    )
     PYARROW_AVAILABLE = True
 except ImportError:
     PYARROW_AVAILABLE = False
     pa = None  # type: ignore
     pq = None  # type: ignore
-
-import pytest
-from serialization_functions.parquet_operations.partition_parquet_by_column import (
-    partition_parquet_by_column,
-)
+    partition_parquet_by_column = None  # type: ignore
 
 pytestmark = pytest.mark.skipif(not PYARROW_AVAILABLE, reason="pyarrow not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]

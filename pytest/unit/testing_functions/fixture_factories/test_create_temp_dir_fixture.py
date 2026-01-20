@@ -2,7 +2,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.testing]
-from testing_functions.fixture_factories.create_temp_dir_fixture import (
+from pyutils_collection.testing_functions.fixture_factories.create_temp_dir_fixture import (
     create_temp_dir_fixture,
 )
 

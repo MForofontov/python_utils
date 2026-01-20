@@ -1,9 +1,19 @@
-import lzma
-
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.compression]
-from compression_functions.binary_compression.compress_lzma import compress_lzma
+try:
+    import lzma
+    from pyutils_collection.compression_functions.binary_compression.compress_lzma import compress_lzma
+    SNAPPY_AVAILABLE = True
+except ImportError:
+    SNAPPY_AVAILABLE = False
+    lzma = None  # type: ignore
+    compress_lzma = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.compression,
+    pytest.mark.skipif(not SNAPPY_AVAILABLE, reason="snappy not installed"),
+]
 
 
 def test_compress_lzma_basic() -> None:

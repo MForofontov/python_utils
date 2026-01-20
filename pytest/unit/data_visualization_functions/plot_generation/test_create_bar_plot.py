@@ -11,7 +11,7 @@ try:
     matplotlib.use("Agg")  # Use non-GUI backend for testing
     import matplotlib.pyplot as plt
 
-    from data_visualization_functions.plot_generation.create_bar_plot import create_bar_plot
+    from pyutils_collection.data_visualization_functions.plot_generation.create_bar_plot import create_bar_plot
 
     MATPLOTLIB_AVAILABLE = True
 except ImportError:

@@ -7,6 +7,11 @@ across test files.
 
 from collections.abc import Generator
 
+import pytest
+
+# Skip all tests in this directory if sqlalchemy is not installed
+pytest.importorskip("sqlalchemy")
+
 from sqlalchemy import (
     Column,
     Float,
@@ -19,8 +24,6 @@ from sqlalchemy import (
 )
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import declarative_base
-
-import pytest
 
 # Shared declarative base for all test models
 Base = declarative_base()

@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from iterable_functions.type_operations.safe_cast import is_numeric, safe_cast
+from pyutils_collection.iterable_functions.type_operations.safe_cast import is_numeric, safe_cast
 
 
 def test_safe_cast_string_to_int() -> None:

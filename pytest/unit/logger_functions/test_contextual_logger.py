@@ -3,7 +3,7 @@ import logging
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.logger_functions]
-from logger_functions.contextual_logger import (
+from pyutils_collection.logger_functions.contextual_logger import (
     ContextualLogger,
     LogContext,
     contextual_logger,

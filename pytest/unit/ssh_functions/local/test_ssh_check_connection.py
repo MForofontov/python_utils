@@ -5,8 +5,20 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.ssh_functions]
-from ssh_functions.local.ssh_check_connection import ssh_check_connection
+try:
+    import paramiko
+    from pyutils_collection.ssh_functions.local.ssh_check_connection import ssh_check_connection
+    PARAMIKO_AVAILABLE = True
+except ImportError:
+    PARAMIKO_AVAILABLE = False
+    paramiko = None  # type: ignore
+    ssh_check_connection = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.ssh_functions,
+    pytest.mark.skipif(not PARAMIKO_AVAILABLE, reason="paramiko not installed"),
+]
 
 
 def test_ssh_check_connection_successful() -> None:

@@ -2,8 +2,20 @@ from datetime import datetime
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.datetime]
-from datetime_functions.time_until import time_until
+try:
+    import pytz
+    from pyutils_collection.datetime_functions.time_until import time_until
+    PYTZ_AVAILABLE = True
+except ImportError:
+    PYTZ_AVAILABLE = False
+    pytz = None  # type: ignore
+    time_until = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.datetime,
+    pytest.mark.skipif(not PYTZ_AVAILABLE, reason="pytz not installed"),
+]
 
 
 def test_time_until_seconds() -> None:

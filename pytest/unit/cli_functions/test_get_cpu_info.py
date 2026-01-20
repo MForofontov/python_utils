@@ -1,7 +1,19 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.cli_functions]
-from cli_functions.get_cpu_info import get_cpu_info
+try:
+    import psutil
+    from pyutils_collection.cli_functions.get_cpu_info import get_cpu_info
+    PSUTIL_AVAILABLE = True
+except ImportError:
+    PSUTIL_AVAILABLE = False
+    psutil = None  # type: ignore
+    get_cpu_info = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.cli_functions,
+    pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed"),
+]
 
 
 def test_get_cpu_info_returns_valid_dict() -> None:

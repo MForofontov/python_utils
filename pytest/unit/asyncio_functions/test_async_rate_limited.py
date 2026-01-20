@@ -3,8 +3,20 @@ import time
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.asyncio_functions]
-from asyncio_functions.async_rate_limited import async_rate_limited
+try:
+    import aiohttp
+    from pyutils_collection.asyncio_functions.async_rate_limited import async_rate_limited
+    AIOHTTP_AVAILABLE = True
+except ImportError:
+    AIOHTTP_AVAILABLE = False
+    aiohttp = None  # type: ignore
+    async_rate_limited = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.asyncio_functions,
+    pytest.mark.skipif(not AIOHTTP_AVAILABLE, reason="aiohttp not installed"),
+]
 
 
 async def echo(value: int) -> int:

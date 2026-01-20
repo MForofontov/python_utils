@@ -3,7 +3,7 @@ from typing import Any
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from iterable_functions.dictionary_operations.deep_set import deep_set
+from pyutils_collection.iterable_functions.dictionary_operations.deep_set import deep_set
 
 
 def test_deep_set_basic_functionality() -> None:

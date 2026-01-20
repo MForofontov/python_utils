@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.multiprocessing_functions]
-from multiprocessing_functions.parallel_starmap import parallel_starmap
+from pyutils_collection.multiprocessing_functions.parallel_starmap import parallel_starmap
 
 
 def multiply(a: int, b: int) -> int:

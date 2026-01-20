@@ -3,7 +3,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.formatting]
-from formatting_functions.parse_size import parse_size
+from pyutils_collection.formatting_functions.parse_size import parse_size
 
 
 def test_parse_size_kilobytes_binary() -> None:
@@ -114,7 +114,7 @@ def test_parse_size_round_trip_consistency() -> None:
     Test case 11: Verify round-trip consistency with format_file_size.
     """
     # This test verifies that parsing formatted sizes returns close to original
-    from formatting_functions.format_file_size import format_file_size
+    from pyutils_collection.formatting_functions.format_file_size import format_file_size
 
     # Arrange
     original_sizes = [1024, 1048576, 1073741824]

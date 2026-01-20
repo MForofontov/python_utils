@@ -3,18 +3,19 @@
 try:
     import numpy as np
     import scipy
+    from pyutils_collection.scientific_computing_functions.statistical_analysis.detect_outliers import (
+        detect_outliers,
+    )
     NUMPY_AVAILABLE = True
 except ImportError:
     NUMPY_AVAILABLE = False
     np = None  # type: ignore
     scipy = None  # type: ignore
+    detect_outliers = None  # type: ignore
 
 import pytest
-from scientific_computing_functions.statistical_analysis.detect_outliers import (
-    detect_outliers,
-)
 
-pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy/scipy not installed")
+pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy and/or scipy not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.scientific_computing]
 
 

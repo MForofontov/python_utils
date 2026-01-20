@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.starts_with import starts_with
+from pyutils_collection.strings_utility.starts_with import starts_with
 
 
 def test_starts_with_basic_true() -> None:

@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.find_substring import find_substring
+from pyutils_collection.strings_utility.find_substring import find_substring
 
 
 def test_substring_present() -> None:

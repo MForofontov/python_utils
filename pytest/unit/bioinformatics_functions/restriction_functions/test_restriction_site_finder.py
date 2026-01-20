@@ -1,9 +1,21 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.restriction_functions.restriction_site_finder import (
-    restriction_site_finder,
-)
+try:
+    import numpy
+    from pyutils_collection.bioinformatics_functions.restriction_functions.restriction_site_finder import (
+        restriction_site_finder,
+    )
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    numpy = None  # type: ignore
+    restriction_site_finder = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.bioinformatics,
+    pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed"),
+]
 
 
 def test_restriction_site_finder_single_site() -> None:

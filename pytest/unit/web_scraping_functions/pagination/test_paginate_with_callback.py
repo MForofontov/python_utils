@@ -1,9 +1,21 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.web_scraping]
-from web_scraping_functions.pagination.paginate_with_callback import (
-    paginate_with_callback,
-)
+try:
+    from bs4 import BeautifulSoup
+    from pyutils_collection.web_scraping_functions.pagination.paginate_with_callback import (
+        paginate_with_callback,
+    )
+    BS4_AVAILABLE = True
+except ImportError:
+    BS4_AVAILABLE = False
+    BeautifulSoup = None  # type: ignore
+    paginate_with_callback = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.web_scraping,
+    pytest.mark.skipif(not BS4_AVAILABLE, reason="beautifulsoup4 not installed"),
+]
 
 
 def test_paginate_with_callback_simple_pagination() -> None:

@@ -1,9 +1,21 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.sequence_statistics.sequence_complexity import (
-    sequence_complexity,
-)
+try:
+    import numpy
+    from pyutils_collection.bioinformatics_functions.sequence_statistics.sequence_complexity import (
+        sequence_complexity,
+    )
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    numpy = None  # type: ignore
+    sequence_complexity = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.bioinformatics,
+    pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed"),
+]
 
 
 def test_sequence_complexity_basic() -> None:

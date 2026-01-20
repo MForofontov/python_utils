@@ -10,18 +10,19 @@ Tests cover:
 try:
     import numpy as np
     import scipy
+    from pyutils_collection.scientific_computing_functions.numerical_methods.numerical_integration import (
+        numerical_integration,
+    )
     NUMPY_AVAILABLE = True
 except ImportError:
     NUMPY_AVAILABLE = False
     np = None  # type: ignore
     scipy = None  # type: ignore
+    numerical_integration = None  # type: ignore
 
 import pytest
-from scientific_computing_functions.numerical_methods.numerical_integration import (
-    numerical_integration,
-)
 
-pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy/scipy not installed")
+pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy and/or scipy not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.scientific_computing]
 
 # ========== Normal Operation Tests ==========

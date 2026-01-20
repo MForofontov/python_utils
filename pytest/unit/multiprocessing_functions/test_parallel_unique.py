@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.multiprocessing_functions]
-from multiprocessing_functions.parallel_unique import parallel_unique
+from pyutils_collection.multiprocessing_functions.parallel_unique import parallel_unique
 
 
 def test_parallel_unique_basic() -> None:

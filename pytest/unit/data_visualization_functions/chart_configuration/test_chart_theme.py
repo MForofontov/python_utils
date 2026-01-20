@@ -4,8 +4,20 @@ Unit tests for ChartTheme dataclass.
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.data_visualization]
-from data_visualization_functions.chart_configuration import ChartTheme
+try:
+    import matplotlib
+    from pyutils_collection.data_visualization_functions.chart_configuration import ChartTheme
+    MATPLOTLIB_AVAILABLE = True
+except ImportError:
+    MATPLOTLIB_AVAILABLE = False
+    matplotlib = None  # type: ignore
+    ChartTheme = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.data_visualization,
+    pytest.mark.skipif(not MATPLOTLIB_AVAILABLE, reason="matplotlib not installed"),
+]
 
 
 def test_chart_theme_default_values():

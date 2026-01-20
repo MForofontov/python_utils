@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.dev_utilities]
-from dev_utilities.code_analysis.get_code_statistics import (
+from pyutils_collection.dev_utilities.code_analysis.get_code_statistics import (
     CodeStatistics,
     format_statistics,
     get_code_statistics,

@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.multiprocessing_functions]
-from multiprocessing_functions.parallel_gather_errors import parallel_gather_errors
+from pyutils_collection.multiprocessing_functions.parallel_gather_errors import parallel_gather_errors
 
 
 def risky(x: int) -> int:

@@ -9,7 +9,7 @@ from sqlalchemy.engine import Engine
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.database]
-from database_functions import get_table_info
+from pyutils_collection.database_functions import get_table_info
 
 # Add index to User table for testing
 User.__table_args__ = (Index("idx_username", "username", unique=True),)

@@ -7,7 +7,7 @@ import sqlite3
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.database]
-from database_functions import execute_bulk_chunked
+from pyutils_collection.database_functions import execute_bulk_chunked
 
 
 def test_execute_bulk_chunked_successful_insert() -> None:

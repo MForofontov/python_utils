@@ -1,9 +1,21 @@
-from unittest.mock import MagicMock
-
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.print_functions]
-from print_functions.print_message import print_message
+try:
+    from unittest.mock import MagicMock
+    import psutil
+    from pyutils_collection.print_functions.print_message import print_message
+    PSUTIL_AVAILABLE = True
+except ImportError:
+    PSUTIL_AVAILABLE = False
+    MagicMock = None  # type: ignore
+    psutil = None  # type: ignore
+    print_message = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.print_functions,
+    pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed"),
+]
 
 
 def test_print_message_info(capsys: pytest.CaptureFixture[str]) -> None:

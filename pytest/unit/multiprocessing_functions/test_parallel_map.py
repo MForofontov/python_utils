@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.multiprocessing_functions]
-from multiprocessing_functions.parallel_map import parallel_map
+from pyutils_collection.multiprocessing_functions.parallel_map import parallel_map
 
 
 def square(x: int) -> int:

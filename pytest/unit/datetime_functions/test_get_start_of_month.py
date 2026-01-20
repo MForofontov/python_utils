@@ -2,8 +2,20 @@ from datetime import date, datetime
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.datetime]
-from datetime_functions.get_start_of_month import get_start_of_month
+try:
+    import pytz
+    from pyutils_collection.datetime_functions.get_start_of_month import get_start_of_month
+    PYTZ_AVAILABLE = True
+except ImportError:
+    PYTZ_AVAILABLE = False
+    pytz = None  # type: ignore
+    get_start_of_month = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.datetime,
+    pytest.mark.skipif(not PYTZ_AVAILABLE, reason="pytz not installed"),
+]
 
 
 def test_get_start_of_month_january() -> None:

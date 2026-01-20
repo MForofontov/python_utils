@@ -7,15 +7,16 @@ from pathlib import Path
 
 try:
     import openpyxl
+    from pyutils_collection.serialization_functions.excel_operations.transpose_excel_data import (
+        transpose_excel_data,
+    )
     OPENPYXL_AVAILABLE = True
 except ImportError:
     OPENPYXL_AVAILABLE = False
     openpyxl = None  # type: ignore
+    transpose_excel_data = None  # type: ignore
 
 import pytest
-from serialization_functions.excel_operations.transpose_excel_data import (
-    transpose_excel_data,
-)
 
 pytestmark = pytest.mark.skipif(not OPENPYXL_AVAILABLE, reason="openpyxl not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.serialization]

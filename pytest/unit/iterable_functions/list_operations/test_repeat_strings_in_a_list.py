@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from iterable_functions.list_operations.repeat_strings_in_a_list import (
+from pyutils_collection.iterable_functions.list_operations.repeat_strings_in_a_list import (
     repeat_strings_in_a_list,
 )
 

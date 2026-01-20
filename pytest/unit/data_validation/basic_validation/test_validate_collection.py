@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.data_validation]
-from data_validation import validate_collection
+from pyutils_collection.data_validation import validate_collection
 
 
 def test_validate_collection_basic_collections() -> None:

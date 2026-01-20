@@ -1,9 +1,33 @@
 import logging
+from functools import wraps
+from typing import Any, Callable
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.decorators]
-from decorators.async_handle_error import async_handle_error
+try:
+    import aiohttp
+    from pyutils_collection.decorators.async_handle_error import async_handle_error
+    AIOHTTP_AVAILABLE = True
+except ImportError:
+    AIOHTTP_AVAILABLE = False
+    aiohttp = None  # type: ignore
+    
+    # Create dummy decorator for when aiohttp is not available
+    def async_handle_error(*args: Any, **kwargs: Any) -> Callable:  # type: ignore
+        def decorator(func: Callable) -> Callable:
+            @wraps(func)
+            async def wrapper(*f_args: Any, **f_kwargs: Any) -> Any:
+                return await func(*f_args, **f_kwargs)
+            return wrapper
+        if len(args) == 1 and callable(args[0]):
+            return decorator(args[0])
+        return decorator
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.decorators,
+    pytest.mark.skipif(not AIOHTTP_AVAILABLE, reason="aiohttp not installed"),
+]
 
 # Configure test_logger
 test_logger = logging.getLogger("test_logger")

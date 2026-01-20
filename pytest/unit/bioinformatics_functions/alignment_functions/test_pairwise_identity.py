@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.bioinformatics]
-from bioinformatics_functions.alignment_functions.pairwise_identity import (
+from pyutils_collection.bioinformatics_functions.alignment_functions.pairwise_identity import (
     pairwise_identity,
 )
 

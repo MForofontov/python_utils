@@ -1,7 +1,19 @@
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.cli_functions]
-from cli_functions.get_uptime import get_uptime
+try:
+    import psutil
+    from pyutils_collection.cli_functions.get_uptime import get_uptime
+    PSUTIL_AVAILABLE = True
+except ImportError:
+    PSUTIL_AVAILABLE = False
+    psutil = None  # type: ignore
+    get_uptime = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.cli_functions,
+    pytest.mark.skipif(not PSUTIL_AVAILABLE, reason="psutil not installed"),
+]
 
 
 def test_get_uptime_returns_positive_float() -> None:

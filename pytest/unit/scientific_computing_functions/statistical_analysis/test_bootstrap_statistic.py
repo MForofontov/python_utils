@@ -7,16 +7,19 @@ Tests cover normal operation, edge cases, and error conditions.
 try:
     import numpy as np
     import scipy
+    from pyutils_collection.scientific_computing_functions.statistical_analysis.bootstrap_statistic import (
+        bootstrap_statistic,
+    )
     NUMPY_AVAILABLE = True
 except ImportError:
     NUMPY_AVAILABLE = False
     np = None  # type: ignore
     scipy = None  # type: ignore
+    bootstrap_statistic = None  # type: ignore
 
 import pytest
-from scientific_computing_functions.statistical_analysis.bootstrap_statistic import (
-    bootstrap_statistic,
-)
+
+pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy and/or scipy not installed")
 
 pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy/scipy not installed")
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.scientific_computing]

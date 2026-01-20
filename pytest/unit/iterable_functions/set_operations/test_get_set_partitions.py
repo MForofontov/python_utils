@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.iterable_functions]
-from iterable_functions.set_operations.get_set_partitions import get_set_partitions
+from pyutils_collection.iterable_functions.set_operations.get_set_partitions import get_set_partitions
 
 
 def test_get_set_partitions_three_elements_two_parts() -> None:

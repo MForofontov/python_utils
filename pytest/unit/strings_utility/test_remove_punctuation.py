@@ -1,7 +1,7 @@
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.strings_utility]
-from strings_utility.remove_punctuation import remove_punctuation
+from pyutils_collection.strings_utility.remove_punctuation import remove_punctuation
 
 
 def test_remove_punctuation_mixed_characters() -> None:

@@ -2,8 +2,20 @@ from datetime import date, datetime
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.datetime]
-from datetime_functions.modify_weeks import modify_weeks
+try:
+    import pytz
+    from pyutils_collection.datetime_functions.modify_weeks import modify_weeks
+    PYTZ_AVAILABLE = True
+except ImportError:
+    PYTZ_AVAILABLE = False
+    pytz = None  # type: ignore
+    modify_weeks = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.datetime,
+    pytest.mark.skipif(not PYTZ_AVAILABLE, reason="pytz not installed"),
+]
 
 
 def test_modify_weeks_add_to_date_object() -> None:

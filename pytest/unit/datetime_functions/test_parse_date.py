@@ -2,8 +2,20 @@ from datetime import date, datetime
 
 import pytest
 
-pytestmark = [pytest.mark.unit, pytest.mark.datetime]
-from datetime_functions.parse_date import parse_date
+try:
+    import pytz
+    from pyutils_collection.datetime_functions.parse_date import parse_date
+    PYTZ_AVAILABLE = True
+except ImportError:
+    PYTZ_AVAILABLE = False
+    pytz = None  # type: ignore
+    parse_date = None  # type: ignore
+
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.datetime,
+    pytest.mark.skipif(not PYTZ_AVAILABLE, reason="pytz not installed"),
+]
 
 
 def test_parse_date_with_default_formats() -> None:
