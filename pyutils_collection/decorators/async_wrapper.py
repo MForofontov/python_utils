@@ -7,7 +7,7 @@ from collections.abc import Awaitable, Callable
 from functools import partial, wraps
 from typing import ParamSpec, TypeVar
 
-from python_utils.logger_functions.logger import validate_logger
+from pyutils_collection.logger_functions.logger import validate_logger
 
 P = ParamSpec("P")
 R = TypeVar("R")

@@ -7,7 +7,7 @@ import time
 
 import psutil
 
-from python_utils.print_functions.print_message import print_message
+from pyutils_collection.print_functions.print_message import print_message
 
 
 def print_system_info_in_terminal() -> None:

@@ -3,7 +3,7 @@
 import logging
 from datetime import datetime
 
-from python_utils.logger_functions.logger import get_logger
+from pyutils_collection.logger_functions.logger import get_logger
 
 # Module level logger used when no logger is provided by the caller
 module_logger = get_logger(__name__)

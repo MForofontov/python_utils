@@ -5,7 +5,7 @@ import shutil
 from collections.abc import Iterable
 from importlib.metadata import PackageNotFoundError, version
 
-from python_utils.print_functions.print_message import print_message
+from pyutils_collection.print_functions.print_message import print_message
 
 
 def print_dependencies_info_in_terminal(dependencies: Iterable[str]) -> None:

@@ -4,7 +4,7 @@ import logging
 from collections.abc import Callable
 from typing import ParamSpec, TypeVar
 
-from python_utils.logger_functions.logger import validate_logger
+from pyutils_collection.logger_functions.logger import validate_logger
 
 P = ParamSpec("P")
 R = TypeVar("R")

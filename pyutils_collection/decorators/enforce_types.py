@@ -6,7 +6,7 @@ from collections.abc import Callable
 from functools import wraps
 from typing import Any, ParamSpec, TypeVar, get_args, get_origin, get_type_hints
 
-from python_utils.logger_functions.logger import validate_logger
+from pyutils_collection.logger_functions.logger import validate_logger
 
 P = ParamSpec("P")
 R = TypeVar("R")

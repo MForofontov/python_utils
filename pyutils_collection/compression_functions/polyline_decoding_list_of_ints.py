@@ -1,6 +1,6 @@
 """Polyline decoding for integer lists."""
 
-from python_utils.compression_functions.decompress_number import decompress_number
+from pyutils_collection.compression_functions.decompress_number import decompress_number
 
 
 def polyline_decoding_list_of_ints(encoded_text: str) -> list[float]:
