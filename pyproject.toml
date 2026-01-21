@@ -51,10 +51,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/MForofontov/python-utils"
-Repository = "https://github.com/MForofontov/python-utils"
-Issues = "https://github.com/MForofontov/python-utils/issues"
-Documentation = "https://github.com/MForofontov/python-utils#readme"
+Homepage = "https://github.com/MForofontov/pyutils_collection"
+Repository = "https://github.com/MForofontov/pyutils_collection"
+Issues = "https://github.com/MForofontov/pyutils_collection/issues"
+Documentation = "https://github.com/MForofontov/pyutils_collection#readme"
 
 [project.optional-dependencies]
 dev = [
