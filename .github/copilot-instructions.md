@@ -906,8 +906,8 @@ def project_b_func(): pass
 - **Install dependencies**: `pip install -r requirements_dev.txt`
 - **Run tests**: `./pytest.sh` or `python -m pytest`
 - **Type checking**: `mypy .`
-- **Linting**: `pylint python_utils/`
-- **Coverage**: `pytest --cov=python_utils --cov-report=html`
+- **Linting**: `pylint pyutils_collection/`
+- **Coverage**: `pytest --cov=pyutils_collection --cov-report=html`
 
 #### Version Management
 - **Single source of truth**: All version information is centralized in `_version.py`

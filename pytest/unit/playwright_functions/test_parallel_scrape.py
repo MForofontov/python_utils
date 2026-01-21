@@ -18,7 +18,7 @@ pytestmark = [
 ]
 
 
-@patch("python_utils.playwright_functions.parallel_scrape.sync_playwright")
+@patch("pyutils_collection.playwright_functions.parallel_scrape.sync_playwright")
 def test_parallel_scrape_basic_success(mock_sync_playwright: Mock) -> None:
     """
     Test case 1: Basic parallel scraping of multiple URLs.
@@ -50,7 +50,7 @@ def test_parallel_scrape_basic_success(mock_sync_playwright: Mock) -> None:
     mock_browser.close.assert_called_once()
 
 
-@patch("python_utils.playwright_functions.parallel_scrape.sync_playwright")
+@patch("pyutils_collection.playwright_functions.parallel_scrape.sync_playwright")
 def test_parallel_scrape_single_url(mock_sync_playwright: Mock) -> None:
     """
     Test case 2: Scrape single URL.
@@ -80,7 +80,7 @@ def test_parallel_scrape_single_url(mock_sync_playwright: Mock) -> None:
     assert results[0]["data"] == {"data": "scraped"}
 
 
-@patch("python_utils.playwright_functions.parallel_scrape.sync_playwright")
+@patch("pyutils_collection.playwright_functions.parallel_scrape.sync_playwright")
 def test_parallel_scrape_firefox_browser(mock_sync_playwright: Mock) -> None:
     """
     Test case 3: Use Firefox browser for scraping.
@@ -109,7 +109,7 @@ def test_parallel_scrape_firefox_browser(mock_sync_playwright: Mock) -> None:
     assert results[0]["success"] is True
 
 
-@patch("python_utils.playwright_functions.parallel_scrape.sync_playwright")
+@patch("pyutils_collection.playwright_functions.parallel_scrape.sync_playwright")
 def test_parallel_scrape_headless_false(mock_sync_playwright: Mock) -> None:
     """
     Test case 4: Run browser in non-headless mode.
@@ -138,7 +138,7 @@ def test_parallel_scrape_headless_false(mock_sync_playwright: Mock) -> None:
     assert call_args[1]["headless"] is False
 
 
-@patch("python_utils.playwright_functions.parallel_scrape.sync_playwright")
+@patch("pyutils_collection.playwright_functions.parallel_scrape.sync_playwright")
 def test_parallel_scrape_custom_timeout(mock_sync_playwright: Mock) -> None:
     """
     Test case 5: Custom timeout for operations.
@@ -166,7 +166,7 @@ def test_parallel_scrape_custom_timeout(mock_sync_playwright: Mock) -> None:
     mock_context.set_default_timeout.assert_called_once_with(60000)
 
 
-@patch("python_utils.playwright_functions.parallel_scrape.sync_playwright")
+@patch("pyutils_collection.playwright_functions.parallel_scrape.sync_playwright")
 def test_parallel_scrape_error_handling(mock_sync_playwright: Mock) -> None:
     """
     Test case 6: Handle scrape errors gracefully.
@@ -199,7 +199,7 @@ def test_parallel_scrape_error_handling(mock_sync_playwright: Mock) -> None:
     assert results[1]["success"] is True
 
 
-@patch("python_utils.playwright_functions.parallel_scrape.sync_playwright")
+@patch("pyutils_collection.playwright_functions.parallel_scrape.sync_playwright")
 def test_parallel_scrape_multiple_workers(mock_sync_playwright: Mock) -> None:
     """
     Test case 7: Scrape with multiple worker threads.
@@ -329,7 +329,7 @@ def test_parallel_scrape_invalid_timeout() -> None:
         parallel_scrape(urls, scrape_func, timeout=-1000)
 
 
-@patch("python_utils.playwright_functions.parallel_scrape.sync_playwright")
+@patch("pyutils_collection.playwright_functions.parallel_scrape.sync_playwright")
 def test_parallel_scrape_with_logger(mock_sync_playwright: Mock, caplog: pytest.LogCaptureFixture) -> None:
     """
     Test case 15: Parallel scraping with logging enabled.
@@ -362,7 +362,7 @@ def test_parallel_scrape_with_logger(mock_sync_playwright: Mock, caplog: pytest.
     assert "Parallel scrape complete" in caplog.text
 
 
-@patch("python_utils.playwright_functions.parallel_scrape.sync_playwright")
+@patch("pyutils_collection.playwright_functions.parallel_scrape.sync_playwright")
 def test_parallel_scrape_context_isolation(mock_sync_playwright: Mock) -> None:
     """
     Test case 16: Each worker gets isolated browser context.
@@ -393,7 +393,7 @@ def test_parallel_scrape_context_isolation(mock_sync_playwright: Mock) -> None:
         ctx.close.assert_called_once()  # Each context closed
 
 
-@patch("python_utils.playwright_functions.parallel_scrape.sync_playwright")
+@patch("pyutils_collection.playwright_functions.parallel_scrape.sync_playwright")
 def test_parallel_scrape_browser_cleanup_on_error(mock_sync_playwright: Mock) -> None:
     """
     Test case 17: Browser cleaned up even when errors occur.

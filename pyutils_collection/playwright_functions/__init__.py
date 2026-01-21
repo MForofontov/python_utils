@@ -38,7 +38,7 @@ pt ImportError as e:
     import warnings
     warnings.warn(
         f"playwright_functions requires playwright package. "
-        f"Install with: pip install 'python_utils[playwright]'. "
+        f"Install with: pip install 'pyutils_collection[playwright]'. "
         f"Error: {e}",
         ImportWarning
     )

@@ -23,7 +23,7 @@ def test_is_today_with_today_date() -> None:
     """
     Test case 1: Test is_today function with today's date.
     """
-    with patch("python_utils.datetime_functions.is_today.date") as mock_date:
+    with patch("pyutils_collection.datetime_functions.is_today.date") as mock_date:
         mock_date.today.return_value = date(2023, 6, 15)
         mock_date.side_effect = lambda *args, **kw: date(*args, **kw)
 
@@ -37,7 +37,7 @@ def test_is_today_with_yesterday() -> None:
     """
     Test case 2: Test is_today function with yesterday's date.
     """
-    with patch("python_utils.datetime_functions.is_today.date") as mock_date:
+    with patch("pyutils_collection.datetime_functions.is_today.date") as mock_date:
         mock_date.today.return_value = date(2023, 6, 15)
         mock_date.side_effect = lambda *args, **kw: date(*args, **kw)
 
@@ -51,7 +51,7 @@ def test_is_today_with_tomorrow() -> None:
     """
     Test case 3: Test is_today function with tomorrow's date.
     """
-    with patch("python_utils.datetime_functions.is_today.date") as mock_date:
+    with patch("pyutils_collection.datetime_functions.is_today.date") as mock_date:
         mock_date.today.return_value = date(2023, 6, 15)
         mock_date.side_effect = lambda *args, **kw: date(*args, **kw)
 
@@ -65,7 +65,7 @@ def test_is_today_with_datetime() -> None:
     """
     Test case 4: Test is_today function with datetime object.
     """
-    with patch("python_utils.datetime_functions.is_today.date") as mock_date:
+    with patch("pyutils_collection.datetime_functions.is_today.date") as mock_date:
         mock_date.today.return_value = date(2023, 6, 15)
         mock_date.side_effect = lambda *args, **kw: date(*args, **kw)
 
@@ -79,7 +79,7 @@ def test_is_today_with_datetime_different_day() -> None:
     """
     Test case 5: Test is_today function with datetime object for different day.
     """
-    with patch("python_utils.datetime_functions.is_today.date") as mock_date:
+    with patch("pyutils_collection.datetime_functions.is_today.date") as mock_date:
         mock_date.today.return_value = date(2023, 6, 15)
         mock_date.side_effect = lambda *args, **kw: date(*args, **kw)
 
@@ -93,7 +93,7 @@ def test_is_today_with_different_year() -> None:
     """
     Test case 6: Test is_today function with different year.
     """
-    with patch("python_utils.datetime_functions.is_today.date") as mock_date:
+    with patch("pyutils_collection.datetime_functions.is_today.date") as mock_date:
         mock_date.today.return_value = date(2023, 6, 15)
         mock_date.side_effect = lambda *args, **kw: date(*args, **kw)
 
@@ -107,7 +107,7 @@ def test_is_today_with_different_month() -> None:
     """
     Test case 7: Test is_today function with different month.
     """
-    with patch("python_utils.datetime_functions.is_today.date") as mock_date:
+    with patch("pyutils_collection.datetime_functions.is_today.date") as mock_date:
         mock_date.today.return_value = date(2023, 6, 15)
         mock_date.side_effect = lambda *args, **kw: date(*args, **kw)
 

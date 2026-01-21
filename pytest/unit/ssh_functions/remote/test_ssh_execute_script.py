@@ -22,18 +22,18 @@ def test_ssh_execute_script_successful_with_password() -> None:
     Test case 1: Test successful script execution with password authentication.
     """
     with patch(
-        "python_utils.ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
+        "pyutils_collection.ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
     ) as mock_client:
         with patch(
-            "python_utils.ssh_functions.remote.ssh_execute_script.getpass.getuser",
+            "pyutils_collection.ssh_functions.remote.ssh_execute_script.getpass.getuser",
             return_value="testuser",
         ):
             with patch(
-                "python_utils.ssh_functions.remote.ssh_execute_script.os.path.exists",
+                "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.exists",
                 return_value=True,
             ):
                 with patch(
-                    "python_utils.ssh_functions.remote.ssh_execute_script.os.path.isfile",
+                    "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.isfile",
                     return_value=True,
                 ):
                     with patch(
@@ -66,18 +66,18 @@ def test_ssh_execute_script_successful_with_key_file() -> None:
     Test case 2: Test successful script execution with key file authentication.
     """
     with patch(
-        "python_utils.ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
+        "pyutils_collection.ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
     ) as mock_client:
         with patch(
-            "python_utils.ssh_functions.remote.ssh_execute_script.getpass.getuser",
+            "pyutils_collection.ssh_functions.remote.ssh_execute_script.getpass.getuser",
             return_value="testuser",
         ):
             with patch(
-                "python_utils.ssh_functions.remote.ssh_execute_script.os.path.exists",
+                "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.exists",
                 return_value=True,
             ):
                 with patch(
-                    "python_utils.ssh_functions.remote.ssh_execute_script.os.path.isfile",
+                    "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.isfile",
                     return_value=True,
                 ):
                     with patch("builtins.open", mock_open(read_data="#!/bin/bash\nls")):
@@ -109,18 +109,18 @@ def test_ssh_execute_script_with_stderr() -> None:
     Test case 3: Test script execution with stderr output.
     """
     with patch(
-        "python_utils.ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
+        "pyutils_collection.ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
     ) as mock_client:
         with patch(
-            "python_utils.ssh_functions.remote.ssh_execute_script.getpass.getuser",
+            "pyutils_collection.ssh_functions.remote.ssh_execute_script.getpass.getuser",
             return_value="testuser",
         ):
             with patch(
-                "python_utils.ssh_functions.remote.ssh_execute_script.os.path.exists",
+                "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.exists",
                 return_value=True,
             ):
                 with patch(
-                    "python_utils.ssh_functions.remote.ssh_execute_script.os.path.isfile",
+                    "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.isfile",
                     return_value=True,
                 ):
                     with patch(
@@ -153,18 +153,18 @@ def test_ssh_execute_script_with_custom_port() -> None:
     Test case 4: Test script execution with custom port.
     """
     with patch(
-        "python_utils.ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
+        "pyutils_collection.ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
     ) as mock_client:
         with patch(
-            "python_utils.ssh_functions.remote.ssh_execute_script.getpass.getuser",
+            "pyutils_collection.ssh_functions.remote.ssh_execute_script.getpass.getuser",
             return_value="testuser",
         ):
             with patch(
-                "python_utils.ssh_functions.remote.ssh_execute_script.os.path.exists",
+                "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.exists",
                 return_value=True,
             ):
                 with patch(
-                    "python_utils.ssh_functions.remote.ssh_execute_script.os.path.isfile",
+                    "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.isfile",
                     return_value=True,
                 ):
                     with patch("builtins.open", mock_open(read_data="#!/bin/bash\nls")):
@@ -201,18 +201,18 @@ def test_ssh_execute_script_with_custom_interpreter() -> None:
     Test case 5: Test script execution with custom interpreter.
     """
     with patch(
-        "python_utils.ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
+        "pyutils_collection.ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
     ) as mock_client:
         with patch(
-            "python_utils.ssh_functions.remote.ssh_execute_script.getpass.getuser",
+            "pyutils_collection.ssh_functions.remote.ssh_execute_script.getpass.getuser",
             return_value="testuser",
         ):
             with patch(
-                "python_utils.ssh_functions.remote.ssh_execute_script.os.path.exists",
+                "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.exists",
                 return_value=True,
             ):
                 with patch(
-                    "python_utils.ssh_functions.remote.ssh_execute_script.os.path.isfile",
+                    "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.isfile",
                     return_value=True,
                 ):
                     with patch("builtins.open", mock_open(read_data="print('hello')")):
@@ -248,18 +248,18 @@ def test_ssh_execute_script_default_user() -> None:
     Test case 6: Test script execution with default user from getpass.
     """
     with patch(
-        "python_utils.ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
+        "pyutils_collection.ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
     ) as mock_client:
         with patch(
-            "python_utils.ssh_functions.remote.ssh_execute_script.getpass.getuser",
+            "pyutils_collection.ssh_functions.remote.ssh_execute_script.getpass.getuser",
             return_value="currentuser",
         ):
             with patch(
-                "python_utils.ssh_functions.remote.ssh_execute_script.os.path.exists",
+                "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.exists",
                 return_value=True,
             ):
                 with patch(
-                    "python_utils.ssh_functions.remote.ssh_execute_script.os.path.isfile",
+                    "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.isfile",
                     return_value=True,
                 ):
                     with patch("builtins.open", mock_open(read_data="#!/bin/bash\nls")):
@@ -288,18 +288,18 @@ def test_ssh_execute_script_boundary_port_min() -> None:
     Test case 7: Test script execution with minimum port value.
     """
     with patch(
-        "python_utils.ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
+        "pyutils_collection.ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
     ) as mock_client:
         with patch(
-            "python_utils.ssh_functions.remote.ssh_execute_script.getpass.getuser",
+            "pyutils_collection.ssh_functions.remote.ssh_execute_script.getpass.getuser",
             return_value="testuser",
         ):
             with patch(
-                "python_utils.ssh_functions.remote.ssh_execute_script.os.path.exists",
+                "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.exists",
                 return_value=True,
             ):
                 with patch(
-                    "python_utils.ssh_functions.remote.ssh_execute_script.os.path.isfile",
+                    "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.isfile",
                     return_value=True,
                 ):
                     with patch("builtins.open", mock_open(read_data="#!/bin/bash\nls")):
@@ -328,18 +328,18 @@ def test_ssh_execute_script_boundary_port_max() -> None:
     Test case 8: Test script execution with maximum port value.
     """
     with patch(
-        "python_utils.ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
+        "pyutils_collection.ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
     ) as mock_client:
         with patch(
-            "python_utils.ssh_functions.remote.ssh_execute_script.getpass.getuser",
+            "pyutils_collection.ssh_functions.remote.ssh_execute_script.getpass.getuser",
             return_value="testuser",
         ):
             with patch(
-                "python_utils.ssh_functions.remote.ssh_execute_script.os.path.exists",
+                "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.exists",
                 return_value=True,
             ):
                 with patch(
-                    "python_utils.ssh_functions.remote.ssh_execute_script.os.path.isfile",
+                    "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.isfile",
                     return_value=True,
                 ):
                     with patch("builtins.open", mock_open(read_data="#!/bin/bash\nls")):
@@ -468,7 +468,7 @@ def test_ssh_execute_script_value_error_file_not_found() -> None:
     Test case 21: Test ValueError when script file doesn't exist.
     """
     with patch(
-        "python_utils.ssh_functions.remote.ssh_execute_script.os.path.exists", return_value=False
+        "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.exists", return_value=False
     ):
         with pytest.raises(ValueError, match="Script file not found"):
             ssh_execute_script("host", "nonexistent.sh", user="user", password="pass")
@@ -479,10 +479,10 @@ def test_ssh_execute_script_value_error_not_a_file() -> None:
     Test case 22: Test ValueError when script path is not a file.
     """
     with patch(
-        "python_utils.ssh_functions.remote.ssh_execute_script.os.path.exists", return_value=True
+        "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.exists", return_value=True
     ):
         with patch(
-            "python_utils.ssh_functions.remote.ssh_execute_script.os.path.isfile", return_value=False
+            "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.isfile", return_value=False
         ):
             with pytest.raises(ValueError, match="Script path is not a file"):
                 ssh_execute_script(
@@ -495,18 +495,18 @@ def test_ssh_execute_script_runtime_error_auth_failure() -> None:
     Test case 23: Test RuntimeError for authentication failure.
     """
     with patch(
-        "python_utils.ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
+        "pyutils_collection.ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
     ) as mock_client:
         with patch(
-            "python_utils.ssh_functions.remote.ssh_execute_script.getpass.getuser",
+            "pyutils_collection.ssh_functions.remote.ssh_execute_script.getpass.getuser",
             return_value="testuser",
         ):
             with patch(
-                "python_utils.ssh_functions.remote.ssh_execute_script.os.path.exists",
+                "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.exists",
                 return_value=True,
             ):
                 with patch(
-                    "python_utils.ssh_functions.remote.ssh_execute_script.os.path.isfile",
+                    "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.isfile",
                     return_value=True,
                 ):
                     mock_ssh = MagicMock()
@@ -528,18 +528,18 @@ def test_ssh_execute_script_runtime_error_ssh_exception() -> None:
     Test case 24: Test RuntimeError for SSH exception.
     """
     with patch(
-        "python_utils.ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
+        "pyutils_collection.ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
     ) as mock_client:
         with patch(
-            "python_utils.ssh_functions.remote.ssh_execute_script.getpass.getuser",
+            "pyutils_collection.ssh_functions.remote.ssh_execute_script.getpass.getuser",
             return_value="testuser",
         ):
             with patch(
-                "python_utils.ssh_functions.remote.ssh_execute_script.os.path.exists",
+                "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.exists",
                 return_value=True,
             ):
                 with patch(
-                    "python_utils.ssh_functions.remote.ssh_execute_script.os.path.isfile",
+                    "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.isfile",
                     return_value=True,
                 ):
                     mock_ssh = MagicMock()
@@ -559,18 +559,18 @@ def test_ssh_execute_script_runtime_error_general() -> None:
     Test case 25: Test RuntimeError for general exception.
     """
     with patch(
-        "python_utils.ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
+        "pyutils_collection.ssh_functions.remote.ssh_execute_script.paramiko.SSHClient"
     ) as mock_client:
         with patch(
-            "python_utils.ssh_functions.remote.ssh_execute_script.getpass.getuser",
+            "pyutils_collection.ssh_functions.remote.ssh_execute_script.getpass.getuser",
             return_value="testuser",
         ):
             with patch(
-                "python_utils.ssh_functions.remote.ssh_execute_script.os.path.exists",
+                "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.exists",
                 return_value=True,
             ):
                 with patch(
-                    "python_utils.ssh_functions.remote.ssh_execute_script.os.path.isfile",
+                    "pyutils_collection.ssh_functions.remote.ssh_execute_script.os.path.isfile",
                     return_value=True,
                 ):
                     with patch("builtins.open", mock_open(read_data="#!/bin/bash\nls")):

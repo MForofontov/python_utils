@@ -18,7 +18,7 @@ pytestmark = [
 ]
 
 
-@patch("python_utils.playwright_functions.managed_browser.sync_playwright")
+@patch("pyutils_collection.playwright_functions.managed_browser.sync_playwright")
 def test_managed_browser_basic_success(mock_sync_playwright: Mock) -> None:
     """
     Test case 1: Basic browser management with default settings.
@@ -46,7 +46,7 @@ def test_managed_browser_basic_success(mock_sync_playwright: Mock) -> None:
     mock_playwright.stop.assert_called_once()
 
 
-@patch("python_utils.playwright_functions.managed_browser.sync_playwright")
+@patch("pyutils_collection.playwright_functions.managed_browser.sync_playwright")
 def test_managed_browser_firefox_browser(mock_sync_playwright: Mock) -> None:
     """
     Test case 2: Launch Firefox browser.
@@ -70,7 +70,7 @@ def test_managed_browser_firefox_browser(mock_sync_playwright: Mock) -> None:
     mock_playwright.firefox.launch.assert_called_once_with(headless=True)
 
 
-@patch("python_utils.playwright_functions.managed_browser.sync_playwright")
+@patch("pyutils_collection.playwright_functions.managed_browser.sync_playwright")
 def test_managed_browser_headless_false(mock_sync_playwright: Mock) -> None:
     """
     Test case 3: Launch browser in non-headless mode.
@@ -94,7 +94,7 @@ def test_managed_browser_headless_false(mock_sync_playwright: Mock) -> None:
     mock_playwright.chromium.launch.assert_called_once_with(headless=False)
 
 
-@patch("python_utils.playwright_functions.managed_browser.sync_playwright")
+@patch("pyutils_collection.playwright_functions.managed_browser.sync_playwright")
 def test_managed_browser_custom_viewport(mock_sync_playwright: Mock) -> None:
     """
     Test case 4: Custom viewport dimensions.
@@ -120,7 +120,7 @@ def test_managed_browser_custom_viewport(mock_sync_playwright: Mock) -> None:
     assert call_args[1]["viewport"]["height"] == 720
 
 
-@patch("python_utils.playwright_functions.managed_browser.sync_playwright")
+@patch("pyutils_collection.playwright_functions.managed_browser.sync_playwright")
 def test_managed_browser_custom_user_agent(mock_sync_playwright: Mock) -> None:
     """
     Test case 5: Custom user agent string.
@@ -147,7 +147,7 @@ def test_managed_browser_custom_user_agent(mock_sync_playwright: Mock) -> None:
     assert call_args[1]["user_agent"] == user_agent
 
 
-@patch("python_utils.playwright_functions.managed_browser.sync_playwright")
+@patch("pyutils_collection.playwright_functions.managed_browser.sync_playwright")
 def test_managed_browser_custom_timeout(mock_sync_playwright: Mock) -> None:
     """
     Test case 6: Custom default timeout.
@@ -171,7 +171,7 @@ def test_managed_browser_custom_timeout(mock_sync_playwright: Mock) -> None:
     mock_context.set_default_timeout.assert_called_once_with(60000)
 
 
-@patch("python_utils.playwright_functions.managed_browser.sync_playwright")
+@patch("pyutils_collection.playwright_functions.managed_browser.sync_playwright")
 def test_managed_browser_cleanup_on_error(mock_sync_playwright: Mock) -> None:
     """
     Test case 7: Proper cleanup when error occurs during usage.
@@ -249,7 +249,7 @@ def test_managed_browser_invalid_headless_type() -> None:
             pass
 
 
-@patch("python_utils.playwright_functions.managed_browser.sync_playwright")
+@patch("pyutils_collection.playwright_functions.managed_browser.sync_playwright")
 def test_managed_browser_with_logger(mock_sync_playwright: Mock, caplog: pytest.LogCaptureFixture) -> None:
     """
     Test case 13: Browser management with logging enabled.
@@ -278,7 +278,7 @@ def test_managed_browser_with_logger(mock_sync_playwright: Mock, caplog: pytest.
     assert "Browser launched" in caplog.text
 
 
-@patch("python_utils.playwright_functions.managed_browser.sync_playwright")
+@patch("pyutils_collection.playwright_functions.managed_browser.sync_playwright")
 def test_managed_browser_webkit_browser(mock_sync_playwright: Mock) -> None:
     """
     Test case 14: Launch WebKit browser.
@@ -302,8 +302,8 @@ def test_managed_browser_webkit_browser(mock_sync_playwright: Mock) -> None:
     mock_playwright.webkit.launch.assert_called_once_with(headless=True)
 
 
-@patch("python_utils.playwright_functions.managed_browser.sync_playwright")
-@patch("python_utils.playwright_functions.managed_browser.Path")
+@patch("pyutils_collection.playwright_functions.managed_browser.sync_playwright")
+@patch("pyutils_collection.playwright_functions.managed_browser.Path")
 def test_managed_browser_with_downloads_path(mock_path: Mock, mock_sync_playwright: Mock) -> None:
     """
     Test case 15: Browser with downloads path configured.
@@ -332,7 +332,7 @@ def test_managed_browser_with_downloads_path(mock_path: Mock, mock_sync_playwrig
     assert call_args[1]["accept_downloads"] is True
 
 
-@patch("python_utils.playwright_functions.managed_browser.sync_playwright")
+@patch("pyutils_collection.playwright_functions.managed_browser.sync_playwright")
 def test_managed_browser_launch_failure(mock_sync_playwright: Mock) -> None:
     """
     Test case 16: RuntimeError when browser launch fails.
@@ -348,7 +348,7 @@ def test_managed_browser_launch_failure(mock_sync_playwright: Mock) -> None:
             pass
 
 
-@patch("python_utils.playwright_functions.managed_browser.sync_playwright")
+@patch("pyutils_collection.playwright_functions.managed_browser.sync_playwright")
 def test_managed_browser_invalid_logger_type(mock_sync_playwright: Mock) -> None:
     """
     Test case 17: TypeError for invalid logger type.

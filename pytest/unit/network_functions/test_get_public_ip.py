@@ -92,7 +92,7 @@ def test_get_public_ip_invalid_response_uses_fallback() -> None:
 
     with patch("requests.get", return_value=MockResponse("invalid_ip")):
         with patch(
-            "python_utils.network_functions.get_public_ip._get_fallback_public_ip",
+            "pyutils_collection.network_functions.get_public_ip._get_fallback_public_ip",
             return_value="203.0.113.5",
         ):
             ip = get_public_ip()
@@ -107,7 +107,7 @@ def test_get_public_ip_request_exception_fallback_empty() -> None:
 
     with patch("requests.get", side_effect=requests.RequestException):
         with patch(
-            "python_utils.network_functions.get_public_ip._get_fallback_public_ip",
+            "pyutils_collection.network_functions.get_public_ip._get_fallback_public_ip",
             return_value="",
         ):
             ip = get_public_ip()

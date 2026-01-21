@@ -179,4 +179,4 @@ ehthumbs_vista.db
 
 # Project specific
 pytest_run_tests/
-python_utils/_version.py
+pyutils_collection/_version.py
