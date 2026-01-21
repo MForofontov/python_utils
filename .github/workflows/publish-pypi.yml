@@ -26,6 +26,14 @@ jobs:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0  # Full history for setuptools-scm versioning
+        ref: ${{ github.ref }}  # Ensure we checkout the exact tag
+    
+    - name: Verify git state for setuptools-scm
+      run: |
+        git describe --tags --long --dirty
+        git tag --list
+        echo "Current ref: ${{ github.ref }}"
+        echo "Current SHA: ${{ github.sha }}"
     
     - name: Set up Python
       uses: actions/setup-python@v5
