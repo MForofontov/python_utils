@@ -20,8 +20,8 @@ A curated collection of **400+ utility functions** across **24 specialized modul
 pip install pyutils_collection
 
 # Or clone and copy what you need
-git clone https://github.com/MForofontov/python-utils.git
-cd python-utils/python_utils
+git clone https://github.com/MForofontov/pyutils_collection.git
+cd pyutils_collection/pyutils_collection
 
 # Or install for development
 pip install -e ".[dev]"
@@ -228,9 +228,9 @@ MIT License - see LICENSE file for details.
 
 ## 🔗 Links
 
-- **Repository**: https://github.com/MForofontov/python-utils
-- **Issues**: https://github.com/MForofontov/python-utils/issues
-- **Documentation**: https://github.com/MForofontov/python-utils#readme
+- **Repository**: https://github.com/MForofontov/pyutils_collection
+- **Issues**: https://github.com/MForofontov/pyutils_collection/issues
+- **Documentation**: https://github.com/MForofontov/pyutils_collection#readme
 
 ---
 
