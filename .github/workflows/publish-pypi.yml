@@ -54,7 +54,7 @@ jobs:
     
     environment:
       name: testpypi
-      url: https://test.pypi.org/p/pyutils_collection
+      url: https://test.pypi.org/p/pyutils-collection
     
     permissions:
       id-token: write  # OIDC for trusted publishing
@@ -81,7 +81,7 @@ jobs:
     
     environment:
       name: pypi
-      url: https://pypi.org/p/pyutils_collection
+      url: https://pypi.org/p/pyutils-collection
     
     permissions:
       id-token: write  # OIDC for trusted publishing

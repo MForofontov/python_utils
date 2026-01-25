@@ -17,11 +17,11 @@ A curated collection of **400+ utility functions** across **24 specialized modul
 
 ```bash
 # Install from PyPI
-pip install pyutils_collection
+pip install pyutils-collection
 
 # Or clone and copy what you need
-git clone https://github.com/MForofontov/pyutils_collection.git
-cd pyutils_collection/pyutils_collection
+git clone https://github.com/MForofontov/pyutils-collection.git
+cd pyutils-collection/pyutils_collection
 
 # Or install for development
 pip install -e ".[dev]"
@@ -228,9 +228,9 @@ MIT License - see LICENSE file for details.
 
 ## 🔗 Links
 
-- **Repository**: https://github.com/MForofontov/pyutils_collection
-- **Issues**: https://github.com/MForofontov/pyutils_collection/issues
-- **Documentation**: https://github.com/MForofontov/pyutils_collection#readme
+- **Repository**: https://github.com/MForofontov/pyutils-collection
+- **Issues**: https://github.com/MForofontov/pyutils-collection/issues
+- **Documentation**: https://github.com/MForofontov/pyutils-collection#readme
 
 ---
 

@@ -3,7 +3,7 @@ requires = ["setuptools>=61", "setuptools-scm>=8.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pyutils_collection"
+name = "pyutils-collection"
 dynamic = ["version"]
 description = "A comprehensive collection of 200+ reusable Python utility functions across 14+ specialized modules"
 readme = "README.md"
@@ -68,10 +68,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/MForofontov/pyutils_collection"
-Repository = "https://github.com/MForofontov/pyutils_collection"
-Issues = "https://github.com/MForofontov/pyutils_collection/issues"
-Documentation = "https://github.com/MForofontov/pyutils_collection#readme"
+Homepage = "https://github.com/MForofontov/pyutils-collection"
+Repository = "https://github.com/MForofontov/pyutils-collection"
+Issues = "https://github.com/MForofontov/pyutils-collection/issues"
+Documentation = "https://github.com/MForofontov/pyutils-collection#readme"
 
 [project.optional-dependencies]
 dev = [
