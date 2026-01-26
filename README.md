@@ -1,10 +1,10 @@
 # Python Utilities
 
-> **Copy-paste utility library** - 400+ production-ready Python functions organized by domain. Copy what you need, leave the rest.
+> **Copy-paste utility library** - 320+ production-ready Python functions organized by domain. Copy what you need, leave the rest.
 
 ## 🎯 What is This?
 
-A curated collection of **400+ utility functions** across **24 specialized modules** - designed for **copy-paste reuse** or **pip install**. Each function is self-contained with type hints, docstrings, and handles its own dependencies gracefully.
+A curated collection of **320+ utility functions** across **23 specialized modules** - designed for **copy-paste reuse** or **pip install**. Each function is self-contained with type hints, docstrings, and handles its own dependencies gracefully.
 
 **Philosophy:**
 - 📋 **Copy-paste friendly** - Functions work standalone
@@ -27,9 +27,9 @@ cd pyutils-collection/pyutils_collection
 pip install -e ".[dev]"
 ```
 
-## � Modules Overview
+## 📦 Modules Overview
 
-### Core Modules (24 categories)
+### Core Modules (23 categories)
 
 | Module | Count | Description |
 |--------|-------|-------------|
@@ -41,7 +41,6 @@ pip install -e ".[dev]"
 | 📁 **file_functions** | 32 | I/O, hashing, search, temp files, format conversion |
 | 🌐 **http_functions** | 9 | REST operations, downloads, query strings |
 | 🔄 **iterable_functions** | 55 | Chunking, filtering, grouping, flattening |
-| 🧬 **bioinformatics_functions** | 77 | Sequence analysis, alignment, motif finding |
 | 🧮 **mathematical_functions** | 5 | GCD, LCM, primes, factorial, fibonacci |
 | 🔐 **security_functions** | 12 | Encryption (AES/RSA), hashing, JWT tokens |
 | 📊 **serialization_functions** | 28 | CSV, Excel, Parquet with streaming & conversion |
@@ -59,6 +58,8 @@ pip install -e ".[dev]"
 | 🔧 **batch_processing_functions** | 2 | Chunked processing, streaming aggregation |
 | 🌿 **env_config_functions** | 6 | Config loading (env, YAML, TOML) |
 | ✅ **data_validation** | Many | Type/schema validation, Pydantic/Cerberus support |
+
+> 🧬 **Looking for bioinformatics utilities?** Check out [bioutils-collection](https://github.com/MForofontov/bioutils-collection) - our companion library with 77+ functions for sequence analysis, alignment, and molecular biology workflows.
 
 ## 🔑 Key Features
 
