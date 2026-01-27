@@ -59,8 +59,6 @@ pip install -e ".[dev]"
 | 🌿 **env_config_functions** | 6 | Config loading (env, YAML, TOML) |
 | ✅ **data_validation** | Many | Type/schema validation, Pydantic/Cerberus support |
 
-> 🧬 **Looking for bioinformatics utilities?** Check out [bioutils-collection](https://github.com/MForofontov/bioutils-collection) - our companion library with 77+ functions for sequence analysis, alignment, and molecular biology workflows.
-
 ## 🔑 Key Features
 
 ### Database-Agnostic Design
