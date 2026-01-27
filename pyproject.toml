@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61", "setuptools-scm>=8.0"]
+requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -10,7 +10,7 @@ readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.10"
 authors = [
-    { name = "MForofontov", email = "your.email@example.com" }
+    { name = "MForofontov" }
 ]
 keywords = [
     "utilities",
@@ -95,10 +95,8 @@ playwright = [
 [tool.setuptools]
 packages = { find = { where = ["."], include = ["pyutils_collection", "pyutils_collection.*"] } }
 
-[tool.setuptools_scm]
-# Write version file inside the package
-write_to = "pyutils_collection/_version.py"
-write_to_template = "__version__ = '{version}'"
+[tool.setuptools.dynamic]
+version = {attr = "pyutils_collection._version.__version__"}
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
