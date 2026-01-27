@@ -33,7 +33,7 @@ try:
         "parallel_scrape",
         "__version__",
     ]
-pt ImportError as e:
+except ImportError as e:
     # Playwright not installed - provide helpful error message
     import warnings
     warnings.warn(
