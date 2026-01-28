@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "pyutils-collection"
 dynamic = ["version"]
-description = "A comprehensive collection of 200+ reusable Python utility functions across 14+ specialized modules"
+description = "Enterprise-grade Python utilities: 320+ type-safe, tested functions across 23 specialized modules for async operations, data processing, file handling, security, and more"
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.10"
