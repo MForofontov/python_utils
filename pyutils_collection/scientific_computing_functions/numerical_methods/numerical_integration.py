@@ -19,7 +19,7 @@ def numerical_integration(
     a: float | None = None,
     b: float | None = None,
     method: Literal["quad", "trapz", "simps"] = "quad",
-    **kwargs,
+    **kwargs: float,
 ) -> dict[str, float]:
     """
     Perform numerical integration with validation and multiple methods.
@@ -114,7 +114,7 @@ def numerical_integration(
         return {
             "result": float(result),
             "error": float(error),
-            "method": method,
+            "method": method,  # type: ignore[dict-item]
         }
 
     elif method in ("trapz", "simps"):
@@ -162,7 +162,7 @@ def numerical_integration(
 
         return {
             "result": float(result),
-            "method": method,
+            "method": method,  # type: ignore[dict-item]
         }
 
     else:
