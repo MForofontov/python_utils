@@ -18,6 +18,15 @@ try:
     DEPENDENCIES_AVAILABLE = True
 except ImportError:
     DEPENDENCIES_AVAILABLE = False
+
+
+def _scipy_available() -> bool:
+    """Check if scipy is available."""
+    try:
+        import scipy.signal  # noqa: F401
+        return True
+    except ImportError:
+        return False
     matplotlib = None  # type: ignore
     np = None  # type: ignore
     smooth_timeseries = None  # type: ignore
@@ -72,6 +81,10 @@ def test_smooth_timeseries_exponential():
     assert len(smoothed) == len(data)
 
 
+@pytest.mark.skipif(
+    not _scipy_available(),
+    reason="scipy not installed (moved to bioutils-collection)"
+)
 def test_smooth_timeseries_savitzky_golay():
     """
     Test case 4: Smooth using Savitzky-Golay filter.
