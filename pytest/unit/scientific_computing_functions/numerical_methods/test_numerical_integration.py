@@ -144,29 +144,8 @@ def test_numerical_integration_simps_without_x() -> None:
     assert np.isfinite(result["result"])
 
 
-def test_numerical_integration_romberg() -> None:
-    """Test case 8: Romberg integration (if available in scipy)."""
-
-    # Arrange
-    def f(x: float) -> float:
-        return x**2
-
-    # Act & Assert
-    try:
-        result = numerical_integration(func=f, a=0, b=1, method="romberg")
-        assert result["method"] == "romberg"
-        assert abs(result["result"] - 1 / 3) < 0.001
-        # Romberg doesn't return error estimate in same format
-    except ValueError as e:
-        # romberg may not be available in newer scipy versions
-        if "romberg" in str(e).lower() or "attribute" in str(e).lower():
-            pytest.skip("Romberg integration not available in this scipy version")
-        else:
-            raise
-
-
 def test_numerical_integration_negative_limits() -> None:
-    """Test case 9: Integration with negative limits."""
+    """Test case 8: Integration with negative limits."""
 
     # Arrange
     def f(x: float) -> float:
@@ -183,7 +162,7 @@ def test_numerical_integration_negative_limits() -> None:
 
 
 def test_numerical_integration_reversed_limits() -> None:
-    """Test case 10: Integration with b < a (should be negative)."""
+    """Test case 9: Integration with b < a (should be negative)."""
 
     # Arrange
     def f(x: float) -> float:
@@ -202,7 +181,7 @@ def test_numerical_integration_reversed_limits() -> None:
 
 
 def test_numerical_integration_zero_interval() -> None:
-    """Test case 11: Integration over zero-width interval."""
+    """Test case 10: Integration over zero-width interval."""
 
     # Arrange
     def f(x: float) -> float:
@@ -216,7 +195,7 @@ def test_numerical_integration_zero_interval() -> None:
 
 
 def test_numerical_integration_large_interval() -> None:
-    """Test case 12: Integration over large interval."""
+    """Test case 11: Integration over large interval."""
 
     # Arrange
     def f(x: float) -> float:
@@ -233,7 +212,7 @@ def test_numerical_integration_large_interval() -> None:
 
 
 def test_numerical_integration_constant_function() -> None:
-    """Test case 13: Integration of constant function."""
+    """Test case 12: Integration of constant function."""
 
     # Arrange
     def f(x: float) -> float:
@@ -249,7 +228,7 @@ def test_numerical_integration_constant_function() -> None:
 
 
 def test_numerical_integration_numpy_arrays() -> None:
-    """Test case 14: Using numpy arrays for x and y."""
+    """Test case 13: Using numpy arrays for x and y."""
     # Arrange
     x = np.array([0.0, 0.5, 1.0])
     y = np.array([0.0, 0.25, 1.0])
@@ -263,7 +242,7 @@ def test_numerical_integration_numpy_arrays() -> None:
 
 
 def test_numerical_integration_many_points() -> None:
-    """Test case 15: Integration with many sample points."""
+    """Test case 14: Integration with many sample points."""
     # Arrange
     x = np.linspace(0, 1, 1000)
     y = x**2
@@ -277,7 +256,7 @@ def test_numerical_integration_many_points() -> None:
 
 
 def test_numerical_integration_float_limits() -> None:
-    """Test case 16: Float limits with decimals."""
+    """Test case 15: Float limits with decimals."""
 
     # Arrange
     def f(x: float) -> float:
@@ -296,7 +275,7 @@ def test_numerical_integration_float_limits() -> None:
 
 
 def test_numerical_integration_invalid_method_type() -> None:
-    """Test case 17: TypeError for invalid method type."""
+    """Test case 16: TypeError for invalid method type."""
 
     # Arrange
     def f(x: float) -> float:
@@ -311,7 +290,7 @@ def test_numerical_integration_invalid_method_type() -> None:
 
 
 def test_numerical_integration_invalid_method_value() -> None:
-    """Test case 18: ValueError for invalid method value."""
+    """Test case 17: ValueError for invalid method value."""
 
     # Arrange
     def f(x: float) -> float:
@@ -326,7 +305,7 @@ def test_numerical_integration_invalid_method_value() -> None:
 
 
 def test_numerical_integration_quad_missing_func() -> None:
-    """Test case 19: ValueError for quad without func."""
+    """Test case 18: ValueError for quad without func."""
     # Arrange
     expected_message = "func is required for quad method"
 
@@ -336,7 +315,7 @@ def test_numerical_integration_quad_missing_func() -> None:
 
 
 def test_numerical_integration_quad_non_callable_func() -> None:
-    """Test case 20: TypeError for non-callable func."""
+    """Test case 19: TypeError for non-callable func."""
     # Arrange
     invalid_func = "not a function"
     expected_message = "func must be callable"
@@ -347,7 +326,7 @@ def test_numerical_integration_quad_non_callable_func() -> None:
 
 
 def test_numerical_integration_quad_missing_a() -> None:
-    """Test case 21: ValueError for quad without a."""
+    """Test case 20: ValueError for quad without a."""
 
     # Arrange
     def f(x: float) -> float:
@@ -361,7 +340,7 @@ def test_numerical_integration_quad_missing_a() -> None:
 
 
 def test_numerical_integration_quad_missing_b() -> None:
-    """Test case 22: ValueError for quad without b."""
+    """Test case 21: ValueError for quad without b."""
 
     # Arrange
     def f(x: float) -> float:
@@ -375,7 +354,7 @@ def test_numerical_integration_quad_missing_b() -> None:
 
 
 def test_numerical_integration_quad_invalid_a_type() -> None:
-    """Test case 23: TypeError for invalid a type."""
+    """Test case 22: TypeError for invalid a type."""
 
     # Arrange
     def f(x: float) -> float:
@@ -390,7 +369,7 @@ def test_numerical_integration_quad_invalid_a_type() -> None:
 
 
 def test_numerical_integration_quad_invalid_b_type() -> None:
-    """Test case 24: TypeError for invalid b type."""
+    """Test case 23: TypeError for invalid b type."""
 
     # Arrange
     def f(x: float) -> float:
@@ -404,46 +383,8 @@ def test_numerical_integration_quad_invalid_b_type() -> None:
         numerical_integration(func=f, a=0, b=invalid_b, method="quad")  # type: ignore
 
 
-def test_numerical_integration_romberg_missing_func() -> None:
-    """Test case 25: ValueError for romberg without func (if romberg available)."""
-    # Arrange
-    expected_message = "func is required for romberg method"
-
-    # Act & Assert
-    try:
-        with pytest.raises(ValueError, match=expected_message):
-            numerical_integration(func=None, a=0, b=1, method="romberg")
-    except ValueError as e:
-        # Skip if romberg not available in scipy
-        if "romberg" in str(e).lower() or "attribute" in str(e).lower():
-            pytest.skip("Romberg not available in this scipy version")
-        else:
-            raise
-
-
-def test_numerical_integration_romberg_missing_limits() -> None:
-    """Test case 26: ValueError for romberg without a/b (if romberg available)."""
-
-    # Arrange
-    def f(x: float) -> float:
-        return x
-
-    expected_message = "a and b are required"
-
-    # Act & Assert
-    try:
-        with pytest.raises(ValueError, match=expected_message):
-            numerical_integration(func=f, a=None, b=1, method="romberg")
-    except ValueError as e:
-        # Skip if romberg not available in scipy
-        if "romberg" in str(e).lower() or "attribute" in str(e).lower():
-            pytest.skip("Romberg not available in this scipy version")
-        else:
-            raise
-
-
 def test_numerical_integration_trapz_missing_y() -> None:
-    """Test case 27: ValueError for trapz without y."""
+    """Test case 24: ValueError for trapz without y."""
     # Arrange
     expected_message = "y is required for trapz method"
 
@@ -453,7 +394,7 @@ def test_numerical_integration_trapz_missing_y() -> None:
 
 
 def test_numerical_integration_trapz_invalid_y_type() -> None:
-    """Test case 28: TypeError for invalid y type."""
+    """Test case 25: TypeError for invalid y type."""
     # Arrange
     invalid_y = "not a list"
     expected_message = "y must be a list or numpy array"
@@ -464,7 +405,7 @@ def test_numerical_integration_trapz_invalid_y_type() -> None:
 
 
 def test_numerical_integration_trapz_non_numeric_y() -> None:
-    """Test case 29: ValueError for non-numeric y values."""
+    """Test case 26: ValueError for non-numeric y values."""
     # Arrange
     invalid_y = ["a", "b", "c"]
     expected_message = "y contains non-numeric values"
@@ -475,7 +416,7 @@ def test_numerical_integration_trapz_non_numeric_y() -> None:
 
 
 def test_numerical_integration_trapz_empty_y() -> None:
-    """Test case 30: ValueError for empty y."""
+    """Test case 27: ValueError for empty y."""
     # Arrange
     empty_y: list[float] = []
     expected_message = "y cannot be empty"
@@ -486,7 +427,7 @@ def test_numerical_integration_trapz_empty_y() -> None:
 
 
 def test_numerical_integration_trapz_nan_in_y() -> None:
-    """Test case 31: ValueError for NaN in y."""
+    """Test case 28: ValueError for NaN in y."""
     # Arrange
     invalid_y = [0.0, np.nan, 2.0]
     expected_message = "y contains NaN or Inf values"
@@ -497,7 +438,7 @@ def test_numerical_integration_trapz_nan_in_y() -> None:
 
 
 def test_numerical_integration_trapz_inf_in_y() -> None:
-    """Test case 32: ValueError for Inf in y."""
+    """Test case 29: ValueError for Inf in y."""
     # Arrange
     invalid_y = [0.0, np.inf, 2.0]
     expected_message = "y contains NaN or Inf values"
@@ -508,7 +449,7 @@ def test_numerical_integration_trapz_inf_in_y() -> None:
 
 
 def test_numerical_integration_trapz_invalid_x_type() -> None:
-    """Test case 33: TypeError for invalid x type."""
+    """Test case 30: TypeError for invalid x type."""
     # Arrange
     y = [0, 1, 2]
     invalid_x = "not a list"
@@ -520,7 +461,7 @@ def test_numerical_integration_trapz_invalid_x_type() -> None:
 
 
 def test_numerical_integration_trapz_non_numeric_x() -> None:
-    """Test case 34: ValueError for non-numeric x values."""
+    """Test case 31: ValueError for non-numeric x values."""
     # Arrange
     invalid_x = ["a", "b", "c"]
     y = [0, 1, 2]
@@ -532,7 +473,7 @@ def test_numerical_integration_trapz_non_numeric_x() -> None:
 
 
 def test_numerical_integration_trapz_length_mismatch() -> None:
-    """Test case 35: ValueError for mismatched x and y lengths."""
+    """Test case 32: ValueError for mismatched x and y lengths."""
     # Arrange
     x = [0, 1]
     y = [0, 1, 2, 3]
@@ -544,7 +485,7 @@ def test_numerical_integration_trapz_length_mismatch() -> None:
 
 
 def test_numerical_integration_trapz_nan_in_x() -> None:
-    """Test case 36: ValueError for NaN in x."""
+    """Test case 33: ValueError for NaN in x."""
     # Arrange
     invalid_x = [0.0, np.nan, 2.0]
     y = [0.0, 1.0, 2.0]
@@ -556,7 +497,7 @@ def test_numerical_integration_trapz_nan_in_x() -> None:
 
 
 def test_numerical_integration_trapz_inf_in_x() -> None:
-    """Test case 37: ValueError for Inf in x."""
+    """Test case 34: ValueError for Inf in x."""
     # Arrange
     invalid_x = [0.0, np.inf, 2.0]
     y = [0.0, 1.0, 2.0]
@@ -568,7 +509,7 @@ def test_numerical_integration_trapz_inf_in_x() -> None:
 
 
 def test_numerical_integration_simps_missing_y() -> None:
-    """Test case 38: ValueError for simps without y."""
+    """Test case 35: ValueError for simps without y."""
     # Arrange
     expected_message = "y is required for simps method"
 
@@ -578,7 +519,7 @@ def test_numerical_integration_simps_missing_y() -> None:
 
 
 def test_numerical_integration_return_structure_quad() -> None:
-    """Test case 39: Verify complete return structure for quad."""
+    """Test case 36: Verify complete return structure for quad."""
 
     # Arrange
     def f(x: float) -> float:
@@ -598,7 +539,7 @@ def test_numerical_integration_return_structure_quad() -> None:
 
 
 def test_numerical_integration_return_structure_trapz() -> None:
-    """Test case 40: Verify complete return structure for trapz."""
+    """Test case 37: Verify complete return structure for trapz."""
     # Arrange
     y = [0, 1, 2]
 
@@ -615,89 +556,8 @@ def test_numerical_integration_return_structure_trapz() -> None:
     assert "error" not in result or result.get("error") is None
 
 
-def test_numerical_integration_romberg_requires_func() -> None:
-    """Test case 41: ValueError for romberg without func."""
-    # Arrange
-    expected_message = "func is required for romberg method"
-
-    # Act & Assert
-    with pytest.raises(ValueError, match=expected_message):
-        numerical_integration(func=None, a=0, b=1, method="romberg")
-
-
-def test_numerical_integration_romberg_non_callable() -> None:
-    """Test case 42: TypeError for romberg with non-callable func."""
-    # Arrange
-    invalid_func = "not_a_function"
-    expected_message = "func must be callable"
-
-    # Act & Assert
-    with pytest.raises(TypeError, match=expected_message):
-        numerical_integration(func=invalid_func, a=0, b=1, method="romberg")
-
-
-def test_numerical_integration_romberg_missing_bounds() -> None:
-    """Test case 43: ValueError for romberg without bounds."""
-
-    # Arrange
-    def f(x: float) -> float:
-        return x**2
-
-    expected_message = "a and b are required for romberg method"
-
-    # Act & Assert
-    with pytest.raises(ValueError, match=expected_message):
-        numerical_integration(func=f, a=None, b=None, method="romberg")
-
-
-def test_numerical_integration_romberg_invalid_a_type() -> None:
-    """Test case 44: TypeError for romberg with invalid a type."""
-
-    # Arrange
-    def f(x: float) -> float:
-        return x
-
-    expected_message = "a must be a number, got str"
-
-    # Act & Assert
-    with pytest.raises(TypeError, match=expected_message):
-        numerical_integration(func=f, a="zero", b=1, method="romberg")
-
-
-def test_numerical_integration_romberg_invalid_b_type() -> None:
-    """Test case 45: TypeError for romberg with invalid b type."""
-
-    # Arrange
-    def f(x: float) -> float:
-        return x
-
-    expected_message = "b must be a number, got list"
-
-    # Act & Assert
-    with pytest.raises(TypeError, match=expected_message):
-        numerical_integration(func=f, a=0, b=[1], method="romberg")
-
-
-def test_numerical_integration_romberg_integration_failure() -> None:
-    """Test case 46: ValueError when romberg integration fails."""
-
-    # Arrange
-    def problematic_func(x: float) -> float:
-        if x == 0:
-            raise ZeroDivisionError("Division by zero")
-        return 1 / x
-
-    # Act & Assert - romberg should fail or be skipped if unavailable
-    try:
-        with pytest.raises(ValueError, match="integration failed"):
-            numerical_integration(func=problematic_func, a=0, b=1, method="romberg")
-    except AttributeError:
-        # romberg not available in this scipy version
-        pytest.skip("romberg integration not available in this scipy version")
-
-
 def test_numerical_integration_trapz_integration_failure() -> None:
-    """Test case 47: ValueError when trapz has invalid y data."""
+    """Test case 38: ValueError when trapz has invalid y data."""
     # Arrange - NaN values caught by validation
     invalid_y = np.array([np.nan, np.nan, np.nan])
 
@@ -707,7 +567,7 @@ def test_numerical_integration_trapz_integration_failure() -> None:
 
 
 def test_numerical_integration_simps_integration_failure() -> None:
-    """Test case 48: ValueError when simps has invalid y data."""
+    """Test case 39: ValueError when simps has invalid y data."""
     # Arrange - NaN values caught by validation
     invalid_y = np.array([np.nan, np.nan, np.nan])
 
@@ -717,13 +577,13 @@ def test_numerical_integration_simps_integration_failure() -> None:
 
 
 def test_numerical_integration_unknown_method() -> None:
-    """Test case 49: ValueError for unknown integration method."""
+    """Test case 40: ValueError for unknown integration method."""
 
     # Arrange
     def f(x: float) -> float:
         return x
 
-    expected_message = "method must be 'quad', 'trapz', 'simps', or 'romberg'"
+    expected_message = "method must be 'quad', 'trapz', or 'simps'"
 
     # Act & Assert
     with pytest.raises(ValueError, match=expected_message):

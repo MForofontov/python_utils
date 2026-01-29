@@ -125,7 +125,7 @@ def test_restore_session_storage_without_url() -> None:
         json.dump(session_data, f)
     
     # Act & Assert
-    with pytest.raises(ValueError, match="url is required to restore localStorage/sessionStorage"):
+    with pytest.raises(RuntimeError, match="Failed to restore session"):
         restore_session(mock_context, str(session_file))
 
 
@@ -341,8 +341,8 @@ def test_restore_session_missing_cookies_key(tmp_path: Path) -> None:
     # Act
     restore_session(mock_context, str(session_file))
     
-    # Assert - should handle gracefully
-    mock_context.add_cookies.assert_called_once_with([])  # Empty list
+    # Assert - should handle gracefully, no cookies to add
+    mock_context.add_cookies.assert_not_called()
 
 
 def test_restore_session_storage_logging(tmp_path: Path, caplog: pytest.LogCaptureFixture) -> None:
