@@ -25,7 +25,8 @@ pytestmark = pytest.mark.skipif(
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.data_visualization]
 
 
-def test_aggregate_by_group_mean():
+def test_aggregate_by_group_mean() -> None:
+
     """
     Test case 1: Aggregate data by group using mean.
     """
@@ -44,7 +45,8 @@ def test_aggregate_by_group_mean():
     assert result["B"] == 40.0  # (20 + 40 + 60) / 3
 
 
-def test_aggregate_by_group_sum():
+def test_aggregate_by_group_sum() -> None:
+
     """
     Test case 2: Aggregate data by group using sum.
     """
@@ -60,7 +62,8 @@ def test_aggregate_by_group_sum():
     assert result["Y"] == 35  # 15 + 20
 
 
-def test_aggregate_by_group_count():
+def test_aggregate_by_group_count() -> None:
+
     """
     Test case 3: Aggregate data by group using count.
     """
@@ -76,7 +79,8 @@ def test_aggregate_by_group_count():
     assert result["B"] == 3
 
 
-def test_aggregate_by_group_max():
+def test_aggregate_by_group_max() -> None:
+
     """
     Test case 4: Aggregate data by group using max.
     """
@@ -92,7 +96,8 @@ def test_aggregate_by_group_max():
     assert result["G2"] == 30  # max(20, 30)
 
 
-def test_aggregate_by_group_min():
+def test_aggregate_by_group_min() -> None:
+
     """
     Test case 5: Aggregate data by group using min.
     """
@@ -108,7 +113,8 @@ def test_aggregate_by_group_min():
     assert result["G2"] == 20  # min(20, 30)
 
 
-def test_aggregate_by_group_empty_data_raises_error():
+def test_aggregate_by_group_empty_data_raises_error() -> None:
+
     """
     Test case 6: ValueError for empty data.
     """
@@ -120,7 +126,8 @@ def test_aggregate_by_group_empty_data_raises_error():
         aggregate_by_group([], [])
 
 
-def test_aggregate_by_group_mismatched_lengths_raises_error():
+def test_aggregate_by_group_mismatched_lengths_raises_error() -> None:
+
     """
     Test case 7: ValueError when data and groups have different lengths.
     """
@@ -134,7 +141,8 @@ def test_aggregate_by_group_mismatched_lengths_raises_error():
         aggregate_by_group(data, groups)
 
 
-def test_aggregate_by_group_invalid_method_raises_error():
+def test_aggregate_by_group_invalid_method_raises_error() -> None:
+
     """
     Test case 8: ValueError for invalid aggregation method.
     """
@@ -148,7 +156,8 @@ def test_aggregate_by_group_invalid_method_raises_error():
         aggregate_by_group(data, groups, agg_func="invalid")
 
 
-def test_aggregate_by_group_invalid_type_raises_error():
+def test_aggregate_by_group_invalid_type_raises_error() -> None:
+
     """
     Test case 9: TypeError for invalid data type.
     """

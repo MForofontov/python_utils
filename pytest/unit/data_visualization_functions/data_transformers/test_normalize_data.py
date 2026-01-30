@@ -20,7 +20,8 @@ pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.data_visualization]
 
 
-def test_normalize_data_minmax_default():
+def test_normalize_data_minmax_default() -> None:
+
     """
     Test case 1: Normalize data using minmax with default range [0, 1].
     """
@@ -35,7 +36,8 @@ def test_normalize_data_minmax_default():
     np.testing.assert_array_almost_equal(result, expected)
 
 
-def test_normalize_data_minmax_custom_range():
+def test_normalize_data_minmax_custom_range() -> None:
+
     """
     Test case 2: Normalize data using minmax with custom range.
     """
@@ -50,7 +52,8 @@ def test_normalize_data_minmax_custom_range():
     np.testing.assert_array_almost_equal(result, expected)
 
 
-def test_normalize_data_zscore():
+def test_normalize_data_zscore() -> None:
+
     """
     Test case 3: Normalize data using z-score standardization.
     """
@@ -65,7 +68,8 @@ def test_normalize_data_zscore():
     assert np.abs(np.std(result) - 1.0) < 1e-10  # Std should be ~1
 
 
-def test_normalize_data_robust():
+def test_normalize_data_robust() -> None:
+
     """
     Test case 4: Normalize data using robust scaling.
     """
@@ -80,7 +84,8 @@ def test_normalize_data_robust():
     assert len(result) == len(data)
 
 
-def test_normalize_data_numpy_array():
+def test_normalize_data_numpy_array() -> None:
+
     """
     Test case 5: Normalize numpy array input.
     """
@@ -96,7 +101,8 @@ def test_normalize_data_numpy_array():
     assert result[-1] == 1.0
 
 
-def test_normalize_data_empty_raises_error():
+def test_normalize_data_empty_raises_error() -> None:
+
     """
     Test case 6: ValueError for empty data.
     """
@@ -109,7 +115,8 @@ def test_normalize_data_empty_raises_error():
         normalize_data(data)
 
 
-def test_normalize_data_constant_minmax_raises_error():
+def test_normalize_data_constant_minmax_raises_error() -> None:
+
     """
     Test case 7: ValueError for constant data with minmax.
     """
@@ -122,7 +129,8 @@ def test_normalize_data_constant_minmax_raises_error():
         normalize_data(data, method="minmax")
 
 
-def test_normalize_data_invalid_method_raises_error():
+def test_normalize_data_invalid_method_raises_error() -> None:
+
     """
     Test case 8: ValueError for invalid normalization method.
     """
@@ -135,7 +143,8 @@ def test_normalize_data_invalid_method_raises_error():
         normalize_data(data, method="invalid")
 
 
-def test_normalize_data_invalid_type_raises_error():
+def test_normalize_data_invalid_type_raises_error() -> None:
+
     """
     Test case 9: TypeError for invalid data type.
     """

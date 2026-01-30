@@ -28,7 +28,8 @@ pytestmark = pytest.mark.skipif(
 pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.data_visualization]
 
 
-def test_pivot_for_heatmap_basic():
+def test_pivot_for_heatmap_basic() -> None:
+
     """
     Test case 1: Pivot data for heatmap with basic input.
     """
@@ -47,7 +48,8 @@ def test_pivot_for_heatmap_basic():
     assert list(col_labels) == ["X", "Y"]
 
 
-def test_pivot_for_heatmap_larger_grid():
+def test_pivot_for_heatmap_larger_grid() -> None:
+
     """
     Test case 2: Pivot data for larger heatmap grid.
     """
@@ -65,7 +67,8 @@ def test_pivot_for_heatmap_larger_grid():
     assert list(col_labels) == ["C1", "C2", "C3"]
 
 
-def test_pivot_for_heatmap_missing_combinations():
+def test_pivot_for_heatmap_missing_combinations() -> None:
+
     """
     Test case 3: Pivot with missing row/column combinations.
     """
@@ -84,7 +87,8 @@ def test_pivot_for_heatmap_missing_combinations():
     assert np.isnan(matrix[1, 1])
 
 
-def test_pivot_for_heatmap_single_cell():
+def test_pivot_for_heatmap_single_cell() -> None:
+
     """
     Test case 4: Pivot with single data point.
     """
@@ -101,7 +105,8 @@ def test_pivot_for_heatmap_single_cell():
     assert matrix[0, 0] == 42
 
 
-def test_pivot_for_heatmap_empty_raises_error():
+def test_pivot_for_heatmap_empty_raises_error() -> None:
+
     """
     Test case 5: ValueError for empty inputs.
     """
@@ -113,7 +118,8 @@ def test_pivot_for_heatmap_empty_raises_error():
         pivot_for_heatmap([], [], [])
 
 
-def test_pivot_for_heatmap_mismatched_lengths_raises_error():
+def test_pivot_for_heatmap_mismatched_lengths_raises_error() -> None:
+
     """
     Test case 6: ValueError when input lengths don't match.
     """
@@ -128,7 +134,8 @@ def test_pivot_for_heatmap_mismatched_lengths_raises_error():
         pivot_for_heatmap(data, rows, cols)
 
 
-def test_pivot_for_heatmap_invalid_type_raises_error():
+def test_pivot_for_heatmap_invalid_type_raises_error() -> None:
+
     """
     Test case 7: TypeError for invalid input type.
     """
@@ -140,7 +147,8 @@ def test_pivot_for_heatmap_invalid_type_raises_error():
         pivot_for_heatmap("not_a_list", ["A"], ["X"])
 
 
-def test_pivot_for_heatmap_duplicate_coordinates():
+def test_pivot_for_heatmap_duplicate_coordinates() -> None:
+
     """
     Test case 8: Aggregate duplicate row/col combinations.
     """
@@ -157,7 +165,8 @@ def test_pivot_for_heatmap_duplicate_coordinates():
     assert matrix[0, 0] == 60.0  # Sum of 10, 20, 30
 
 
-def test_pivot_for_heatmap_invalid_data_type_raises_error():
+def test_pivot_for_heatmap_invalid_data_type_raises_error() -> None:
+
     """
     Test case 9: TypeError for invalid input type (second variant).
     """
@@ -169,7 +178,8 @@ def test_pivot_for_heatmap_invalid_data_type_raises_error():
         pivot_for_heatmap("not_a_list", ["A"], ["X"])
 
 
-def test_pivot_for_heatmap_handles_duplicate_coordinates():
+def test_pivot_for_heatmap_handles_duplicate_coordinates() -> None:
+
     """
     Test case 8: Handle duplicate row/col coordinates.
     """
