@@ -1,4 +1,5 @@
 import math
+from typing import Any, cast
 
 import pytest
 
@@ -73,7 +74,7 @@ def test_power_type_error_base() -> None:
     Test case 8: Test power with invalid type for base.
     """
     with pytest.raises(TypeError, match="base must be numeric"):
-        power("2", 3)
+        power(cast(Any, "2"), 3)
 
 
 def test_power_type_error_exponent() -> None:
@@ -81,7 +82,7 @@ def test_power_type_error_exponent() -> None:
     Test case 9: Test power with invalid type for exponent.
     """
     with pytest.raises(TypeError, match="exponent must be numeric"):
-        power(2, "3")
+        power(2, cast(Any, "3"))
 
 
 def test_power_nan_base() -> None:

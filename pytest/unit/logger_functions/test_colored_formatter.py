@@ -3,6 +3,7 @@ import pytest
 pytestmark = [pytest.mark.unit, pytest.mark.logger_functions]
 import logging
 import sys
+from typing import Any
 from unittest.mock import patch
 
 from pyutils_collection.logger_functions.colored_formatter import colored_formatter
@@ -95,7 +96,7 @@ def test_colored_formatter_no_color() -> None:
 
 
 @patch("sys.stdout.isatty")
-def test_colored_formatter_auto_detect_color(mock_isatty) -> None:
+def test_colored_formatter_auto_detect_color(mock_isatty: Any) -> None:
 
     """
     Test case 4: Automatic color detection.
@@ -103,11 +104,13 @@ def test_colored_formatter_auto_detect_color(mock_isatty) -> None:
     # Test when TTY is available
     mock_isatty.return_value = True
     formatter = colored_formatter(use_color=True)
+    assert hasattr(formatter, "use_color")
     assert formatter.use_color is True
 
     # Test when TTY is not available
     mock_isatty.return_value = False
     formatter = colored_formatter(use_color=True)
+    assert hasattr(formatter, "use_color")
     assert formatter.use_color is False
 
 
