@@ -54,8 +54,7 @@ pip install -e ".[dev]"
 | 🌐 **web_scraping_functions** | 18 | HTML/CSS/XPath parsing, table extraction |
 | 🎭 **playwright_functions** | 6 | Browser automation, screenshots, session management |
 | 🔗 **url_functions** | 8 | Parse, build, validate, normalize URLs |
-| 🖨️ **print_functions** | 3 | Colored output, tables, progress bars |
-| 🔍 **regex_functions** | 5 | Email/phone/URL validation & extraction |
+|  **regex_functions** | 5 | Email/phone/URL validation & extraction |
 | ⚙️ **cli_functions** | 16 | System info, process management, environment vars |
 | 📝 **logger_functions** | 7 | Logger setup, function logging, rotation |
 | 🔄 **multiprocessing_functions** | 19 | Parallel processing, pool management |

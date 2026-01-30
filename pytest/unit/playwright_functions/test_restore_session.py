@@ -2,6 +2,7 @@
 
 import json
 from pathlib import Path
+from typing import Any
 from unittest.mock import MagicMock, Mock
 
 import pytest
@@ -172,7 +173,7 @@ def test_restore_session_invalid_url_type(tmp_path: Path) -> None:
     # Arrange
     mock_context = MagicMock()
     
-    session_data = {"cookies": [], "storage": {}}
+    session_data: dict[str, list[Any] | dict[str, Any]] = {"cookies": [], "storage": {}}
     session_file = tmp_path / "session.json"
     with open(session_file, "w") as f:
         json.dump(session_data, f)
@@ -330,7 +331,7 @@ def test_restore_session_missing_cookies_key(tmp_path: Path) -> None:
     # Arrange
     mock_context = MagicMock()
     
-    session_data = {
+    session_data: dict[str, dict[str, Any]] = {
         "storage": {},
     }  # Missing cookies key
     

@@ -129,7 +129,6 @@ markers = [
     "mathematical_functions: tests for mathematical operations",
     "multiprocessing_functions: tests for parallel processing",
     "network_functions: tests for network utilities",
-    "print_functions: tests for enhanced console output",
     "regex: tests for regex functions",
     "scientific_computing: tests for scientific computing functions",
     "security: tests for security and cryptography functions",
