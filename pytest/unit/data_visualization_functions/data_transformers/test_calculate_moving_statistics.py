@@ -22,10 +22,13 @@ except ImportError:
     np = None  # type: ignore
     calculate_moving_statistics = None  # type: ignore
 
-pytestmark = pytest.mark.skipif(
-    not DEPENDENCIES_AVAILABLE, reason="matplotlib and numpy not installed"
-)
-pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.data_visualization]
+pytestmark = [
+    pytest.mark.skipif(
+        not DEPENDENCIES_AVAILABLE, reason="matplotlib and numpy not installed"
+    ),
+    pytest.mark.unit,
+    pytest.mark.data_visualization,
+]
 
 
 def test_calculate_moving_statistics_mean() -> None:

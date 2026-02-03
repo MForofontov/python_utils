@@ -3,6 +3,7 @@ Unit tests for pivot_for_heatmap function.
 """
 
 import pytest
+from typing import cast, Any
 
 # Try to import matplotlib and numpy - tests will be skipped if not available
 try:
@@ -22,10 +23,13 @@ except ImportError:
     np = None  # type: ignore
     pivot_for_heatmap = None  # type: ignore
 
-pytestmark = pytest.mark.skipif(
-    not DEPENDENCIES_AVAILABLE, reason="matplotlib and numpy not installed"
-)
-pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.data_visualization]
+pytestmark = [
+    pytest.mark.skipif(
+        not DEPENDENCIES_AVAILABLE, reason="matplotlib and numpy not installed"
+    ),
+    pytest.mark.unit,
+    pytest.mark.data_visualization,
+]
 
 
 def test_pivot_for_heatmap_basic() -> None:
@@ -34,7 +38,7 @@ def test_pivot_for_heatmap_basic() -> None:
     Test case 1: Pivot data for heatmap with basic input.
     """
     # Arrange
-    data = [10, 20, 30, 40]
+    data = [10.0, 20.0, 30.0, 40.0]
     rows = ["A", "A", "B", "B"]
     cols = ["X", "Y", "X", "Y"]
 
@@ -54,7 +58,7 @@ def test_pivot_for_heatmap_larger_grid() -> None:
     Test case 2: Pivot data for larger heatmap grid.
     """
     # Arrange
-    data = [10, 20, 30, 40, 50, 60]
+    data = [10.0, 20.0, 30.0, 40.0, 50.0, 60.0]
     rows = ["R1", "R1", "R1", "R2", "R2", "R2"]
     cols = ["C1", "C2", "C3", "C1", "C2", "C3"]
 
@@ -73,7 +77,7 @@ def test_pivot_for_heatmap_missing_combinations() -> None:
     Test case 3: Pivot with missing row/column combinations.
     """
     # Arrange
-    data = [1, 2, 3]
+    data = [1.0, 2.0, 3.0]
     rows = ["A", "A", "B"]
     cols = ["X", "Y", "X"]
 
@@ -93,7 +97,7 @@ def test_pivot_for_heatmap_single_cell() -> None:
     Test case 4: Pivot with single data point.
     """
     # Arrange
-    data = [42]
+    data = [42.0]
     rows = ["A"]
     cols = ["X"]
 
@@ -124,7 +128,7 @@ def test_pivot_for_heatmap_mismatched_lengths_raises_error() -> None:
     Test case 6: ValueError when input lengths don't match.
     """
     # Arrange
-    data = [1, 2]
+    data = [1.0, 2.0]
     rows = ["A", "B"]
     cols = ["X"]
     expected_message = "data.*row_labels.*col_labels.*same length|length.*mismatch"
@@ -143,8 +147,9 @@ def test_pivot_for_heatmap_invalid_type_raises_error() -> None:
     expected_message = "data must be|Cannot convert|could not convert"
 
     # Act & Assert
+    from typing import cast, Any
     with pytest.raises((TypeError, ValueError), match=expected_message):
-        pivot_for_heatmap("not_a_list", ["A"], ["X"])
+        pivot_for_heatmap(cast(Any, "not_a_list"), ["A"], ["X"])
 
 
 def test_pivot_for_heatmap_duplicate_coordinates() -> None:
@@ -153,7 +158,7 @@ def test_pivot_for_heatmap_duplicate_coordinates() -> None:
     Test case 8: Aggregate duplicate row/col combinations.
     """
     # Arrange
-    data = [10, 20, 30]
+    data = [10.0, 20.0, 30.0]
     rows = ["A", "A", "A"]
     cols = ["X", "X", "X"]
 
@@ -174,8 +179,9 @@ def test_pivot_for_heatmap_invalid_data_type_raises_error() -> None:
     expected_message = "Cannot convert data to numeric array"
 
     # Act & Assert
+    from typing import cast, Any
     with pytest.raises(TypeError, match=expected_message):
-        pivot_for_heatmap("not_a_list", ["A"], ["X"])
+        pivot_for_heatmap(cast(Any, "not_a_list"), ["A"], ["X"])
 
 
 def test_pivot_for_heatmap_handles_duplicate_coordinates() -> None:
@@ -186,7 +192,7 @@ def test_pivot_for_heatmap_handles_duplicate_coordinates() -> None:
     # Arrange
     rows = ["A", "A"]
     cols = ["X", "X"]
-    values = [10, 20]
+    values = [10.0, 20.0]
 
     # Act
     matrix, row_labels, col_labels = pivot_for_heatmap(
@@ -200,4 +206,3 @@ def test_pivot_for_heatmap_handles_duplicate_coordinates() -> None:
     assert len(col_labels) == 1
 
 
-__all__ = ["test_pivot_for_heatmap_basic"]

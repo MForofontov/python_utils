@@ -27,14 +27,17 @@ def _scipy_available() -> bool:
         return True
     except ImportError:
         return False
-    matplotlib = None  # type: ignore
-    np = None  # type: ignore
-    smooth_timeseries = None  # type: ignore
+    matplotlib = None
+    np = None
+    smooth_timeseries = None
 
-pytestmark = pytest.mark.skipif(
-    not DEPENDENCIES_AVAILABLE, reason="matplotlib and numpy not installed"
-)
-pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.data_visualization]
+pytestmark = [
+    pytest.mark.skipif(
+        not DEPENDENCIES_AVAILABLE, reason="matplotlib and numpy not installed"
+    ),
+    pytest.mark.unit,
+    pytest.mark.data_visualization,
+]
 
 
 def test_smooth_timeseries_basic() -> None:

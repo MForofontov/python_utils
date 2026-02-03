@@ -20,10 +20,13 @@ except ImportError:
     np = None  # type: ignore
     bin_data = None  # type: ignore
 
-pytestmark = pytest.mark.skipif(
-    not DEPENDENCIES_AVAILABLE, reason="matplotlib and numpy not installed"
-)
-pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.data_visualization]
+pytestmark = [
+    pytest.mark.skipif(
+        not DEPENDENCIES_AVAILABLE, reason="matplotlib and numpy not installed"
+    ),
+    pytest.mark.unit,
+    pytest.mark.data_visualization,
+]
 
 
 def test_bin_data_basic() -> None:

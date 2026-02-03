@@ -16,8 +16,11 @@ except ImportError:
     np = None  # type: ignore
     normalize_data = None  # type: ignore
 
-pytestmark = pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed")
-pytestmark = [pytestmark, pytest.mark.unit, pytest.mark.data_visualization]
+pytestmark = [
+    pytest.mark.skipif(not NUMPY_AVAILABLE, reason="numpy not installed"),
+    pytest.mark.unit,
+    pytest.mark.data_visualization,
+]
 
 
 def test_normalize_data_minmax_default() -> None:
@@ -26,7 +29,7 @@ def test_normalize_data_minmax_default() -> None:
     Test case 1: Normalize data using minmax with default range [0, 1].
     """
     # Arrange
-    data = [1, 2, 3, 4, 5]
+    data = [1.0, 2.0, 3.0, 4.0, 5.0]
     expected = np.array([0.0, 0.25, 0.5, 0.75, 1.0])
 
     # Act
@@ -42,7 +45,7 @@ def test_normalize_data_minmax_custom_range() -> None:
     Test case 2: Normalize data using minmax with custom range.
     """
     # Arrange
-    data = [0, 5, 10]
+    data = [0.0, 5.0, 10.0]
     expected = np.array([-1.0, 0.0, 1.0])
 
     # Act
@@ -58,7 +61,7 @@ def test_normalize_data_zscore() -> None:
     Test case 3: Normalize data using z-score standardization.
     """
     # Arrange
-    data = [1, 2, 3, 4, 5]
+    data = [1.0, 2.0, 3.0, 4.0, 5.0]
 
     # Act
     result = normalize_data(data, method="zscore")
@@ -74,7 +77,7 @@ def test_normalize_data_robust() -> None:
     Test case 4: Normalize data using robust scaling.
     """
     # Arrange
-    data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    data = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
 
     # Act
     result = normalize_data(data, method="robust")
@@ -107,7 +110,7 @@ def test_normalize_data_empty_raises_error() -> None:
     Test case 6: ValueError for empty data.
     """
     # Arrange
-    data = []
+    data: list[float] = []
     expected_message = "data cannot be empty"
 
     # Act & Assert
@@ -121,7 +124,7 @@ def test_normalize_data_constant_minmax_raises_error() -> None:
     Test case 7: ValueError for constant data with minmax.
     """
     # Arrange
-    data = [5, 5, 5, 5]
+    data = [5.0, 5.0, 5.0, 5.0]
     expected_message = "Cannot normalize constant data with minmax method"
 
     # Act & Assert
@@ -135,7 +138,7 @@ def test_normalize_data_invalid_method_raises_error() -> None:
     Test case 8: ValueError for invalid normalization method.
     """
     # Arrange
-    data = [1, 2, 3]
+    data = [1.0, 2.0, 3.0]
     expected_message = "method must be one of"
 
     # Act & Assert
@@ -149,7 +152,8 @@ def test_normalize_data_invalid_type_raises_error() -> None:
     Test case 9: TypeError for invalid data type.
     """
     # Arrange
-    data = "invalid"
+    from typing import cast, Any
+    data = cast(Any, "invalid")
     expected_message = "Cannot convert data to numeric array"
 
     # Act & Assert
